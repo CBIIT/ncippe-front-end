@@ -1,0 +1,244 @@
+{
+  "featureCards": [
+    {
+      "title": "Background",
+      "description": "Here is some background text on this project and why it's important",
+      "link": "/article/nci-intro",
+      "cardImage": "careers-at-nci.jpg",
+      "cardImageAltText": "Scientist using lab equipment"
+    },
+    {
+      "title": "Privacy",
+      "description": "Our top priority is patient privacy. Your information will never be shared outside of NCI. Other reassurances here.",
+      "link": "/article/privacy",
+      "cardImage": "financial-data-book-pen.jpg",
+      "cardImageAltText": "Open book with pen"
+    },
+    {
+      "title": "Value",
+      "description": "When you contribute to the NCI Biobank you will be making an impact on cancer research. See how Biobank specimens are used to advance our knowledge on cancer.",
+      "link": "/article/value",
+      "cardImage": "woman-wearing-head-scarf.jpg",
+      "cardImageAltText": "Cancer survivor with head scarf"
+    }
+  ],
+  "featuredArticle": [
+    {
+      "id": "nci-intro",
+      "title": "NCI is the nation's leader in cancer research",
+      "body": "<p>Health goth twee skateboard jianbing franzen before they sold out gastropub hashtag 90's church-key yr. Deep v humblebrag selfies readymade kombucha roof party raclette poke food truck authentic chia tofu sriracha. Man bun chicharrones blog health goth. Neutra hoodie air plant selvage YOLO, gastropub kitsch hashtag next level banjo irony crucifix biodiesel. Jianbing before they sold out aesthetic taxidermy plaid, shaman deep v bespoke banjo meditation wolf +1 prism ugh sriracha.</p><p>Hammock pitchfork banh mi put a bird on it whatever lomo. Air plant whatever sriracha vexillologist XOXO austin adaptogen cold-pressed cronut copper mug. Twee chicharrones offal, disrupt pok pok raclette adaptogen pour-over PBR&B. Woke vegan brunch raw denim migas keytar lumbersexual blog bushwick schlitz XOXO cold-pressed. Chambray master cleanse keytar put a bird on it four loko. Irony man bun austin mustache poutine narwhal flexitarian kale chips. Pabst tbh poke umami bicycle rights adaptogen seitan viral master cleanse.</p>",
+      "image": "doctor-drawing-blood.jpg",
+      "imageAltText": "Doctor drawing blood",
+      "link": "/article/nci-intro"
+    },
+    {
+      "id": "moonshot-intro",
+      "title": "Be a Part of the Cancer Moonshot Initiative",
+      "body": "<p>Hammock pitchfork banh mi put a bird on it whatever lomo. Air plant whatever sriracha vexillologist XOXO austin adaptogen cold-pressed cronut copper mug. Twee chicharrones offal, disrupt pok pok raclette adaptogen pour-over PBR&B. Woke vegan brunch raw denim migas keytar lumbersexual blog bushwick schlitz XOXO cold-pressed. Chambray master cleanse keytar put a bird on it four loko. Irony man bun austin mustache poutine narwhal flexitarian kale chips. Pabst tbh poke umami bicycle rights adaptogen seitan viral master cleanse.</p><p>Health goth twee skateboard jianbing franzen before they sold out gastropub hashtag 90's church-key yr. Deep v humblebrag selfies readymade kombucha roof party raclette poke food truck authentic chia tofu sriracha. Man bun chicharrones blog health goth. Neutra hoodie air plant selvage YOLO, gastropub kitsch hashtag next level banjo irony crucifix biodiesel. Jianbing before they sold out aesthetic taxidermy plaid, shaman deep v bespoke banjo meditation wolf +1 prism.</p>",
+      "image": "Cancer-Moonshot-Research-Initiatives.jpg",
+      "imageAltText": "Moonshot Logo",
+      "link": "/article/moonshot-intro"
+    }
+  ],
+  "statsBar": [
+    {
+      "statTitle": "Cancer Centers",
+      "statNumber": "250"
+    },
+    {
+      "statTitle": "Cancer Specialists",
+      "statNumber": "500"
+    },
+    {
+      "statTitle": "Support Staff",
+      "statNumber": "300"
+    },
+    {
+      "statTitle": "Research Centers",
+      "statNumber": "12"
+    }
+  ],
+  "featureLists": [
+    {
+      "title": "Resources",
+      "list": [
+        {
+          "title": "Clinical Trials Information for Patients and Caregivers",
+          "link": "",
+          "icon": "LinkIcon"
+        },
+        {
+          "title": "Types of Treatment",
+          "link": "",
+          "icon": "LinkIcon"
+        },
+        {
+          "title": "Cancer Drugs",
+          "link": "",
+          "icon": "LinkIcon"
+        },
+        {
+          "title": "Choices for Care",
+          "link": "",
+          "icon": "LinkIcon"
+        },
+        {
+          "title": "Questions to Ask Your Doctor About Cancer",
+          "link": "",
+          "icon": "LinkIcon"
+        }
+      ]
+    },
+    {
+      "title": "FAQs",
+      "list": [
+        {
+          "title": "What is the purpose of this site?",
+          "link": "",
+          "icon": "HowToRegIcon"
+        },
+        {
+          "title": "What happens to my data?",
+          "link": "",
+          "icon": "HowToRegIcon"
+        },
+        {
+          "title": "How do I find a BSS?",
+          "link": "",
+          "icon": "HowToRegIcon"
+        }
+      ]
+    },
+    {
+      "title": "Media",
+      "list": [
+        {
+          "title": "Immunotherapy: How the Immune System Fights Cancer",
+          "link": "",
+          "icon": "VideoLibraryIcon"
+        },
+        {
+          "title": "BioBank Concent Form",
+          "link": "",
+          "icon": "FileCopyIcon"
+        },
+        {
+          "title": "Cancer Clinical Trials in Your Community - NCI Community Oncology Research Program (NCORP)",
+          "link": "",
+          "icon": "VideoLibraryIcon"
+        }
+      ]
+    }
+  ],
+  "articles": [
+    {
+      "id": "nci-intro",
+      "title": "NCI is the nation's leader in cancer research",
+      "body": "<p>Health goth twee skateboard jianbing franzen before they sold out gastropub hashtag 90's church-key yr. Deep v humblebrag selfies readymade kombucha roof party raclette poke food truck authentic chia tofu sriracha. Man bun chicharrones blog health goth. Neutra hoodie air plant selvage YOLO, gastropub kitsch hashtag next level banjo irony crucifix biodiesel. Jianbing before they sold out aesthetic taxidermy plaid, shaman deep v bespoke banjo meditation wolf +1 prism ugh sriracha.</p><p>Hammock pitchfork banh mi put a bird on it whatever lomo. Air plant whatever sriracha vexillologist XOXO austin adaptogen cold-pressed cronut copper mug. Twee chicharrones offal, disrupt pok pok raclette adaptogen pour-over PBR&B. Woke vegan brunch raw denim migas keytar lumbersexual blog bushwick schlitz XOXO cold-pressed. Chambray master cleanse keytar put a bird on it four loko. Irony man bun austin mustache poutine narwhal flexitarian kale chips. Pabst tbh poke umami bicycle rights adaptogen seitan viral master cleanse.</p><p>Banh mi tattooed semiotics biodiesel jianbing swag. Air plant leggings cred narwhal, vice ramps readymade DIY post-ironic migas neutra. Ugh selvage shoreditch, man bun lumbersexual tbh raw denim occupy scenester pug listicle. Viral farm-to-table heirloom fanny pack single-origin coffee raw denim dreamcatcher cornhole kombucha hammock cronut kinfolk. Hexagon shoreditch offal, farm-to-table man braid 90's yr hot chicken tattooed cloud bread pickled echo park synth.</p><p>Edison bulb jianbing sartorial you probably haven't heard of them, hella chicharrones messenger bag celiac occupy tofu crucifix salvia pug green juice. Cray readymade master cleanse gastropub next level kinfolk retro shoreditch sartorial. Listicle freegan offal hot chicken cronut. Hell of celiac organic authentic, coloring book umami gastropub waistcoat literally. Vice wolf kombucha etsy mixtape, irony next level tumblr slow-carb. La croix franzen hoodie portland tbh snackwave vinyl you probably haven't heard of them heirloom. Biodiesel hella health goth brunch, sartorial subway tile ethical.</p><p>Pitchfork PBR&B williamsburg chambray activated charcoal taiyaki. Messenger bag cronut readymade lomo glossier authentic brooklyn tumeric food truck hoodie shaman helvetica mumblecore. Subway tile fam glossier, seitan selfies chicharrones squid. DIY semiotics fam fingerstache gochujang deep v wayfarers narwhal brunch poke disrupt.</p>",
+      "image": "doctor-drawing-blood.jpg",
+      "imageAltText": "Doctor drawing blood"
+    },
+    {
+      "id": "moonshot-intro",
+      "title": "Be a Part of the Cancer Moonshot Initiative",
+      "body": "<p>Hammock pitchfork banh mi put a bird on it whatever lomo. Air plant whatever sriracha vexillologist XOXO austin adaptogen cold-pressed cronut copper mug. Twee chicharrones offal, disrupt pok pok raclette adaptogen pour-over PBR&B. Woke vegan brunch raw denim migas keytar lumbersexual blog bushwick schlitz XOXO cold-pressed. Chambray master cleanse keytar put a bird on it four loko. Irony man bun austin mustache poutine narwhal flexitarian kale chips. Pabst tbh poke umami bicycle rights adaptogen seitan viral master cleanse.</p><p>Health goth twee skateboard jianbing franzen before they sold out gastropub hashtag 90's church-key yr. Deep v humblebrag selfies readymade kombucha roof party raclette poke food truck authentic chia tofu sriracha. Man bun chicharrones blog health goth. Neutra hoodie air plant selvage YOLO, gastropub kitsch hashtag next level banjo irony crucifix biodiesel. Jianbing before they sold out aesthetic taxidermy plaid, shaman deep v bespoke banjo meditation wolf +1 prism.</p><p>Health goth twee skateboard jianbing franzen before they sold out gastropub hashtag 90's church-key yr. Deep v humblebrag selfies readymade kombucha roof party raclette poke food truck authentic chia tofu sriracha. Man bun chicharrones blog health goth. Neutra hoodie air plant selvage YOLO, gastropub kitsch hashtag next level banjo irony crucifix biodiesel. Jianbing before they sold out aesthetic taxidermy plaid, shaman deep v bespoke banjo meditation wolf +1 prism ugh sriracha.</p><p>Hammock pitchfork banh mi put a bird on it whatever lomo. Air plant whatever sriracha vexillologist XOXO austin adaptogen cold-pressed cronut copper mug. Twee chicharrones offal, disrupt pok pok raclette adaptogen pour-over PBR&B. Woke vegan brunch raw denim migas keytar lumbersexual blog bushwick schlitz XOXO cold-pressed. Chambray master cleanse keytar put a bird on it four loko. Irony man bun austin mustache poutine narwhal flexitarian kale chips. Pabst tbh poke umami bicycle rights adaptogen seitan viral master cleanse.</p><p>Banh mi tattooed semiotics biodiesel jianbing swag. Air plant leggings cred narwhal, vice ramps readymade DIY post-ironic migas neutra. Ugh selvage shoreditch, man bun lumbersexual tbh raw denim occupy scenester pug listicle. Viral farm-to-table heirloom fanny pack single-origin coffee raw denim dreamcatcher cornhole kombucha hammock cronut kinfolk. Hexagon shoreditch offal, farm-to-table man braid 90's yr hot chicken tattooed cloud bread pickled echo park synth.</p><p>Edison bulb jianbing sartorial you probably haven't heard of them, hella chicharrones messenger bag celiac occupy tofu crucifix salvia pug green juice. Cray readymade master cleanse gastropub next level kinfolk retro shoreditch sartorial. Listicle freegan offal hot chicken cronut. Hell of celiac organic authentic, coloring book umami gastropub waistcoat literally. Vice wolf kombucha etsy mixtape, irony next level tumblr slow-carb. La croix franzen hoodie portland tbh snackwave vinyl you probably haven't heard of them heirloom. Biodiesel hella health goth brunch, sartorial subway tile ethical.</p><p>Pitchfork PBR&B williamsburg chambray activated charcoal taiyaki. Messenger bag cronut readymade lomo glossier authentic brooklyn tumeric food truck hoodie shaman helvetica mumblecore. Subway tile fam glossier, seitan selfies chicharrones squid. DIY semiotics fam fingerstache gochujang deep v wayfarers narwhal brunch poke disrupt.</p>",
+      "image": "Cancer-Moonshot-Research-Initiatives.jpg",
+      "imageAltText": "Moonshot Logo"
+    },
+    {
+      "id": "privacy",
+      "title": "Privacy Is Our Top Priority",
+      "body": "<p>Your information will never be shared outside of NCI. Other reassurances here. Health goth twee skateboard jianbing franzen before they sold out gastropub hashtag 90's church-key yr. Deep v humblebrag selfies readymade kombucha roof party raclette poke food truck authentic chia tofu sriracha. Man bun chicharrones blog health goth. Neutra hoodie air plant selvage YOLO, gastropub kitsch hashtag next level banjo irony crucifix biodiesel. Jianbing before they sold out aesthetic taxidermy plaid, shaman deep v bespoke banjo meditation wolf +1 prism ugh sriracha.</p><p>Hammock pitchfork banh mi put a bird on it whatever lomo. Air plant whatever sriracha vexillologist XOXO austin adaptogen cold-pressed cronut copper mug. Twee chicharrones offal, disrupt pok pok raclette adaptogen pour-over PBR&B. Woke vegan brunch raw denim migas keytar lumbersexual blog bushwick schlitz XOXO cold-pressed. Chambray master cleanse keytar put a bird on it four loko. Irony man bun austin mustache poutine narwhal flexitarian kale chips. Pabst tbh poke umami bicycle rights adaptogen seitan viral master cleanse.</p><p>Banh mi tattooed semiotics biodiesel jianbing swag. Air plant leggings cred narwhal, vice ramps readymade DIY post-ironic migas neutra. Ugh selvage shoreditch, man bun lumbersexual tbh raw denim occupy scenester pug listicle. Viral farm-to-table heirloom fanny pack single-origin coffee raw denim dreamcatcher cornhole kombucha hammock cronut kinfolk. Hexagon shoreditch offal, farm-to-table man braid 90's yr hot chicken tattooed cloud bread pickled echo park synth.</p><p>Edison bulb jianbing sartorial you probably haven't heard of them, hella chicharrones messenger bag celiac occupy tofu crucifix salvia pug green juice. Cray readymade master cleanse gastropub next level kinfolk retro shoreditch sartorial. Listicle freegan offal hot chicken cronut. Hell of celiac organic authentic, coloring book umami gastropub waistcoat literally. Vice wolf kombucha etsy mixtape, irony next level tumblr slow-carb. La croix franzen hoodie portland tbh snackwave vinyl you probably haven't heard of them heirloom. Biodiesel hella health goth brunch, sartorial subway tile ethical.</p><p>Pitchfork PBR&B williamsburg chambray activated charcoal taiyaki. Messenger bag cronut readymade lomo glossier authentic brooklyn tumeric food truck hoodie shaman helvetica mumblecore. Subway tile fam glossier, seitan selfies chicharrones squid. DIY semiotics fam fingerstache gochujang deep v wayfarers narwhal brunch poke disrupt.</p>",
+      "image": "financial-data-book-pen.jpg",
+      "imageAltText": "Open book with pen"
+    },
+    {
+      "id": "value",
+      "title": "The Value of the BioBank",
+      "body": "<p>When you contribute to the NCI Biobank you will be making an impact on cancer research. See how Biobank specimens are used to advance our knowledge on cancer. Health goth twee skateboard jianbing franzen before they sold out gastropub hashtag 90's church-key yr. Deep v humblebrag selfies readymade kombucha roof party raclette poke food truck authentic chia tofu sriracha. Man bun chicharrones blog health goth. Neutra hoodie air plant selvage YOLO, gastropub kitsch hashtag next level banjo irony crucifix biodiesel. Jianbing before they sold out aesthetic taxidermy plaid, shaman deep v bespoke banjo meditation wolf +1 prism ugh sriracha.</p><p>Hammock pitchfork banh mi put a bird on it whatever lomo. Air plant whatever sriracha vexillologist XOXO austin adaptogen cold-pressed cronut copper mug. Twee chicharrones offal, disrupt pok pok raclette adaptogen pour-over PBR&B. Woke vegan brunch raw denim migas keytar lumbersexual blog bushwick schlitz XOXO cold-pressed. Chambray master cleanse keytar put a bird on it four loko. Irony man bun austin mustache poutine narwhal flexitarian kale chips. Pabst tbh poke umami bicycle rights adaptogen seitan viral master cleanse.</p><p>Banh mi tattooed semiotics biodiesel jianbing swag. Air plant leggings cred narwhal, vice ramps readymade DIY post-ironic migas neutra. Ugh selvage shoreditch, man bun lumbersexual tbh raw denim occupy scenester pug listicle. Viral farm-to-table heirloom fanny pack single-origin coffee raw denim dreamcatcher cornhole kombucha hammock cronut kinfolk. Hexagon shoreditch offal, farm-to-table man braid 90's yr hot chicken tattooed cloud bread pickled echo park synth.</p><p>Edison bulb jianbing sartorial you probably haven't heard of them, hella chicharrones messenger bag celiac occupy tofu crucifix salvia pug green juice. Cray readymade master cleanse gastropub next level kinfolk retro shoreditch sartorial. Listicle freegan offal hot chicken cronut. Hell of celiac organic authentic, coloring book umami gastropub waistcoat literally. Vice wolf kombucha etsy mixtape, irony next level tumblr slow-carb. La croix franzen hoodie portland tbh snackwave vinyl you probably haven't heard of them heirloom. Biodiesel hella health goth brunch, sartorial subway tile ethical.</p><p>Pitchfork PBR&B williamsburg chambray activated charcoal taiyaki. Messenger bag cronut readymade lomo glossier authentic brooklyn tumeric food truck hoodie shaman helvetica mumblecore. Subway tile fam glossier, seitan selfies chicharrones squid. DIY semiotics fam fingerstache gochujang deep v wayfarers narwhal brunch poke disrupt.</p>",
+      "image": "woman-wearing-head-scarf.jpg",
+      "imageAltText": "Cancer survivor with head scarf"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "resultsData": [
+        {
+          "date": "4/23/2019",
+          "provider": "Caroline Huang, MD",
+          "test": {
+            "title": "Lipid Panel, Serum",
+            "note": "Levels are moderately elevated but pleased to see triglycerides are improved"
+          },
+          "link": "/results/test-0001"
+        },
+        {
+          "date": "5/9/2019",
+          "provider": "Edward Swanson, MD",
+          "test": {
+            "title": "Tumor Biopsy Profile",
+            "note": "Low-grade (grade 1) profile"
+          },
+          "link": "/results/test-0002"
+        },
+        {
+          "date": "4/15/2019",
+          "provider": "Rebeccah Ballo, MD",
+          "test": {
+            "title": "Complete Blood Count (CBC)",
+            "note": "No abnormal cells found"
+          },
+          "link": "/results/test-0003"
+        },
+        {
+          "date": "4/17/2019",
+          "provider": "Rebeccah Ballo, MD",
+          "test": {
+            "title": "Blood protein testing (electrophoresis)",
+            "note": "Slightly elevated immunoglobulins"
+          },
+          "link": "/results/test-0004"
+        },
+        {
+          "date": "4/17/2019",
+          "provider": "Rebeccah Ballo, MD",
+          "test": {
+            "title": "Tumor marker tests",
+            "note": "No abnormal cells found"
+          },
+          "link": "/results/test-0005"
+        },
+        {
+          "date": "1/20/2019",
+          "provider": "Tim Smith, MD",
+          "test": {
+            "title": "Prostate-Specific Antigen (PSA)",
+            "note": "Negative"
+          },
+          "link": "/results/test-0006"
+        }
+      ],
+      "messages": [
+        {
+          "from": "Caroline Huang",
+          "subject": "Retake Lipid Panel",
+          "excerpt": "Be sure to fast 8 hours before taking this test. We're hoping to",
+          "date": "5/25/2019"
+        },
+        {
+          "from": "Edward Swanson",
+          "subject": "Tumor Biopsy Results",
+          "excerpt": "Your test results show a Low-grade (grade 1) tumor profile. This",
+          "date": "5/13/2019"
+        },
+        {
+          "from": "Rebeccah Ballo",
+          "subject": "Lab Results",
+          "excerpt": "Your blood work only showed slightly elevated immunoglobulins from",
+          "date": "4/22/2019"
+        }
+      ]
+    }
+  ]
+}
