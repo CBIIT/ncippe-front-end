@@ -1,3 +1,26 @@
+@import '~wix-storybook-utils/dist/src/ui/typography';
+
+.page {
+  margin: 0 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  [class*=Tabs-styles__itemsContainer] {
+    min-width: auto;
+  }
+  @media all and (min-width:40em) { 
+    margin: 0 48px;
+    
+  }
+}
+
+.content {
+  margin-bottom: 30px;
+  max-width: 1161px;
+  width: 100%;
+}
 .codeExample {
   box-sizing: border-box;
   padding: 16px;

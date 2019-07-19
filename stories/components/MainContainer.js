@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styles from 'wix-storybook-utils/dist/src/Sections/styles.scss'
+import styles from './styles.scss'
 
 const MainContainer = ({ children }) => {
   return (
