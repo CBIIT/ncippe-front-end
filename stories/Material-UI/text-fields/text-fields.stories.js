@@ -8,23 +8,23 @@ import Tabs from 'wix-storybook-utils/TabbedView';
 import MainContainer from '../../components/MainContainer'
 import Header from '../../components/Header'
 
-import Checkbox from './MuiCheckbox'
-import CheckboxMdx, { frontMatter } from './checkboxes.mdx';
-import metadata from 'raw-loader!metadata-loader!./MuiCheckbox.js'
+import TextField from './MuiTextField'
+import TextFieldMdx, { frontMatter } from './text-fields.mdx';
+import metadata from 'raw-loader!metadata-loader!./MuiTextField.js'
 
 storiesOf('Material UI/Inputs', module)
-  .add('Checkbox', () => (
+  .add('TextField', () => (
     <MainContainer>
-        <Header storyName="Checkbox" />
+        <Header storyName="TextField" />
 
       <Tabs tabs={['Usage', 'API', 'Playground']}>
         <div className="markdown-body">
-          <CheckboxMdx />
+          <TextFieldMdx />
         </div>
 
         <AutoDocs metadata={metadata} />
 
-        <AutoExample component={Checkbox} parsedSource={metadata} />
+        <AutoExample component={TextField} parsedSource={metadata} />
       </Tabs>
     </MainContainer>
   ))

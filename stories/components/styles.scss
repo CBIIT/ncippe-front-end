@@ -6,4 +6,26 @@
   border-radius: 3px;
   margin-top: 0;
   margin-bottom: 16px;
+  display: flex;
+  > div {
+    display: flex;
+    flex-direction: column;
+    & :first-child {
+      align-self: flex-end;
+      order: 1
+    }
+    & [class*=ReactCollapse--collapse] {
+      order: 2
+    }
+  }
+}
+
+.codeExample--left {
+  justify-content: left;
+}
+.codeExample--center {
+  justify-content: center;
+}
+.codeExample--right {
+  justify-content: right;
 }

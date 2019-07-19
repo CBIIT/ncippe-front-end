@@ -12,7 +12,7 @@ import Radio from './MuiRadio'
 import RadioMdx, { frontMatter } from './radio-buttons.mdx';
 import metadata from 'raw-loader!metadata-loader!./MuiRadio.js'
 
-storiesOf('Material UI', module)
+storiesOf('Material UI/Inputs', module)
   .add('Radio', () => (
     <MainContainer>
         <Header storyName="Radio" />

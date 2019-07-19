@@ -12,7 +12,7 @@ import Paper from './MuiPaper'
 import PaperMdx, { frontMatter } from './paper.mdx';
 import metadata from 'raw-loader!metadata-loader!./MuiPaper.js'
 
-storiesOf('Material UI', module)
+storiesOf('Material UI/Surfaces', module)
   .add('Paper', () => (
     <MainContainer>
         <Header storyName="Paper" />

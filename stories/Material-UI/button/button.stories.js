@@ -12,7 +12,7 @@ import Button from './MuiButton'
 import ButtonMdx, { frontMatter } from './buttons.mdx';
 import metadata from 'raw-loader!metadata-loader!./MuiButton.js'
 
-storiesOf('Material UI', module)
+storiesOf('Material UI/Inputs', module)
   .add('Buttons', () => (
     <MainContainer>
         <Header storyName="Buttons" subTitle={frontMatter.components} />

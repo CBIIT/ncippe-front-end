@@ -6,24 +6,25 @@ import CodeExample from 'wix-storybook-utils/CodeExample'
 import styles from './styles.scss'
 
 
-const Example = (props) => {
+const Example = ({path, align = 'center'}) => {
   const [componentRaw, setComponentRaw] = useState('')
 
+
   useEffect(() => {
-    const LoadComponentRaw = import('!!raw-loader!../' + props.path)
+    const LoadComponentRaw = import('!!raw-loader!../' + path)
     LoadComponentRaw.then((data) => {
       setComponentRaw(data.default)
     })
   })
   
   const LoadComponent = Loadable({
-    loader: () => import('../' + props.path),
+    loader: () => import('../' + path),
     loading: () => <div>Loading...</div>
   })
 
   return (
 
-    <div className={styles.codeExample}>
+    <div className={`${styles.codeExample} ${styles['codeExample--' + align]}`}>
       <CodeExample code={componentRaw}>
         <LoadComponent />
       </CodeExample>
