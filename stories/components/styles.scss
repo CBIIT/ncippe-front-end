@@ -10,11 +10,11 @@
   > div {
     display: flex;
     flex-direction: column;
-    & :first-child {
+    > :first-child {
       align-self: flex-end;
       order: 1
     }
-    & [class*=ReactCollapse--collapse] {
+    > [class*=ReactCollapse--collapse] {
       order: 2
     }
   }
