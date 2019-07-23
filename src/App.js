@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import { makeStyles } from '@material-ui/core/styles'
 
-function App() {
+import Routes from './routers/routes'
+import LoginContext from './context/login'
+
+const useStyles = makeStyles(theme => ({
+  App: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+    position: 'relative',
+  },
+  main: {
+    flex: '1 0 auto',
+    margin: '0',
+  },
+}))
+
+const defaultLoginContext = {
+  auth: false,
+  role: 'public',
+  toggleAuth: function() {
+    this.auth = !this.auth
+  },
+}
+
+function App( props ) {
+  const classes = useStyles()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://cancer.gov"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          PPE Portal
-        </a>
-      </header>
-    </div>
+    <LoginContext.Provider value={defaultLoginContext}>
+      <BrowserRouter>
+        <div className={classes.App}>
+          <div />
+          <main className={classes.main}>
+            <Routes />
+          </main>
+        </div>
+      </BrowserRouter>
+    </LoginContext.Provider>
   );
 }
 
-export default App;
+export default App

@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import Homepage from '../pages/Homepage'
-import NotFoundPage from '../components/NotFoundPage'
-import ArticlePage from '../pages/Article'
+
+
+import NotFoundPage from '../pages/NotFoundPage'
+import MockRoles from '../pages/MockRoles'
 import DashboardPage from '../pages/Dashboard'
 
 import LoginContext from '../context/login'
@@ -14,8 +15,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
 export default () => (
   <Switch>
-    <Route path='/' component={Homepage} exact={true} />
-    <Route path='/article/:id' component={ArticlePage} exact={true} />
+    <Route path='/' component={MockRoles} exact={true} />
+    {/* <Route path='/article/:id' component={ArticlePage} exact={true} /> */}
     <PrivateRoute path='/dashboard' component={DashboardPage} exact={true} />
     <Route component={NotFoundPage} />
   </Switch>
