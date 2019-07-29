@@ -1,4 +1,103 @@
+@import '~wix-storybook-utils/dist/src/ui/typography';
+
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.page {
+  margin: 0 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  [class*=Tabs-styles__itemsContainer] {
+    min-width: auto;
+  }
+  @media all and (min-width:40em) { 
+    margin: 0 48px;
+    
+  }
+}
+
+.content {
+  margin-bottom: 30px;
+  max-width: 1161px;
+  width: 100%;
+}
+
+/* fallback */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/materialicons/v48/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -moz-font-feature-settings: 'liga';
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.codeExample {
+  box-sizing: border-box;
+  padding: 16px;
+  overflow: auto;
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  > div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    > :first-child {
+      align-self: flex-end;
+      order: 1;
+    }
+    > [class*=ReactCollapse--collapse] {
+      order: 2;
+    }
+    > :last-child {
+      align-self: center;
+    }
+  }
+}
+
+.codeExample--left > div > :last-child {
+  align-self: flex-start;
+}
+.codeExample--center > div > :last-child {
+  align-self: center;
+}
+.codeExample--right > div > :last-child {
+  align-self: flex-end;
+}
+
+// Wix style hacks
+
+.content > div[class*=styles__root] {
+  height: 155px;
+  &::before {
+    height: 155px;
+  }
+}
+
+[class*=styles__titleLayout] {
+  margin: 40px 0 20px !important;
+
 }

@@ -11,6 +11,7 @@ import Header from '../../components/Header'
 import Card from './MuiCard'
 import CardMdx, { frontMatter } from './cards.mdx';
 import metadata from 'raw-loader!metadata-loader!./MuiCard.js'
+import Typography from '@material-ui/core/Typography'
 
 storiesOf('Material UI/Surfaces', module)
   .add('Card', () => (
@@ -18,9 +19,9 @@ storiesOf('Material UI/Surfaces', module)
         <Header storyName="Card" />
 
       <Tabs tabs={['Usage', 'API', 'Playground']}>
-        <div className="markdown-body">
+        <Typography component="div">
           <CardMdx />
-        </div>
+        </Typography>
 
         <AutoDocs metadata={metadata} />
 

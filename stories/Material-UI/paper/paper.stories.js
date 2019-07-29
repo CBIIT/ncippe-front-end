@@ -11,16 +11,17 @@ import Header from '../../components/Header'
 import Paper from './MuiPaper'
 import PaperMdx, { frontMatter } from './paper.mdx';
 import metadata from 'raw-loader!metadata-loader!./MuiPaper.js'
+import Typography from '@material-ui/core/Typography'
 
 storiesOf('Material UI/Surfaces', module)
   .add('Paper', () => (
     <MainContainer>
-        <Header storyName="Paper" />
+      <Header storyName="Paper" />
 
       <Tabs tabs={['Usage', 'API', 'Playground']}>
-        <div className="markdown-body">
+        <Typography component="div">
           <PaperMdx />
-        </div>
+        </Typography>
 
         <AutoDocs metadata={metadata} />
 

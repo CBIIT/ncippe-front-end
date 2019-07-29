@@ -11,16 +11,17 @@ import Header from '../../components/Header'
 import Radio from './MuiRadio'
 import RadioMdx, { frontMatter } from './radio-buttons.mdx';
 import metadata from 'raw-loader!metadata-loader!./MuiRadio.js'
+import Typography from '@material-ui/core/Typography'
 
 storiesOf('Material UI/Inputs', module)
   .add('Radio', () => (
     <MainContainer>
-        <Header storyName="Radio" />
+      <Header storyName="Radio" />
 
       <Tabs tabs={['Usage', 'API', 'Playground']}>
-        <div className="markdown-body">
+        <Typography component="div">
           <RadioMdx />
-        </div>
+        </Typography>
 
         <AutoDocs metadata={metadata} />
 

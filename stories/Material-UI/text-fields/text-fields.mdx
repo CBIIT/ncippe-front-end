@@ -3,7 +3,34 @@ title: Text Field React component
 components: FilledInput, FormControl, FormHelperText, Input, InputAdornment, InputBase, InputLabel, OutlinedInput, TextField
 ---
 
-import Example from '../../components/Example'
+import CodeExample from 'wix-storybook-utils/CodeExample'
+
+import ComposedTextField from './examples/ComposedTextField'
+import ComposedTextFieldRaw from '!!raw-loader!./examples/ComposedTextField'
+import CustomizedInputBase from './examples/CustomizedInputBase'
+import CustomizedInputBaseRaw from '!!raw-loader!./examples/CustomizedInputBase'
+import CustomizedInputs from './examples/CustomizedInputs'
+import CustomizedInputsRaw from '!!raw-loader!./examples/CustomizedInputs'
+import FilledInputAdornments from './examples/FilledInputAdornments'
+import FilledInputAdornmentsRaw from '!!raw-loader!./examples/FilledInputAdornments'
+import FilledTextFields from './examples/FilledTextFields'
+import FilledTextFieldsRaw from '!!raw-loader!./examples/FilledTextFields'
+import FormattedInputs from './examples/FormattedInputs'
+import FormattedInputsRaw from '!!raw-loader!./examples/FormattedInputs'
+import InputAdornments from './examples/InputAdornments'
+import InputAdornmentsRaw from '!!raw-loader!./examples/InputAdornments'
+import Inputs from './examples/Inputs'
+import InputsRaw from '!!raw-loader!./examples/Inputs'
+import InputWithIcon from './examples/InputWithIcon'
+import InputWithIconRaw from '!!raw-loader!./examples/InputWithIcon'
+import OutlinedInputAdornments from './examples/OutlinedInputAdornments'
+import OutlinedInputAdornmentsRaw from '!!raw-loader!./examples/OutlinedInputAdornments'
+import OutlinedTextFields from './examples/OutlinedTextFields'
+import OutlinedTextFieldsRaw from '!!raw-loader!./examples/OutlinedTextFields'
+import TextFieldMargins from './examples/TextFieldMargins'
+import TextFieldMarginsRaw from '!!raw-loader!./examples/TextFieldMargins'
+import TextFields from './examples/TextFields'
+import TextFieldsRaw from '!!raw-loader!./examples/TextFields'
 
 # Text Fields
 
@@ -15,7 +42,11 @@ import Example from '../../components/Example'
 
 The `TextField` wrapper component is a complete form control including a label, input and help text.
 
-<Example path="Material-UI/text-fields/examples/TextFields" />
+<div className='codeExample'>
+  <CodeExample code={TextFieldsRaw}>
+    <TextFields />
+  </CodeExample>
+</div>
 
 > **Note:** This version of the text field is no longer documented in the Material Design documentation.
 
@@ -23,13 +54,21 @@ The `TextField` wrapper component is a complete form control including a label, 
 
 `TextField` supports outlined styling.
 
-<Example path="Material-UI/text-fields/examples/OutlinedTextFields" />
+<div className='codeExample'>
+  <CodeExample code={OutlinedTextFieldsRaw}>
+    <OutlinedTextFields />
+  </CodeExample>
+</div>
 
 ## Filled
 
 `TextField` supports filled styling.
 
-<Example path="Material-UI/text-fields/examples/FilledTextFields" />
+<div className='codeExample'>
+  <CodeExample code={FilledTextFieldsRaw}>
+    <FilledTextFields />
+  </CodeExample>
+</div>
 
 ## Components
 
@@ -46,23 +85,39 @@ You might also have noticed that some native HTML input properties are missing f
 This is on purpose.
 The component takes care of the most used properties, then it's up to the user to use the underlying component shown in the following demo. Still, you can use `inputProps` (and `InputProps`, `InputLabelProps` properties) if you want to avoid some boilerplate.
 
-<Example path="Material-UI/text-fields/examples/ComposedTextField" />
+<div className='codeExample'>
+  <CodeExample code={ComposedTextFieldRaw}>
+    <ComposedTextField />
+  </CodeExample>
+</div>
 
 ## Inputs
 
-<Example path="Material-UI/text-fields/examples/Inputs" />
+<div className='codeExample'>
+  <CodeExample code={InputsRaw}>
+    <Inputs />
+  </CodeExample>
+</div>
 
 ## Customized inputs
 
 Here are some examples of customizing the component. You can learn more about this in the
 [overrides documentation page](/customization/components/).
 
-<Example path="Material-UI/text-fields/examples/CustomizedInputs" />
+<div className='codeExample'>
+  <CodeExample code={CustomizedInputsRaw}>
+    <CustomizedInputs />
+  </CodeExample>
+</div>
 
 Customization does not stop at CSS, you can use composition to build custom components and give your app a unique feel.
 Below is an example using the [`InputBase`](/api/input-base/) component, inspired by Google Maps.
 
-<Example path="Material-UI/text-fields/examples/CustomizedInputBase" />
+<div className='codeExample'>
+  <CodeExample code={CustomizedInputBaseRaw}>
+    <CustomizedInputBase />
+  </CodeExample>
+</div>
 
 ## Input Adornments
 
@@ -70,21 +125,37 @@ Below is an example using the [`InputBase`](/api/input-base/) component, inspire
 These can be used to add a prefix, a suffix or an action to an input.
 For instance, you can use an icon button to hide or reveal the password.
 
-<Example path="Material-UI/text-fields/examples/InputAdornments" />
+<div className='codeExample'>
+  <CodeExample code={InputAdornmentsRaw}>
+    <InputAdornments />
+  </CodeExample>
+</div>
 
 ### With icon
 
 Icons can be specified as prepended or appended.
 
-<Example path="Material-UI/text-fields/examples/InputWithIcon" />
+<div className='codeExample'>
+  <CodeExample code={InputWithIconRaw}>
+    <InputWithIcon />
+  </CodeExample>
+</div>
 
 ### Filled Input Adornments
 
-<Example path="Material-UI/text-fields/examples/FilledInputAdornments" />
+<div className='codeExample'>
+  <CodeExample code={FilledInputAdornmentsRaw}>
+    <FilledInputAdornments />
+  </CodeExample>
+</div>
 
 ### Outlined Input Adornments
 
-<Example path="Material-UI/text-fields/examples/OutlinedInputAdornments" />
+<div className='codeExample'>
+  <CodeExample code={OutlinedInputAdornmentsRaw}>
+    <OutlinedInputAdornments />
+  </CodeExample>
+</div>
 
 ## Layout
 
@@ -92,7 +163,11 @@ Icons can be specified as prepended or appended.
 `none` (default) will not apply margins to the `FormControl`, whereas `dense` and `normal` will as well as alter
 other styles to meet the specification.
 
-<Example path="Material-UI/text-fields/examples/TextFieldMargins" />
+<div className='codeExample'>
+  <CodeExample code={TextFieldMarginsRaw}>
+    <TextFieldMargins />
+  </CodeExample>
+</div>
 
 ## Limitations
 
@@ -120,7 +195,11 @@ The property should be called with a value implementing the [`HTMLInputElement`]
 
 The following demo uses the [react-text-mask](https://github.com/text-mask/text-mask) and [react-number-format](https://github.com/s-yadav/react-number-format) libraries.
 
-<Example path="Material-UI/text-fields/examples/FormattedInputs" />
+<div className='codeExample'>
+  <CodeExample code={FormattedInputsRaw}>
+    <FormattedInputs />
+  </CodeExample>
+</div>
 
 ## Accessibility
 

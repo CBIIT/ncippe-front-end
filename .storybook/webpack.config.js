@@ -1,4 +1,5 @@
 const path = require('path');
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = ({ config }) => {
 
@@ -20,6 +21,7 @@ module.exports = ({ config }) => {
 
     plugins: [
       ...config.plugins,
+      // new BundleAnalyzerPlugin()
     ],
 
     resolveLoader: {
@@ -52,7 +54,7 @@ module.exports = ({ config }) => {
                   "options": {
                     "camelCase": true,
                     "sourceMap": false,
-                    "localIdentName": "[path][name]__[local]__[hash:base64:5]",
+                    "localIdentName": "[name]__[local]__[hash:base64:5]",
                     "hashPrefix": "ppe",
                     "modules": false,
                     "importLoaders": 4
@@ -63,7 +65,7 @@ module.exports = ({ config }) => {
                   "options": {
                     "camelCase": true,
                     "sourceMap": false,
-                    "localIdentName": "[path][name]__[local]__[hash:base64:5]",
+                    "localIdentName": "[name]__[local]__[hash:base64:5]",
                     "hashPrefix": "ppe",
                     "modules": true,
                     "importLoaders": 4

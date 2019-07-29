@@ -11,16 +11,17 @@ import Header from '../../components/Header'
 import Select from './MuiSelect'
 import SelectMdx, { frontMatter } from './selects.mdx';
 import metadata from 'raw-loader!metadata-loader!./MuiSelect.js'
+import Typography from '@material-ui/core/Typography'
 
 storiesOf('Material UI/Inputs', module)
   .add('Select', () => (
     <MainContainer>
-        <Header storyName="Select" />
+      <Header storyName="Select" />
 
       <Tabs tabs={['Usage', 'API', 'Playground']}>
-        <div className="markdown-body">
+        <Typography component="div">
           <SelectMdx />
-        </div>
+        </Typography>
 
         <AutoDocs metadata={metadata} />
 
