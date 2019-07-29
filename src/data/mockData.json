@@ -162,94 +162,42 @@
   ],
   "users": [
     {
-      "id": 1,
-      "resultsData": [
-        {
-          "date": "4/23/2019",
-          "provider": "Caroline Huang, MD",
-          "test": {
-            "title": "Lipid Panel, Serum",
-            "note": "Levels are moderately elevated but pleased to see triglycerides are improved"
-          },
-          "link": "/results/test-0001"
-        },
-        {
-          "date": "5/9/2019",
-          "provider": "Edward Swanson, MD",
-          "test": {
-            "title": "Tumor Biopsy Profile",
-            "note": "Low-grade (grade 1) profile"
-          },
-          "link": "/results/test-0002"
-        },
-        {
-          "date": "4/15/2019",
-          "provider": "Rebeccah Ballo, MD",
-          "test": {
-            "title": "Complete Blood Count (CBC)",
-            "note": "No abnormal cells found"
-          },
-          "link": "/results/test-0003"
-        },
-        {
-          "date": "4/17/2019",
-          "provider": "Rebeccah Ballo, MD",
-          "test": {
-            "title": "Blood protein testing (electrophoresis)",
-            "note": "Slightly elevated immunoglobulins"
-          },
-          "link": "/results/test-0004"
-        },
-        {
-          "date": "4/17/2019",
-          "provider": "Rebeccah Ballo, MD",
-          "test": {
-            "title": "Tumor marker tests",
-            "note": "No abnormal cells found"
-          },
-          "link": "/results/test-0005"
-        },
-        {
-          "date": "1/20/2019",
-          "provider": "Tim Smith, MD",
-          "test": {
-            "title": "Prostate-Specific Antigen (PSA)",
-            "note": "Negative"
-          },
-          "link": "/results/test-0006"
-        }
-      ],
-      "messages": [
-        {
-          "from": "Caroline Huang",
-          "subject": "Retake Lipid Panel",
-          "excerpt": "Be sure to fast 8 hours before taking this test. We're hoping to",
-          "date": "5/25/2019"
-        },
-        {
-          "from": "Edward Swanson",
-          "subject": "Tumor Biopsy Results",
-          "excerpt": "Your test results show a Low-grade (grade 1) tumor profile. This",
-          "date": "5/13/2019"
-        },
-        {
-          "from": "Rebeccah Ballo",
-          "subject": "Lab Results",
-          "excerpt": "Your blood work only showed slightly elevated immunoglobulins from",
-          "date": "4/22/2019"
-        }
-      ]
+      "userName": "SmJoe",
+      "firstName": "Joe",
+      "lastName": "Smith",
+      "email": "joe.smith@mycomapny.com",
+      "userGUID": "1q2w3e4r",
+      "phoneNumber": "1234567890",
+      "allowEmailNotification": "1",
+      "userType": "1",
+      "roleName": "Provider"
     },
     {
-      "id": "patient",
-      "f-name": "Su",
-      "l-name": "Xinyi",
-      "email": "sue.xinyi@gmail.com",
-      "phone": "7035552736",
-      "notifications": true,
-      "bss": "Viginia Hospital Center",
-      "provider_f-name": "William",
-      "provider_l-name": "Diwedi"
+      "userName": "HaTom",
+      "firstName": "Tom",
+      "lastName": "Hanks",
+      "email": "tom.hanks@mycomapny.com",
+      "userGUID": "123qwe",
+      "phoneNumber": "0987654321",
+      "allowEmailNotification": "1",
+      "userType": "1",
+      "roleName": "Patient"
+    },
+    {
+      "userName": "PoHar",
+      "firstName": "Harry",
+      "lastName": "Potter",
+      "email": "harry.potter@mycomapny.com",
+      "userGUID": "123zxc456rty",
+      "phoneNumber": "1357924680",
+      "allowEmailNotification": "0",
+      "userType": "1",
+      "roleName": "Admin"
     }
+  ],
+  "mockUsers": [
+    "1q2w3e4r",
+    "123qwe",
+    "123zxc456rty"
   ]
 }
