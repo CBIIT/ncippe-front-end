@@ -3,7 +3,24 @@ title: Menu React component
 components: Menu, MenuItem, MenuList, ClickAwayListener, Popover, Popper
 ---
 
-import Example from '../../components/Example'
+import CodeExample from 'wix-storybook-utils/CodeExample'
+
+import CustomizedMenus from './examples/CustomizedMenus'
+import CustomizedMenusRaw from '!!raw-loader!./examples/CustomizedMenus'
+import FadeMenu from './examples/FadeMenu'
+import FadeMenuRaw from '!!raw-loader!./examples/FadeMenu'
+import LongMenu from './examples/LongMenu'
+import LongMenuRaw from '!!raw-loader!./examples/LongMenu'
+import MenuListComposition from './examples/MenuListComposition'
+import MenuListCompositionRaw from '!!raw-loader!./examples/MenuListComposition'
+import MenuPopupState from './examples/MenuPopupState'
+import MenuPopupStateRaw from '!!raw-loader!./examples/MenuPopupState'
+import SimpleListMenu from './examples/SimpleListMenu'
+import SimpleListMenuRaw from '!!raw-loader!./examples/SimpleListMenu'
+import SimpleMenu from './examples/SimpleMenu'
+import SimpleMenuRaw from '!!raw-loader!./examples/SimpleMenu'
+import TypographyMenu from './examples/TypographyMenu'
+import TypographyMenuRaw from '!!raw-loader!./examples/TypographyMenu'
 
 # Menus
 
@@ -19,7 +36,11 @@ Choosing an option should immediately ideally commit the option and close the me
 
 **Disambiguation**: In contrast to simple menus, simple dialogs can present additional detail related to the options available for a list item or provide navigational or orthogonal actions related to the primary task. Although they can display the same content, simple menus are preferred over simple dialogs because simple menus are less disruptive to the user’s current context.
 
-<Example path="Material-UI/menus/examples/SimpleMenu" />
+<div className='codeExample'>
+  <CodeExample code={SimpleMenuRaw}>
+    <SimpleMenu />
+  </CodeExample>
+</div>
 
 ## Selected menus
 
@@ -28,7 +49,11 @@ and the initial focus will be placed on the selected menu item.
 The currently selected menu item is set using the `selected` property (from [ListItem](/api/list-item/)).
 To use a selected menu item without impacting the initial focus or the vertical positioning of the menu, set the `variant` property to `menu`.
 
-<Example path="Material-UI/menus/examples/SimpleListMenu" />
+<div className='codeExample'>
+  <CodeExample code={SimpleListMenuRaw}>
+    <SimpleListMenu />
+  </CodeExample>
+</div>
 
 ## MenuList composition
 
@@ -38,14 +63,22 @@ For answering those needs, we expose a `MenuList` component that you can compose
 
 The primary responsibility of the `MenuList` component is to handle the focus.
 
-<Example path="Material-UI/menus/examples/MenuListComposition" />
+<div className='codeExample'>
+  <CodeExample code={MenuListCompositionRaw}>
+    <MenuListComposition />
+  </CodeExample>
+</div>
 
 ## Customized menus
 
 Here is an example of customizing the component. You can learn more about this in the
 [overrides documentation page](/customization/components/).
 
-<Example path="Material-UI/menus/examples/CustomizedMenus" />
+<div className='codeExample'>
+  <CodeExample code={CustomizedMenusRaw}>
+    <CustomizedMenus />
+  </CodeExample>
+</div>
 
 The `MenuItem` is a wrapper around `ListItem` with some additional styles.
 You can use the same list composition features with the `MenuItem` component:
@@ -54,20 +87,32 @@ You can use the same list composition features with the `MenuItem` component:
 
 If the height of a menu prevents all menu items from being displayed, the menu can scroll internally.
 
-<Example path="Material-UI/menus/examples/LongMenu" />
+<div className='codeExample'>
+  <CodeExample code={LongMenuRaw}>
+    <LongMenu />
+  </CodeExample>
+</div>
 
 ## Limitations
 
 There is [a flexbox bug](https://bugs.chromium.org/p/chromium/issues/detail?id=327437) that prevents `text-overflow: ellipsis` from working in a flexbox layout.
 You can use the `Typography` component with `noWrap` to workaround this issue:
 
-<Example path="Material-UI/menus/examples/TypographyMenu" />
+<div className='codeExample'>
+  <CodeExample code={TypographyMenuRaw}>
+    <TypographyMenu />
+  </CodeExample>
+</div>
 
 ## Change transition
 
 Use a different transition.
 
-<Example path="Material-UI/menus/examples/FadeMenu" />
+<div className='codeExample'>
+  <CodeExample code={FadeMenuRaw}>
+    <FadeMenu />
+  </CodeExample>
+</div>
 
 ## Complementary projects
 
@@ -77,4 +122,8 @@ For more advanced use cases you might be able to take advantage of:
 
 There is a 3rd party package [`material-ui-popup-state`](https://github.com/jcoreio/material-ui-popup-state) that takes care of menu state for you in most cases.
 
-<Example path="Material-UI/menus/examples/MenuPopupState" />
+<div className='codeExample'>
+  <CodeExample code={MenuPopupStateRaw}>
+    <MenuPopupState />
+  </CodeExample>
+</div>

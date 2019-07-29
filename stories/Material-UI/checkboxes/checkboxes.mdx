@@ -3,7 +3,16 @@ title: Checkbox React component
 components: Checkbox, FormControl, FormGroup, FormLabel, FormControlLabel
 ---
 
-import Example from '../../components/Example'
+import CodeExample from 'wix-storybook-utils/CodeExample'
+
+import Checkboxes from './examples/Checkboxes'
+import CheckboxesRaw from '!!raw-loader!./examples/Checkboxes'
+import CheckboxesGroup from './examples/CheckboxesGroup'
+import CheckboxesGroupRaw from '!!raw-loader!./examples/CheckboxesGroup'
+import CheckboxLabels from './examples/CheckboxLabels'
+import CheckboxLabelsRaw from '!!raw-loader!./examples/CheckboxLabels'
+import FormControlLabelPosition from './examples/FormControlLabelPosition'
+import FormControlLabelPositionRaw from '!!raw-loader!./examples/FormControlLabelPosition'
 
 # Checkboxes
 
@@ -15,23 +24,39 @@ If you have multiple options appearing in a list,
 you can preserve space by using checkboxes instead of on/off switches.
 If you have a single option, avoid using a checkbox and use an on/off switch instead.
 
-<Example path="Material-UI/checkboxes/Checkboxes" />
+<div className='codeExample'>
+  <CodeExample code={CheckboxesRaw}>
+    <Checkboxes />
+  </CodeExample>
+</div>
 
 `Checkbox` can also be used with a label description thanks to the `FormControlLabel` component.
 
-<Example path="Material-UI/checkboxes/CheckboxLabels" />
+<div className='codeExample'>
+  <CodeExample code={CheckboxLabelsRaw}>
+    <CheckboxLabels />
+  </CodeExample>
+</div>
 
 ## Checkboxes with FormGroup
 
 `FormGroup` is a helpful wrapper used to group selection controls components that provides an easier API.
 
-<Example path="Material-UI/checkboxes/CheckboxesGroup" />
+<div className='codeExample'>
+  <CodeExample code={CheckboxesGroupRaw}>
+    <CheckboxesGroup />
+  </CodeExample>
+</div>
 
 ## Label placement
 
 You can change the placement of the label:
 
-<Example path="Material-UI/checkboxes/FormControlLabelPosition" />
+<div className='codeExample'>
+  <CodeExample code={FormControlLabelPositionRaw}>
+    <FormControlLabelPosition />
+  </CodeExample>
+</div>
 
 ## Accessibility
 

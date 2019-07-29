@@ -3,7 +3,18 @@ title: Switch React component
 components: Switch, FormControl, FormGroup, FormLabel, FormControlLabel
 ---
 
-import Example from '../../components/Example'
+import CodeExample from 'wix-storybook-utils/CodeExample'
+
+import CustomizedSwitches from './examples/CustomizedSwitches'
+import CustomizedSwitchesRaw from '!!raw-loader!./examples/CustomizedSwitches'
+import FormControlLabelPosition from './examples/FormControlLabelPosition'
+import FormControlLabelPositionRaw from '!!raw-loader!./examples/FormControlLabelPosition'
+import Switches from './examples/Switches'
+import SwitchesRaw from '!!raw-loader!./examples/Switches'
+import SwitchesGroup from './examples/SwitchesGroup'
+import SwitchesGroupRaw from '!!raw-loader!./examples/SwitchesGroup'
+import SwitchLabels from './examples/SwitchLabels'
+import SwitchLabelsRaw from '!!raw-loader!./examples/SwitchLabels'
 
 # Switches
 
@@ -13,33 +24,53 @@ import Example from '../../components/Example'
 The option that the switch controls, as well as the state it’s in,
 should be made clear from the corresponding inline label.
 
-<Example path="Material-UI/switches/examples/Switches" />
+<div className='codeExample'>
+  <CodeExample code={SwitchesRaw}>
+    <Switches />
+  </CodeExample>
+</div>
 
 ## Switches with FormControlLabel
 
 `Switch` can also be used with a label description thanks to the `FormControlLabel` component.
 
-<Example path="Material-UI/switches/examples/SwitchLabels" />
+<div className='codeExample'>
+  <CodeExample code={SwitchLabelsRaw}>
+    <SwitchLabels />
+  </CodeExample>
+</div>
 
 ## Switches with FormGroup
 
 `FormGroup` is a helpful wrapper used to group selection controls components that provides an easier API.
 However, we encourage you to use a [Checkbox](#checkboxes) instead.
 
-<Example path="Material-UI/switches/examples/SwitchesGroup" />
+<div className='codeExample'>
+  <CodeExample code={SwitchesGroupRaw}>
+    <SwitchesGroup />
+  </CodeExample>
+</div>
 
 ## Customized switches
 
 Here are some examples of customizing the component. You can learn more about this in the
 [overrides documentation page](/customization/components/).
 
-<Example path="Material-UI/switches/examples/CustomizedSwitches" />
+<div className='codeExample'>
+  <CodeExample code={CustomizedSwitchesRaw}>
+    <CustomizedSwitches />
+  </CodeExample>
+</div>
 
 ## Label placement
 
 You can change the placement of the label:
 
-<Example path="Material-UI/switches/examples/FormControlLabelPosition" />
+<div className='codeExample'>
+  <CodeExample code={FormControlLabelPositionRaw}>
+    <FormControlLabelPosition />
+  </CodeExample>
+</div>
 
 ## Accessibility
 

@@ -11,16 +11,17 @@ import Header from '../../components/Header'
 import Checkbox from './MuiCheckbox'
 import CheckboxMdx, { frontMatter } from './checkboxes.mdx';
 import metadata from 'raw-loader!metadata-loader!./MuiCheckbox.js'
+import Typography from '@material-ui/core/Typography'
 
 storiesOf('Material UI/Inputs', module)
   .add('Checkbox', () => (
     <MainContainer>
-        <Header storyName="Checkbox" />
+      <Header storyName="Checkbox" />
 
       <Tabs tabs={['Usage', 'API', 'Playground']}>
-        <div className="markdown-body">
+        <Typography component="div">
           <CheckboxMdx />
-        </div>
+        </Typography>
 
         <AutoDocs metadata={metadata} />
 

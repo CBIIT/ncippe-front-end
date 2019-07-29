@@ -7,7 +7,7 @@
         "shippedProposals": true,
         "targets": {
           "browsers": ["last 2 versions", "not ie > 0", "not Android > 0"],
-          "node": "8.10"
+          "node": "10.16.0"
         },
         "debug": false
       }

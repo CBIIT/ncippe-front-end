@@ -11,16 +11,17 @@ import Header from '../../components/Header'
 import TextField from './MuiTextField'
 import TextFieldMdx, { frontMatter } from './text-fields.mdx';
 import metadata from 'raw-loader!metadata-loader!./MuiTextField.js'
+import Typography from '@material-ui/core/Typography'
 
 storiesOf('Material UI/Inputs', module)
   .add('TextField', () => (
     <MainContainer>
-        <Header storyName="TextField" />
+      <Header storyName="TextField" />
 
       <Tabs tabs={['Usage', 'API', 'Playground']}>
-        <div className="markdown-body">
+        <Typography component="div">
           <TextFieldMdx />
-        </div>
+        </Typography>
 
         <AutoDocs metadata={metadata} />
 

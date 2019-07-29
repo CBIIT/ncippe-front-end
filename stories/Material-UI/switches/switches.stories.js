@@ -11,16 +11,17 @@ import Header from '../../components/Header'
 import Switch from './MuiSwitch'
 import SwitchMdx, { frontMatter } from './switches.mdx';
 import metadata from 'raw-loader!metadata-loader!./MuiSwitch.js'
+import Typography from '@material-ui/core/Typography'
 
 storiesOf('Material UI/Inputs', module)
   .add('Switch', () => (
     <MainContainer>
-        <Header storyName="Switch" />
+      <Header storyName="Switch" />
 
       <Tabs tabs={['Usage', 'API', 'Playground']}>
-        <div className="markdown-body">
+        <Typography component="div">
           <SwitchMdx />
-        </div>
+        </Typography>
 
         <AutoDocs metadata={metadata} />
 

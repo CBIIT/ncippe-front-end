@@ -3,7 +3,20 @@ title: Select React component
 components: Select, NativeSelect
 ---
 
-import Example from '../../components/Example'
+import CodeExample from 'wix-storybook-utils/CodeExample'
+
+import ControlledOpenSelect from './examples/ControlledOpenSelect'
+import ControlledOpenSelectRaw from '!!raw-loader!./examples/ControlledOpenSelect'
+import CustomizedSelects from './examples/CustomizedSelects'
+import CustomizedSelectsRaw from '!!raw-loader!./examples/CustomizedSelects'
+import DialogSelect from './examples/DialogSelect'
+import DialogSelectRaw from '!!raw-loader!./examples/DialogSelect'
+import MultipleSelect from './examples/MultipleSelect'
+import MultipleSelectRaw from '!!raw-loader!./examples/MultipleSelect'
+import NativeSelects from './examples/NativeSelects'
+import NativeSelectsRaw from '!!raw-loader!./examples/NativeSelects'
+import SimpleSelect from './examples/SimpleSelect'
+import SimpleSelectRaw from '!!raw-loader!./examples/SimpleSelect'
 
 # Selects
 
@@ -13,14 +26,22 @@ import Example from '../../components/Example'
 
 Menus are positioned over their emitting elements such that the currently selected menu item appears on top of the emitting element.
 
-<Example path="Material-UI/selects/examples/SimpleSelect" />
+<div className='codeExample'>
+  <CodeExample code={SimpleSelectRaw}>
+    <SimpleSelect />
+  </CodeExample>
+</div>
 
 ## Native Select
 
 As the user experience can be improved on mobile using the native select of the platform,
 we allow such pattern.
 
-<Example path="Material-UI/selects/examples/NativeSelects" />
+<div className='codeExample'>
+  <CodeExample code={NativeSelectsRaw}>
+    <NativeSelects />
+  </CodeExample>
+</div>
 
 ## Customized selects
 
@@ -30,7 +51,11 @@ Here are some examples of customizing the component. You can learn more about th
 The first step is to style the `InputBase` component.
 Once it's styled, you can either use it directly as a text field or provide it to the select `input` property to have a `select` field.
 
-<Example path="Material-UI/selects/examples/CustomizedSelects" />
+<div className='codeExample'>
+  <CodeExample code={CustomizedSelectsRaw}>
+    <CustomizedSelects />
+  </CodeExample>
+</div>
 
 ## Multiple Select
 
@@ -39,17 +64,29 @@ It's enabled with the `multiple` property.
 
 Like with the single selection, you can pull out the new value by accessing `event.target.value` in the `onChange` callback. It's always an array.
 
-<Example path="Material-UI/selects/examples/MultipleSelect" />
+<div className='codeExample'>
+  <CodeExample code={MultipleSelectRaw}>
+    <MultipleSelect />
+  </CodeExample>
+</div>
 
 ## Controlled Open Select
 
-<Example path="Material-UI/selects/examples/ControlledOpenSelect" />
+<div className='codeExample'>
+  <CodeExample code={ControlledOpenSelectRaw}>
+    <ControlledOpenSelect />
+  </CodeExample>
+</div>
 
 ## With a Dialog
 
 While it's discouraged by the Material Design specification, you can use a select inside a dialog.
 
-<Example path="Material-UI/selects/examples/DialogSelect" />
+<div className='codeExample'>
+  <CodeExample code={DialogSelectRaw}>
+    <DialogSelect />
+  </CodeExample>
+</div>
 
 ## Text Fields
 

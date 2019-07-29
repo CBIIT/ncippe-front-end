@@ -11,6 +11,7 @@ import Header from '../../components/Header'
 import Button from './MuiButton'
 import ButtonMdx, { frontMatter } from './buttons.mdx';
 import metadata from 'raw-loader!metadata-loader!./MuiButton.js'
+import Typography from '@material-ui/core/Typography'
 
 storiesOf('Material UI/Inputs', module)
   .add('Buttons', () => (
@@ -18,9 +19,9 @@ storiesOf('Material UI/Inputs', module)
         <Header storyName="Buttons" subTitle={frontMatter.components} />
 
       <Tabs tabs={['Usage', 'API', 'Playground']}>
-        <div className="markdown-body">
+        <Typography component="div">
           <ButtonMdx />
-        </div>
+        </Typography>
 
         <AutoDocs metadata={metadata} />
 

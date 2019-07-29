@@ -3,7 +3,10 @@ title: Paper React component
 components: Paper
 ---
 
-import Example from '../../components/Example'
+import CodeExample from 'wix-storybook-utils/CodeExample'
+
+import PaperSheet from './examples/PaperSheet'
+import PaperSheetRaw from '!!raw-loader!./examples/PaperSheet'
 
 # Paper
 
@@ -11,4 +14,8 @@ import Example from '../../components/Example'
 
 The background of an application resembles the flat, opaque texture of a sheet of paper, and an application’s behavior mimics paper’s ability to be re-sized, shuffled, and bound together in multiple sheets.
 
-<Example path="Material-UI/paper/examples/PaperSheet" />
+<div className='codeExample'>
+  <CodeExample code={PaperSheetRaw}>
+    <PaperSheet />
+  </CodeExample>
+</div>

@@ -1,7 +1,7 @@
 import { configure, addParameters } from '@storybook/react';
 
 function loadStories() {
-  require('./stories.scss');
+  require('!!style-loader!css-loader!sass-loader!./stories.scss');
   require('../stories');
 }
 

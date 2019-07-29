@@ -3,7 +3,26 @@ title: Button React component
 components: Button, ButtonGroup, Fab, IconButton
 ---
 
-import Example from '../../components/Example'
+import CodeExample from 'wix-storybook-utils/CodeExample'
+
+import ButtonSizes from './examples/ButtonSizes'
+import ButtonSizesRaw from '!!raw-loader!./examples/ButtonSizes'
+import ContainedButtons from './examples/ContainedButtons'
+import ContainedButtonsRaw from '!!raw-loader!./examples/ContainedButtons'
+import FloatingActionButtons from './examples/FloatingActionButtons'
+import FloatingActionButtonsRaw from '!!raw-loader!./examples/FloatingActionButtons'
+import GroupedButtons from './examples/GroupedButtons'
+import GroupedButtonsRaw from '!!raw-loader!./examples/GroupedButtons'
+import IconButtons from './examples/IconButtons'
+import IconButtonsRaw from '!!raw-loader!./examples/IconButtons'
+import IconLabelButtons from './examples/IconLabelButtons'
+import IconLabelButtonsRaw from '!!raw-loader!./examples/IconLabelButtons'
+import OutlinedButtons from './examples/OutlinedButtons'
+import OutlinedButtonsRaw from '!!raw-loader!./examples/OutlinedButtons'
+import SplitButtons from './examples/SplitButtons'
+import SplitButtonsRaw from '!!raw-loader!./examples/SplitButtons'
+import TextButtons from './examples/TextButtons'
+import TextButtonsRaw from '!!raw-loader!./examples/TextButtons'
 
 # Buttons
 
@@ -24,7 +43,11 @@ are high-emphasis, distinguished by their use of elevation and fill.
 They contain actions that are primary to your app.
 
 The last example of this demo show how to use an upload button.
-<Example path="Material-UI/button/examples/ContainedButtons" />
+<div className='codeExample'>
+  <CodeExample code={ContainedButtonsRaw}>
+    <ContainedButtons />
+  </CodeExample>
+</div>
 
 ## Text Buttons
 
@@ -36,7 +59,11 @@ are typically used for less-pronounced actions, including those located:
 
 In cards, text buttons help maintain an emphasis on card content.
 
-<Example path="Material-UI/button/examples/TextButtons" />
+<div className='codeExample'>
+  <CodeExample code={TextButtonsRaw}>
+    <TextButtons />
+  </CodeExample>
+</div>
 
 ## Outlined Buttons
 
@@ -49,19 +76,31 @@ but aren’t the primary action in an app.
 Outlined buttons are also a lower emphasis alternative to contained buttons,
 or a higher emphasis alternative to text buttons.
 
-<Example path="Material-UI/button/examples/OutlinedButtons" />
+<div className='codeExample'>
+  <CodeExample code={OutlinedButtonsRaw}>
+    <OutlinedButtons />
+  </CodeExample>
+</div>
 
 ## Grouped Buttons
 
 The ButtonGroup component can be used to group outlined (the default) or contained buttons.
 
-<Example path="Material-UI/button/examples/GroupedButtons" />
+<div className='codeExample'>
+  <CodeExample code={GroupedButtonsRaw}>
+    <GroupedButtons />
+  </CodeExample>
+</div>
 
 ## Split Button
 
 ButtonGroup can also be used to create a split button. The dropdown can change the button action (as in this example), or be use to immediately trigger a related action.
 
-<Example path="Material-UI/button/examples/SplitButtons" />
+<div className='codeExample'>
+  <CodeExample code={SplitButtonsRaw}>
+    <SplitButtons />
+  </CodeExample>
+</div>
 
 ## Floating Action Buttons
 
@@ -74,7 +113,11 @@ Only use a FAB if it is the most suitable way to present a screen’s primary ac
 
 Only one floating action button is recommended per screen to represent the most common action.
 
-<Example path="Material-UI/button/examples/FloatingActionButtons" />
+<div className='codeExample'>
+  <CodeExample code={FloatingActionButtonsRaw}>
+    <FloatingActionButtons />
+  </CodeExample>
+</div>
 
 The floating action button animates onto the screen as an expanding piece of material, by default.
 
@@ -82,13 +125,21 @@ The floating action button animates onto the screen as an expanding piece of mat
 
 Fancy larger or smaller buttons? Use the `size` property.
 
-<Example path="Material-UI/button/examples/ButtonSizes" />
+<div className='codeExample'>
+  <CodeExample code={ButtonSizesRaw}>
+    <ButtonSizes />
+  </CodeExample>
+</div>
 
 ## Buttons with icons and label
 
 Sometimes you might want to have icons for certain button to enhance the UX of the application as we recognize logos more easily than plain text. For example, if you have a delete button you can label it with a dustbin icon.
 
-<Example path="Material-UI/button/examples/IconLabelButtons" />
+<div className='codeExample'>
+  <CodeExample code={IconLabelButtonsRaw}>
+    <IconLabelButtons />
+  </CodeExample>
+</div>
 
 ## Icon Buttons
 
@@ -97,4 +148,8 @@ Icon buttons are commonly found in app bars and toolbars.
 Icons are also appropriate for toggle buttons that allow a single choice to be selected or
 deselected, such as adding or removing a star to an item.
 
-<Example path="Material-UI/button/examples/IconButtons" />
+<div className='codeExample'>
+  <CodeExample code={IconButtonsRaw}>
+    <IconButtons />
+  </CodeExample>
+</div>

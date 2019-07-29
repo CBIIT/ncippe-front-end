@@ -3,7 +3,18 @@ title: Card React component
 components: Card, CardActionArea, CardActions, CardContent, CardHeader, CardMedia, Collapse, Paper
 ---
 
-import Example from '../../components/Example'
+import CodeExample from 'wix-storybook-utils/CodeExample'
+
+import ImgMediaCard from './examples/ImgMediaCard'
+import ImgMediaCardRaw from '!!raw-loader!./examples/ImgMediaCard'
+import MediaCard from './examples/MediaCard'
+import MediaCardRaw from '!!raw-loader!./examples/MediaCard'
+import MediaControlCard from './examples/MediaControlCard'
+import MediaControlCardRaw from '!!raw-loader!./examples/MediaControlCard'
+import RecipeReviewCard from './examples/RecipeReviewCard'
+import RecipeReviewCardRaw from '!!raw-loader!./examples/RecipeReviewCard'
+import SimpleCard from './examples/SimpleCard'
+import SimpleCardRaw from '!!raw-loader!./examples/SimpleCard'
 
 # Cards
 
@@ -17,23 +28,39 @@ They should be easy to scan for relevant and actionable information. Elements, l
 
 Although cards can support multiple actions, UI controls, and an overflow menu, use restraint and remember that cards are entry points to more complex and detailed information.
 
-<Example path="Material-UI/cards/examples/SimpleCard" />
+<div className='codeExample'>
+  <CodeExample code={SimpleCardRaw}>
+    <SimpleCard />
+  </CodeExample>
+</div>
 
 ## Complex Interaction
 
 On desktop, card content can expand.
 
-<Example path="Material-UI/cards/examples/RecipeReviewCard" />
+<div className='codeExample'>
+  <CodeExample code={RecipeReviewCardRaw}>
+    <RecipeReviewCard />
+  </CodeExample>
+</div>
 
 ## Media
 
 Example of a card using an image to reinforce the content.
 
-<Example path="Material-UI/cards/examples/MediaCard" />
+<div className='codeExample'>
+  <CodeExample code={MediaCardRaw}>
+    <MediaCard />
+  </CodeExample>
+</div>
 
 By default, we use the combination of a `<div>` element and a *background image* to display the media. It can be problematic in some situations. For instance, you might want to display a video or a responsive image. Use the `component` property for these use cases:
 
-<Example path="Material-UI/cards/examples/ImgMediaCard" />
+<div className='codeExample'>
+  <CodeExample code={ImgMediaCardRaw}>
+    <ImgMediaCard />
+  </CodeExample>
+</div>
 
 > ⚠️ When `component="img"`, CardMedia relies on `object-fit` for centering the image. It's not supported by IE 11.
 
@@ -43,4 +70,8 @@ Supplemental actions within the card are explicitly called out using icons, text
 
 Here's an example of a media control card.
 
-<Example path="Material-UI/cards/examples/MediaControlCard" />
+<div className='codeExample'>
+  <CodeExample code={MediaControlCardRaw}>
+    <MediaControlCard />
+  </CodeExample>
+</div>

@@ -11,16 +11,17 @@ import Header from '../../components/Header'
 import Menu from './MuiMenu'
 import MenuMdx, { frontMatter } from './menus.mdx';
 import metadata from 'raw-loader!metadata-loader!./MuiMenu.js'
+import Typography from '@material-ui/core/Typography'
 
 storiesOf('Material UI/Navigation', module)
   .add('Menu', () => (
     <MainContainer>
-        <Header storyName="Menu" />
+      <Header storyName="Menu" />
 
       <Tabs tabs={['Usage', 'API', 'Playground']}>
-        <div className="markdown-body">
+        <Typography component="div">
           <MenuMdx />
-        </div>
+        </Typography>
 
         <AutoDocs metadata={metadata} />
 
