@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "engines": {
     "node": ">=10.16.0",
-    "yarn": "1.17.x"
+    "npm": "6.9.x"
   },
   "private": true,
   "dependencies": {
@@ -28,7 +28,10 @@
     "mock": "json-server --watch src/data/mockData.json --port 5000 --routes routes.json"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "import/no-webpack-loader-syntax": "off"
+    }
   },
   "browserslist": {
     "production": [
@@ -57,10 +60,10 @@
     "material-ui-popup-state": "^1.4.0",
     "raw-loader": "^3.0.0",
     "react-autodocs-utils": "^3.5.0",
-    "react-loadable": "^5.5.0",
     "react-number-format": "^4.0.8",
     "react-text-mask": "^5.4.3",
     "stringify-object": "^3.3.0",
+    "webpack-bundle-analyzer": "^3.3.2",
     "wix-storybook-utils": "^3.0.7",
     "yoshi-style-dependencies": "^4.6.0"
   },

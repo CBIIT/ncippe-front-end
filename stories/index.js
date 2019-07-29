@@ -5,6 +5,9 @@
  */
 
 require('./Introduction')
+require('../src/components/inputs/PhoneNumber/phoneNumber.stories')
+require('../src/components/inputs/EmailOption/emailOption.stories')
+require('../src/components/Profile/profile.stories')
 require('./Material-UI/button/button.stories')
 require('./Material-UI/checkboxes/checkboxes.stories')
 require('./Material-UI/radio-buttons/radio-buttons.stories')
