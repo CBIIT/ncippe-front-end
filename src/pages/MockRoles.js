@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 
-import LoginContext from '../context/login'
+import { LoginConsumer } from '../components/login/SharedLogin/Login.context'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,56 +15,62 @@ const useStyles = makeStyles(theme => ({
 
   },
   largeButton: {
-    fontSize: '6vw',
+    fontSize: '3vw',
     width: '70vw',
-    marginBottom: '4vw'
+    marginBottom: '4vw',
+    textTransform: "none"
   }
 }))
 
 
 const MockRoles = (props) => {
   const classes = useStyles()
-  const login = useContext(LoginContext)
-  const [isAuth, setIsAuth] = useState(login.auth)
-  const [user, setUser] = useState(login.role)
+  const [users, setUsers] = useState()
 
-  const assignRole = (event) => {
-    const role = event.currentTarget.dataset.role;
-    fetch(`/api/users?id=${role}`)
-    .then(resp => resp.json())
-    .then(data => {
-      // console.log("Dashboard fetch:", data)
-      setUser(data[0])
-      login.toggleAuth()
-      login.role = role
-      props.history.push('/dashboard')
-    })
-    .catch(error => {
-      console.error('Error:', error)
-    })
-  }
-  const clearRole = (event) => {
-    login.toggleAuth()
-    login.role = 'public'
-    setIsAuth(login.auth)
-  }
+  // Fetch mock users on ComponentDidMount
+  useEffect(() => {
+    //fetch mock users list
+    async function fetchMockUsers(){
+      const mockUsers = await fetch(`/api/mockUsers`)
+        .then(resp => resp.json())
+        .then(data => data)
+        .catch(error => {
+          console.error('Error:', error)
+        })
+
+      const url = `/api/users?userGUID=${mockUsers.join('&userGUID=')}`
+
+      // fetch data for each mock user
+      await fetch(url)
+        .then(resp => resp.json())
+        .then(data => {
+          setUsers(data)
+        })
+        .catch(error => {
+          console.error('Error:', error)
+        })
+    }
+    fetchMockUsers()
+  }, [])
+
   return (
     <div className={classes.root}>
-      {!isAuth && (
-        <>
-        <Button variant='contained' className={classes.largeButton} onClick={assignRole} data-role="patient">Patient</Button>
-        <Button variant='contained' className={classes.largeButton} onClick={assignRole} data-role="provider">Provider</Button>
-        <Button variant='contained' className={classes.largeButton} onClick={assignRole} data-role="crc">CRC</Button>
-        <Button variant='contained' className={classes.largeButton} onClick={assignRole} data-role="bssc">BSSC</Button>
-        </>
-      )}
+      <LoginConsumer>
+        {({auth, role, assignRole, clearRole, firstName, lastName}) => {
+          return auth ? (
+            <>
+              <Button variant="contained" className={classes.largeButton} onClick={()=>props.history.push('/dashboard')}>Return to Dashboard as {firstName} {lastName} ({role})</Button>
+              <Button variant="contained" className={classes.largeButton} color="primary" onClick={clearRole}>Clear Role as {firstName} {lastName} ({role})</Button>
+            </>
+          ) : (
+            <>
+            {users && users.map(user => <Button key={user.userGUID} variant='contained' className={classes.largeButton} onClick={() => {assignRole(user,'/dashboard');props.history.push('/dashboard')}} data-role={user.role}>{user.firstName} {user.lastName} ({user.roleName})</Button>)}
+            {!users && <h3>Error: Unable to retrieve mock users</h3>}
+            </>
 
-      {isAuth && (
-        <>
-          <Button variant="contained" className={classes.largeButton} onClick={()=>props.history.push('/dashboard')}>Return to Dashboard as {login.role}</Button>
-          <Button variant="contained" className={classes.largeButton} color="primary" onClick={clearRole}>Clear Role as {login.role}</Button>
-        </>
-      )}
+          )
+        }}
+      </LoginConsumer>
     </div>
   )
 }
