@@ -25,7 +25,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "mock": "json-server --watch src/data/mockData.json --port 5000 --routes routes.json"
+    "mock": "json-server --watch src/data/mockData.json --port 5000 --routes ./routes.json --middlewares ./server_singular.js"
   },
   "eslintConfig": {
     "extends": "react-app",

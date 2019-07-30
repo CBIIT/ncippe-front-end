@@ -1,3 +1,4 @@
 {
+  "/api/users/:guid": "/users?userGUID=:guid&singular=1",
   "/api/*": "/$1"
 }
