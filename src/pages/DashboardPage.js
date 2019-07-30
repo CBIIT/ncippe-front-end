@@ -30,17 +30,19 @@ export default () => {
   return (
     <Box my={6} mx={0}>
       <Container>
-          <LoginConsumer>
-          {({firstName, lastName}) => {
-            return (
-              <Box my={6} mx={0}>
-                <Typography variant='h3' component='h1' gutterBottom>Welcome, {firstName} {lastName}</Typography>
-                <Typography>Thank you for joining the Cancer Moonshot Bitobank Program!</Typography>
-              </Box>
-            )
-          }}
-          </LoginConsumer>
+        <LoginConsumer>
+        {({firstName, lastName}) => {
+          return (
+            <Box my={6} mx={0}>
+              <Typography variant='h3' component='h1' gutterBottom>Welcome, {firstName} {lastName}</Typography>
+              <Typography>Thank you for joining the Cancer Moonshot Bitobank Program!</Typography>
+            </Box>
+          )
+        }}
+        </LoginConsumer>
         <Grid container className={classes.grid} spacing={2}>
+
+          {/* User Profile */}
           <Grid item>
             <Route render={({ history }) => (
               <Card className={classes.card} onClick={()=>{history.push('/dashboard/profile')}}>
@@ -51,6 +53,8 @@ export default () => {
               </Card>
             )} />
           </Grid>
+          {/* END: User Profile */}
+          
         </Grid>
       </Container>
     </Box>
