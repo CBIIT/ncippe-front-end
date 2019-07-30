@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { FormControl, TextField, Paper, Typography, Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import EditIcon from '@material-ui/icons/Edit';
 
 import { LoginContext } from '../../components/login/SharedLogin/Login.context'
 import PhoneNumbner from '../inputs/PhoneNumber/PhoneNumber'
@@ -11,14 +12,26 @@ import { getBool, formatPhoneNumber } from '../../utils/utils'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
     padding: theme.spacing(3, 2)
+  },
+  form: {
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column'
   },
   formControl: {
     margin: theme.spacing(1),
     minWidth: '200px'
   },
+  editButton: {
+    position: 'absolute',
+    top: 0,
+    right: 0
+  },
+  cta: {
+    display: 'flex',
+    flexDirection: 'row'
+  }
 }))
 
 // add edit button to toggle editMode state
@@ -28,55 +41,131 @@ const useStyles = makeStyles(theme => ({
 
 const Profile = (props) => {
   const classes = useStyles()
-  // const [editMode, setEditMode] = React.useState(false)
+  const [editMode, setEditMode] = useState(false)
+  const [errorPhone, setErrorPhone] = useState(false)
   // set the initial state of the email to prevent error while user data is being fetched
-  const [userProfile, setUserProfile] = React.useState({
-    email: ''
+  const [userProfile, setUserProfile] = useState({
+    email: '',
+    phoneNumber: '',
+    allowEmailNotification: true
   })
-  const login = React.useContext(LoginContext)
+  const [userPhone, setUserPhone] = useState('')
+  const [userOptIn, setUserOptIn] = useState(true)
+  const login = useContext(LoginContext)
 
   // fetch profile data for the logged in user
-  React.useEffect(() => {
-    fetch(`/api/users?userGUID=${login.userId}`)
+  useEffect(() => {
+    fetch(`/api/users/${login.userGUID}`)
       .then(resp => resp.json())
       .then(data => {
-        //format "phoneNumber" field
-        //convert "allowEmailNotification" to boolean
         const userData = {
-          ...data[0],
-          allowEmailNotification: getBool(data[0].allowEmailNotification),
-          phoneNumber: formatPhoneNumber(data[0].phoneNumber)
+          ...data,
+          allowEmailNotification: getBool(data.allowEmailNotification), //convert "allowEmailNotification" to boolean
+          phoneNumber: formatPhoneNumber(data.phoneNumber), //format "phoneNumber" field
         }
         setUserProfile(userData)
+        // create phone and email states in case user cancels form updates - revert values
+        setUserPhone(userData.phoneNumber)
+        setUserOptIn(userData.allowEmailNotification)
       })
   }, [])
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const phoneNumber = event.target['phone-number-input'].value || ''
+    // pattern must be a valid phone number or empty input mask pattern
+    const phonePattern = /\([2-9]\d{2}\)\s?[2-9]\d{2}-\d{4}|\(\s{3}\)\s{4}-\s{4}/
+
+    const valid = phonePattern.test(phoneNumber)
+    setErrorPhone(!valid)
+    if(valid) {
+      const data = {
+        phoneNumber,
+        allowEmailNotification: event.target['notifications-input'].checked
+      }
+      fetch(`/users/${login.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(res => {
+        if(res.ok) {
+          toggleEditMode()
+        } else {
+          console.error('Error:', `${res.status}: ${res.statusText}`)
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    }
+  }
+
+  const cancelEdit = (event) => {
+    //restore user context
+    setUserPhone(userProfile.phoneNumber)
+    setUserOptIn(userProfile.allowEmailNotification)
+
+    toggleEditMode()
+  }
+
+  const updatePhoneNumber = (number) => {
+    setUserPhone(number)
+  }
+  
+  const updateEmailOption = () => {
+    setUserOptIn(!userOptIn)
+  }
+
+
+  const toggleEditMode = () => setEditMode(!editMode)
+
   return (
     <Paper className={classes.root}>
-      <Button className={classes.edit}>Edit</Button>
-      <Typography variant="h2" gutterBottom>
-        {userProfile.firstName} {userProfile.lastName}
-      </Typography>
-      <Typography>
-        Your contact information
-      </Typography>
-      <FormControl className={classes.formControl}>
-        <TextField
-          id="email"
-          label="Email"
-          value={userProfile.email}
-          placeholder="email"
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-      </FormControl>
-      <PhoneNumbner value={userProfile.phoneNumber} editMode />
-      <EmailOption value={userProfile.allowEmailNotification} editMode />
+      <form className={classes.form} onSubmit={handleSubmit}>
+        {/* todo: pencil icon and text button */}
+        {!editMode && (
+          <Button 
+            className={classes.editButton} 
+            variant="text" 
+            color="primary"
+            onClick={toggleEditMode}
+          >
+            <EditIcon/> Edit
+          </Button>
+        )}
+        <Typography variant="h2" gutterBottom>
+          {userProfile.firstName} {userProfile.lastName}
+        </Typography>
+        <Typography>
+          Your contact information
+        </Typography>
+        <FormControl className={classes.formControl}>
+          <TextField
+            id="email"
+            label="Email"
+            disabled
+            value={userProfile.email}
+            placeholder="email"
+            margin="normal"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+        </FormControl>
+        <PhoneNumbner value={userPhone} editMode={editMode} error={errorPhone} onChange={updatePhoneNumber} />
+        <EmailOption value={userOptIn} editMode={editMode} onClick={updateEmailOption} />
+        {editMode && (
+          <FormControl className={`${classes.formControl} ${classes.cta}`} >
+            <Button type="submit" variant="contained" color="primary">Save</Button>
+            <Button variant="text" onClick={cancelEdit} color="primary">Cancel</Button>
+          </FormControl>
+        )}
+      </form>
     </Paper>
   )
 }

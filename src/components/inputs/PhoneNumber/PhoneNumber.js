@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MaskedInput from 'react-text-mask';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -43,13 +43,13 @@ TextMaskCustom.propTypes = {
   inputRef: PropTypes.func.isRequired,
 };
 
-const PhoneNumber = ({value,editMode}) => {
+const PhoneNumber = ({ value, editMode, error = false, onChange }) => {
   const classes = useStyles();
-  const [phoneNum, setPhoneNum] = React.useState({
+  const [phoneNum, setPhoneNum] = useState({
     textmask: value || '(   )    -    '
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     setPhoneNum({
       textmask: value
     })
@@ -60,12 +60,23 @@ const PhoneNumber = ({value,editMode}) => {
       ...phoneNum,
       [name]: event.target.value,
     });
+    // alert parent component to change
+    if (onChange) {
+      onChange(event.target.value)
+    }
   };
 
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel htmlFor="phone-number-input" shrink>Phone number (optional)</InputLabel>
+      <InputLabel 
+        htmlFor="phone-number-input" 
+        shrink 
+        error={error}
+      >
+        Phone number (optional)
+      </InputLabel>
       <Input
+        error={error}
         value={phoneNum.textmask}
         onChange={handleChange('textmask')}
         id="phone-number-input"

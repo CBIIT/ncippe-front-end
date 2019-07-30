@@ -1,46 +1,47 @@
-import React from 'react'
+import React, { createContext, useState } from 'react'
 
-export const LoginContext = React.createContext()
+export const LoginContext = createContext()
 
+const userDataDefaults = {
+  auth: false,
+  role: 'public',
+  firstName: '',
+  lastName: '',
+  userGUID: null,
+  id: null
+}
+// TODO: add useReducer
 export const LoginProvider = (props) => {
-  const [auth, setAuth] = React.useState(false)
-  const [role, setRole] = React.useState('public')
-  const [firstName,setFirstName] = React.useState('')
-  const [lastName,setLastName] = React.useState('')
-  const [userId,setUserId] = React.useState()
+  const [userData,setUserData] = useState({
+    ...userDataDefaults
+  })
   const handleClick = (event) => {
-    if(auth){
+    if(userData.auth){
       clearRole()
     } else {
       alert("Login screens not available at this time")
       console.log("future login screen")
     }
   }
-  const assignRole = (userData) => {
-    // console.log("assignRole", userData)
-    setAuth(true);
-    setRole(userData.roleName)
-    setFirstName(userData.firstName)
-    setLastName(userData.lastName)
-    setUserId(userData.userGUID)
+  const assignRole = (data) => {
+    setUserData(
+      {
+        auth: true,
+        ...data
+      }
+    )
   }
 
   const clearRole = () => {
-    setAuth(false)
-    setRole('public')
-    setFirstName('')
-    setLastName('')
-    setUserId(null)
+    setUserData({
+      ...userDataDefaults
+    })
   }
 
   return (
     <LoginContext.Provider 
       value={{
-        auth,
-        firstName,
-        lastName,
-        userId,
-        role,
+        ...userData,
         handleClick,
         assignRole: (userData) => assignRole(userData),
         clearRole
