@@ -162,17 +162,19 @@
   ],
   "users": [
     {
+      "id": 0,
       "userName": "SmJoe",
       "firstName": "Joe",
       "lastName": "Smith",
       "email": "joe.smith@mycomapny.com",
       "userGUID": "1q2w3e4r",
-      "phoneNumber": "1234567890",
-      "allowEmailNotification": "1",
+      "phoneNumber": "(215) 345-3453",
+      "allowEmailNotification": true,
       "userType": "1",
       "roleName": "Provider"
     },
     {
+      "id": 1,
       "userName": "HaTom",
       "firstName": "Tom",
       "lastName": "Hanks",
@@ -184,13 +186,14 @@
       "roleName": "Patient"
     },
     {
+      "id": 2,
       "userName": "PoHar",
       "firstName": "Harry",
       "lastName": "Potter",
       "email": "harry.potter@mycomapny.com",
       "userGUID": "123zxc456rty",
-      "phoneNumber": "1357924680",
-      "allowEmailNotification": "0",
+      "phoneNumber": "(357) 924-6804",
+      "allowEmailNotification": true,
       "userType": "1",
       "roleName": "Admin"
     }

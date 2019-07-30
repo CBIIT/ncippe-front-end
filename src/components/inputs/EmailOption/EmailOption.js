@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,19 +17,38 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const EmailOption = ({value, editMode}) => {
+const EmailOption = ({value, editMode, onClick}) => {
   const classes = useStyles()
-  const [checked, setChecked] = React.useState(value)
-  React.useEffect(() => {
+  const [checked, setChecked] = useState(value)
+
+  useEffect(() => {
+    console.log("new value is:", value)
     setChecked(value)
+    return setChecked(value)
   }, [value])
+
+  const handleChange = () => {
+    setChecked(!checked)
+    if(onClick) {
+      // alert parent component to change
+      onClick(!checked)
+    }
+  }
+
   return (
     <FormControl component="fieldset" className={classes.formControl}>
-      <FormLabel component="legend" className={classes.formLegend}>Notification settings</FormLabel>
+      <FormLabel 
+      htmlFor="notifications-input" 
+      component="legend" 
+      className={classes.formLegend}>Notification settings</FormLabel>
       {editMode ? (
         <FormControlLabel
           control={
-            <Checkbox color="primary" checked={checked} onChange={() => setChecked(!checked)} />
+            <Checkbox 
+            id="notifications-input"
+            color="primary" 
+            checked={checked} 
+            onChange={handleChange} />
           }
           label="Send email notifications (recommended)"
           labelPlacement="end"
