@@ -10,6 +10,10 @@ const port = process.env.PORT || 5000;
 
 server.use(middlewares)
 server.use(singularMiddleware)
-server.use('/api', router)
+server.use(jsonServer.rewriter({
+  '/api/users/:guid': '/users?userGUID=:guid&singular=1',
+  '/api/*': '/$1'
+}));
+server.use(router)
 
 server.listen(port,(req, res) => console.log( `server listening on port: ${port}`));
