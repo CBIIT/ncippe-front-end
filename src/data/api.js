@@ -19,7 +19,7 @@ async function fetchMockUsersLocal(){
 
 async function fetchMockUsersProd(){
   // fetch data for each mock user - this will fetch ALL users :(
-  return await fetch(`//10.162.15.252:8080/v1/users`)
+  return await fetch(`//13.58.241.22:8080/v1/users`)
     .then(resp => resp.json())
     .catch(error => {
       console.error('Error:', error)
@@ -41,7 +41,7 @@ async function fetchTokenLocal({userName, firstName, lastName, roleName}){
 async function fetchTokenProd({userName, firstName, lastName, roleName}){
   // get mock user id list
   // userName, role, firstName, lastName as querystring
-  return await fetch(`//10.5.62.42:8080/v1/login?userName=${userName}&firstName=${firstName}&lastName=${lastName}&roleName=${roleName}`)
+  return await fetch(`//13.58.241.22:8080/v1/login?userName=${userName}&firstName=${firstName}&lastName=${lastName}&roleName=${roleName}`)
     .then(resp => resp.json())
     .catch(error => {
       console.error('Error:', error)
@@ -50,8 +50,9 @@ async function fetchTokenProd({userName, firstName, lastName, roleName}){
 
 /*=======================================================================*/
 
-async function fetchUserLocal({userGUID}){
+async function fetchUserLocal({userGUID, token}){
   // get mock user id list
+  console.log("userData sent to server:", `\nuserGUID: ${userGUID}`, `\ntoken: ${token}`)
   return await fetch(`/api/users/${userGUID}`)
     .then(resp => resp.json())
     .catch(error => {
@@ -59,9 +60,15 @@ async function fetchUserLocal({userGUID}){
     })
 }
 
-async function fetchUserProd({userGUID}){
+async function fetchUserProd({userGUID, token}){
   // get mock user id list
-  return await fetch(`//10.5.62.42:8080/v1/user/${userGUID}`)
+  return await fetch(`//13.58.241.22:8080/v1/user/${userGUID}`,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+  })
     .then(resp => resp.json())
     .catch(error => {
       console.error('Error:', error)
@@ -93,7 +100,7 @@ async function updateUserLocal({userGUID, data}){
 
 async function updateUserProd({userGUID, data}){
   // get mock user id list
-  return await fetch(`//10.5.62.42:8080/v1/user/${userGUID}`,{
+  return await fetch(`//13.58.241.22:8080/v1/user/${userGUID}`,{
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
