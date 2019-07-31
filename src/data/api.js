@@ -77,8 +77,9 @@ async function fetchUserProd({userGUID, token}){
 
 /*=======================================================================*/
 
-async function updateUserLocal({userGUID, data}){
+async function updateUserLocal({userGUID, data, token}){
   // get mock user id list
+  console.log("userData sent to server:", `\nuserGUID: ${userGUID}`, `\ndata: ${JSON.stringify(data)}`, `\ntoken: ${token}`)
   return await fetch(`/users/${userGUID}`,{
       method: 'PATCH',
       headers: {
@@ -98,12 +99,13 @@ async function updateUserLocal({userGUID, data}){
     })
 }
 
-async function updateUserProd({userGUID, data}){
+async function updateUserProd({userGUID, data, token}){
   // get mock user id list
   return await fetch(`//13.58.241.22:8080/v1/user/${userGUID}`,{
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': token
       },
       body: JSON.stringify(data)
     })
