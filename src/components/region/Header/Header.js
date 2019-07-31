@@ -1,6 +1,5 @@
 import React from 'react';
 import { 
-  Button,
   Container,
   Link,
   Typography, 
@@ -28,11 +27,8 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const Header = (props) => {
+const Header = () => {
   const classes = useStyles()
-  const handleLogin = (event) => {
-    console.log("Event: Future Login screen triggered")
-  }
   return (
     <Typography component="header">
       <Container className={classes.appToolbarContainer}>

@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 
 import { FormControl, TextField, Paper, Typography, Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -56,8 +55,9 @@ const Profile = (props) => {
 
   // fetch profile data for the logged in user
   useEffect(() => {
-    const {userGUID, token} = loginContext
-    api[loginContext.env].fetchUser({userGUID, token})
+    const {userGUID, token, env} = loginContext
+    // fetch call
+    api[env].fetchUser({userGUID, token})
       .then(data => {
         const userData = {
           ...data,
@@ -85,9 +85,9 @@ const Profile = (props) => {
         phoneNumber,
         allowEmailNotification: event.target['notifications-input'].checked ? "1" : "0"
       }
-      const userGUID = loginContext.env === 'local' ? loginContext.id : loginContext.userGUID
-      const { token } = loginContext
-      api[loginContext.env].updateUser({userGUID, token, data})
+      const { token, env } = loginContext
+      const userGUID = env === 'local' ? loginContext.id : loginContext.userGUID
+      api[env].updateUser({userGUID, token, data})
         .then(res => {
           if(res === true) {
             toggleEditMode()
