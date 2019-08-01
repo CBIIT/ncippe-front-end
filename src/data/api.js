@@ -19,8 +19,9 @@ async function fetchMockUsersLocal(){
 
 async function fetchMockUsersProd(){
   // fetch data for each mock user - this will fetch ALL users :(
-  return await fetch(`//13.58.241.22:8080/v1/users`)
+  return await fetch(`/api/v1/users`)
     .then(resp => resp.json())
+    .then(resp => resp.User)
     .catch(error => {
       console.error('Error:', error)
     })
@@ -30,7 +31,7 @@ async function fetchMockUsersProd(){
 
 async function fetchTokenLocal({userName, firstName, lastName, roleName}){
   // get mock user id list
-  console.log("userData sent to server:", `\nuserName: ${userName}`, `\nfirstName: ${firstName}`, `\nlastName: ${lastName}`, `\nroleName: ${roleName}`)
+  console.log("userData sent to server:", `\nusername: ${userName}`, `\nfirstname: ${firstName}`, `\nlastname: ${lastName}`, `\nrolename: ${roleName}`)
   return await fetch(`/api/token?singular=1`)
     .then(resp => resp.json())
     .catch(error => {
@@ -41,7 +42,9 @@ async function fetchTokenLocal({userName, firstName, lastName, roleName}){
 async function fetchTokenProd({userName, firstName, lastName, roleName}){
   // get mock user id list
   // userName, role, firstName, lastName as querystring
-  return await fetch(`//13.58.241.22:8080/v1/login?userName=${userName}&firstName=${firstName}&lastName=${lastName}&roleName=${roleName}`)
+  return await fetch(`/api/v1/login?username=${userName}&firstname=${firstName}&lastname=${lastName}&rolename=${roleName}`,{
+    method: "POST"
+  })
     .then(resp => resp.json())
     .catch(error => {
       console.error('Error:', error)
@@ -62,14 +65,14 @@ async function fetchUserLocal({userGUID, token}){
 
 async function fetchUserProd({userGUID, token}){
   // get mock user id list
-  return await fetch(`//13.58.241.22:8080/v1/user/${userGUID}`,{
-    method: 'POST',
+  return await fetch(`/api/v1/user/${userGUID}`,{
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token
     }
   })
     .then(resp => resp.json())
+    .then(resp => resp.User)
     .catch(error => {
       console.error('Error:', error)
     })
@@ -87,8 +90,8 @@ async function updateUserLocal({userGUID, data, token}){
       },
       body: JSON.stringify(data)
     })
-    .then(res => {
-      if(res.ok) {
+    .then(resp => {
+      if(resp.ok) {
         return true
       } else {
         return new Error(`Sorry, we were unable to save your changes at this time. Please try again.`)
@@ -101,16 +104,16 @@ async function updateUserLocal({userGUID, data, token}){
 
 async function updateUserProd({userGUID, data, token}){
   // get mock user id list
-  return await fetch(`//13.58.241.22:8080/v1/user/${userGUID}`,{
-      method: 'PATCH',
+  const {phoneNumber, allowEmailNotification} = data
+  return await fetch(`/api/v1/user/${userGUID}?phoneNumber=${phoneNumber}&allowEmailNotification=${allowEmailNotification}`,{
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': token
-      },
-      body: JSON.stringify(data)
+      }
     })
-    .then(res => {
-      if(res.ok) {
+    .then(resp => {
+      if(resp.ok) {
         return true
       } else {
         return new Error(`Sorry, we were unable to save your changes at this time. Please try again.`)
