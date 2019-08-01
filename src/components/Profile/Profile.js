@@ -81,8 +81,9 @@ const Profile = (props) => {
     const valid = phonePattern.test(phoneNumber)
     setErrorPhone(!valid)
     if(valid) {
+      const cleanPhoneNumber = phoneNumber.replace(/\D*/g,"") // remove formatting and just send numbers
       const data = {
-        phoneNumber,
+        phoneNumber: cleanPhoneNumber,
         allowEmailNotification: event.target['notifications-input'].checked ? "1" : "0"
       }
       const { token, env } = loginContext
@@ -91,6 +92,7 @@ const Profile = (props) => {
         .then(res => {
           if(res === true) {
             toggleEditMode()
+            // TODO: update context with valid changes - cancel button will revert number to original state after more than one save
           } else {
             alert(res.message)
           }
