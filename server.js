@@ -11,7 +11,7 @@ const port = process.env.PORT || 5000;
 server.use(middlewares)
 server.use(singularMiddleware)
 server.use(jsonServer.rewriter({
-  '/api/users/:guid': '/users?userGUID=:guid&singular=1',
+  '/api/users/:userName': '/users?userName=:userName&singular=1',
   '/api/*': '/$1'
 }));
 server.use(router)

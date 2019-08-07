@@ -1,25 +1,52 @@
-import React, { useContext } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
-
+import React from 'react'
+import { Location, Router, Redirect } from '@reach/router'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import NotFoundPage from '../pages/NotFoundPage'
 import HomePage from '../pages/HomePage'
 import DashboardPage from '../pages/DashboardPage'
+import NotificationsPage from '../pages/NotificationsPage'
+import TestResultsPage from '../pages/TestResultsPage'
+import ConsentPage from '../pages/ConsentPage'
 import ProfilePage from '../pages/ProfilePage'
+import GetHelpPage from '../pages/GetHelpPage'
 
-import { LoginContext } from '../components/login/SharedLogin/Login.context'
+import { LoginConsumer } from '../components/login/SharedLogin/Login.context'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const login = useContext(LoginContext)
-  return <Route {...rest} component={props => (login.auth ? <Component {...props} /> : <Redirect to='/' />)} />
+  return (
+    <LoginConsumer>
+      {([state]) => {
+        return state.auth ? <Component {...rest} /> : <Redirect from="" to="/" noThrow />
+      }}
+    </LoginConsumer>
+  )
 }
 
 export default () => (
-  <Switch>
-    <Route path='/' component={HomePage} exact={true} />
-    {/* <Route path='/article/:id' component={ArticlePage} exact={true} /> */}
-    <PrivateRoute path='/dashboard' component={DashboardPage} exact={true} />
-    <PrivateRoute path='/dashboard/profile' component={ProfilePage} exact={true} />
-    <Route component={NotFoundPage} />
-  </Switch>
+  <Location>
+    {({ location }) => (
+      <>
+      <TransitionGroup>
+        <CSSTransition 
+          key={location.key}
+          timeout={location.pathname.match(/\/dashboard\//) ? 350 : 550}
+          classNames={location.pathname.match(/\/dashboard\//) ? 'zoom' : 'fade'}
+        >
+          <Router location={location} primary={false}>
+            <HomePage path='/' />
+            <PrivateRoute path='/dashboard' component={DashboardPage} />
+            <PrivateRoute path='/dashboard/notifications' component={NotificationsPage} />
+            <PrivateRoute path='/dashboard/consent' component={ConsentPage} />
+            <PrivateRoute path='/dashboard/test-results' component={TestResultsPage} />
+            <PrivateRoute path='/dashboard/test-results/:userName' component={TestResultsPage} />
+            <PrivateRoute path='/dashboard/profile' component={ProfilePage} />
+            <PrivateRoute path='/dashboard/help' component={GetHelpPage} />
+            <NotFoundPage default />
+          </Router>
+        </CSSTransition>
+      </TransitionGroup>
+      </>
+    )}
+  </Location>
 )

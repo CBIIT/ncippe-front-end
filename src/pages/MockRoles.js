@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { withRouter } from 'react-router-dom'
+import { navigate } from '@reach/router'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 const MockRoles = (props) => {
   const classes = useStyles()
   const [users, setUsers] = useState()
-  const loginContext = useContext(LoginContext)
+  const [loginContext, dispatch] = useContext(LoginContext)
 
   // Fetch mock users on ComponentDidMount
   useEffect(() => {
@@ -37,39 +37,40 @@ const MockRoles = (props) => {
     })
   }, [])
 
-  const goToDashboard = () => {
-    props.history.push('/dashboard')
-  }
-
   const mockLogin = user => event => {
     // get token
-    const {userName, firstName, lastName, roleName} = user;
+    const {userName, firstName, lastName, roleName, userGUID} = user;
     api[loginContext.env].fetchToken({userName, firstName, lastName, roleName})
-      .then(res => {
+      .then(resp => {
         // token fetch was successful, update context with user information
-        loginContext.update({
-          ...res,
-          auth: true,
-          ...user
+        dispatch({
+          type: 'update',
+          userData: {
+            ...resp,
+            auth: true,
+            userName,
+            userGUID
+          }
         })
 
         // redirect to dashboard
-        goToDashboard()
+        navigate('/dashboard') 
       })
   }
 
   return (
     <div className={classes.root}>
       <LoginConsumer>
-        {({auth, role, clearRole, firstName, lastName}) => {
+        {([state, dispatch]) => {
+          const {auth, roleName, firstName, lastName} = state
           return auth ? (
             <>
-              <Button variant="contained" className={classes.largeButton} onClick={goToDashboard}>Return to Dashboard as {firstName} {lastName} ({role})</Button>
-              <Button variant="contained" className={classes.largeButton} color="primary" onClick={clearRole}>Clear Role as {firstName} {lastName} ({role})</Button>
+              <Button variant="contained" className={classes.largeButton} onClick={() => navigate('/dashboard')}>Return to Dashboard as {firstName} {lastName} ({roleName})</Button>
+              <Button variant="contained" className={classes.largeButton} color="primary" onClick={() => {dispatch({type:'reset'})}}>Clear Role as {firstName} {lastName} ({roleName})</Button>
             </>
           ) : (
             <>
-            {users && users.map(user => <Button key={user.userGUID} variant='contained' className={classes.largeButton} onClick={mockLogin(user)} data-role={user.role}>{user.firstName} {user.lastName} ({user.roleName})</Button>)}
+            {users && users.map((user,i) => <Button key={i} variant='contained' className={classes.largeButton} onClick={mockLogin(user)}>{user.firstName} {user.lastName} ({user.roleName})</Button>)}
             {!users && <h3>Error: Unable to retrieve mock users</h3>}
             </>
           )
@@ -79,4 +80,4 @@ const MockRoles = (props) => {
   )
 }
 
-export default withRouter(MockRoles)
+export default MockRoles

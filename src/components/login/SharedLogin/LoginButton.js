@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Button } from '@material-ui/core';
-import { LoginConsumer } from './Login.context'
+import { LoginContext } from './Login.context'
 
 const LoginButton = () => {
-  return (
-    <LoginConsumer>
-      {({auth, handleClick}) => (
-        <Button onClick={handleClick}>Sign {auth ? 'Out' : 'In'}</Button>
-      )}
-    </LoginConsumer>
-  )
+  const [loginContext, dispatch] = useContext(LoginContext)
+  const handleClick = () => {
+    if(loginContext.auth) {
+      // reset user data and log-out
+      dispatch({
+        type: 'reset'
+      })
+    } else {
+      // This is where we dispatch action to trigger login modal
+      alert('Sign in form not implemented yet')
+    }
+  }
+  return <Button onClick={handleClick}>Sign {loginContext.auth ? 'Out' : 'In'}</Button>
 }
 
 export default LoginButton

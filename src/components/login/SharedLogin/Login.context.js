@@ -1,56 +1,38 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useReducer } from 'react'
 
 export const LoginContext = createContext()
 
-const userDataDefaults = {
+const userInitialState = {
   auth: false,
-  role: 'public',
+  roleName: 'public',
   firstName: '',
   lastName: '',
   userGUID: null,
-  id: null
+  id: null,
+  env: window.location.hostname === 'localhost' || window.location.hostname === 'ncippe.herokuapp.com' ? 'local' : 'prod'
 }
-// TODO: add useReducer
-export const LoginProvider = (props) => {
-  const [userData,setUserData] = useState({
-    ...userDataDefaults
-  })
-  const handleClick = (event) => {
-    if(userData.auth){
-      clearRole()
-    } else {
-      alert("Login screens not available at this time")
-      console.log("future login screen")
-    }
-  }
-  const update = (data) => {
-    setUserData(
-      {
-        ...data
-      }
-    )
-  }
 
-  const clearRole = () => {
-    setUserData({
-      ...userDataDefaults
+const userReducer = (state, action) => {
+  switch (action.type) {
+    case 'update': return ({
+      ...state,
+      ...action.userData
     })
-  }
+    case 'reset': return ({
+      ...userInitialState
+    })
 
+    default: throw new Error('Unexpected action');
+  }
+};
+
+export const LoginProvider = (props) => {
+  const userData = useReducer(userReducer, userInitialState)
   return (
-    <LoginContext.Provider 
-      value={{
-        ...userData,
-        handleClick,
-        update: (userData) => update(userData),
-        clearRole,
-        env: window.location.hostname === 'localhost' ? 'local' : 'prod'
-      }}
-    > 
+    <LoginContext.Provider value={userData}> 
       {props.children}
     </LoginContext.Provider>
   )
-
 }
 
 export const LoginConsumer = LoginContext.Consumer

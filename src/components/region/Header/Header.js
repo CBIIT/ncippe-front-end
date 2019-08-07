@@ -6,7 +6,8 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 
-import { Link as RouterLink } from 'react-router-dom'
+// import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink } from "@reach/router"
 
 import LoginButton from '../../login/SharedLogin/LoginButton'
 
@@ -19,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     maxHeight: 50,
     margin: 0,
+    marginTop: theme.spacing(3),
 
     '& img': {
       height: 50,

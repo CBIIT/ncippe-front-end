@@ -1,29 +1,36 @@
 const casual = require('casual');
 
-const randomRole = () => {
+const randomRole = ({
+  participant = 55,
+  provider = 20,
+  crc = 10,
+  bssc = 10,
+  admin = 5
+}) => {
   var n=Math.floor(Math.random()*100)
+  let reduce = 0;
   switch(true){
-    case n<55:
+    case n<(reduce+=participant):
       return {
         userType: 'PPE_PARTICIPANT',
         roleName: 'ROLE_PPE_PARTICIPANT'
       };
-    case n<75:
+    case n<(reduce+=provider):
       return {
         userType: 'PPE_PROVIDER',
         roleName: 'ROLE_PPE_PROVIDER'
       };
-    case n<85:
+    case n<(reduce+=crc):
       return {
         userType: 'PPE_CRC',
         roleName: 'ROLE_PPE_CRC'
       };
-    case n<95:
+    case n<(reduce+=bssc):
       return {
         userType: 'PPE_BSSC',
         roleName: 'ROLE_PPE_BSSC'
       };
-    case n<=100:
+    case n<=(reduce+=admin):
       return {
         userType: 'PPE_ADMIN',
         roleName: 'ROLE_PPE_ADMIN'
@@ -31,15 +38,29 @@ const randomRole = () => {
   }
 }
 
+const randomBooleanAsString = ({no = 50,yes = 50}) => {
+  var n=Math.floor(Math.random()*100)
+  switch(true){
+    case n<no:
+      return "0"
+    case n<=(no+yes):
+      return "1"
+  }
+}
+
 casual.define('user', function() {
+  const firstName = casual.first_name
+  const lastName = casual.last_name
+  const domain = casual.domain
+  const emailName = casual.color_name
 	return {
-    userName: casual.username,
-		firstnNme: casual.first_name,
-		lastName: casual.last_name,
-		email: casual.email,
+    userName: `${firstName.toLowerCase()}${lastName}`,
+		firstName,
+		lastName,
+		email: `${emailName}@${domain}`,
     userGUID: casual.uuid,
     phoneNumber: casual.phone,
-    allowEmailNotification: casual.boolean,
+    allowEmailNotification: randomBooleanAsString({no:25,yes:75}),
     ...randomRole()
 	};
 });

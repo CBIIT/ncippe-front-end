@@ -41,40 +41,18 @@ const useStyles = makeStyles(theme => ({
 
 const Profile = (props) => {
   const classes = useStyles()
+  const [loginContext, dispatch] = useContext(LoginContext)
   const [editMode, setEditMode] = useState(false)
   const [errorPhone, setErrorPhone] = useState(false)
-  // set the initial state of the email to prevent error while user data is being fetched
-  const [userProfile, setUserProfile] = useState({
-    email: '',
-    phoneNumber: '',
-    allowEmailNotification: true
-  })
-  const [userPhone, setUserPhone] = useState('')
-  const [userOptIn, setUserOptIn] = useState(true)
-  const loginContext = useContext(LoginContext)
+  const [userPhone, setUserPhone] = useState(loginContext.phoneNumber)
+  const [userOptIn, setUserOptIn] = useState(loginContext.allowEmailNotification)
 
-  // fetch profile data for the logged in user
-  useEffect(() => {
-    const {userGUID, token, env} = loginContext
-    // fetch call
-    api[env].fetchUser({userGUID, token})
-      .then(data => {
-        const userData = {
-          ...data,
-          allowEmailNotification: getBool(data.allowEmailNotification), //convert "allowEmailNotification" to boolean
-          phoneNumber: formatPhoneNumber(data.phoneNumber), //format "phoneNumber" field
-        }
-        setUserProfile(userData)
-        // create phone and email states in case user cancels form updates - revert values
-        setUserPhone(userData.phoneNumber)
-        setUserOptIn(userData.allowEmailNotification)
-      })
-  }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const phoneNumber = event.target['phone-number-input'].value || ''
+    const allowEmailNotification = event.target['notifications-input'].checked ? "1" : "0"
     // pattern must be a valid phone number or empty input mask pattern
     const phonePattern = /\([2-9]\d{2}\)\s?[2-9]\d{2}-\d{4}|\(\s{3}\)\s{4}-\s{4}/
 
@@ -84,17 +62,24 @@ const Profile = (props) => {
       const cleanPhoneNumber = phoneNumber.replace(/\D*/g,"") // remove formatting and just send numbers
       const data = {
         phoneNumber: cleanPhoneNumber,
-        allowEmailNotification: event.target['notifications-input'].checked ? "1" : "0"
+        allowEmailNotification
       }
-      const { token, env } = loginContext
-      const userGUID = env === 'local' ? loginContext.id : loginContext.userGUID
-      api[env].updateUser({userGUID, token, data})
-        .then(res => {
-          if(res === true) {
+      const { token, env, userGUID } = loginContext
+      const userName = env === 'local' ? loginContext.id : loginContext.userName
+      api[env].updateUser({userName, userGUID, token, data})
+        .then(resp => {
+          if(resp === true) {
+            // Save successful, also update the user context data
+            dispatch({
+              type: 'update',
+              userData: {
+                phoneNumber,
+                allowEmailNotification
+              }
+            })
             toggleEditMode()
-            // TODO: update context with valid changes - cancel button will revert number to original state after more than one save
           } else {
-            alert(res.message)
+            alert(resp.message)
           }
         })
     }
@@ -102,8 +87,8 @@ const Profile = (props) => {
 
   const cancelEdit = (event) => {
     //restore user context
-    setUserPhone(userProfile.phoneNumber)
-    setUserOptIn(userProfile.allowEmailNotification)
+    setUserPhone(loginContext.phoneNumber)
+    setUserOptIn(getBool(loginContext.allowEmailNotification))
 
     toggleEditMode()
   }
@@ -115,7 +100,6 @@ const Profile = (props) => {
   const updateEmailOption = () => {
     setUserOptIn(!userOptIn)
   }
-
 
   const toggleEditMode = () => setEditMode(!editMode)
 
@@ -134,7 +118,7 @@ const Profile = (props) => {
           </Button>
         )}
         <Typography variant="h2" gutterBottom>
-          {userProfile.firstName} {userProfile.lastName}
+          {loginContext.firstName} {loginContext.lastName}
         </Typography>
         <Typography>
           Your contact information
@@ -144,7 +128,7 @@ const Profile = (props) => {
             id="email"
             label="Email"
             disabled
-            value={userProfile.email}
+            value={loginContext.email}
             placeholder="email"
             margin="normal"
             InputLabelProps={{
