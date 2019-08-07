@@ -1,13 +1,15 @@
 import React from 'react'
-
-import TestResults from '../components/TestResults/TestResults'
 import { Box, Container } from '@material-ui/core';
 
-export default () => {
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
+import TestResults from '../components/TestResults/TestResults'
+
+export default ({userName}) => {
   return (
-    <Box my={6} mx={0}>
+    <Box my={0} mx={0}>
+      <Breadcrumbs pageName="Reports" />
       <Container>
-        <TestResults />
+        <TestResults userName={userName} />
       </Container>
     </Box>
   )
