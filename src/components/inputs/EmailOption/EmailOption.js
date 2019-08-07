@@ -22,7 +22,6 @@ const EmailOption = ({value, editMode, onClick}) => {
   const [checked, setChecked] = useState(value)
 
   useEffect(() => {
-    console.log("new value is:", value)
     setChecked(value)
     return setChecked(value)
   }, [value])

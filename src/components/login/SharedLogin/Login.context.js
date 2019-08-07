@@ -23,10 +23,9 @@ export const LoginProvider = (props) => {
       console.log("future login screen")
     }
   }
-  const assignRole = (data) => {
+  const update = (data) => {
     setUserData(
       {
-        auth: true,
         ...data
       }
     )
@@ -43,8 +42,9 @@ export const LoginProvider = (props) => {
       value={{
         ...userData,
         handleClick,
-        assignRole: (userData) => assignRole(userData),
-        clearRole
+        update: (userData) => update(userData),
+        clearRole,
+        env: window.location.hostname === 'localhost' ? 'local' : 'prod'
       }}
     > 
       {props.children}

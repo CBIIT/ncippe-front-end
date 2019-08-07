@@ -5,11 +5,6 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { LoginConsumer } from '../components/login/SharedLogin/Login.context'
 
-// import LoginContext from '../context/login'
-
-// import Profile from '../components/Profile/Profile'
-// import classes from '*.module.css';
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,

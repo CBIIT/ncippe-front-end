@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 
 import { FormControl, TextField, Paper, Typography, Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -9,6 +8,7 @@ import { LoginContext } from '../../components/login/SharedLogin/Login.context'
 import PhoneNumbner from '../inputs/PhoneNumber/PhoneNumber'
 import EmailOption from '../inputs/EmailOption/EmailOption'
 import { getBool, formatPhoneNumber } from '../../utils/utils'
+import { api } from '../../data/api'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,12 +51,13 @@ const Profile = (props) => {
   })
   const [userPhone, setUserPhone] = useState('')
   const [userOptIn, setUserOptIn] = useState(true)
-  const login = useContext(LoginContext)
+  const loginContext = useContext(LoginContext)
 
   // fetch profile data for the logged in user
   useEffect(() => {
-    fetch(`/api/users/${login.userGUID}`)
-      .then(resp => resp.json())
+    const {userGUID, token, env} = loginContext
+    // fetch call
+    api[env].fetchUser({userGUID, token})
       .then(data => {
         const userData = {
           ...data,
@@ -80,25 +81,22 @@ const Profile = (props) => {
     const valid = phonePattern.test(phoneNumber)
     setErrorPhone(!valid)
     if(valid) {
+      const cleanPhoneNumber = phoneNumber.replace(/\D*/g,"") // remove formatting and just send numbers
       const data = {
-        phoneNumber,
-        allowEmailNotification: event.target['notifications-input'].checked
+        phoneNumber: cleanPhoneNumber,
+        allowEmailNotification: event.target['notifications-input'].checked ? "1" : "0"
       }
-      fetch(`/users/${login.id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      .then(res => {
-        if(res.ok) {
-          toggleEditMode()
-        } else {
-          console.error('Error:', `${res.status}: ${res.statusText}`)
-        }
-      })
-      .catch(error => console.error('Error:', error));
+      const { token, env } = loginContext
+      const userGUID = env === 'local' ? loginContext.id : loginContext.userGUID
+      api[env].updateUser({userGUID, token, data})
+        .then(res => {
+          if(res === true) {
+            toggleEditMode()
+            // TODO: update context with valid changes - cancel button will revert number to original state after more than one save
+          } else {
+            alert(res.message)
+          }
+        })
     }
   }
 
