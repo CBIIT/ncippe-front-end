@@ -1,5 +1,4 @@
 import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, CssBaseline } from '@material-ui/core'
 
@@ -25,18 +24,16 @@ const App = () => {
   const classes = useStyles()
   return (
     <LoginProvider>
-      <BrowserRouter>
-        <CssBaseline />
-        <div className={classes.App}>
-          <Container>
-            <Header />
-          </Container>
-          <main className={classes.main}>
-            <Routes />
-          </main>
-          <Footer />
-        </div>
-      </BrowserRouter>
+      <CssBaseline />
+      <div className={classes.App}>
+        <Container>
+          <Header />
+        </Container>
+        <main className={classes.main}>
+          <Routes />
+        </main>
+        <Footer />
+      </div>
     </LoginProvider>
   );
 }

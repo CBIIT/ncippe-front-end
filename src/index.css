@@ -61,12 +61,13 @@ main {
 .zoom-enter,
 .zoom-enter-done {
   z-index: 2;
+  background-color: #fafafa;
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
   height: 100vh;
-  background-color: #fafafa;
+  overflow: auto;
 }
 
 .zoom-exit {
