@@ -425,6 +425,7 @@
       "userGUID": "2ad983dd-d265-4325-b083-c16cc1b050aa",
       "phoneNumber": "9493906330",
       "allowEmailNotification": "1",
+      "newNotificationCount": 2,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "providers": [
@@ -462,6 +463,38 @@
           "description": "A sort report description",
           "timestamp": 1551291140370,
           "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        }
+      ],
+      "notificationList": [
+        {
+          "id": 1,
+          "portalNotificationId": 1,
+          "from": "Madeline Hamill, Dr. of Oncology, at [BSS Name]",
+          "subject": "Notification Title",
+          "message": "Test Message",
+          "generatedTime": "Aug 19, 2019 10:02:44 AM",
+          "userId": 1,
+          "viewedByUser": 0
+        },
+        {
+          "id": 2,
+          "portalNotificationId": 2,
+          "from": "Madeline Hamill, Dr. of Oncology, at [BSS Name]",
+          "subject": "Welcome to PPE",
+          "message": "Thank you for participating in the Cancer Moonshot Biobank Program!",
+          "generatedTime": "Aug 20, 2019 7:18:11 AM",
+          "userId": 1,
+          "viewedByUser": 0
+        },
+        {
+          "id": 3,
+          "portalNotificationId": 3,
+          "from": "MOCHA Labs",
+          "subject": "We added a biomarker report to Marco's account",
+          "message": "<p>Dear Marco,</p><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"83.44\">We added&nbsp;a biomarker report to Marco's account.&nbsp;Log into&nbsp;the PPE&nbsp;Portal to view&nbsp;this report.&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"83.44\"><h3 data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"50.82\"><strong>Why&nbsp;is this&nbsp;important?</strong></h3><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"123.02000000000001\">Your biomarker&nbsp;report&nbsp;may&nbsp;inform your treatment.&nbsp;Each&nbsp;report&nbsp;is available&nbsp;to the patient, their&nbsp;provider, and&nbsp;a family member if they&nbsp;have&nbsp;been added to the patient&nbsp;account.</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"123.02000000000001\">&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"123.02000000000001\"><h3 data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"187.43666666666667\"><strong>What action should I&nbsp;take?</strong></h3><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"176.54\"><strong>For patients and family&nbsp;members</strong>&nbsp;:&nbsp;set up a time to talk with your&nbsp;provider about these results.</div><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"102.22\"><strong>For providers</strong>&nbsp;: review the&nbsp;report&nbsp;and any supporting&nbsp;NCI materials to determine&nbsp;whether or not you&nbsp;should&nbsp;alter your&nbsp;patient&rsquo;s treatment.</div><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"102.22\">&nbsp;</div><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"102.22\"><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"45.24\">If you&nbsp;have&nbsp;questions,&nbsp;you can&nbsp;reply to this&nbsp;email or&nbsp;call us at (202) 000 &ndash; 0000.</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"258.5\">&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"258.5\">Thank you for participating in the&nbsp;Cancer&nbsp;Moonshot&nbsp;Biobank Program!</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"41.559999999999995\">&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"41.559999999999995\">NCI&nbsp;Program Staff</div></div></div></div>",
+          "generatedTime": "Aug 23, 2019 3:19:09 PM",
+          "userId": 1,
+          "viewedByUser": 1
         }
       ]
     },

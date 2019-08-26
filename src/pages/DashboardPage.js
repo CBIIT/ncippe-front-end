@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from 'react'
 import { Link } from '@reach/router'
-import { Box, Container, Divider, Typography, Grid, Card, CardContent } from '@material-ui/core'
+import { Badge, Box, Container, Divider, Typography, Grid, Card, CardContent } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { LoginConsumer, LoginContext } from '../components/login/SharedLogin/Login.context'
 import PatientList from '../components/PatientList/PatientList'
 import { api } from '../data/api'
+import ConditionalWrapper from '../components/utils/ConditionalWrapper'
 import { getBool, formatPhoneNumber } from '../utils/utils'
 
 
@@ -43,6 +44,20 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     textDecoration: 'none',
     maxWidth: '300px'
+  },
+  badge: {
+    width: '100%',
+
+    '& .MuiBadge-badge': {
+      top: '11px',
+      right: '30px',
+      borderRadius: '0 0 6px 6px',
+      padding: '3px 10px',
+      height: 'auto',
+      textTransform: 'uppercase',
+      backgroundColor: '#F6C674',
+      color: '#000'
+    }
   }
 }));
 
@@ -94,12 +109,24 @@ export default () => {
           {/* User Notifications */}
           <Grid className={classes.gridItem} item xs={12} sm={6} md={4}>
             <Link className={classes.Link} to="/dashboard/notifications">
-              <Card className={classes.card}>
-                <CardContent>
-                  <Typography variant="h4" component="h2">Notifications</Typography>
-                  <Typography>You have 0 new notifications</Typography>
-                </CardContent>
-              </Card>
+              <LoginConsumer>
+              {([{newNotificationCount}]) => {
+                return (
+                  <ConditionalWrapper
+                    condition={newNotificationCount > 0}
+                    wrapper={children => <Badge className={classes.badge} badgeContent="new" component="div">{children}</Badge>}
+                  >
+                    <Card className={classes.card}>
+                      <CardContent>
+                        <Typography variant="h4" component="h2">Notifications</Typography>
+                        <Typography>You have {newNotificationCount} new notifications</Typography>
+                        
+                      </CardContent>
+                    </Card>
+                  </ConditionalWrapper>
+                )
+              }}
+              </LoginConsumer>
             </Link>
           </Grid>
           {/* END: User Notifications */}
