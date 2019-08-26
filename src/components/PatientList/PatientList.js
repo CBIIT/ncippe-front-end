@@ -18,7 +18,8 @@ const useStyles = makeStyles(theme => ({
   },
   textField: {
     margin: 0,
-    float: 'right'
+    float: 'right',
+    minWidth: '250px'
   }
 }))
 
@@ -61,6 +62,7 @@ const PatientList = ({patients}) => {
           <TextField
             id="outlined-search"
             label="Search"
+            placeholder="Search by patient name"
             type="search"
             className={classes.textField}
             margin="normal"
