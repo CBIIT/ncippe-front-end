@@ -506,7 +506,7 @@
       "firstName": "Amaya",
       "lastName": "Lindgren",
       "email": "Maroon@Lavonne.net",
-      "userGUID": "0eeac9ba-305e-483e-949e-a34e5a183c18",
+      "userGUID": "c07d49a4-1f54-4adb-8b5c-01f5cc7dc9ca",
       "phoneNumber": "424-660-9024",
       "allowEmailNotification": "1",
       "userType": "PPE_PARTICIPANT",
@@ -644,11 +644,11 @@
       "firstName": "Emelie",
       "lastName": "Franecki",
       "email": "Salmon@Zemlak.biz",
-      "userGUID": "f720a7ff-3129-4545-b9d2-f446dbefec2e",
+      "userGUID": "2e00bf1f-2537-4942-83c9-8e006f0d98a8",
       "phoneNumber": "783-222-5215",
       "allowEmailNotification": "0",
-      "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
+      "userType": "PPE_MOCHA_ADMIN",
+      "roleName": "ROLE_PPE_MOCHA_ADMIN"
     },
     {
       "id": 23,
@@ -659,8 +659,8 @@
       "userGUID": "b36284a2-cecf-4756-996c-abb0d8ba652c",
       "phoneNumber": "424-533-4748",
       "allowEmailNotification": "0",
-      "userType": "PPE_PROVIDER",
-      "roleName": "ROLE_PPE_PROVIDER"
+      "userType": "PPE_MOCHA_ADMIN",
+      "roleName": "ROLE_PPE_MOCHA_ADMIN"
     }
   ],
   "mockUsers": [
@@ -669,7 +669,7 @@
     "chloeKulas",
     "katlynnPrice",
     "angelitaWeber",
-    "thurmanKautzer"
+    "emelieFranecki"
   ],
   "token": {
     "token": "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidGVzdCIsImlzcyI6Im1kYXMyIiwiZXhwIjoxNTYzOTk5MTk4LCJ1c2VybmFtZSI6IlRvbURpY2tBbmRIYXJyeSJ9.BglervXAFiPGDtMCptVAMrBFkmduxJ63635l_twhJMjurJFqKJS7G4WqU6SUerIP8RgQBatNo-pp-QO1QXZs80Cw0iDrwL9myc4H94v7ZjTWhKnVgaYkB4_bSEY6bwpd0qldnOiiAPYSWHDExaPFHvOSDp-BsYCMgVd0V4T_9w2uNBGAGux0r7fdSBSvgjyTgr0SzIgaSuD3EybpfcJwuxmI0VbSrSiQDrirpCGZb3EeI-EYcOXn6IoUxSDl9726yTD9cHdNz0IrHb5HViZJKt9tcGVDENeGGrn7yMHj2pnhhRbtFGVi-SBvgLEkYWd4c4B4Pflq26aBozS4txwjrg"

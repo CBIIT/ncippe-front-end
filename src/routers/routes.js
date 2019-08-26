@@ -5,6 +5,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import NotFoundPage from '../pages/NotFoundPage'
 import HomePage from '../pages/HomePage'
 import DashboardPage from '../pages/DashboardPage'
+import DashboardMochaPage from '../pages/DashboardMochaPage'
 import NotificationsPage from '../pages/NotificationsPage'
 import TestResultsPage from '../pages/TestResultsPage'
 import ConsentPage from '../pages/ConsentPage'
@@ -36,6 +37,7 @@ export default () => (
           <Router location={location} primary={false}>
             <HomePage path='/' />
             <PrivateRoute path='/dashboard' component={DashboardPage} />
+            <PrivateRoute path='/dashboard-mocha' component={DashboardMochaPage} />
             <PrivateRoute path='/dashboard/notifications' component={NotificationsPage} />
             <PrivateRoute path='/dashboard/consent' component={ConsentPage} />
             <PrivateRoute path='/dashboard/test-results' component={TestResultsPage} />

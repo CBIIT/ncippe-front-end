@@ -6,7 +6,7 @@ import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
 
 const useStyles = makeStyles(theme => ({
   header: {
-    margin: `${theme.spacing(3)}px 0`
+    margin: theme.spacing(3, 0)
   }
 }))
 

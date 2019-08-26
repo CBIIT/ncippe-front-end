@@ -53,7 +53,11 @@ const MockRoles = (props) => {
         })
 
         // redirect to dashboard
-        navigate('/dashboard') 
+        if(roleName === 'ROLE_PPE_MOCHA_ADMIN') {
+          navigate('/dashboard-mocha')
+        } else {
+          navigate('/dashboard')
+        }
       })
   }
 

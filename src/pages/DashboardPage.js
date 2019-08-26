@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   divider: {
-    margin: `${theme.spacing(3)}px 0`
+    margin: theme.spacing(3, 0)
   },
   Link: {
     display: 'flex',

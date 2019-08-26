@@ -15,10 +15,10 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(3)
   },
   header: {
-    margin: `${theme.spacing(3)}px 0`
+    margin: theme.spacing(3, 0)
   },
   divider: {
-    margin: `${theme.spacing(3)}px 0`
+    margin: theme.spacing(3, 0)
   }
 }))
 

@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: theme.shadows[1]
   },
   pipe: {
-    padding: `0 ${theme.spacing(2)}px`
+    padding: theme.spacing(0, 2)
   },
   close: {
     float: 'right',
