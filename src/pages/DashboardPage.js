@@ -76,6 +76,7 @@ export default () => {
           ...data,
           allowEmailNotification: getBool(data.allowEmailNotification), //convert "allowEmailNotification" to boolean
           phoneNumber: formatPhoneNumber(data.phoneNumber), //format "phoneNumber" field
+          newNotificationCount: data.notificationList ? data.notificationList.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0
         }
         
         //TODO: set context
@@ -110,17 +111,18 @@ export default () => {
           <Grid className={classes.gridItem} item xs={12} sm={6} md={4}>
             <Link className={classes.Link} to="/dashboard/notifications">
               <LoginConsumer>
-              {([{newNotificationCount}]) => {
+              {([{newNotificationCount: count}]) => {
+
+                console.log("count", count)
                 return (
                   <ConditionalWrapper
-                    condition={newNotificationCount > 0}
+                    condition={count > 0}
                     wrapper={children => <Badge className={classes.badge} badgeContent="new" component="div">{children}</Badge>}
                   >
                     <Card className={classes.card}>
                       <CardContent>
                         <Typography variant="h4" component="h2">Notifications</Typography>
-                        <Typography>You have {newNotificationCount} new notifications</Typography>
-                        
+                        <Typography>You have {count} new notification{count !== 1 && 's'}</Typography>
                       </CardContent>
                     </Card>
                   </ConditionalWrapper>
