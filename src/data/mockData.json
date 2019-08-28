@@ -343,7 +343,163 @@
       "phoneNumber": "918-965-0850",
       "allowEmailNotification": "1",
       "userType": "PPE_CRC",
-      "roleName": "ROLE_PPE_CRC"
+      "roleName": "ROLE_PPE_CRC",
+      "patients": [
+        {
+          "userName": "alfredTromp",
+          "firstName": "Alfred",
+          "lastName": "Tromp",
+          "email": "SkyBlue@Chauncey.tv",
+          "userGUID": "22cfc58c-f9b3-4008-8586-6e122f36a6a7",
+          "phoneNumber": "559-428-5906",
+          "allowEmailNotification": "1",
+          "userType": "PPE_PARTICIPANT",
+          "roleName": "ROLE_PPE_PARTICIPANT"
+        },
+        {
+          "userName": "thurmanKautzer",
+          "firstName": "Thurman",
+          "lastName": "Kautzer",
+          "email": "CadetBlue@Keagan.biz",
+          "userGUID": "988a4a78-f947-4118-90ae-fc0c3dc612d8",
+          "phoneNumber": "018-374-1064",
+          "allowEmailNotification": "0",
+          "userType": "PPE_PARTICIPANT",
+          "roleName": "ROLE_PPE_PARTICIPANT"
+        },
+        {
+          "userName": "bartholomeGreenfelder",
+          "firstName": "Bartholome",
+          "lastName": "Greenfelder",
+          "email": "MediumSlateBlue@Jewess.tv",
+          "userGUID": "d0fce764-1c20-4d86-92f3-f7e19972ec19",
+          "phoneNumber": "147-164-3905",
+          "allowEmailNotification": "1",
+          "userType": "PPE_PARTICIPANT",
+          "roleName": "ROLE_PPE_PARTICIPANT"
+        },
+        {
+          "userName": "thurmanKautzer",
+          "firstName": "Thurman",
+          "lastName": "Kautzer",
+          "email": "CadetBlue@Keagan.biz",
+          "userGUID": "988a4a78-f947-4118-90ae-fc0c3dc612d8",
+          "phoneNumber": "018-374-1064",
+          "allowEmailNotification": "0",
+          "userType": "PPE_PARTICIPANT",
+          "roleName": "ROLE_PPE_PARTICIPANT"
+        },
+        {
+          "userName": "gonzaloYost",
+          "firstName": "Gonzalo",
+          "lastName": "Yost",
+          "email": "RoyalBlue@Wiza.org",
+          "userGUID": "d77c10ed-26bd-4ba9-921b-518f52f6aa5e",
+          "phoneNumber": "905-341-7482",
+          "allowEmailNotification": "1",
+          "userType": "PPE_PARTICIPANT",
+          "roleName": "ROLE_PPE_PARTICIPANT"
+        },
+        {
+          "userName": "alanaSporer",
+          "firstName": "Alana",
+          "lastName": "Sporer",
+          "email": "LightSteelBlue@Orn.info",
+          "userGUID": "2ad983dd-d265-4325-b083-c16cc1b050aa",
+          "phoneNumber": "9493906330",
+          "allowEmailNotification": "1",
+          "userType": "PPE_PARTICIPANT",
+          "roleName": "ROLE_PPE_PARTICIPANT"
+        },
+        {
+          "userName": "yadiraStehr",
+          "firstName": "Yadira",
+          "lastName": "Stehr",
+          "email": "Fuchsia@Elmer.biz",
+          "userGUID": "bd4c2dc8-17f8-43a1-b70f-715274e3ae2b",
+          "phoneNumber": "789-273-2170",
+          "allowEmailNotification": "1",
+          "userType": "PPE_PARTICIPANT",
+          "roleName": "ROLE_PPE_PARTICIPANT"
+        },
+        {
+          "userName": "amayaLindgren",
+          "firstName": "Amaya",
+          "lastName": "Lindgren",
+          "email": "Maroon@Lavonne.net",
+          "userGUID": "c07d49a4-1f54-4adb-8b5c-01f5cc7dc9ca",
+          "phoneNumber": "424-660-9024",
+          "allowEmailNotification": "1",
+          "userType": "PPE_PARTICIPANT",
+          "roleName": "ROLE_PPE_PARTICIPANT"
+        },
+        {
+          "userName": "jacquesSauer",
+          "firstName": "Jacques",
+          "lastName": "Sauer",
+          "email": "BurlyWood@Laila.org",
+          "userGUID": "bd48433a-7560-471c-8310-163a235cd3bb",
+          "phoneNumber": "288-581-9427",
+          "allowEmailNotification": "1",
+          "userType": "PPE_PARTICIPANT",
+          "roleName": "ROLE_PPE_PARTICIPANT"
+        },
+        {
+          "userName": "amaniNader",
+          "firstName": "Amani",
+          "lastName": "Nader",
+          "email": "Indigo @Lakin.info",
+          "userGUID": "9176e4a3-6ba6-4453-b6dc-e131533d8dc9",
+          "phoneNumber": "268-279-7718",
+          "allowEmailNotification": "0",
+          "userType": "PPE_PARTICIPANT",
+          "roleName": "ROLE_PPE_PARTICIPANT"
+        },
+        {
+          "userName": "francescoAltenwerth",
+          "firstName": "Francesco",
+          "lastName": "Altenwerth",
+          "email": "Teal@Anderson.io",
+          "userGUID": "5500be85-ade3-4997-91df-f1123defaf60",
+          "phoneNumber": "013-546-5388",
+          "allowEmailNotification": "1",
+          "userType": "PPE_PARTICIPANT",
+          "roleName": "ROLE_PPE_PARTICIPANT"
+        },
+        {
+          "userName": "rooseveltWiegand",
+          "firstName": "Roosevelt",
+          "lastName": "Wiegand",
+          "email": "LightSalmon@Bogan.biz",
+          "userGUID": "eb2f3b77-6bbb-42af-b840-ef954e0fb291",
+          "phoneNumber": "792-091-2209",
+          "allowEmailNotification": "1",
+          "userType": "PPE_PARTICIPANT",
+          "roleName": "ROLE_PPE_PARTICIPANT"
+        },
+        {
+          "userName": "leslyNienow",
+          "firstName": "Lesly",
+          "lastName": "Nienow",
+          "email": "LightSteelBlue@Narciso.name",
+          "userGUID": "900f3f4b-575d-4520-847e-aa295a094fe9",
+          "phoneNumber": "461-257-4088",
+          "allowEmailNotification": "1",
+          "userType": "PPE_PARTICIPANT",
+          "roleName": "ROLE_PPE_PARTICIPANT"
+        },
+        {
+          "userName": "anabelHeller",
+          "firstName": "Anabel",
+          "lastName": "Heller",
+          "email": "BurlyWood@Glover.us",
+          "userGUID": "b7f52021-15bc-442e-898f-80ff0ae67c06",
+          "phoneNumber": "691-599-9221",
+          "allowEmailNotification": "1",
+          "userType": "PPE_PARTICIPANT",
+          "roleName": "ROLE_PPE_PARTICIPANT"
+        }
+      ]
     },
     {
       "id": 7,
