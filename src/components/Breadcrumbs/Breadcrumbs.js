@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Typography, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
-import { Link, navigate } from '@reach/router';
-import { Close } from '@material-ui/icons'
+import { navigate } from '@reach/router';
+import { ArrowBack } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
   Breadcrumbs: {
@@ -16,29 +16,26 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.common.white,
     boxShadow: theme.shadows[1]
   },
-  pipe: {
-    padding: theme.spacing(0, 2)
+  back: {
+    fontSize: theme.typography.h6.fontSize,
+    lineHeight: 0,
+    textTransform: 'none'
   },
-  close: {
-    float: 'right',
-    textTransform: 'none',
-    fontSize: theme.typography.h6.fontSize
+  backIcon: {
+    marginRight: theme.spacing(1)
   }
 }))
 
-const Breadcrumbs = (props) => {
+const Breadcrumbs = () => {
   const classes = useStyles();
-  const handleClick = (event) => {
+  const handleClick = () => {
     navigate('/dashboard')
   }
   return (
     <Container className={classes.Breadcrumbs}>
-      <Typography variant="h5" component="p">
-        <Link to="/dashboard">Home</Link> <span className={classes.pipe}>|</span> {props.pageName}
+      <Typography>
+        <Button className={classes.back} color="primary" variant="text" onClick={handleClick}><ArrowBack className={classes.backIcon} /> Back</Button>
       </Typography>
-      
-      <Button variant="text" color="primary" size="large" className={classes.close} onClick={handleClick}><Close/>Close</Button>
-      
     </Container>
   )
 }

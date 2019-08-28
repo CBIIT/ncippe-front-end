@@ -8,6 +8,7 @@ import DashboardPage from '../pages/DashboardPage'
 import DashboardMochaPage from '../pages/DashboardMochaPage'
 import NotificationsPage from '../pages/NotificationsPage'
 import TestResultsPage from '../pages/TestResultsPage'
+import ParticipantPage from '../pages/ParticipantPage'
 import ConsentPage from '../pages/ConsentPage'
 import ProfilePage from '../pages/ProfilePage'
 import GetHelpPage from '../pages/GetHelpPage'
@@ -41,7 +42,7 @@ export default () => (
             <PrivateRoute path='/dashboard/notifications' component={NotificationsPage} />
             <PrivateRoute path='/dashboard/consent' component={ConsentPage} />
             <PrivateRoute path='/dashboard/test-results' component={TestResultsPage} />
-            <PrivateRoute path='/dashboard/test-results/:userName' component={TestResultsPage} />
+            <PrivateRoute path='/dashboard/participant/:userName' component={ParticipantPage} />
             <PrivateRoute path='/dashboard/profile' component={ProfilePage} />
             <PrivateRoute path='/dashboard/help' component={GetHelpPage} />
             <NotFoundPage default />

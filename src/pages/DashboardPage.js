@@ -200,7 +200,7 @@ export default () => {
         <LoginConsumer>
         {([{roleName, patients}]) => {
           {/* Secondary row */}
-          return roleName === "ROLE_PPE_PROVIDER" && (
+          return (roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && patients && (
             <>
               <Divider variant="middle" className={classes.divider} />
               <Box>
