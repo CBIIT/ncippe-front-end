@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, Typography, TextField } from '@material-ui/core'
+import { Button, Typography, TextField, CircularProgress } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   Clear as ClearIcon
@@ -34,6 +34,10 @@ const useStyles = makeStyles( theme => ({
   },
   confirmPatient_details: {
     margin: theme.spacing(3, 0)
+  },
+  titleUploading: {
+    marginLeft: theme.spacing(3),
+    display: 'inline'
   }
 }))
 
@@ -56,6 +60,7 @@ const UploadReport = (props) => {
   const [formData, setFormData] = useState(formDataDefaults)
   const [activeStep, setActiveStep] = useState(0)
   const [patientData, setPatientData] = useState(patientDataDefaults)
+  const [progress, setProgress] = useState(0);
   const [loginContext, dispatch] = useContext(LoginContext)
 
   // controlled text input
@@ -280,8 +285,9 @@ const UploadReport = (props) => {
 
       {activeStep === 2 && (
         <>
-        <Typography variant="h6">Uploading report...</Typography>
-        <img src={`/${process.env.PUBLIC_URL}assets/images/spinner-dna.svg`} className={classes.spinner} alt="Loading..." />
+        <CircularProgress className={classes.progress} size={70} />
+        <Typography className={classes.titleUploading} variant="h6">Uploading report...</Typography>
+        {/* <img src={`/${process.env.PUBLIC_URL}assets/images/spinner-dna.svg`} className={classes.spinner} alt="Loading..." /> */}
         </>
       )}
 
