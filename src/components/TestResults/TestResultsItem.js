@@ -13,7 +13,9 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1)
   },
   card: {
-
+    justifyContent: 'space-between',
+    display: 'flex',
+    flexDirection: 'column',
   },
   cardAction: {
     justifyContent: 'space-between',
@@ -28,6 +30,9 @@ const useStyles = makeStyles(theme => ({
     '& $card': {
       height: '100%'
     }
+  },
+  reportTitle: {
+    wordBreak: 'break-all'
   }
 }))
 
@@ -39,7 +44,7 @@ const TestResultsItem = ({report}) => {
     <Grid className={classes.gridItem} item>
       <Card className={classes.card}>
         <CardContent>
-        <Typography variant="h4">{reportName}</Typography>
+        <Typography className={classes.reportTitle} variant="h6">{reportName}</Typography>
         <Typography>{moment(timestamp).format("MMM Do YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
