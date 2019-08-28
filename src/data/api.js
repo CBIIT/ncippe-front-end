@@ -221,6 +221,74 @@ async function uploadPatientReportProd({patientGUID, userGUID, reportFile, token
 
 /*=======================================================================*/
 
+// TODO: fetch notifications - needed as seperate call?
+async function notificationsMarkAsReadLocal({userGUID, token}){
+  // get mock user id list
+  const userDetails = await fetch(`/api/users?userGUID=${userGUID}&singular=1`)
+    .then(resp => resp.json())
+    .catch(error => {
+      console.error(error)
+    })
+
+  const userNotificationList = userDetails.notificationList || []
+  const notificationList = {
+    "notificationList": [
+      ...userNotificationList.map(notification => {
+        return ({
+          ...notification,
+          viewedByUser: 1
+        })
+      })
+    ]
+  }
+
+  console.log("userData sent to server:", 
+    `\nuserGUID: ${userGUID}`,
+    `\ntoken: ${token}`)
+
+  return await fetch(`/users/${userDetails.id}`,{
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(notificationList)
+  })
+  .then(resp => {
+    // TODO: put pdf file into dist folder using middleware
+    if(resp.ok) {
+      return true
+    } else {
+      throw new Error(`We were unable to mark notifications as read. Please try again.`)
+    }
+  })
+    .catch(error => {
+      console.error(error)
+    })
+}
+
+async function notificationsMarkAsReadProd({userGUID, token}){
+  return await fetch(`/api/v1/user/${userGUID}/notifications/mark-as-read`,{
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+  })
+  .then(resp => {
+    if(resp.ok) {
+      return true
+    } else {
+      throw new Error(`We were unable to mark notifications as read. Please try again.`)
+    }
+  })
+  .catch(error => {
+    console.error(error)
+  })
+}
+
+/*=======================================================================*/
+
+
 
 export const api = {
   local: {
@@ -229,7 +297,8 @@ export const api = {
     fetchUser: fetchUserLocal,
     updateUser: updateUserLocal,
     fetchPatientTestResults: fetchUserLocal,
-    uploadPatientReport: uploadPatientReportLocal
+    uploadPatientReport: uploadPatientReportLocal,
+    notificationsMarkAsRead: notificationsMarkAsReadLocal
   },
   prod: {
     fetchMockUsers: fetchMockUsersProd,
@@ -237,6 +306,7 @@ export const api = {
     fetchUser: fetchUserProd,
     updateUser: updateUserProd,
     fetchPatientTestResults: fetchUserProd,
-    uploadPatientReport: uploadPatientReportProd
+    uploadPatientReport: uploadPatientReportProd,
+    notificationsMarkAsRead: notificationsMarkAsReadProd
   }
 }
