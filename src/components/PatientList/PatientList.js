@@ -61,8 +61,7 @@ const PatientList = ({patients}) => {
         <Grid item xs={6}>
           <TextField
             id="outlined-search"
-            label="Search"
-            placeholder="Search by patient name"
+            label="Search by patient name"
             type="search"
             className={classes.textField}
             margin="normal"
