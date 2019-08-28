@@ -36,7 +36,7 @@ const PatientListItem = ({patient: {firstName, lastName, userName}, view}) => {
   if(view === 'list') {
     return (
     <Link className={classes.Link}
-      to={`/dashboard/test-results/${userName}`}>
+      to={`/dashboard/participant/${userName}`}>
       <Paper className={classes.paper}>
         {firstName} {lastName}
       </Paper>
@@ -46,7 +46,7 @@ const PatientListItem = ({patient: {firstName, lastName, userName}, view}) => {
     return (
       <Grid className={classes.gridItem} item>
         <Link className={classes.Link}
-          to={`/dashboard/test-results/${userName}`}>
+          to={`/dashboard/participant/${userName}`}>
           <Card className={classes.card}>
             <CardContent>{firstName} {lastName}</CardContent>
           </Card>
