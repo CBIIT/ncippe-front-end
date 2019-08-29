@@ -48,10 +48,10 @@ const TestResultsItem = ({report}) => {
         <Typography>{moment(timestamp).format("MMM Do YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
-          <Link href={`/assets/documents/important-document.pdf`} rel="noopener noreferrer" target="_blank" underline="none">
+          <Link href={s3Url} rel="noopener noreferrer" target="_blank" underline="none">
             <Button color="primary" variant="text"><LaunchIcon />View</Button>
           </Link>
-          <Link href={`/assets/documents/important-document.pdf`} download="important-document.pdf" underline="none">
+          <Link href={s3Url} download="important-document.pdf" underline="none">
             <Button color="primary" variant="text"><GetAppIcon />Download</Button>
           </Link>
         </CardActions>
