@@ -603,21 +603,24 @@
           "reportName": "New Report",
           "description": "A sort report description",
           "timestamp": 1564691140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          "s3Url": "important-document.pdf",
+          "reportGUID": "important-document.pdf"
         },
         {
           "id": 2,
           "reportName": "Some Report",
           "description": "A sort report description",
           "timestamp": 1562291140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          "s3Url": "important-document.pdf",
+          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb4"
         },
         {
           "id": 3,
           "reportName": "Old Report",
           "description": "A sort report description",
           "timestamp": 1551291140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          "s3Url": "important-document.pdf",
+          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb4"
         }
       ],
       "notificationList": [

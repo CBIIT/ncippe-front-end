@@ -4,6 +4,7 @@ async function fetchMockUsersLocal(){
     .then(resp => resp.json())
     .catch(error => {
       console.error(error)
+      return error
     })
 
   // compose request using mock user list results
@@ -14,6 +15,7 @@ async function fetchMockUsersLocal(){
     .then(resp => resp.json())
     .catch(error => {
       console.error(error)
+      return error
     })
 }
 
@@ -24,6 +26,7 @@ async function fetchMockUsersProd(){
     // .then(resp => resp.User)
     .catch(error => {
       console.error(error)
+      return error
     })
 }
 
@@ -36,6 +39,7 @@ async function fetchTokenLocal({userName, firstName, lastName, roleName}){
     .then(resp => resp.json())
     .catch(error => {
       console.error(error)
+      return error
     })
 }
 
@@ -51,6 +55,7 @@ async function fetchTokenProd({userName, firstName, lastName, roleName}){
     .then(resp => resp.json())
     .catch(error => {
       console.error(error)
+      return error
     })
 }
 
@@ -69,6 +74,7 @@ async function fetchUserLocal({userGUID, userName, token}){
     .then(resp => resp.json())
     .catch(error => {
       console.error(error)
+      return error
     })
 }
 
@@ -84,6 +90,7 @@ async function fetchUserProd({userGUID, token}){
     // .then(resp => resp.User)
     .catch(error => {
       console.error(error)
+      return error
     })
 }
 
@@ -108,6 +115,7 @@ async function updateUserLocal({userName, data, token}){
     })
     .catch(error => {
       console.error(error)
+      return error
     })
 }
 
@@ -130,6 +138,7 @@ async function updateUserProd({userGUID, data, token}){
     })
     .catch(error => {
       console.error(error)
+      return error
     })
 }
 
@@ -183,6 +192,7 @@ async function uploadPatientReportLocal({patientGUID, userGUID, reportFile, toke
   })
   .catch(error => {
     console.error(error)
+    return error
   })
 }
 
@@ -216,6 +226,7 @@ async function uploadPatientReportProd({patientGUID, userGUID, reportFile, token
   })
   .catch(error => {
     console.error(error)
+    return error
   })
 }
 
@@ -261,9 +272,10 @@ async function notificationsMarkAsReadLocal({userGUID, token}){
       throw new Error(`We were unable to mark notifications as read. Please try again.`)
     }
   })
-    .catch(error => {
-      console.error(error)
-    })
+  .catch(error => {
+    console.error(error)
+    return error
+  })
 }
 
 async function notificationsMarkAsReadProd({userGUID, token}){
@@ -283,10 +295,29 @@ async function notificationsMarkAsReadProd({userGUID, token}){
   })
   .catch(error => {
     console.error(error)
+    return error
   })
 }
 
 /*=======================================================================*/
+
+//TODO: mock fetching report pdf files locally
+async function fetchPartientReportProd({reportID}){
+  // return await fetch(`//10.5.62.58:8080/api/patientReport/${reportID}`,{
+  // return await fetch(`/assets/documents/${reportID}`) - point to local assets
+  return await fetch(`/api/patientReport/${reportID}`)
+  .then(resp => {
+    if(resp.ok) {
+      return resp
+    } else {
+      throw new Error(`We were unable to fetch this report. Please try again.`)
+    }
+  })
+  .catch(error => {
+    console.error(error)
+    return error
+  })
+}
 
 
 
@@ -297,6 +328,7 @@ export const api = {
     fetchUser: fetchUserLocal,
     updateUser: updateUserLocal,
     fetchPatientTestResults: fetchUserLocal,
+    fetchPatientReport: fetchPartientReportProd,
     uploadPatientReport: uploadPatientReportLocal,
     notificationsMarkAsRead: notificationsMarkAsReadLocal
   },
@@ -306,6 +338,7 @@ export const api = {
     fetchUser: fetchUserProd,
     updateUser: updateUserProd,
     fetchPatientTestResults: fetchUserProd,
+    fetchPatientReport: fetchPartientReportProd,
     uploadPatientReport: uploadPatientReportProd,
     notificationsMarkAsRead: notificationsMarkAsReadProd
   }
