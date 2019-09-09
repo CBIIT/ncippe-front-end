@@ -11,15 +11,12 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: theme.spacing(3),
-    marginBottom: theme.spacing(2),
-    width: 'auto',
-    backgroundColor: theme.palette.common.white,
-    boxShadow: theme.shadows[1]
   },
   back: {
+    marginLeft: theme.spacing(4),
     fontSize: theme.typography.h6.fontSize,
     lineHeight: 0,
-    textTransform: 'none'
+    textTransform: 'none',
   },
   backIcon: {
     marginRight: theme.spacing(1)

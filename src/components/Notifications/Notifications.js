@@ -8,9 +8,15 @@ import { api } from '../../data/api'
 import NotificationItem from './NotificationItem'
 
 const useStyles = makeStyles(theme => ({
-  header: {
-    margin: theme.spacing(3, 0)
-  }
+  titleWithIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: theme.spacing(3)
+  },
+  titleIcon: {
+    marginRight: theme.spacing(3),
+    width: '49px',
+  },
 }))
 
 const Notifications = () => {
@@ -28,17 +34,23 @@ const Notifications = () => {
   },[])
 
   return count ? <>
-    <Typography variant="h2" className={classes.header}>
-      You have {count} Notification{count !== 1 && 's'}
-    </Typography>
+    <div className={classes.titleWithIcon}>
+      <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/notifications.svg`} alt='notification icon' aria-hidden="true"></img>
+      <Typography variant="h2" component="h2">You have {count} Notification{count !== 1 && 's'}</Typography>
+    </div>
+
     {notificationList.map((item, i) => (
       <NotificationItem key={i} notification={item} />
     ))}
-    </> : (
+    </> : <>
+    <div className={classes.titleWithIcon}>
+      <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/notifications.svg`} alt='notification icon' aria-hidden="true"></img>
+      <Typography variant="h2" component="h2">You have {count} Notification{count !== 1 && 's'}</Typography>
+    </div>
     <Typography variant="h6" className={classes.header}>
       You do not have any notifications.
     </Typography>
-  )
+    </>
 }
 
 export default Notifications

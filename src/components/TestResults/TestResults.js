@@ -1,18 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Divider, Grid, Typography } from '@material-ui/core'
+import { Box, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { api } from '../../data/api'
 import { LoginContext } from '../login/SharedLogin/Login.context'
 import TestResultsItem from './TestResultsItem'
-import { formatPhoneNumber } from '../../utils/utils'
+import NoItems from '../NoItems/NoItems'
 
 const useStyles = makeStyles(theme => ({
-  header: {
-    margin: theme.spacing(3, 0)
+  titleWithIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: theme.spacing(3)
   },
-  divider: {
-    margin: theme.spacing(3, 0)
+  titleIcon: {
+    marginRight: theme.spacing(3),
+    width: '49px',
   }
 }))
 
@@ -30,21 +32,21 @@ const TestResults = () => {
 
   return (
     <>
-      <Typography variant="h2" className={classes.header}>
-        Biomarker Tests
-      </Typography>
+      <div className={classes.titleWithIcon}>
+        <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/biomarker-tests.svg`} alt='patient icon' aria-hidden="true"></img>
+        <Typography variant="h2" component="h2">Biomarker tests</Typography>
+      </div>
       {reports ? (
         <>
-          <Typography gutterBottom>The NCI lab generates a biomarker report after we collect your biosample. Your reports are available below. Your provider has access to your reports as well.</Typography>
-          <Divider className={classes.divider} />
-          <Grid container className={classes.controlsGrid} spacing={3} alignItems="stretch">
-            {reports && reports.map((report,i) => <TestResultsItem key={i} report={report} />)}
-          </Grid>
+          <Box mb={3}>
+            <Typography gutterBottom>The NCI lab generates a biomarker report after we collect your biosample. Your reports are available below. Your provider has access to your reports as well.</Typography>
+          </Box>
+          {reports && reports.map((report,i) => <TestResultsItem key={i} report={report} />)}
         </>
       ) : (
         <>
-          <Divider className={classes.divider} />
           <Typography>After we collect your first biosample, an NCI lab will [do something with it] and you will be able to access the results here. We will also send your report to your healthcare provider.</Typography>
+          <NoItems message="You have no reports at this time." />
         </>
       )}
     </>

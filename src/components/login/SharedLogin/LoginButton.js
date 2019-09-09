@@ -15,7 +15,7 @@ const LoginButton = () => {
       alert('Sign in form not implemented yet')
     }
   }
-  return <Button onClick={handleClick}>Sign {loginContext.auth ? 'Out' : 'In'}</Button>
+  return <Button variant="outlined" color="primary" onClick={handleClick}>Log {loginContext.auth ? 'Out' : 'In'}</Button>
 }
 
 export default LoginButton

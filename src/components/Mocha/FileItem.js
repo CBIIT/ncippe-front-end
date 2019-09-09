@@ -9,7 +9,8 @@ import moment from 'moment'
 
 const useStyles = makeStyles( theme => ({
   fileToUpload: {
-    margin: theme.spacing(1, 0)
+    margin: theme.spacing(1, 0),
+    maxWidth: '500px'
   },
   fileToUpload_icon: {
     margin: theme.spacing(2, 0, 2, 2)

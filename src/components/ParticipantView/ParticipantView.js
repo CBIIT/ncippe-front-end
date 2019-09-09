@@ -5,14 +5,44 @@ import { makeStyles } from '@material-ui/core/styles'
 import { api } from '../../data/api'
 import { LoginContext } from '../login/SharedLogin/Login.context'
 import TestResultsItem from '../TestResults/TestResultsItem'
+import NoItems from '../NoItems/NoItems'
 import { formatPhoneNumber } from '../../utils/utils'
 
 const useStyles = makeStyles(theme => ({
   header: {
-    margin: theme.spacing(3, 0)
+    marginBottom: theme.spacing(2)
+  },
+  profile: {
+    display: 'flex',
+    height: '100%',
+    width: '100%',
+    alignItems: 'flex-start',
+    '& a': {
+      textDecoration: 'none'
+    },
+  },
+  profileHeader: {
+    marginTop: theme.spacing(1)
+  },
+  profileIcon: {
+    marginRight: theme.spacing(3),
+    width: '60px',
+  },
+  profileText: {
+    display: 'flex',
+    flexGrow: 1,
+    flexDirection: 'column',
+    height: '100%',
+    justifyContent: 'space-between'
   },
   divider: {
-    margin: theme.spacing(3, 0)
+    margin: theme.spacing(4, 0)
+  },
+  reportsGrid: {
+    alignItems: 'stretch',
+    '& .MuiCard-root': {
+      height: '100%'
+    }
   }
 }))
 
@@ -36,27 +66,37 @@ const TestResults = (props) => {
   return (
     <>
       {user && (
-        <>
-          <Typography variant="h6">{user.firstName} {user.lastName}</Typography>
-          <Typography component="p"><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
-          <Typography component="p">{formatPhoneNumber(user.phoneNumber)}</Typography>
-        </>
+        <div className={classes.profile}>
+          <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt='card icon' aria-hidden="true" />
+          <div className={classes.profileText}>
+            <Typography className={classes.profileHeader} variant="h2" component="h2">{user.firstName} {user.lastName}</Typography>
+            <Typography component="p"><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
+            <Typography component="p">{formatPhoneNumber(user.phoneNumber)}</Typography>
+          </div>
+        </div>
       )}
-      {reports ? (
-        <>
-          <Divider className={classes.divider} />
-          <Typography className={classes.header} variant="h5">Biomarker Tests</Typography>
-          <Grid container className={classes.controlsGrid} spacing={3} alignItems="stretch">
-            {reports && reports.map((report,i) => <TestResultsItem key={i} report={report} />)}
-          </Grid>
-        </>
-      ) : (
-        <>
-          <Divider className={classes.divider} />
-          <Typography className={classes.header} variant="h5">Biomarker Tests</Typography>
-          <Typography>No reports available for this participant.</Typography>
-        </>
-      )}
+      <Divider className={classes.divider} />
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6}>
+          {reports ? (
+            <>
+              <Typography className={classes.header} variant="h2" component="h2">Biomarker tests</Typography>
+              <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
+                {reports && reports.map((report,i) => <Grid item xs={12}><TestResultsItem key={i} report={report} /></Grid>)}
+              </Grid>
+            </>
+          ) : (
+            <>
+              <Typography className={classes.header} variant="h2" component="h2">Biomarker tests</Typography>
+              <NoItems message="No reports available for this participant." />
+            </>
+          )}
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography className={classes.header} variant="h2" component="h2">Consent forms</Typography>
+          <NoItems message="No consent forms are available for this participant." />
+        </Grid>
+      </Grid>
     </>
   )
 }

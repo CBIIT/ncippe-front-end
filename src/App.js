@@ -1,4 +1,5 @@
 import React from 'react'
+import { ThemeProvider } from '@material-ui/styles';
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, CssBaseline } from '@material-ui/core'
 
@@ -6,6 +7,7 @@ import Routes from './routers/routes'
 import Header from './components/region/Header/Header';
 import Footer from './components/region/Footer/Footer';
 import { LoginProvider } from './components/login/SharedLogin/Login.context'
+import { theme } from './theme/theme'
 
 const useStyles = makeStyles(theme => ({
   App: {
@@ -23,18 +25,20 @@ const useStyles = makeStyles(theme => ({
 const App = () => {
   const classes = useStyles()
   return (
-    <LoginProvider>
-      <CssBaseline />
-      <div className={classes.App}>
-        <Container>
-          <Header />
-        </Container>
-        <main className={classes.main}>
-          <Routes />
-        </main>
-        <Footer />
-      </div>
-    </LoginProvider>
+    <ThemeProvider theme={theme}>
+      <LoginProvider>
+        <CssBaseline />
+        <div className={classes.App}>
+          <Container>
+            <Header />
+          </Container>
+          <main className={classes.main}>
+            <Routes />
+          </main>
+          <Footer />
+        </div>
+      </LoginProvider>
+    </ThemeProvider>
   );
 }
 

@@ -8,7 +8,22 @@ import { getBool, formatPhoneNumber } from '../utils/utils'
 import UploadReport from '../components/Mocha/UploadReport'
 
 const useStyles = makeStyles( theme => ({
-
+  root: {
+    minHeight: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  mainContainer: {
+    backgroundColor: theme.palette.primary.lightGrey,
+    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-short.svg)`,
+    backgroundPosition: 'bottom right',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '50%',
+    borderTop: `1px solid ${theme.palette.grey[300]}`,
+    paddingBottom: '110px',
+    padding: theme.spacing(5),
+    flexGrow: 1,
+  },
 }))
 
 const MochaDashboard = (props) => {
@@ -37,15 +52,13 @@ const MochaDashboard = (props) => {
   }, []) // This effect never not re-runs
 
   return (
-    <Box my={6} mx={0}>
-      <Container>
-        <Box my={6} mx={0}>
+    <Box className={classes.root}>
+      <Container className={classes.mainContainer}>
           <LoginConsumer>
-          {([{firstName, lastName, roleName}]) => <Typography variant='h3' component='h1' gutterBottom>Welcome, {firstName} {lastName}</Typography>}
+          {([{firstName, lastName, roleName}]) => <Typography variant='h1' component='h1' gutterBottom>Welcome, {firstName} {lastName}</Typography>}
           </LoginConsumer>
 
           <UploadReport />
-        </Box>
       </Container>
     </Box>
   )

@@ -30,10 +30,12 @@ const statusTheme = {
 const useStyles = makeStyles( theme => ({
   root: props => ({
     border: `1px solid ${statusTheme[props.state].color}`,
-    borderLeftWidth: `.5rem`,
+    borderLeftWidth: '10px',
+    borderRadius: theme.shape.borderRadius,
     backgroundColor: statusTheme[props.state].background,
     flexWrap: 'nowrap',
-    margin: theme.spacing(2, 0)
+    margin: theme.spacing(2, 0),
+    maxWidth: "500px"
   }),
   gridItem_icon: {
     margin: theme.spacing(2)

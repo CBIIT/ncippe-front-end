@@ -117,11 +117,8 @@ const Profile = (props) => {
             <EditIcon/> Edit
           </Button>
         )}
-        <Typography variant="h2" gutterBottom>
-          {loginContext.firstName} {loginContext.lastName}
-        </Typography>
-        <Typography>
-          Your contact information
+        <Typography variant="h3" component="h3" gutterBottom>
+        Your contact information
         </Typography>
         <FormControl className={classes.formControl}>
           <TextField

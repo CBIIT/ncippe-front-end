@@ -1,5 +1,5 @@
 import React from 'react'
-import { Badge, Card, CardContent, Grid, Paper } from '@material-ui/core'
+import { Badge, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from '@reach/router' 
 import ConditionalWrapper from '../utils/ConditionalWrapper'
@@ -7,21 +7,15 @@ import ConditionalWrapper from '../utils/ConditionalWrapper'
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(1)
-  },
-  card: {
-
-  },
-  gridItem: {
-    width: '33.333333%',
-
-    '& $card': {
-      height: '100%'
-    }
+    padding: theme.spacing(4),
+    marginBottom: theme.spacing(2),
+    backgroundColor: theme.palette.primary.lightGrey
   },
   Link: {
     textDecoration: 'none'
+  },
+  name: {
+    marginBottom: theme.spacing(1)
   },
   badge: {
     width: '100%',
@@ -40,44 +34,21 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-
-const PatientListItem = ({patient: {firstName, lastName, userName, newReports}, view}) => {
+const PatientListItem = ({patient: {firstName, lastName, userName, newReports}}) => {
   const classes = useStyles()
-  // const handleOnClick = GUID => (event) => {
-  //   // route to user test results page
-  //   // TODO: patient profile view only mode - https://publicis.invisionapp.com/share/AKT0SFLCYWP#/screens/374585175
-  //   history.push(`/dashboard/test-results/${firstName.toLowerCase()}${lastName}`)
-  // }
-
-  // TODO: wrap components if they have newReports flag - for providers
-
-  if(view === 'list') {
-    return (
-      <Link className={classes.Link} to={`/dashboard/participant/${userName}`}>
+  return (
+    <Link className={classes.Link}
+      to={`/dashboard/participant/${userName}`}>
         <ConditionalWrapper
-          condition={newReports}
-          wrapper={children => <Badge className={classes.badge} badgeContent="new document" component="div">{children}</Badge>}>
-          <Paper className={classes.paper}>
-            {firstName} {lastName}
-          </Paper>
-        </ConditionalWrapper>
-      </Link>
-    )
-  } else {
-    return (
-      <Grid className={classes.gridItem} item>
-        <Link className={classes.Link} to={`/dashboard/participant/${userName}`}>
-          <ConditionalWrapper
-            condition={newReports}
-            wrapper={children => <Badge className={classes.badge} badgeContent="new document" component="div">{children}</Badge>}>
-            <Card className={classes.card}>
-              <CardContent>{firstName} {lastName}</CardContent>
-            </Card>
-          </ConditionalWrapper>
-        </Link>
-      </Grid>
-    )
-  }
+        condition={newReports}
+        wrapper={children => <Badge className={classes.badge} badgeContent="new document" component="div">{children}</Badge>}>
+        <Paper className={classes.paper}>
+          <Typography className={classes.name} variant="h3" component="h3">{firstName} {lastName}</Typography>
+          <Typography>Participant since [date]</Typography>
+        </Paper>
+      </ConditionalWrapper>
+    </Link>
+  )
 }
 
 export default PatientListItem

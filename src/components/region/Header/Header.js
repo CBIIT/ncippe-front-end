@@ -10,6 +10,9 @@ import { Link as RouterLink } from "@reach/router"
 import LoginButton from '../../login/SharedLogin/LoginButton'
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    marginBottom: theme.spacing(3)
+  },
   appToolbarContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -30,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 const Header = () => {
   const classes = useStyles()
   return (
-    <Typography component="header">
+    <Typography className={classes.root} component="header">
       <Container className={classes.appToolbarContainer}>
         <figure className={classes.toolbarLogo}>
           <Link component={RouterLink} to='/'>

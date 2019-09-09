@@ -1,55 +1,79 @@
 import React from 'react'
-import { Badge, Card, CardContent, Typography, Divider } from '@material-ui/core';
+import { Badge, Card, CardContent, Grid, Typography, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
+import moment from 'moment'
 
 import ConditionalWrapper from '../utils/ConditionalWrapper'
 
 const useStyles = makeStyles( theme => ({
   badge: {
-    width: '100%',
+    display: 'block',
 
     '& .MuiBadge-badge': {
-      top: '11px',
-      right: '30px',
+      right: theme.spacing(3),
+      transform: 'none',
       borderRadius: '0 0 6px 6px',
-      padding: '3px 10px',
-      height: 'auto',
+      padding: theme.spacing(1,2),
       textTransform: 'uppercase',
-      backgroundColor: '#F6C674',
-      color: '#000'
+      backgroundColor: theme.palette.gold.main,
+      color: theme.palette.common.black,
+      fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+      fontSize: '16px',
+      fontWeight: 600,
+      lineHeight: '12px',
+      height: 'auto',
     },
 
     '& > div': {
-      borderLeft: '5px solid #F6C674'
+      borderLeft: '10px solid #F6C674',
+      paddingLeft: `calc(${theme.spacing(7)}px - 10px)`
     }
     
   },
   card: {
-    width: '100%',
-    marginBottom: theme.spacing(3)
+    position: 'relative',
+    marginBottom: theme.spacing(2)
+  },
+  cardContent: {
+    padding: theme.spacing(4,3,4,7),
+    '&:last-child': {
+      paddingBottom: theme.spacing(4)
+    },
+  },
+  [theme.breakpoints.up('sm')]: {
+    gridDate: {
+      textAlign: 'right'
+    },
   },
   divider: {
     margin: theme.spacing(2,0)
   }
 }))
 
-const NotificationItem = ({notification: {subject, from, message, generatedTime: time, viewedByUser}, handleClick}) => {
+const NotificationItem = ({notification: {subject, from, message, timestamp, viewedByUser}, handleClick}) => {
   const classes = useStyles()
   return (
-    <ConditionalWrapper
-      condition={!viewedByUser}
-      wrapper={children => <Badge className={classes.badge} badgeContent="new" component="div">{children}</Badge>}
-    >
-      <Card onClick={handleClick} className={classes.card}>
-        <CardContent>
-          <Typography variant="h4" component="h2">{subject}</Typography>
-          <Typography>{from}</Typography>
-          <Typography>{time}</Typography>
+    <Card onClick={handleClick} className={classes.card}>
+      <ConditionalWrapper
+        condition={!viewedByUser}
+        wrapper={children => <Badge className={classes.badge} badgeContent="new" component="div">{children}</Badge>}
+      >
+        <CardContent className={classes.cardContent}>
+          <Typography variant="h3" component="h3">{subject}</Typography>
+          <Grid container>
+            <Grid item xs={12} sm={8} md={10}>
+              <Typography>From: {from}</Typography>
+            </Grid>
+            <Grid item xs={12} sm={4} md={2} className={classes.gridDate}>
+              <Typography>{moment(timestamp).format("MMM Do YYYY")}</Typography>
+            </Grid>
+          </Grid>
+          
           <Divider className={classes.divider} />
           <Typography dangerouslySetInnerHTML={{__html:message}} />
         </CardContent>
-      </Card>
-    </ConditionalWrapper>
+      </ConditionalWrapper>
+    </Card>
   )
 }
 
