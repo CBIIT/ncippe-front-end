@@ -103,6 +103,29 @@ export const theme = createMuiTheme({
         borderColor: '#656565',
         borderWidth: '2px'
       }
+    },
+    MuiBadge: {
+      root: {
+        width: '100%',
+        height: "100%",
+        verticalAlign: 'top',
+        position: 'static',
+        display: 'block',
+      },
+      badge: {
+        right: "24px",
+        transform: 'none',
+        borderRadius: '0 0 6px 6px',
+        padding: "8px 16px",
+        textTransform: 'uppercase',
+        backgroundColor: "#ffb73d", // theme.palette.gold.main
+        color: "#000",
+        fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+        fontSize: '16px',
+        fontWeight: 600,
+        lineHeight: '12px',
+        height: 'auto',
+      }
     }
   }
 });

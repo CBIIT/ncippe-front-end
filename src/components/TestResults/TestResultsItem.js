@@ -43,22 +43,6 @@ const useStyles = makeStyles(theme => ({
   icon: {
     marginRight: '4px'
   },
-  badge: {
-    width: '100%',
-    display: 'block',
-    position: 'static',
-
-    '& .MuiBadge-badge': {
-      right: '20px',
-      borderRadius: '0 0 6px 6px',
-      padding: '3px 10px',
-      height: 'auto',
-      textTransform: 'uppercase',
-      backgroundColor: '#F6C674',
-      color: '#000',
-      transform: 'none'
-    }
-  }
 }))
 
 const TestResultsItem = ({report}) => {
