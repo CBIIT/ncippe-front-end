@@ -318,7 +318,8 @@
           "phoneNumber": "9493906330",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "newReports": true
         },
         {
           "userName": "yadiraStehr",
@@ -608,19 +609,34 @@
         },
         {
           "id": 2,
+          "reportName": "Another New Report",
+          "description": "A sort report description",
+          "timestamp": 1564691140370,
+          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "viewedBy": []
+        },
+        {
+          "id": 3,
           "reportName": "Some Report",
           "description": "A sort report description",
           "timestamp": 1562291140370,
           "s3Url": "important-document.pdf",
-          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb4"
+          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb4",
+          "viewedBy": [
+            "59ee321e-2fcd-4aac-98ed-46e4136f8f08"
+          ]
         },
         {
-          "id": 3,
+          "id": 4,
           "reportName": "Old Report",
           "description": "A sort report description",
           "timestamp": 1551291140370,
           "s3Url": "important-document.pdf",
-          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb4"
+          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb4",
+          "viewedBy": [
+            "2ad983dd-d265-4325-b083-c16cc1b050aa",
+            "59ee321e-2fcd-4aac-98ed-46e4136f8f08"
+          ]
         }
       ],
       "notificationList": [

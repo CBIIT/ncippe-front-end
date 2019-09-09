@@ -72,11 +72,26 @@ export default () => {
     // fetch call
     api[env].fetchUser({userGUID, userName, token})
       .then(data => {
+        const newReportCount = (data) => {
+          //TODO: only for Participants
+          if(data.reports){
+            return data.reports.some(report => {
+              if (!report.viewedBy) {
+                return true
+              } else {
+                return !report.viewedBy.includes(userGUID)
+              }
+            })          
+          } else {
+            return null
+          }
+        }
         const userData = {
           ...data,
           allowEmailNotification: getBool(data.allowEmailNotification), //convert "allowEmailNotification" to boolean
           phoneNumber: formatPhoneNumber(data.phoneNumber), //format "phoneNumber" field
-          newNotificationCount: data.notificationList ? data.notificationList.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0
+          newNotificationCount: data.notificationList ? data.notificationList.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0,
+          newReport: newReportCount(data)
         }
         
         //TODO: set context
@@ -112,8 +127,6 @@ export default () => {
             <Link className={classes.Link} to="/dashboard/notifications">
               <LoginConsumer>
               {([{newNotificationCount: count}]) => {
-
-                console.log("count", count)
                 return (
                   <ConditionalWrapper
                     condition={count > 0}
@@ -153,12 +166,24 @@ export default () => {
             {/* Participant Biomarker Test Results */}
             <Grid className={classes.gridItem} item xs={12} sm={6} md={4}>
               <Link className={classes.Link} to="/dashboard/test-results">
-                <Card className={classes.card}>
-                  <CardContent>
-                    <Typography variant="h4" component="h2">Biomarker tests</Typography>
-                    <Typography>Your genomic information may help your oncologist treat your cancer.</Typography>
-                  </CardContent>
-                </Card>
+                <LoginConsumer>
+                {([{newReport}]) => {
+                  return (
+                    <ConditionalWrapper
+                      condition={newReport}
+                      wrapper={children => <Badge className={classes.badge} badgeContent="new" component="div">{children}</Badge>}
+                    >
+                      <Card className={classes.card}>
+                        <CardContent>
+                          <Typography variant="h4" component="h2">Biomarker tests</Typography>
+                          <Typography>Your genomic information may help your oncologist treat your cancer.</Typography>
+                        </CardContent>
+                      </Card>
+                    </ConditionalWrapper>
+                  )
+                }}
+                </LoginConsumer>
+                
               </Link>
             </Grid>
             {/* END: Participant Biomarker Test Results */}
