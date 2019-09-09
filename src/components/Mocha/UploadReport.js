@@ -9,7 +9,7 @@ import { api } from '../../data/api'
 import { LoginContext } from '../login/SharedLogin/Login.context'
 import UploadStepper from './UploadStepper'
 import FileItem from './FileItem'
-import { isValidUUID } from '../../utils/utils'
+import { isValidUserId } from '../../utils/utils'
 import Status from '../Status/Status'
 // import ToggleEnvButton from '../login/SharedLogin/ToggleEnvButton'
 
@@ -111,7 +111,7 @@ const UploadReport = (props) => {
     }
     // validate GUID length before next/api call
     // example GUID: b36284a2-cecf-4756-996c-abb0d8ba652c
-    if(isValidUUID(patientData.patientId)) {
+    if(isValidUserId(patientData.patientId)) {
 
       api[env].fetchUser({userGUID: patientData.patientId, token})
       .then(resp => {
