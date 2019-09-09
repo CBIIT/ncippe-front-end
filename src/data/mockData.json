@@ -199,7 +199,10 @@
           "reportName": "One_long_report_title_that_needs_wrapping_08-28-2019",
           "description": "A sort report description",
           "timestamp": 1563431140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "viewedBy": [
+            "LSsMXzX3"
+          ]
         }
       ]
     },
@@ -274,7 +277,8 @@
           "phoneNumber": "559-428-5906",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "newReports": true
         },
         {
           "userName": "bartholomeGreenfelder",
@@ -569,7 +573,10 @@
           "reportName": "New Report",
           "description": "A sort report description",
           "timestamp": 1564691140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "viewedBy": [
+            "LSsMXzX3"
+          ]
         }
       ]
     },
@@ -703,7 +710,10 @@
           "reportName": "New Report",
           "description": "A sort report description",
           "timestamp": 1564691140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "viewedBy": [
+            "LSsMXzX3"
+          ]
         }
       ]
     },
@@ -798,14 +808,20 @@
           "reportName": "New Report",
           "description": "A sort report description",
           "timestamp": 1564691140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "viewedBy": [
+            "LSsMXzX3"
+          ]
         },
         {
           "id": 2,
           "reportName": "Another Report",
           "description": "A sort report description",
           "timestamp": 1564561140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "viewedBy": [
+            "LSsMXzX3"
+          ]
         }
       ]
     },
