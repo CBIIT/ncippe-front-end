@@ -10,36 +10,6 @@ import IconCard from '../components/IconCard/IconCard'
 
 
 const useStyles = makeStyles(theme => ({
-  card: {
-    position: 'relative',
-    width: '100%',
-    minWidth: 100,
-    height: '100%',
-    minHeight: 250,
-    // maxWidth: 300,
-  },
-  cardContent: {
-    display: 'flex',
-    height: '100%',
-    width: '100%',
-    alignItems: 'flex-start',
-    padding: theme.spacing(4,3,3,3)
-  },
-  cardTitle: {
-    fontWeight: 'bold'
-  },
-  cardIcon: {
-    paddingRight: theme.spacing(3),
-    maxWidth: '100px',
-    width: '100%'
-  },
-  cardText: {
-    display: 'flex',
-    flexGrow: 1,
-    flexDirection: 'column',
-    height: '100%',
-    justifyContent: 'space-between'
-  },
   grid: {
     justifyContent: 'flex-start'
   },
@@ -51,22 +21,8 @@ const useStyles = makeStyles(theme => ({
         margin: 0
       }
     }
-  },
-  link: {
-    display: 'flex',
-    alignItems: 'center',
-    textDecoration: 'none',
-    fontWeight: 600,
-    paddingTop: theme.spacing(2),
-    marginTop: theme.spacing(2),
-    borderTop: `1px solid ${theme.palette.grey[300]}`,
-    color: theme.palette.primary.main
-  },
-  patientList: {
-    margin: theme.spacing(6,0)
   }
 }));
-
 
 export default () => {
   const classes = useStyles();
@@ -211,7 +167,7 @@ export default () => {
         {([{roleName, patients}]) => {
           {/* Secondary row */}
           return (roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && patients && (
-            <Box className={classes.patientList}>
+            <Box my={6}>
               <PatientList patients={patients} />
             </Box>
             )

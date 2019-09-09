@@ -6,6 +6,7 @@ import NotFoundPage from '../pages/NotFoundPage'
 import Home from '../pages/HomePage'
 import Dashboard from '../pages/DashboardPage'
 import DashboardMocha from '../pages/DashboardMochaPage'
+import MockUsersPage from '../pages/MockUsersPage'
 import NotificationsPage from '../pages/NotificationsPage'
 import TestResultsPage from '../pages/TestResultsPage'
 import ParticipantPage from '../pages/ParticipantPage'
@@ -43,6 +44,7 @@ export default () => (
           <Router location={location} primary={false}>
             <HomePage path='/' />
             <PrivateRoute path='/dashboard' component={DashboardPage} />
+            <MockUsersPage path='/dashboard/mock-users' />
             <PrivateRoute path='/dashboard-mocha' component={DashboardMochaPage} />
             <PrivateRoute path='/dashboard/notifications' component={NotificationsPage} />
             <PrivateRoute path='/dashboard/consent' component={ConsentPage} />
