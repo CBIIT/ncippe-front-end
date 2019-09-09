@@ -14,8 +14,6 @@ const useStyles = makeStyles(theme => ({
   },
   profile: {
     display: 'flex',
-    height: '100%',
-    width: '100%',
     alignItems: 'flex-start',
     '& a': {
       textDecoration: 'none'
@@ -78,11 +76,11 @@ const TestResults = (props) => {
       <Divider className={classes.divider} />
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          {reports ? (
+          {reports && reports.length > 0 ? (
             <>
               <Typography className={classes.header} variant="h2" component="h2">Biomarker tests</Typography>
               <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-                {reports && reports.map((report,i) => <Grid item xs={12}><TestResultsItem key={i} report={report} /></Grid>)}
+                {reports && reports.map((report,i) => <Grid item xs={12} key={i}><TestResultsItem report={report} /></Grid>)}
               </Grid>
             </>
           ) : (
