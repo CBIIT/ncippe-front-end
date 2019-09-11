@@ -300,10 +300,25 @@ async function notificationsMarkAsReadProd({userGUID, token}){
 
 /*=======================================================================*/
 
-//TODO: mock fetching report pdf files locally
-async function fetchPartientReportProd({reportID}){
+async function fetchPartientReportLocal({reportID}){
+  // This kind of works, but reports have to be manually placed in the /assets/documents folder and reportID is the filename
   // return await fetch(`//10.5.62.58:8080/api/patientReport/${reportID}`,{
-  // return await fetch(`/assets/documents/${reportID}`) - point to local assets
+  // return await fetch(`/assets/documents/${reportID}`)
+  return await fetch(`/assets/documents/${reportID}`) // - point to local assets
+  .then(resp => {
+    if(resp.ok) {
+      return resp
+    } else {
+      throw new Error(`We were unable to fetch this report. Please try again.`)
+    }
+  })
+  .catch(error => {
+    console.error(error)
+    return error
+  })
+}
+
+async function fetchPartientReportProd({reportID}){
   return await fetch(`/api/patientReport/${reportID}`)
   .then(resp => {
     if(resp.ok) {
@@ -368,7 +383,7 @@ export const api = {
     fetchUser: fetchUserLocal,
     updateUser: updateUserLocal,
     fetchPatientTestResults: fetchUserLocal,
-    fetchPatientReport: fetchPartientReportProd,
+    fetchPatientReport: fetchPartientReportLocal,
     uploadPatientReport: uploadPatientReportLocal,
     notificationsMarkAsRead: notificationsMarkAsReadLocal,
     reportViewedBy: reportViewedByLocal
