@@ -630,15 +630,14 @@
           "reportName": "New Report",
           "description": "A sort report description",
           "dateUploaded": 1556000989000,
-          "s3Url": "important-document.pdf",
-          "reportGUID": "important-document.pdf"
+          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb2"
         },
         {
           "id": 2,
           "reportName": "Another New Report",
           "description": "A sort report description",
           "dateUploaded": 1555136989000,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb3",
           "viewedBy": []
         },
         {
@@ -646,7 +645,6 @@
           "reportName": "Some Report",
           "description": "A sort report description",
           "dateUploaded": 1556087389000,
-          "s3Url": "important-document.pdf",
           "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb4",
           "viewedBy": [
             "LSsMXzX3"
@@ -657,8 +655,7 @@
           "reportName": "Old Report",
           "description": "A sort report description",
           "dateUploaded": 1556087389370,
-          "s3Url": "important-document.pdf",
-          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb4",
+          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb5",
           "viewedBy": [
             "TI7TtATY",
             "LSsMXzX3"
