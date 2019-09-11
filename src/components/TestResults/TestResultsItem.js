@@ -49,7 +49,7 @@ const TestResultsItem = ({report}) => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const {env} = loginContext
-  const {reportName, timestamp, reportGUID} = report
+  const {reportName, dateUploaded, reportGUID} = report
   const newReport = report.viewedBy ? !report.viewedBy.includes(loginContext.userGUID) : true
 
   // response header example to parse
@@ -121,7 +121,7 @@ const TestResultsItem = ({report}) => {
         wrapper={children => <Badge className={classes.badge} badgeContent="new document" component="div">{children}</Badge>}>
         <CardContent>
           <Typography className={classes.reportTitle} variant="h3" component="h3">{reportName}</Typography>
-          <Typography>Uploaded {moment(timestamp).format("MMM Do YYYY")}</Typography>
+          <Typography>Uploaded {moment(dateUploaded).format("MMM Do YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
           {/* <Link href={reportGUID} underline="none" onClick={handleViewReport}> */}
