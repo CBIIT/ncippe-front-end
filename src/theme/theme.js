@@ -33,7 +33,9 @@ export const theme = createMuiTheme({
     }
   },
   gradients: {
-    primary: 'linear-gradient(#facfdc, #d2e2f7)'
+    primary: 'linear-gradient(#d2e2f7, #facfdc)',
+    blue: 'linear-gradient(#d2e2f7, transparent)',
+    primaryDiagonal: 'linear-gradient(315deg, #FFEBF1 0%, #F3EEF6 51%, #E8F0FA 100%)'
   },
   text: {
     primary: '#0d1c3c'

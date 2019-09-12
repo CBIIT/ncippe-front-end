@@ -26,7 +26,7 @@ const Footer = () => {
   return (
     <footer className={classes.root}>
       <div className={classes.logo}><img src={`/${process.env.PUBLIC_URL}assets/images/nci-ppe-logo.svg`} /></div>
-      <Typography>
+      <Typography component="div">
         <Grid container>
           <Grid item>
             <a href="mailto:moonshotbiobank@nih.gov">moonshotbiobank@nih.gov</a>
