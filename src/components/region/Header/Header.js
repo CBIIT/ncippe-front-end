@@ -45,7 +45,9 @@ const Header = () => {
             <img src={`/${process.env.PUBLIC_URL}assets/images/nci-ppe-logo.svg`} alt='NCI PPE logo' title='NCI Patient and Provider Engagement Portal' />
           </Link>
         </figure>
-        <Link className={classes.mockUsers} component={RouterLink} to='/dashboard/mock-users'><Button variant="outlined" color="primary">Mock User</Button></Link>
+        <Link className={classes.mockUsers} component={RouterLink} to='/dashboard/mock-users'>
+          <Button variant="outlined" color="primary">Mock User</Button>
+        </Link>
         <LoginButton />
       </Container>
     </Typography>
