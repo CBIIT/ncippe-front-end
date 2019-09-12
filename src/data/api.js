@@ -321,8 +321,13 @@ async function fetchPatientReportLocal({reportId}){
   })
 }
 
-async function fetchPatientReportProd({reportId}){
-  return await fetch(`/api/patientReport/${reportId}`)
+async function fetchPatientReportProd({reportId, token}){
+  return await fetch(`/api/patientReport/${reportId}`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+  })
   .then(resp => {
     if(resp.ok) {
       return resp

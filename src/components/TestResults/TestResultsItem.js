@@ -69,7 +69,7 @@ const TestResultsItem = ({report}) => {
       win.document.body.style.margin = 0
     }
 
-    api[env].fetchPatientReport({reportId})
+    api[env].fetchPatientReport({reportId, token})
       .then(resp => {
         try{
           const disposition = resp.headers.get('Content-Disposition')
@@ -109,7 +109,7 @@ const TestResultsItem = ({report}) => {
       })
       .then(() => {
         // mark this report as viewed in database
-        api[env].reportViewedBy({userGUID,reportId})
+        api[env].reportViewedBy({userGUID,reportId, token})
         // mark as viewed in front-end state
         setIsNewReport(false)
       })
