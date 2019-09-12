@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
 const TestResultsItem = ({report}) => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
-  const {userGUID,env} = loginContext
+  const {userGUID,env,token} = loginContext
   const {reportName, dateUploaded, reportGUID} = report
   const [isNewReport, setIsNewReport] = useState(report.viewedBy ? !report.viewedBy.includes(loginContext.userGUID) : true)
 
