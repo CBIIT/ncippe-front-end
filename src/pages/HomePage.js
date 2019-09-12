@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Container, Grid, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
-import { flexbox } from '@material-ui/system';
+import { flexbox, borderRadius } from '@material-ui/system';
 
 import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
 
@@ -98,12 +98,37 @@ const useStyles = makeStyles( theme => ({
     backgroundImage: theme.gradients.primaryDiagonal
   },
   volunteer: {
-    backgroundImage: theme.gradients.primaryDiagonal
+    paddingBottom: '304px',
+    position: 'relative',
+    background: `url(/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-long.svg) no-repeat bottom center, ${theme.gradients.primaryDiagonal}`,
   },
   volunteerText: {
     width: '84%',
     textAlign: 'center',
-    margin: `${theme.spacing(3)}px auto`
+    margin: `${theme.spacing(5)}px auto`
+  },
+  bulletList: {
+    listStyleType: 'disc',
+    marginLeft: '20px'
+  },
+  boxList: {
+
+  },
+  boxListHeader: {
+    backgroundImage: theme.gradients.primaryDiagonal,
+    padding: theme.spacing(2,3)
+  },
+  boxListElement: {
+    '& > li': {
+      display: 'block',
+      fontWeight: 'bold',
+      borderTop: `1px solid ${theme.palette.grey[300]}`,
+      padding: theme.spacing(1,3)
+    }
+  },
+  boxListFooter: {
+    borderTop: `1px solid ${theme.palette.grey[300]}`,
+    padding: theme.spacing(2,3)
   },
   [theme.breakpoints.up('sm')]: {
     missionStatementText: {
@@ -189,11 +214,11 @@ const HomePage = (props) => {
           <Typography variant="h1" component="h2" className={classes.infoBox}>A diverse biobank works for all of us.</Typography>
           <Grid container spacing={8} justify="center">
             <Grid item xs={10} sm={5}>
-              <Typography>Cancer treatments do not work the same way for everyone. A diverse biobank, with samples from many different populations of people, makes it easier for researchers to find treatments that work.</Typography>
+              <Typography paragraph={true}>Cancer treatments do not work the same way for everyone. A diverse biobank, with samples from many different populations of people, makes it easier for researchers to find treatments that work.</Typography>
               <Typography>We are working hard to ensure the diversity of this study matches the diversity of our country.</Typography>
             </Grid>
             <Grid item xs={10} sm={5}>
-              <Typography className={classes.bold}>Progress is being made in Biobank diversity.</Typography>
+              <Typography className={classes.bold} paragraph={true}>Progress is being made in Biobank diversity.</Typography>
               <Typography>Learn how other projects are using community outreach to increase participation in biobanking and research.</Typography>
             </Grid>
           </Grid>
@@ -206,7 +231,7 @@ const HomePage = (props) => {
             <Grid item xs={10} sm={5}>
               <Typography className={classes.bold}>Eligible patients:</Typography>
               <Typography component="div">
-                <ul>
+                <ul className={classes.bulletList}>
                   <li>Have locally advanced or metastatic solid tumors and hematologic malignancies</li>
                   <li>Are receiving standard of care therapy (not experimental treatment)</li>
                   <li>Are at least 13 years old</li>
@@ -215,29 +240,29 @@ const HomePage = (props) => {
               </Typography>
             </Grid>
             <Grid item xs={10} sm={5}>
-              <Box>
-              <Typography className={classes.bold}>We are currently seeking participants with these cancers:</Typography>
-              <Typography component="div">
-                <ul className={classes.boxList}>
-                  <li>Colorectal cancer</li>
-                  <li>Lung cancer</li>
-                  <li>Prostate cancer</li>
-                  <li>Melanoma</li>
-                  <li>Gastroesophageal cancer</li>
-                  <li>Acute myeloid luekemia</li>
-                  <li>Multiple Myeloma</li>
-                </ul>
-              </Typography>
-              <Typography>
-                Other cancer types may be added in future phases of the biobank program.
-              </Typography>
-              </Box>
+              <Paper className={classes.boxList}>
+                <Typography className={classes.boxListHeader} variant="h3" component="h3">We are currently seeking participants with these cancers:</Typography>
+                <Typography component="div">
+                  <ul className={classes.boxListElement}>
+                    <li>Colorectal cancer</li>
+                    <li>Lung cancer</li>
+                    <li>Prostate cancer</li>
+                    <li>Melanoma</li>
+                    <li>Gastroesophageal cancer</li>
+                    <li>Acute myeloid luekemia</li>
+                    <li>Multiple Myeloma</li>
+                  </ul>
+                </Typography>
+                <Typography className={classes.boxListFooter}>
+                  Other cancer types may be added in future phases of the biobank program.
+                </Typography>
+              </Paper>
             </Grid>
           </Grid>
         </Box>
       </Container>
       <Container className={classes.volunteer}>
-        <Box pt={4} pb={13}>
+        <Box pt={4}>
           <Typography variant="h1" component="h2" className={classes.infoBox}>To volunteer,<br /> talk to your doctor.</Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={3}>
@@ -277,7 +302,7 @@ const HomePage = (props) => {
               />
             </Grid>
           </Grid>
-          <Typography className={classes.volunteerText}>If you can't join the Cancer Moonshot Biobank, consider making a difference by joining other projects at NIH or NCI.</Typography>
+          <Typography className={classes.volunteerText} variant="body2">If you can't join the Cancer Moonshot Biobank, consider making a difference by joining other projects at NIH or NCI.</Typography>
         </Box>
       </Container>
     </Box>
