@@ -5,6 +5,12 @@ import { makeStyles } from '@material-ui/core/styles'
 import { KeyboardArrowRight as KeyboardArrowRightIcon } from '@material-ui/icons'
 
 const useStyles = makeStyles( theme => ({
+  root: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
   media: {
     height: '146px',
   },
@@ -22,7 +28,7 @@ const Component = ({title, desc, image, imageTitle, link, linkText,}) => {
   const classes = useStyles()
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
