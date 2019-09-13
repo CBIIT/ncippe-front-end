@@ -4,6 +4,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import NotFoundPage from '../pages/NotFoundPage'
 import Home from '../pages/HomePage'
+import WhatToExpect from '../pages/WhatToExpectPage'
 import Dashboard from '../pages/DashboardPage'
 import DashboardMocha from '../pages/DashboardMochaPage'
 import MockUsersPage from '../pages/MockUsersPage'
@@ -19,6 +20,7 @@ import { LoginConsumer } from '../components/login/SharedLogin/Login.context'
 const HomePage = pageWrapper(Home)
 const DashboardPage = pageWrapper(Dashboard)
 const DashboardMochaPage = pageWrapper(DashboardMocha)
+const WhatToExpectPage = pageWrapper(WhatToExpect)
 
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -43,6 +45,7 @@ export default () => (
         >
           <Router location={location} primary={false}>
             <HomePage path='/' />
+            <WhatToExpectPage path='/expect' />
             <PrivateRoute path='/dashboard' component={DashboardPage} />
             <MockUsersPage path='/dashboard/mock-users' />
             <PrivateRoute path='/dashboard-mocha' component={DashboardMochaPage} />
