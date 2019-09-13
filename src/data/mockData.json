@@ -284,7 +284,7 @@
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1567606345000,
-          "newReports": true
+          "hasNewReports": true
         },
         {
           "userName": "bartholomeGreenfelder",
@@ -333,7 +333,7 @@
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1554877789000,
-          "newReports": true
+          "hasNewReports": true
         },
         {
           "userName": "yadiraStehr",
@@ -630,7 +630,10 @@
           "reportName": "New Report",
           "description": "A sort report description",
           "dateUploaded": 1556000989000,
-          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb2"
+          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb2",
+          "viewedBy": [
+            "TI7TtATY"
+          ]
         },
         {
           "id": 2,
@@ -671,7 +674,7 @@
           "message": "Test Message",
           "dateGenerated": 1555309789000,
           "userId": 1,
-          "viewedByUser": 0
+          "viewedByUser": 1
         },
         {
           "id": 2,
@@ -681,7 +684,7 @@
           "message": "Thank you for participating in the Cancer Moonshot Biobank Program!",
           "dateGenerated": 1554964189000,
           "userId": 1,
-          "viewedByUser": 0
+          "viewedByUser": 1
         },
         {
           "id": 3,

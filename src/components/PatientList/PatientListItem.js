@@ -22,14 +22,14 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const PatientListItem = ({patient: {firstName, lastName, userName, dateCreated, newReports}}) => {
+const PatientListItem = ({patient: {firstName, lastName, userName, dateCreated, hasNewReports}}) => {
   const classes = useStyles()
   return (
     <Link className={classes.Link}
       to={`/dashboard/participant/${userName}`}>
       <Paper className={classes.paper}>
         <ConditionalWrapper
-        condition={newReports}
+        condition={hasNewReports}
         wrapper={children => <Badge className={classes.badge} badgeContent="new document" component="div">{children}</Badge>}>
           <Typography className={classes.name} variant="h3" component="h3">{firstName} {lastName}</Typography>
           <Typography>Participant since {moment(dateCreated).format("MMM Do YYYY")}</Typography>
