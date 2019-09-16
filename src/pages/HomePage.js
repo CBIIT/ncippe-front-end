@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { Box, Container, Grid, Paper, Typography } from '@material-ui/core';
-=======
-import React from 'react';
-import { Box, Container, Grid, Paper, Typography } from '@material-ui/core'
->>>>>>> fix code typos
 import { makeStyles } from '@material-ui/core/styles'
 
 import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
