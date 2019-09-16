@@ -219,6 +219,15 @@ main {
   padding-bottom: 110px;
   min-height: calc(100vh - 84px);
 }
+.mainContainer--dashboard {
+  background-color: #f2f5f8;
+  background-image: url(/assets/images/soft-diamond-background-short.svg);
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  border-top: 1px solid #e0e0e0;
+  padding-bottom: 110px;
+}
 
 .popup .mainContainer {
   padding: 40px;

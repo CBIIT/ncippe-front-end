@@ -68,7 +68,7 @@ export default () => {
 
   return (
     <Box>
-      <Container className="mainContainer">
+      <Container className="mainContainer--dashboard">
         <LoginConsumer>
         {([{firstName, lastName}]) => {
           return (

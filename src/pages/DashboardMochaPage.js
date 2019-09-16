@@ -38,7 +38,7 @@ const MochaDashboard = (props) => {
 
   return (
     <Box>
-      <Container className="mainContainer">
+      <Container className="mainContainer--dashboard">
           <LoginConsumer>
           {([{firstName, lastName, roleName}]) => <Box my={6} mx={0}><Typography variant='h1' component='h1' gutterBottom>Welcome, {firstName} {lastName}</Typography></Box>}
           </LoginConsumer>
