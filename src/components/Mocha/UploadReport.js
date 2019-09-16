@@ -170,6 +170,7 @@ const UploadReport = (props) => {
           patientGUID: formData.patientId,
           userGUID,
           reportFile: formData.reportFile,
+          fileType: 'PPE_FILETYPE_BIOMARKER_REPORT',
           token
         })
         .then(resp => {

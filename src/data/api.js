@@ -151,7 +151,7 @@ async function updateUserProd({userGUID, data, token}){
 /*=======================================================================*/
 
 
-async function uploadPatientReportLocal({patientGUID, userGUID, reportFile}){
+async function uploadPatientReportLocal({patientGUID, userGUID, reportFile, fileType}){
 
   // first get reports for this user - local only
   const userDetails = await fetch(`/api/users?userGUID=${patientGUID}&singular=1`)
@@ -167,6 +167,7 @@ async function uploadPatientReportLocal({patientGUID, userGUID, reportFile}){
       {
         "id": userDetails.reports && userDetails.reports.length > 0 ? userDetails.reports.length + 1 : 1,
         "reportName": reportFile.name,
+        "uploadedFileType": fileType,
         "description": "",
         "timestamp": Date.now(),
         "reportGUID": createUUID()
@@ -178,6 +179,7 @@ async function uploadPatientReportLocal({patientGUID, userGUID, reportFile}){
     `\nuserGUID: ${userGUID}`, 
     `\npatientGUID: ${patientGUID}`, 
     `\nreportFile:`, reportFile, 
+    `\nuploadedFileType:`, fileType, 
     `\nreports:`, reports
   )
 
@@ -202,13 +204,14 @@ async function uploadPatientReportLocal({patientGUID, userGUID, reportFile}){
   })
 }
 
-async function uploadPatientReportProd({patientGUID, userGUID, reportFile, token}){
+async function uploadPatientReportProd({patientGUID, userGUID, reportFile, fileType, token}){
 
   const formData = new FormData();
 
   formData.append("userGUID",userGUID)
   formData.append("patientGUID",patientGUID)
   formData.append("reportFile",reportFile)
+  formData.append("uploadedFileType",fileType)
 
   return await fetch(`/api/patientReport`, {
     method: 'POST',
