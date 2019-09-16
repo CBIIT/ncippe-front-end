@@ -1,4 +1,7 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles'
+import createBreakpoints from '@material-ui/core/styles/createBreakpoints'
+
+const breakpoints = createBreakpoints({});
 
 export const theme = createMuiTheme({
   palette: {
@@ -127,6 +130,20 @@ export const theme = createMuiTheme({
         fontWeight: 600,
         lineHeight: '12px',
         height: 'auto',
+      }
+    },
+    MuiGrid: {
+      'spacing-xs-8': {
+        width: 'calc(100% + 32px)',
+        margin: '-16px',
+        [breakpoints.up('sm')]: {
+          width: 'calc(100% + 48px)',
+          margin: '-24px',
+        },
+        [breakpoints.up('md')]: {
+          width: 'calc(100% + 64px)',
+          margin: '-32px',
+        }
       }
     }
   }

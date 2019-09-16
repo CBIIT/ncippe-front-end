@@ -7,12 +7,17 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#0D1C3C',
     padding: theme.spacing(3),
     color: theme.palette.common.white,
-    fontFamily: 'Montserrat, Helvetica, Arial, sans-serif'
+    fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+    textAlign: 'center',
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'left',
+    }
   },
   logo: {
 
     '& img': {
       width: '430px',
+      maxWidth: '100%',
       height: 'auto'
     }
   },
