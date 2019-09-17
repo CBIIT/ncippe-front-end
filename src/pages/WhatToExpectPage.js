@@ -65,9 +65,7 @@ const StyledTabs = withStyles(theme => ({
     },
 
     '& .MuiTabs-scroller': {
-      // justifyContent: 'space-between',
-      // flexDirection: 'row-reverse',
-      // direction: 'rtl'
+      overflowY: 'hidden'
     },
     '& .MuiTabs-flexContainer': {
       flexDirection: 'row-reverse',
