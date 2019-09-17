@@ -207,6 +207,8 @@ const HomePage = (props) => {
     window.addEventListener('resize', () => {
       setIsMobile(window.innerWidth < 600)
     })
+    //clean up
+    return () => {}
   },[isMobile])
   return (
     <Box>

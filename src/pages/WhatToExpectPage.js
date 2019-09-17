@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { Router, Link } from '@reach/router'
-import { AppBar, Box, Container, Tab, Tabs, Typography } from '@material-ui/core'
+import { Router, Link as RouterLink } from '@reach/router'
+import { AppBar, Box, Link, Container, Grid, Tab, Tabs, Typography } from '@material-ui/core'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { OpenInNew as OpenInNewIcon } from '@material-ui/icons'
 
 const useStyles = makeStyles( theme => ({
   pageHeader: {
     backgroundImage: theme.gradients.primaryDiagonal,
     padding: theme.spacing(4,5),
-    boxShadow: 'inset 0 -13px 13px -13px rgba(30,111,214,0.2)'
+    boxShadow: 'inset 0 -13px 13px -13px rgba(30,111,214,0.2)',
+    '& h1': {
+      fontSize: 22,
+      textAlign: 'center',
+      [theme.breakpoints.up('sm')]: {
+        fontSize: 26,
+        textAlign: 'left',
+      }
+    }
   },
   appbarContainer: {
     padding: 0,
@@ -15,24 +24,27 @@ const useStyles = makeStyles( theme => ({
   appbar: {
     backgroundColor: theme.palette.primary.medium
   },
-  imgDoctorAndPatient: {
-    maxWidth: '40%'
+  boxMain: {
+    padding: theme.spacing(3,0),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(5,3),
+    }
   }
 }))
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
+  const classes = useStyles()
 
   return (
     <Typography
       component="div"
       role="tabpanel"
-      hidden={value !== index}
       id={`scrollable-auto-tabpanel-${index}`}
       aria-labelledby={`scrollable-auto-tab-${index}`}
       {...other}
     >
-      <Box p={3}>{children}</Box>
+      <Box className={classes.boxMain}>{children}</Box>
     </Typography>
   );
 }
@@ -40,7 +52,6 @@ const TabPanel = (props) => {
 // TabPanel.propTypes = {
 //   children: PropTypes.node,
 //   index: PropTypes.any.isRequired,
-//   value: PropTypes.any.isRequired,
 // };
 
 const StyledTabs = withStyles(theme => ({
@@ -66,6 +77,9 @@ const StyledTabs = withStyles(theme => ({
       overflow: 'visible',
       borderRight: '1px solid #fafafa',
       borderLeft: '1px solid transparent',
+      color: '#0D1C3C',
+      fontWeight: 'bold',
+      fontSize: 16,
       // backgroundColor: '#d2e2f7',
       zIndex: 0,
       [theme.breakpoints.up('sm')]: {
@@ -121,8 +135,6 @@ const StyledTabs = withStyles(theme => ({
         // borderBottom: '24px solid transparent',
       },
     },
-    
-    
     '& .Mui-selected': {
       borderLeft: '1px solid transparent',
       borderRight: '1px solid transparent',
@@ -152,10 +164,6 @@ const StyledTabs = withStyles(theme => ({
   }
 }))(props => <Tabs {...props} />)
 
-// const StyledMobileNac = withStyles(theme => ({
-
-// }))(props => <Tabs {...props} />)
-
 const a11yProps = (index) => {
   return {
     id: `scrollable-auto-tab-${index}`,
@@ -163,46 +171,101 @@ const a11yProps = (index) => {
   };
 }
 
+const Discuss = withStyles(theme => ({
+  text: {
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '74%'
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '64%'
+    }
+  },
+  mapPlaceholder: {
+    width: 470,
+    height: 470,
+    backgroundColor: "#d8d8d8",
+    padding: theme.spacing(3)
+  }
+}))(({classes, index, isMobile}) => (
+  <TabPanel index={index}>
+    <Typography className={classes.text} variant={isMobile ? "body1" : "body2"}>To join the Biobank, you must be in the care of a doctor at a participating hospital. Talk to your doctor to determine if participation is right for you.</Typography>
+    <Box className={classes.mapPlaceholder} my={6}>Map Placeholder</Box>
+  </TabPanel>
+))
 
-const Discuss = () => (
-  <>
-    <Typography variant="body2">To join the Biobank, you must be in the care of a doctor at a participating hospital. Talk to your doctor to determine if participation is right for you.</Typography>
-    <Box my={6}>Map Placeholder</Box>
-  </>
-)
 
-const Donate = () => (
-  <>
-    <Typography variant="body2">After you and your doctor discuss your participation in the Cancer Moonshot Biobank and decide you'd like to participate, you will be asked to sign a consent form. A research coordinator will be there to answer any questions you may have.</Typography>
-    <a href="#" rel="noopener noreferrer" target="_blank">Review the consent form</a>
-    <Box my={6}>Video placeholder</Box>
-  </>
-)
+const Consent = withStyles(theme => ({
+  videoPlaceholder: {
+    width: 470,
+    height: 264,
+    backgroundColor: "#d8d8d8",
+    padding: theme.spacing(3)
+  },
+  iconLink: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    margin: theme.spacing(3,0,4),
+    '& svg': {
+      marginLeft: 4
+    }
+  }
+}))(({classes, index, isMobile}) => (
+  <TabPanel index={index}>
+    <Typography variant={isMobile ? "body1" : "body2"}>After you and your doctor discuss your participation in the Cancer Moonshot Biobank and decide you'd like to participate, you will be asked to sign a consent form. A research coordinator will be there to answer any questions you may have.</Typography>
+    <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="h4" rel="noopener noreferrer" target="_blank">Review the consent form <OpenInNewIcon /></Link>
+    <Box className={classes.videoPlaceholder}>Video placeholder</Box>
+  </TabPanel>
+))
 
-const Consent = () => (
-  <>
-    <Typography variant="body2">Donated blood and tissue will be sent to the Cancer Moonshot Biobank over the course of 3-5 years. The Biobank may also collect other relevant medical information from your hospital record.</Typography>
+const Donate = withStyles(theme => ({
+  textColumn: {
+    [theme.breakpoints.up('sm')]: {
+      paddingRight: theme.spacing(3)
+    }
+  },
+  imgColumn: {
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: theme.spacing(3)
+    }
+  },
+  bottomSpacer: {
+    marginBottom: theme.spacing(4),
+    [theme.breakpoints.up('sm')]: {
+      marginBottom: theme.spacing(5)
+    }
+  },
+  img: {
+    maxWidth: 410
+  }
+}))(({classes, index, isMobile}) => (
+  <TabPanel index={index}>
+    <Grid container>
+      <Grid item xs={12} sm={6} lg={8} className={classes.textColumn}>
+        <Typography className={classes.bottomSpacer} variant={isMobile ? "body1" : "body2"}>Donated blood and tissue will be sent to the Cancer Moonshot Biobank over the course of 3-5 years. The Biobank may also collect other relevant medical information from your hospital record.</Typography>
 
-    <Typography variant="h3" component="h3">Blood samples</Typography>
-    <Typography>The hospital staff will draw a few tubes of blood for the Biobank when you're already having blood drawn for your routine care.</Typography>
+        <Typography variant="h3" component="h3">Blood samples</Typography>
+        <Typography className={classes.bottomSpacer}>The hospital staff will draw a few tubes of blood for the Biobank when you're already having blood drawn for your routine care.</Typography>
 
-    <Typography variant="h3" component="h3">Tissue samples</Typography>
-    <Typography>When your doctor does a biopsy for your cancer care, they will collect extra tissue for the Biobank.</Typography>
-    <Typography>In some cases your doctor may schedule a biopsy just to get tissue for the biobank and to do the biomarker test.</Typography>
+        <Typography variant="h3" component="h3">Tissue samples</Typography>
+        <Typography>When your doctor does a biopsy for your cancer care, they will collect extra tissue for the Biobank.</Typography>
+        <Typography className={classes.bottomSpacer}>In some cases your doctor may schedule a biopsy just to get tissue for the biobank and to do the biomarker test.</Typography>
 
-    <Typography variant="h3" component="h3">Medical information</Typography>
-    <Typography>We will collect relevant information from your medical record, such as your diagnosis and past treatments.</Typography>
+        <Typography variant="h3" component="h3">Medical information</Typography>
+        <Typography className={classes.bottomSpacer}>We will collect relevant information from your medical record, such as your diagnosis and past treatments.</Typography>
+      </Grid>
+      <Grid item xs={12} sm={6} lg={4} className={classes.imgColumn}>
+        <img className={classes.img} src={`/${process.env.PUBLIC_URL}assets/images/doctor-and-patient.jpg`} alt="doctor and patient" height="380" />
+      </Grid>
+    </Grid>
+  </TabPanel>
+))
 
-    <img src={`/${process.env.PUBLIC_URL}assets/images/doctor-and-patient.jpg`} alt="doctor and patient" height="380" />
-
-  </>
-)
-
-const Testing = () => (
-  <>
+const Testing = ({index,isMobile}) => (
+  <TabPanel index={index}>
     <Typography variant="h3" component="h3">Biomarker Testing</Typography>
     <Typography>Content placeholder</Typography>
-  </>
+  </TabPanel>
 )
 
 const WhatToExpectPage = (props) => {
@@ -225,6 +288,8 @@ const WhatToExpectPage = (props) => {
     window.addEventListener('resize', () => {
       setIsMobile(window.innerWidth < 600)
     })
+    //clean up
+    return () => {}
   },[isMobile])
 
   const handleChange = (event, newValue) => {
@@ -251,19 +316,19 @@ const WhatToExpectPage = (props) => {
             {/* Reverse the order of the tabs for arrows to display properly */}
             {/* New tabs will become index 0 and other existing tabs must be bumpped up a number */}
             {/* Update {value} default state index as well */}
-            <Tab disableRipple component={Link} to="testing" label="Get your biomarker test" {...a11yProps(0)} />
-            <Tab disableRipple component={Link} to="donate" label="Donate samples" {...a11yProps(1)} />
-            <Tab disableRipple component={Link} to="consent" label="Give your consent" {...a11yProps(2)} />
-            <Tab disableRipple component={Link} to="./" label="Talk to your doctor" {...a11yProps(3)} />
+            <Tab disableRipple component={RouterLink} to="testing" label="Get your biomarker test" {...a11yProps(0)} />
+            <Tab disableRipple component={RouterLink} to="donate" label="Donate samples" {...a11yProps(1)} />
+            <Tab disableRipple component={RouterLink} to="consent" label="Give your consent" {...a11yProps(2)} />
+            <Tab disableRipple component={RouterLink} to="./" label="Talk to your doctor" {...a11yProps(3)} />
           </StyledTabs>
         </AppBar>
       </Container>
       <Container className={classes.tabsContainer}>
         <Router>
-          <Discuss path="/*" />
-          <Donate path="donate"/>
-          <Consent path="consent" />
-          <Testing path="testing" />
+          <Discuss index={3} isMobile={isMobile} path="/*" />
+          <Consent index={2} isMobile={isMobile} path="consent" />
+          <Donate index={1} isMobile={isMobile} path="donate"/>
+          <Testing index={0} isMobile={isMobile} path="testing" />
         </Router>
       </Container>
     </Box>
