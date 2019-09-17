@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography } from '@material-ui/core';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -60,15 +60,24 @@ const ExpansionPanelDetails = withStyles(theme => ({
 const ExpansionMenu = (props) => {
   const {id = "panel1", name, children, className = ""} = props
   const classes = useStyles()
-  const [expanded, setExpanded] = React.useState({id});
+  const [expanded, setExpanded] = React.useState(props.expanded);
+
+  useEffect(() => {
+    setExpanded(props.expanded)
+    //clean up
+    return () => {}
+  },[props.expanded])
 
   const handleChange = panel => (event, newExpanded) => {
-    console.log("panel",panel)
-    setExpanded(newExpanded ? panel : false);
+    if(props.handleClick) {
+      props.handleClick(newExpanded ? true : false)
+    } else {
+      setExpanded(newExpanded ? true : false);
+    }
   };
 
   return (
-    <ExpansionPanel square expanded={expanded === id} onChange={handleChange(id)} className={className}>
+    <ExpansionPanel square expanded={expanded} onChange={handleChange(id)} className={className}>
       <ExpansionPanelSummary 
         expandIcon={<ExpandMoreIcon />}
         aria-controls={`${id}d-content`}
