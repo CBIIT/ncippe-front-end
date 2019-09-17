@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Divider, Grid, Typography } from '@material-ui/core'
+import { Divider, Grid, Typography, Link } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { api } from '../../data/api'
 import { LoginContext } from '../login/SharedLogin/Login.context'
 import TestResultsItem from '../TestResults/TestResultsItem'
 import NoItems from '../NoItems/NoItems'
+import ExpansionMenu from '../ExpansionMenu/ExpansionMenu'
 import { formatPhoneNumber } from '../../utils/utils'
 
 const useStyles = makeStyles(theme => ({
@@ -13,6 +14,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2)
   },
   profile: {
+    position: 'relative',
     display: 'flex',
     alignItems: 'flex-start',
     '& a': {
@@ -32,6 +34,11 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     height: '100%',
     justifyContent: 'space-between'
+  },
+  menu: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
   },
   divider: {
     margin: theme.spacing(4, 0)
@@ -71,8 +78,16 @@ const TestResults = (props) => {
             <Typography component="p"><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
             <Typography component="p">{formatPhoneNumber(user.phoneNumber)}</Typography>
           </div>
+          <ExpansionMenu
+            id="panel1"
+            name="Account actions"
+            className={classes.menu}
+            >
+              <Link>Upload consent form</Link>
+          </ExpansionMenu>
         </div>
       )}
+
       <Divider className={classes.divider} />
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
