@@ -56,8 +56,8 @@ const Header = () => {
     })
   },[isMobile])
   return (
-    <Container>
-      <Typography className={classes.root} component="header">
+    <Container component="header">
+      <Typography className={classes.root} component="div">
         <Box className={classes.appToolbarContainer}>
           <figure className={classes.toolbarLogo}>
             <Link component={RouterLink} to='/'>
