@@ -145,6 +145,17 @@ export const theme = createMuiTheme({
           margin: '-32px',
         }
       }
+    },
+    MuiDialogTitle: {
+      root: {
+        padding: '24px 24px 0 24px',
+      }
+    },
+    MuiDialogActions: {
+      root: {
+        justifyContent: 'flex-start',
+        padding: '24px'
+      }
     }
   }
 });

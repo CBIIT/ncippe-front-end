@@ -7,6 +7,8 @@ import { LoginContext } from '../login/SharedLogin/Login.context'
 import TestResultsItem from '../TestResults/TestResultsItem'
 import NoItems from '../NoItems/NoItems'
 import ExpansionMenu from '../ExpansionMenu/ExpansionMenu'
+import UploadConsentDialog from '../UploadConsent/UploadConsentDialog'
+import Status from '../Status/Status'
 import { formatPhoneNumber } from '../../utils/utils'
 
 const useStyles = makeStyles(theme => ({
@@ -56,6 +58,9 @@ const TestResults = (props) => {
   const [loginContext, dispatch] = useContext(LoginContext)
   const [reports, setReports] = useState(false)
   const [user, setUser] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [uploadSuccess, setUploadSuccess] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     //fetch user
@@ -66,7 +71,23 @@ const TestResults = (props) => {
       setReports(resp.reports)
       setUser(resp)
     })
-  }, [])
+    return () => {}
+  }, [uploadSuccess])
+
+  const openUploadDialog = (e) => {
+    setDialogOpen(true)
+    setMenuOpen(false)
+  }
+  const closeUploadDialog = (success) => {
+    setDialogOpen(false)
+    // setting success to true will trigger data refresh
+    setUploadSuccess(success)
+  }
+
+  const handleMenuState = (state) => {
+    setMenuOpen(state)
+  }
+
 
   return (
     <>
@@ -82,8 +103,10 @@ const TestResults = (props) => {
             id="panel1"
             name="Account actions"
             className={classes.menu}
+            expanded={menuOpen}
+            handleClick={handleMenuState}
             >
-              <Link>Upload consent form</Link>
+              <Link onClick={openUploadDialog}>Upload consent form</Link>
           </ExpansionMenu>
         </div>
       )}
@@ -91,25 +114,28 @@ const TestResults = (props) => {
       <Divider className={classes.divider} />
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
+          <Typography className={classes.header} variant="h2" component="h2">Biomarker tests</Typography>
           {reports && reports.length > 0 ? (
-            <>
-              <Typography className={classes.header} variant="h2" component="h2">Biomarker tests</Typography>
-              <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-                {reports && reports.map((report,i) => <Grid item xs={12} key={i}><TestResultsItem report={report} /></Grid>)}
-              </Grid>
-            </>
+            <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
+              {reports && reports.map((report,i) => <Grid item xs={12} key={i}><TestResultsItem report={report} /></Grid>)}
+            </Grid>
           ) : (
-            <>
-              <Typography className={classes.header} variant="h2" component="h2">Biomarker tests</Typography>
-              <NoItems message="No reports available for this participant." />
-            </>
+            <NoItems message="No reports available for this participant." />
           )}
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography className={classes.header} variant="h2" component="h2">Consent forms</Typography>
-          <NoItems message="No consent forms are available for this participant." />
+          {uploadSuccess && <Status state="success" title="Consent form uploaded successfully!" message="We sent an email to let the participant know." />}
+          {reports && reports.length > 0 ? (
+            <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
+              {reports && reports.map((report,i) => <Grid item xs={12} key={i}><TestResultsItem report={report} /></Grid>)}
+            </Grid>
+          ) : (
+            <NoItems message="No consent forms are available for this participant." />
+          )}
         </Grid>
       </Grid>
+      <UploadConsentDialog open={dialogOpen} setParentState={closeUploadDialog} patientGUID={user.userGUID} />
     </>
   )
 }
