@@ -36,6 +36,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 export default () => (
   <Location>
     {({ location }) => (
+      <>
       <TransitionGroup className="transitionGroup" component={null}>
         <CSSTransition 
           key={location.key}
@@ -45,7 +46,6 @@ export default () => (
         >
           <Router location={location} primary={false}>
             <HomePage path='/' />
-            <WhatToExpectPage path='/expect' />
             <PrivateRoute path='/dashboard' component={DashboardPage} />
             <MockUsersPage path='/dashboard/mock-users' />
             <PrivateRoute path='/dashboard-mocha' component={DashboardMochaPage} />
@@ -55,10 +55,14 @@ export default () => (
             <PrivateRoute path='/dashboard/participant/:userName' component={ParticipantPage} />
             <PrivateRoute path='/dashboard/profile' component={ProfilePage} />
             <PrivateRoute path='/dashboard/help' component={GetHelpPage} />
-            <NotFoundPage default />
+            {/* <NotFoundPage default /> */}
           </Router>
         </CSSTransition>
       </TransitionGroup>
+      <Router className="transitionGroup">
+        <WhatToExpectPage path='/expect/*' />
+      </Router>
+      </>
     )}
   </Location>
 )
