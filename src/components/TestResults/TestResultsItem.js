@@ -94,9 +94,12 @@ const TestResultsItem = ({report}) => {
         // trigger download or render blob buffer to new window
         if(download) {
           const link = document.createElement('a');
+          link.style.display = 'none';
+          document.body.appendChild(link);
           link.download = filename
           link.href = fileData
           link.click();
+          document.body.removeChild(link);
         } else {
           win.document.body.innerHTML = `<embed src='${fileData}' type='application/pdf' width='100%' height='100%' />`
         }
