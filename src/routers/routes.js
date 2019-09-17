@@ -56,7 +56,7 @@ export default () => (
             <PrivateRoute path='/dashboard/participant/:userName' component={ParticipantPage} />
             <PrivateRoute path='/dashboard/profile' component={ProfilePage} />
             <PrivateRoute path='/dashboard/help' component={GetHelpPage} />
-            <NotFoundPage default />
+            {/* <NotFoundPage default /> */}
           </Router>
         </CSSTransition>
       </TransitionGroup>
