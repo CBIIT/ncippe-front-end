@@ -128,7 +128,7 @@ const TestResultsItem = ({report}) => {
         wrapper={children => <Badge className={classes.badge} badgeContent="new document" component="div">{children}</Badge>}>
         <CardContent>
           <Typography className={classes.fileTitle} variant="h3" component="h3">{fileName}</Typography>
-          <Typography>Uploaded {moment(dateUploaded).format("MMM Do YYYY")}</Typography>
+          <Typography>Uploaded {moment(dateUploaded).format("MMM DD, YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
           <Button color="primary" variant="text" data-reportid={fileGUID} onClick={handleViewReport}><LaunchIcon className={classes.icon} /> View</Button>
