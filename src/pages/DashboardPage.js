@@ -96,7 +96,7 @@ export default () => {
                 <IconCard
                   icon="notifications.svg"
                   title="Notifications"
-                  desc={`You have ${count} new notification${count !== 1 && 's'}`}
+                  desc={`You have ${count} new notification${count !== 1 ? 's' : ''}.`}
                   link="/dashboard/notifications"
                   linkText="Review"
                   count={count}
