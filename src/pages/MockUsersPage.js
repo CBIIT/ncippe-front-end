@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
       width: '70%',
     },
     [theme.breakpoints.up('lg')]: {
-      width: '50%',
+      width: '55%',
       fontSize: '80%'
     }
   },
@@ -79,10 +79,10 @@ const MockRoles = (props) => {
           {([state, dispatch]) => {
             const {auth, roleName, firstName, lastName} = state
             return auth ? (
-              <Typography variant="h2">
-                <Button variant="contained" className={classes.largeButton} onClick={() => navigate('/dashboard')}>Return to Dashboard as {firstName} {lastName} ({roleName})</Button>
-                <Button variant="contained" className={classes.largeButton} color="primary" onClick={() => {dispatch({type:'reset'})}}>Clear Role as {firstName} {lastName} ({roleName})</Button>
-              </Typography>
+              <>
+                <Typography variant="h2"><Button variant="contained" className={classes.largeButton} onClick={() => navigate('/dashboard')}>Return to Dashboard as {firstName} {lastName} ({roleName})</Button></Typography>
+                <Typography variant="h2"><Button variant="contained" className={classes.largeButton} color="primary" onClick={() => {dispatch({type:'reset'})}}>Clear Role as {firstName} {lastName} ({roleName})</Button></Typography>
+              </>
             ) : (
               <>
               {users && users.map((user,i) => <Typography variant="h2"><Button key={i} variant='contained' className={classes.largeButton} onClick={mockLogin(user)}>{user.firstName} {user.lastName} ({user.roleName})</Button></Typography>)}
