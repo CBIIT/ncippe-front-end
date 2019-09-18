@@ -278,6 +278,8 @@ const WhatToExpectPage = (props) => {
         return 1
       case '/expect/testing':
         return 0
+      default:
+        return 3
     }
   });
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)

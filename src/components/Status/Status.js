@@ -55,7 +55,6 @@ const useStyles = makeStyles( theme => ({
 const Status = (props) => {
   const {state, title, message} = props
   const classes = useStyles(props)
-  const status = ["success","warning","error","info"]
 
   return (
     <Grid container className={classes.root}>

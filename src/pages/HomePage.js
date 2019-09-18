@@ -262,19 +262,19 @@ const HomePage = (props) => {
           <Typography className={classes.infoBox} variant={isMobile ? "h2" : "h1"} component="h2">How it works</Typography>
           <Grid container className={classes.howItWorksGrid} spacing={3}>
             <Grid item xs={12} sm={6} md={3}>
-              <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/patients.svg`} />
+              <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/patients.svg`} alt="patient icon" />
               <Typography>A patient donates blood and tissue samples throughout their treatment, for up to 5 years.</Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/one-idea.svg`} />
+              <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/one-idea.svg`} alt="lightbulb icon" />
               <Typography>Scientists develop new research ideas to advance their understanding of cancer.</Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/multiple-samples.svg`} />
+              <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/multiple-samples.svg`} alt="multiple test tubes icon" />
               <Typography>Researchers test their idea on many different samples from the Biobank.</Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/breakthrough.svg`} />
+              <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/breakthrough.svg`} alt="breakthrough icon" />
               <Typography>They work to find breakthroughs that improve cancer treatments and survival.</Typography>
             </Grid>
           </Grid>

@@ -3,12 +3,8 @@ import { Typography } from '@material-ui/core';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { withStyles } from '@material-ui/core/styles'
 import { ExpandMore as ExpandMoreIcon} from '@material-ui/icons'
-
-const useStyles = makeStyles( theme => ({
-
-}))
 
 const ExpansionPanel = withStyles(theme => ({
   root: {
@@ -59,8 +55,7 @@ const ExpansionPanelDetails = withStyles(theme => ({
 
 const ExpansionMenu = (props) => {
   const {id = "panel1", name, children, className = ""} = props
-  const classes = useStyles()
-  const [expanded, setExpanded] = React.useState(props.expanded);
+  const [expanded, setExpanded] = useState(props.expanded);
 
   useEffect(() => {
     setExpanded(props.expanded)

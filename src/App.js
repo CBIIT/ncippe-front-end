@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const App = () => {
+  //eslint-disable-next-line
   const classes = useStyles()
   return (
     <ThemeProvider theme={theme}>
