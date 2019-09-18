@@ -45,7 +45,8 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const TestResultsItem = ({report}) => {
+const TestResultsItem = (props) => {
+  const {report,noBadge} = props
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const {userGUID,env,token} = loginContext
@@ -124,7 +125,7 @@ const TestResultsItem = ({report}) => {
   return (
     <Card className={classes.card}>
       <ConditionalWrapper
-        condition={isNewReport}
+        condition={noBadge ? false : isNewReport}
         wrapper={children => <Badge className={classes.badge} badgeContent="new document" component="div">{children}</Badge>}>
         <CardContent>
           <Typography className={classes.fileTitle} variant="h3" component="h3">{fileName}</Typography>

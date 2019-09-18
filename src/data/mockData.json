@@ -190,14 +190,14 @@
       "reports": [
         {
           "id": 1,
-          "reportName": "New Report",
+          "fileName": "New Report",
           "description": "A sort report description",
           "dateUploaded": 1567751389000,
           "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
         },
         {
           "id": 2,
-          "reportName": "One_long_report_title_that_needs_wrapping_08-28-2019",
+          "fileName": "One_long_report_title_that_needs_wrapping_08-28-2019",
           "description": "A sort report description",
           "dateUploaded": 1567924189000,
           "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -588,7 +588,7 @@
       "reports": [
         {
           "id": 1,
-          "reportName": "New Report",
+          "fileName": "New Report",
           "description": "A sort report description",
           "dateUploaded": 1555136989000,
           "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -627,7 +627,7 @@
       "reports": [
         {
           "id": 1,
-          "reportName": "New Report",
+          "fileName": "New Report",
           "description": "A sort report description",
           "dateUploaded": 1556000989000,
           "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb2",
@@ -637,15 +637,16 @@
         },
         {
           "id": 2,
-          "reportName": "Another New Report",
+          "fileName": "Another New Report",
           "description": "A sort report description",
           "dateUploaded": 1555136989000,
           "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb3",
-          "viewedBy": []
+          "viewedBy": [
+          ]
         },
         {
           "id": 3,
-          "reportName": "Some Report",
+          "fileName": "Some Report",
           "description": "A sort report description",
           "dateUploaded": 1556087389000,
           "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb4",
@@ -655,7 +656,7 @@
         },
         {
           "id": 4,
-          "reportName": "Old Report",
+          "fileName": "Old Report",
           "description": "A sort report description",
           "dateUploaded": 1556087389370,
           "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb5",
@@ -663,6 +664,16 @@
             "TI7TtATY",
             "LSsMXzX3"
           ]
+        }
+      ],
+      "otherDocuments": [
+        {
+          "id": 1,
+          "fileName": "Consent Form",
+          "description": "A sort description",
+          "dateUploaded": 1555959689000,
+          "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb2",
+          "viewedBy": []
         }
       ],
       "notificationList": [
@@ -727,7 +738,7 @@
       "reports": [
         {
           "id": 1,
-          "reportName": "New Report",
+          "fileName": "New Report",
           "description": "A sort report description",
           "dateUploaded": 1556000989000,
           "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -831,7 +842,7 @@
       "reports": [
         {
           "id": 1,
-          "reportName": "New Report",
+          "fileName": "New Report",
           "description": "A sort report description",
           "dateUploaded": 1560839389000,
           "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
@@ -841,7 +852,7 @@
         },
         {
           "id": 2,
-          "reportName": "Another Report",
+          "fileName": "Another Report",
           "description": "A sort report description",
           "dateUploaded": 1560925789000,
           "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",

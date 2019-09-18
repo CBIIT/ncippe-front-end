@@ -57,6 +57,7 @@ const TestResults = (props) => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const [reports, setReports] = useState(false)
+  const [files, setFiles] = useState(false)
   const [user, setUser] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
@@ -69,6 +70,7 @@ const TestResults = (props) => {
     const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).userGUID
     api[env].fetchPatientTestResults({userGUID: patientGUID, userName: patientID, token}).then(resp => {
       setReports(resp.reports)
+      setFiles(resp.otherDocuments)
       setUser(resp)
     })
     return () => {}
@@ -126,9 +128,9 @@ const TestResults = (props) => {
         <Grid item xs={12} md={6}>
           <Typography className={classes.header} variant="h2" component="h2">Consent forms</Typography>
           {uploadSuccess && <Status state="success" title="Consent form uploaded successfully!" message="We sent an email to let the participant know." />}
-          {reports && reports.length > 0 ? (
+          {files && files.length > 0 ? (
             <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-              {reports && reports.map((report,i) => <Grid item xs={12} key={i}><TestResultsItem report={report} /></Grid>)}
+              {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} noBadge /></Grid>)}
             </Grid>
           ) : (
             <NoItems message="No consent forms are available for this participant." />
