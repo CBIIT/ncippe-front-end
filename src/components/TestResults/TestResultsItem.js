@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
       height: '100%'
     }
   },
-  reportTitle: {
+  fileTitle: {
     wordBreak: 'break-all'
   },
   icon: {
@@ -49,7 +49,7 @@ const TestResultsItem = ({report}) => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const {userGUID,env,token} = loginContext
-  const {reportName, dateUploaded, fileGUID} = report
+  const {fileName, dateUploaded, fileGUID} = report
   const [isNewReport, setIsNewReport] = useState(report.viewedBy ? !report.viewedBy.includes(loginContext.userGUID) : true)
 
   // response header example to parse
@@ -127,7 +127,7 @@ const TestResultsItem = ({report}) => {
         condition={isNewReport}
         wrapper={children => <Badge className={classes.badge} badgeContent="new document" component="div">{children}</Badge>}>
         <CardContent>
-          <Typography className={classes.reportTitle} variant="h3" component="h3">{reportName}</Typography>
+          <Typography className={classes.fileTitle} variant="h3" component="h3">{fileName}</Typography>
           <Typography>Uploaded {moment(dateUploaded).format("MMM Do YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
