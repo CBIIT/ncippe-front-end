@@ -3,7 +3,6 @@ import { Box, Container, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
-import NoItems from '../components/NoItems/NoItems'
 
 const useStyles = makeStyles(theme => ({
   titleWithIcon: {

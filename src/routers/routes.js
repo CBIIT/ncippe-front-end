@@ -2,7 +2,7 @@ import React from 'react'
 import { Location, Router, Redirect } from '@reach/router'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-import NotFoundPage from '../pages/NotFoundPage'
+// import NotFound from '../pages/NotFoundPage'
 import Home from '../pages/HomePage'
 import WhatToExpect from '../pages/WhatToExpectPage'
 import Dashboard from '../pages/DashboardPage'
@@ -21,6 +21,7 @@ const HomePage = pageWrapper(Home)
 const DashboardPage = pageWrapper(Dashboard)
 const DashboardMochaPage = pageWrapper(DashboardMocha)
 const WhatToExpectPage = pageWrapper(WhatToExpect)
+// const NotFoundPage = pageWrapper(NotFound)
 
 
 const PrivateRoute = ({ component: Component, ...rest }) => {

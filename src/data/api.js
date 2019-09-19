@@ -237,6 +237,62 @@ async function uploadPatientReportProd({patientGUID, userGUID, reportFile, fileT
 
 /*=======================================================================*/
 
+async function uploadConsentFormLocal({patientGUID, userGUID, reportFile, fileType}){
+
+  // first get reports for this user - local only
+  const userDetails = await fetch(`/api/users?userGUID=${patientGUID}&singular=1`)
+    .then(resp => resp.json())
+    .catch(error => {
+      console.error(error)
+    })
+
+  const userDocuments = userDetails.otherDocuments || []
+  const otherDocuments = {
+      "otherDocuments": [
+      ...userDocuments,
+      {
+        "id": userDetails.otherDocuments && userDetails.otherDocuments.length > 0 ? userDetails.otherDocuments.length + 1 : 1,
+        "reportName": reportFile.name,
+        "uploadedFileType": fileType,
+        "description": "",
+        "timestamp": Date.now(),
+        "fileGUID": createUUID()
+      }
+    ]
+  }
+
+  console.log("userData sent to server:", 
+    `\nuserGUID: ${userGUID}`, 
+    `\npatientGUID: ${patientGUID}`, 
+    `\nfile:`, reportFile, 
+    `\nuploadedFileType:`, fileType, 
+    `\notherDocuments:`, otherDocuments
+  )
+
+  return await fetch(`/users/${userDetails.id}`,{
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(otherDocuments)
+  })
+  .then(resp => {
+    // TODO: put pdf file into dist folder using middleware
+    if(resp.ok) {
+      return true
+    } else {
+      throw new Error(`We were unable to upload your file at this time. Please try again.`)
+    }
+  })
+  .catch(error => {
+    console.error(error)
+    return error
+  })
+}
+
+
+/*=======================================================================*/
+
 // TODO: fetch notifications - needed as seperate call?
 async function notificationsMarkAsReadLocal({userGUID}){
   const userDetails = await fetch(`/api/users?userGUID=${userGUID}&singular=1`)
@@ -433,7 +489,8 @@ export const api = {
     fetchPatientReport: fetchPatientReportLocal,
     uploadPatientReport: uploadPatientReportLocal,
     notificationsMarkAsRead: notificationsMarkAsReadLocal,
-    reportViewedBy: reportViewedByLocal
+    reportViewedBy: reportViewedByLocal,
+    uploadConsentForm: uploadConsentFormLocal
   },
   prod: {
     fetchMockUsers: fetchMockUsersProd,
@@ -444,6 +501,7 @@ export const api = {
     fetchPatientReport: fetchPatientReportProd,
     uploadPatientReport: uploadPatientReportProd,
     notificationsMarkAsRead: notificationsMarkAsReadProd,
-    reportViewedBy: reportViewedByProd
+    reportViewedBy: reportViewedByProd,
+    uploadConsentForm: uploadPatientReportProd
   }
 }

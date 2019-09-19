@@ -55,6 +55,12 @@ export default () => {
           newNotificationCount: data.notificationList ? data.notificationList.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0,
           newReport: newReportCount(data)
         }
+
+        // sort patient list alphabetically by last name
+        if(userData.patients && userData.patients.length > 1){
+          const sortedPatients = userData.patients.sort((a, b) => a.lastName.localeCompare(b.lastName))
+          userData.patients = sortedPatients
+        }
         
         //TODO: set context
         dispatch({
@@ -90,7 +96,7 @@ export default () => {
                 <IconCard
                   icon="notifications.svg"
                   title="Notifications"
-                  desc={`You have ${count} new notification${count !== 1 && 's'}`}
+                  desc={`You have ${count} new notification${count !== 1 ? 's' : ''}.`}
                   link="/dashboard/notifications"
                   linkText="Review"
                   count={count}

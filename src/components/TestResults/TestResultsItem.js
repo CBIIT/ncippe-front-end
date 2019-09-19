@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
       height: '100%'
     }
   },
-  reportTitle: {
+  fileTitle: {
     wordBreak: 'break-all'
   },
   icon: {
@@ -45,11 +45,12 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const TestResultsItem = ({report}) => {
+const TestResultsItem = (props) => {
+  const {report,noBadge} = props
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const {userGUID,env,token} = loginContext
-  const {reportName, dateUploaded, fileGUID} = report
+  const {fileName, dateUploaded, fileGUID} = report
   const [isNewReport, setIsNewReport] = useState(report.viewedBy ? !report.viewedBy.includes(loginContext.userGUID) : true)
 
   // response header example to parse
@@ -94,9 +95,12 @@ const TestResultsItem = ({report}) => {
         // trigger download or render blob buffer to new window
         if(download) {
           const link = document.createElement('a');
+          link.style.display = 'none';
+          document.body.appendChild(link);
           link.download = filename
           link.href = fileData
           link.click();
+          document.body.removeChild(link);
         } else {
           win.document.body.innerHTML = `<embed src='${fileData}' type='application/pdf' width='100%' height='100%' />`
         }
@@ -121,11 +125,11 @@ const TestResultsItem = ({report}) => {
   return (
     <Card className={classes.card}>
       <ConditionalWrapper
-        condition={isNewReport}
+        condition={noBadge ? false : isNewReport}
         wrapper={children => <Badge className={classes.badge} badgeContent="new document" component="div">{children}</Badge>}>
         <CardContent>
-          <Typography className={classes.reportTitle} variant="h3" component="h3">{reportName}</Typography>
-          <Typography>Uploaded {moment(dateUploaded).format("MMM Do YYYY")}</Typography>
+          <Typography className={classes.fileTitle} variant="h3" component="h3">{fileName}</Typography>
+          <Typography>Uploaded {moment(dateUploaded).format("MMM DD, YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
           <Button color="primary" variant="text" data-reportid={fileGUID} onClick={handleViewReport}><LaunchIcon className={classes.icon} /> View</Button>

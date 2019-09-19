@@ -65,7 +65,7 @@ const NotificationItem = ({notification: {subject, from, message, dateGenerated,
               <Typography>From: {from}</Typography>
             </Grid>
             <Grid item xs={12} sm={4} md={2} className={classes.gridDate}>
-              <Typography>{moment(dateGenerated).format("MMM Do YYYY")}</Typography>
+              <Typography>{moment(dateGenerated).format("MMM DD, YYYY")}</Typography>
             </Grid>
           </Grid>
           

@@ -7,7 +7,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { LoginContext } from '../../components/login/SharedLogin/Login.context'
 import PhoneNumbner from '../inputs/PhoneNumber/PhoneNumber'
 import EmailOption from '../inputs/EmailOption/EmailOption'
-import { getBool, formatPhoneNumber } from '../../utils/utils'
+import { getBool } from '../../utils/utils'
 import { api } from '../../data/api'
 
 const useStyles = makeStyles(theme => ({

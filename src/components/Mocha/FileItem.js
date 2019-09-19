@@ -43,7 +43,7 @@ const FileItem = ({file,onRemove}) => {
         </Grid>
         <Grid item className={classes.fileToUpload_content}>
           <Typography className={classes.fileToUpload_title}>{file.name}</Typography>
-          <Typography>Last modified: {moment(file.lastModified).format("MMM Do YYYY")}</Typography>
+          <Typography>Last modified: {moment(file.lastModified).format("MMM DD, YYYY")}</Typography>
         </Grid>
         <Grid item className={classes.fileToUpload_clear}><IconButton aria-label="remove file" onClick={handleRemoveFile}><ClearIcon /></IconButton></Grid>
       </Grid>

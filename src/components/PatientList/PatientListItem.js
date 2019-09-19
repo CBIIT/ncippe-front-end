@@ -32,7 +32,7 @@ const PatientListItem = ({patient: {firstName, lastName, userName, dateCreated, 
         condition={hasNewReports}
         wrapper={children => <Badge className={classes.badge} badgeContent="new document" component="div">{children}</Badge>}>
           <Typography className={classes.name} variant="h3" component="h3">{firstName} {lastName}</Typography>
-          <Typography>Participant since {moment(dateCreated).format("MMM Do YYYY")}</Typography>
+          <Typography>Participant since {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
         </ConditionalWrapper>
       </Paper>
     </Link>

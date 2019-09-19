@@ -65,9 +65,7 @@ const StyledTabs = withStyles(theme => ({
     },
 
     '& .MuiTabs-scroller': {
-      // justifyContent: 'space-between',
-      // flexDirection: 'row-reverse',
-      // direction: 'rtl'
+      overflowY: 'hidden'
     },
     '& .MuiTabs-flexContainer': {
       flexDirection: 'row-reverse',
@@ -280,6 +278,8 @@ const WhatToExpectPage = (props) => {
         return 1
       case '/expect/testing':
         return 0
+      default:
+        return 3
     }
   });
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)

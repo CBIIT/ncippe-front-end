@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { navigate } from '@reach/router'
-import {Box, Button, Container} from '@material-ui/core'
+import {Box, Button, Container, Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { LoginConsumer, LoginContext } from '../components/login/SharedLogin/Login.context'
@@ -12,14 +12,20 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: '4vw'
+    marginTop: theme.spacing(4)
 
   },
   largeButton: {
-    fontSize: '2vw',
-    width: '70vw',
-    marginBottom: '4vw',
-    textTransform: "none"
+    width: '100%',
+    marginBottom: theme.spacing(4),
+    textTransform: "none",
+    [theme.breakpoints.up('sm')]: {
+      width: '70%',
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: '55%',
+      fontSize: '80%'
+    }
   },
   mainContainer: {
     textAlign: 'center'
@@ -74,12 +80,12 @@ const MockRoles = (props) => {
             const {auth, roleName, firstName, lastName} = state
             return auth ? (
               <>
-                <Button variant="contained" className={classes.largeButton} onClick={() => navigate('/dashboard')}>Return to Dashboard as {firstName} {lastName} ({roleName})</Button>
-                <Button variant="contained" className={classes.largeButton} color="primary" onClick={() => {dispatch({type:'reset'})}}>Clear Role as {firstName} {lastName} ({roleName})</Button>
+                <Typography variant="h2"><Button variant="contained" className={classes.largeButton} onClick={() => navigate('/dashboard')}>Return to Dashboard as {firstName} {lastName} ({roleName})</Button></Typography>
+                <Typography variant="h2"><Button variant="contained" className={classes.largeButton} color="primary" onClick={() => {dispatch({type:'reset'})}}>Clear Role as {firstName} {lastName} ({roleName})</Button></Typography>
               </>
             ) : (
               <>
-              {users && users.map((user,i) => <Button key={i} variant='contained' className={classes.largeButton} onClick={mockLogin(user)}>{user.firstName} {user.lastName} ({user.roleName})</Button>)}
+              {users && users.map((user,i) => <Typography variant="h2"><Button key={i} variant='contained' className={classes.largeButton} onClick={mockLogin(user)}>{user.firstName} {user.lastName} ({user.roleName})</Button></Typography>)}
               {!users && <h3>Error: Unable to retrieve mock users</h3>}
               </>
             )

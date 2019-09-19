@@ -41,7 +41,7 @@ const TestResults = () => {
           <Box mb={3}>
             <Typography gutterBottom>The NCI lab generates a biomarker report after we collect your biosample. Your reports are available below. Your provider has access to your reports as well.</Typography>
           </Box>
-          {reports && reports.map((report,i) => <TestResultsItem key={i} report={report} />)}
+          {reports.map((report,i) => <TestResultsItem key={i} report={report} />)}
         </>
       ) : (
         <>
