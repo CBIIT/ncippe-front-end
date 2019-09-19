@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 
 import Header from '../components/region/Header/Header';
@@ -16,9 +15,7 @@ const pageWrapper = (Component) => ({children, ...props}) => {
   const classes = useStyles()
   return (
     <>
-      <Container>
-        <Header />
-      </Container>
+      <Header />
       <main className={classes.main}>
         <Component {...props} />
       </main>

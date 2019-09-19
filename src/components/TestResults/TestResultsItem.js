@@ -49,7 +49,7 @@ const TestResultsItem = ({report}) => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const {userGUID,env,token} = loginContext
-  const {reportName, dateUploaded, reportGUID} = report
+  const {reportName, dateUploaded, fileGUID} = report
   const [isNewReport, setIsNewReport] = useState(report.viewedBy ? !report.viewedBy.includes(loginContext.userGUID) : true)
 
   // response header example to parse
@@ -128,8 +128,8 @@ const TestResultsItem = ({report}) => {
           <Typography>Uploaded {moment(dateUploaded).format("MMM Do YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
-          <Button color="primary" variant="text" data-reportid={reportGUID} onClick={handleViewReport}><LaunchIcon className={classes.icon} /> View</Button>
-          <Button color="primary" variant="text" data-download data-reportid={reportGUID} onClick={handleViewReport}><GetAppIcon className={classes.icon}  /> Download</Button>
+          <Button color="primary" variant="text" data-reportid={fileGUID} onClick={handleViewReport}><LaunchIcon className={classes.icon} /> View</Button>
+          <Button color="primary" variant="text" data-download data-reportid={fileGUID} onClick={handleViewReport}><GetAppIcon className={classes.icon}  /> Download</Button>
         </CardActions>
       </ConditionalWrapper>
     </Card>

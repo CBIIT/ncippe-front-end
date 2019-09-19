@@ -170,7 +170,7 @@ async function uploadPatientReportLocal({patientGUID, userGUID, reportFile, file
         "uploadedFileType": fileType,
         "description": "",
         "timestamp": Date.now(),
-        "reportGUID": createUUID()
+        "fileGUID": createUUID()
       }
     ]
   }
@@ -355,7 +355,7 @@ async function reportViewedByLocal({userGUID, reportId}){
 
   // get the report that needs updating
   const updatedReports = userDetails.reports.map(report => {
-    if(report.reportGUID === reportId) {
+    if(report.fileGUID === reportId) {
       const viewedBy = report.viewedByUsers || []
       return {
         ...report,

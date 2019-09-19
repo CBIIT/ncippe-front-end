@@ -207,6 +207,8 @@ const HomePage = (props) => {
     window.addEventListener('resize', () => {
       setIsMobile(window.innerWidth < 600)
     })
+    //clean up
+    return () => {}
   },[isMobile])
   return (
     <Box>
@@ -337,7 +339,7 @@ const HomePage = (props) => {
             <Grid item xs={12} sm={6} md={3}>
               <IconCardMedia
                 title="What to expect when you join the Biobank"
-                link="learnmore"
+                link="/expect"
                 linkText="Learn more"
                 image="hands.jpg"
                 imageTitle="worried hands"
@@ -346,7 +348,7 @@ const HomePage = (props) => {
             <Grid item xs={12} sm={6} md={3}>
               <IconCardMedia
                 title="Find participating hospitals"
-                link="hospitals"
+                link="/expect"
                 linkText="Search now"
                 image="doctor-and-couple.jpg"
                 imageTitle="doctor speaking with couple"
