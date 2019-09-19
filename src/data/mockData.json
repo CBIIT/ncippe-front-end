@@ -172,6 +172,7 @@
       "allowEmailNotification": "1",
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1567606345000,
       "providers": [
         {
           "id": 1,
@@ -191,15 +192,18 @@
           "id": 1,
           "reportName": "New Report",
           "description": "A sort report description",
-          "timestamp": 1564691140370,
+          "dateUploaded": 1567751389000,
           "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
         },
         {
           "id": 2,
           "reportName": "One_long_report_title_that_needs_wrapping_08-28-2019",
           "description": "A sort report description",
-          "timestamp": 1563431140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          "dateUploaded": 1567924189000,
+          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "viewedBy": [
+            "LSsMXzX3"
+          ]
         }
       ]
     },
@@ -213,7 +217,8 @@
       "phoneNumber": "",
       "allowEmailNotification": "0",
       "userType": "PPE_BSSC",
-      "roleName": "ROLE_PPE_BSSC"
+      "roleName": "ROLE_PPE_BSSC",
+      "dateCreated": 1548746989000
     },
     {
       "id": 3,
@@ -225,7 +230,8 @@
       "phoneNumber": "430-868-6925",
       "allowEmailNotification": "1",
       "userType": "PPE_ADMIN",
-      "roleName": "ROLE_PPE_ADMIN"
+      "roleName": "ROLE_PPE_ADMIN",
+      "dateCreated": 1549265389000
     },
     {
       "id": 4,
@@ -238,6 +244,7 @@
       "allowEmailNotification": "0",
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1550129389000,
       "providers": [
         {
           "id": 1,
@@ -264,6 +271,7 @@
       "allowEmailNotification": "0",
       "userType": "PPE_PROVIDER",
       "roleName": "ROLE_PPE_PROVIDER",
+      "dateCreated": 1550647789000,
       "patients": [
         {
           "userName": "alfredTromp",
@@ -274,7 +282,9 @@
           "phoneNumber": "559-428-5906",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1567606345000,
+          "hasNewReports": true
         },
         {
           "userName": "bartholomeGreenfelder",
@@ -285,7 +295,8 @@
           "phoneNumber": "147-164-3905",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1560148189000
         },
         {
           "userName": "thurmanKautzer",
@@ -296,7 +307,8 @@
           "phoneNumber": "018-374-1064",
           "allowEmailNotification": "0",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1550129389000
         },
         {
           "userName": "gonzaloYost",
@@ -307,7 +319,8 @@
           "phoneNumber": "905-341-7482",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1554791389000
         },
         {
           "userName": "alanaSporer",
@@ -319,7 +332,8 @@
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
-          "newReports": true
+          "dateCreated": 1554877789000,
+          "hasNewReports": true
         },
         {
           "userName": "yadiraStehr",
@@ -330,7 +344,8 @@
           "phoneNumber": "789-273-2170",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1555655389000
         }
       ]
     },
@@ -345,6 +360,7 @@
       "allowEmailNotification": "1",
       "userType": "PPE_CRC",
       "roleName": "ROLE_PPE_CRC",
+      "dateCreated": 1553063389000,
       "patients": [
         {
           "userName": "alfredTromp",
@@ -355,7 +371,8 @@
           "phoneNumber": "559-428-5906",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1567606345000
         },
         {
           "userName": "thurmanKautzer",
@@ -366,7 +383,8 @@
           "phoneNumber": "018-374-1064",
           "allowEmailNotification": "0",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1550129389000
         },
         {
           "userName": "bartholomeGreenfelder",
@@ -377,18 +395,8 @@
           "phoneNumber": "147-164-3905",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
-        },
-        {
-          "userName": "thurmanKautzer",
-          "firstName": "Thurman",
-          "lastName": "Kautzer",
-          "email": "CadetBlue@Keagan.biz",
-          "userGUID": "AhBW4XAy",
-          "phoneNumber": "018-374-1064",
-          "allowEmailNotification": "0",
-          "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1560148189000
         },
         {
           "userName": "gonzaloYost",
@@ -399,7 +407,8 @@
           "phoneNumber": "905-341-7482",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1554791389000
         },
         {
           "userName": "alanaSporer",
@@ -410,7 +419,8 @@
           "phoneNumber": "9493906330",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1554877789000
         },
         {
           "userName": "yadiraStehr",
@@ -421,7 +431,8 @@
           "phoneNumber": "789-273-2170",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1555655389000
         },
         {
           "userName": "amayaLindgren",
@@ -432,7 +443,8 @@
           "phoneNumber": "424-660-9024",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1556173789000
         },
         {
           "userName": "jacquesSauer",
@@ -443,7 +455,8 @@
           "phoneNumber": "288-581-9427",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1556605789000
         },
         {
           "userName": "amaniNader",
@@ -454,7 +467,8 @@
           "phoneNumber": "268-279-7718",
           "allowEmailNotification": "0",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1561271389000
         },
         {
           "userName": "francescoAltenwerth",
@@ -465,7 +479,8 @@
           "phoneNumber": "013-546-5388",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1560320989000
         },
         {
           "userName": "rooseveltWiegand",
@@ -476,7 +491,8 @@
           "phoneNumber": "792-091-2209",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1559197789000
         },
         {
           "userName": "leslyNienow",
@@ -487,7 +503,8 @@
           "phoneNumber": "461-257-4088",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1558852189000
         },
         {
           "userName": "anabelHeller",
@@ -498,7 +515,8 @@
           "phoneNumber": "691-599-9221",
           "allowEmailNotification": "1",
           "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
+          "roleName": "ROLE_PPE_PARTICIPANT",
+          "dateCreated": 1558333789000
         }
       ]
     },
@@ -512,7 +530,8 @@
       "phoneNumber": "985-290-8042",
       "allowEmailNotification": "1",
       "userType": "PPE_ADMIN",
-      "roleName": "ROLE_PPE_ADMIN"
+      "roleName": "ROLE_PPE_ADMIN",
+      "dateCreated": 1553236189000
     },
     {
       "id": 8,
@@ -524,7 +543,8 @@
       "phoneNumber": "407-459-9972",
       "allowEmailNotification": "0",
       "userType": "PPE_PROVIDER",
-      "roleName": "ROLE_PPE_PROVIDER"
+      "roleName": "ROLE_PPE_PROVIDER",
+      "dateCreated": 1553840989000
     },
     {
       "id": 9,
@@ -536,7 +556,8 @@
       "phoneNumber": "289-026-0799",
       "allowEmailNotification": "1",
       "userType": "PPE_CRC",
-      "roleName": "ROLE_PPE_CRC"
+      "roleName": "ROLE_PPE_CRC",
+      "dateCreated": 1554100189000
     },
     {
       "id": 10,
@@ -549,6 +570,7 @@
       "allowEmailNotification": "1",
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1554791389000,
       "providers": [
         {
           "id": 1,
@@ -568,8 +590,11 @@
           "id": 1,
           "reportName": "New Report",
           "description": "A sort report description",
-          "timestamp": 1564691140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          "dateUploaded": 1555136989000,
+          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "viewedBy": [
+            "LSsMXzX3"
+          ]
         }
       ]
     },
@@ -584,6 +609,7 @@
       "allowEmailNotification": "1",
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1554877789000,
       "providers": [
         {
           "id": 1,
@@ -603,24 +629,25 @@
           "id": 1,
           "reportName": "New Report",
           "description": "A sort report description",
-          "timestamp": 1564691140370,
-          "s3Url": "important-document.pdf",
-          "reportGUID": "important-document.pdf"
+          "dateUploaded": 1556000989000,
+          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb2",
+          "viewedBy": [
+            "TI7TtATY"
+          ]
         },
         {
           "id": 2,
           "reportName": "Another New Report",
           "description": "A sort report description",
-          "timestamp": 1564691140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "dateUploaded": 1555136989000,
+          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb3",
           "viewedBy": []
         },
         {
           "id": 3,
           "reportName": "Some Report",
           "description": "A sort report description",
-          "timestamp": 1562291140370,
-          "s3Url": "important-document.pdf",
+          "dateUploaded": 1556087389000,
           "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb4",
           "viewedBy": [
             "LSsMXzX3"
@@ -630,9 +657,8 @@
           "id": 4,
           "reportName": "Old Report",
           "description": "A sort report description",
-          "timestamp": 1551291140370,
-          "s3Url": "important-document.pdf",
-          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb4",
+          "dateUploaded": 1556087389370,
+          "reportGUID": "bccc161f-4f61-4e21-8114-9968bc740eb5",
           "viewedBy": [
             "TI7TtATY",
             "LSsMXzX3"
@@ -646,9 +672,9 @@
           "from": "Madeline Hamill, Dr. of Oncology, at [BSS Name]",
           "subject": "Notification Title",
           "message": "Test Message",
-          "timestamp": 1551291140370,
+          "dateGenerated": 1555309789000,
           "userId": 1,
-          "viewedByUser": 0
+          "viewedByUser": 1
         },
         {
           "id": 2,
@@ -656,9 +682,9 @@
           "from": "Madeline Hamill, Dr. of Oncology, at [BSS Name]",
           "subject": "Welcome to PPE",
           "message": "Thank you for participating in the Cancer Moonshot Biobank Program!",
-          "timestamp": 1562291140370,
+          "dateGenerated": 1554964189000,
           "userId": 1,
-          "viewedByUser": 0
+          "viewedByUser": 1
         },
         {
           "id": 3,
@@ -666,7 +692,7 @@
           "from": "MOCHA Labs",
           "subject": "We added a biomarker report to Marco's account",
           "message": "<p>Dear Marco,</p><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"83.44\">We added&nbsp;a biomarker report to Marco's account.&nbsp;Log into&nbsp;the PPE&nbsp;Portal to view&nbsp;this report.&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"83.44\"><h3 data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"50.82\"><strong>Why&nbsp;is this&nbsp;important?</strong></h3><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"123.02000000000001\">Your biomarker&nbsp;report&nbsp;may&nbsp;inform your treatment.&nbsp;Each&nbsp;report&nbsp;is available&nbsp;to the patient, their&nbsp;provider, and&nbsp;a family member if they&nbsp;have&nbsp;been added to the patient&nbsp;account.</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"123.02000000000001\">&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"123.02000000000001\"><h3 data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"187.43666666666667\"><strong>What action should I&nbsp;take?</strong></h3><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"176.54\"><strong>For patients and family&nbsp;members</strong>&nbsp;:&nbsp;set up a time to talk with your&nbsp;provider about these results.</div><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"102.22\"><strong>For providers</strong>&nbsp;: review the&nbsp;report&nbsp;and any supporting&nbsp;NCI materials to determine&nbsp;whether or not you&nbsp;should&nbsp;alter your&nbsp;patient&rsquo;s treatment.</div><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"102.22\">&nbsp;</div><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"102.22\"><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"45.24\">If you&nbsp;have&nbsp;questions,&nbsp;you can&nbsp;reply to this&nbsp;email or&nbsp;call us at (202) 000 &ndash; 0000.</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"258.5\">&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"258.5\">Thank you for participating in the&nbsp;Cancer&nbsp;Moonshot&nbsp;Biobank Program!</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"41.559999999999995\">&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"41.559999999999995\">NCI&nbsp;Program Staff</div></div></div></div>",
-          "timestamp": 1564691140370,
+          "dateGenerated": 1556000989000,
           "userId": 1,
           "viewedByUser": 1
         }
@@ -683,6 +709,7 @@
       "allowEmailNotification": "1",
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1555655389000,
       "providers": [
         {
           "id": 1,
@@ -702,8 +729,11 @@
           "id": 1,
           "reportName": "New Report",
           "description": "A sort report description",
-          "timestamp": 1564691140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          "dateUploaded": 1556000989000,
+          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "viewedBy": [
+            "LSsMXzX3"
+          ]
         }
       ]
     },
@@ -717,7 +747,8 @@
       "phoneNumber": "424-660-9024",
       "allowEmailNotification": "1",
       "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1556173789000
     },
     {
       "id": 14,
@@ -729,7 +760,8 @@
       "phoneNumber": "288-581-9427",
       "allowEmailNotification": "1",
       "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1556605789000
     },
     {
       "id": 15,
@@ -741,7 +773,8 @@
       "phoneNumber": "268-279-7718",
       "allowEmailNotification": "0",
       "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1561271389000
     },
     {
       "id": 16,
@@ -753,7 +786,8 @@
       "phoneNumber": "004-443-1596",
       "allowEmailNotification": "0",
       "userType": "PPE_PROVIDER",
-      "roleName": "ROLE_PPE_PROVIDER"
+      "roleName": "ROLE_PPE_PROVIDER",
+      "dateCreated": 1560839389000
     },
     {
       "id": 17,
@@ -765,7 +799,8 @@
       "phoneNumber": "013-546-5388",
       "allowEmailNotification": "1",
       "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1560320989000
     },
     {
       "id": 18,
@@ -778,6 +813,7 @@
       "allowEmailNotification": "1",
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1560148189000,
       "providers": [
         {
           "id": 1,
@@ -797,15 +833,21 @@
           "id": 1,
           "reportName": "New Report",
           "description": "A sort report description",
-          "timestamp": 1564691140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          "dateUploaded": 1560839389000,
+          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "viewedBy": [
+            "LSsMXzX3"
+          ]
         },
         {
           "id": 2,
           "reportName": "Another Report",
           "description": "A sort report description",
-          "timestamp": 1564561140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          "dateUploaded": 1560925789000,
+          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "viewedBy": [
+            "LSsMXzX3"
+          ]
         }
       ]
     },
@@ -819,7 +861,8 @@
       "phoneNumber": "792-091-2209",
       "allowEmailNotification": "1",
       "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1559197789000
     },
     {
       "id": 20,
@@ -831,7 +874,8 @@
       "phoneNumber": "461-257-4088",
       "allowEmailNotification": "1",
       "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1558852189000
     },
     {
       "id": 21,
@@ -843,7 +887,8 @@
       "phoneNumber": "691-599-9221",
       "allowEmailNotification": "1",
       "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1558333789000
     },
     {
       "id": 22,
@@ -855,7 +900,8 @@
       "phoneNumber": "783-222-5215",
       "allowEmailNotification": "0",
       "userType": "PPE_MOCHA_ADMIN",
-      "roleName": "ROLE_PPE_MOCHA_ADMIN"
+      "roleName": "ROLE_PPE_MOCHA_ADMIN",
+      "dateCreated": 1556778589000
     },
     {
       "id": 23,
@@ -867,7 +913,8 @@
       "phoneNumber": "424-533-4748",
       "allowEmailNotification": "0",
       "userType": "PPE_MOCHA_ADMIN",
-      "roleName": "ROLE_PPE_MOCHA_ADMIN"
+      "roleName": "ROLE_PPE_MOCHA_ADMIN",
+      "dateCreated": 1556778589000
     }
   ],
   "mockUsers": [

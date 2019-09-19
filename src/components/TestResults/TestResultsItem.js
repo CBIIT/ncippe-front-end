@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { Badge, Card, CardActions, CardContent, Typography, Button, Link } from '@material-ui/core';
+import React, { useContext, useState } from 'react'
+import { Badge, Card, CardActions, CardContent, Typography, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import {
   GetApp as GetAppIcon,
@@ -43,75 +43,33 @@ const useStyles = makeStyles(theme => ({
   icon: {
     marginRight: '4px'
   },
-  badge: {
-    width: '100%',
-    display: 'block',
-    position: 'static',
-
-    '& .MuiBadge-badge': {
-      right: '20px',
-      borderRadius: '0 0 6px 6px',
-      padding: '3px 10px',
-      height: 'auto',
-      textTransform: 'uppercase',
-      backgroundColor: '#F6C674',
-      color: '#000',
-      transform: 'none'
-    }
-  }
 }))
 
 const TestResultsItem = ({report}) => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
-  const {env} = loginContext
-  const {reportName, timestamp, reportGUID} = report
-  const newReport = report.viewedBy ? !report.viewedBy.includes(loginContext.userGUID) : true
-
-  const showFile = (blob, download = false, filename = 'report.pdf') => {
-    // It is necessary to create a new blob object with mime-type explicitly set
-    // otherwise only Chrome works like it should
-    const file = new Blob([blob], {type: "application/pdf"})
-
-    // IE doesn't allow using a blob object directly as link href
-    // instead it is necessary to use msSaveOrOpenBlob
-    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-      window.navigator.msSaveOrOpenBlob(file);
-      return;
-    } 
-
-    // For other browsers: 
-    // Create a link pointing to the ObjectURL containing the blob.
-    const fileData = window.URL.createObjectURL(file);
-
-    const link = document.createElement('a');
-    link.href = fileData
-    if(download) {
-      link.download = filename
-    } else {
-      link.rel="noopener noreferrer"
-      link.target="_blank"
-    }
-    link.click();
-    setTimeout(function(){
-      // For Firefox it is necessary to delay revoking the ObjectURL
-      window.URL.revokeObjectURL(fileData);
-    }, 100);
-  }
-
-  // fetch([url to fetch], {[options setting custom http-headers]})
-  // .then(r => r.blob())
-  // .then(showFile)
+  const {userGUID,env,token} = loginContext
+  const {reportName, dateUploaded, reportGUID} = report
+  const [isNewReport, setIsNewReport] = useState(report.viewedBy ? !report.viewedBy.includes(loginContext.userGUID) : true)
 
   // response header example to parse
   //Content-Disposition: attachment; filename=dummy_PatientReport - Copy8322721829336469280.pdf
 
   const handleViewReport = (e) => {
     e.preventDefault()
-    const download = e.currentTarget.getAttribute('download')
-    const reportID = e.currentTarget.attributes.href.value
+    const download = e.currentTarget.hasAttribute('data-download')
+    const reportId = e.currentTarget.getAttribute('data-reportid')
     let filename
-    api[env].fetchPatientReport({reportID})
+    let win
+
+    // set up new tab window before fetch call
+    if(!download) {
+      win = window.open("", "reportId")
+      win.document.title = "View Report"
+      win.document.body.style.margin = 0
+    }
+
+    api[env].fetchPatientReport({reportId, token})
       .then(resp => {
         try{
           const disposition = resp.headers.get('Content-Disposition')
@@ -121,8 +79,39 @@ const TestResultsItem = ({report}) => {
           throw new Error(error)
         }
       })
-      .then(resp => {
-        showFile(resp,download,filename)
+      .then(blob => {
+        // const file = new Blob([resp], {type: "application/pdf"})
+
+        // you can only trigger save in IE - viewing blob data not supported
+        // TODO: conditionally show "View" for IE browser
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+          window.navigator.msSaveOrOpenBlob(blob);
+          return;
+        } 
+        // create url reference to blob buffer
+        const fileData = window.URL.createObjectURL(blob);
+
+        // trigger download or render blob buffer to new window
+        if(download) {
+          const link = document.createElement('a');
+          link.download = filename
+          link.href = fileData
+          link.click();
+        } else {
+          win.document.body.innerHTML = `<embed src='${fileData}' type='application/pdf' width='100%' height='100%' />`
+        }
+
+        // ensure blob buffer is cleared for garbage collection
+        setTimeout(function(){
+          // For Firefox it is necessary to delay revoking the ObjectURL
+          window.URL.revokeObjectURL(fileData);
+        }, 100);
+      })
+      .then(() => {
+        // mark this report as viewed in database
+        api[env].reportViewedBy({userGUID,reportId, token})
+        // mark as viewed in front-end state
+        setIsNewReport(false)
       })
       .catch(error => {
         console.error(error)
@@ -132,23 +121,18 @@ const TestResultsItem = ({report}) => {
   return (
     <Card className={classes.card}>
       <ConditionalWrapper
-        condition={newReport}
+        condition={isNewReport}
         wrapper={children => <Badge className={classes.badge} badgeContent="new document" component="div">{children}</Badge>}>
         <CardContent>
           <Typography className={classes.reportTitle} variant="h3" component="h3">{reportName}</Typography>
-          <Typography>Uploaded {moment(timestamp).format("MMM Do YYYY")}</Typography>
+          <Typography>Uploaded {moment(dateUploaded).format("MMM Do YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
-          <Link href={reportGUID} rel="noopener noreferrer" target="_blank" underline="none" onClick={handleViewReport}>
-            <Button color="primary" variant="text"><LaunchIcon className={classes.icon} /> View</Button>
-          </Link>
-          <Link href={reportGUID} download={reportGUID} underline="none" onClick={handleViewReport}>
-            <Button color="primary" variant="text"><GetAppIcon className={classes.icon}  /> Download</Button>
-          </Link>
+          <Button color="primary" variant="text" data-reportid={reportGUID} onClick={handleViewReport}><LaunchIcon className={classes.icon} /> View</Button>
+          <Button color="primary" variant="text" data-download data-reportid={reportGUID} onClick={handleViewReport}><GetAppIcon className={classes.icon}  /> Download</Button>
         </CardActions>
       </ConditionalWrapper>
     </Card>
-
   )
 }
 

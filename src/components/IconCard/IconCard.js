@@ -46,32 +46,10 @@ const useStyles = makeStyles( theme => ({
     borderTop: `1px solid ${theme.palette.grey[300]}`,
     color: theme.palette.primary.main
   },
-  badge: {
-    width: '100%',
-    height: "100%",
-    verticalAlign: 'top',
-    position: 'static',
-
-    '& .MuiBadge-badge': {
-      right: theme.spacing(3),
-      transform: 'none',
-      borderRadius: '0 0 6px 6px',
-      padding: theme.spacing(1,2),
-      textTransform: 'uppercase',
-      backgroundColor: theme.palette.gold.main,
-      color: theme.palette.common.black,
-      fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
-      fontSize: '16px',
-      fontWeight: 600,
-      lineHeight: '12px',
-      height: 'auto',
-    }
-  },
 }))
 
 const IconCard = ({icon, title, desc, link, linkText, count = 0, badgeText = 'new'}) => {
   const classes = useStyles()
-  console.log("count",count)
 
   return (
     <Card className={classes.card}>
