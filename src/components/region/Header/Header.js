@@ -6,6 +6,7 @@ import {
   Link,
   Typography, 
 } from '@material-ui/core';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles'
 import { Link as RouterLink } from "@reach/router"
 
@@ -43,18 +44,35 @@ const useStyles = makeStyles(theme => ({
   },
   mockUsers: {
     marginRight: theme.spacing(1)
+  },
+  publicNavDesktop: {
+    display: 'none',
+    [theme.breakpoints.up('smLandscape')]: {
+      display: 'flex',
+      position: 'relative',
+      margin: theme.spacing(0,2),
+      '& a': {
+        marginRight: theme.spacing(2),
+      },
+      '& a:last-of-type': {
+        marginRight: 0,
+      }
+    }
+  },
+  publicNavMobile: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    [theme.breakpoints.up('smLandscape')]: {
+      display: 'none'
+    }
+
   }
 }))
 
 const Header = () => {
   const classes = useStyles()
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 800)
+  // const [isDesktop, setIsDesktop] = useState(useMediaQuery(theme => theme.breakpoints.up('smLandscape')))
 
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      setIsMobile(window.innerWidth < 800)
-    })
-  },[isMobile])
   return (
     <Container component="header">
       <Typography className={classes.root} component="div">
@@ -64,20 +82,23 @@ const Header = () => {
               <img src={`/${process.env.PUBLIC_URL}assets/images/nci-ppe-logo.svg`} alt='NCI PPE logo' title='NCI Patient and Provider Engagement Portal' />
             </Link>
           </figure>
-          {!isMobile && 
+          {/* {!isDesktop &&  */}
           <nav className={classes.publicNavDesktop}>
             <Link component={RouterLink} to='/expect' className={classes.headerLink}>What to expect</Link>
+            <Link component={RouterLink} to='/privacy' className={classes.headerLink}>Learn More</Link>
           </nav>
-          }
+          {/* } */}
           <Link component={RouterLink} to='/dashboard/mock-users' className={classes.mockUsers}>
             <Button variant="outlined" color="primary">Mock User</Button>
           </Link>
           <LoginButton />
         </Box>
-        {isMobile && <nav className={classes.publicNavMobile}>
+        {/* {isDesktop &&  */}
+        <nav className={classes.publicNavMobile}>
           <Link component={RouterLink} to='/expect' className={classes.headerLink}>What to expect</Link>
+          <Link component={RouterLink} to='/privacy' className={classes.headerLink}>Learn More</Link>
         </nav>
-        }
+        {/* } */}
       </Typography>
     </Container>
   )

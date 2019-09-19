@@ -357,7 +357,7 @@ const HomePage = (props) => {
             <Grid item xs={12} sm={6} md={3}>
               <IconCardMedia
                 title="We are protecting your privacy"
-                link="privacy"
+                link="/privacy"
                 linkText="Find out how"
                 image="security.jpg"
                 imageTitle="padlock icon over laptop"
@@ -366,7 +366,7 @@ const HomePage = (props) => {
             <Grid item xs={12} sm={6} md={3}>
               <IconCardMedia
                 title="Learn more about cancer research"
-                link="information"
+                link="/privacy"
                 linkText="Find information"
                 image="test-tubes.jpg"
                 imageTitle="test tubes"

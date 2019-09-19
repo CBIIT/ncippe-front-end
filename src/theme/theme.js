@@ -4,6 +4,24 @@ import createBreakpoints from '@material-ui/core/styles/createBreakpoints'
 const breakpoints = createBreakpoints({});
 
 export const theme = createMuiTheme({
+  breakpoints: {
+    keys: [
+      "xs",
+      "sm",
+      "smLandscape",
+      "md",
+      "lg",
+      "xl"
+    ],
+    values: {
+      xs: 0,
+      sm: 600,
+      smLandscape: 800,
+      md: 960,
+      lg: 1280,
+      xl: 1920
+    }
+  },
   palette: {
     primary: {
       main: '#1e6fd6',

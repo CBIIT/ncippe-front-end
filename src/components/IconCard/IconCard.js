@@ -64,9 +64,11 @@ const IconCard = ({icon, title, desc, link, linkText, count = 0, badgeText = 'ne
               <Typography className={classes.cardTitle} variant="body2" component="h2">{title}</Typography>
               <Typography>{desc}</Typography>
             </div>
-            <div>
-              <Typography><Link className={classes.link} to={link}>{linkText} <KeyboardArrowRightIcon className={classes.linkIcon} /></Link></Typography>
-            </div>
+            {link &&
+              <div>
+                <Typography><Link className={classes.link} to={link}>{linkText} <KeyboardArrowRightIcon className={classes.linkIcon} /></Link></Typography>
+              </div>
+            }
           </div>
         </CardContent>
         
