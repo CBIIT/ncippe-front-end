@@ -26,7 +26,8 @@ const useStyles = makeStyles(theme => ({
 const Breadcrumbs = () => {
   const classes = useStyles();
   const handleClick = () => {
-    navigate('/dashboard')
+    // navigate('/dashboard')
+    window.history.back()
   }
   return (
     <Container className={classes.Breadcrumbs}>
