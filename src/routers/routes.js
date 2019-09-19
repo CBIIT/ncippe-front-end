@@ -12,8 +12,10 @@ import ParticipantPage from '../pages/ParticipantPage'
 import ConsentPage from '../pages/ConsentPage'
 import ProfilePage from '../pages/ProfilePage'
 import GetHelpPage from '../pages/GetHelpPage'
+import ActivatePage from '../pages/ActivatePage'
 
 import { LoginConsumer } from '../components/login/SharedLogin/Login.context'
+
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
@@ -37,6 +39,7 @@ export default () => (
         >
           <Router location={location} primary={false}>
             <HomePage path='/' />
+            <ActivatePage path='/activate' />
             <PrivateRoute path='/dashboard' component={DashboardPage} />
             <PrivateRoute path='/dashboard-mocha' component={DashboardMochaPage} />
             <PrivateRoute path='/dashboard/notifications' component={NotificationsPage} />

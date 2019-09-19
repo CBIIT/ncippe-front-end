@@ -363,14 +363,14 @@ async function reportViewedByLocal({userGUID, reportId}){
 
 export const api = {
   local: {
-    fetchMockUsers: fetchMockUsersLocal,
-    fetchToken: fetchTokenLocal,
-    fetchUser: fetchUserLocal,
-    updateUser: updateUserLocal,
-    fetchPatientTestResults: fetchUserLocal,
+    fetchMockUsers: fetchMockUsersProd,
+    fetchToken: fetchTokenProd,
+    fetchUser: fetchUserProd,
+    updateUser: updateUserProd,
+    fetchPatientTestResults: fetchUserProd,
     fetchPatientReport: fetchPartientReportProd,
-    uploadPatientReport: uploadPatientReportLocal,
-    notificationsMarkAsRead: notificationsMarkAsReadLocal,
+    uploadPatientReport: uploadPatientReportProd,
+    notificationsMarkAsRead: notificationsMarkAsReadProd,
     reportViewedBy: reportViewedByLocal
   },
   prod: {

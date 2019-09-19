@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Link as RouterLink } from "@reach/router"
 
 import LoginButton from '../../login/SharedLogin/LoginButton'
+import ActivateButton from '../../login/SharedLogin/ActivateButton'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,6 +41,7 @@ const Header = () => {
             <img src={`/${process.env.PUBLIC_URL}assets/images/nci-ppe-logo.svg`} alt='NCI PPE logo' title='NCI Patient and Provider Engagement Portal' />
           </Link>
         </figure>
+        <ActivateButton />
         <LoginButton />
       </Container>
     </Typography>
