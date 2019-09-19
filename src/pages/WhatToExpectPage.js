@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Router, Link as RouterLink } from '@reach/router'
-import { AppBar, Box, Link, Container, Grid, Tab, Tabs, Typography } from '@material-ui/core'
+import { AppBar, Box, Card, CardContent, CardMedia, Link, Container, Grid, Tab, Tabs, Typography } from '@material-ui/core'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { OpenInNew as OpenInNewIcon } from '@material-ui/icons'
 import { useScript } from '../components/utils/useScript'
@@ -230,7 +230,7 @@ const Discuss = withStyles(theme => ({
   useEffect(()=>{
     if(mapScriptLoaded) {
       map = window.L.map('map').setView([38.5561, -90.2496], 5)
-      const OpenStreetMap = window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      const OpenStreetMap = window.L.tileLayer('	https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
               maxZoom: 19,
               attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             });
@@ -245,27 +245,27 @@ const Discuss = withStyles(theme => ({
       //Bronx, NY
       window.L.marker([40.8800853,-73.8798439],{
         title: "Montefiore Medical Center"
-      }).addTo(map).on('click',clickZoom); 
+      }).addTo(map).bindPopup('Montefiore Medical Center').on('click',clickZoom); 
 
       //Richmond, VA
       window.L.marker([37.544077,-77.432143],{
         title: "VCU Massey Cancer Center"
-      }).addTo(map).on('click',clickZoom); 
+      }).addTo(map).bindPopup('VCU Massey Cancer Center').on('click',clickZoom); 
 
       //Covington, TN
       window.L.marker([35.5354435,-89.6785178],{
         title: "Baptist Memorial Health Care"
-      }).addTo(map).on('click',clickZoom); 
+      }).addTo(map).bindPopup('Baptist Memorial Health Care').on('click',clickZoom); 
 
       //Chicago, IL
       window.L.marker([41.868636,-87.681454],{
         title: "Stroger Hospital of Cook County"
-      }).addTo(map).on('click',clickZoom); 
+      }).addTo(map).bindPopup('Stroger Hospital of Cook County').on('click',clickZoom); 
 
       //Albuquerque, NM
       window.L.marker([35.0843187,-106.6219699],{
         title: "The University of New Mexico"
-      }).addTo(map).on('click',clickZoom); 
+      }).addTo(map).bindPopup('The University of New Mexico').on('click',clickZoom); 
 
 
     }
@@ -346,6 +346,15 @@ const Discuss = withStyles(theme => ({
 
 
 const Consent = withStyles(theme => ({
+  container: {
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '74%'
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '64%'
+    }
+  },
   videoPlaceholder: {
     width: 470,
     height: 264,
@@ -359,12 +368,38 @@ const Consent = withStyles(theme => ({
     '& svg': {
       marginLeft: 4
     }
-  }
+  },
+  mediaWrapper: {
+    position: 'relative',
+    paddingBottom: '56.25%' /* 16:9 */,
+    height: 0,
+
+    '& iframe': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+    },
+  },
 }))(({classes, index, isMobile}) => (
   <TabPanel index={index}>
-    <Typography variant={isMobile ? "body1" : "body2"}>After you and your doctor discuss your participation in the Cancer Moonshot Biobank and decide you'd like to participate, you will be asked to sign a consent form. A research coordinator will be there to answer any questions you may have.</Typography>
-    <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="h4" rel="noopener noreferrer" target="_blank">Review the consent form <OpenInNewIcon /></Link>
-    <Box className={classes.videoPlaceholder}>Video placeholder</Box>
+    <Box className={classes.container}>
+      <Typography variant={isMobile ? "body1" : "body2"}>After you and your doctor discuss your participation in the Cancer Moonshot Biobank and decide you'd like to participate, you will be asked to sign a consent form. A research coordinator will be there to answer any questions you may have.</Typography>
+      <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="h4" rel="noopener noreferrer" target="_blank">Review the consent form <OpenInNewIcon /></Link>
+      <Card>
+        <div className={classes.mediaWrapper}>
+          <CardMedia
+            component='iframe'
+            className={classes.media}
+            src='https://www.youtube.com/embed/OyCFbZYgL3U'
+            title='A Dialogue on Cancer Disparities, Prevention, and Research: Facebook Live'
+            allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+            allowfullscreen
+          />
+        </div>
+      </Card>
+    </Box>
   </TabPanel>
 ))
 
