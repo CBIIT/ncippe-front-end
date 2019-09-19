@@ -1,3 +1,5 @@
+import { createUUID } from '../utils/utils'
+
 async function fetchMockUsersLocal(){
   // get mock user id list
   const mockUsers = await fetch(`/api/mockUsers`)
@@ -149,7 +151,7 @@ async function updateUserProd({userGUID, data, token}){
 /*=======================================================================*/
 
 
-async function uploadPatientReportLocal({patientGUID, userGUID, reportFile}){
+async function uploadPatientReportLocal({patientGUID, userGUID, reportFile, fileType}){
 
   // first get reports for this user - local only
   const userDetails = await fetch(`/api/users?userGUID=${patientGUID}&singular=1`)
@@ -165,9 +167,10 @@ async function uploadPatientReportLocal({patientGUID, userGUID, reportFile}){
       {
         "id": userDetails.reports && userDetails.reports.length > 0 ? userDetails.reports.length + 1 : 1,
         "reportName": reportFile.name,
+        "uploadedFileType": fileType,
         "description": "",
         "timestamp": Date.now(),
-        "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        "fileGUID": createUUID()
       }
     ]
   }
@@ -176,6 +179,7 @@ async function uploadPatientReportLocal({patientGUID, userGUID, reportFile}){
     `\nuserGUID: ${userGUID}`, 
     `\npatientGUID: ${patientGUID}`, 
     `\nreportFile:`, reportFile, 
+    `\nuploadedFileType:`, fileType, 
     `\nreports:`, reports
   )
 
@@ -200,13 +204,14 @@ async function uploadPatientReportLocal({patientGUID, userGUID, reportFile}){
   })
 }
 
-async function uploadPatientReportProd({patientGUID, userGUID, reportFile, token}){
+async function uploadPatientReportProd({patientGUID, userGUID, reportFile, fileType, token}){
 
   const formData = new FormData();
 
   formData.append("userGUID",userGUID)
   formData.append("patientGUID",patientGUID)
   formData.append("reportFile",reportFile)
+  formData.append("uploadedFileType",fileType)
 
   return await fetch(`/api/patientReport`, {
     method: 'POST',
@@ -229,6 +234,62 @@ async function uploadPatientReportProd({patientGUID, userGUID, reportFile, token
     return error
   })
 }
+
+/*=======================================================================*/
+
+async function uploadConsentFormLocal({patientGUID, userGUID, reportFile, fileType}){
+
+  // first get reports for this user - local only
+  const userDetails = await fetch(`/api/users?userGUID=${patientGUID}&singular=1`)
+    .then(resp => resp.json())
+    .catch(error => {
+      console.error(error)
+    })
+
+  const userDocuments = userDetails.otherDocuments || []
+  const otherDocuments = {
+      "otherDocuments": [
+      ...userDocuments,
+      {
+        "id": userDetails.otherDocuments && userDetails.otherDocuments.length > 0 ? userDetails.otherDocuments.length + 1 : 1,
+        "reportName": reportFile.name,
+        "uploadedFileType": fileType,
+        "description": "",
+        "timestamp": Date.now(),
+        "fileGUID": createUUID()
+      }
+    ]
+  }
+
+  console.log("userData sent to server:", 
+    `\nuserGUID: ${userGUID}`, 
+    `\npatientGUID: ${patientGUID}`, 
+    `\nfile:`, reportFile, 
+    `\nuploadedFileType:`, fileType, 
+    `\notherDocuments:`, otherDocuments
+  )
+
+  return await fetch(`/users/${userDetails.id}`,{
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(otherDocuments)
+  })
+  .then(resp => {
+    // TODO: put pdf file into dist folder using middleware
+    if(resp.ok) {
+      return true
+    } else {
+      throw new Error(`We were unable to upload your file at this time. Please try again.`)
+    }
+  })
+  .catch(error => {
+    console.error(error)
+    return error
+  })
+}
+
 
 /*=======================================================================*/
 
@@ -300,11 +361,32 @@ async function notificationsMarkAsReadProd({userGUID, token}){
 
 /*=======================================================================*/
 
-//TODO: mock fetching report pdf files locally
-async function fetchPartientReportProd({reportID}){
-  // return await fetch(`//10.5.62.58:8080/api/patientReport/${reportID}`,{
-  // return await fetch(`/assets/documents/${reportID}`) - point to local assets
-  return await fetch(`/api/patientReport/${reportID}`)
+async function fetchPatientReportLocal({reportId}){
+  // This kind of works, but reports have to be manually placed in the /assets/documents folder and reportId is the filename
+  // return await fetch(`//10.5.62.58:8080/api/patientReport/${reportId}`,{
+  // return await fetch(`/assets/documents/${reportId}`)
+  // return await fetch(`/assets/documents/${reportId}`) // - point to local assets
+  return await fetch(`/assets/documents/important-document.pdf`) // - point to local assets
+  .then(resp => {
+    if(resp.ok) {
+      return resp
+    } else {
+      throw new Error(`We were unable to fetch this report. Please try again.`)
+    }
+  })
+  .catch(error => {
+    console.error(error)
+    return error
+  })
+}
+
+async function fetchPatientReportProd({reportId, token}){
+  return await fetch(`/api/patientReport/${reportId}`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+  })
   .then(resp => {
     if(resp.ok) {
       return resp
@@ -327,10 +409,24 @@ async function reportViewedByLocal({userGUID, reportId}){
       console.error(error)
     })
 
-  const report = userDetails.reports.filter(report => report.id === reportId)
-  const viewedReport = {
-    ...report,
-    viewedByUser: report.viewedByUser.push(userGUID)
+  // get the report that needs updating
+  const updatedReports = userDetails.reports.map(report => {
+    if(report.fileGUID === reportId) {
+      const viewedBy = report.viewedByUsers || []
+      return {
+        ...report,
+        viewedBy: [...new Set([...viewedBy, userGUID])]
+      }
+    } else {
+      return report
+    }
+  })
+
+  // update the reports list
+  const reports = {
+    "reports": [
+      ...updatedReports
+    ]
   }
 
   console.log("userData sent to server:", 
@@ -340,12 +436,12 @@ async function reportViewedByLocal({userGUID, reportId}){
 
   //TODO: can I patch one report by ID or do I have to patch the whole reports array?
 
-  return await fetch(`/users/${userDetails.id}/reports/${reportId}`,{
+  return await fetch(`/users/${userDetails.id}`,{
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(viewedReport)
+    body: JSON.stringify(reports)
   })
     .then(resp => {
       // TODO: put pdf file into dist folder using middleware
@@ -360,18 +456,41 @@ async function reportViewedByLocal({userGUID, reportId}){
     })
 }
 
+// flag report as read by user
+async function reportViewedByProd({userGUID, reportId, token}){
+  return await fetch(`/api/patientReport/${reportId}?viewedByUserId=${userGUID}`,{
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+  })
+  .then(resp => {
+    if(resp.ok) {
+      return true
+    } else {
+      throw new Error(`We were unable to mark notifications as read. Please try again.`)
+    }
+  })
+  .catch(error => {
+    console.error(error)
+    return error
+  })
+}
+
 
 export const api = {
   local: {
-    fetchMockUsers: fetchMockUsersProd,
-    fetchToken: fetchTokenProd,
-    fetchUser: fetchUserProd,
-    updateUser: updateUserProd,
-    fetchPatientTestResults: fetchUserProd,
-    fetchPatientReport: fetchPartientReportProd,
-    uploadPatientReport: uploadPatientReportProd,
-    notificationsMarkAsRead: notificationsMarkAsReadProd,
-    reportViewedBy: reportViewedByLocal
+    fetchMockUsers: fetchMockUsersLocal,
+    fetchToken: fetchTokenLocal,
+    fetchUser: fetchUserLocal,
+    updateUser: updateUserLocal,
+    fetchPatientTestResults: fetchUserLocal,
+    fetchPatientReport: fetchPatientReportLocal,
+    uploadPatientReport: uploadPatientReportLocal,
+    notificationsMarkAsRead: notificationsMarkAsReadLocal,
+    reportViewedBy: reportViewedByLocal,
+    uploadConsentForm: uploadConsentFormLocal
   },
   prod: {
     fetchMockUsers: fetchMockUsersProd,
@@ -379,8 +498,10 @@ export const api = {
     fetchUser: fetchUserProd,
     updateUser: updateUserProd,
     fetchPatientTestResults: fetchUserProd,
-    fetchPatientReport: fetchPartientReportProd,
+    fetchPatientReport: fetchPatientReportProd,
     uploadPatientReport: uploadPatientReportProd,
-    notificationsMarkAsRead: notificationsMarkAsReadProd
+    notificationsMarkAsRead: notificationsMarkAsReadProd,
+    reportViewedBy: reportViewedByProd,
+    uploadConsentForm: uploadPatientReportProd
   }
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -33,24 +33,17 @@ const Notifications = () => {
     }
   },[])
 
-  return count ? <>
+  return <>
     <div className={classes.titleWithIcon}>
       <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/notifications.svg`} alt='notification icon' aria-hidden="true"></img>
-      <Typography variant="h2" component="h2">You have {count} Notification{count !== 1 && 's'}</Typography>
+      <Typography variant="h2" component="h2">You have {count} Notification{count !== 1 ? 's' : ''}</Typography>
     </div>
-
-    {notificationList.map((item, i) => (
-      <NotificationItem key={i} notification={item} />
-    ))}
-    </> : <>
-    <div className={classes.titleWithIcon}>
-      <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/notifications.svg`} alt='notification icon' aria-hidden="true"></img>
-      <Typography variant="h2" component="h2">You have {count} Notification{count !== 1 && 's'}</Typography>
-    </div>
-    <Typography variant="h6" className={classes.header}>
-      You do not have any notifications.
-    </Typography>
-    </>
+    {count ? 
+      notificationList.map((item, i) => <NotificationItem key={i} notification={item} />)
+      :
+      <Typography variant="h6" className={classes.header}>You do not have any notifications.</Typography>
+    }
+  </>
 }
 
 export default Notifications

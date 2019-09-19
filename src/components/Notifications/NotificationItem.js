@@ -50,7 +50,7 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const NotificationItem = ({notification: {subject, from, message, timestamp, viewedByUser}, handleClick}) => {
+const NotificationItem = ({notification: {subject, from, message, dateGenerated, viewedByUser}, handleClick}) => {
   const classes = useStyles()
   return (
     <Card onClick={handleClick} className={classes.card}>
@@ -65,7 +65,7 @@ const NotificationItem = ({notification: {subject, from, message, timestamp, vie
               <Typography>From: {from}</Typography>
             </Grid>
             <Grid item xs={12} sm={4} md={2} className={classes.gridDate}>
-              <Typography>{moment(timestamp).format("MMM Do YYYY")}</Typography>
+              <Typography>{moment(dateGenerated).format("MMM DD, YYYY")}</Typography>
             </Grid>
           </Grid>
           

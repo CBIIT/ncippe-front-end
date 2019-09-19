@@ -67,7 +67,6 @@ const UploadReport = (props) => {
   const [formData, setFormData] = useState(formDataDefaults)
   const [activeStep, setActiveStep] = useState(0)
   const [patientData, setPatientData] = useState(patientDataDefaults)
-  const [progress, setProgress] = useState(0);
   const [loginContext, dispatch] = useContext(LoginContext)
 
   // controlled text input
@@ -170,6 +169,7 @@ const UploadReport = (props) => {
           patientGUID: formData.patientId,
           userGUID,
           reportFile: formData.reportFile,
+          fileType: 'PPE_FILETYPE_BIOMARKER_REPORT',
           token
         })
         .then(resp => {

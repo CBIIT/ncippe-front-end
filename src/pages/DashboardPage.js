@@ -10,46 +10,6 @@ import IconCard from '../components/IconCard/IconCard'
 
 
 const useStyles = makeStyles(theme => ({
-  mainContainer: {
-    backgroundColor: theme.palette.primary.lightGrey,
-    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-short.svg)`,
-    backgroundPosition: 'bottom right',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: '50%',
-    borderTop: `1px solid ${theme.palette.grey[300]}`,
-    paddingBottom: '110px',
-
-  },
-  card: {
-    position: 'relative',
-    width: '100%',
-    minWidth: 100,
-    height: '100%',
-    minHeight: 250,
-    // maxWidth: 300,
-  },
-  cardContent: {
-    display: 'flex',
-    height: '100%',
-    width: '100%',
-    alignItems: 'flex-start',
-    padding: theme.spacing(4,3,3,3)
-  },
-  cardTitle: {
-    fontWeight: 'bold'
-  },
-  cardIcon: {
-    paddingRight: theme.spacing(3),
-    maxWidth: '100px',
-    width: '100%'
-  },
-  cardText: {
-    display: 'flex',
-    flexGrow: 1,
-    flexDirection: 'column',
-    height: '100%',
-    justifyContent: 'space-between'
-  },
   grid: {
     justifyContent: 'flex-start'
   },
@@ -61,43 +21,8 @@ const useStyles = makeStyles(theme => ({
         margin: 0
       }
     }
-  },
-  link: {
-    display: 'flex',
-    alignItems: 'center',
-    textDecoration: 'none',
-    fontWeight: 600,
-    paddingTop: theme.spacing(2),
-    marginTop: theme.spacing(2),
-    borderTop: `1px solid ${theme.palette.grey[300]}`,
-    color: theme.palette.primary.main
-  },
-  badge: {
-    width: '100%',
-    height: "100%",
-    verticalAlign: 'top',
-    position: 'static',
-
-    '& .MuiBadge-badge': {
-      right: theme.spacing(3),
-      transform: 'none',
-      borderRadius: '0 0 6px 6px',
-      padding: theme.spacing(1,2),
-      textTransform: 'uppercase',
-      backgroundColor: theme.palette.gold.main,
-      color: theme.palette.common.black,
-      fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
-      fontSize: '16px',
-      fontWeight: 600,
-      lineHeight: '12px',
-      height: 'auto',
-    }
-  },
-  patientList: {
-    margin: theme.spacing(6,0)
   }
 }));
-
 
 export default () => {
   const classes = useStyles();
@@ -130,6 +55,12 @@ export default () => {
           newNotificationCount: data.notificationList ? data.notificationList.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0,
           newReport: newReportCount(data)
         }
+
+        // sort patient list alphabetically by last name
+        if(userData.patients && userData.patients.length > 1){
+          const sortedPatients = userData.patients.sort((a, b) => a.lastName.localeCompare(b.lastName))
+          userData.patients = sortedPatients
+        }
         
         //TODO: set context
         dispatch({
@@ -143,7 +74,7 @@ export default () => {
 
   return (
     <Box>
-      <Container className={classes.mainContainer}>
+      <Container className="mainContainer--dashboard">
         <LoginConsumer>
         {([{firstName, lastName}]) => {
           return (
@@ -165,7 +96,7 @@ export default () => {
                 <IconCard
                   icon="notifications.svg"
                   title="Notifications"
-                  desc={`You have ${count} new notification${count !== 1 && 's'}`}
+                  desc={`You have ${count} new notification${count !== 1 ? 's' : ''}.`}
                   link="/dashboard/notifications"
                   linkText="Review"
                   count={count}
@@ -242,7 +173,7 @@ export default () => {
         {([{roleName, patients}]) => {
           {/* Secondary row */}
           return (roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && patients && (
-            <Box className={classes.patientList}>
+            <Box my={6}>
               <PatientList patients={patients} />
             </Box>
             )

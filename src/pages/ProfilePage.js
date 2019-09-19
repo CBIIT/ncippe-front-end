@@ -8,29 +8,11 @@ import Profile from '../components/Profile/Profile'
 import { formatPhoneNumber } from '../utils/utils'
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    minHeight: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  mainContainer: {
-    backgroundColor: theme.palette.primary.lightGrey,
-    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-short.svg)`,
-    backgroundPosition: 'bottom right',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: '50%',
-    borderTop: `1px solid ${theme.palette.grey[300]}`,
-    paddingBottom: '110px',
-    padding: theme.spacing(5),
-    flexGrow: 1,
-  },
   header: {
     marginBottom: theme.spacing(2)
   },
   profile: {
     display: 'flex',
-    height: '100%',
-    width: '100%',
     alignItems: 'flex-start',
     '& a': {
       textDecoration: 'none'
@@ -64,9 +46,9 @@ const TestResults = (props) => {
   const {firstName, lastName, email, phoneNumber} = loginContext
 
   return (
-    <Box className={classes.root}>
-      <Breadcrumbs pageName="Consent Page" />
-      <Container className={classes.mainContainer}>
+    <Box className="popup">
+      <Breadcrumbs pageName="Profile" />
+      <Container className="mainContainer">
         <div className={classes.profile}>
           <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt='card icon' aria-hidden="true" />
           <div className={classes.profileText}>
