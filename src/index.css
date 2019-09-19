@@ -82,6 +82,10 @@ img {
   float: left;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .transitionGroup {
   display: flex;
   flex-direction: column;
