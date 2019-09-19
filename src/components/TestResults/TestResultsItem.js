@@ -58,8 +58,8 @@ const TestResultsItem = (props) => {
 
   const handleViewReport = (e) => {
     e.preventDefault()
-    const download = e.currentTarget.hasAttribute('data-download')
-    const reportId = e.currentTarget.getAttribute('data-reportid')
+    const download = e.currentTarget.dataset.download
+    const reportId = e.currentTarget.dataset.reportid
     let filename
     let win
 
