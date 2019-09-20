@@ -51,11 +51,8 @@ export default () => (
         >
           <Router location={location} primary={false}>
             <HomePage path='/' />
-<<<<<<< HEAD
             <ActivatePage path='/activate' />
-=======
             <PrivacyPage path='/privacy' />
->>>>>>> 3eb1c3e8e4b0a5aa77dbf3c9aff99d3e5fbcf038
             <PrivateRoute path='/dashboard' component={DashboardPage} />
             <MockUsersPage path='/dashboard/mock-users' />
             <PrivateRoute path='/dashboard-mocha' component={DashboardMochaPage} />
