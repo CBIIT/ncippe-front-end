@@ -50,7 +50,6 @@ export default () => {
         }
         const userData = {
           ...data,
-          allowEmailNotification: getBool(data.allowEmailNotification), //convert "allowEmailNotification" to boolean
           phoneNumber: formatPhoneNumber(data.phoneNumber), //format "phoneNumber" field
           newNotificationCount: data.notificationList ? data.notificationList.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0,
           newReport: newReportCount(data)
