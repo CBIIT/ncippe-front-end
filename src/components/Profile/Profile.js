@@ -52,7 +52,7 @@ const Profile = (props) => {
     event.preventDefault();
 
     const phoneNumber = event.target['phone-number-input'].value || ''
-    const allowEmailNotification = event.target['notifications-input'].checked ? "1" : "0"
+    const allowEmailNotification = event.target['notifications-input'].checked
     // pattern must be a valid phone number or empty input mask pattern
     const phonePattern = /\([2-9]\d{2}\)\s?[2-9]\d{2}-\d{4}|\(\s{3}\)\s{4}-\s{4}/
 
@@ -88,7 +88,7 @@ const Profile = (props) => {
   const cancelEdit = (event) => {
     //restore user context
     setUserPhone(loginContext.phoneNumber)
-    setUserOptIn(getBool(loginContext.allowEmailNotification))
+    setUserOptIn(loginContext.allowEmailNotification)
 
     toggleEditMode()
   }

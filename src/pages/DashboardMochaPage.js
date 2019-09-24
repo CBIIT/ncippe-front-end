@@ -17,7 +17,6 @@ const MochaDashboard = (props) => {
       .then(data => {
         const userData = {
           ...data,
-          allowEmailNotification: getBool(data.allowEmailNotification), //convert "allowEmailNotification" to boolean
           phoneNumber: formatPhoneNumber(data.phoneNumber), //format "phoneNumber" field
         }
         
