@@ -19,8 +19,8 @@ import GetHelpPage from '../pages/GetHelpPage'
 
 import Activate from '../pages/ActivatePage'
 import pageWrapper from '../pages/pageWrapper'
-import { LoginConsumer } from '../components/login/SharedLogin/Login.context'
-import { AuthConsumer } from '../components/login/SharedLogin/AuthContext'
+import { LoginConsumer } from '../components/login/Login.context'
+import { AuthConsumer } from '../components/login/AuthContext'
 
 const HomePage = pageWrapper(Home)
 const DashboardPage = pageWrapper(Dashboard)

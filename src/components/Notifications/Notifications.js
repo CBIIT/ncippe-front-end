@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { LoginContext } from '../login/SharedLogin/Login.context'
+import { LoginContext } from '../login/Login.context'
 import { api } from '../../data/api'
 
 import NotificationItem from './NotificationItem'

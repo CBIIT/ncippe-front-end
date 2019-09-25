@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { LoginContext } from '../login/SharedLogin/Login.context'
+import { LoginContext } from '../login/Login.context'
 import TestResultsItem from './TestResultsItem'
 import NoItems from '../NoItems/NoItems'
 

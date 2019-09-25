@@ -6,12 +6,12 @@ import {
 } from '@material-ui/icons'
 
 import { api } from '../../data/api'
-import { LoginContext } from '../login/SharedLogin/Login.context'
+import { LoginContext } from '../login/Login.context'
 import UploadStepper from './UploadStepper'
 import FileItem from './FileItem'
 import { isValidUserId } from '../../utils/utils'
 import Status from '../Status/Status'
-// import ToggleEnvButton from '../login/SharedLogin/ToggleEnvButton'
+// import ToggleEnvButton from '../login/ToggleEnvButton'
 
 const useStyles = makeStyles( theme => ({
   paper: {

@@ -3,7 +3,7 @@ import { navigate } from '@reach/router'
 import {Box, Button, Container, Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { LoginConsumer, LoginContext } from '../components/login/SharedLogin/Login.context'
+import { LoginConsumer, LoginContext } from '../components/login/Login.context'
 import { api } from '../data/api'
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
 

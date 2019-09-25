@@ -3,7 +3,7 @@ import { Box, Container, Divider, Grid, Paper, Typography } from '@material-ui/c
 import { makeStyles } from '@material-ui/core/styles'
 
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
-import { LoginContext } from '../components/login/SharedLogin/Login.context'
+import { LoginContext } from '../components/login/Login.context'
 import Profile from '../components/Profile/Profile'
 import { formatPhoneNumber } from '../utils/utils'
 

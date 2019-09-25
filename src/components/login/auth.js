@@ -1,4 +1,4 @@
-const randomString = (length) => [...Array(length)].map(i=>(~~(Math.random()*36)).toString(36)).join('')
+import { randomString } from '../../utils/utils'
 
 export const IDENTITY_CONFIG = {
   authority: process.env.REACT_APP_AUTH_URL, //(string): The URL of the OIDC provider.
@@ -12,7 +12,7 @@ export const IDENTITY_CONFIG = {
   // audience: "https://example.com", //is there a way to specific the audience when making the jwt
   acr_values: "http://idmanagement.gov/ns/assurance/loa/1",
   response_type: "code", //(string, default: 'code')
-  prompt: "login", // This can either be select_account (default behavior) or login (force a re-authorization even if a current IdP session is active).
+  prompt: "select_account", // This can either be select_account (default behavior) or login (force a re-authorization even if a current IdP session is active).
   scope: "openid email", //(string, default: 'openid'): The scope being requested from the OIDC provider.
   webAuthResponseType: "id_token token",
   state: randomString(32),

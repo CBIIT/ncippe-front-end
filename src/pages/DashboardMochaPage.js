@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { Box, Container, Typography } from '@material-ui/core'
 
 import { api } from '../data/api'
-import { LoginConsumer, LoginContext } from '../components/login/SharedLogin/Login.context'
+import { LoginConsumer, LoginContext } from '../components/login/Login.context'
 import { getBool, formatPhoneNumber } from '../utils/utils'
 import UploadReport from '../components/Mocha/UploadReport'
 

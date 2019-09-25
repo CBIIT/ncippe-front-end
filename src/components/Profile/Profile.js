@@ -4,7 +4,7 @@ import { FormControl, TextField, Paper, Typography, Button} from '@material-ui/c
 import { makeStyles } from '@material-ui/core/styles'
 import EditIcon from '@material-ui/icons/Edit';
 
-import { LoginContext } from '../../components/login/SharedLogin/Login.context'
+import { LoginContext } from '../../components/login/Login.context'
 import PhoneNumbner from '../inputs/PhoneNumber/PhoneNumber'
 import EmailOption from '../inputs/EmailOption/EmailOption'
 import { getBool } from '../../utils/utils'

@@ -5,7 +5,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Clear as ClearIcon } from '@material-ui/icons'
 
 import { api } from '../../data/api'
-import { LoginContext } from '../login/SharedLogin/Login.context'
+import { LoginContext } from '../login/Login.context'
 import Status from '../Status/Status'
 import FileItem from '../Mocha/FileItem'
 

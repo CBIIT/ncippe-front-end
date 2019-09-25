@@ -8,7 +8,7 @@ import {
 import moment from 'moment'
 
 import { api } from '../../data/api'
-import { LoginContext } from '../login/SharedLogin/Login.context'
+import { LoginContext } from '../login/Login.context'
 import ConditionalWrapper from '../utils/ConditionalWrapper'
 
 const useStyles = makeStyles(theme => ({

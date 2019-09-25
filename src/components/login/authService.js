@@ -2,6 +2,8 @@ import { IDENTITY_CONFIG, METADATA_OIDC } from "./auth";
 import { UserManager, WebStorageStateStore, Log } from "oidc-client";
 import { navigate } from "@reach/router"
 
+import { randomString } from '../../utils/utils'
+
 export default class AuthService {
   UserManager;
   accessToken;
@@ -26,17 +28,7 @@ export default class AuthService {
       this.accessToken = user.access_token;
       localStorage.setItem("access_token", user.access_token);
       localStorage.setItem("id_token", user.id_token);
-      console.log("user info",user)
-      // this.setUserInfo({
-      //   accessToken: this.accessToken,
-      //   idToken: user.id_token,
-      //   profile: user.profile
-      // });
-      this.setSessionInfo({
-        accessToken: this.accessToken,
-        idToken: user.id_token
-      })
-      this.setUser(user.profile);
+      localStorage.setItem("user_data", JSON.stringify({...user.profile}));
       if (window.location.href.indexOf("signin-oidc") !== -1) {
         this.navigateToScreen();
       }
@@ -54,6 +46,7 @@ export default class AuthService {
   signinRedirectCallback = () => {
     this.UserManager.signinRedirectCallback().then(() => {
       console.log("sign-in successful. Time to redirect to dashboard")
+      console.log("TODO: catch errors!")
       navigate('/dashboard')
 
     })
@@ -98,8 +91,7 @@ export default class AuthService {
   };
 
   setUser = data => {
-    localStorage.setItem("userId", data.sub);
-    localStorage.setItem("userEmail", data.email);
+    localStorage.setItem("user", data);
   };
 
   navigateToScreen = () => {
@@ -140,7 +132,8 @@ export default class AuthService {
 
   logout = () => {
     this.UserManager.signoutRedirect({
-      id_token_hint: localStorage.getItem("id_token")
+      id_token_hint: localStorage.getItem("id_token"),
+      state: randomString(32)
     });
     this.UserManager.clearStaleState();
   };

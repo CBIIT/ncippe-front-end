@@ -10,8 +10,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles'
 import { Link as RouterLink } from "@reach/router"
 
-import LoginButton from '../../login/SharedLogin/LoginButton'
-import ActivateButton from '../../login/SharedLogin/ActivateButton'
+import LoginButton from '../../login/LoginButton'
+import ActivateButton from '../../login/ActivateButton'
 
 const useStyles = makeStyles(theme => ({
   root: {

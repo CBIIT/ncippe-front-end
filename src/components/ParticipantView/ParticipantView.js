@@ -3,7 +3,7 @@ import { Divider, Grid, Typography, Link } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { api } from '../../data/api'
-import { LoginContext } from '../login/SharedLogin/Login.context'
+import { LoginContext } from '../login/Login.context'
 import TestResultsItem from '../TestResults/TestResultsItem'
 import NoItems from '../NoItems/NoItems'
 import ExpansionMenu from '../ExpansionMenu/ExpansionMenu'

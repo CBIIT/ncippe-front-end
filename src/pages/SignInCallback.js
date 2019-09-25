@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 
-import { AuthConsumer } from '../components/login/SharedLogin/AuthContext'
+import { AuthConsumer } from '../components/login/AuthContext'
 
 const useStyles = makeStyles( theme => ({
   titleUploading: {
