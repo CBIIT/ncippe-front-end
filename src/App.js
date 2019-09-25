@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { CssBaseline } from '@material-ui/core'
 
 import Routes from './routers/routes'
+import { AuthProvider } from './components/login/SharedLogin/AuthContext'
 import { LoginProvider } from './components/login/SharedLogin/Login.context'
 import { theme } from './theme/theme'
 
@@ -20,10 +21,12 @@ const App = () => {
   const classes = useStyles()
   return (
     <ThemeProvider theme={theme}>
-      <LoginProvider>
-        <CssBaseline />
-        <Routes />
-      </LoginProvider>
+      <AuthProvider>
+        <LoginProvider>
+          <CssBaseline />
+          <Routes />
+        </LoginProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
