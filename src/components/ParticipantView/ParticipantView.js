@@ -64,11 +64,11 @@ const TestResults = (props) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    //fetch user
-    const {userName, token, env} = loginContext
-    const patientID = props.userName || userName
-    const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).userGUID
-    api[env].fetchPatientTestResults({userGUID: patientGUID, userName: patientID, token}).then(resp => {
+    //fetch participant data
+    const {token, env} = loginContext
+    const participantGUID = props.participantGUID
+    // const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).userGUID
+    api[env].fetchPatientTestResults({userGUID: participantGUID, token}).then(resp => {
       setReports(resp.reports)
       setFiles(resp.otherDocuments)
       setUser(resp)

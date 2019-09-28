@@ -22,11 +22,11 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const PatientListItem = ({patient: {firstName, lastName, userName, dateCreated, hasNewReports}}) => {
+const PatientListItem = ({patient: {firstName, lastName, userGUID, dateCreated, hasNewReports}}) => {
   const classes = useStyles()
   return (
     <Link className={classes.Link}
-      to={`/dashboard/participant/${userName}`}>
+      to={`/dashboard/participant/${userGUID}`}>
       <Paper className={classes.paper}>
         <ConditionalWrapper
         condition={hasNewReports}

@@ -40,7 +40,13 @@ async function fetchTokenLocal({uuid, email}){
     `\nemail: ${email}`,
   )
   return await fetch(`/api/token?uuid=${uuid}&email=${email}&singular=1`)
-    .then(resp => resp.json())
+    .then(resp => {
+      if(resp.ok) {
+        return resp.json()
+      } else {
+        throw new Error(`We were unable to fetch user data at this time. Please try again.`)
+      }
+    })
     .catch(error => {
       console.error(error)
       return error
@@ -64,9 +70,10 @@ async function fetchTokenProd({uuid, email}){
 
 /*=======================================================================*/
 
-async function fetchUserLocal({uuid, token}){
+async function fetchUserLocal({uuid, userGUID, token}){
   console.log("fetchUser data sent to server:", 
     `\nuuid: ${uuid}`,
+    `\nuserGUID: ${userGUID}`,
     `\ntoken: ${token}`
   )
 
@@ -75,15 +82,41 @@ async function fetchUserLocal({uuid, token}){
   // userName depricated
   // const query = userName ? `/${userName}` : `?uuid=${uuid}&singular=1` 
 
-  return await fetch(`/api/users?uuid=${uuid}&singular=1`)
-    .then(resp => resp.json())
+  let userData = await fetch(`/api/users?uuid=${uuid}&singular=1`)
+    .then(resp => {
+      if(resp.ok) {
+        return resp.json()
+      } else {
+        throw new Error(`We were unable to fetch user data at this time. Please try again.`)
+      }
+    })
     .catch(error => {
-      console.error(error)
+      console.log("no users found using uuid")
       return error
     })
+
+    if(userData.hasOwnProperty('message')) {
+      console.log("fetch using userGUID")
+      userData = await fetch(`/api/users?userGUID=${userGUID}&singular=1`)
+      .then(resp => {
+        if(resp.ok) {
+          return resp.json()
+        } else {
+          throw new Error(`We were unable to fetch user data at this time. Please try again.`)
+        }
+      })
+      .catch(error => {
+        console.log("no users found using userGUID")
+        return error
+      })
+    }
+
+    return userData
+
+
 }
 
-async function fetchUserProd({uuid, token}){
+async function fetchUserProd({uuid, userGUID, token}){
   return await fetch(`/api/v1/user/${uuid}`,{
     headers: {
       'Content-Type': 'application/json',

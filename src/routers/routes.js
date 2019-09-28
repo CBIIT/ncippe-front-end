@@ -65,7 +65,7 @@ export default () => (
             <PrivateRoute path='/dashboard/notifications' component={NotificationsPage} />
             <PrivateRoute path='/dashboard/consent' component={ConsentPage} />
             <PrivateRoute path='/dashboard/tests' component={TestResultsPage} />
-            <PrivateRoute path='/dashboard/participant/:userName' component={ParticipantPage} />
+            <PrivateRoute path='/dashboard/participant/:participantGUID' component={ParticipantPage} />
             <PrivateRoute path='/dashboard/profile' component={ProfilePage} />
             <PrivateRoute path='/dashboard/help' component={GetHelpPage} />
             {/* <NotFoundPage default /> */}
