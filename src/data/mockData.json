@@ -169,7 +169,7 @@
       "email": "SkyBlue@Chauncey.tv",
       "userGUID": "SILxki4k",
       "phoneNumber": "559-428-5906",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1567606345000,
@@ -182,7 +182,7 @@
           "email": "Plum@Kris.info",
           "userGUID": "LSsMXzX3",
           "phoneNumber": "9218102877",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PROVIDER",
           "roleName": "ROLE_PPE_PROVIDER"
         }
@@ -215,7 +215,7 @@
       "email": "BlueViolet@Cody.org",
       "userGUID": "6ivVJac8",
       "phoneNumber": "",
-      "allowEmailNotification": "0",
+      "allowEmailNotification": false,
       "userType": "PPE_BSSC",
       "roleName": "ROLE_PPE_BSSC",
       "dateCreated": 1548746989000
@@ -228,7 +228,7 @@
       "email": "Lavender@Maeve.biz",
       "userGUID": "Qaz9y8KO",
       "phoneNumber": "430-868-6925",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_ADMIN",
       "roleName": "ROLE_PPE_ADMIN",
       "dateCreated": 1549265389000
@@ -241,7 +241,7 @@
       "email": "CadetBlue@Keagan.biz",
       "userGUID": "AhBW4XAy",
       "phoneNumber": "018-374-1064",
-      "allowEmailNotification": "0",
+      "allowEmailNotification": false,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1550129389000,
@@ -254,7 +254,7 @@
           "email": "Plum@Kris.info",
           "userGUID": "LSsMXzX3",
           "phoneNumber": "9218102877",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PROVIDER",
           "roleName": "ROLE_PPE_PROVIDER"
         }
@@ -268,7 +268,7 @@
       "email": "Plum@Kris.info",
       "userGUID": "LSsMXzX3",
       "phoneNumber": "9218102877",
-      "allowEmailNotification": "0",
+      "allowEmailNotification": false,
       "userType": "PPE_PROVIDER",
       "roleName": "ROLE_PPE_PROVIDER",
       "dateCreated": 1550647789000,
@@ -280,7 +280,7 @@
           "email": "SkyBlue@Chauncey.tv",
           "userGUID": "SILxki4k",
           "phoneNumber": "559-428-5906",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1567606345000,
@@ -293,7 +293,7 @@
           "email": "MediumSlateBlue@Jewess.tv",
           "userGUID": "95v4qQ8w",
           "phoneNumber": "147-164-3905",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1560148189000
@@ -305,7 +305,7 @@
           "email": "CadetBlue@Keagan.biz",
           "userGUID": "AhBW4XAy",
           "phoneNumber": "018-374-1064",
-          "allowEmailNotification": "0",
+          "allowEmailNotification": false,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1550129389000
@@ -317,7 +317,7 @@
           "email": "RoyalBlue@Wiza.org",
           "userGUID": "MmF2H0C8",
           "phoneNumber": "905-341-7482",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1554791389000
@@ -329,7 +329,7 @@
           "email": "LightSteelBlue@Orn.info",
           "userGUID": "TI7TtATY",
           "phoneNumber": "9493906330",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1554877789000,
@@ -342,7 +342,7 @@
           "email": "Fuchsia@Elmer.biz",
           "userGUID": "cwyv9yU7",
           "phoneNumber": "789-273-2170",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1555655389000
@@ -357,7 +357,7 @@
       "email": "DarkGoldenRod@Aimee.info",
       "userGUID": "fxF5fyZM",
       "phoneNumber": "918-965-0850",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_CRC",
       "roleName": "ROLE_PPE_CRC",
       "dateCreated": 1553063389000,
@@ -369,7 +369,7 @@
           "email": "SkyBlue@Chauncey.tv",
           "userGUID": "SILxki4k",
           "phoneNumber": "559-428-5906",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1567606345000
@@ -381,7 +381,7 @@
           "email": "CadetBlue@Keagan.biz",
           "userGUID": "AhBW4XAy",
           "phoneNumber": "018-374-1064",
-          "allowEmailNotification": "0",
+          "allowEmailNotification": false,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1550129389000
@@ -393,7 +393,7 @@
           "email": "MediumSlateBlue@Jewess.tv",
           "userGUID": "95v4qQ8w",
           "phoneNumber": "147-164-3905",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1560148189000
@@ -405,7 +405,7 @@
           "email": "RoyalBlue@Wiza.org",
           "userGUID": "MmF2H0C8",
           "phoneNumber": "905-341-7482",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1554791389000
@@ -417,7 +417,7 @@
           "email": "LightSteelBlue@Orn.info",
           "userGUID": "TI7TtATY",
           "phoneNumber": "9493906330",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1554877789000
@@ -429,7 +429,7 @@
           "email": "Fuchsia@Elmer.biz",
           "userGUID": "cwyv9yU7",
           "phoneNumber": "789-273-2170",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1555655389000
@@ -441,7 +441,7 @@
           "email": "Maroon@Lavonne.net",
           "userGUID": "22C0PF3K",
           "phoneNumber": "424-660-9024",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1556173789000
@@ -453,7 +453,7 @@
           "email": "BurlyWood@Laila.org",
           "userGUID": "9R7FFbkR",
           "phoneNumber": "288-581-9427",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1556605789000
@@ -465,7 +465,7 @@
           "email": "Indigo @Lakin.info",
           "userGUID": "jhRML9yC",
           "phoneNumber": "268-279-7718",
-          "allowEmailNotification": "0",
+          "allowEmailNotification": false,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1561271389000
@@ -477,7 +477,7 @@
           "email": "Teal@Anderson.io",
           "userGUID": "ZaxspiqD",
           "phoneNumber": "013-546-5388",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1560320989000
@@ -489,7 +489,7 @@
           "email": "LightSalmon@Bogan.biz",
           "userGUID": "FAXHV8sv",
           "phoneNumber": "792-091-2209",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1559197789000
@@ -501,7 +501,7 @@
           "email": "LightSteelBlue@Narciso.name",
           "userGUID": "CjPN461M",
           "phoneNumber": "461-257-4088",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1558852189000
@@ -513,7 +513,7 @@
           "email": "BurlyWood@Glover.us",
           "userGUID": "giNTNHy6",
           "phoneNumber": "691-599-9221",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1558333789000
@@ -528,7 +528,7 @@
       "email": "DarkOliveGreen@Ledner.info",
       "userGUID": "iAsehaIC",
       "phoneNumber": "985-290-8042",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_ADMIN",
       "roleName": "ROLE_PPE_ADMIN",
       "dateCreated": 1553236189000
@@ -541,7 +541,7 @@
       "email": "Peru@Catalina.co.uk",
       "userGUID": "XUM54tyB",
       "phoneNumber": "407-459-9972",
-      "allowEmailNotification": "0",
+      "allowEmailNotification": false,
       "userType": "PPE_PROVIDER",
       "roleName": "ROLE_PPE_PROVIDER",
       "dateCreated": 1553840989000
@@ -554,7 +554,7 @@
       "email": "Red@Hammes.org",
       "userGUID": "DUZ0J5JM",
       "phoneNumber": "289-026-0799",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_CRC",
       "roleName": "ROLE_PPE_CRC",
       "dateCreated": 1554100189000
@@ -567,7 +567,7 @@
       "email": "RoyalBlue@Wiza.org",
       "userGUID": "MmF2H0C8",
       "phoneNumber": "905-341-7482",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1554791389000,
@@ -580,7 +580,7 @@
           "email": "Plum@Kris.info",
           "userGUID": "LSsMXzX3",
           "phoneNumber": "9218102877",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PROVIDER",
           "roleName": "ROLE_PPE_PROVIDER"
         }
@@ -606,7 +606,7 @@
       "email": "LightSteelBlue@Orn.info",
       "userGUID": "TI7TtATY",
       "phoneNumber": "9493906330",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1554877789000,
@@ -619,7 +619,7 @@
           "email": "Plum@Kris.info",
           "userGUID": "LSsMXzX3",
           "phoneNumber": "9218102877",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PROVIDER",
           "roleName": "ROLE_PPE_PROVIDER"
         }
@@ -717,7 +717,7 @@
       "email": "Fuchsia@Elmer.biz",
       "userGUID": "cwyv9yU7",
       "phoneNumber": "789-273-2170",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1555655389000,
@@ -730,7 +730,7 @@
           "email": "Plum@Kris.info",
           "userGUID": "LSsMXzX3",
           "phoneNumber": "9218102877",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PROVIDER",
           "roleName": "ROLE_PPE_PROVIDER"
         }
@@ -756,7 +756,7 @@
       "email": "Maroon@Lavonne.net",
       "userGUID": "22C0PF3K",
       "phoneNumber": "424-660-9024",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1556173789000
@@ -769,7 +769,7 @@
       "email": "BurlyWood@Laila.org",
       "userGUID": "9R7FFbkR",
       "phoneNumber": "288-581-9427",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1556605789000
@@ -782,7 +782,7 @@
       "email": "Indigo @Lakin.info",
       "userGUID": "jhRML9yC",
       "phoneNumber": "268-279-7718",
-      "allowEmailNotification": "0",
+      "allowEmailNotification": false,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1561271389000
@@ -795,7 +795,7 @@
       "email": "Cyan@Cyril.biz",
       "userGUID": "uEUEtoUd",
       "phoneNumber": "004-443-1596",
-      "allowEmailNotification": "0",
+      "allowEmailNotification": false,
       "userType": "PPE_PROVIDER",
       "roleName": "ROLE_PPE_PROVIDER",
       "dateCreated": 1560839389000
@@ -808,7 +808,7 @@
       "email": "Teal@Anderson.io",
       "userGUID": "ZaxspiqD",
       "phoneNumber": "013-546-5388",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1560320989000
@@ -821,7 +821,7 @@
       "email": "MediumSlateBlue@Jewess.tv",
       "userGUID": "95v4qQ8w",
       "phoneNumber": "147-164-3905",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1560148189000,
@@ -834,7 +834,7 @@
           "email": "Plum@Kris.info",
           "userGUID": "LSsMXzX3",
           "phoneNumber": "9218102877",
-          "allowEmailNotification": "1",
+          "allowEmailNotification": true,
           "userType": "PPE_PROVIDER",
           "roleName": "ROLE_PPE_PROVIDER"
         }
@@ -870,7 +870,7 @@
       "email": "LightSalmon@Bogan.biz",
       "userGUID": "FAXHV8sv",
       "phoneNumber": "792-091-2209",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1559197789000
@@ -883,7 +883,7 @@
       "email": "LightSteelBlue@Narciso.name",
       "userGUID": "CjPN461M",
       "phoneNumber": "461-257-4088",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1558852189000
@@ -896,7 +896,7 @@
       "email": "BurlyWood@Glover.us",
       "userGUID": "giNTNHy6",
       "phoneNumber": "691-599-9221",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1558333789000
@@ -909,7 +909,7 @@
       "email": "Salmon@Zemlak.biz",
       "userGUID": "Wfy4z5J6",
       "phoneNumber": "783-222-5215",
-      "allowEmailNotification": "0",
+      "allowEmailNotification": false,
       "userType": "PPE_MOCHA_ADMIN",
       "roleName": "ROLE_PPE_MOCHA_ADMIN",
       "dateCreated": 1556778589000
@@ -922,10 +922,72 @@
       "email": "Thistle@Rosalind.biz",
       "userGUID": "TJgC11zL",
       "phoneNumber": "424-533-4748",
-      "allowEmailNotification": "0",
+      "allowEmailNotification": false,
       "userType": "PPE_MOCHA_ADMIN",
       "roleName": "ROLE_PPE_MOCHA_ADMIN",
       "dateCreated": 1556778589000
+    },
+    {
+      "id": 24,
+      "userName": "frankAli",
+      "firstName": "Frank",
+      "lastName": "Ali",
+      "email": "Thistle@Rosalind.biz",
+      "userGUID": "TJgC11zP",
+      "uuid": "4e764406-5062-4034-bcd6-8901f21eb28d",
+      "phoneNumber": "424-555-4704",
+      "allowEmailNotification": true,
+      "userType": "PPE_PARTICIPANT",
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1556778589000,
+      "providers": [
+        {
+          "id": 1,
+          "userName": "madelineHamill",
+          "firstName": "Madeline",
+          "lastName": "Hamill",
+          "email": "Plum@Kris.info",
+          "userGUID": "LSsMXzX3",
+          "phoneNumber": "9218102877",
+          "allowEmailNotification": true,
+          "userType": "PPE_PROVIDER",
+          "roleName": "ROLE_PPE_PROVIDER"
+        }
+      ],
+      "notificationList": [
+        {
+          "id": 1,
+          "portalNotificationId": 1,
+          "from": "Madeline Hamill, Dr. of Oncology, at [BSS Name]",
+          "subject": "Notification Title",
+          "message": "Test Message",
+          "dateGenerated": 1555309789000,
+          "userId": 1,
+          "viewedByUser": 1
+        }
+      ],
+      "reports": [
+        {
+          "id": 1,
+          "fileName": "New Report",
+          "description": "A sort report description",
+          "dateUploaded": 1560839389000,
+          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "viewedBy": [
+            "LSsMXzX3"
+          ]
+        },
+        {
+          "id": 2,
+          "fileName": "Another Report",
+          "description": "A sort report description",
+          "dateUploaded": 1560925789000,
+          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "viewedBy": [
+            "LSsMXzX3"
+          ]
+        }
+      ]
     }
   ],
   "mockUsers": [
@@ -934,7 +996,8 @@
     "chloeKulas",
     "katlynnPrice",
     "angelitaWeber",
-    "emelieFranecki"
+    "emelieFranecki",
+    "frankAli"
   ],
   "token": {
     "token": "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidGVzdCIsImlzcyI6Im1kYXMyIiwiZXhwIjoxNTYzOTk5MTk4LCJ1c2VybmFtZSI6IlRvbURpY2tBbmRIYXJyeSJ9.BglervXAFiPGDtMCptVAMrBFkmduxJ63635l_twhJMjurJFqKJS7G4WqU6SUerIP8RgQBatNo-pp-QO1QXZs80Cw0iDrwL9myc4H94v7ZjTWhKnVgaYkB4_bSEY6bwpd0qldnOiiAPYSWHDExaPFHvOSDp-BsYCMgVd0V4T_9w2uNBGAGux0r7fdSBSvgjyTgr0SzIgaSuD3EybpfcJwuxmI0VbSrSiQDrirpCGZb3EeI-EYcOXn6IoUxSDl9726yTD9cHdNz0IrHb5HViZJKt9tcGVDENeGGrn7yMHj2pnhhRbtFGVi-SBvgLEkYWd4c4B4Pflq26aBozS4txwjrg"

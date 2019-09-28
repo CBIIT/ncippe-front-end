@@ -75,5 +75,5 @@
     "wix-storybook-utils": "^3.0.7",
     "yoshi-style-dependencies": "^4.6.0"
   },
-  "proxy": "http://localhost:8080"
+  "proxy": "http://localhost:5000"
 }

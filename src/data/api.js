@@ -34,14 +34,12 @@ async function fetchMockUsersProd(){
 
 /*=======================================================================*/
 
-async function fetchTokenLocal({userName, firstName, lastName, roleName}){
-  console.log("userData sent to server:", 
-    `\nuserName: ${userName}`, 
-    `\nfirstName: ${firstName}`, 
-    `\nlastName: ${lastName}`, 
-    `\nroleName: ${roleName}`
+async function fetchTokenLocal({uuid, email}){
+  console.log("fetchToken data sent to server:", 
+    `\nuuid: ${uuid}`, 
+    `\nemail: ${email}`,
   )
-  return await fetch(`/api/token?singular=1`)
+  return await fetch(`/api/token?uuid=${uuid}&email=${email}&singular=1`)
     .then(resp => resp.json())
     .catch(error => {
       console.error(error)
@@ -49,9 +47,9 @@ async function fetchTokenLocal({userName, firstName, lastName, roleName}){
     })
 }
 
-async function fetchTokenProd({userName, firstName, lastName, roleName}){
-  // userName, role, firstName, lastName as querystring
-  return await fetch(`/api/v1/login?userName=${userName}&firstName=${firstName}&lastName=${lastName}&roleName=${roleName}`,{
+async function fetchTokenProd({uuid, email}){
+  // uuid and email from login.gov as querystring
+  return await fetch(`/api/v1/login?uuid=${uuid}&email=${email}`,{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -66,17 +64,18 @@ async function fetchTokenProd({userName, firstName, lastName, roleName}){
 
 /*=======================================================================*/
 
-async function fetchUserLocal({userGUID, userName}){
-  console.log("userData sent to server:", 
-    `\nuserGUID: ${userGUID}`, 
-    `\nuserName: ${userName}`
+async function fetchUserLocal({uuid, token}){
+  console.log("fetchUser data sent to server:", 
+    `\nuuid: ${uuid}`,
+    `\ntoken: ${token}`
   )
 
   // get user data
   // "/users?userName=:userName&singular=1"
-  const query = userName ? `/${userName}` : `?userGUID=${userGUID}&singular=1` 
+  // userName depricated
+  // const query = userName ? `/${userName}` : `?uuid=${uuid}&singular=1` 
 
-  return await fetch(`/api/users${query}`)
+  return await fetch(`/api/users?uuid=${uuid}&singular=1`)
     .then(resp => resp.json())
     .catch(error => {
       console.error(error)
@@ -84,8 +83,8 @@ async function fetchUserLocal({userGUID, userName}){
     })
 }
 
-async function fetchUserProd({userGUID, token}){
-  return await fetch(`/api/v1/user/${userGUID}`,{
+async function fetchUserProd({uuid, token}){
+  return await fetch(`/api/v1/user/${uuid}`,{
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token

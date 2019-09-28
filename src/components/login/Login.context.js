@@ -5,10 +5,6 @@ export const LoginContext = createContext()
 const userInitialState = {
   auth: false,
   roleName: 'public',
-  firstName: '',
-  lastName: '',
-  userGUID: null,
-  id: null,
   env: window.location.hostname === 'localhost' || window.location.hostname === 'ncippe.herokuapp.com' ? 'local' : 'prod'
 }
 
@@ -21,10 +17,9 @@ const userReducer = (state, action) => {
     case 'reset': return ({
       ...userInitialState
     })
-
-    default: throw new Error('Unexpected action');
+    default: throw new Error('Unexpected action')
   }
-};
+}
 
 export const LoginProvider = (props) => {
   const userData = useReducer(userReducer, userInitialState)

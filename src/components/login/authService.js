@@ -1,8 +1,7 @@
-import { IDENTITY_CONFIG, METADATA_OIDC } from "./auth";
-import { UserManager, WebStorageStateStore, Log } from "oidc-client";
-import { navigate } from "@reach/router"
+import { IDENTITY_CONFIG, METADATA_OIDC } from "./auth"
+import { UserManager, WebStorageStateStore, Log } from "oidc-client"
 
-import { randomString } from '../../utils/utils'
+// import { randomString } from '../../utils/utils'
 
 export default class AuthService {
   UserManager;
@@ -20,36 +19,23 @@ export default class AuthService {
     Log.logger = console;
     Log.level = Log.DEBUG;
 
-    console.log("IDENTITY_CONFIG",IDENTITY_CONFIG)
-    console.log("METADATA_OIDC",METADATA_OIDC)
-    console.log("UserManager", this.UserManager)
-
     this.UserManager.events.addUserLoaded(user => {
       this.accessToken = user.access_token;
       localStorage.setItem("access_token", user.access_token);
       localStorage.setItem("id_token", user.id_token);
-      localStorage.setItem("user_data", JSON.stringify({...user.profile}));
-      if (window.location.href.indexOf("signin-oidc") !== -1) {
-        this.navigateToScreen();
-      }
     });
-    this.UserManager.events.addSilentRenewError(e => {
-      console.log("silent renew error", e.message);
-    });
+    // this.UserManager.events.addSilentRenewError(e => {
+    //   console.log("silent renew error", e.message);
+    // });
 
     this.UserManager.events.addAccessTokenExpired(() => {
       console.log("token expired");
-      this.signinSilent();
+      // this.signinSilent();
     });
   }
 
   signinRedirectCallback = () => {
-    this.UserManager.signinRedirectCallback().then(() => {
-      console.log("sign-in successful. Time to redirect to dashboard")
-      console.log("TODO: catch errors!")
-      navigate('/dashboard')
-
-    })
+    return this.UserManager.signinRedirectCallback()
   };
 
   getUser = async () => {
@@ -94,15 +80,6 @@ export default class AuthService {
     localStorage.setItem("user", data);
   };
 
-  navigateToScreen = () => {
-    const redirectUri = !!localStorage.getItem("redirectUri")
-      ? localStorage.getItem("redirectUri")
-      : "/en/dashboard";
-    const language = "/" + redirectUri.split("/")[1];
-
-    window.location.replace(language + "/dashboard");
-  };
-
   setSessionInfo(authResult) {
     localStorage.setItem("access_token", authResult.accessToken);
     localStorage.setItem("id_token", authResult.idToken);
@@ -132,8 +109,7 @@ export default class AuthService {
 
   logout = () => {
     this.UserManager.signoutRedirect({
-      id_token_hint: localStorage.getItem("id_token"),
-      state: randomString(32)
+      id_token_hint: localStorage.getItem("id_token")
     });
     this.UserManager.clearStaleState();
   };
