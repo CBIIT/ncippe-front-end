@@ -21,7 +21,6 @@ import GetHelpPage from '../pages/GetHelpPage'
 import Activate from '../pages/ActivatePage'
 import pageWrapper from '../pages/pageWrapper'
 import { LoginConsumer } from '../components/login/Login.context'
-import { AuthConsumer } from '../components/login/AuthContext'
 
 const HomePage = pageWrapper(Home)
 const DashboardPage = pageWrapper(Dashboard)
@@ -37,11 +36,11 @@ const ErrorPage = pageWrapper(Errors)
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
-    <AuthConsumer>
-      {({ isAuthenticated }) => {
-        return isAuthenticated() ? <Component {...rest} /> : <Redirect from="" to="/" noThrow />
+    <LoginConsumer>
+      {([state]) => {
+        return state.auth ? <Component {...rest} /> : <Redirect from="" to="/" noThrow />
       }}
-    </AuthConsumer>
+    </LoginConsumer>
   )
 }
 

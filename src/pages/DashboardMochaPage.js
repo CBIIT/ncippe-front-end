@@ -7,29 +7,6 @@ import { getBool, formatPhoneNumber } from '../utils/utils'
 import UploadReport from '../components/Mocha/UploadReport'
 
 const MochaDashboard = (props) => {
-  const [loginContext, dispatch] = useContext(LoginContext)
-
-  // fetch profile data for the logged in user
-  useEffect(() => {
-    const {userName, token, env, userGUID} = loginContext
-    // fetch call
-    api[env].fetchUser({userGUID, userName, token})
-      .then(data => {
-        const userData = {
-          ...data,
-          allowEmailNotification: getBool(data.allowEmailNotification), //convert "allowEmailNotification" to boolean
-          phoneNumber: formatPhoneNumber(data.phoneNumber), //format "phoneNumber" field
-        }
-        
-        //TODO: set context
-        dispatch({
-          type: 'update',
-          userData
-        })
-
-      })
-  }, []) // This effect never not re-runs
-
   return (
     <Box>
       <Container className="mainContainer--dashboard">
