@@ -6,8 +6,9 @@ import { AuthContext } from './AuthContext'
 const LoginButton = () => {
   const [loginContext, dispatch] = useContext(LoginContext)
   const { isAuthenticated, signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
+  const { auth } = loginContext
   const handleClick = () => {
-    if(isAuthenticated()) {
+    if(auth) {
       // reset user data and log-out
       signoutRedirectCallback()
       dispatch({
@@ -18,7 +19,7 @@ const LoginButton = () => {
       signinRedirect()
     }
   }
-  return <Button variant="contained" color="primary" onClick={handleClick}>Log {isAuthenticated() ? 'Out' : 'In'}</Button>
+  return <Button variant="contained" color="primary" onClick={handleClick}>Log {auth ? 'Out' : 'In'}</Button>
 }
 
 export default LoginButton

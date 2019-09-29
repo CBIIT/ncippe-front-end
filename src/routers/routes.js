@@ -8,6 +8,7 @@ import WhatToExpect from '../pages/WhatToExpectPage'
 import Privacy from '../pages/PrivacyPage'
 import Dashboard from '../pages/DashboardPage'
 import SignInCallback from '../pages/SignInCallback'
+import Errors from '../pages/ErrorPage' // 'Error' is reserved keyword
 import DashboardMocha from '../pages/DashboardMochaPage'
 import MockUsersPage from '../pages/MockUsersPage'
 import NotificationsPage from '../pages/NotificationsPage'
@@ -29,6 +30,7 @@ const WhatToExpectPage = pageWrapper(WhatToExpect)
 const PrivacyPage = pageWrapper(Privacy)
 const ActivatePage = pageWrapper(Activate)
 const SignInCallbackPage = pageWrapper(SignInCallback)
+const ErrorPage = pageWrapper(Errors)
 
 // const NotFoundPage = pageWrapper(NotFound)
 
@@ -58,6 +60,7 @@ export default () => (
             <HomePage path='/' />
             <ActivatePage path='/activate' />
             <SignInCallbackPage path='/signin' />
+            <ErrorPage path='/error' />
             <PrivacyPage path='/privacy' />
             <PrivateRoute path='/dashboard' component={DashboardPage} />
             <MockUsersPage path='/dashboard/mock-users' />

@@ -1,5 +1,6 @@
 import { IDENTITY_CONFIG, METADATA_OIDC } from "./auth"
 import { UserManager, WebStorageStateStore, Log } from "oidc-client"
+import { navigate } from '@reach/router'
 
 // import { randomString } from '../../utils/utils'
 
@@ -30,6 +31,16 @@ export default class AuthService {
 
     this.UserManager.events.addAccessTokenExpired(() => {
       console.log("token expired");
+
+      navigate('/error',{
+        state: {
+          error: {
+            status: 'info',
+            name: 'Session expired',
+            message: "Your session has expired. Please log in again."
+          }
+        }
+      })
       // this.signinSilent();
     });
   }
