@@ -5,7 +5,7 @@ import { AuthContext } from './AuthContext'
 
 const LoginButton = () => {
   const [loginContext, dispatch] = useContext(LoginContext)
-  const { isAuthenticated, signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
+  const { signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
   const { auth } = loginContext
   const handleClick = () => {
     if(auth) {

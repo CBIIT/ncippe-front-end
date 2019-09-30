@@ -39,18 +39,69 @@ async function fetchTokenLocal({uuid, email}){
     `\nuuid: ${uuid}`, 
     `\nemail: ${email}`,
   )
-  return await fetch(`/api/token?uuid=${uuid}&email=${email}&singular=1`)
+
+  // check if the uuid exists in our system
+  const userUUID_exists = await fetch(`/api/users?uuid=${uuid}&singular=1`)
     .then(resp => {
       if(resp.ok) {
         return resp.json()
-      } else {
-        throw new Error(`We were unable to fetch user data at this time. Please try again.`)
       }
     })
     .catch(error => {
       console.error(error)
       return error
     })
+  let userEmail_exists = false
+
+  // if no uuid then check if the user is in our system based on the email provided. email used for login.gov account must match email registered in OPEN
+  if (!userUUID_exists) {
+    userEmail_exists = await fetch(`/api/users?email=${email}&singular=1`)
+      .then(resp => {
+        if(resp.ok) {
+          return resp.json()
+        }
+      })
+      .catch(error => {
+        console.error(error)
+        return error
+      })
+  }
+
+  // use has a valid uuid of email address in our system
+  if (userUUID_exists || userEmail_exists) {
+
+    // if no uuid was found then this user is logging in for the first time. Add their uuid from login.gov used to fetch this token
+    if(!userUUID_exists) {
+      // this is probably a mock user without a login.gov account. Save their UUID locally
+      const user = userEmail_exists
+      await fetch(`/users/${user.id}`,{
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({uuid:createUUID()})
+      }).then(()=>{
+        console.log("patch successful")
+      })
+    }
+
+    return await fetch(`/api/token?singular=1`)
+      .then(resp => {
+        if(resp.ok) {
+          return resp.json()
+        } else {
+          throw new Error(`We were unable to fetch user data at this time. Please try again.`)
+        }
+      })
+      .catch(error => {
+        console.error(error)
+        return error
+      })
+
+  } else {
+    return new Error(`Invalid user`)
+  }
+
 }
 
 async function fetchTokenProd({uuid, email}){
@@ -70,10 +121,11 @@ async function fetchTokenProd({uuid, email}){
 
 /*=======================================================================*/
 
-async function fetchUserLocal({uuid, userGUID, token}){
+async function fetchUserLocal({uuid, userGUID, email, token}){
   console.log("fetchUser data sent to server:", 
     `\nuuid: ${uuid}`,
     `\nuserGUID: ${userGUID}`,
+    `\nemail: ${email}`,
     `\ntoken: ${token}`
   )
 
@@ -94,6 +146,22 @@ async function fetchUserLocal({uuid, userGUID, token}){
       console.log("no users found using uuid")
       return error
     })
+
+    if(userData.hasOwnProperty('message')) {
+      console.log("fetch using email")
+      userData = await fetch(`/api/users?email=${email}&singular=1`)
+      .then(resp => {
+        if(resp.ok) {
+          return resp.json()
+        } else {
+          throw new Error(`We were unable to fetch user data at this time. Please try again.`)
+        }
+      })
+      .catch(error => {
+        console.log("no users found using userGUID")
+        return error
+      })
+    }
 
     if(userData.hasOwnProperty('message')) {
       console.log("fetch using userGUID")

@@ -1,4 +1,4 @@
-import { IDENTITY_CONFIG, METADATA_OIDC } from "./auth"
+import { IDENTITY_CONFIG, METADATA_OIDC } from "./authConfig"
 import { UserManager, WebStorageStateStore, Log } from "oidc-client"
 import { navigate } from '@reach/router'
 
@@ -45,8 +45,12 @@ export default class AuthService {
     });
   }
 
-  signinRedirectCallback = () => {
-    return this.UserManager.signinRedirectCallback()
+  signinRedirectCallback = (state) => {
+    if(state && state.mockUserLogin) {
+      return Promise.resolve(state)
+    } else {
+      return this.UserManager.signinRedirectCallback()
+    }
   };
 
   getUser = async () => {
@@ -127,8 +131,10 @@ export default class AuthService {
 
   signoutRedirectCallback = () => {
     this.UserManager.signoutRedirectCallback().then(() => {
-      localStorage.clear();
-      window.location.replace(process.env.REACT_APP_PUBLIC_URL);
+      localStorage.clear()
+      // window.location.replace(process.env.REACT_APP_PUBLIC_URL);
+      navigate('/')
+      
     });
     this.UserManager.clearStaleState();
   };

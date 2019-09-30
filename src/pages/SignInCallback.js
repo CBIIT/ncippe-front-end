@@ -19,15 +19,30 @@ const SignInCallback = (props) => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const authContext = useContext(AuthContext)
-  const { signinRedirectCallback, signoutRedirectCallback } = authContext
-  const {env} = loginContext
+  const { signinRedirectCallback } = authContext
+  const {env, mockState} = loginContext
 
   useEffect(() => {
 
-    signinRedirectCallback().then(async resp => {
+    signinRedirectCallback(props.location.state).then(async resp => {
 
-      const {token} = await api[env].fetchToken({uuid: resp.profile.sub, email: resp.profile.email})
-      const user = await api[env].fetchUser({uuid:resp.profile.sub, token}).then(data => {
+      let uuid
+      let email
+
+      if (resp.mockUserLogin) {
+        if(resp.state === mockState) {
+          uuid = resp.profile.sub
+          email = resp.profile.email
+        } else {
+          throw new Error("State does not match")
+        }
+      } else {
+        uuid = resp.profile.sub
+        email = resp.profile.email
+      }
+
+      const {token} = await api[env].fetchToken({uuid, email})
+      const user = await api[env].fetchUser({uuid, token}).then(data => {
 
         if(data.constructor.name !== 'Error'){
           const newReportCount = (data) => {

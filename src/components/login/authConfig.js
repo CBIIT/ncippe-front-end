@@ -12,7 +12,7 @@ export const IDENTITY_CONFIG = {
   // audience: "https://example.com", //is there a way to specific the audience when making the jwt
   acr_values: "http://idmanagement.gov/ns/assurance/loa/1",
   response_type: "code", //(string, default: 'code')
-  prompt: "select_account", // This can either be select_account (default behavior) or login (force a re-authorization even if a current IdP session is active).
+  prompt: "login", // This can either be select_account (default behavior) or login (force a re-authorization even if a current IdP session is active).
   scope: "openid email", //(string, default: 'openid'): The scope being requested from the OIDC provider.
   webAuthResponseType: "id_token token",
   // state: randomString(32), // state is being set by the oidc-client.UserManager

@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { LoginConsumer, LoginContext } from '../components/login/Login.context'
 import { api } from '../data/api'
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
+import { randomString } from '../utils/utils'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -48,27 +49,53 @@ const MockRoles = (props) => {
 
   const mockLogin = user => event => {
     // get token
-    const {userName, firstName, lastName, roleName, userGUID} = user;
-    api[loginContext.env].fetchToken({userName, firstName, lastName, roleName})
+    const {roleName, email, uuid} = user;
+    api[loginContext.env].fetchToken({uuid, email})
       .then(resp => {
         // token fetch was successful, update context with user information
+        const identifier = randomString(32)
+
         dispatch({
           type: 'update',
           userData: {
             ...resp,
             auth: true,
-            userName,
-            userGUID
+            mockState: identifier
+          }
+        })
+
+        // localStorage.setItem(`oidc.${identifier}`, JSON.stringify({
+        //   id: identifier,
+        //   profile: {
+        //     sub: uuid,
+        //     email
+        //   }
+        // }));
+
+        navigate(`/signin?code=${uuid}&state=${identifier}`,{
+          state: {
+            mockUserLogin: true,
+            state: identifier,
+            profile: {
+              sub: uuid,
+              email,
+              jti: randomString(22)
+            }
           }
         })
 
         // redirect to dashboard
-        if(roleName === 'ROLE_PPE_MOCHA_ADMIN') {
-          navigate('/dashboard-mocha')
-        } else {
-          navigate('/dashboard')
-        }
+        // if(roleName === 'ROLE_PPE_MOCHA_ADMIN') {
+        //   navigate('/dashboard-mocha')
+        // } else {
+        //   navigate('/dashboard')
+        // }
       })
+  }
+
+  const clearRole = (e) => {
+    localStorage.clear()
+    dispatch({type:'reset'})
   }
 
   return (
@@ -81,11 +108,13 @@ const MockRoles = (props) => {
             return auth ? (
               <>
                 <Typography variant="h2"><Button variant="contained" className={classes.largeButton} onClick={() => navigate('/dashboard')}>Return to Dashboard as {firstName} {lastName} ({roleName})</Button></Typography>
-                <Typography variant="h2"><Button variant="contained" className={classes.largeButton} color="primary" onClick={() => {dispatch({type:'reset'})}}>Clear Role as {firstName} {lastName} ({roleName})</Button></Typography>
+                <Typography variant="h2"><Button variant="contained" className={classes.largeButton} color="primary" onClick={clearRole}>Clear Role as {firstName} {lastName} ({roleName})</Button></Typography>
               </>
             ) : (
               <>
-              {users && users.map((user,i) => <Typography variant="h2"><Button key={i} variant='contained' className={classes.largeButton} onClick={mockLogin(user)}>{user.firstName} {user.lastName} ({user.roleName})</Button></Typography>)}
+              {users && users.map((user,i) => <Typography key={i} variant="h2">
+                  <Button variant='contained' className={classes.largeButton} onClick={mockLogin(user)}>{user.firstName} {user.lastName} ({user.roleName})</Button>
+                </Typography>)}
               {!users && <h3>Error: Unable to retrieve mock users</h3>}
               </>
             )

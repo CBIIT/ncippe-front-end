@@ -14,11 +14,11 @@ const useStyles = makeStyles(theme => ({
   gridItem: {
     width: '33.333333%',
 
-    '& $card': {
-      [theme.breakpoints.up('md')]: {
-        margin: 0
-      }
-    }
+    // '& $card': {
+    //   [theme.breakpoints.up('md')]: {
+    //     margin: 0
+    //   }
+    // }
   }
 }));
 
@@ -120,20 +120,20 @@ export default () => {
 
       </Container>
 
-      <Container>
-        {/* Provider's Patient List */}
-        <LoginConsumer>
-        {([{roleName, patients}]) => {
-          {/* Secondary row */}
-          return (roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && patients && (
-            <Box my={6}>
-              <PatientList patients={patients} />
-            </Box>
-            )
-        }}
-        </LoginConsumer>
-        {/* End: Provider's Patient List */}
-      </Container>
+      <LoginConsumer>
+      {([{roleName, patients}]) => {
+        return (roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && patients && (
+        <Container>
+          {/* Provider's Patient List */}
+            {/* Secondary row */}
+              <Box my={6}>
+                <PatientList patients={patients} />
+              </Box>
+          {/* End: Provider's Patient List */}
+        </Container>
+        )
+      }}
+      </LoginConsumer>
     </Box>
   )
 }
