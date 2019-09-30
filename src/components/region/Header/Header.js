@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { 
   Box,
   Button,
@@ -6,12 +6,10 @@ import {
   Link,
   Typography, 
 } from '@material-ui/core';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles'
 import { Link as RouterLink } from "@reach/router"
 
 import LoginButton from '../../login/LoginButton'
-import ActivateButton from '../../login/ActivateButton'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -92,7 +90,6 @@ const Header = () => {
           <Link component={RouterLink} to='/dashboard/mock-users' className={classes.mockUsers}>
             <Button variant="outlined" color="primary">Mock User</Button>
           </Link>
-          <ActivateButton />
           <LoginButton />
         </Box>
         {/* {isDesktop &&  */}
