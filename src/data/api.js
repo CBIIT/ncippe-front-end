@@ -184,19 +184,29 @@ async function fetchUserLocal({uuid, userGUID, email, token}){
 
 }
 
-async function fetchUserProd({uuid, userGUID, token}){
+async function fetchUserProd({uuid, userGUID, email, token}){
   return await fetch(`/api/v1/user/${uuid}`,{
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token
+    },
+    body: JSON.stringify({
+      uuid,
+      userGUID,
+      email
+    })
+  })
+  .then(resp => {
+    if(resp.ok) {
+      return resp.json()
+    } else {
+      throw new Error(`We were unable to fetch user data at this time. Please try again.`)
     }
   })
-    .then(resp => resp.json())
-    // .then(resp => resp.User)
-    .catch(error => {
-      console.error(error)
-      return error
-    })
+  .catch(error => {
+    console.error(error)
+    return error
+  })
 }
 
 /*=======================================================================*/
