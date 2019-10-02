@@ -7,7 +7,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import { LoginContext } from '../../components/login/Login.context'
 import PhoneNumbner from '../inputs/PhoneNumber/PhoneNumber'
 import EmailOption from '../inputs/EmailOption/EmailOption'
-import { getBool } from '../../utils/utils'
 import { api } from '../../data/api'
 
 const useStyles = makeStyles(theme => ({
@@ -39,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 // save event handler to submit data back to the server
 // cancel will revert values back to data values
 
-const Profile = (props) => {
+const Profile = () => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const [editMode, setEditMode] = useState(false)
@@ -64,8 +63,8 @@ const Profile = (props) => {
         phoneNumber: cleanPhoneNumber,
         allowEmailNotification
       }
-      const { token, env, uuid } = loginContext
-      const userId = env === 'local' ? loginContext.id : loginContext.uuid
+      const { token, env, uuid, id } = loginContext
+      const userId = env === 'local' ? id : uuid
       api[env].updateUser({uuid: userId, token, data})
         .then(resp => {
           if(resp === true) {
@@ -85,7 +84,7 @@ const Profile = (props) => {
     }
   }
 
-  const cancelEdit = (event) => {
+  const cancelEdit = () => {
     //restore user context
     setUserPhone(loginContext.phoneNumber)
     setUserOptIn(loginContext.allowEmailNotification)

@@ -28,7 +28,8 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const FileItem = ({file,onRemove}) => {
+const FileItem = (props) => {
+  const {file,onRemove} = props
   const classes = useStyles()
 
   const handleRemoveFile = (e) => {

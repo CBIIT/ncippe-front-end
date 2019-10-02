@@ -62,12 +62,12 @@ const patientDataDefaults = {
   noFound: false
 }
 
-const UploadReport = (props) => {
+const UploadReport = () => {
   const classes = useStyles()
   const [formData, setFormData] = useState(formDataDefaults)
   const [activeStep, setActiveStep] = useState(0)
   const [patientData, setPatientData] = useState(patientDataDefaults)
-  const [loginContext, dispatch] = useContext(LoginContext)
+  const [loginContext] = useContext(LoginContext)
 
   // controlled text input
   const handlePatientId = (event) => {

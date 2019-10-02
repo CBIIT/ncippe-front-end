@@ -22,7 +22,8 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-const PatientListItem = ({patient: {firstName, lastName, patientId, dateCreated, hasNewReports}}) => {
+const PatientListItem = (props) => {
+  const {patient: {firstName, lastName, patientId, dateCreated, hasNewReports}} = props
   const classes = useStyles()
   return (
     <Link className={classes.Link}

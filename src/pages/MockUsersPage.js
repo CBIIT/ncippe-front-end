@@ -93,7 +93,7 @@ const MockRoles = () => {
       })
   }
 
-  const clearRole = (e) => {
+  const clearRole = () => {
     localStorage.clear()
     dispatch({type:'reset'})
   }

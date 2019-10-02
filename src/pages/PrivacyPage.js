@@ -11,11 +11,11 @@ const useStyles = makeStyles( theme => ({
   gridItem: {
     width: '33.333333%',
 
-    '& $card': {
-      [theme.breakpoints.up('md')]: {
-        margin: 0
-      }
-    }
+    // '& $card': {
+    //   [theme.breakpoints.up('md')]: {
+    //     margin: 0
+    //   }
+    // }
   }
 }))
 

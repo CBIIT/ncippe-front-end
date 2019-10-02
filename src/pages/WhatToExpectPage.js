@@ -395,7 +395,7 @@ const Consent = withStyles(theme => ({
             src='https://www.youtube.com/embed/OyCFbZYgL3U'
             title='A Dialogue on Cancer Disparities, Prevention, and Research: Facebook Live'
             allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-            allowfullscreen
+            allowFullScreen
           />
         </div>
       </Card>
@@ -446,14 +446,14 @@ const Donate = withStyles(theme => ({
   </TabPanel>
 ))
 
-const Testing = ({index,isMobile}) => (
+const Testing = ({index}) => (
   <TabPanel index={index}>
     <Typography variant="h3" component="h3">Biomarker Testing</Typography>
     <Typography>Content placeholder</Typography>
   </TabPanel>
 )
 
-const WhatToExpectPage = (props) => {
+const WhatToExpectPage = () => {
   const classes = useStyles()
   const [value, setValue] = useState(()=>{
     switch(window.location.pathname){

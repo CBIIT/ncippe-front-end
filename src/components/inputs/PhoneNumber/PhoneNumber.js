@@ -43,7 +43,8 @@ TextMaskCustom.propTypes = {
   inputRef: PropTypes.func.isRequired,
 };
 
-const PhoneNumber = ({ value, editMode, error = false, onChange }) => {
+const PhoneNumber = (props) => {
+  const { value, editMode, error = false, onChange } = props
   const classes = useStyles();
   const [phoneNum, setPhoneNum] = useState({
     textmask: value || '(   )    -    '

@@ -24,7 +24,8 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-const PatientList = ({patients}) => {
+const PatientList = (props) => {
+  const {patients} = props
   const classes = useStyles()
   const [patientList, setPatientList] = useState(patients)
   const allPatients = [...patients] // create new object of patients

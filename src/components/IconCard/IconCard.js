@@ -48,7 +48,8 @@ const useStyles = makeStyles( theme => ({
   },
 }))
 
-const IconCard = ({icon, title, desc, link, linkText, count = 0, badgeText = 'new'}) => {
+const IconCard = (props) => {
+  const {icon, title, desc, link, linkText, count = 0, badgeText = 'new'} = props
   const classes = useStyles()
 
   return (
