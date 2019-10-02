@@ -62,12 +62,12 @@ export default () => (
             <ErrorPage path='/error' />
             <PrivacyPage path='/privacy' />
             <PrivateRoute path='/dashboard' component={DashboardPage} />
-            <MockUsersPage path='/dashboard/mock-users' />
+            <MockUsersPage path='/mock-users' />
             <PrivateRoute path='/dashboard-mocha' component={DashboardMochaPage} />
             <PrivateRoute path='/dashboard/notifications' component={NotificationsPage} />
             <PrivateRoute path='/dashboard/consent' component={ConsentPage} />
             <PrivateRoute path='/dashboard/tests' component={TestResultsPage} />
-            <PrivateRoute path='/dashboard/participant/:participantGUID' component={ParticipantPage} />
+            <PrivateRoute path='/dashboard/participant/:patientId' component={ParticipantPage} />
             <PrivateRoute path='/dashboard/profile' component={ProfilePage} />
             <PrivateRoute path='/dashboard/help' component={GetHelpPage} />
             {/* <NotFoundPage default /> */}

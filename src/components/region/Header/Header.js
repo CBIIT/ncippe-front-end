@@ -87,7 +87,7 @@ const Header = () => {
             <Link component={RouterLink} to='/privacy' className={classes.headerLink}>Learn More</Link>
           </nav>
           {/* } */}
-          <Link component={RouterLink} to='/dashboard/mock-users' className={classes.mockUsers}>
+          <Link component={RouterLink} to='/mock-users' className={classes.mockUsers}>
             <Button variant="outlined" color="primary">Mock User</Button>
           </Link>
           <LoginButton />
