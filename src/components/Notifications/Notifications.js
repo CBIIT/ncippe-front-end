@@ -22,14 +22,27 @@ const useStyles = makeStyles(theme => ({
 const Notifications = () => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
-  const {notificationList, newNotificationCount} = loginContext
+  const { notificationList } = loginContext
   const count = notificationList ? notificationList.length : 0
 
   useEffect(() => {
-    //mark notifications as read
+    //mark notifications as read on unmount
+    const {token, env, uuid, newNotificationCount} = loginContext
     if(newNotificationCount){
-      const {token, env, userGUID} = loginContext
-      api[env].notificationsMarkAsRead({userGUID, token})
+      dispatch({
+        type: 'clearNewNotifications'
+      })
+    }
+    return () => {
+      if(newNotificationCount){
+        api[env].notificationsMarkAsRead({uuid, token}).then((resp)=>{
+          if (resp === true) {
+            dispatch({
+              type: 'notificationsMarkAsRead'
+            })
+          }
+        })
+      }
     }
   },[])
 

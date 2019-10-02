@@ -41,29 +41,31 @@ const SignInCallback = (props) => {
         email = resp.profile.email
       }
 
-      const {token} = await api[env].fetchToken({uuid, email})
+      const {token} = await api[env].fetchToken({uuid, email, id_token:resp.id_token})
       const user = await api[env].fetchUser({uuid, token}).then(data => {
 
         if(data.constructor.name !== 'Error'){
-          const newReportCount = (data) => {
+
+          const hasUnviewedReports = (reports, uuid) => {
             //TODO: only for Participants
-            if(data.reports){
-              return data.reports.some(report => {
+            if(reports){
+              return reports.some(report => {
                 if (!report.viewedBy) {
                   return true
                 } else {
-                  return !report.viewedBy.includes(data.userGUID)
+                  return !report.viewedBy.includes(uuid)
                 }
               })          
             } else {
               return null
             }
           }
+          
           const userData = {
             ...data,
             phoneNumber: formatPhoneNumber(data.phoneNumber), //format "phoneNumber" field
             newNotificationCount: data.notificationList ? data.notificationList.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0,
-            newReport: newReportCount(data)
+            newReport: hasUnviewedReports(data.reports, data.uuid)
           }
 
           // sort patient list alphabetically by last name

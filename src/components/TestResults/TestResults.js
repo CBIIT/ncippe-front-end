@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 
 const TestResults = () => {
   const classes = useStyles()
-  const [loginContext, dispatch] = useContext(LoginContext)
+  const [loginContext] = useContext(LoginContext)
   const [reports, setReports] = useState(false)
 
   useEffect(() => {

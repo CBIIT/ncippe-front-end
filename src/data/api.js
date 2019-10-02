@@ -10,7 +10,7 @@ async function fetchMockUsersLocal(){
     })
 
   // compose request using mock user list results
-  const url = `/api/users?userName=${mockUsers.join('&userName=')}`
+  const url = `/api/users?uuid=${mockUsers.join('&uuid=')}`
 
   // fetch data for each mock user
   return await fetch(url)
@@ -34,10 +34,11 @@ async function fetchMockUsersProd(){
 
 /*=======================================================================*/
 
-async function fetchTokenLocal({uuid, email}){
+async function fetchTokenLocal({uuid, email, id_token}){
   console.log("fetchToken data sent to server:", 
     `\nuuid: ${uuid}`, 
     `\nemail: ${email}`,
+    `\nid_token: ${id_token}`,
   )
 
   // check if the uuid exists in our system
@@ -104,12 +105,13 @@ async function fetchTokenLocal({uuid, email}){
 
 }
 
-async function fetchTokenProd({uuid, email}){
+async function fetchTokenProd({uuid, email, id_token}){
   // uuid and email from login.gov as querystring
-  return await fetch(`/api/v1/login?uuid=${uuid}&email=${email}`,{
+  return await fetch(`/api/v1/login?email=${email}`,{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': id_token
     }
   })
     .then(resp => resp.json())
@@ -121,10 +123,10 @@ async function fetchTokenProd({uuid, email}){
 
 /*=======================================================================*/
 
-async function fetchUserLocal({uuid, userGUID, email, token}){
+async function fetchUserLocal({uuid, patientId, email, token}){
   console.log("fetchUser data sent to server:", 
     `\nuuid: ${uuid}`,
-    `\nuserGUID: ${userGUID}`,
+    `\npatientId: ${patientId}`,
     `\nemail: ${email}`,
     `\ntoken: ${token}`
   )
@@ -158,14 +160,14 @@ async function fetchUserLocal({uuid, userGUID, email, token}){
         }
       })
       .catch(error => {
-        console.log("no users found using userGUID")
+        console.log("no users found using email")
         return error
       })
     }
 
     if(userData.hasOwnProperty('message')) {
-      console.log("fetch using userGUID")
-      userData = await fetch(`/api/users?userGUID=${userGUID}&singular=1`)
+      console.log("fetch using patientId")
+      userData = await fetch(`/api/users?patientId=${patientId}&singular=1`)
       .then(resp => {
         if(resp.ok) {
           return resp.json()
@@ -174,7 +176,7 @@ async function fetchUserLocal({uuid, userGUID, email, token}){
         }
       })
       .catch(error => {
-        console.log("no users found using userGUID")
+        console.log("no users found using patientId")
         return error
       })
     }
@@ -211,12 +213,13 @@ async function fetchUserProd({uuid, userGUID, email, token}){
 
 /*=======================================================================*/
 
-async function updateUserLocal({userName, data}){
+async function updateUserLocal({uuid, data, token}){
   console.log("userData sent to server:",
-    `\nuserName: ${userName}`,
+    `\nuuid: ${uuid}`,
     `\ndata: ${JSON.stringify(data)}`
   )
-  return await fetch(`/users/${userName}`,{
+
+  return await fetch(`/users/${uuid}`,{
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
@@ -236,9 +239,9 @@ async function updateUserLocal({userName, data}){
     })
 }
 
-async function updateUserProd({userGUID, data, token}){
+async function updateUserProd({uuid, data, token}){
   const {phoneNumber, allowEmailNotification} = data
-  return await fetch(`/api/v1/user/${userGUID}?phoneNumber=${phoneNumber}&allowEmailNotification=${allowEmailNotification}`,{
+  return await fetch(`/api/v1/user/${uuid}?phoneNumber=${phoneNumber}&allowEmailNotification=${allowEmailNotification}`,{
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -261,10 +264,10 @@ async function updateUserProd({userGUID, data, token}){
 /*=======================================================================*/
 
 
-async function uploadPatientReportLocal({patientGUID, userGUID, reportFile, fileType}){
+async function uploadPatientReportLocal({patientId, uuid, reportFile, fileType}){
 
   // first get reports for this user - local only
-  const userDetails = await fetch(`/api/users?userGUID=${patientGUID}&singular=1`)
+  const userDetails = await fetch(`/api/users?patientId=${patientId}&singular=1`)
     .then(resp => resp.json())
     .catch(error => {
       console.error(error)
@@ -276,7 +279,8 @@ async function uploadPatientReportLocal({patientGUID, userGUID, reportFile, file
       ...userReports,
       {
         "id": userDetails.reports && userDetails.reports.length > 0 ? userDetails.reports.length + 1 : 1,
-        "reportName": reportFile.name,
+        "uploadedBy": uuid,
+        "fileName": reportFile.name,
         "uploadedFileType": fileType,
         "description": "",
         "timestamp": Date.now(),
@@ -286,8 +290,8 @@ async function uploadPatientReportLocal({patientGUID, userGUID, reportFile, file
   }
 
   console.log("userData sent to server:", 
-    `\nuserGUID: ${userGUID}`, 
-    `\npatientGUID: ${patientGUID}`, 
+    `\nuuid: ${uuid}`, 
+    `\npatientId: ${patientId}`, 
     `\nreportFile:`, reportFile, 
     `\nuploadedFileType:`, fileType, 
     `\nreports:`, reports
@@ -314,12 +318,12 @@ async function uploadPatientReportLocal({patientGUID, userGUID, reportFile, file
   })
 }
 
-async function uploadPatientReportProd({patientGUID, userGUID, reportFile, fileType, token}){
+async function uploadPatientReportProd({patientId, uuid, reportFile, fileType, token}){
 
   const formData = new FormData();
 
-  formData.append("userGUID",userGUID)
-  formData.append("patientGUID",patientGUID)
+  formData.append("uuid",uuid)
+  formData.append("patientId",patientId)
   formData.append("reportFile",reportFile)
   formData.append("uploadedFileType",fileType)
 
@@ -347,10 +351,10 @@ async function uploadPatientReportProd({patientGUID, userGUID, reportFile, fileT
 
 /*=======================================================================*/
 
-async function uploadConsentFormLocal({patientGUID, userGUID, reportFile, fileType}){
+async function uploadConsentFormLocal({patientId, uuid, reportFile, fileType}){
 
   // first get reports for this user - local only
-  const userDetails = await fetch(`/api/users?userGUID=${patientGUID}&singular=1`)
+  const userDetails = await fetch(`/api/users?patientId=${patientId}&singular=1`)
     .then(resp => resp.json())
     .catch(error => {
       console.error(error)
@@ -362,7 +366,8 @@ async function uploadConsentFormLocal({patientGUID, userGUID, reportFile, fileTy
       ...userDocuments,
       {
         "id": userDetails.otherDocuments && userDetails.otherDocuments.length > 0 ? userDetails.otherDocuments.length + 1 : 1,
-        "reportName": reportFile.name,
+        "uploadedBy": uuid,
+        "fileName": reportFile.name,
         "uploadedFileType": fileType,
         "description": "",
         "timestamp": Date.now(),
@@ -372,8 +377,8 @@ async function uploadConsentFormLocal({patientGUID, userGUID, reportFile, fileTy
   }
 
   console.log("userData sent to server:", 
-    `\nuserGUID: ${userGUID}`, 
-    `\npatientGUID: ${patientGUID}`, 
+    `\nuuid: ${uuid}`, 
+    `\npatientId: ${patientId}`, 
     `\nfile:`, reportFile, 
     `\nuploadedFileType:`, fileType, 
     `\notherDocuments:`, otherDocuments
@@ -404,8 +409,8 @@ async function uploadConsentFormLocal({patientGUID, userGUID, reportFile, fileTy
 /*=======================================================================*/
 
 // TODO: fetch notifications - needed as seperate call?
-async function notificationsMarkAsReadLocal({userGUID}){
-  const userDetails = await fetch(`/api/users?userGUID=${userGUID}&singular=1`)
+async function notificationsMarkAsReadLocal({uuid}){
+  const userDetails = await fetch(`/api/users?uuid=${uuid}&singular=1`)
     .then(resp => resp.json())
     .catch(error => {
       console.error(error)
@@ -424,7 +429,7 @@ async function notificationsMarkAsReadLocal({userGUID}){
   }
 
   console.log("userData sent to server:", 
-    `\nuserGUID: ${userGUID}`
+    `\nuuid: ${uuid}`
   )
 
   return await fetch(`/users/${userDetails.id}`,{
@@ -448,8 +453,8 @@ async function notificationsMarkAsReadLocal({userGUID}){
   })
 }
 
-async function notificationsMarkAsReadProd({userGUID, token}){
-  return await fetch(`/api/v1/user/${userGUID}/notifications/mark-as-read`,{
+async function notificationsMarkAsReadProd({uuid, token}){
+  return await fetch(`/api/v1/user/${uuid}/notifications/mark-as-read`,{
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -512,20 +517,31 @@ async function fetchPatientReportProd({reportId, token}){
 
 /*=======================================================================*/
 
-async function reportViewedByLocal({userGUID, reportId}){
-  const userDetails = await fetch(`/api/users?userGUID=${userGUID}&singular=1`)
+async function reportViewedByLocal({patientId, uuid, reportId}){
+
+  let userDetails
+
+  if(patientId) {
+    userDetails = await fetch(`/api/users?patientId=${patientId}&singular=1`)
     .then(resp => resp.json())
     .catch(error => {
       console.error(error)
     })
+  } else {
+    userDetails = await fetch(`/api/users?uuid=${uuid}&singular=1`)
+    .then(resp => resp.json())
+    .catch(error => {
+      console.error(error)
+    })
+  }
 
   // get the report that needs updating
   const updatedReports = userDetails.reports.map(report => {
     if(report.fileGUID === reportId) {
-      const viewedBy = report.viewedByUsers || []
+      const viewedBy = report.viewedBy || []
       return {
         ...report,
-        viewedBy: [...new Set([...viewedBy, userGUID])]
+        viewedBy: [...new Set([...viewedBy, uuid])]
       }
     } else {
       return report
@@ -540,7 +556,7 @@ async function reportViewedByLocal({userGUID, reportId}){
   }
 
   console.log("userData sent to server:", 
-    `\nuserGUID: ${userGUID}`,
+    `\nuuid: ${uuid}`,
     `\nreportId: ${reportId}`
   )
 
@@ -567,8 +583,8 @@ async function reportViewedByLocal({userGUID, reportId}){
 }
 
 // flag report as read by user
-async function reportViewedByProd({userGUID, reportId, token}){
-  return await fetch(`/api/patientReport/${reportId}?viewedByUserId=${userGUID}`,{
+async function reportViewedByProd({uuid, reportId, token}){
+  return await fetch(`/api/patientReport/${reportId}?viewedByUserId=${uuid}`,{
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

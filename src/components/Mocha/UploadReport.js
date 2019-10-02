@@ -119,11 +119,17 @@ const UploadReport = (props) => {
     // example GUID: b36284a2-cecf-4756-996c-abb0d8ba652c
     if(isValidUserId(patientData.patientId)) {
 
-      api[env].fetchUser({userGUID: patientData.patientId, token})
+      api[env].fetchUser({patientId: patientData.patientId, token})
       .then(resp => {
-        if(resp.hasOwnProperty('userName')){
+        if(patientData.hasOwnProperty('message')) {
+          // user not found - show error
+          setPatientData(prevState => ({
+            ...prevState,
+            notFound: true
+          }))
+        } else {
           // user found - progress
-          const {firstName, lastName, userGUID: patientId} = resp
+          const {firstName, lastName, patientId} = resp
           setPatientData(prevState => ({
             ...prevState,
             firstName,
@@ -135,12 +141,6 @@ const UploadReport = (props) => {
             patientId
           }))
           setActiveStep(1)
-        } else {
-          // user not found - show error
-          setPatientData(prevState => ({
-            ...prevState,
-            notFound: true
-          }))
         }
       })
     } else {
@@ -153,7 +153,7 @@ const UploadReport = (props) => {
   }
 
   const uploadFile = () => {
-    const {token, env, userGUID} = loginContext
+    const {token, env, uuid} = loginContext
 
     // verify that report data exists before fetch call
     if(!!formData.reportFile) {
@@ -166,8 +166,8 @@ const UploadReport = (props) => {
       // fake response delay
       // setTimeout(() => {
         api[env].uploadPatientReport({
-          patientGUID: formData.patientId,
-          userGUID,
+          patientId: formData.patientId,
+          uuid,
           reportFile: formData.reportFile,
           fileType: 'PPE_FILETYPE_BIOMARKER_REPORT',
           token

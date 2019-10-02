@@ -66,13 +66,14 @@ const TestResults = (props) => {
   useEffect(() => {
     //fetch participant data
     const {token, env} = loginContext
-    const participantGUID = props.participantGUID
-    // const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).userGUID
-    api[env].fetchPatientTestResults({userGUID: participantGUID, token}).then(resp => {
+    const patientId = props.patientId
+    // const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).uuid
+    api[env].fetchPatientTestResults({patientId, token}).then(resp => {
       setReports(resp.reports)
       setFiles(resp.otherDocuments)
       setUser(resp)
     })
+    console.log("loginContext", loginContext)
     return () => {}
   }, [uploadSuccess])
 
@@ -115,29 +116,29 @@ const TestResults = (props) => {
 
       <Divider className={classes.divider} />
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} id="reports">
           <Typography className={classes.header} variant="h2" component="h2">Biomarker tests</Typography>
           {reports && reports.length > 0 ? (
             <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-              {reports && reports.map((report,i) => <Grid item xs={12} key={i}><TestResultsItem report={report} /></Grid>)}
+              {reports && reports.map((report,i) => <Grid item xs={12} key={i}><TestResultsItem report={report} patientId={user.patientId} /></Grid>)}
             </Grid>
           ) : (
             <NoItems message="No reports available for this participant." />
           )}
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} id="eConsentForms">
           <Typography className={classes.header} variant="h2" component="h2">Consent forms</Typography>
           {uploadSuccess && <Status state="success" title="Consent form uploaded successfully!" message="We sent an email to let the participant know." />}
           {files && files.length > 0 ? (
             <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-              {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} noBadge /></Grid>)}
+              {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} patientId={user.patientId} noBadge /></Grid>)}
             </Grid>
           ) : (
             <NoItems message="No consent forms are available for this participant." />
           )}
         </Grid>
       </Grid>
-      <UploadConsentDialog open={dialogOpen} setParentState={closeUploadDialog} patientGUID={user.userGUID} />
+      <UploadConsentDialog open={dialogOpen} setParentState={closeUploadDialog} patientId={user.patientId} />
     </>
   )
 }

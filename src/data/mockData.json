@@ -163,11 +163,10 @@
   "users": [
     {
       "id": 1,
-      "userName": "alfredTromp",
       "firstName": "Alfred",
       "lastName": "Tromp",
       "email": "SkyBlue@Chauncey.tv",
-      "userGUID": "SILxki4k",
+      "patientId": "SILxki4k",
       "phoneNumber": "559-428-5906",
       "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
@@ -176,12 +175,10 @@
       "providers": [
         {
           "id": 1,
-          "userName": "madelineHamill",
           "firstName": "Madeline",
           "lastName": "Hamill",
           "email": "ppe.provider1@yahoo.com",
           "uuid": "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
-          "userGUID": "LSsMXzX3",
           "phoneNumber": "9218102877",
           "allowEmailNotification": true,
           "userType": "PPE_PROVIDER",
@@ -194,53 +191,50 @@
           "fileName": "New Report",
           "description": "A sort report description",
           "dateUploaded": 1567751389000,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44e"
         },
         {
           "id": 2,
           "fileName": "One_long_report_title_that_needs_wrapping_08-28-2019",
           "description": "A sort report description",
           "dateUploaded": 1567924189000,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44f",
           "viewedBy": [
-            "LSsMXzX3"
+            "8ad6c624-ad65-4b1d-848e-4b4f590788e3"
           ]
         }
       ]
     },
     {
       "id": 2,
-      "userName": "katlynnPrice",
       "firstName": "Katlynn",
       "lastName": "Price",
       "email": "BlueViolet@Cody.org",
-      "userGUID": "6ivVJac8",
       "phoneNumber": "",
       "allowEmailNotification": false,
       "userType": "PPE_BSSC",
       "roleName": "ROLE_PPE_BSSC",
-      "dateCreated": 1548746989000
+      "dateCreated": 1548746989000,
+      "uuid": "8d85a263-b346-41e8-bf2f-4163b4c5f467"
     },
     {
       "id": 3,
-      "userName": "angelitaWeber",
       "firstName": "Angelita",
       "lastName": "Weber",
       "email": "Lavender@Maeve.biz",
-      "userGUID": "Qaz9y8KO",
       "phoneNumber": "430-868-6925",
       "allowEmailNotification": true,
       "userType": "PPE_ADMIN",
       "roleName": "ROLE_PPE_ADMIN",
-      "dateCreated": 1549265389000
+      "dateCreated": 1549265389000,
+      "uuid": "3baf314f-9498-4b0c-8f74-6828f728982e"
     },
     {
       "id": 4,
-      "userName": "thurmanKautzer",
       "firstName": "Thurman",
       "lastName": "Kautzer",
       "email": "CadetBlue@Keagan.biz",
-      "userGUID": "AhBW4XAy",
+      "patientId": "AhBW4XAy",
       "phoneNumber": "018-374-1064",
       "allowEmailNotification": false,
       "userType": "PPE_PARTICIPANT",
@@ -249,27 +243,34 @@
       "providers": [
         {
           "id": 1,
-          "userName": "madelineHamill",
           "firstName": "Madeline",
           "lastName": "Hamill",
           "email": "ppe.provider1@yahoo.com",
           "uuid": "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
-          "userGUID": "LSsMXzX3",
           "phoneNumber": "9218102877",
           "allowEmailNotification": true,
           "userType": "PPE_PROVIDER",
           "roleName": "ROLE_PPE_PROVIDER"
         }
+      ],
+      "otherDocuments": [
+        {
+          "id": 1,
+          "uploadedBy": "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
+          "fileName": "Account Settings | TTS Slack.pdf",
+          "uploadedFileType": "PPE_FILETYPE_ECONSENT_FORM",
+          "description": "",
+          "timestamp": 1570035150592,
+          "fileGUID": "309fb3b2-b23e-4ad0-8632-53a8916fa0e4"
+        }
       ]
     },
     {
       "id": 5,
-      "userName": "madelineHamill",
       "firstName": "Madeline",
       "lastName": "Hamill",
       "email": "ppe.provider1@yahoo.com",
       "uuid": "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
-      "userGUID": "LSsMXzX3",
       "phoneNumber": "9218102877",
       "allowEmailNotification": false,
       "userType": "PPE_PROVIDER",
@@ -277,11 +278,10 @@
       "dateCreated": 1550647789000,
       "patients": [
         {
-          "userName": "alfredTromp",
           "firstName": "Alfred",
           "lastName": "Tromp",
           "email": "SkyBlue@Chauncey.tv",
-          "userGUID": "SILxki4k",
+          "patientId": "SILxki4k",
           "phoneNumber": "559-428-5906",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
@@ -290,11 +290,10 @@
           "hasNewReports": true
         },
         {
-          "userName": "bartholomeGreenfelder",
           "firstName": "Bartholome",
           "lastName": "Greenfelder",
           "email": "MediumSlateBlue@Jewess.tv",
-          "userGUID": "95v4qQ8w",
+          "patientId": "95v4qQ8w",
           "phoneNumber": "147-164-3905",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
@@ -302,11 +301,10 @@
           "dateCreated": 1560148189000
         },
         {
-          "userName": "thurmanKautzer",
           "firstName": "Thurman",
           "lastName": "Kautzer",
           "email": "CadetBlue@Keagan.biz",
-          "userGUID": "AhBW4XAy",
+          "patientId": "AhBW4XAy",
           "phoneNumber": "018-374-1064",
           "allowEmailNotification": false,
           "userType": "PPE_PARTICIPANT",
@@ -314,11 +312,10 @@
           "dateCreated": 1550129389000
         },
         {
-          "userName": "gonzaloYost",
           "firstName": "Gonzalo",
           "lastName": "Yost",
           "email": "RoyalBlue@Wiza.org",
-          "userGUID": "MmF2H0C8",
+          "patientId": "MmF2H0C8",
           "phoneNumber": "905-341-7482",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
@@ -326,12 +323,11 @@
           "dateCreated": 1554791389000
         },
         {
-          "userName": "alanaSporer",
           "firstName": "Alana",
           "lastName": "Sporer",
           "email": "ppe.patient.1@hotmail.com",
           "uuid": "9df70109-0dda-44bf-ab94-91dedc42fe05",
-          "userGUID": "TI7TtATY",
+          "patientId": "TI7TtATY",
           "phoneNumber": "9493906330",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
@@ -340,11 +336,10 @@
           "hasNewReports": true
         },
         {
-          "userName": "yadiraStehr",
           "firstName": "Yadira",
           "lastName": "Stehr",
           "email": "Fuchsia@Elmer.biz",
-          "userGUID": "cwyv9yU7",
+          "patientId": "cwyv9yU7",
           "phoneNumber": "789-273-2170",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
@@ -355,11 +350,9 @@
     },
     {
       "id": 6,
-      "userName": "chloeKulas",
       "firstName": "Chloe",
       "lastName": "Kulas",
       "email": "DarkGoldenRod@Aimee.info",
-      "userGUID": "fxF5fyZM",
       "phoneNumber": "918-965-0850",
       "allowEmailNotification": true,
       "userType": "PPE_CRC",
@@ -367,11 +360,10 @@
       "dateCreated": 1553063389000,
       "patients": [
         {
-          "userName": "alfredTromp",
           "firstName": "Alfred",
           "lastName": "Tromp",
           "email": "SkyBlue@Chauncey.tv",
-          "userGUID": "SILxki4k",
+          "patientId": "SILxki4k",
           "phoneNumber": "559-428-5906",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
@@ -379,11 +371,10 @@
           "dateCreated": 1567606345000
         },
         {
-          "userName": "thurmanKautzer",
           "firstName": "Thurman",
           "lastName": "Kautzer",
           "email": "CadetBlue@Keagan.biz",
-          "userGUID": "AhBW4XAy",
+          "patientId": "AhBW4XAy",
           "phoneNumber": "018-374-1064",
           "allowEmailNotification": false,
           "userType": "PPE_PARTICIPANT",
@@ -391,11 +382,10 @@
           "dateCreated": 1550129389000
         },
         {
-          "userName": "bartholomeGreenfelder",
           "firstName": "Bartholome",
           "lastName": "Greenfelder",
           "email": "MediumSlateBlue@Jewess.tv",
-          "userGUID": "95v4qQ8w",
+          "patientId": "95v4qQ8w",
           "phoneNumber": "147-164-3905",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
@@ -403,11 +393,10 @@
           "dateCreated": 1560148189000
         },
         {
-          "userName": "gonzaloYost",
           "firstName": "Gonzalo",
           "lastName": "Yost",
           "email": "RoyalBlue@Wiza.org",
-          "userGUID": "MmF2H0C8",
+          "patientId": "MmF2H0C8",
           "phoneNumber": "905-341-7482",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
@@ -415,24 +404,23 @@
           "dateCreated": 1554791389000
         },
         {
-          "userName": "alanaSporer",
           "firstName": "Alana",
           "lastName": "Sporer",
           "email": "ppe.patient.1@hotmail.com",
           "uuid": "9df70109-0dda-44bf-ab94-91dedc42fe05",
-          "userGUID": "TI7TtATY",
+          "patientId": "TI7TtATY",
           "phoneNumber": "9493906330",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
-          "dateCreated": 1554877789000
+          "dateCreated": 1554877789000,
+          "hasNewReports": true
         },
         {
-          "userName": "yadiraStehr",
           "firstName": "Yadira",
           "lastName": "Stehr",
           "email": "Fuchsia@Elmer.biz",
-          "userGUID": "cwyv9yU7",
+          "patientId": "cwyv9yU7",
           "phoneNumber": "789-273-2170",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
@@ -440,11 +428,10 @@
           "dateCreated": 1555655389000
         },
         {
-          "userName": "amayaLindgren",
           "firstName": "Amaya",
           "lastName": "Lindgren",
           "email": "Maroon@Lavonne.net",
-          "userGUID": "22C0PF3K",
+          "patientId": "22C0PF3K",
           "phoneNumber": "424-660-9024",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
@@ -452,11 +439,10 @@
           "dateCreated": 1556173789000
         },
         {
-          "userName": "jacquesSauer",
           "firstName": "Jacques",
           "lastName": "Sauer",
           "email": "BurlyWood@Laila.org",
-          "userGUID": "9R7FFbkR",
+          "patientId": "9R7FFbkR",
           "phoneNumber": "288-581-9427",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
@@ -464,11 +450,10 @@
           "dateCreated": 1556605789000
         },
         {
-          "userName": "amaniNader",
           "firstName": "Amani",
           "lastName": "Nader",
           "email": "Indigo @Lakin.info",
-          "userGUID": "jhRML9yC",
+          "patientId": "jhRML9yC",
           "phoneNumber": "268-279-7718",
           "allowEmailNotification": false,
           "userType": "PPE_PARTICIPANT",
@@ -476,11 +461,10 @@
           "dateCreated": 1561271389000
         },
         {
-          "userName": "francescoAltenwerth",
           "firstName": "Francesco",
           "lastName": "Altenwerth",
           "email": "Teal@Anderson.io",
-          "userGUID": "ZaxspiqD",
+          "patientId": "ZaxspiqD",
           "phoneNumber": "013-546-5388",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
@@ -488,11 +472,10 @@
           "dateCreated": 1560320989000
         },
         {
-          "userName": "rooseveltWiegand",
           "firstName": "Roosevelt",
           "lastName": "Wiegand",
           "email": "LightSalmon@Bogan.biz",
-          "userGUID": "FAXHV8sv",
+          "patientId": "FAXHV8sv",
           "phoneNumber": "792-091-2209",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
@@ -500,11 +483,10 @@
           "dateCreated": 1559197789000
         },
         {
-          "userName": "leslyNienow",
           "firstName": "Lesly",
           "lastName": "Nienow",
           "email": "LightSteelBlue@Narciso.name",
-          "userGUID": "CjPN461M",
+          "patientId": "CjPN461M",
           "phoneNumber": "461-257-4088",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
@@ -512,26 +494,24 @@
           "dateCreated": 1558852189000
         },
         {
-          "userName": "anabelHeller",
           "firstName": "Anabel",
           "lastName": "Heller",
           "email": "BurlyWood@Glover.us",
-          "userGUID": "giNTNHy6",
+          "patientId": "giNTNHy6",
           "phoneNumber": "691-599-9221",
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
           "dateCreated": 1558333789000
         }
-      ]
+      ],
+      "uuid": "8b36b0c8-69d0-4042-ae02-03e795b2f0f8"
     },
     {
       "id": 7,
-      "userName": "bruceDaniel",
       "firstName": "Bruce",
       "lastName": "Daniel",
       "email": "DarkOliveGreen@Ledner.info",
-      "userGUID": "iAsehaIC",
       "phoneNumber": "985-290-8042",
       "allowEmailNotification": true,
       "userType": "PPE_ADMIN",
@@ -540,11 +520,9 @@
     },
     {
       "id": 8,
-      "userName": "theresaEichmann",
       "firstName": "Theresa",
       "lastName": "Eichmann",
       "email": "Peru@Catalina.co.uk",
-      "userGUID": "XUM54tyB",
       "phoneNumber": "407-459-9972",
       "allowEmailNotification": false,
       "userType": "PPE_PROVIDER",
@@ -553,11 +531,9 @@
     },
     {
       "id": 9,
-      "userName": "aniyahMurray",
       "firstName": "Aniyah",
       "lastName": "Murray",
       "email": "Red@Hammes.org",
-      "userGUID": "DUZ0J5JM",
       "phoneNumber": "289-026-0799",
       "allowEmailNotification": true,
       "userType": "PPE_CRC",
@@ -566,11 +542,10 @@
     },
     {
       "id": 10,
-      "userName": "gonzaloYost",
       "firstName": "Gonzalo",
       "lastName": "Yost",
       "email": "RoyalBlue@Wiza.org",
-      "userGUID": "MmF2H0C8",
+      "patientId": "MmF2H0C8",
       "phoneNumber": "905-341-7482",
       "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
@@ -579,12 +554,10 @@
       "providers": [
         {
           "id": 1,
-          "userName": "madelineHamill",
           "firstName": "Madeline",
           "lastName": "Hamill",
           "email": "ppe.provider1@yahoo.com",
           "uuid": "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
-          "userGUID": "LSsMXzX3",
           "phoneNumber": "9218102877",
           "allowEmailNotification": true,
           "userType": "PPE_PROVIDER",
@@ -597,21 +570,20 @@
           "fileName": "New Report",
           "description": "A sort report description",
           "dateUploaded": 1555136989000,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44g",
           "viewedBy": [
-            "LSsMXzX3"
+            "8ad6c624-ad65-4b1d-848e-4b4f590788e3"
           ]
         }
       ]
     },
     {
       "id": 11,
-      "userName": "alanaSporer",
       "firstName": "Alana",
       "lastName": "Sporer",
       "email": "ppe.patient.1@hotmail.com",
       "uuid": "9df70109-0dda-44bf-ab94-91dedc42fe05",
-      "userGUID": "TI7TtATY",
+      "patientId": "TI7TtATY",
       "phoneNumber": "9493906330",
       "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
@@ -620,12 +592,10 @@
       "providers": [
         {
           "id": 1,
-          "userName": "madelineHamill",
           "firstName": "Madeline",
           "lastName": "Hamill",
           "email": "ppe.provider1@yahoo.com",
           "uuid": "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
-          "userGUID": "LSsMXzX3",
           "phoneNumber": "9218102877",
           "allowEmailNotification": true,
           "userType": "PPE_PROVIDER",
@@ -638,29 +608,21 @@
           "fileName": "New Report",
           "description": "A sort report description",
           "dateUploaded": 1556000989000,
-          "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb2",
-          "viewedBy": [
-            "TI7TtATY"
-          ]
+          "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb2"
         },
         {
           "id": 2,
           "fileName": "Another New Report",
           "description": "A sort report description",
           "dateUploaded": 1555136989000,
-          "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb3",
-          "viewedBy": [
-          ]
+          "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb3"
         },
         {
           "id": 3,
           "fileName": "Some Report",
           "description": "A sort report description",
           "dateUploaded": 1556087389000,
-          "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb4",
-          "viewedBy": [
-            "LSsMXzX3"
-          ]
+          "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb4"
         },
         {
           "id": 4,
@@ -669,8 +631,20 @@
           "dateUploaded": 1556087389370,
           "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb5",
           "viewedBy": [
-            "TI7TtATY",
-            "LSsMXzX3"
+            "9df70109-0dda-44bf-ab94-91dedc42fe05",
+            "8ad6c624-ad65-4b1d-848e-4b4f590788e3"
+          ]
+        },
+        {
+          "id": 5,
+          "uploadedBy": "877fd0f1-29dc-4a47-9468-371b91836831",
+          "fileName": "report (2).pdf",
+          "uploadedFileType": "PPE_FILETYPE_BIOMARKER_REPORT",
+          "description": "",
+          "timestamp": 1569942000863,
+          "fileGUID": "7fc90817-a089-4632-989f-bdf021c095b9",
+          "viewedBy": [
+            "8ad6c624-ad65-4b1d-848e-4b4f590788e3"
           ]
         }
       ],
@@ -682,6 +656,24 @@
           "dateUploaded": 1555959689000,
           "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb2",
           "viewedBy": []
+        },
+        {
+          "id": 2,
+          "uploadedBy": "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
+          "fileName": "Account Settings | TTS Slack.pdf",
+          "uploadedFileType": "PPE_FILETYPE_ECONSENT_FORM",
+          "description": "",
+          "timestamp": 1569941461150,
+          "fileGUID": "a0d76330-3e10-424b-9a4a-b8d5f0c2b601"
+        },
+        {
+          "id": 3,
+          "uploadedBy": "8b36b0c8-69d0-4042-ae02-03e795b2f0f8",
+          "fileName": "Account Settings | TTS Slack.pdf",
+          "uploadedFileType": "PPE_FILETYPE_ECONSENT_FORM",
+          "description": "",
+          "timestamp": 1569942327810,
+          "fileGUID": "3813ebcd-22e3-4d72-9cf8-f5c57f13d637"
         }
       ],
       "notificationList": [
@@ -692,8 +684,7 @@
           "subject": "Notification Title",
           "message": "Test Message",
           "dateGenerated": 1555309789000,
-          "userId": 1,
-          "viewedByUser": 1
+          "viewedByUser": 0
         },
         {
           "id": 2,
@@ -702,8 +693,7 @@
           "subject": "Welcome to PPE",
           "message": "Thank you for participating in the Cancer Moonshot Biobank Program!",
           "dateGenerated": 1554964189000,
-          "userId": 1,
-          "viewedByUser": 1
+          "viewedByUser": 0
         },
         {
           "id": 3,
@@ -712,18 +702,16 @@
           "subject": "We added a biomarker report to Marco's account",
           "message": "<p>Dear Marco,</p><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"83.44\">We added&nbsp;a biomarker report to Marco's account.&nbsp;Log into&nbsp;the PPE&nbsp;Portal to view&nbsp;this report.&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"83.44\"><h3 data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"50.82\"><strong>Why&nbsp;is this&nbsp;important?</strong></h3><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"123.02000000000001\">Your biomarker&nbsp;report&nbsp;may&nbsp;inform your treatment.&nbsp;Each&nbsp;report&nbsp;is available&nbsp;to the patient, their&nbsp;provider, and&nbsp;a family member if they&nbsp;have&nbsp;been added to the patient&nbsp;account.</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"123.02000000000001\">&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"123.02000000000001\"><h3 data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"187.43666666666667\"><strong>What action should I&nbsp;take?</strong></h3><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"176.54\"><strong>For patients and family&nbsp;members</strong>&nbsp;:&nbsp;set up a time to talk with your&nbsp;provider about these results.</div><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"102.22\"><strong>For providers</strong>&nbsp;: review the&nbsp;report&nbsp;and any supporting&nbsp;NCI materials to determine&nbsp;whether or not you&nbsp;should&nbsp;alter your&nbsp;patient&rsquo;s treatment.</div><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"102.22\">&nbsp;</div><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"102.22\"><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"45.24\">If you&nbsp;have&nbsp;questions,&nbsp;you can&nbsp;reply to this&nbsp;email or&nbsp;call us at (202) 000 &ndash; 0000.</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"258.5\">&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"258.5\">Thank you for participating in the&nbsp;Cancer&nbsp;Moonshot&nbsp;Biobank Program!</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"41.559999999999995\">&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"41.559999999999995\">NCI&nbsp;Program Staff</div></div></div></div>",
           "dateGenerated": 1556000989000,
-          "userId": 1,
-          "viewedByUser": 1
+          "viewedByUser": 0
         }
       ]
     },
     {
       "id": 12,
-      "userName": "yadiraStehr",
       "firstName": "Yadira",
       "lastName": "Stehr",
       "email": "Fuchsia@Elmer.biz",
-      "userGUID": "cwyv9yU7",
+      "patientId": "cwyv9yU7",
       "phoneNumber": "789-273-2170",
       "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
@@ -732,12 +720,10 @@
       "providers": [
         {
           "id": 1,
-          "userName": "madelineHamill",
           "firstName": "Madeline",
           "lastName": "Hamill",
           "email": "ppe.provider1@yahoo.com",
           "uuid": "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
-          "userGUID": "LSsMXzX3",
           "phoneNumber": "9218102877",
           "allowEmailNotification": true,
           "userType": "PPE_PROVIDER",
@@ -750,20 +736,19 @@
           "fileName": "New Report",
           "description": "A sort report description",
           "dateUploaded": 1556000989000,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44h",
           "viewedBy": [
-            "LSsMXzX3"
+            "8ad6c624-ad65-4b1d-848e-4b4f590788e3"
           ]
         }
       ]
     },
     {
       "id": 13,
-      "userName": "amayaLindgren",
       "firstName": "Amaya",
       "lastName": "Lindgren",
       "email": "Maroon@Lavonne.net",
-      "userGUID": "22C0PF3K",
+      "patientId": "22C0PF3K",
       "phoneNumber": "424-660-9024",
       "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
@@ -772,11 +757,10 @@
     },
     {
       "id": 14,
-      "userName": "jacquesSauer",
       "firstName": "Jacques",
       "lastName": "Sauer",
       "email": "BurlyWood@Laila.org",
-      "userGUID": "9R7FFbkR",
+      "patientId": "9R7FFbkR",
       "phoneNumber": "288-581-9427",
       "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
@@ -785,11 +769,10 @@
     },
     {
       "id": 15,
-      "userName": "amaniNader",
       "firstName": "Amani",
       "lastName": "Nader",
       "email": "Indigo @Lakin.info",
-      "userGUID": "jhRML9yC",
+      "patientId": "jhRML9yC",
       "phoneNumber": "268-279-7718",
       "allowEmailNotification": false,
       "userType": "PPE_PARTICIPANT",
@@ -798,11 +781,9 @@
     },
     {
       "id": 16,
-      "userName": "mayraHilll",
       "firstName": "Mayra",
       "lastName": "Hilll",
       "email": "Cyan@Cyril.biz",
-      "userGUID": "uEUEtoUd",
       "phoneNumber": "004-443-1596",
       "allowEmailNotification": false,
       "userType": "PPE_PROVIDER",
@@ -811,24 +792,53 @@
     },
     {
       "id": 17,
-      "userName": "francescoAltenwerth",
       "firstName": "Francesco",
       "lastName": "Altenwerth",
       "email": "Teal@Anderson.io",
-      "userGUID": "ZaxspiqD",
+      "patientId": "ZaxspiqD",
       "phoneNumber": "013-546-5388",
       "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
-      "dateCreated": 1560320989000
+      "dateCreated": 1560320989000,
+      "reports": [
+        {
+          "id": 1,
+          "uploadedBy": "8b36b0c8-69d0-4042-ae02-03e795b2f0f8",
+          "fileName": "Account Settings | TTS Slack.pdf",
+          "uploadedFileType": "PPE_FILETYPE_ECONSENT_FORM",
+          "description": "",
+          "timestamp": 1569941084340,
+          "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44d"
+        }
+      ],
+      "otherDocuments": [
+        {
+          "id": 1,
+          "uploadedBy": "8b36b0c8-69d0-4042-ae02-03e795b2f0f8",
+          "fileName": "Account Settings | TTS Slack.pdf",
+          "uploadedFileType": "PPE_FILETYPE_ECONSENT_FORM",
+          "description": "",
+          "timestamp": 1569941396854,
+          "fileGUID": "dc0ae9ff-8da0-4396-94a8-62333fb7aba5"
+        },
+        {
+          "id": 2,
+          "uploadedBy": "8b36b0c8-69d0-4042-ae02-03e795b2f0f8",
+          "fileName": "report (2).pdf",
+          "uploadedFileType": "PPE_FILETYPE_ECONSENT_FORM",
+          "description": "",
+          "timestamp": 1569942289747,
+          "fileGUID": "833430b1-e12d-459a-8f27-84ad92146744"
+        }
+      ]
     },
     {
       "id": 18,
-      "userName": "bartholomeGreenfelder",
       "firstName": "Bartholome",
       "lastName": "Greenfelder",
       "email": "MediumSlateBlue@Jewess.tv",
-      "userGUID": "95v4qQ8w",
+      "patientId": "95v4qQ8w",
       "phoneNumber": "147-164-3905",
       "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
@@ -837,12 +847,10 @@
       "providers": [
         {
           "id": 1,
-          "userName": "madelineHamill",
           "firstName": "Madeline",
           "lastName": "Hamill",
           "email": "ppe.provider1@yahoo.com",
           "uuid": "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
-          "userGUID": "LSsMXzX3",
           "phoneNumber": "9218102877",
           "allowEmailNotification": true,
           "userType": "PPE_PROVIDER",
@@ -855,9 +863,9 @@
           "fileName": "New Report",
           "description": "A sort report description",
           "dateUploaded": 1560839389000,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44i",
           "viewedBy": [
-            "LSsMXzX3"
+            "8ad6c624-ad65-4b1d-848e-4b4f590788e3"
           ]
         },
         {
@@ -865,20 +873,19 @@
           "fileName": "Another Report",
           "description": "A sort report description",
           "dateUploaded": 1560925789000,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44j",
           "viewedBy": [
-            "LSsMXzX3"
+            "8ad6c624-ad65-4b1d-848e-4b4f590788e3"
           ]
         }
       ]
     },
     {
       "id": 19,
-      "userName": "rooseveltWiegand",
       "firstName": "Roosevelt",
       "lastName": "Wiegand",
       "email": "LightSalmon@Bogan.biz",
-      "userGUID": "FAXHV8sv",
+      "patientId": "FAXHV8sv",
       "phoneNumber": "792-091-2209",
       "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
@@ -887,11 +894,10 @@
     },
     {
       "id": 20,
-      "userName": "leslyNienow",
       "firstName": "Lesly",
       "lastName": "Nienow",
       "email": "LightSteelBlue@Narciso.name",
-      "userGUID": "CjPN461M",
+      "patientId": "CjPN461M",
       "phoneNumber": "461-257-4088",
       "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
@@ -900,11 +906,10 @@
     },
     {
       "id": 21,
-      "userName": "anabelHeller",
       "firstName": "Anabel",
       "lastName": "Heller",
       "email": "BurlyWood@Glover.us",
-      "userGUID": "giNTNHy6",
+      "patientId": "giNTNHy6",
       "phoneNumber": "691-599-9221",
       "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
@@ -913,12 +918,10 @@
     },
     {
       "id": 22,
-      "userName": "emelieFranecki",
       "firstName": "Emelie",
       "lastName": "Franecki",
       "email": "ppe.mocha@aol.com",
       "uuid": "877fd0f1-29dc-4a47-9468-371b91836831",
-      "userGUID": "Wfy4z5J6",
       "phoneNumber": "783-222-5215",
       "allowEmailNotification": false,
       "userType": "PPE_MOCHA_ADMIN",
@@ -927,11 +930,9 @@
     },
     {
       "id": 23,
-      "userName": "olaCollier",
       "firstName": "Ola",
       "lastName": "Collier",
       "email": "Thistle@Rosalind.biz",
-      "userGUID": "TJgC11zL",
       "phoneNumber": "424-533-4748",
       "allowEmailNotification": false,
       "userType": "PPE_MOCHA_ADMIN",
@@ -940,26 +941,23 @@
     },
     {
       "id": 24,
-      "userName": "frankAli",
       "firstName": "Frank",
       "lastName": "Ali",
-      "email": "Thistle@Rosalind.biz",
+      "email": "frank.ali@publicissapient.com",
       "uuid": "4e764406-5062-4034-bcd6-8901f21eb28d",
-      "userGUID": "TJgC11zP",
-      "phoneNumber": "424-555-4704",
-      "allowEmailNotification": true,
+      "patientId": "TJgC11zP",
+      "phoneNumber": "4245554704",
+      "allowEmailNotification": false,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1556778589000,
       "providers": [
         {
           "id": 1,
-          "userName": "madelineHamill",
           "firstName": "Madeline",
           "lastName": "Hamill",
           "email": "ppe.provider1@yahoo.com",
           "uuid": "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
-          "userGUID": "LSsMXzX3",
           "phoneNumber": "9218102877",
           "allowEmailNotification": true,
           "userType": "PPE_PROVIDER",
@@ -974,8 +972,7 @@
           "subject": "Notification Title",
           "message": "Test Message",
           "dateGenerated": 1555309789000,
-          "userId": 1,
-          "viewedByUser": 1
+          "viewedByUser": 0
         }
       ],
       "reports": [
@@ -984,9 +981,10 @@
           "fileName": "New Report",
           "description": "A sort report description",
           "dateUploaded": 1560839389000,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44k",
           "viewedBy": [
-            "LSsMXzX3"
+            "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
+            "4e764406-5062-4034-bcd6-8901f21eb28d"
           ]
         },
         {
@@ -994,15 +992,28 @@
           "fileName": "Another Report",
           "description": "A sort report description",
           "dateUploaded": 1560925789000,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44l",
           "viewedBy": [
-            "LSsMXzX3"
+            "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
+            "4e764406-5062-4034-bcd6-8901f21eb28d"
+          ]
+        },
+        {
+          "id": 3,
+          "uploadedBy": "877fd0f1-29dc-4a47-9468-371b91836831",
+          "fileName": "Account Settings | TTS Slack.pdf",
+          "uploadedFileType": "PPE_FILETYPE_BIOMARKER_REPORT",
+          "description": "",
+          "timestamp": 1570035105878,
+          "fileGUID": "02e7244d-627a-49ae-8b1f-f442f1d1110f",
+          "viewedBy": [
+            "4e764406-5062-4034-bcd6-8901f21eb28d"
           ]
         }
       ]
     }
   ],
-  "mockUsers": [
+  "mockUsersUserName": [
     "alanaSporer",
     "madelineHamill",
     "chloeKulas",
@@ -1010,6 +1021,24 @@
     "angelitaWeber",
     "emelieFranecki",
     "frankAli"
+  ],
+  "mockUsersEmail": [
+    "ppe.patient.1@hotmail.com",
+    "ppe.provider1@yahoo.com",
+    "DarkGoldenRod@Aimee.info",
+    "BlueViolet@Cody.org",
+    "Lavender@Maeve.biz",
+    "ppe.mocha@aol.com",
+    "frank.ali@publicissapient.com"
+  ],
+  "mockUsers": [
+    "9df70109-0dda-44bf-ab94-91dedc42fe05",
+    "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
+    "8b36b0c8-69d0-4042-ae02-03e795b2f0f8",
+    "8d85a263-b346-41e8-bf2f-4163b4c5f467",
+    "3baf314f-9498-4b0c-8f74-6828f728982e",
+    "877fd0f1-29dc-4a47-9468-371b91836831",
+    "4e764406-5062-4034-bcd6-8901f21eb28d"
   ],
   "token": {
     "token": "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidGVzdCIsImlzcyI6Im1kYXMyIiwiZXhwIjoxNTYzOTk5MTk4LCJ1c2VybmFtZSI6IlRvbURpY2tBbmRIYXJyeSJ9.BglervXAFiPGDtMCptVAMrBFkmduxJ63635l_twhJMjurJFqKJS7G4WqU6SUerIP8RgQBatNo-pp-QO1QXZs80Cw0iDrwL9myc4H94v7ZjTWhKnVgaYkB4_bSEY6bwpd0qldnOiiAPYSWHDExaPFHvOSDp-BsYCMgVd0V4T_9w2uNBGAGux0r7fdSBSvgjyTgr0SzIgaSuD3EybpfcJwuxmI0VbSrSiQDrirpCGZb3EeI-EYcOXn6IoUxSDl9726yTD9cHdNz0IrHb5HViZJKt9tcGVDENeGGrn7yMHj2pnhhRbtFGVi-SBvgLEkYWd4c4B4Pflq26aBozS4txwjrg"

@@ -97,7 +97,8 @@ const UploadConcentDialog = (props) => {
   }
 
   const uploadFile = () => {
-    const {token, env, userGUID} = loginContext
+    const {token, env, uuid} = loginContext
+    console.log("props", props)
 
     // verify that report data exists before fetch call
     if(!!formData.file) {
@@ -109,9 +110,9 @@ const UploadConcentDialog = (props) => {
       }))
       // fake response delay
       // setTimeout(() => {
-        api[env].uploadPatientReport({
-          patientGUID: props.patientGUID,
-          userGUID,
+        api[env].uploadConsentForm({
+          patientId: props.patientId,
+          uuid,
           reportFile: formData.file,
           fileType: 'PPE_FILETYPE_ECONSENT_FORM',
           token

@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-const MockRoles = (props) => {
+const MockRoles = () => {
   const classes = useStyles()
   const [users, setUsers] = useState()
   const [loginContext, dispatch] = useContext(LoginContext)
@@ -49,7 +49,7 @@ const MockRoles = (props) => {
 
   const mockLogin = user => event => {
     // get token
-    const {roleName, email, uuid} = user;
+    const {email, uuid} = user;
     api[loginContext.env].fetchToken({uuid, email})
       .then(resp => {
         // token fetch was successful, update context with user information

@@ -32,14 +32,18 @@ export default class AuthService {
     this.UserManager.events.addAccessTokenExpired(() => {
       console.log("token expired");
 
-      navigate('/error',{
-        state: {
-          error: {
-            status: 'info',
-            name: 'Session expired',
-            message: "Your session has expired. Please log in again."
+      this.UserManager.clearStaleState();
+      this.UserManager.signoutRedirectCallback().then(() => {
+        localStorage.clear()
+        navigate('/error',{
+          state: {
+            error: {
+              status: 'info',
+              name: 'Session expired',
+              message: "Your session has expired. Please log in again."
+            }
           }
-        }
+        })
       })
       // this.signinSilent();
     });
@@ -130,12 +134,11 @@ export default class AuthService {
   };
 
   signoutRedirectCallback = () => {
+    this.UserManager.clearStaleState();
     this.UserManager.signoutRedirectCallback().then(() => {
       localStorage.clear()
       // window.location.replace(process.env.REACT_APP_PUBLIC_URL);
       navigate('/')
-      
     });
-    this.UserManager.clearStaleState();
   };
 }

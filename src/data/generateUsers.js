@@ -64,12 +64,12 @@ casual.define('user', function() {
   const domain = casual.domain
   const emailName = casual.color_name
 	return {
-    userName: `${firstName.toLowerCase()}${lastName}`,
+    // userName: `${firstName.toLowerCase()}${lastName}`,
 		firstName,
 		lastName,
 		email: `${emailName}@${domain}`,
-    // userGUID: casual.uuid,
-    userGUID: casual.alphaNumeric(8),
+    uuid: casual.uuid,
+    patientId: casual.alphaNumeric(8),
     phoneNumber: casual.phone,
     allowEmailNotification: randomBooleanAsString({no:25,yes:75}),
     ...randomRole()
