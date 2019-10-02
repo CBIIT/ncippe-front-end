@@ -92,8 +92,6 @@ const SignInCallback = (props) => {
       })
       
     }).catch(error => {
-      // console.error(error)
-      //signoutRedirectCallback()
       localStorage.clear();
       dispatch({
         type: 'reset'
@@ -111,7 +109,6 @@ const SignInCallback = (props) => {
   }, [])
 
   useEffect(() => {
-    // console.log("loginContext effect", loginContext)
     const { roleName, uuid } = loginContext
     if(uuid){
       if( roleName === 'ROLE_PPE_MOCHA_ADMIN') {

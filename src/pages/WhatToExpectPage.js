@@ -275,8 +275,6 @@ const Discuss = withStyles(theme => ({
     e.preventDefault()
     // const cords = e.currentTarget.dataset.location
     const state = e.currentTarget.dataset.location
-    // console.log(cords)
-    console.log("map",map)
     map.setView(locations[state],9)
   }
 
@@ -478,22 +476,6 @@ const WhatToExpectPage = () => {
     //clean up
     return () => {}
   },[isMobile])
-
-  // useEffect(() => {
-  //   const urls = [
-  //     'https://unpkg.com/leaflet@1.5.1/dist/leaflet.css',
-  //     'https://unpkg.com/leaflet@1.5.1/dist/leaflet.js'
-  //   ]
-  //   // Promise.all(urls.map(url =>
-  //   //   fetch(url).then(resp => resp.text())
-  //   // )).then(texts => {
-  //   //     console.log("scripts loaded!")
-  //   // })
-  // },[])
-
-
-
-
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

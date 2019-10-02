@@ -82,8 +82,6 @@ const UploadReport = () => {
 
   // controled file input
   const handleFileChange = (event) => {
-    // console.log(event.currentTarget.files); // cancel returns null
-    // console.log(event.currentTarget.files.item(0)); // cancel returns null
     //f = f.replace(/.*[\/\\]/, ''); -ie: evt.target.files[0].name
     const file = event.currentTarget.files.item(0)
 

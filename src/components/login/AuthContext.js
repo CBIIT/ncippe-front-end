@@ -13,7 +13,6 @@ export const AuthContext = React.createContext({
 
 export const AuthProvider = (props) => {
   const authService = new AuthService()
-  console.log(authService)
   return (
     <AuthContext.Provider value={authService}>
       {props.children}

@@ -73,7 +73,6 @@ const TestResults = (props) => {
       setFiles(resp.otherDocuments)
       setUser(resp)
     })
-    console.log("loginContext", loginContext)
     return () => {}
   }, [uploadSuccess])
 
