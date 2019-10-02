@@ -3,33 +3,54 @@ import { createUUID } from '../utils/utils'
 async function fetchMockUsersLocal(){
   // get mock user id list
   const mockUsers = await fetch(`/api/mockUsers`)
-    .then(resp => resp.json())
+    .then(resp => {
+      if(resp.ok) {
+        return resp.json()
+      } else {
+        throw new Error(`Unable to fetch mock users from the server`)
+      }
+    })
     .catch(error => {
       console.error(error)
       return error
     })
 
-  // compose request using mock user list results
-  const url = `/api/users?uuid=${mockUsers.join('&uuid=')}`
+  if(!mockUsers.hasOwnProperty('message')) {
+    // compose request using mock user list results
+    const url = `/api/users?uuid=${mockUsers.join('&uuid=')}`
 
-  // fetch data for each mock user
-  return await fetch(url)
-    .then(resp => resp.json())
+    // fetch data for each mock user
+    return await fetch(url)
+    .then(resp => {
+      if(resp.ok) {
+        return resp.json()
+      } else {
+        throw new Error(`Unable to fetch mock users`)
+      }
+    })
     .catch(error => {
       console.error(error)
       return error
     })
+  } else {
+    return mockUsers
+  }
 }
 
 async function fetchMockUsersProd(){
   // fetch data for each mock user - this will fetch ALL users :(
   return await fetch(`/api/v1/users`)
-    .then(resp => resp.json())
-    // .then(resp => resp.User)
-    .catch(error => {
-      console.error(error)
-      return error
-    })
+  .then(resp => {
+    if(resp.ok) {
+      return resp.json()
+    } else {
+      throw new Error(`Unable to fetch mock users`)
+    }
+  })
+  .catch(error => {
+    console.error(error)
+    return error
+  })
 }
 
 /*=======================================================================*/

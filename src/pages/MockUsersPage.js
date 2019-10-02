@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { LoginConsumer, LoginContext } from '../components/login/Login.context'
 import { api } from '../data/api'
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
+import Status from '../components/Status/Status'
 import { randomString } from '../utils/utils'
 
 const useStyles = makeStyles(theme => ({
@@ -37,13 +38,14 @@ const useStyles = makeStyles(theme => ({
 const MockRoles = () => {
   const classes = useStyles()
   const [users, setUsers] = useState()
+  const [error, setError] = useState(false)
   const [loginContext, dispatch] = useContext(LoginContext)
 
   // Fetch mock users on ComponentDidMount
   useEffect(() => {
     //fetch mock users list
-    api[loginContext.env].fetchMockUsers().then(res => {
-      setUsers(res)
+    api[loginContext.env].fetchMockUsers().then(resp => {
+      Array.isArray(resp) ? setUsers(resp) : setError(resp)
     })
   }, [])
 
@@ -63,14 +65,6 @@ const MockRoles = () => {
             mockState: identifier
           }
         })
-
-        // localStorage.setItem(`oidc.${identifier}`, JSON.stringify({
-        //   id: identifier,
-        //   profile: {
-        //     sub: uuid,
-        //     email
-        //   }
-        // }));
 
         navigate(`/signin?code=${uuid}&state=${identifier}`,{
           state: {
@@ -115,7 +109,7 @@ const MockRoles = () => {
               {users && users.map((user,i) => <Typography key={i} variant="h2">
                   <Button variant='contained' className={classes.largeButton} onClick={mockLogin(user)}>{user.firstName} {user.lastName} ({user.roleName})</Button>
                 </Typography>)}
-              {!users && <h3>Error: Unable to retrieve mock users</h3>}
+              {error && <Status state="error" title={error.name} message={error.message} />}
               </>
             )
           }}
