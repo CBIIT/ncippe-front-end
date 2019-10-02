@@ -107,7 +107,7 @@ async function fetchTokenLocal({uuid, email, id_token}){
 
 async function fetchTokenProd({uuid, email, id_token}){
   // uuid and email from login.gov as querystring
-  return await fetch(`/api/v1/login?email=${email}`,{
+  return await fetch(`/api/v1/login?uuid=${uuid}&email=${email}`,{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
