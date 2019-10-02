@@ -119,7 +119,7 @@ const UploadReport = () => {
 
       api[env].fetchUser({patientId: patientData.patientId, token})
       .then(resp => {
-        if(patientData.hasOwnProperty('message')) {
+        if(resp.hasOwnProperty('message')) {
           // user not found - show error
           setPatientData(prevState => ({
             ...prevState,
