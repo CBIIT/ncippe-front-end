@@ -52,39 +52,30 @@ const MockRoles = () => {
   const mockLogin = user => event => {
     // get token
     const {email, uuid} = user;
-    api[loginContext.env].fetchToken({uuid, email})
-      .then(resp => {
-        // token fetch was successful, update context with user information
-        const identifier = randomString(32)
+    // token fetch was successful, update context with user information
+    const identifier = randomString(32)
 
-        dispatch({
-          type: 'update',
-          userData: {
-            ...resp,
-            auth: true,
-            mockState: identifier
-          }
-        })
+    dispatch({
+      type: 'update',
+      userData: {
+        uuid,
+        email,
+        auth: true,
+        mockState: identifier
+      }
+    })
 
-        navigate(`/signin?code=${uuid}&state=${identifier}`,{
-          state: {
-            mockUserLogin: true,
-            state: identifier,
-            profile: {
-              sub: uuid,
-              email,
-              jti: randomString(22)
-            }
-          }
-        })
-
-        // redirect to dashboard
-        // if(roleName === 'ROLE_PPE_MOCHA_ADMIN') {
-        //   navigate('/dashboard-mocha')
-        // } else {
-        //   navigate('/dashboard')
-        // }
-      })
+    navigate(`/signin?code=${uuid}&state=${identifier}`,{
+      state: {
+        mockUserLogin: true,
+        state: identifier,
+        profile: {
+          sub: uuid,
+          email,
+          jti: randomString(22)
+        }
+      }
+    })
   }
 
   const clearRole = () => {

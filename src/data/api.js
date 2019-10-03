@@ -1,4 +1,5 @@
 import { createUUID } from '../utils/utils'
+import queryString from 'query-string'
 
 async function fetchMockUsersLocal(){
   // get mock user id list
@@ -148,16 +149,13 @@ async function fetchUserLocal({uuid, patientId, email, token}){
   console.log("fetchUser data sent to server:", 
     `\nuuid: ${uuid}`,
     `\npatientId: ${patientId}`,
-    `\nemail: ${email}`,
-    `\ntoken: ${token}`
+    `\nemail: ${email}`
   )
 
-  // get user data
-  // "/users?userName=:userName&singular=1"
-  // userName depricated
-  // const query = userName ? `/${userName}` : `?uuid=${uuid}&singular=1` 
+  let userData
 
-  let userData = await fetch(`/api/users?uuid=${uuid}&singular=1`)
+  if( typeof uuid === 'string'){
+    userData = await fetch(`/api/users?uuid=${uuid}&singular=1`)
     .then(resp => {
       if(resp.ok) {
         return resp.json()
@@ -169,55 +167,61 @@ async function fetchUserLocal({uuid, patientId, email, token}){
       console.log("no users found using uuid")
       return error
     })
+  }
 
-    if(userData.hasOwnProperty('message')) {
-      console.log("fetch using email")
-      userData = await fetch(`/api/users?email=${email}&singular=1`)
-      .then(resp => {
-        if(resp.ok) {
-          return resp.json()
-        } else {
-          throw new Error(`We were unable to fetch user data at this time. Please try again.`)
-        }
-      })
-      .catch(error => {
-        console.log("no users found using email")
-        return error
-      })
-    }
+  if( typeof email === 'string' && !userData || userData && userData.hasOwnProperty('message')){
+    console.log("fetch using email")
+    userData = await fetch(`/api/users?email=${email}&singular=1`)
+    .then(resp => {
+      if(resp.ok) {
+        return resp.json()
+      } else {
+        throw new Error(`We were unable to fetch user data at this time. Please try again.`)
+      }
+    })
+    .catch(error => {
+      console.log("no users found using email")
+      return error
+    })
+  }
 
-    if(userData.hasOwnProperty('message')) {
-      console.log("fetch using patientId")
-      userData = await fetch(`/api/users?patientId=${patientId}&singular=1`)
-      .then(resp => {
-        if(resp.ok) {
-          return resp.json()
-        } else {
-          throw new Error(`We were unable to fetch user data at this time. Please try again.`)
-        }
-      })
-      .catch(error => {
-        console.log("no users found using patientId")
-        return error
-      })
-    }
+  if(typeof patientId === 'string' && !userData || userData && userData.hasOwnProperty('message')){
+    console.log("fetch using patientId")
+    userData = await fetch(`/api/users?patientId=${patientId}&singular=1`)
+    .then(resp => {
+      if(resp.ok) {
+        return resp.json()
+      } else {
+        throw new Error(`We were unable to fetch user data at this time. Please try again.`)
+      }
+    })
+    .catch(error => {
+      console.log("no users found using patientId")
+      return error
+    })
+  }
 
-    return userData
-
+  return userData
 
 }
 
-async function fetchUserProd({uuid, userGUID, email, token}){
-  return await fetch(`/api/v1/user/${uuid}`,{
+async function fetchUserProd({uuid, patientId, email, token}){
+  let query = {}
+  if(typeof uuid === 'string'){
+    query.uuid = uuid
+  }
+  if(typeof patientId === 'string'){
+    query.patientId = patientId
+  }
+  if(typeof email === 'string'){
+    query.email = email
+  }
+
+  return await fetch(`/api/v1/user?${queryString.stringify(query)}`,{
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token
-    },
-    body: JSON.stringify({
-      uuid,
-      userGUID,
-      email
-    })
+    }
   })
   .then(resp => {
     if(resp.ok) {
