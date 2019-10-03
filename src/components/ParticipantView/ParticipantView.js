@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Divider, Grid, Typography, Link } from '@material-ui/core'
+import { ClickAwayListener, Divider, Grid, Typography, Link } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { api } from '../../data/api'
-import { LoginContext } from '../login/Login.context'
+import { LoginContext, LoginConsumer } from '../login/Login.context'
 import TestResultsItem from '../TestResults/TestResultsItem'
 import NoItems from '../NoItems/NoItems'
 import ExpansionMenu from '../ExpansionMenu/ExpansionMenu'
@@ -90,6 +90,10 @@ const TestResults = (props) => {
     setMenuOpen(state)
   }
 
+  const handleClickAway = () => {
+    setMenuOpen(false);
+  };
+
 
   return (
     <>
@@ -101,15 +105,25 @@ const TestResults = (props) => {
             <Typography component="p"><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
             <Typography component="p">{formatPhoneNumber(user.phoneNumber)}</Typography>
           </div>
-          <ExpansionMenu
-            id="panel1"
-            name="Account actions"
-            className={classes.menu}
-            expanded={menuOpen}
-            handleClick={handleMenuState}
-            >
-              <Link onClick={openUploadDialog}>Upload consent form</Link>
-          </ExpansionMenu>
+          <LoginConsumer>
+            {([{roleName}]) => {
+              return (roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && (
+                <ClickAwayListener onClickAway={handleClickAway}>
+                  <div>
+                    <ExpansionMenu
+                      id="panel1"
+                      name="Account actions"
+                      className={classes.menu}
+                      expanded={menuOpen}
+                      handleClick={handleMenuState}
+                      >
+                        <Link onClick={openUploadDialog}>Upload consent form</Link>
+                    </ExpansionMenu>
+                  </div>
+                </ClickAwayListener>
+              )
+            }}
+          </LoginConsumer>
         </div>
       )}
 
