@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ClickAwayListener, Divider, Grid, Typography, Link } from '@material-ui/core'
+import { ClickAwayListener, Divider, Grid, MenuItem, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { api } from '../../data/api'
@@ -61,7 +61,7 @@ const TestResults = (props) => {
   const [user, setUser] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     //fetch participant data
@@ -83,6 +83,7 @@ const TestResults = (props) => {
   const closeUploadDialog = (success) => {
     setDialogOpen(false)
     // setting success to true will trigger data refresh
+    // TODO: on success update front-end state instead of data fetch
     setUploadSuccess(success)
   }
 
@@ -117,7 +118,7 @@ const TestResults = (props) => {
                       expanded={menuOpen}
                       handleClick={handleMenuState}
                       >
-                        <Link onClick={openUploadDialog}>Upload consent form</Link>
+                        <MenuItem onClick={openUploadDialog}>Upload consent form</MenuItem>
                     </ExpansionMenu>
                   </div>
                 </ClickAwayListener>

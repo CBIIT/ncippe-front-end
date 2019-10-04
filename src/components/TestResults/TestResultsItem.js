@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Badge, Card, CardActions, CardContent, Typography, Button } from '@material-ui/core';
+import { Badge, Card, CardActions, CardContent, Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   GetApp as GetAppIcon,
@@ -44,6 +44,11 @@ const useStyles = makeStyles(theme => ({
   icon: {
     marginRight: '4px'
   },
+  badge: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  }
 }))
 
 const TestResultsItem = (props) => {

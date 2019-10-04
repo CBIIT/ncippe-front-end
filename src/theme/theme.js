@@ -136,8 +136,6 @@ export const theme = createMuiTheme({
         display: 'block',
       },
       badge: {
-        right: "24px",
-        transform: 'none',
         borderRadius: '0 0 6px 6px',
         padding: "8px 16px",
         textTransform: 'uppercase',
@@ -148,6 +146,10 @@ export const theme = createMuiTheme({
         fontWeight: 600,
         lineHeight: '12px',
         height: 'auto',
+      },
+      anchorOriginTopRightRectangle: {
+        right: "24px",
+        transform: 'none',
       }
     },
     MuiGrid: {
