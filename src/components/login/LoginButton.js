@@ -1,21 +1,25 @@
 import React, { useContext } from 'react'
 import { Button } from '@material-ui/core';
 import { LoginContext } from './Login.context'
+import { AuthContext } from './AuthContext'
 
 const LoginButton = () => {
   const [loginContext, dispatch] = useContext(LoginContext)
+  const { signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
+  const { auth } = loginContext
   const handleClick = () => {
-    if(loginContext.auth) {
+    if(auth) {
       // reset user data and log-out
+      signoutRedirectCallback()
       dispatch({
         type: 'reset'
       })
     } else {
-      // This is where we dispatch action to trigger login modal
-      alert('Sign in form not implemented yet')
+      // Using openID to redirect to login.gov
+      signinRedirect()
     }
   }
-  return <Button variant="contained" color="primary" onClick={handleClick}>Log {loginContext.auth ? 'Out' : 'In'}</Button>
+  return <Button variant="contained" color="primary" onClick={handleClick}>Log {auth ? 'Out' : 'In'}</Button>
 }
 
 export default LoginButton

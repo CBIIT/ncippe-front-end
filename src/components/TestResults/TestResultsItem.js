@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Badge, Card, CardActions, CardContent, Typography, Button } from '@material-ui/core';
+import { Badge, Card, CardActions, CardContent, Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   GetApp as GetAppIcon,
@@ -8,8 +8,9 @@ import {
 import moment from 'moment'
 
 import { api } from '../../data/api'
-import { LoginContext } from '../login/SharedLogin/Login.context'
+import { LoginContext } from '../login/Login.context'
 import ConditionalWrapper from '../utils/ConditionalWrapper'
+import { getBool } from '../../utils/utils'
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -43,15 +44,20 @@ const useStyles = makeStyles(theme => ({
   icon: {
     marginRight: '4px'
   },
+  badge: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  }
 }))
 
 const TestResultsItem = (props) => {
-  const {report,noBadge} = props
+  const {report, noBadge, patientId} = props
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
-  const {userGUID,env,token} = loginContext
+  const {uuid, env, token} = loginContext
   const {fileName, dateUploaded, fileGUID} = report
-  const [isNewReport, setIsNewReport] = useState(report.viewedBy ? !report.viewedBy.includes(loginContext.userGUID) : true)
+  const [isNewReport, setIsNewReport] = useState(report.viewedBy ? !report.viewedBy.includes(uuid) : true)
 
   // response header example to parse
   //Content-Disposition: attachment; filename=dummy_PatientReport - Copy8322721829336469280.pdf
@@ -113,9 +119,52 @@ const TestResultsItem = (props) => {
       })
       .then(() => {
         // mark this report as viewed in database
-        api[env].reportViewedBy({userGUID,reportId, token})
-        // mark as viewed in front-end state
-        setIsNewReport(false)
+        api[env].reportViewedBy({patientId, uuid, reportId, token})
+        .then(resp => {
+          if (resp === true) {
+            // mark as viewed in front-end state
+            setIsNewReport(false)
+
+            // update participant state
+            if(!patientId) {
+              const updatedReports = loginContext.reports.map((report,i) => {
+                if(report.fileGUID === reportId) {
+                  const viewedBy = report.viewedBy || []
+                  return {
+                    ...report,
+                    viewedBy: [...new Set([...viewedBy, uuid])]
+                  }
+                }
+                return report
+              })
+
+              dispatch({
+                type: 'reportViewedByPatient',
+                reports: updatedReports,
+                uuid
+              })
+            }
+            // update user roles that can view this patient's reports
+            else {
+              const updatedPatients = loginContext.patients.map((patient,i) => {
+                const badgesOnPage = document.querySelectorAll('#reports .MuiBadge-root')
+                if(patient.patientId === patientId) {
+                  return {
+                    ...patient,
+                    hasNewReports: getBool(badgesOnPage.length)
+                  }
+                }
+                return patient
+              })
+              
+              dispatch({
+                type: 'reportViewedByOther',
+                patients: updatedPatients
+              })
+            }
+            
+          }
+        })
       })
       .catch(error => {
         console.error(error)

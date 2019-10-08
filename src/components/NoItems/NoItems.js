@@ -19,7 +19,8 @@ const useStyles = makeStyles( theme => ({
   },
 }))
 
-const NoItems = ({message}) => {
+const NoItems = (props) => {
+  const {message} = props
   const classes = useStyles()
 
   return (

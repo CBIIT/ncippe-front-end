@@ -4,10 +4,9 @@ import { FormControl, TextField, Paper, Typography, Button} from '@material-ui/c
 import { makeStyles } from '@material-ui/core/styles'
 import EditIcon from '@material-ui/icons/Edit';
 
-import { LoginContext } from '../../components/login/SharedLogin/Login.context'
+import { LoginContext } from '../../components/login/Login.context'
 import PhoneNumbner from '../inputs/PhoneNumber/PhoneNumber'
 import EmailOption from '../inputs/EmailOption/EmailOption'
-import { getBool } from '../../utils/utils'
 import { api } from '../../data/api'
 
 const useStyles = makeStyles(theme => ({
@@ -39,7 +38,7 @@ const useStyles = makeStyles(theme => ({
 // save event handler to submit data back to the server
 // cancel will revert values back to data values
 
-const Profile = (props) => {
+const Profile = () => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const [editMode, setEditMode] = useState(false)
@@ -52,7 +51,7 @@ const Profile = (props) => {
     event.preventDefault();
 
     const phoneNumber = event.target['phone-number-input'].value || ''
-    const allowEmailNotification = event.target['notifications-input'].checked
+    const allowEmailNotification = event.target['notifications-input'].checked ? true : false
     // pattern must be a valid phone number or empty input mask pattern
     const phonePattern = /\([2-9]\d{2}\)\s?[2-9]\d{2}-\d{4}|\(\s{3}\)\s{4}-\s{4}/
 
@@ -64,9 +63,9 @@ const Profile = (props) => {
         phoneNumber: cleanPhoneNumber,
         allowEmailNotification
       }
-      const { token, env, userGUID } = loginContext
-      const userName = env === 'local' ? loginContext.id : loginContext.userName
-      api[env].updateUser({userName, userGUID, token, data})
+      const { token, env, uuid, id } = loginContext
+      const userId = env === 'local' ? id : uuid
+      api[env].updateUser({uuid: userId, token, data})
         .then(resp => {
           if(resp === true) {
             // Save successful, also update the user context data
@@ -85,7 +84,7 @@ const Profile = (props) => {
     }
   }
 
-  const cancelEdit = (event) => {
+  const cancelEdit = () => {
     //restore user context
     setUserPhone(loginContext.phoneNumber)
     setUserOptIn(loginContext.allowEmailNotification)

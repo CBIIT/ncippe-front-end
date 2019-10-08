@@ -35,7 +35,8 @@ const useStyles = makeStyles( theme => ({
     backgroundColor: statusTheme[props.state].background,
     flexWrap: 'nowrap',
     margin: theme.spacing(2, 0),
-    maxWidth: "500px"
+    maxWidth: "500px",
+    textAlign: "left"
   }),
   gridItem_icon: {
     margin: theme.spacing(2)

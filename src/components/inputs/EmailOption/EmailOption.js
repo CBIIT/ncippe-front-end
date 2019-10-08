@@ -17,7 +17,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const EmailOption = ({value, editMode, onClick}) => {
+const EmailOption = (props) => {
+  const {value, editMode, onClick} = props
   const classes = useStyles()
   const [checked, setChecked] = useState(value)
 

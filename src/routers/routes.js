@@ -7,6 +7,8 @@ import Home from '../pages/HomePage'
 import WhatToExpect from '../pages/WhatToExpectPage'
 import Privacy from '../pages/PrivacyPage'
 import Dashboard from '../pages/DashboardPage'
+import SignInCallback from '../pages/SignInCallback'
+import Errors from '../pages/ErrorPage' // 'Error' is reserved keyword
 import DashboardMocha from '../pages/DashboardMochaPage'
 import MockUsersPage from '../pages/MockUsersPage'
 import NotificationsPage from '../pages/NotificationsPage'
@@ -15,14 +17,20 @@ import ParticipantPage from '../pages/ParticipantPage'
 import ConsentPage from '../pages/ConsentPage'
 import ProfilePage from '../pages/ProfilePage'
 import GetHelpPage from '../pages/GetHelpPage'
+
+import Activate from '../pages/ActivatePage'
 import pageWrapper from '../pages/pageWrapper'
-import { LoginConsumer } from '../components/login/SharedLogin/Login.context'
+import { LoginConsumer } from '../components/login/Login.context'
 
 const HomePage = pageWrapper(Home)
 const DashboardPage = pageWrapper(Dashboard)
 const DashboardMochaPage = pageWrapper(DashboardMocha)
 const WhatToExpectPage = pageWrapper(WhatToExpect)
 const PrivacyPage = pageWrapper(Privacy)
+const ActivatePage = pageWrapper(Activate)
+const SignInCallbackPage = pageWrapper(SignInCallback)
+const ErrorPage = pageWrapper(Errors)
+
 // const NotFoundPage = pageWrapper(NotFound)
 
 
@@ -49,14 +57,17 @@ export default () => (
         >
           <Router location={location} primary={false}>
             <HomePage path='/' />
+            <ActivatePage path='/activate' />
+            <SignInCallbackPage path='/signin' />
+            <ErrorPage path='/error' />
             <PrivacyPage path='/privacy' />
             <PrivateRoute path='/dashboard' component={DashboardPage} />
-            <MockUsersPage path='/dashboard/mock-users' />
+            <MockUsersPage path='/mock-users' />
             <PrivateRoute path='/dashboard-mocha' component={DashboardMochaPage} />
             <PrivateRoute path='/dashboard/notifications' component={NotificationsPage} />
             <PrivateRoute path='/dashboard/consent' component={ConsentPage} />
             <PrivateRoute path='/dashboard/tests' component={TestResultsPage} />
-            <PrivateRoute path='/dashboard/participant/:userName' component={ParticipantPage} />
+            <PrivateRoute path='/dashboard/participant/:patientId' component={ParticipantPage} />
             <PrivateRoute path='/dashboard/profile' component={ProfilePage} />
             <PrivateRoute path='/dashboard/help' component={GetHelpPage} />
             {/* <NotFoundPage default /> */}

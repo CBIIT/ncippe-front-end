@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { Box, Container, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 
-import { LoginContext } from '../components/login/SharedLogin/Login.context'
+import { LoginContext } from '../components/login/Login.context'
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
 import TestResultsItem from '../components/TestResults/TestResultsItem'
 import NoItems from '../components/NoItems/NoItems'
@@ -29,9 +29,9 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default (props) => {
+export default () => {
   const classes = useStyles()
-  const [loginContext, dispatch] = useContext(LoginContext)
+  const [loginContext] = useContext(LoginContext)
   const {otherDocuments: files} = loginContext
   return (
     <Box className="popup">

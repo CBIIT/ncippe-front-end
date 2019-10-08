@@ -1,24 +1,24 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@material-ui/core';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import React, { useContext, useEffect, useState } from 'react'
+import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@material-ui/core'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 
 import { api } from '../../data/api'
-import { LoginContext } from '../login/SharedLogin/Login.context'
+import { LoginContext } from '../login/Login.context'
 import Status from '../Status/Status'
 import FileItem from '../Mocha/FileItem'
 
 const useStyles = makeStyles(theme => ({
-  contentText: {
-    marginBottom: theme.spacing(2)
-  },
-  formUpload: {
-    marginTop: theme.spacing(3)
-  },
-  formButtons: {
-    marginTop: theme.spacing(2)
-  },
+  // contentText: {
+  //   marginBottom: theme.spacing(2)
+  // },
+  // formUpload: {
+  //   marginTop: theme.spacing(3)
+  // },
+  // formButtons: {
+  //   marginTop: theme.spacing(2)
+  // },
   btnSelectReport: {
     margin: theme.spacing(3,0,3)
   },
@@ -45,36 +45,35 @@ const formDataDefaults = {
 }
 
 const UploadConcentDialog = (props) => {
+  const {open, setParentState, patientId} = props
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState(formDataDefaults)
   const [activeStep, setActiveStep] = useState(0)
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(() => {
-    setOpen(props.open)
+    setIsOpen(open)
     //clean up
     return () => {}
-  },[props.open])
+  },[open])
 
   const handleClose = (e, success = false) => {
-    if(props.setParentState){
+    if(setParentState){
       if(typeof success === 'boolean'){
-        props.setParentState(success)
+        setParentState(success)
       } else {
-        props.setParentState(false)
+        setParentState(false)
       }
     } else {
-      setOpen(false);
+      setIsOpen(false)
     }
   }
 
   // controled file input
   const handleFileChange = (event) => {
-    // console.log(event.currentTarget.files); // cancel returns null
-    // console.log(event.currentTarget.files.item(0)); // cancel returns null
     //f = f.replace(/.*[\/\\]/, ''); -ie: evt.target.files[0].name
     const file = event.currentTarget.files.item(0)
 
@@ -88,7 +87,7 @@ const UploadConcentDialog = (props) => {
 
   const handleRemoveFile = () => {
     const fileInput = document.getElementById('upload-file')
-    fileInput.value = null;
+    fileInput.value = null
     setFormData({
       ...formData,
       file: null,
@@ -97,7 +96,7 @@ const UploadConcentDialog = (props) => {
   }
 
   const uploadFile = () => {
-    const {token, env, userGUID} = loginContext
+    const {token, env, uuid} = loginContext
 
     // verify that report data exists before fetch call
     if(!!formData.file) {
@@ -109,15 +108,17 @@ const UploadConcentDialog = (props) => {
       }))
       // fake response delay
       // setTimeout(() => {
-        api[env].uploadPatientReport({
-          patientGUID: props.patientGUID,
-          userGUID,
+        api[env].uploadConsentForm({
+          patientId,
+          uuid,
           reportFile: formData.file,
           fileType: 'PPE_FILETYPE_ECONSENT_FORM',
           token
         })
         .then(resp => {
           if(resp === true) {
+            // TODO: Save successful - update front-end state for patient
+
             // Save successful - close modal
             handleClose(null, true)
           } else {
@@ -147,7 +148,7 @@ const UploadConcentDialog = (props) => {
   return (
     <Dialog
       fullScreen={fullScreen}
-      open={open}
+      open={isOpen}
       onClose={handleClose}
       aria-labelledby="responsive-dialog-title"
     >
@@ -187,7 +188,7 @@ const UploadConcentDialog = (props) => {
         <Button variant="text" className={classes.btnCancel} onClick={handleClose}><ClearIcon />Cancel</Button>
       </DialogActions>
     </Dialog>
-  );
+  )
 }
 
 export default UploadConcentDialog

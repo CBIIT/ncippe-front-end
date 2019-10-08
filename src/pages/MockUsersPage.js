@@ -3,9 +3,11 @@ import { navigate } from '@reach/router'
 import {Box, Button, Container, Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { LoginConsumer, LoginContext } from '../components/login/SharedLogin/Login.context'
+import { LoginConsumer, LoginContext } from '../components/login/Login.context'
 import { api } from '../data/api'
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
+import Status from '../components/Status/Status'
+import { randomString } from '../utils/utils'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,42 +35,52 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-const MockRoles = (props) => {
+const MockRoles = () => {
   const classes = useStyles()
   const [users, setUsers] = useState()
+  const [error, setError] = useState(false)
   const [loginContext, dispatch] = useContext(LoginContext)
 
   // Fetch mock users on ComponentDidMount
   useEffect(() => {
     //fetch mock users list
-    api[loginContext.env].fetchMockUsers().then(res => {
-      setUsers(res)
+    api[loginContext.env].fetchMockUsers().then(resp => {
+      Array.isArray(resp) ? setUsers(resp) : setError(resp)
     })
   }, [])
 
   const mockLogin = user => event => {
     // get token
-    const {userName, firstName, lastName, roleName, userGUID} = user;
-    api[loginContext.env].fetchToken({userName, firstName, lastName, roleName})
-      .then(resp => {
-        // token fetch was successful, update context with user information
-        dispatch({
-          type: 'update',
-          userData: {
-            ...resp,
-            auth: true,
-            userName,
-            userGUID
-          }
-        })
+    const {email, uuid} = user;
+    // token fetch was successful, update context with user information
+    const identifier = randomString(32)
 
-        // redirect to dashboard
-        if(roleName === 'ROLE_PPE_MOCHA_ADMIN') {
-          navigate('/dashboard-mocha')
-        } else {
-          navigate('/dashboard')
+    dispatch({
+      type: 'update',
+      userData: {
+        uuid,
+        email,
+        auth: true,
+        mockState: identifier
+      }
+    })
+
+    navigate(`/signin?code=${uuid}&state=${identifier}`,{
+      state: {
+        mockUserLogin: true,
+        state: identifier,
+        profile: {
+          sub: uuid,
+          email,
+          jti: randomString(22)
         }
-      })
+      }
+    })
+  }
+
+  const clearRole = () => {
+    localStorage.clear()
+    dispatch({type:'reset'})
   }
 
   return (
@@ -81,12 +93,14 @@ const MockRoles = (props) => {
             return auth ? (
               <>
                 <Typography variant="h2"><Button variant="contained" className={classes.largeButton} onClick={() => navigate('/dashboard')}>Return to Dashboard as {firstName} {lastName} ({roleName})</Button></Typography>
-                <Typography variant="h2"><Button variant="contained" className={classes.largeButton} color="primary" onClick={() => {dispatch({type:'reset'})}}>Clear Role as {firstName} {lastName} ({roleName})</Button></Typography>
+                <Typography variant="h2"><Button variant="contained" className={classes.largeButton} color="primary" onClick={clearRole}>Clear Role as {firstName} {lastName} ({roleName})</Button></Typography>
               </>
             ) : (
               <>
-              {users && users.map((user,i) => <Typography variant="h2"><Button key={i} variant='contained' className={classes.largeButton} onClick={mockLogin(user)}>{user.firstName} {user.lastName} ({user.roleName})</Button></Typography>)}
-              {!users && <h3>Error: Unable to retrieve mock users</h3>}
+              {users && users.map((user,i) => <Typography key={i} variant="h2">
+                  <Button variant='contained' className={classes.largeButton} onClick={mockLogin(user)}>{user.firstName} {user.lastName} ({user.roleName})</Button>
+                </Typography>)}
+              {error && <Status state="error" title={error.name} message={error.message} />}
               </>
             )
           }}

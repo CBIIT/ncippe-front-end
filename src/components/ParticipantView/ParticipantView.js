@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Divider, Grid, Typography, Link } from '@material-ui/core'
+import { ClickAwayListener, Divider, Grid, MenuItem, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { api } from '../../data/api'
-import { LoginContext } from '../login/SharedLogin/Login.context'
+import { LoginContext, LoginConsumer } from '../login/Login.context'
 import TestResultsItem from '../TestResults/TestResultsItem'
 import NoItems from '../NoItems/NoItems'
 import ExpansionMenu from '../ExpansionMenu/ExpansionMenu'
@@ -61,14 +61,14 @@ const TestResults = (props) => {
   const [user, setUser] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    //fetch user
-    const {userName, token, env} = loginContext
-    const patientID = props.userName || userName
-    const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).userGUID
-    api[env].fetchPatientTestResults({userGUID: patientGUID, userName: patientID, token}).then(resp => {
+    //fetch participant data
+    const {token, env} = loginContext
+    const patientId = props.patientId
+    // const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).uuid
+    api[env].fetchPatientTestResults({patientId, token}).then(resp => {
       setReports(resp.reports)
       setFiles(resp.otherDocuments)
       setUser(resp)
@@ -83,12 +83,17 @@ const TestResults = (props) => {
   const closeUploadDialog = (success) => {
     setDialogOpen(false)
     // setting success to true will trigger data refresh
+    // TODO: on success update front-end state instead of data fetch
     setUploadSuccess(success)
   }
 
   const handleMenuState = (state) => {
     setMenuOpen(state)
   }
+
+  const handleClickAway = () => {
+    setMenuOpen(false);
+  };
 
 
   return (
@@ -101,43 +106,53 @@ const TestResults = (props) => {
             <Typography component="p"><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
             <Typography component="p">{formatPhoneNumber(user.phoneNumber)}</Typography>
           </div>
-          <ExpansionMenu
-            id="panel1"
-            name="Account actions"
-            className={classes.menu}
-            expanded={menuOpen}
-            handleClick={handleMenuState}
-            >
-              <Link onClick={openUploadDialog}>Upload consent form</Link>
-          </ExpansionMenu>
+          <LoginConsumer>
+            {([{roleName}]) => {
+              return (roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && (
+                <ClickAwayListener onClickAway={handleClickAway}>
+                  <div>
+                    <ExpansionMenu
+                      id="panel1"
+                      name="Account actions"
+                      className={classes.menu}
+                      expanded={menuOpen}
+                      handleClick={handleMenuState}
+                      >
+                        <MenuItem onClick={openUploadDialog}>Upload consent form</MenuItem>
+                    </ExpansionMenu>
+                  </div>
+                </ClickAwayListener>
+              )
+            }}
+          </LoginConsumer>
         </div>
       )}
 
       <Divider className={classes.divider} />
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} id="reports">
           <Typography className={classes.header} variant="h2" component="h2">Biomarker tests</Typography>
           {reports && reports.length > 0 ? (
             <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-              {reports && reports.map((report,i) => <Grid item xs={12} key={i}><TestResultsItem report={report} /></Grid>)}
+              {reports && reports.map((report,i) => <Grid item xs={12} key={i}><TestResultsItem report={report} patientId={user.patientId} /></Grid>)}
             </Grid>
           ) : (
             <NoItems message="No reports available for this participant." />
           )}
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} id="eConsentForms">
           <Typography className={classes.header} variant="h2" component="h2">Consent forms</Typography>
           {uploadSuccess && <Status state="success" title="Consent form uploaded successfully!" message="We sent an email to let the participant know." />}
           {files && files.length > 0 ? (
             <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-              {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} noBadge /></Grid>)}
+              {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} patientId={user.patientId} noBadge /></Grid>)}
             </Grid>
           ) : (
             <NoItems message="No consent forms are available for this participant." />
           )}
         </Grid>
       </Grid>
-      <UploadConsentDialog open={dialogOpen} setParentState={closeUploadDialog} patientGUID={user.userGUID} />
+      <UploadConsentDialog open={dialogOpen} setParentState={closeUploadDialog} patientId={user.patientId} />
     </>
   )
 }

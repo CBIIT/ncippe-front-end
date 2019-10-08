@@ -199,7 +199,7 @@ const useStyles = makeStyles( theme => ({
   },
 }))
 
-const HomePage = (props) => {
+const HomePage = () => {
   const classes = useStyles()
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
 

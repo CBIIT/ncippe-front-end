@@ -15,7 +15,8 @@ const stepText = [
   'System notifies patient'
 ]
 
-const UploadStepper = ({activeStep = 0}) => {
+const UploadStepper = (props) => {
+  const {activeStep = 0} = props
   const classes = useStyles()
 
   return (

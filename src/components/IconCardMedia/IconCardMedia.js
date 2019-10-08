@@ -24,7 +24,8 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const Component = ({title, desc, image, imageTitle, link, linkText,}) => {
+const Component = (props) => {
+  const {title, desc, image, imageTitle, link, linkText} = props
   const classes = useStyles()
 
   return (

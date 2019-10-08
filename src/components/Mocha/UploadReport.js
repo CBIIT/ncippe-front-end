@@ -6,12 +6,12 @@ import {
 } from '@material-ui/icons'
 
 import { api } from '../../data/api'
-import { LoginContext } from '../login/SharedLogin/Login.context'
+import { LoginContext } from '../login/Login.context'
 import UploadStepper from './UploadStepper'
 import FileItem from './FileItem'
 import { isValidUserId } from '../../utils/utils'
 import Status from '../Status/Status'
-// import ToggleEnvButton from '../login/SharedLogin/ToggleEnvButton'
+// import ToggleEnvButton from '../login/ToggleEnvButton'
 
 const useStyles = makeStyles( theme => ({
   paper: {
@@ -62,12 +62,12 @@ const patientDataDefaults = {
   noFound: false
 }
 
-const UploadReport = (props) => {
+const UploadReport = () => {
   const classes = useStyles()
   const [formData, setFormData] = useState(formDataDefaults)
   const [activeStep, setActiveStep] = useState(0)
   const [patientData, setPatientData] = useState(patientDataDefaults)
-  const [loginContext, dispatch] = useContext(LoginContext)
+  const [loginContext] = useContext(LoginContext)
 
   // controlled text input
   const handlePatientId = (event) => {
@@ -82,8 +82,6 @@ const UploadReport = (props) => {
 
   // controled file input
   const handleFileChange = (event) => {
-    // console.log(event.currentTarget.files); // cancel returns null
-    // console.log(event.currentTarget.files.item(0)); // cancel returns null
     //f = f.replace(/.*[\/\\]/, ''); -ie: evt.target.files[0].name
     const file = event.currentTarget.files.item(0)
 
@@ -119,11 +117,17 @@ const UploadReport = (props) => {
     // example GUID: b36284a2-cecf-4756-996c-abb0d8ba652c
     if(isValidUserId(patientData.patientId)) {
 
-      api[env].fetchUser({userGUID: patientData.patientId, token})
+      api[env].fetchUser({patientId: patientData.patientId, token})
       .then(resp => {
-        if(resp.hasOwnProperty('userName')){
+        if(resp.hasOwnProperty('message')) {
+          // user not found - show error
+          setPatientData(prevState => ({
+            ...prevState,
+            notFound: true
+          }))
+        } else {
           // user found - progress
-          const {firstName, lastName, userGUID: patientId} = resp
+          const {firstName, lastName, patientId} = resp
           setPatientData(prevState => ({
             ...prevState,
             firstName,
@@ -135,12 +139,6 @@ const UploadReport = (props) => {
             patientId
           }))
           setActiveStep(1)
-        } else {
-          // user not found - show error
-          setPatientData(prevState => ({
-            ...prevState,
-            notFound: true
-          }))
         }
       })
     } else {
@@ -153,7 +151,7 @@ const UploadReport = (props) => {
   }
 
   const uploadFile = () => {
-    const {token, env, userGUID} = loginContext
+    const {token, env, uuid} = loginContext
 
     // verify that report data exists before fetch call
     if(!!formData.reportFile) {
@@ -166,8 +164,8 @@ const UploadReport = (props) => {
       // fake response delay
       // setTimeout(() => {
         api[env].uploadPatientReport({
-          patientGUID: formData.patientId,
-          userGUID,
+          patientId: formData.patientId,
+          uuid,
           reportFile: formData.reportFile,
           fileType: 'PPE_FILETYPE_BIOMARKER_REPORT',
           token

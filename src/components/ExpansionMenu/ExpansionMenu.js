@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Typography } from '@material-ui/core';
-import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
-import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import { withStyles } from '@material-ui/core/styles'
+import React, { useState, useEffect } from 'react'
+import { Typography, MenuList } from '@material-ui/core'
+import MuiExpansionPanel from '@material-ui/core/ExpansionPanel'
+import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
+import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { ExpandMore as ExpandMoreIcon} from '@material-ui/icons'
 
 const ExpansionPanel = withStyles(theme => ({
@@ -49,11 +49,19 @@ const ExpansionPanelSummary = withStyles(theme => ({
 
 const ExpansionPanelDetails = withStyles(theme => ({
   root: {
-    padding: theme.spacing(1,2),
+    padding: 0,
   },
 }))(MuiExpansionPanelDetails);
 
+const useStyles = makeStyles(theme => ({
+  menuList: {
+    padding: 0,
+    width: '100%'
+  },
+}))
+
 const ExpansionMenu = (props) => {
+  const classes = useStyles()
   const {id = "panel1", name, children, className = ""} = props
   const [expanded, setExpanded] = useState(props.expanded);
 
@@ -81,7 +89,9 @@ const ExpansionMenu = (props) => {
         <Typography variant="h4">{name}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        {children}
+        <MenuList className={classes.menuList} autoFocusItem={true}>
+          {children}
+        </MenuList>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   )

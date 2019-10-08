@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Router, Link as RouterLink } from '@reach/router'
-import { AppBar, Box, Card, CardContent, CardMedia, Link, Container, Grid, Tab, Tabs, Typography } from '@material-ui/core'
+import { AppBar, Box, Card, CardMedia, Link, Container, Grid, Tab, Tabs, Typography } from '@material-ui/core'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { OpenInNew as OpenInNewIcon } from '@material-ui/icons'
 import { useScript } from '../components/utils/useScript'
@@ -275,8 +275,6 @@ const Discuss = withStyles(theme => ({
     e.preventDefault()
     // const cords = e.currentTarget.dataset.location
     const state = e.currentTarget.dataset.location
-    // console.log(cords)
-    console.log("map",map)
     map.setView(locations[state],9)
   }
 
@@ -289,7 +287,7 @@ const Discuss = withStyles(theme => ({
         </Grid>
         <Grid item xs={12} sm={5} md={4}>
           <Box className={classes.locations}>
-            <a href="#" data-location="IL" onClick={updateMap}>
+            <Link data-location="IL" onClick={updateMap}>
               <Typography className={classes.title}>Stroger Hospital of Cook County Minority Underserved NCORP</Typography>
               <Typography>
                 2240 West Ogden Avenue,<br />
@@ -298,8 +296,8 @@ const Discuss = withStyles(theme => ({
                 Meng Ru<br />
                 (555) 555-5555
               </Typography>
-            </a>
-            <a href="#" data-location="TN" onClick={updateMap}>
+            </Link>
+            <Link data-location="TN" onClick={updateMap}>
               <Typography className={classes.title}>Baptist Memorial Health Care/Mid South Minority Underserved NCORP</Typography>
               <Typography>
                 Baptist Cancer Center,<br />
@@ -308,8 +306,8 @@ const Discuss = withStyles(theme => ({
                 Emlen Beaver<br />
                 (555) 555-5555<br />
               </Typography>
-            </a>
-            <a href="#" data-location="NM" onClick={updateMap}>
+            </Link>
+            <Link data-location="NM" onClick={updateMap}>
               <Typography className={classes.title}>New Mexico Minority Underserved NCORP</Typography>
               <Typography>
                 The University of New Mexico,<br />
@@ -318,8 +316,8 @@ const Discuss = withStyles(theme => ({
                 Saami Al Samad<br />
                 (555) 555-5555<br />
               </Typography>
-            </a>
-            <a href="#" data-location="VA" onClick={updateMap}>
+            </Link>
+            <Link data-location="VA" onClick={updateMap}>
               <Typography className={classes.title}>VCU Massey Cancer Center Minority Underserved NCORP</Typography>
               <Typography>
                 800 East Leigh Street<br />
@@ -327,8 +325,8 @@ const Discuss = withStyles(theme => ({
                 Paulina Gayoso<br />
                 (555) 555-5555<br />
               </Typography>
-            </a>
-            <a href="#" data-location="NY" onClick={updateMap}>
+            </Link>
+            <Link data-location="NY" onClick={updateMap}>
               <Typography className={classes.title}>Montefiore Minority Underserved NCORP</Typography>
               <Typography>
                 111 East 210th Street<br />
@@ -336,7 +334,7 @@ const Discuss = withStyles(theme => ({
                 Heather Clark<br />
                 (555) 555-5555<br />
               </Typography>
-            </a>
+            </Link>
           </Box>
         </Grid>
       </Grid>
@@ -395,7 +393,7 @@ const Consent = withStyles(theme => ({
             src='https://www.youtube.com/embed/OyCFbZYgL3U'
             title='A Dialogue on Cancer Disparities, Prevention, and Research: Facebook Live'
             allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-            allowfullscreen
+            allowFullScreen
           />
         </div>
       </Card>
@@ -446,14 +444,14 @@ const Donate = withStyles(theme => ({
   </TabPanel>
 ))
 
-const Testing = ({index,isMobile}) => (
+const Testing = ({index}) => (
   <TabPanel index={index}>
     <Typography variant="h3" component="h3">Biomarker Testing</Typography>
     <Typography>Content placeholder</Typography>
   </TabPanel>
 )
 
-const WhatToExpectPage = (props) => {
+const WhatToExpectPage = () => {
   const classes = useStyles()
   const [value, setValue] = useState(()=>{
     switch(window.location.pathname){
@@ -478,22 +476,6 @@ const WhatToExpectPage = (props) => {
     //clean up
     return () => {}
   },[isMobile])
-
-  // useEffect(() => {
-  //   const urls = [
-  //     'https://unpkg.com/leaflet@1.5.1/dist/leaflet.css',
-  //     'https://unpkg.com/leaflet@1.5.1/dist/leaflet.js'
-  //   ]
-  //   // Promise.all(urls.map(url =>
-  //   //   fetch(url).then(resp => resp.text())
-  //   // )).then(texts => {
-  //   //     console.log("scripts loaded!")
-  //   // })
-  // },[])
-
-
-
-
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

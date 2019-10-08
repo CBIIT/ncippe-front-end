@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { LoginContext } from '../login/SharedLogin/Login.context'
+import { LoginContext } from '../login/Login.context'
 import { api } from '../../data/api'
 
 import NotificationItem from './NotificationItem'
@@ -22,14 +22,27 @@ const useStyles = makeStyles(theme => ({
 const Notifications = () => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
-  const {notificationList, newNotificationCount} = loginContext
+  const { notificationList } = loginContext
   const count = notificationList ? notificationList.length : 0
 
   useEffect(() => {
-    //mark notifications as read
+    //mark notifications as read on unmount
+    const {token, env, uuid, newNotificationCount} = loginContext
     if(newNotificationCount){
-      const {token, env, userGUID} = loginContext
-      api[env].notificationsMarkAsRead({userGUID, token})
+      dispatch({
+        type: 'clearNewNotifications'
+      })
+    }
+    return () => {
+      if(newNotificationCount){
+        api[env].notificationsMarkAsRead({uuid, token}).then((resp)=>{
+          if (resp === true) {
+            dispatch({
+              type: 'notificationsMarkAsRead'
+            })
+          }
+        })
+      }
     }
   },[])
 
