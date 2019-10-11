@@ -1,4 +1,5 @@
 import React from 'react'
+import { navigate } from '@reach/router'
 import { Container, Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { ArrowBack } from '@material-ui/icons'
@@ -22,10 +23,14 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Breadcrumbs = () => {
-  const classes = useStyles();
+const Breadcrumbs = (props) => {
+  const classes = useStyles()
   const handleClick = () => {
-    window.history.back()
+    if(props.link) {
+      navigate(props.link)
+    } else {
+      window.history.back()
+    }
   }
   return (
     <Container className={classes.Breadcrumbs}>
@@ -36,4 +41,4 @@ const Breadcrumbs = () => {
   )
 }
 
-export default Breadcrumbs;
+export default Breadcrumbs

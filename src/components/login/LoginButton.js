@@ -19,7 +19,7 @@ const LoginButton = () => {
       signinRedirect()
     }
   }
-  return <Button variant="contained" color="primary" onClick={handleClick}>Log {auth ? 'Out' : 'In'}</Button>
+  return <Button variant="contained" color="primary" onClick={handleClick}>Sign {auth ? 'Out' : 'In'}</Button>
 }
 
 export default LoginButton

@@ -16,9 +16,9 @@ const pageWrapper = (Component) => ({children, ...props}) => {
   return (
     <>
       <Header />
-      <main className={classes.main}>
+      <div id="main" className={classes.main}>
         <Component {...props} />
-      </main>
+      </div>
       <Footer />
     </>
   )

@@ -163,18 +163,30 @@ async function fetchUserLocal({uuid, patientId, email, token}){
         throw new Error(`We were unable to fetch user data at this time. Please try again.`)
       }
     })
+    .then(data => {
+      if(data.portalAccountStatus === 'ACCT_TERMINATED_AT_PPE') {
+        return new Error(`This account has been closed`)
+      } else {
+        return data
+      }
+    })
     .catch(error => {
       console.log("no users found using uuid")
       return error
     })
   }
 
-  if( typeof email === 'string' && !userData || userData && userData.hasOwnProperty('message')){
+  if( (typeof email === 'string' && !userData) || (userData && userData.hasOwnProperty('message'))){
     console.log("fetch using email")
     userData = await fetch(`/api/users?email=${email}&singular=1`)
     .then(resp => {
       if(resp.ok) {
-        return resp.json()
+        const data = resp.json()
+        if(data.portalAccountStatus === 'ACCT_TERMINATED_AT_PPE') {
+          throw new Error(`This account has been closed`)
+        } else {
+          return data
+        }
       } else {
         throw new Error(`We were unable to fetch user data at this time. Please try again.`)
       }
@@ -185,12 +197,17 @@ async function fetchUserLocal({uuid, patientId, email, token}){
     })
   }
 
-  if(typeof patientId === 'string' && !userData || userData && userData.hasOwnProperty('message')){
+  if((typeof patientId === 'string' && !userData) || (userData && userData.hasOwnProperty('message'))){
     console.log("fetch using patientId")
     userData = await fetch(`/api/users?patientId=${patientId}&singular=1`)
     .then(resp => {
       if(resp.ok) {
-        return resp.json()
+        const data = resp.json()
+        if(data.portalAccountStatus === 'ACCT_TERMINATED_AT_PPE') {
+          throw new Error(`This account has been closed`)
+        } else {
+          return data
+        }
       } else {
         throw new Error(`We were unable to fetch user data at this time. Please try again.`)
       }
@@ -629,6 +646,150 @@ async function reportViewedByProd({uuid, reportId, token}){
   })
 }
 
+/*=======================================================================*/
+
+async function withdrawUserLocal({uuid, patientId, qsAnsDTO, token}){
+
+  let query = `patientId=${patientId}`
+
+  if(patientId === uuid) {
+    query = `uuid=${uuid}`
+  }
+
+  const userDetails = await fetch(`/api/users?${query}&singular=1`)
+    .then(resp => resp.json())
+    .catch(error => {
+      console.error(error)
+    })
+
+    const data = {
+      isActiveBiobankParticipant: false,
+      dateDeactivated: new Date(),
+      lastRevisedUser: uuid,
+      questionsAnswers: [
+        ...qsAnsDTO
+      ]
+    }
+    console.log("data sent to api", data)
+
+    // TODO: patch the CRC patient list as well
+    // await fetch(`/users/${uuid}`,{
+    //   method: 'PATCH',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(data)
+    // })
+    //   .then(resp => {
+    //     // TODO: put pdf file into dist folder using middleware
+    //     if(resp.ok) {
+    //       return true
+    //     } else {
+    //       throw new Error(`We were unable to mark notifications as read. Please try again.`)
+    //     }
+    //   })
+    //   .catch(error => {
+    //     console.error(error)
+    //   })
+
+    return await fetch(`/users/${userDetails.id}`,{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(resp => {
+      // TODO: put pdf file into dist folder using middleware
+      if(resp.ok) {
+        return data
+      } else {
+        throw new Error(`We were unable to withdraw the user account at this time. Please try again.`)
+      }
+    })
+    .catch(error => {
+      console.error(error)
+    })
+}
+
+async function withdrawUserProd({uuid, patientId, qsAnsDTO, token}){
+  return await fetch(`/api/v1/withdraw-user-participation/${patientId}?updatedByUser=${uuid}`,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    },
+    body: JSON.stringify({
+      qsAnsDTO
+    })
+  })
+  .then(resp => {
+    if(resp.ok) {
+      return true
+    } else {
+      throw new Error(`We were unable to withdraw the user account at this time. Please try again.`)
+    }
+  })
+  .catch(error => {
+    console.error(error)
+    return error
+  })
+}
+
+/*=======================================================================*/
+
+async function closeAccountLocal({uuid, token}){
+
+  const userDetails = await fetch(`/api/users?uuid=${uuid}&singular=1`)
+    .then(resp => resp.json())
+    .catch(error => {
+      console.error(error)
+    })
+
+    return await fetch(`/users/${userDetails.id}`,{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        portalAccountStatus: 'ACCT_TERMINATED_AT_PPE'
+      })
+    })
+      .then(resp => {
+        // TODO: put pdf file into dist folder using middleware
+        if(resp.ok) {
+          return true
+        } else {
+          throw new Error(`We were unable to close your account at this time. Please try again.`)
+        }
+      })
+      .catch(error => {
+        console.error(error)
+      })
+}
+
+async function closeAccountProd({uuid, token}){
+  return await fetch(`/api/v1/deactivate-user/${uuid}`,{
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+  })
+  .then(resp => {
+    if(resp.ok) {
+      return true
+    } else {
+      throw new Error(`We were unable to withdraw the user account at this time. Please try again.`)
+    }
+  })
+  .catch(error => {
+    console.error(error)
+    return error
+  })
+}
+
+
 
 export const api = {
   local: {
@@ -641,7 +802,9 @@ export const api = {
     uploadPatientReport: uploadPatientReportLocal,
     notificationsMarkAsRead: notificationsMarkAsReadLocal,
     reportViewedBy: reportViewedByLocal,
-    uploadConsentForm: uploadConsentFormLocal
+    uploadConsentForm: uploadConsentFormLocal,
+    withdrawUser: withdrawUserLocal,
+    closeAccount: closeAccountLocal,
   },
   prod: {
     fetchMockUsers: fetchMockUsersProd,
@@ -653,6 +816,8 @@ export const api = {
     uploadPatientReport: uploadPatientReportProd,
     notificationsMarkAsRead: notificationsMarkAsReadProd,
     reportViewedBy: reportViewedByProd,
-    uploadConsentForm: uploadPatientReportProd
+    uploadConsentForm: uploadPatientReportProd,
+    withdrawUser: withdrawUserProd,
+    closeAccount: closeAccountProd,
   }
 }

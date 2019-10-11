@@ -16,6 +16,7 @@ import TestResultsPage from '../pages/TestResultsPage'
 import ParticipantPage from '../pages/ParticipantPage'
 import ConsentPage from '../pages/ConsentPage'
 import ProfilePage from '../pages/ProfilePage'
+import ParticipationPage from '../pages/ParticipationPage'
 import GetHelpPage from '../pages/GetHelpPage'
 
 import Activate from '../pages/ActivatePage'
@@ -68,7 +69,9 @@ export default () => (
             <PrivateRoute path='/dashboard/consent' component={ConsentPage} />
             <PrivateRoute path='/dashboard/tests' component={TestResultsPage} />
             <PrivateRoute path='/dashboard/participant/:patientId' component={ParticipantPage} />
+            <PrivateRoute path='/dashboard/participant/:patientId/participation/*' component={ParticipationPage} />
             <PrivateRoute path='/dashboard/profile' component={ProfilePage} />
+            <PrivateRoute path='/dashboard/profile/participation/*' component={ParticipationPage} />
             <PrivateRoute path='/dashboard/help' component={GetHelpPage} />
             {/* <NotFoundPage default /> */}
           </Router>

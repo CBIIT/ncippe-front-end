@@ -35,7 +35,7 @@ const useStyles = makeStyles( theme => ({
     backgroundColor: statusTheme[props.state].background,
     flexWrap: 'nowrap',
     margin: theme.spacing(2, 0),
-    maxWidth: "500px",
+    maxWidth: props.fullWidth ? "none" : "500px",
     textAlign: "left"
   }),
   gridItem_icon: {
@@ -54,7 +54,7 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const Status = (props) => {
-  const {state, title, message} = props
+  const {state = 'info', title, message} = props
   const classes = useStyles(props)
 
   return (

@@ -1,0 +1,311 @@
+import React, { useContext, useState } from 'react'
+import { Button, Box, Dialog, DialogContent, DialogActions, FormControl, TextField, Typography } from '@material-ui/core'
+import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { Clear as ClearIcon } from '@material-ui/icons'
+
+import { LoginContext } from '../login/Login.context'
+import { api } from '../../data/api'
+import InputGroupError from '../inputs/InputGroupError/InputGroupError'
+
+const useStyles = makeStyles( theme => ({
+  header: {
+    marginBottom: theme.spacing(2)
+  },
+  formControl: {
+    margin: theme.spacing(2, 0, 5),
+  },
+  gutterBottom_2: {
+    marginBottom: theme.spacing(2)
+  },
+  dim: {
+    color: theme.palette.grey.medium
+  },
+  toggleButtonGroup: {
+    paddingTop: theme.spacing(1),
+    '& .MuiToggleButton-root': {
+      color: theme.palette.primary.main,
+      borderColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.common.white,
+      padding: theme.spacing(0, 3)
+    },
+    '& .MuiToggleButton-root:hover': {
+      backgroundColor: 'rgba(0, 0, 0, 0.08)'
+    },
+    '& .Mui-selected': {
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.primary.main,
+    },
+    '& .Mui-selected:hover': {
+      backgroundColor: theme.palette.primary.main
+    }
+  },
+  textFieldFormControl: {
+    width: '100%',
+    marginBottom: theme.spacing(5)
+  },
+  formButtons: {
+    marginBottom: theme.spacing(2)
+  },
+  btnCancel: {
+    marginLeft: theme.spacing(1)
+  },
+  confirm: {
+    backgroundColor: theme.palette.error.main,
+    color: theme.palette.common.white,
+    '&:hover': {
+      backgroundColor: theme.palette.error.dark,
+    }
+  }
+}))
+
+const LeaveQuestions = (props) => {
+  const {location: {state: {user}}} = props
+  const classes = useStyles()
+  const [loginContext, dispatch] = useContext(LoginContext)
+  const [questionData, setQuestionData] = useState({
+    q4: "Because I don't want to participate anymore."
+  })
+  const [q1Error, setQ1Error] = useState(false)
+  const [q2Error, setQ2Error] = useState(false)
+  const [q3Error, setQ3Error] = useState(false)
+
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const changeQuestion = (event, value) => {
+    const id = event.currentTarget.parentNode.id
+
+    switch (id) {
+      case "q1":
+        setQ1Error(false)
+        break;
+      case "q2":
+        setQ2Error(false)
+        break;
+      case "q3":
+        setQ3Error(false)
+        break;
+    }
+
+    setQuestionData(prevState => ({
+      ...prevState,
+      [id]: value
+    }))
+  }
+
+  const changeTextareaQuestion = (event) => {
+    const id = event.currentTarget.id
+    const value = event.currentTarget.value
+    setQuestionData(prevState => ({
+      ...prevState,
+      [id]: value
+    }))
+  }
+
+  const validateQuestions = () => {
+    let isValid = true
+    if(!questionData.q1) {
+      setQ1Error(true)
+      isValid = false
+    }
+    if(!questionData.q2) {
+      setQ2Error(true)
+      isValid = false
+    }
+    if(!user && !questionData.q3) {
+      setQ3Error(true)
+      isValid = false
+    }
+    return isValid
+  }
+
+  const handleNextStep = () => {
+    // validate - check for errors
+    if(validateQuestions()){
+      // open modal for final confirmation
+      setIsModalOpen(true)
+    }
+  }
+
+  const handleClose = () => {
+    setIsModalOpen(false)
+  }
+
+  const handleSubmit = () => {
+    const {uuid, env, token} = loginContext
+    let q3
+    const q1 = {
+      question: document.getElementById('q1-text').textContent,
+      answer: questionData['q1'],
+      questionOrder: "1"
+    }
+    const q2 = {
+      question: document.getElementById('q2-text').textContent,
+      answer: questionData['q2'],
+      questionOrder: "2"
+    }
+    if(!user) {
+      q3 = {
+        question: document.getElementById('q3-text').textContent,
+        answer: questionData['q3'],
+        questionOrder: "3"
+      }
+    }
+    const q4 = {
+      question: document.getElementById('q4-text').textContent,
+      answer: questionData['q4'],
+      questionOrder: "4"
+    }
+
+    const data = [
+      q1,
+      q2,
+      q4
+    ]
+
+    if(!user) {
+      data.push(q3)
+    }
+
+    api[env].withdrawUser({
+      uuid,
+      patientId: user ? user.patientId : uuid,
+      qsAnsDTO: data,
+      token
+    })
+    .then(resp => {
+      if(resp) {
+        // Save successful, also update the user context data
+        dispatch({
+          type: 'update',
+          userData: {
+            ...resp
+          }
+        })
+        props.cancel()
+      } else {
+        alert(resp.message)
+      }
+    })
+  }
+
+  return (
+    <Box>
+      <Typography className={classes.header} variant="h1" component="h1">Leave the Biobank project</Typography>
+      {user ? 
+      <>
+      <Typography variant="h2" component="h2">This will end {user.firstName} {user.lastName}'s participation</Typography>
+      <Typography className={classes.gutterBottom_2}>Please guide the patient through the following questions so that we can handle their biospecimens and related information in an appropriate manner.</Typography>
+      </>
+      :
+      <Typography className={classes.gutterBottom_2}>Before you leave the Biobank, we have a few questions about how to handle your samples and information.</Typography>
+      }
+      
+
+      <Typography id="q1-text" variant="h3" gutterBottom>May we continue to share {user ? "the participant's" : "your"} stored donated blood and tissue as well as relevant medical information with researchers?</Typography>
+      <Typography className={classes.dim}>Unfortunately, we cannot recover samples and information that has already been shared with researchers.</Typography>
+      <FormControl component="fieldset" className={classes.formControl}>
+        <InputGroupError error={q1Error} errorMessage="You must complete this field">
+          <ToggleButtonGroup
+            id="q1"
+            className={classes.toggleButtonGroup}
+            value={questionData.q1}
+            exclusive
+            onChange={changeQuestion}
+          >
+            <ToggleButton value="Yes">Yes</ToggleButton>
+            <ToggleButton value="No">No</ToggleButton>
+          </ToggleButtonGroup>
+        </InputGroupError>
+      </FormControl>
+
+      <Typography id="q2-text" variant="h3">May we continue to access {user ? "the participant's" : "your"} medical record for research purposes?</Typography>
+      <Typography className={classes.dim}>We may collect information from {user ? "the participant's" : "your"} medical record for 10 years or longer. This may include information about {user ? "the participant's" : "your"} diagnosis and past treatments. {user ? "The participant" : "You"} may opt out at any time.</Typography>
+      <FormControl component="fieldset" className={classes.formControl}>
+        <InputGroupError error={q2Error} errorMessage="You must complete this field">
+          <ToggleButtonGroup
+            id="q2"
+            className={classes.toggleButtonGroup}
+            value={questionData.q2}
+            exclusive
+            onChange={changeQuestion}
+          >
+            <ToggleButton value="Yes">Yes</ToggleButton>
+            <ToggleButton value="No">No</ToggleButton>
+          </ToggleButtonGroup>
+        </InputGroupError>
+      </FormControl>
+      
+      {!user && <>
+      <Typography id="q3-text" variant="h3">Would you like us to contact you to talk about leaving the project and answer any questions you may have?</Typography>
+      <Typography className={classes.dim}>If you select yes, your clinical research coordinator will call you.</Typography>
+      <FormControl component="fieldset" className={classes.formControl}>
+        <InputGroupError error={q3Error} errorMessage="You must complete this field">
+          <ToggleButtonGroup
+            id="q3"
+            className={classes.toggleButtonGroup}
+            value={questionData.q3}
+            exclusive
+            onChange={changeQuestion}
+          >
+            <ToggleButton value="Yes">Yes</ToggleButton>
+            <ToggleButton value="No">No</ToggleButton>
+          </ToggleButtonGroup>
+        </InputGroupError>
+      </FormControl>
+      </>}
+
+      <Typography id="q4-text" variant="h3">Why {user ? "does the participant" : "do you"} want to leave the Biobank?</Typography>
+      <Typography className={classes.dim}>Sharing why {user ? "the participant is" : "you are"} leaving the project will help us improve the program for future participants.</Typography>
+      <FormControl component="fieldset" className={classes.textFieldFormControl}>
+        <TextField
+          id="q4"
+          label="Reason for leaving (optional)"
+          multiline
+          rows="6"
+          defaultValue="Because I don't want to participate anymore."
+          className={classes.textField}
+          margin="normal"
+          variant="outlined"
+          helperText="1000 character limit"
+          inputProps={{
+            maxLength: 1000,
+          }}
+          onChange={changeTextareaQuestion}
+        />
+      </FormControl>
+
+      <div className={classes.formButtons}>
+        <Button variant="contained" color="primary" onClick={handleNextStep}>Leave the Biobank program</Button>
+        <Button className={classes.btnCancel} variant="text" onClick={props.cancel}><ClearIcon />Cancel</Button>
+      </div>
+
+      <Dialog
+        fullScreen={fullScreen}
+        open={isModalOpen}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogContent>
+          { user ? <>
+          <Typography variant="h3" component="h3">Please confirm the withdrawal of {user.firstName} {user.lastName} from further participation in the Biobank.</Typography>
+          <Typography>The participant will need to speak to their doctor if they'd like to rejoin in the future.</Typography>
+          </>:<>
+          <Typography variant="h3" component="h3">Thank you for your participation in the Cancer Moonshot Biobank. Please confirm your withdrawal.</Typography>
+          <Typography>You'll need to speak to your doctor if you'd like to rejoin in the future.</Typography>
+          </>}
+
+        </DialogContent>
+        <DialogActions>
+          <Button className={classes.confirm} onClick={handleSubmit} variant="contained">Yes, withdraw</Button>
+          <Button variant="text" className={classes.btnCancel} onClick={handleClose}><ClearIcon />Cancel</Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
+  )
+}
+
+export default LeaveQuestions

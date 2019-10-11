@@ -298,7 +298,9 @@
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
-          "dateCreated": 1560148189000
+          "dateCreated": 1560148189000,
+          "isActiveBiobankParticipant": false,
+          "dateDeactivated": 1560148199000
         },
         {
           "firstName": "Thurman",
@@ -390,7 +392,9 @@
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
-          "dateCreated": 1560148189000
+          "dateCreated": 1560148189000,
+          "isActiveBiobankParticipant": false,
+          "dateDeactivated": 1560148199000
         },
         {
           "firstName": "Gonzalo",
@@ -469,7 +473,10 @@
           "allowEmailNotification": true,
           "userType": "PPE_PARTICIPANT",
           "roleName": "ROLE_PPE_PARTICIPANT",
-          "dateCreated": 1560320989000
+          "dateCreated": 1560320989000,
+          "isActiveBiobankParticipant": false,
+          "dateDeactivated": 1560320999000,
+          "hasNewReports": true
         },
         {
           "firstName": "Roosevelt",
@@ -795,12 +802,36 @@
       "firstName": "Francesco",
       "lastName": "Altenwerth",
       "email": "Teal@Anderson.io",
+      "uuid": "4e764406-5062-4034-bcd6-8901f21eb28e",
       "patientId": "ZaxspiqD",
       "phoneNumber": "013-546-5388",
       "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1560320989000,
+      "isActiveBiobankParticipant": false,
+      "dateDeactivated": 1560320999000,
+      "lastRevisedUser": "8b36b0c8-69d0-4042-ae02-03e795b2f0f8",
+      "questionsAnswers": [
+        {
+          "id": 1,
+          "questionOrder": 1,
+          "question": "Program can continue to use samples already collected",
+          "answer": "Yes"
+        },
+        {
+          "id": 2,
+          "questionOrder": 2,
+          "question": "Program can keep collecting relevant data from patient medical record",
+          "answer": "Yes"
+        },
+        {
+          "id": 3,
+          "questionOrder": 3,
+          "question": "Reason for leaving the Biobank",
+          "answer": "Because I don't want to participate anymore."
+        }
+      ],
       "reports": [
         {
           "id": 1,
@@ -844,6 +875,8 @@
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
       "dateCreated": 1560148189000,
+      "isActiveBiobankParticipant": false,
+      "dateDeactivated": 1560148199000,
       "providers": [
         {
           "id": 1,
@@ -864,7 +897,6 @@
           "description": "A sort report description",
           "dateUploaded": 1560839389000,
           "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44i"
-
         },
         {
           "id": 2,
@@ -1013,7 +1045,8 @@
     "8d85a263-b346-41e8-bf2f-4163b4c5f467",
     "3baf314f-9498-4b0c-8f74-6828f728982e",
     "877fd0f1-29dc-4a47-9468-371b91836831",
-    "4e764406-5062-4034-bcd6-8901f21eb28d"
+    "4e764406-5062-4034-bcd6-8901f21eb28d",
+    "4e764406-5062-4034-bcd6-8901f21eb28e"
   ],
   "token": {
     "token": "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidGVzdCIsImlzcyI6Im1kYXMyIiwiZXhwIjoxNTYzOTk5MTk4LCJ1c2VybmFtZSI6IlRvbURpY2tBbmRIYXJyeSJ9.BglervXAFiPGDtMCptVAMrBFkmduxJ63635l_twhJMjurJFqKJS7G4WqU6SUerIP8RgQBatNo-pp-QO1QXZs80Cw0iDrwL9myc4H94v7ZjTWhKnVgaYkB4_bSEY6bwpd0qldnOiiAPYSWHDExaPFHvOSDp-BsYCMgVd0V4T_9w2uNBGAGux0r7fdSBSvgjyTgr0SzIgaSuD3EybpfcJwuxmI0VbSrSiQDrirpCGZb3EeI-EYcOXn6IoUxSDl9726yTD9cHdNz0IrHb5HViZJKt9tcGVDENeGGrn7yMHj2pnhhRbtFGVi-SBvgLEkYWd4c4B4Pflq26aBozS4txwjrg"

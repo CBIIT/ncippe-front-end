@@ -133,12 +133,12 @@ export default class AuthService {
     this.UserManager.clearStaleState();
   };
 
-  signoutRedirectCallback = () => {
+  signoutRedirectCallback = (state) => {
     this.UserManager.clearStaleState();
     this.UserManager.signoutRedirectCallback().then(() => {
       localStorage.clear()
       // window.location.replace(process.env.REACT_APP_PUBLIC_URL);
-      navigate('/')
+      navigate('/',{state:{...state}})
     });
   };
 }

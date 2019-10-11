@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { LoginConsumer } from '../components/login/Login.context'
 import PatientList from '../components/PatientList/PatientList'
 import IconCard from '../components/IconCard/IconCard'
+import Status from '../components/Status/Status'
 
 
 const useStyles = makeStyles(theme => ({
@@ -19,7 +20,18 @@ const useStyles = makeStyles(theme => ({
     //     margin: 0
     //   }
     // }
-  }
+  },
+  badge: {
+    display: 'inline-block',
+    borderRadius: 6,
+    backgroundColor: theme.palette.error.main,
+    color: theme.palette.common.white,
+    padding: '4px 16px',
+    lineHeight: 'normal',
+    fontFamily: theme.typography.button.fontFamily,
+    fontWeight: 600,
+    textTransform: 'uppercase',
+  },
 }));
 
 export default () => {
@@ -29,11 +41,18 @@ export default () => {
     <Box>
       <Container className="mainContainer--dashboard">
         <LoginConsumer>
-        {([{firstName, lastName}]) => {
+        {([{firstName, lastName, isActiveBiobankParticipant}]) => {
           return (
             <Box my={6} mx={0}>
               <Typography variant="h1" gutterBottom>Welcome, {firstName} {lastName}</Typography>
-              <Typography variant="body2">Thank you for joining the Cancer Moonshot Biobank Program!</Typography>
+              {isActiveBiobankParticipant === false ? 
+                <div>
+                  <Typography className={classes.badge}>Withdrawn</Typography>
+                  <Status state="info" fullWidth title="Your participation has been withdrawn." message="You or a research coordinator has withdrawn your participation in the program. Speak to your doctor if you would like to continue to participate. Your withdrawal choices are recorded in your account settings." />
+                </div>
+                :
+                <Typography variant="body2">Thank you for joining the Cancer Moonshot Biobank Program!</Typography>
+              }
             </Box>
           )
         }}
@@ -97,10 +116,10 @@ export default () => {
           <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
             <IconCard
               icon="user-profile.svg"
-              title="Your Profile"
+              title="Account settings"
               desc="Keep your contact information up to date to receive program notifications."
               link="/dashboard/profile"
-              linkText="Update profile"
+              linkText="Update account"
             />
           </Grid>
           {/* END: User Profile */}

@@ -253,6 +253,9 @@ const UploadReport = () => {
             helperText={patientData.error ? "Please enter a valid 8 character Patient ID" : "This number is on the top of the report"}
             onChange={handlePatientId}
             value={patientData.patientId}
+            inputProps={{
+              maxLength: 8,
+            }}
           />
           {patientData.notFound && <Status state="error" title="This patient is not in the system" message="Please double check the Patient ID on the hard copy of the report and re-enter it above. If this problem persists, contact the system administrator." />}
           <div className={classes.formButtons}>

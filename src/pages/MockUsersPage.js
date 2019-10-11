@@ -60,7 +60,6 @@ const MockRoles = () => {
       userData: {
         uuid,
         email,
-        auth: true,
         mockState: identifier
       }
     })

@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { navigate } from '@reach/router'
 import { ClickAwayListener, Divider, Grid, MenuItem, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import moment from 'moment'
 
 import { api } from '../../data/api'
 import { LoginContext, LoginConsumer } from '../login/Login.context'
@@ -10,6 +12,7 @@ import ExpansionMenu from '../ExpansionMenu/ExpansionMenu'
 import UploadConsentDialog from '../UploadConsent/UploadConsentDialog'
 import Status from '../Status/Status'
 import { formatPhoneNumber } from '../../utils/utils'
+import DeactivatedQuestions from '../DeactivatedQuestions/DeactivatedQuestions'
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -24,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   profileHeader: {
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   profileIcon: {
     marginRight: theme.spacing(3),
@@ -37,10 +40,22 @@ const useStyles = makeStyles(theme => ({
     height: '100%',
     justifyContent: 'space-between'
   },
+  badge: {
+    display: 'inline-block',
+    borderRadius: 6,
+    backgroundColor: theme.palette.error.main,
+    color: theme.palette.common.white,
+    padding: '4px 16px',
+    lineHeight: 'normal',
+    fontFamily: theme.typography.button.fontFamily,
+    fontWeight: 600,
+    textTransform: 'uppercase',
+  },
   menu: {
     position: 'absolute',
     top: 0,
     right: 0,
+    zIndex: 2,
   },
   divider: {
     margin: theme.spacing(4, 0)
@@ -50,10 +65,12 @@ const useStyles = makeStyles(theme => ({
     '& .MuiCard-root': {
       height: '100%'
     }
-  }
+  },
+
 }))
 
 const TestResults = (props) => {
+
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const [reports, setReports] = useState(false)
@@ -87,6 +104,12 @@ const TestResults = (props) => {
     setUploadSuccess(success)
   }
 
+  const openLeaveQuestions = () => {
+    navigate(`${window.location.pathname}/participation/leaveQuestions`,{state: {
+      user
+    }})
+  }
+
   const handleMenuState = (state) => {
     setMenuOpen(state)
   }
@@ -103,6 +126,7 @@ const TestResults = (props) => {
           <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt='card icon' aria-hidden="true" />
           <div className={classes.profileText}>
             <Typography className={classes.profileHeader} variant="h2" component="h2">{user.firstName} {user.lastName}</Typography>
+            {user.isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>Withdrawn</Typography></div>}
             <Typography component="p"><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
             <Typography component="p">{formatPhoneNumber(user.phoneNumber)}</Typography>
           </div>
@@ -110,7 +134,7 @@ const TestResults = (props) => {
             {([{roleName}]) => {
               return (roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && (
                 <ClickAwayListener onClickAway={handleClickAway}>
-                  <div>
+                  <div className={classes.menuContainer}>
                     <ExpansionMenu
                       id="panel1"
                       name="Account actions"
@@ -119,6 +143,7 @@ const TestResults = (props) => {
                       handleClick={handleMenuState}
                       >
                         <MenuItem onClick={openUploadDialog}>Upload consent form</MenuItem>
+                        {user.isActiveBiobankParticipant !== false && <MenuItem onClick={openLeaveQuestions}>Leave the Biobank</MenuItem>}
                     </ExpansionMenu>
                   </div>
                 </ClickAwayListener>
@@ -127,6 +152,7 @@ const TestResults = (props) => {
           </LoginConsumer>
         </div>
       )}
+      {user && user.isActiveBiobankParticipant === false && <Status state="info" fullWidth title="This participant has withdrawn from the Biobank." message={`The participant withdrew enrollment on ${moment(user.dateDeactivated).format("MMM DD, YYYY")}. The participant must initiate a conversation with their doctor to start participating again.`} />}
 
       <Divider className={classes.divider} />
       <Grid container spacing={3}>
@@ -138,6 +164,9 @@ const TestResults = (props) => {
             </Grid>
           ) : (
             <NoItems message="No reports available for this participant." />
+          )}
+          {user && user.isActiveBiobankParticipant === false && user.questionsAnswers && (
+            <DeactivatedQuestions user={user} />
           )}
         </Grid>
         <Grid item xs={12} md={6} id="eConsentForms">

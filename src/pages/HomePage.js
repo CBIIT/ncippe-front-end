@@ -1,6 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Container, Grid, Paper, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react'
+import { navigate } from '@reach/router'
+import { Box, Container, Dialog, DialogContent, Grid, IconButton, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { 
+  Clear as ClearIcon,
+  CheckCircle as CheckCircleIcon
+} from '@material-ui/icons'
 
 import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
 
@@ -197,19 +202,55 @@ const useStyles = makeStyles( theme => ({
     borderTop: `1px solid ${theme.palette.grey[300]}`,
     padding: theme.spacing(2,3)
   },
+  closeAccountDialog: {
+    position: 'relative'
+  },
+  closeAccountDialogContent: {
+    padding: theme.spacing(5),
+    '&:first-child': {
+      paddingTop: theme.spacing(5),
+    }
+  },
+  closeDialogButton: {
+    position: 'absolute',
+    top: 0,
+    right: 0
+  },
+  closeAccountIcon: {
+    fontSize: '6em',
+    float: 'left',
+    marginRight: theme.spacing(3),
+    fill: theme.palette.success.main
+  }
 }))
 
-const HomePage = () => {
+const HomePage = (props) => {
   const classes = useStyles()
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
-    window.addEventListener('resize', () => {
+    const resizeEvt = () => {
       setIsMobile(window.innerWidth < 600)
-    })
+    }
+    window.addEventListener('resize', resizeEvt, {passive: true})
     //clean up
-    return () => {}
+    return () => window.removeEventListener('resize', resizeEvt, {passive: true})
   },[isMobile])
+
+  useEffect(() => {
+    if(props.location && props.location.state) {
+      const {accountClosed} = props.location.state
+      if(accountClosed) {
+        setIsModalOpen(true)
+      }
+    }
+  })
+
+  const handleClose = () => {
+    setIsModalOpen(false)
+    navigate('/', {state:{}}, { replace: true })
+  }
   return (
     <Box>
       <Container className={classes.hero}>
@@ -376,6 +417,21 @@ const HomePage = () => {
           <Typography className={classes.volunteerText} variant="body2">If you can't join the Cancer Moonshot Biobank, consider making a difference by joining other projects at NIH or NCI.</Typography>
         </Box>
       </Container>
+      <Dialog
+        open={isModalOpen}
+        onClose={handleClose}
+        aria-labelledby="responsive-dialog-title"
+        className={classes.closeAccountDialog}
+      >
+        <DialogContent className={classes.closeAccountDialogContent}>
+          <IconButton className={classes.closeDialogButton} aria-label="close" onClick={handleClose}>
+            <ClearIcon />
+          </IconButton>
+          <CheckCircleIcon className={classes.closeAccountIcon} />
+          <Typography variant="h3" component="h3">Your account is closed.</Typography>
+          <Typography>Please contact your clinical research coordinator if you have any questions.</Typography>
+        </DialogContent>
+      </Dialog>
     </Box>
   )
 }

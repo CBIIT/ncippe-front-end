@@ -77,7 +77,7 @@ const SignInCallback = (props) => {
           return userData
 
         } else {
-          throw new Error(`Sorry, but either you have not been signed up for the Biobank Program or your account has not been activated yet.`)
+          throw new Error(`Sorry, but either you have not been signed up for the Biobank Program, your account has not been activated yet, or your account has been closed. Please contact your Clinical Research Coordinator for assistance.`)
         }
       })
 
@@ -96,7 +96,7 @@ const SignInCallback = (props) => {
       dispatch({
         type: 'reset'
       })
-      navigate('/error',{
+      navigate('/error', {
         state: {
           error: {
             status: 'error',
@@ -109,8 +109,9 @@ const SignInCallback = (props) => {
   }, [])
 
   useEffect(() => {
-    const { roleName, uuid } = loginContext
-    if(uuid){
+    const { roleName, uuid, auth } = loginContext
+    
+    if(uuid && auth){
       if( roleName === 'ROLE_PPE_MOCHA_ADMIN') {
         navigate('/dashboard-mocha')
       } else {
