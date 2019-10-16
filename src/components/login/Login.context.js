@@ -1,13 +1,12 @@
 import React, { createContext, useReducer } from 'react'
 
-export const LoginContext = createContext()
-
 const userInitialState = {
   auth: false,
   roleName: 'public',
-  env: window.location.hostname === 'localhost' || window.location.hostname === 'ncippe.herokuapp.com' ? 'local' : 'prod'
+  env: window.location.hostname === 'localhost' || window.location.hostname.startsWith("10.5.53") || window.location.hostname.startsWith("192.168.1") ? 'local' : 'prod'
 }
 
+export const LoginContext = createContext()
 
 const hasUnviewedReports = (reports, uuid) => {
   //TODO: only for Participants

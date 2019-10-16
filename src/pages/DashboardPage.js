@@ -114,13 +114,18 @@ export default () => {
 
           {/* User Profile */}
           <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
-            <IconCard
-              icon="user-profile.svg"
-              title="Account settings"
-              desc="Keep your contact information up to date to receive program notifications."
-              link="/dashboard/profile"
-              linkText="Update account"
-            />
+          <LoginConsumer>
+          {([{roleName}]) => {
+            const icon = roleName === "ROLE_PPE_PARTICIPANT" ? "user-profile.svg" : "doctor.svg"
+            return <IconCard
+                icon={icon}
+                title="Account settings"
+                desc="Keep your contact information up to date to receive program notifications."
+                link="/dashboard/profile"
+                linkText="Update account"
+              />
+            }}
+            </LoginConsumer>
           </Grid>
           {/* END: User Profile */}
           

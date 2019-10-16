@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { navigate } from '@reach/router'
-import { Box, Typography, CircularProgress } from '@material-ui/core';
+import { Box, Typography, CircularProgress, Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 
 import { AuthContext } from '../components/login/AuthContext'
@@ -13,6 +13,10 @@ const useStyles = makeStyles( theme => ({
     marginLeft: theme.spacing(3),
     display: 'inline'
   },
+  container: {
+    textAlign: 'center',
+    paddingTop: theme.spacing(10)
+  }
 }))
 
 const SignInCallback = (props) => {
@@ -121,10 +125,10 @@ const SignInCallback = (props) => {
   }, [loginContext])
 
   return (
-    <Box>
+    <Container className={classes.container}>
       <CircularProgress className={classes.progress} size={70} />
       <Typography className={classes.titleUploading} variant="h6">Loading User Data...</Typography>
-    </Box>
+    </Container>
   )
 }
 

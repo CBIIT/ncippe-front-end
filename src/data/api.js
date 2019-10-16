@@ -650,82 +650,93 @@ async function reportViewedByProd({uuid, reportId, token}){
 
 async function withdrawUserLocal({uuid, patientId, qsAnsDTO, token}){
 
-  let query = `patientId=${patientId}`
-
-  if(patientId === uuid) {
-    query = `uuid=${uuid}`
-  }
-
-  const userDetails = await fetch(`/api/users?${query}&singular=1`)
-    .then(resp => resp.json())
-    .catch(error => {
+  const updateUser = async () => {
+    const userDetails = await fetch(`/api/users?uuid=${uuid}&singular=1`).then(resp => resp.json()).catch(error => {
       console.error(error)
     })
 
-    const data = {
-      isActiveBiobankParticipant: false,
-      dateDeactivated: new Date(),
-      lastRevisedUser: uuid,
-      questionsAnswers: [
-        ...qsAnsDTO
-      ]
-    }
-    console.log("data sent to api", data)
-
-    // TODO: patch the CRC patient list as well
-    // await fetch(`/users/${uuid}`,{
-    //   method: 'PATCH',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify(data)
-    // })
-    //   .then(resp => {
-    //     // TODO: put pdf file into dist folder using middleware
-    //     if(resp.ok) {
-    //       return true
-    //     } else {
-    //       throw new Error(`We were unable to mark notifications as read. Please try again.`)
-    //     }
-    //   })
-    //   .catch(error => {
-    //     console.error(error)
-    //   })
+    const updatedPatientList = userDetails.patients.map(patient => {
+      if (patient.patientId === patientDetails.patientId) {
+        return {
+          ...patient,
+          isActiveBiobankParticipant: false
+        }
+      }
+      return patient
+    })
 
     return await fetch(`/users/${userDetails.id}`,{
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify({
+        patients: updatedPatientList
+      })
+    }).catch(error => {
+      console.error(error)
     })
+  }
+
+  const patientDetails = await fetch(`/api/users?patientId=${patientId}&singular=1`)
+    .then(resp => resp.json())
     .then(resp => {
-      // TODO: put pdf file into dist folder using middleware
-      if(resp.ok) {
-        return data
-      } else {
-        throw new Error(`We were unable to withdraw the user account at this time. Please try again.`)
+      if(resp.uuid !== uuid) {
+        updateUser()
       }
+      return resp
     })
     .catch(error => {
       console.error(error)
     })
+
+  const data = {
+    isActiveBiobankParticipant: false,
+    dateDeactivated: new Date(),
+    patientId,
+    lastRevisedUser: uuid,
+    questionsAnswers: [
+      ...qsAnsDTO
+    ]
+  }
+  
+  console.log("data sent to api", data)
+
+  return await fetch(`/users/${patientDetails.id}`,{
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(resp => {
+    if(resp.ok) {
+      return {
+        ...patientDetails,
+        ...data
+      }
+    } else {
+      throw new Error(`We were unable to withdraw the user account at this time. Please try again.`)
+    }
+  })
+  .catch(error => {
+    console.error(error)
+    return error
+  })
 }
 
 async function withdrawUserProd({uuid, patientId, qsAnsDTO, token}){
-  return await fetch(`/api/v1/withdraw-user-participation/${patientId}?updatedByUser=${uuid}`,{
+  return await fetch(`/api/v1/withdraw-user-participation?patientId=${patientId}&updatedByUser=${uuid}`,{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token
     },
-    body: JSON.stringify({
-      qsAnsDTO
-    })
+    body: JSON.stringify(qsAnsDTO)
   })
   .then(resp => {
     if(resp.ok) {
-      return true
+      return resp.json()
     } else {
       throw new Error(`We were unable to withdraw the user account at this time. Please try again.`)
     }

@@ -64,9 +64,7 @@ const LeaveQuestions = (props) => {
   const {location: {state: {user}}} = props
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
-  const [questionData, setQuestionData] = useState({
-    q4: "Because I don't want to participate anymore."
-  })
+  const [questionData, setQuestionData] = useState({})
   const [q1Error, setQ1Error] = useState(false)
   const [q2Error, setQ2Error] = useState(false)
   const [q3Error, setQ3Error] = useState(false)
@@ -135,7 +133,7 @@ const LeaveQuestions = (props) => {
   }
 
   const handleSubmit = () => {
-    const {uuid, env, token} = loginContext
+    const {uuid, patientId, env, token, patients} = loginContext
     let q3
     const q1 = {
       question: document.getElementById('q1-text').textContent,
@@ -172,23 +170,49 @@ const LeaveQuestions = (props) => {
 
     api[env].withdrawUser({
       uuid,
-      patientId: user ? user.patientId : uuid,
+      patientId: user ? user.patientId : patientId,
       qsAnsDTO: data,
       token
     })
     .then(resp => {
-      if(resp) {
-        // Save successful, also update the user context data
-        dispatch({
-          type: 'update',
-          userData: {
-            ...resp
-          }
-        })
-        props.cancel()
-      } else {
+      // TODO: catch fucking errors on 500 response
+      if(resp.message) {
         alert(resp.message)
+      } else {
+        // Save successful, also update the user context data
+        if(user) {
+          // mark this one patient as withdrawn in the user's patients array
+          const updatedPatientList = patients.map(patient => {
+            if (patient.patientId === user.patientId) {
+              return {
+                ...patient,
+                isActiveBiobankParticipant: false
+              }
+            }
+            return patient
+          })
+          dispatch({
+            type: 'update',
+            userData: {
+              patients: updatedPatientList
+            }
+          })
+
+        } else {
+          // update user data
+          dispatch({
+            type: 'update',
+            userData: {
+              ...resp
+            }
+          })
+        }
+        // close the modal
+        props.cancel()
       }
+    })
+    .catch(error => {
+      console.error(error)
     })
   }
 
@@ -266,7 +290,6 @@ const LeaveQuestions = (props) => {
           label="Reason for leaving (optional)"
           multiline
           rows="6"
-          defaultValue="Because I don't want to participate anymore."
           className={classes.textField}
           margin="normal"
           variant="outlined"
