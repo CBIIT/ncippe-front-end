@@ -2,7 +2,7 @@ import React from 'react'
 import { Location, Router, Redirect } from '@reach/router'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-// import NotFound from '../pages/NotFoundPage'
+import NotFound from '../pages/NotFoundPage'
 import Home from '../pages/HomePage'
 import About from '../pages/about/AboutPage'
 import Eligibility from '../pages/about/EligibilityPage'
@@ -38,7 +38,7 @@ const ActivatePage = pageWrapper(Activate)
 const SignInCallbackPage = pageWrapper(SignInCallback)
 const ErrorPage = pageWrapper(Errors)
 
-// const NotFoundPage = pageWrapper(NotFound)
+const NotFoundPage = pageWrapper(NotFound)
 
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -54,23 +54,22 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 export default () => (
   <Location>
     {({ location }) => (
-      <>
       <TransitionGroup className="transitionGroup" component={null}>
         <CSSTransition 
           key={location.key}
-          timeout={location.pathname.match(/\/dashboard\//) ? 350 : 550}
+          timeout={location.pathname.match(/\/dashboard\//) ? 350 : location.pathname.match(/\/expect\//) ? 50 : 550}
           classNames={location.pathname.match(/\/dashboard\//) ? 'zoom' : 'fade'}
           className="transitionGroup"
         >
           <Router location={location} primary={false}>
             <HomePage path='/' />
-            <ActivatePage path='/activate' />
+            <ActivatePage path='/participation/activate' />
             <SignInCallbackPage path='/signin' />
             <AboutPage path='/about' />
-            <EligibilityPage path='/eligibility' />
-            <ResearchPage path='/research' />
+            <EligibilityPage path='/about/eligibility' />
+            <ResearchPage path='/about/research' />
+            <PrivacyPage path='/participation/privacy' />
             <ErrorPage path='/error' />
-            <PrivacyPage path='/privacy' />
             <PrivateRoute path='/dashboard' component={DashboardPage} />
             <MockUsersPage path='/mock-users' />
             <PrivateRoute path='/dashboard-mocha' component={DashboardMochaPage} />
@@ -82,14 +81,11 @@ export default () => (
             <PrivateRoute path='/dashboard/profile' component={ProfilePage} />
             <PrivateRoute path='/dashboard/profile/participation/*' component={ParticipationPage} />
             <PrivateRoute path='/dashboard/help' component={GetHelpPage} />
-            {/* <NotFoundPage default /> */}
+            <WhatToExpectPage path='/expect/*' /> 
+            <NotFoundPage default />
           </Router>
         </CSSTransition>
       </TransitionGroup>
-      <Router className="transitionGroup">
-        <WhatToExpectPage path='/expect/*' />
-      </Router>
-      </>
     )}
   </Location>
 )
