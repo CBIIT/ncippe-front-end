@@ -62,6 +62,7 @@ const Header = () => {
   const classes = useStyles()
   const [isMobile, setIsMobile] = useState(window.innerWidth < 800)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [expanded, setExpanded] = useState()
 
   useEffect(() => {
     const resizeEvt = () => {
@@ -78,7 +79,11 @@ const Header = () => {
     }
 
     setMenuOpen(prev => !prev);
-  };
+  }
+
+  const expandPanel = panel => (newExpanded) => {
+    setExpanded(newExpanded ? panel : false)
+  }
 
 
   return (
@@ -118,6 +123,8 @@ const Header = () => {
       <Drawer anchor="right" open={menuOpen} onClose={toggleDrawer}>
         <nav>
           <ExpansionList
+            handleClick={expandPanel("panel1")}
+            expanded={expanded === "panel1"}
             name="About"
           >
             <MenuItem><a href="/about">About the Biobank</a></MenuItem>
@@ -126,14 +133,18 @@ const Header = () => {
           </ExpansionList>
 
           <ExpansionList
+            handleClick={expandPanel("panel2")}
+            expanded={expanded === "panel2"}
             name="What to expect"
           >
             <MenuItem><a href="/consent">Give your consent</a></MenuItem>
             <MenuItem><a href="/donate">Donate samples</a></MenuItem>
             <MenuItem><a href="/test">Get a biomarker test</a></MenuItem>
           </ExpansionList>
-          
+
           <ExpansionList
+            handleClick={expandPanel("panel3")}
+            expanded={expanded === "panel3"}
             name="Your participation"
           >
             <MenuItem><a href="/activate">Activate your account</a></MenuItem>
