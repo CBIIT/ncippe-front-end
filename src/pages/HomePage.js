@@ -179,10 +179,6 @@ const useStyles = makeStyles( theme => ({
       width: '54%'
     },
   },
-  bulletList: {
-    listStyleType: 'disc',
-    marginLeft: '20px'
-  },
   boxList: {
 
   },
@@ -343,7 +339,7 @@ const HomePage = (props) => {
             <Grid item xs={12} sm={5}>
               <Typography className={classes.bold}>Eligible patients:</Typography>
               <Typography component="div">
-                <ul className={classes.bulletList}>
+                <ul className="bulletList">
                   <li>Have locally advanced or metastatic solid tumors and hematologic malignancies</li>
                   <li>Are receiving standard of care therapy (not experimental treatment)</li>
                   <li>Are at least 13 years old</li>

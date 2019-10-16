@@ -4,11 +4,11 @@ import { Badge, Box, Button, Container, Divider, Grid, Link, Paper, Typography }
 import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
 
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
-import { LoginContext, LoginConsumer } from '../components/login/Login.context'
-import Profile from '../components/Profile/Profile'
-import Status from '../components/Status/Status'
-import DeactivatedQuestions from '../components/DeactivatedQuestions/DeactivatedQuestions'
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
+import { LoginContext, LoginConsumer } from '../../components/login/Login.context'
+import Profile from '../../components/Profile/Profile'
+import Status from '../../components/Status/Status'
+import DeactivatedQuestions from '../../components/DeactivatedQuestions/DeactivatedQuestions'
 
 
 const useStyles = makeStyles(theme => ({

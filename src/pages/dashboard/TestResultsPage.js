@@ -2,8 +2,8 @@ import React from 'react'
 import { Box, Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
-import TestResults from '../components/TestResults/TestResults'
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
+import TestResults from '../../components/TestResults/TestResults'
 
 const useStyles = makeStyles(theme => ({
   aside: {

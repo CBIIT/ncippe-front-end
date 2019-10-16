@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Container, Typography } from '@material-ui/core'
 
-import { LoginConsumer } from '../components/login/Login.context'
-import UploadReport from '../components/Mocha/UploadReport'
+import { LoginConsumer } from '../../components/login/Login.context'
+import UploadReport from '../../components/Mocha/UploadReport'
 
 const MochaDashboard = () => {
   return (

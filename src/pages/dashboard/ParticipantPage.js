@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Container } from '@material-ui/core'
 
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
-import ParticipantView from '../components/ParticipantView/ParticipantView'
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
+import ParticipantView from '../../components/ParticipantView/ParticipantView'
 
 export default (props) => {
   const {patientId, location} = props
