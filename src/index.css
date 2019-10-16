@@ -91,6 +91,9 @@ ul.bulletList, ul.bulletList ul {
   list-style-type: disc;
 }
 
+.active-popper {
+  z-index: 10 !important;
+}
 
 
 ul.bulletList--spreadOut, ul.bulletList--spreadOut ul {

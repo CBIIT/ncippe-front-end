@@ -64,6 +64,8 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [expanded, setExpanded] = useState()
 
+  // TODO: set active state on nav menu items based on site location
+
   useEffect(() => {
     const resizeEvt = () => {
       setIsMobile(window.innerWidth < 800)
@@ -99,18 +101,18 @@ const Header = () => {
             <nav className={classes.publicNavDesktop}>
               <MenuGroup title="About">
                 <a href="/about">About the Biobank</a>
-                <a href="/eligibility">Eligibility and locations</a>
-                <a href="/research">Biobanking drives research</a>
+                <a href="/about/eligibility">Eligibility and locations</a>
+                <a href="/about/research">Biobanking drives research</a>
               </MenuGroup>
               <MenuGroup title="What to expect">
-                <a href="/consent">Give your consent</a>
-                <a href="/donate">Donate samples</a>
-                <a href="/test">Get a biomarker test</a>
+                <a href="/expect/consent">Give your consent</a>
+                <a href="/expect/donate">Donate samples</a>
+                <a href="/expect/testing">Get a biomarker test</a>
               </MenuGroup>
               <MenuGroup title="Your participation">
-                <a href="/activate">Activate your account</a>
-                <a href="/participation">Manage your participation</a>
-                <a href="/privacy">Protecting your privacy</a>
+                <a href="/participation/activate">Activate your account</a>
+                <a href="/participation/manage">Manage your participation</a>
+                <a href="/participation/privacy">Protecting your privacy</a>
               </MenuGroup>
           </nav>
           )}

@@ -14,6 +14,7 @@ import {
 const useStyles = makeStyles(theme => ({
   popper: {
     position: "fixed",
+    zIndex: -1
   },
   button: {
     borderRadius: 0
