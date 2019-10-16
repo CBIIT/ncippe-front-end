@@ -44,6 +44,10 @@ const useStyles = makeStyles(theme => ({
       position: 'relative',
       margin: theme.spacing(0,2),
       minHeight: 82,
+      '& button': {
+        fontFamily: '"Open Sans", Montserrat, Helvetica, Arial, sans-serif',
+        fontWeight: 'normal'
+      },
       '& button:hover': {
         backgroundColor: 'transparent',
       },
@@ -76,7 +80,7 @@ const Header = () => {
           <nav className={classes.publicNavDesktop}>
             <MenuGroup title="About">
               <a href="/about">About the Biobank</a>
-              <a href="/locations">Eligibility and locations</a>
+              <a href="/eligibility">Eligibility and locations</a>
               <a href="/research">Biobanking drives research</a>
             </MenuGroup>
             <MenuGroup title="What to expect">

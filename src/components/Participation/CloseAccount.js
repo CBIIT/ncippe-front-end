@@ -12,14 +12,6 @@ const useStyles = makeStyles( theme => ({
   header: {
     marginBottom: theme.spacing(2)
   },
-  bulletList: {
-    listStyleType: 'disc',
-    marginLeft: 30,
-    '& > li': {
-      paddingLeft: 10,
-      marginBottom: theme.spacing(2)
-    }
-  },
   crc_card: {
     maxWidth: 450,
     padding: theme.spacing(2),
@@ -67,7 +59,7 @@ const CloseAccount = (props) => {
       <Typography className={classes.header} variant="h1" component="h1">Close your online account</Typography>
       <Typography component="div">
         After you close your account,
-        <ul className={classes.bulletList}>
+        <ul className="bulletList bulletList--spreadOut">
           <li>You will not have online access to your consent form or biomarker reports. Please ask your doctor or clinical research coordinator to send you physical copies of these documents.</li>
           <li><strong>You are still participating in the Biobank.</strong> This option will only close your online Cancer Moonshot Biobank account. You will still be participating in the project.</li>
           <li>Your samples will still be used by researchers, and additional samples or medical information may be requested.You have the right to leave the Biobank if you wishand ask that your samples and medical information no longer be used.</li>

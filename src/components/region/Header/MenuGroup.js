@@ -22,6 +22,9 @@ const useStyles = makeStyles(theme => ({
     borderBottom: `5px solid ${theme.palette.primary.main}`,
     borderRadius: 0,
     marginTop: 5,
+  },
+  menuList: {
+    padding: 0
   }
 }))
 
@@ -43,16 +46,23 @@ const StyledMenuList = withStyles(theme => ({
 
 const StyledMenuItem = withStyles(theme => ({
   root: {
+    borderBottom: `1px solid #ccc`,
+
+    '&:last-child': {
+      borderBottom: 'none'
+    },
     '& a': {
       color: theme.palette.common.black,
-      textDecoration: 'none'
+      textDecoration: 'none',
+      // fontWeight: 600
     },
     '&:focus': {
-      backgroundColor: theme.palette.primary.main,
-      '& a': {
-        color: theme.palette.common.white,
-        fontWeight: 600
-      },
+      // backgroundColor: theme.palette.primary.main,
+      backgroundColor: 'rgba(0,0,0,.08)',
+      // '& a': {
+      //   // color: theme.palette.common.white,
+      //   fontWeight: 600
+      // },
     },
   },
 }))(props => <MenuItem {...props}/>)
@@ -134,7 +144,7 @@ const MenuGroup = (props) => {
         >
           <Paper className="menu-list-grow" elevation={1} square={true}>
             <ClickAwayListener onClickAway={handleClose}>
-              <MenuList autoFocusItem={open} onKeyDown={handleListKeyDown}>
+              <MenuList className={classes.menuList} autoFocusItem={open} onKeyDown={handleListKeyDown}>
                 {
                   React.Children.map(props.children, child => <StyledMenuItem onClick={handleClose} onKeyDown={handleListItemKeyDown}><Link to={child.props.href}>{child.props.children}</Link></StyledMenuItem>)
                 }
