@@ -1,7 +1,6 @@
 import React from 'react';
 import { 
   Box,
-  Button,
   Container,
   Link,
   Typography, 
@@ -10,11 +9,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Link as RouterLink } from "@reach/router"
 
 import LoginButton from '../../login/LoginButton'
+import MenuGroup from './MenuGroup';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    margin: theme.spacing(2,0)
-  },
   appToolbarContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -25,7 +22,6 @@ const useStyles = makeStyles(theme => ({
     maxHeight: 50,
     margin: 0,
     
-
     '& img': {
       height: 50,
       width: 'auto',
@@ -38,11 +34,8 @@ const useStyles = makeStyles(theme => ({
     
     '&:hover': {
       color: theme.palette.grey[900],
-      fontWeight: '600'
+      fontWeight: 600
     }
-  },
-  mockUsers: {
-    marginRight: theme.spacing(1)
   },
   publicNavDesktop: {
     display: 'none',
@@ -50,12 +43,10 @@ const useStyles = makeStyles(theme => ({
       display: 'flex',
       position: 'relative',
       margin: theme.spacing(0,2),
-      '& a': {
-        marginRight: theme.spacing(2),
+      minHeight: 82,
+      '& button:hover': {
+        backgroundColor: 'transparent',
       },
-      '& a:last-of-type': {
-        marginRight: 0,
-      }
     }
   },
   publicNavMobile: {
@@ -83,13 +74,23 @@ const Header = () => {
           </figure>
           {/* {!isDesktop &&  */}
           <nav className={classes.publicNavDesktop}>
-            <Link component={RouterLink} to='/expect' className={classes.headerLink}>What to expect</Link>
-            <Link component={RouterLink} to='/privacy' className={classes.headerLink}>Learn More</Link>
+            <MenuGroup title="About">
+              <a href="/about">About the Biobank</a>
+              <a href="/locations">Eligibility and locations</a>
+              <a href="/research">Biobanking drives research</a>
+            </MenuGroup>
+            <MenuGroup title="What to expect">
+              <a href="/about">Give your consent</a>
+              <a href="/locations">Eligibility and locations</a>
+              <a href="/research">Biobanking drives research</a>
+            </MenuGroup>
+            <MenuGroup title="Your participation">
+              <a href="/about">Give your consent</a>
+              <a href="/locations">Eligibility and locations</a>
+              <a href="/research">Biobanking drives research</a>
+            </MenuGroup>
           </nav>
           {/* } */}
-          <Link component={RouterLink} to='/mock-users' className={classes.mockUsers}>
-            <Button variant="outlined" color="primary">Mock User</Button>
-          </Link>
           <LoginButton />
         </Box>
         {/* {isDesktop &&  */}
