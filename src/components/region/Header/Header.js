@@ -18,10 +18,12 @@ import ExpansionMenu from '../../ExpansionMenu/ExpansionMenu'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: theme.spacing(2,0),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     paddingRight: theme.spacing(1),
     [theme.breakpoints.up('smLandscape')]: {
-      margin: 0,
+      marginTop: 0,
+      marginBottom: 0,
       paddingRight: theme.spacing(3)
     }
   },
