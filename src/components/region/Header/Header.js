@@ -96,7 +96,7 @@ const Header = () => {
         <Box className={classes.appToolbarContainer}>
           <figure className={classes.toolbarLogo}>
             <Link component={RouterLink} to='/'>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/nci-ppe-logo.svg`} alt='NCI PPE logo' title='NCI Patient and Provider Engagement Portal' />
+              <img src={`/${process.env.PUBLIC_URL}assets/images/biobank-logo.svg`} alt='NCI Cancer Moonshot Biobank logo' title='NCI Cancer Moonshot Biobank' />
             </Link>
           </figure>
           {!isMobile && (
