@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react'
-import { Box, Grid, Link, Typography } from '@material-ui/core'
+import { Box, Grid, Link, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useScript } from '../../components/utils/useScript'
 
@@ -105,64 +105,66 @@ const HospitalMap = (props) => {
   }
 
   return (
-    <Box className={classes.mapPlaceholder} my={6}>
-      <Grid container>
-        <Grid item xs={12} sm={7} md={8}>
-          <div id="map" className={classes.map}></div>
+    <Box className={classes.mapPlaceholder} mt={6}>
+      <Paper elevation={2}>
+        <Grid container>
+          <Grid item xs={12} sm={7} md={8}>
+            <div id="map" className={classes.map}></div>
+          </Grid>
+          <Grid item xs={12} sm={5} md={4}>
+            <Box className={classes.locations}>
+              <Link data-location="IL" onClick={updateMap}>
+                <Typography className={classes.title}>Stroger Hospital of Cook County Minority Underserved NCORP</Typography>
+                <Typography>
+                  2240 West Ogden Avenue,<br />
+                  Floor 12<br />
+                  Chicago, Illinois 60612<br />
+                  Meng Ru<br />
+                  (555) 555-5555
+                </Typography>
+              </Link>
+              <Link data-location="TN" onClick={updateMap}>
+                <Typography className={classes.title}>Baptist Memorial Health Care/Mid South Minority Underserved NCORP</Typography>
+                <Typography>
+                  Baptist Cancer Center,<br />
+                  1995 Highway 51 South<br />
+                  Covington, Tennessee 38019<br />
+                  Emlen Beaver<br />
+                  (555) 555-5555<br />
+                </Typography>
+              </Link>
+              <Link data-location="NM" onClick={updateMap}>
+                <Typography className={classes.title}>New Mexico Minority Underserved NCORP</Typography>
+                <Typography>
+                  The University of New Mexico,<br />
+                  MSC 09 5220<br />
+                  Albuquerque, New Mexico 87131<br />
+                  Saami Al Samad<br />
+                  (555) 555-5555<br />
+                </Typography>
+              </Link>
+              <Link data-location="VA" onClick={updateMap}>
+                <Typography className={classes.title}>VCU Massey Cancer Center Minority Underserved NCORP</Typography>
+                <Typography>
+                  800 East Leigh Street<br />
+                  Richmond, Virginia 23298<br />
+                  Paulina Gayoso<br />
+                  (555) 555-5555<br />
+                </Typography>
+              </Link>
+              <Link data-location="NY" onClick={updateMap}>
+                <Typography className={classes.title}>Montefiore Minority Underserved NCORP</Typography>
+                <Typography>
+                  111 East 210th Street<br />
+                  Bronx, New York 10467<br />
+                  Heather Clark<br />
+                  (555) 555-5555<br />
+                </Typography>
+              </Link>
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={5} md={4}>
-          <Box className={classes.locations}>
-            <Link data-location="IL" onClick={updateMap}>
-              <Typography className={classes.title}>Stroger Hospital of Cook County Minority Underserved NCORP</Typography>
-              <Typography>
-                2240 West Ogden Avenue,<br />
-                Floor 12<br />
-                Chicago, Illinois 60612<br />
-                Meng Ru<br />
-                (555) 555-5555
-              </Typography>
-            </Link>
-            <Link data-location="TN" onClick={updateMap}>
-              <Typography className={classes.title}>Baptist Memorial Health Care/Mid South Minority Underserved NCORP</Typography>
-              <Typography>
-                Baptist Cancer Center,<br />
-                1995 Highway 51 South<br />
-                Covington, Tennessee 38019<br />
-                Emlen Beaver<br />
-                (555) 555-5555<br />
-              </Typography>
-            </Link>
-            <Link data-location="NM" onClick={updateMap}>
-              <Typography className={classes.title}>New Mexico Minority Underserved NCORP</Typography>
-              <Typography>
-                The University of New Mexico,<br />
-                MSC 09 5220<br />
-                Albuquerque, New Mexico 87131<br />
-                Saami Al Samad<br />
-                (555) 555-5555<br />
-              </Typography>
-            </Link>
-            <Link data-location="VA" onClick={updateMap}>
-              <Typography className={classes.title}>VCU Massey Cancer Center Minority Underserved NCORP</Typography>
-              <Typography>
-                800 East Leigh Street<br />
-                Richmond, Virginia 23298<br />
-                Paulina Gayoso<br />
-                (555) 555-5555<br />
-              </Typography>
-            </Link>
-            <Link data-location="NY" onClick={updateMap}>
-              <Typography className={classes.title}>Montefiore Minority Underserved NCORP</Typography>
-              <Typography>
-                111 East 210th Street<br />
-                Bronx, New York 10467<br />
-                Heather Clark<br />
-                (555) 555-5555<br />
-              </Typography>
-            </Link>
-          </Box>
-        </Grid>
-      </Grid>
+      </Paper>
     </Box>
   )
 }
