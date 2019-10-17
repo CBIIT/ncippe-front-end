@@ -86,6 +86,8 @@ const Header = () => {
   const expandPanel = panel => (newExpanded) => {
     setExpanded(newExpanded ? panel : false)
   }
+  
+  const loc = window.location.pathname
 
 
   return (
@@ -99,17 +101,17 @@ const Header = () => {
           </figure>
           {!isMobile && (
             <nav className={classes.publicNavDesktop}>
-              <MenuGroup title="About">
+              <MenuGroup title="About" active={loc.match('about')}>
                 <a href="/about">About the Biobank</a>
                 <a href="/about/eligibility">Eligibility and locations</a>
                 <a href="/about/research">Biobanking drives research</a>
               </MenuGroup>
-              <MenuGroup title="What to expect">
+              <MenuGroup title="What to expect" active={loc.match('expect')}>
                 <a href="/expect/consent">Give your consent</a>
                 <a href="/expect/donate">Donate samples</a>
                 <a href="/expect/testing">Get a biomarker test</a>
               </MenuGroup>
-              <MenuGroup title="Your participation">
+              <MenuGroup title="Your participation" active={loc.match('participation')}>
                 <a href="/participation/activate">Activate your account</a>
                 <a href="/participation/manage">Manage your participation</a>
                 <a href="/participation/privacy">Protecting your privacy</a>
