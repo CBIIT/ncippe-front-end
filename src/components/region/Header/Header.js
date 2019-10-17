@@ -15,7 +15,7 @@ import { Link as RouterLink } from "@reach/router"
 
 import LoginButton from '../../login/LoginButton'
 import MenuGroup from './MenuGroup';
-import ExpansionList from '../../ExpansionList/ExpansionList'
+import ExpansionMenu from '../../ExpansionMenu/ExpansionMenu'
 
 const useStyles = makeStyles(theme => ({
   appToolbarContainer: {
@@ -124,35 +124,38 @@ const Header = () => {
       {isMobile && (
       <Drawer anchor="right" open={menuOpen} onClose={toggleDrawer}>
         <nav>
-          <ExpansionList
+          <ExpansionMenu
             handleClick={expandPanel("panel1")}
             expanded={expanded === "panel1"}
             name="About"
+            id="about"
           >
             <MenuItem><a href="/about">About the Biobank</a></MenuItem>
             <MenuItem><a href="/eligibility">Eligibility and locations</a></MenuItem>
             <MenuItem><a href="/research">Biobanking drives research</a></MenuItem>
-          </ExpansionList>
+          </ExpansionMenu>
 
-          <ExpansionList
+          <ExpansionMenu
             handleClick={expandPanel("panel2")}
             expanded={expanded === "panel2"}
             name="What to expect"
+            id="expect"
           >
             <MenuItem><a href="/consent">Give your consent</a></MenuItem>
             <MenuItem><a href="/donate">Donate samples</a></MenuItem>
             <MenuItem><a href="/test">Get a biomarker test</a></MenuItem>
-          </ExpansionList>
+          </ExpansionMenu>
 
-          <ExpansionList
+          <ExpansionMenu
             handleClick={expandPanel("panel3")}
             expanded={expanded === "panel3"}
             name="Your participation"
+            id="participation"
           >
             <MenuItem><a href="/activate">Activate your account</a></MenuItem>
             <MenuItem><a href="/participation">Manage your participation</a></MenuItem>
             <MenuItem><a href="/privacy">Protecting your privacy</a></MenuItem>
-          </ExpansionList>
+          </ExpansionMenu>
         </nav>
       </Drawer>
       )}

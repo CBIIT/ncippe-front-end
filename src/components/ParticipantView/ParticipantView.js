@@ -141,6 +141,7 @@ const TestResults = (props) => {
                       className={classes.menu}
                       expanded={menuOpen}
                       handleClick={handleMenuState}
+                      style="floating"
                       >
                         <MenuItem onClick={openUploadDialog}>Upload consent form</MenuItem>
                         {user.isActiveBiobankParticipant !== false && <MenuItem onClick={openLeaveQuestions}>Leave the Biobank</MenuItem>}
