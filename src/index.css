@@ -98,6 +98,9 @@ ul.bulletList, ul.bulletList ul {
 ul.bulletList--spreadOut, ul.bulletList--spreadOut ul {
   margin-left: 30px;
 }
+ul.bulletList--spreadOut ul {
+  margin-top: 16px;
+}
 ul.bulletList--spreadOut li {
   padding-left: 10px;
   margin-bottom: 16px;
