@@ -9,7 +9,6 @@ import {
   Typography, 
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { MenuRounded as MenuIcon } from '@material-ui/icons'
 import { Link as RouterLink } from "@reach/router"
 
@@ -18,6 +17,14 @@ import MenuGroup from './MenuGroup';
 import ExpansionMenu from '../../ExpansionMenu/ExpansionMenu'
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    margin: theme.spacing(2,0),
+    paddingRight: theme.spacing(1),
+    [theme.breakpoints.up('smLandscape')]: {
+      margin: 0,
+      paddingRight: theme.spacing(3)
+    }
+  },
   appToolbarContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -91,38 +98,36 @@ const Header = () => {
 
 
   return (
-    <Container component="header">
-      <Typography className={classes.root} component="div">
-        <Box className={classes.appToolbarContainer}>
-          <figure className={classes.toolbarLogo}>
-            <Link component={RouterLink} to='/'>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/biobank-logo.svg`} alt='NCI Cancer Moonshot Biobank logo' title='NCI Cancer Moonshot Biobank' />
-            </Link>
-          </figure>
-          {!isMobile && (
-            <nav className={classes.publicNavDesktop}>
-              <MenuGroup title="About" active={loc.match('about')}>
-                <a href="/about">About the Biobank</a>
-                <a href="/about/eligibility">Eligibility and locations</a>
-                <a href="/about/research">Biobanking drives research</a>
-              </MenuGroup>
-              <MenuGroup title="What to expect" active={loc.match('expect')}>
-                <a href="/expect/consent">Give your consent</a>
-                <a href="/expect/donate">Donate samples</a>
-                <a href="/expect/testing">Get a biomarker test</a>
-              </MenuGroup>
-              <MenuGroup title="Your participation" active={loc.match('participation')}>
-                <a href="/participation/activate">Activate your account</a>
-                <a href="/participation/manage">Manage your participation</a>
-                <a href="/participation/privacy">Protecting your privacy</a>
-              </MenuGroup>
-          </nav>
-          )}
+    <Container component="header" className={classes.root}>
+      <Box className={classes.appToolbarContainer}>
+        <figure className={classes.toolbarLogo}>
+          <Link component={RouterLink} to='/'>
+            <img src={`/${process.env.PUBLIC_URL}assets/images/biobank-logo.svg`} alt='NCI Cancer Moonshot Biobank logo' title='NCI Cancer Moonshot Biobank' />
+          </Link>
+        </figure>
+        {!isMobile && (
+          <nav className={classes.publicNavDesktop}>
+            <MenuGroup title="About" active={loc.match('about')}>
+              <a href="/about">About the Biobank</a>
+              <a href="/about/eligibility">Eligibility and locations</a>
+              <a href="/about/research">Biobanking drives research</a>
+            </MenuGroup>
+            <MenuGroup title="What to expect" active={loc.match('expect')}>
+              <a href="/expect/consent">Give your consent</a>
+              <a href="/expect/donate">Donate samples</a>
+              <a href="/expect/testing">Get a biomarker test</a>
+            </MenuGroup>
+            <MenuGroup title="Your participation" active={loc.match('participation')}>
+              <a href="/participation/activate">Activate your account</a>
+              <a href="/participation/manage">Manage your participation</a>
+              <a href="/participation/privacy">Protecting your privacy</a>
+            </MenuGroup>
+        </nav>
+        )}
 
-          {isMobile ? <IconButton aria-label="menu" onClick={toggleDrawer}><MenuIcon /></IconButton> : <LoginButton />}
-          
-        </Box>
-      </Typography>
+        {isMobile ? <IconButton aria-label="menu" onClick={toggleDrawer}><MenuIcon /></IconButton> : <LoginButton />}
+        
+      </Box>
       {isMobile && (
       <Drawer anchor="right" open={menuOpen} onClose={toggleDrawer}>
         <nav>
