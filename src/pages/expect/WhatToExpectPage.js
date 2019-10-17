@@ -295,11 +295,12 @@ const WhatToExpectPage = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
 
   useEffect(() => {
-    window.addEventListener('resize', () => {
+    const resizeEvt = () => {
       setIsMobile(window.innerWidth < 600)
-    })
+    }
+    window.addEventListener('resize', resizeEvt, {passive: true})
     //clean up
-    return () => {}
+    return () => window.removeEventListener('resize', resizeEvt, {passive: true})
   },[isMobile])
 
   const handleChange = (event, newValue) => {
