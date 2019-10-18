@@ -166,7 +166,7 @@ const TestResults = (props) => {
           ) : (
             <NoItems message="No reports available for this participant." />
           )}
-          {user && user.isActiveBiobankParticipant === false && user.questionsAnswers && (
+          {user && user.isActiveBiobankParticipant === false && user.questionAnswers && (
             <DeactivatedQuestions user={user} />
           )}
         </Grid>

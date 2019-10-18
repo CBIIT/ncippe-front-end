@@ -27,7 +27,7 @@ const DeactivatedQuestions = (props) => {
   return (
     <Paper className={classes.deactivationQuestions} elevation={1} id="deactivationQuestions">
       <Typography className={classes.cardTitle} variant="h3" component="h3">{user.firstName} {user.lastName} left the Biobank on {moment(user.dateDeactivated).format("MMM DD, YYYY")}</Typography>
-      {user.questionsAnswers.map((q,i) => <div className={classes.questions} key={i}>
+      {user.questionAnswers.map((q,i) => <div className={classes.questions} key={i}>
         <Typography className={classes.question}>{q.question}</Typography>
         <Typography>{q.answer}</Typography>
       </div>)}

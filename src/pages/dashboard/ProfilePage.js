@@ -77,13 +77,13 @@ const useStyles = makeStyles(theme => ({
 const TestResults = (props) => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
-  const {firstName, lastName, dateCreated, isActiveBiobankParticipant, dateDeactivated, questionsAnswers} = loginContext
+  const {firstName, lastName, dateCreated, isActiveBiobankParticipant, dateDeactivated, questionAnswers} = loginContext
 
   const userData = {
     firstName,
     lastName,
     dateDeactivated,
-    questionsAnswers
+    questionAnswers
   }
 
   return (
@@ -110,7 +110,7 @@ const TestResults = (props) => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <Profile />
-            {isActiveBiobankParticipant === false && questionsAnswers && (
+            {isActiveBiobankParticipant === false && questionAnswers && (
               <DeactivatedQuestions user={userData} />
             )}
           </Grid>

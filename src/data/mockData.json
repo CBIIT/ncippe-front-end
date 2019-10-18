@@ -812,7 +812,7 @@
       "isActiveBiobankParticipant": false,
       "dateDeactivated": 1560320999000,
       "lastRevisedUser": "8b36b0c8-69d0-4042-ae02-03e795b2f0f8",
-      "questionsAnswers": [
+      "questionAnswers": [
         {
           "id": 1,
           "questionOrder": 1,
