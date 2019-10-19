@@ -695,7 +695,7 @@ async function withdrawUserLocal({uuid, patientId, qsAnsDTO, token}){
     dateDeactivated: new Date(),
     patientId,
     lastRevisedUser: uuid,
-    questionsAnswers: [
+    questionAnswers: [
       ...qsAnsDTO
     ]
   }

@@ -1,13 +1,35 @@
 import React, { useState, useEffect } from 'react'
-import { Typography, MenuList } from '@material-ui/core'
-import MuiExpansionPanel from '@material-ui/core/ExpansionPanel'
-import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
-import { ExpandMore as ExpandMoreIcon} from '@material-ui/icons'
+import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, MenuList, Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import { 
+  ExpandMore,
+  AddRounded,
+  RemoveRounded
+} from '@material-ui/icons'
 
-const ExpansionPanel = withStyles(theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
+    '&.Mui-expanded': {
+      margin: 'auto',
+    }
+  },
+  expansionPanelSummary: {
+    '& .MuiExpansionPanelSummary-content': {
+      margin: 0,
+      '&.Mui-expanded': {
+        margin: 0,
+      },
+    },
+  },
+  expansionPanelDetails: {
+    padding: 0,
+  },
+  menuList: {
+    padding: 0,
+    width: '100%'
+  },
+
+  floating: {
     border: `2px solid ${theme.palette.primary.main}`,
     color: theme.palette.primary.main,
     borderRadius: theme.shape.borderRadius,
@@ -18,77 +40,101 @@ const ExpansionPanel = withStyles(theme => ({
     '&:before': {
       display: 'none',
     },
-    '&$expanded': {
-      margin: 'auto',
+    '&.Mui-expanded': {
       boxShadow: theme.shadows[4],
     },
-  },
-  expanded: {},
-}))(MuiExpansionPanel);
-
-const ExpansionPanelSummary = withStyles(theme => ({
-  root: {
-    '&.Mui-expanded': {
-      borderBottom: `1px solid ${theme.palette.primary.main}`,
+    '& .MuiExpansionPanelSummary-root': {
+      '&.Mui-expanded': {
+        borderBottom: `1px solid ${theme.palette.primary.main}`,
+        minHeight: '0 !important',
+      },
+      '& .MuiExpansionPanelSummary-expandIcon': {
+        color: theme.palette.primary.main
+      }
     }
   },
-  content: {
-    margin: 0,
-    '&$expanded': {
-      
-      margin: 0,
+
+  stacked: {
+    '& .MuiExpansionPanelSummary-root': {
+      padding: '0 12px',
+
+      '&.Mui-expanded': {
+        minHeight: '48px',
+        backgroundColor: theme.palette.primary.light
+      },
+      '& .MuiExpansionPanelSummary-content': {
+        order: 1
+      },
+      '& .MuiExpansionPanelSummary-expandIcon': {
+        margin: 0,
+        padding: '0 6px 0 0',
+        '&.Mui-expanded': {
+          transform: 'none'
+        }
+      },
     },
-  },
-  expanded: {
-    minHeight: '0 !important',
-  },
-  expandIcon: {
-    color: theme.palette.primary.main
+    '& .MuiList-root': {
+      '& a': {
+        color: theme.palette.common.black,
+        textDecoration: 'none',
+      },
+      '& li:hover': {
+        backgroundColor: theme.palette.navy.dark,
+        color: theme.palette.common.white,
+        fontWeight: 600,
+        '& a': {
+          color: theme.palette.common.white,
+        }
+      }
+    }
   }
-}))(MuiExpansionPanelSummary);
-
-const ExpansionPanelDetails = withStyles(theme => ({
-  root: {
-    padding: 0,
-  },
-}))(MuiExpansionPanelDetails);
-
-const useStyles = makeStyles(theme => ({
-  menuList: {
-    padding: 0,
-    width: '100%'
-  },
 }))
 
 const ExpansionMenu = (props) => {
   const classes = useStyles()
-  const {id = "panel1", name, children, className = ""} = props
-  const [expanded, setExpanded] = useState(props.expanded);
+  const {
+    id = "panel1", 
+    name, children, 
+    className = "", 
+    expanded = false, 
+    handleClick,
+    style = 'stacked'
+  } = props
+  
+  const [isExpanded, setIsExpanded] = useState(expanded)
+  const ExpandIcon = style !== 'stacked' ? ExpandMore : AddRounded
+  const CollapseIcon = style !== 'stacked' ? ExpandMore : RemoveRounded
 
   useEffect(() => {
-    setExpanded(props.expanded)
+    setIsExpanded(expanded)
     //clean up
     return () => {}
-  },[props.expanded])
+  },[expanded])
 
-  const handleChange = panel => (event, newExpanded) => {
-    if(props.handleClick) {
-      props.handleClick(newExpanded ? true : false)
+  const handleChange = (event, newExpanded) => {
+    if(handleClick) {
+      handleClick(newExpanded ? true : false)
     } else {
-      setExpanded(newExpanded ? true : false);
+      setIsExpanded(newExpanded ? true : false);
     }
   };
 
   return (
-    <ExpansionPanel square expanded={expanded} onChange={handleChange(id)} className={className}>
+    <ExpansionPanel 
+      square 
+      expanded={isExpanded} 
+      onChange={handleChange} 
+      className={`${classes.root} ${style !== 'stacked' ? classes.floating : classes.stacked} ${className}`}
+    >
       <ExpansionPanelSummary 
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls={`${id}d-content`}
-        id={`${id}d-header`}
+        className={classes.expansionPanelSummary}
+        expandIcon={isExpanded ? <CollapseIcon /> : <ExpandIcon />}
+        aria-controls={`${id}Menu--content`}
+        id={`${id}Menu--header`}
       >
         <Typography variant="h4">{name}</Typography>
       </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      <ExpansionPanelDetails className={classes.expansionPanelDetails}>
         <MenuList className={classes.menuList} autoFocusItem={true}>
           {children}
         </MenuList>

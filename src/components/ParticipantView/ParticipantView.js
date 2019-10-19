@@ -141,6 +141,7 @@ const TestResults = (props) => {
                       className={classes.menu}
                       expanded={menuOpen}
                       handleClick={handleMenuState}
+                      style="floating"
                       >
                         <MenuItem onClick={openUploadDialog}>Upload consent form</MenuItem>
                         {user.isActiveBiobankParticipant !== false && <MenuItem onClick={openLeaveQuestions}>Leave the Biobank</MenuItem>}
@@ -165,7 +166,7 @@ const TestResults = (props) => {
           ) : (
             <NoItems message="No reports available for this participant." />
           )}
-          {user && user.isActiveBiobankParticipant === false && user.questionsAnswers && (
+          {user && user.isActiveBiobankParticipant === false && user.questionAnswers && (
             <DeactivatedQuestions user={user} />
           )}
         </Grid>

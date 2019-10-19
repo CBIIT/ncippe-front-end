@@ -4,11 +4,11 @@ import { Badge, Box, Button, Container, Divider, Grid, Link, Paper, Typography }
 import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
 
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
-import { LoginContext, LoginConsumer } from '../components/login/Login.context'
-import Profile from '../components/Profile/Profile'
-import Status from '../components/Status/Status'
-import DeactivatedQuestions from '../components/DeactivatedQuestions/DeactivatedQuestions'
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
+import { LoginContext, LoginConsumer } from '../../components/login/Login.context'
+import Profile from '../../components/Profile/Profile'
+import Status from '../../components/Status/Status'
+import DeactivatedQuestions from '../../components/DeactivatedQuestions/DeactivatedQuestions'
 
 
 const useStyles = makeStyles(theme => ({
@@ -77,13 +77,13 @@ const useStyles = makeStyles(theme => ({
 const TestResults = (props) => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
-  const {firstName, lastName, dateCreated, isActiveBiobankParticipant, dateDeactivated, questionsAnswers} = loginContext
+  const {firstName, lastName, dateCreated, isActiveBiobankParticipant, dateDeactivated, questionAnswers} = loginContext
 
   const userData = {
     firstName,
     lastName,
     dateDeactivated,
-    questionsAnswers
+    questionAnswers
   }
 
   return (
@@ -110,7 +110,7 @@ const TestResults = (props) => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
             <Profile />
-            {isActiveBiobankParticipant === false && questionsAnswers && (
+            {isActiveBiobankParticipant === false && questionAnswers && (
               <DeactivatedQuestions user={userData} />
             )}
           </Grid>

@@ -2,10 +2,10 @@ import React from 'react'
 import { Box, Container, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { LoginConsumer } from '../components/login/Login.context'
-import PatientList from '../components/PatientList/PatientList'
-import IconCard from '../components/IconCard/IconCard'
-import Status from '../components/Status/Status'
+import { LoginConsumer } from '../../components/login/Login.context'
+import PatientList from '../../components/PatientList/PatientList'
+import IconCard from '../../components/IconCard/IconCard'
+import Status from '../../components/Status/Status'
 
 
 const useStyles = makeStyles(theme => ({

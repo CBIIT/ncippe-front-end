@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Box, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 
-import IconCard from '../components/IconCard/IconCard'
+import IconCard from '../../components/IconCard/IconCard'
 
 const useStyles = makeStyles( theme => ({
   grid: {

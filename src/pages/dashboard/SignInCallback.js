@@ -3,10 +3,10 @@ import { navigate } from '@reach/router'
 import { Box, Typography, CircularProgress, Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 
-import { AuthContext } from '../components/login/AuthContext'
-import { LoginContext } from '../components/login/Login.context'
-import { api } from '../data/api'
-import { formatPhoneNumber } from '../utils/utils'
+import { AuthContext } from '../../components/login/AuthContext'
+import { LoginContext } from '../../components/login/Login.context'
+import { api } from '../../data/api'
+import { formatPhoneNumber } from '../../utils/utils'
 
 const useStyles = makeStyles( theme => ({
   titleUploading: {
