@@ -35,7 +35,7 @@ const ResearchPage = (props) => {
             <Grid item xs={12} md={6}>
               <Typography paragraph={true} variant="h2" component="h2">It's important to understand how cancer changes over time.</Typography>
               <Typography paragraph={true}>The main causes of death from cancer are when the disease spreads or becomes resistant to treatment. To understand why these happen, researchers need to look at cancer tissue donated by patients over the course of their treatment.</Typography>
-              <Typography paragraph={true}>These kinds of samples have been hard to get – but the Cancer Moonshot Biobank wants to change that. By donating your samples to the Biobank over the course of your care, for up to 5 years, researchers can study how cancers change over time, and how to fight later-stage cancers.</Typography>
+              <Typography paragraph={true}>These kinds of samples have been hard to get – but the Cancer Moonshot<sup>SM</sup> Biobank wants to change that. By donating your samples to the Biobank over the course of your care, for up to 5 years, researchers can study how cancers change over time, and how to fight later-stage cancers.</Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
               <img src={`/${process.env.PUBLIC_URL}assets/images/researchers1.jpg`} alt="researchers share results" />

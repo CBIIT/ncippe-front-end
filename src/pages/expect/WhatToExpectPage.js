@@ -210,7 +210,7 @@ const Consent = withStyles(theme => ({
 }))(({classes, index, isMobile}) => (
   <TabPanel index={index}>
     <Box className={classes.container}>
-      <Typography variant={isMobile ? "body1" : "body2"}>After you and your doctor discuss your participation in the Cancer Moonshot Biobank and decide you'd like to participate, you will be asked to sign a consent form. A research coordinator will be there to answer any questions you may have.</Typography>
+      <Typography variant={isMobile ? "body1" : "body2"}>After you and your doctor discuss your participation in the Cancer Moonshot<sup>SM</sup> Biobank and decide you'd like to participate, you will be asked to sign a consent form. A research coordinator will be there to answer any questions you may have.</Typography>
       <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="h4" rel="noopener noreferrer" target="_blank">Review the consent form <OpenInNewIcon /></Link>
       <Card>
         <div className={classes.mediaWrapper}>
@@ -252,7 +252,7 @@ const Donate = withStyles(theme => ({
   <TabPanel index={index}>
     <Grid container>
       <Grid item xs={12} sm={6} lg={8} className={classes.textColumn}>
-        <Typography className={classes.bottomSpacer} variant={isMobile ? "body1" : "body2"}>Donated blood and tissue will be sent to the Cancer Moonshot Biobank over the course of 3-5 years. The Biobank may also collect other relevant medical information from your hospital record.</Typography>
+        <Typography className={classes.bottomSpacer} variant={isMobile ? "body1" : "body2"}>Donated blood and tissue will be sent to the Cancer Moonshot<sup>SM</sup> Biobank over the course of 3-5 years. The Biobank may also collect other relevant medical information from your hospital record.</Typography>
 
         <Typography variant="h3" component="h3">Blood samples</Typography>
         <Typography className={classes.bottomSpacer}>The hospital staff will draw a few tubes of blood for the Biobank when you're already having blood drawn for your routine care.</Typography>

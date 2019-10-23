@@ -55,6 +55,9 @@ const useStyles = makeStyles( theme => ({
       fontSize: '62px',
       lineHeight: '74px',
       letterSpacing: '-.6px',
+      '& sup': {
+        fontSize: '40%',
+      }
     }
   },
   bold: {
@@ -253,12 +256,12 @@ const HomePage = (props) => {
         <div className={classes.heroText}>
           {isMobile ? 
           <Paper className={classes.heroPaper}>
-            <Typography className={classes.mainTitle} component="h1">The Cancer Moonshot Biobank</Typography>
+            <Typography className={classes.mainTitle} component="h1">The Cancer Moonshot<sup>SM</sup> Biobank</Typography>
             <Typography variant="body1" component="h2">Help change the future <br /> of cancer treatment.</Typography>
           </Paper>
           :
           <>
-            <Typography className={classes.mainTitle} component="h1">The Cancer Moonshot Biobank</Typography>
+            <Typography className={classes.mainTitle} component="h1">The Cancer Moonshot<sup>SM</sup> Biobank</Typography>
             <Typography variant="h2" component="h2">Help change the future <br /> of cancer treatment.</Typography>
           </>
           }
@@ -266,7 +269,7 @@ const HomePage = (props) => {
       </Container>
       <Container className={classes.missionStatement}>
         <Typography className={classes.missionStatementText} component="div">
-          The Cancer Moonshot Biobank is a 5-year initiative that aims to advance our understanding of cancer by engaging cancer patients in blood and tissue donations throughout the course of their treatment.
+          The Cancer Moonshot<sup>SM</sup> Biobank is a 5-year initiative that aims to advance our understanding of cancer by engaging cancer patients in blood and tissue donations throughout the course of their treatment.
         </Typography>
       </Container>
       <Container className={classes.infoBoxes}>
@@ -284,7 +287,7 @@ const HomePage = (props) => {
               <Typography>Partner with patient participants to make donated blood and tumor samples available for cancer research.</Typography>
             </Box>
             <Box className={classes.infoBox}>
-              <Typography variant={isMobile ? "h2" : "h1"}>The Moonshot Biobank</Typography>
+              <Typography variant={isMobile ? "h2" : "h1"}>The Moonshot<sup>SM</sup> Biobank</Typography>
               <Typography>Distributes donated blood and tumor samples to researchers.</Typography>
             </Box>
             <Box className={classes.infoBox}>
@@ -410,7 +413,7 @@ const HomePage = (props) => {
               />
             </Grid>
           </Grid>
-          <Typography className={classes.volunteerText} variant="body2">If you can't join the Cancer Moonshot Biobank, consider making a difference by joining other projects at NIH or NCI.</Typography>
+          <Typography className={classes.volunteerText} variant="body2">If you can't join the Cancer Moonshot<sup>SM</sup> Biobank, consider making a difference by joining other projects at NIH or NCI.</Typography>
         </Box>
       </Container>
       <Dialog

@@ -51,7 +51,7 @@ export default () => {
                   <Status state="info" fullWidth title="Your participation has been withdrawn." message="You or a research coordinator has withdrawn your participation in the program. Speak to your doctor if you would like to continue to participate. Your withdrawal choices are recorded in your account settings." />
                 </div>
                 :
-                <Typography variant="body2">Thank you for joining the Cancer Moonshot Biobank Program!</Typography>
+                <Typography variant="body2">Thank you for joining the Cancer Moonshot<sup>SM</sup> Biobank Program!</Typography>
               }
             </Box>
           )

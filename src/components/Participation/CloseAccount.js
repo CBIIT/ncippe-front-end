@@ -61,7 +61,7 @@ const CloseAccount = (props) => {
         After you close your account,
         <ul className="bulletList bulletList--spreadOut">
           <li>You will not have online access to your consent form or biomarker reports. Please ask your doctor or clinical research coordinator to send you physical copies of these documents.</li>
-          <li><strong>You are still participating in the Biobank.</strong> This option will only close your online Cancer Moonshot Biobank account. You will still be participating in the project.</li>
+          <li><strong>You are still participating in the Biobank.</strong> This option will only close your online Cancer Moonshot<sup>SM</sup> Biobank account. You will still be participating in the project.</li>
           <li>Your samples will still be used by researchers, and additional samples or medical information may be requested.You have the right to leave the Biobank if you wishand ask that your samples and medical information no longer be used.</li>
           <li>Your login.gov account will remain active. You can use this account to access other government services.</li>
           <li>NCI will keep any data stored in the Biobank website (such as your usage history, notifications, biomarker reports, and consent form). If you wish to permanently delete this data, please contact your clinical research coordinator.</li>

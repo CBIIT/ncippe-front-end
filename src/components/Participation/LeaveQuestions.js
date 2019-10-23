@@ -317,7 +317,7 @@ const LeaveQuestions = (props) => {
           <Typography variant="h3" component="h3">Please confirm the withdrawal of {user.firstName} {user.lastName} from further participation in the Biobank.</Typography>
           <Typography>The participant will need to speak to their doctor if they'd like to rejoin in the future.</Typography>
           </>:<>
-          <Typography variant="h3" component="h3">Thank you for your participation in the Cancer Moonshot Biobank. Please confirm your withdrawal.</Typography>
+          <Typography variant="h3" component="h3">Thank you for your participation in the Cancer Moonshot<sup>SM</sup> Biobank. Please confirm your withdrawal.</Typography>
           <Typography>You'll need to speak to your doctor if you'd like to rejoin in the future.</Typography>
           </>}
 

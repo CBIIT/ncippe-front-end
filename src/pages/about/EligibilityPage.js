@@ -32,7 +32,7 @@ const EligibilityPage = (props) => {
         <Box mt={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
-              <Typography paragraph={true}>The Cancer Moonshot Biobank will start out by collecting samples from patients with specific types of cancer, who are being treated at participating hospitals. Other cancer types and more hospitals may be added in future phases of the Biobank program.</Typography>
+              <Typography paragraph={true}>The Cancer Moonshot<sup>SM</sup> Biobank will start out by collecting samples from patients with specific types of cancer, who are being treated at participating hospitals. Other cancer types and more hospitals may be added in future phases of the Biobank program.</Typography>
               <Typography paragraph={true} variant="h2" component="h2">Eligibility</Typography>
               <Typography paragraph={true} variant="h3" component="h3">You may be eligible if you:</Typography>
               <Typography component="div">
@@ -65,7 +65,7 @@ const EligibilityPage = (props) => {
             <Grid className={classes.gridItem} item xs={12} md={6}>
               <Typography paragraph={true} variant="h2" component="h2">Participating hospitals</Typography>
               <Typography paragraph={true} variant="body2">To participate in the Biobank, you must be in the care of a doctor at one of these hospitals.</Typography>
-              <Typography>The Cancer Moonshot Biobank is working with the NCI Communicty Oncology Research Program (NCORP), a national network that brings cancer clinical trials and care delivery studies to people in their own communities.</Typography>
+              <Typography>The Cancer Moonshot<sup>SM</sup> Biobank is working with the NCI Communicty Oncology Research Program (NCORP), a national network that brings cancer clinical trials and care delivery studies to people in their own communities.</Typography>
             </Grid>
             <HospitalMap />
 
@@ -73,7 +73,7 @@ const EligibilityPage = (props) => {
 
             <Grid item xs={12} md={8}>
               <Typography paragraph={true} variant="h2" component="h2">Not eligible? Join another study</Typography>
-              <Typography paragraph={true} component="div">If you can't join the Cancer Moonshot Biobank, consider making a difference by participating in projects at NIH or NCI.</Typography>
+              <Typography paragraph={true} component="div">If you can't join the Cancer Moonshot<sup>SM</sup> Biobank, consider making a difference by participating in projects at NIH or NCI.</Typography>
               <Typography component="div">
                 <ul className="bulletList bulletList--spreadOut">
                   <li>All of Us &mdash; a large-scale project to gather data from one million or more people living in the United States to accelerate research and improve health.</li>
