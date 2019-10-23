@@ -111,7 +111,7 @@ const TestResults = (props) => {
   }
 
   const handleMenuState = (state) => {
-    setMenuOpen(state)
+    setMenuOpen(prevState => !prevState)
   }
 
   const handleClickAway = () => {

@@ -71,7 +71,8 @@ const Header = () => {
   const classes = useStyles()
   const [isMobile, setIsMobile] = useState(window.innerWidth < 800)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [expanded, setExpanded] = useState()
+  const loc = window.location.pathname
+  const [expanded, setExpanded] = useState(loc)
 
   // TODO: set active state on nav menu items based on site location
 
@@ -89,15 +90,16 @@ const Header = () => {
       return;
     }
 
-    setMenuOpen(prev => !prev);
+    setMenuOpen(prev => !prev)
   }
 
-  const expandPanel = panel => (newExpanded) => {
-    setExpanded(newExpanded ? panel : false)
+  const expandPanel = (event, newExpanded) => {
+    setExpanded(newExpanded ? event.currentTarget.id : "")
   }
-  
-  const loc = window.location.pathname
 
+  const closeMenu = () => {
+    setMenuOpen(prev => !prev)
+  }
 
   return (
     <Container component="header" className={classes.root}>
@@ -109,17 +111,17 @@ const Header = () => {
         </figure>
         {!isMobile && (
           <nav className={classes.publicNavDesktop}>
-            <MenuGroup title="About" active={loc.match('about')}>
+            <MenuGroup title="About" active={loc.includes('about')}>
               <a href="/about">About the Biobank</a>
               <a href="/about/eligibility">Eligibility and locations</a>
               <a href="/about/research">Biobanking drives research</a>
             </MenuGroup>
-            <MenuGroup title="What to expect" active={loc.match('expect')}>
+            <MenuGroup title="What to expect" active={loc.includes('expect')}>
               <a href="/expect/consent">Give your consent</a>
               <a href="/expect/donate">Donate samples</a>
               <a href="/expect/testing">Get a biomarker test</a>
             </MenuGroup>
-            <MenuGroup title="Your participation" active={loc.match('participation')}>
+            <MenuGroup title="Your participation" active={loc.includes('participation')}>
               <a href="/participation/activate">Activate your account</a>
               <a href="/participation/manage">Manage your participation</a>
               <a href="/participation/privacy">Protecting your privacy</a>
@@ -134,36 +136,39 @@ const Header = () => {
       <Drawer anchor="right" open={menuOpen} onClose={toggleDrawer}>
         <nav>
           <ExpansionMenu
-            handleClick={expandPanel("panel1")}
-            expanded={expanded === "panel1"}
+            handleClick={expandPanel}
+            expanded={expanded.includes("about")}
+            active={loc.includes('about')}
             name="About"
             id="about"
           >
-            <MenuItem><a href="/about">About the Biobank</a></MenuItem>
-            <MenuItem><a href="/eligibility">Eligibility and locations</a></MenuItem>
-            <MenuItem><a href="/research">Biobanking drives research</a></MenuItem>
+            <a onClick={closeMenu} href="/about">About the Biobank</a>
+            <a onClick={closeMenu} href="/about/eligibility">Eligibility and locations</a>
+            <a onClick={closeMenu} href="/about/research">Biobanking drives research</a>
           </ExpansionMenu>
 
           <ExpansionMenu
-            handleClick={expandPanel("panel2")}
-            expanded={expanded === "panel2"}
+            handleClick={expandPanel}
+            expanded={expanded.includes("expect")}
+            active={loc.includes('expect')}
             name="What to expect"
             id="expect"
           >
-            <MenuItem><a href="/consent">Give your consent</a></MenuItem>
-            <MenuItem><a href="/donate">Donate samples</a></MenuItem>
-            <MenuItem><a href="/test">Get a biomarker test</a></MenuItem>
+            <a onClick={closeMenu} href="/expect/consent">Give your consent</a>
+            <a onClick={closeMenu} href="/expect/donate">Donate samples</a>
+            <a onClick={closeMenu} href="/expect/testing">Get a biomarker test</a>
           </ExpansionMenu>
 
           <ExpansionMenu
-            handleClick={expandPanel("panel3")}
-            expanded={expanded === "panel3"}
+            handleClick={expandPanel}
+            expanded={expanded.includes("participation")}
+            active={loc.includes('participation')}
             name="Your participation"
             id="participation"
           >
-            <MenuItem><a href="/activate">Activate your account</a></MenuItem>
-            <MenuItem><a href="/participation">Manage your participation</a></MenuItem>
-            <MenuItem><a href="/privacy">Protecting your privacy</a></MenuItem>
+            <a onClick={closeMenu} href="/participation/activate">Activate your account</a>
+            <a onClick={closeMenu} href="/participation/participation">Manage your participation</a>
+            <a onClick={closeMenu} href="/participation/privacy">Protecting your privacy</a>
           </ExpansionMenu>
         </nav>
       </Drawer>

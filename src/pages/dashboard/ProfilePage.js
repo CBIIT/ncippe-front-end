@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link as RouterLink } from '@reach/router'
-import { Badge, Box, Button, Container, Divider, Grid, Link, Paper, Typography } from '@material-ui/core'
+import { Box, Button, Container, Divider, Grid, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
 

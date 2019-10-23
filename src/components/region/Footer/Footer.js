@@ -14,7 +14,6 @@ const useStyles = makeStyles(theme => ({
     }
   },
   logo: {
-
     '& img': {
       width: '430px',
       maxWidth: '100%',
@@ -22,6 +21,10 @@ const useStyles = makeStyles(theme => ({
     }
   },
   footerLinks: {
+    marginBottom: theme.spacing(4),
+    [theme.breakpoints.up('sm')]: {
+      marginBottom: 0
+    },
     '& a': {
       display: 'block',
       fontWeight: 'bold',

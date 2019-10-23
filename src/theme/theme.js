@@ -58,6 +58,7 @@ export const theme = createMuiTheme({
   gradients: {
     primary: 'linear-gradient(#d2e2f7, #facfdc)',
     blue: 'linear-gradient(#d2e2f7, transparent)',
+    blueReverse: 'linear-gradient(transparent, #f0f5fb)',
     primaryDiagonal: 'linear-gradient(315deg, #FFEBF1 0%, #F3EEF6 51%, #E8F0FA 100%)'
   },
   text: {
@@ -123,6 +124,18 @@ export const theme = createMuiTheme({
     }
   },
   overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        body: {
+          fontFamily: '"Open Sans", Montserrat, Helvetica, Arial, sans-serif',
+          fontWeight: 400,
+          fontSize: '16px',
+          lineHeight: '30px',
+          paragraphHeight: '20px',
+          letterSpacing: '.46px'
+        }
+      }
+    },
     MuiOutlinedInput: {
       notchedOutline: {
         borderColor: '#656565',

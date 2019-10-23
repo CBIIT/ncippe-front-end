@@ -11,6 +11,8 @@ import {
   Popper,
 } from '@material-ui/core';
 
+import ConditionalWrapper from '../../utils/ConditionalWrapper'
+
 const useStyles = makeStyles(theme => ({
   popper: {
     position: "fixed",
@@ -25,25 +27,17 @@ const useStyles = makeStyles(theme => ({
     marginTop: 5,
   },
   menuList: {
-    padding: 0
-  }
-}))
-
-const StyledMenuList = withStyles(theme => ({
-  root: {
-    '& a': {
-      color: theme.palette.common.black,
-      textDecoration: 'none'
-    },
-    '&:focus': {
-      backgroundColor: theme.palette.primary.main,
+    padding: 0,
+    '& .Mui-selected,& .Mui-selected:focus,& .Mui-selected:hover': {
+      backgroundColor: theme.palette.navy.dark,
+      color: theme.palette.common.white,
+      fontWeight: 600,
       '& a': {
         color: theme.palette.common.white,
-        fontWeight: 600
-      },
+      }
     },
-  },
-}))(props => <MenuList {...props}/>)
+  }
+}))
 
 const StyledMenuItem = withStyles(theme => ({
   root: {
@@ -76,14 +70,13 @@ const MenuGroup = (props) => {
   const containerNode = document.querySelector("#root .transitionGroup")
 
   const handleToggle = (event) => {
-    console.log("Toggle open")
     setOpen(prevOpen => !prevOpen);
     setPopperClass(prev => !prev ? 'active-popper' : false)
   }
 
   const handleClose = event => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
+    if (event.target.classList.contains("Mui-selected") || anchorRef.current && anchorRef.current.contains(event.target)) {
+      return
     }
 
     setOpen(false)
@@ -103,6 +96,12 @@ const MenuGroup = (props) => {
       event.target.firstChild.click()
     }
   }
+
+  const focusItem = (event) => {
+    event.currentTarget.focus()
+  }
+
+  const loc = window.location.pathname
 
   // return focus to the button when we transitioned from !open -> open
   // this does not work when clicking from one menu item to the next
@@ -147,7 +146,16 @@ const MenuGroup = (props) => {
             <ClickAwayListener onClickAway={handleClose}>
               <MenuList className={classes.menuList} autoFocusItem={open} onKeyDown={handleListKeyDown}>
                 {
-                  React.Children.map(props.children, child => <StyledMenuItem onClick={handleClose} onKeyDown={handleListItemKeyDown}><Link to={child.props.href}>{child.props.children}</Link></StyledMenuItem>)
+                  React.Children.map(props.children, child => (
+                    <StyledMenuItem onClick={handleClose} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={loc === child.props.href}>
+                      <ConditionalWrapper
+                        condition={loc !== child.props.href}
+                        wrapper={children => <Link to={child.props.href}>{children}</Link>}
+                      >
+                        {child.props.children}
+                      </ConditionalWrapper>
+                    </StyledMenuItem>
+                  ))
                 }
               </MenuList>
             </ClickAwayListener>

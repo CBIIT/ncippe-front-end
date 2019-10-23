@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@reach/router'
-import { Button, Card, CardActionArea, CardActions, CardMedia, CardContent, Typography } from '@material-ui/core';
+import { Button, Card, CardActions, CardMedia, CardContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { KeyboardArrowRight as KeyboardArrowRightIcon } from '@material-ui/icons'
 
@@ -30,7 +30,7 @@ const Component = (props) => {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <div>
         <CardMedia
           className={classes.media}
           image={`/${process.env.PUBLIC_URL}assets/images/${image}`}
@@ -41,17 +41,17 @@ const Component = (props) => {
             {title}
           </Typography>
           {desc &&
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography component="p">
               {desc}
             </Typography>
           }
         </CardContent>
-      </CardActionArea>
-      <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" component={Link} to={link}>
+      </div>
+      {link && <CardActions className={classes.cardActions}>
+        <Button color="primary" component={Link} to={link}>
           {linkText} <KeyboardArrowRightIcon className={classes.linkIcon} />
         </Button>
-      </CardActions>
+      </CardActions>}
     </Card>
   )
 }

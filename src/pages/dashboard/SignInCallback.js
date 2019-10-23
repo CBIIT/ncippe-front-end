@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { navigate } from '@reach/router'
-import { Box, Typography, CircularProgress, Container } from '@material-ui/core';
+import { Typography, CircularProgress, Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 
 import { AuthContext } from '../../components/login/AuthContext'
@@ -20,6 +20,7 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const SignInCallback = (props) => {
+  const {location: {state: routerState}} = props
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const authContext = useContext(AuthContext)
@@ -28,7 +29,7 @@ const SignInCallback = (props) => {
 
   useEffect(() => {
 
-    signinRedirectCallback(props.location.state).then(async resp => {
+    signinRedirectCallback(routerState).then(async resp => {
 
       let uuid
       let email

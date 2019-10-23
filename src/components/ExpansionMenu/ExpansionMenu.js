@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, MenuList, Typography } from '@material-ui/core'
+import { Link } from '@reach/router'
+import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, MenuList, MenuItem, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   ExpandMore,
   AddRounded,
   RemoveRounded
 } from '@material-ui/icons'
+
+import ConditionalWrapper from '../utils/ConditionalWrapper'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -78,14 +81,14 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.common.black,
         textDecoration: 'none',
       },
-      '& li:hover': {
+      '& .Mui-selected,& .Mui-selected:focus,& .Mui-selected:hover': {
         backgroundColor: theme.palette.navy.dark,
         color: theme.palette.common.white,
         fontWeight: 600,
         '& a': {
           color: theme.palette.common.white,
         }
-      }
+      },
     }
   }
 }))
@@ -94,9 +97,10 @@ const ExpansionMenu = (props) => {
   const classes = useStyles()
   const {
     id = "panel1", 
-    name, children, 
+    name,
     className = "", 
-    expanded = false, 
+    expanded = false,
+    active = false,
     handleClick,
     style = 'stacked'
   } = props
@@ -104,6 +108,7 @@ const ExpansionMenu = (props) => {
   const [isExpanded, setIsExpanded] = useState(expanded)
   const ExpandIcon = style !== 'stacked' ? ExpandMore : AddRounded
   const CollapseIcon = style !== 'stacked' ? ExpandMore : RemoveRounded
+  const loc = window.location.pathname
 
   useEffect(() => {
     setIsExpanded(expanded)
@@ -113,21 +118,31 @@ const ExpansionMenu = (props) => {
 
   const handleChange = (event, newExpanded) => {
     if(handleClick) {
-      handleClick(newExpanded ? true : false)
+      handleClick(event, newExpanded ? true : false)
     } else {
-      setIsExpanded(newExpanded ? true : false);
+      setIsExpanded(newExpanded ? true : false)
     }
-  };
+  }
+
+  const handleListItemKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      event.target.firstChild.click()
+    }
+  }
+
+  const focusItem = (event) => {
+    event.currentTarget.focus()
+  }
 
   return (
     <ExpansionPanel 
       square 
-      expanded={isExpanded} 
+      expanded={isExpanded}
       onChange={handleChange} 
       className={`${classes.root} ${style !== 'stacked' ? classes.floating : classes.stacked} ${className}`}
     >
       <ExpansionPanelSummary 
-        className={classes.expansionPanelSummary}
+        className={`${classes.expansionPanelSummary} ${active ? "active" : ""}`}
         expandIcon={isExpanded ? <CollapseIcon /> : <ExpandIcon />}
         aria-controls={`${id}Menu--content`}
         id={`${id}Menu--header`}
@@ -135,8 +150,24 @@ const ExpansionMenu = (props) => {
         <Typography variant="h4">{name}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-        <MenuList className={classes.menuList} autoFocusItem={true}>
-          {children}
+        <MenuList className={classes.menuList} autoFocusItem={isExpanded}>
+          {
+            React.Children.map(props.children, child => {
+              if(child.type === "a") {
+                return (
+                  <MenuItem onClick={child.props.onClick} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={loc === child.props.href}>
+                    <ConditionalWrapper
+                      condition={loc !== child.props.href}
+                      wrapper={children => <Link to={child.props.href}>{children}</Link>}
+                    >
+                      {child.props.children}
+                    </ConditionalWrapper>
+                  </MenuItem>
+                )
+              }
+              return child
+            })
+          }
         </MenuList>
       </ExpansionPanelDetails>
     </ExpansionPanel>
