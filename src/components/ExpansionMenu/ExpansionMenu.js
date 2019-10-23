@@ -153,7 +153,7 @@ const ExpansionMenu = (props) => {
         <MenuList className={classes.menuList} autoFocusItem={isExpanded}>
           {
             React.Children.map(props.children, child => {
-              if(child.type === "a") {
+              if(child && child.type === "a") {
                 return (
                   <MenuItem onClick={child.props.onClick} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={loc === child.props.href}>
                     <ConditionalWrapper
