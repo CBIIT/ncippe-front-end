@@ -128,20 +128,24 @@ export default () => {
             </LoginConsumer>
           </Grid>
           {/* END: User Profile */}
-          
           {/* Get Help */}
-          <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
-            <IconCard
-              icon="get-help.svg"
-              title="Get help"
-              desc="We are here to answer all your questions about the PPE Portal and Biobank program."
-              link="/dashboard/help"
-              linkText="Learn more"
-            />
-          </Grid>
+          <LoginConsumer>
+          {([{roleName,newReport: count}]) => {
+            return roleName === "ROLE_PPE_PARTICIPANT" && (
+              <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+                <IconCard
+                  icon="get-help.svg"
+                  title="Get help"
+                  desc="We are here to answer all your questions about the PPE Portal and Biobank program."
+                  link="/dashboard/help"
+                  linkText="Learn more"
+                />
+              </Grid>
+            )
+          }}
+          </LoginConsumer>
           {/* END: Get Help */}
         </Grid>
-
       </Container>
 
       <LoginConsumer>

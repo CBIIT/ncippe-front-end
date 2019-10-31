@@ -260,7 +260,7 @@ const HomePage = (props) => {
           <Paper className={classes.infoOffsetPaper}>
             <Box className={classes.infoBox}>
               <Typography className={classes.infoBoxTitle} variant="h2" component="h2">Our Mission</Typography>
-              <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}>The Cancer Moonshot<sup>SM</sup> Biobank is a 5-year project to advance our understanding of cancer by engaging people with cancer in blood and tissue donation throughout the course of their treatment.</Typography>
+              <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}>The Cancer Moonshot<sup>SM</sup> Biobank is a 5-year project to learn more about cancer with the help of participants who donate samples as they receive treatment.</Typography>
               <Typography variant="button" component="div" className={classes.extraTopSpace}><Link to="/expect">What to expect if you participate ></Link></Typography>
             </Box>
           </Paper>
@@ -271,19 +271,19 @@ const HomePage = (props) => {
             <Grid container className={classes.howItWorksGrid} spacing={3}>
               <Grid item xs={12} sm={6} md={3}>
                 <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/patients.svg`} alt="patient icon" />
-                <Typography>People with cancer donate blood and tissue samples throughout their treatment, for up to 5 years.</Typography>
+                <Typography>People with cancer donate blood and tissue samples during their treatment, for up to 5 years.</Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/multiple-samples.svg`} alt="multiple test tubes icon" />
-                <Typography>The Moonshot Biobank receives the samples and sends them to researchers.</Typography>
+                <Typography>The Biobank receives the samples and sends them to researchers.</Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/one-idea.svg`} alt="lightbulb icon" />
-                <Typography>Researchers develop ideas to test on many different samples, and advance their understanding of cancer.</Typography>
+                <Typography>Researchers develop ideas to test on many different samples and advance their understanding of cancer.</Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/breakthrough.svg`} alt="breakthrough icon" />
-                <Typography>Researchers work to find breakthroughs that improve cancer treatments and increase survival.</Typography>
+                <Typography>Researchers work to find discoveries that improve cancer treatments and increase survival.</Typography>
               </Grid>
             </Grid>
           </Box>
@@ -295,7 +295,7 @@ const HomePage = (props) => {
       <Container className={classes.volunteer}>
         <Box>
           <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}>Why should I participate?</Typography>
-          <Typography paragraph={true} variant={isMobile ? "body1" : "body2"} className={classes.volunteerText}>By joining the Biobank, you will accelerate the discovery of new cancer therapies, helping patients everywhere.</Typography>
+          <Typography paragraph={true} variant={isMobile ? "body1" : "body2"} className={classes.volunteerText}>By joining the Biobank, you will be a part of the discovery of new cancer therapies, helping patients everywhere.</Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={4}>
               <IconCardMedia
@@ -309,16 +309,16 @@ const HomePage = (props) => {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <IconCardMedia
-                title="Diverse samples make research more inclusive."
-                desc="Cancer treatments don’t work the same way for everyone &mdash; samples from many different people help researchers better test their ideas."
+                title="Diverse populations are important for research."
+                desc="Cancer treatments don't work the same way for everyone&mdash;samples from many different communities will help researchers understand why this is and how to improve cancer care."
                 image="friends-and-family--sm.jpg"
                 imageTitle="friends and family"
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <IconCardMedia
-                title="Research will lead to more treatment options."
-                desc="With samples and medical information from throughout treatment, we can see how cancer changes over time."
+                title="Together we can advance our understanding of cancer."
+                desc="By collecting samples over time, researchers can observe how cancer changes and how to stop it from growing and spreading."
                 link="/about/research"
                 linkText="Learn about research"
                 image="test-tubes.jpg"

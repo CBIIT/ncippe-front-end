@@ -55,8 +55,8 @@ const Consent = (props) => {
       aria-labelledby={`scrollable-auto-tab-${index}`}
     >
     <Box className={classes.container}>
-      <Typography variant={isMobile ? "body1" : "body2"}>After you and your doctor discuss the Cancer Moonshot<sup>SM</sup> Biobank, you understand what it involves, and you decide you’d like to take part, you will be asked to sign a consent form. A research coordinator will be there to answer any questions you may have.</Typography>
-      <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="h4" rel="noopener noreferrer" target="_blank">Review the consent form <OpenInNewIcon /></Link>
+      <Typography variant={isMobile ? "body1" : "body2"}>After you and your doctor discuss the Biobank and you decide you'd like to take part, you’ll be given a consent form to review and sign. Participation in the Biobank is voluntary and deciding not to participate won’t affect your care. You can also leave the program at any time.</Typography>
+      <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="h4" rel="noopener noreferrer" target="_blank">Review a sample adult consent form <OpenInNewIcon /></Link>
       <Card>
         <div className={classes.mediaWrapper}>
           <CardMedia

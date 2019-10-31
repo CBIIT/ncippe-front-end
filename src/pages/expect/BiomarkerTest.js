@@ -74,7 +74,7 @@ const BiomarkerTest = (props) => {
           <Typography className={classes.bottomSpacer} variant={isMobile ? "body1" : "body2"}>After you donate blood and tissue samples to the Biobank, we will run a biomarker test on your samples. Your doctor may be able to use the report to create a more personalized treatment plan for you.</Typography>
 
           <Typography variant="h3" component="h3">Biomarker testing</Typography>
-          <Typography>This type of testing may also be called tumor profiling, genomic profiling, molecular testing, tumor DNA sequencing, or genomic cancer testing. It looks specifically at the genetic errors and other changes of your cancer. It doesn’t look at any genes you have inherited.</Typography>
+          <Typography>A biomarker test looks specifically at the genetic errors and other changes in your cancer. It does not provide information about genes you were born with. This type of testing may also be called tumor profiling, genomic profiling, molecular testing, tumor DNA sequencing, or genomic cancer testing.</Typography>
         </Grid>
         <Grid item xs={12} sm={6} lg={4} className={classes.imgColumn}>
           <img className={classes.img} src={`/${process.env.PUBLIC_URL}assets/images/researchers4.jpg`} alt="doctor and microscope" height="360" />
@@ -85,8 +85,8 @@ const BiomarkerTest = (props) => {
       <Typography>The biomarker test involves three steps:</Typography>
       <Stepper className={classes.stepper} orientation="vertical" nonLinear>
         <Step active={true}>
-          <StepLabel>Submit</StepLabel>
-          <StepContent>The Biobank will send your sample to a lab.</StepContent>
+          <StepLabel>Share</StepLabel>
+          <StepContent>The Biobank will send the donated sample of your blood or tissue to a lab.</StepContent>
         </Step>
         <Step active={true}>
           <StepLabel>Analyze</StepLabel>

@@ -10,7 +10,7 @@ export default (props) => {
     <Box className="popup">
       <Breadcrumbs pageName="Reports" link={location.state.forceNavigation} />
       <Container className="mainContainer">
-        <ParticipantView patientId={patientId} location={location} />
+        <ParticipantView patientId={patientId} />
       </Container>
     </Box>
   )

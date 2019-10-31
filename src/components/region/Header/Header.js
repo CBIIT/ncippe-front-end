@@ -122,7 +122,6 @@ const Header = () => {
             </MenuGroup>
             <MenuGroup title="Your participation" active={loc.includes('participation')}>
               <a href="/participation/activate">Activate your account</a>
-              <a href="/participation/manage">Manage your participation</a>
               <a href="/participation/privacy">Protecting your privacy</a>
             </MenuGroup>
         </nav>
@@ -166,7 +165,6 @@ const Header = () => {
             id="participation"
           >
             <a onClick={closeMenu} href="/participation/activate">Activate your account</a>
-            <a onClick={closeMenu} href="/participation/participation">Manage your participation</a>
             <a onClick={closeMenu} href="/participation/privacy">Protecting your privacy</a>
           </ExpansionMenu>
         </nav>

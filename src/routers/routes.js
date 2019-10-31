@@ -11,7 +11,6 @@ import Eligibility        from '../pages/about/EligibilityPage'
 import Research           from '../pages/about/ResearchPage'
 import WhatToExpect       from '../pages/expect/WhatToExpectPage'
 import Privacy            from '../pages/participation/PrivacyPage'
-import Manage             from '../pages/participation/ManagePage'
 import Activate           from '../pages/participation/ActivatePage'
 import Dashboard          from '../pages/dashboard/DashboardPage'
 import SignInCallback     from '../pages/dashboard/SignInCallback'
@@ -35,7 +34,6 @@ const DashboardPage = pageWrapper(Dashboard)
 const DashboardMochaPage = pageWrapper(DashboardMocha)
 const WhatToExpectPage = pageWrapper(WhatToExpect)
 const ActivatePage = pageWrapper(Activate)
-const ManagePage = pageWrapper(Manage)
 const PrivacyPage = pageWrapper(Privacy)
 const SignInCallbackPage = pageWrapper(SignInCallback)
 const ErrorPage = pageWrapper(Errors)
@@ -70,7 +68,6 @@ export default () => (
             <EligibilityPage path='/about/eligibility' />
             <ResearchPage path='/about/research' />
             <ActivatePage path='/participation/activate' />
-            <ManagePage path='/participation/manage' />
             <PrivacyPage path='/participation/privacy' />
             <ErrorPage path='/error' />
             <PrivateRoute path='/dashboard' component={DashboardPage} />
