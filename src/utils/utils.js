@@ -29,3 +29,30 @@ export const createUUID = () => {
 }
 
 export const randomString = (length) => [...Array(length)].map(i=>(~~(Math.random()*36)).toString(36)).join('')
+
+export const flatArray = (object) => Object.keys(object).reduce((arr,key) => {
+  if(Array.isArray(object[key])) {
+    return arr.concat(...object[key])
+  }
+  return arr
+},[])
+
+export const getUserGroup = (role, list = true) => {
+  const suffix = list ? 's' : 'Id'
+  switch(role) {
+    case 'PPE_PARTICIPANT':
+      return `patient${suffix}`
+    case 'PPE_PROVIDER':
+      return `provider${suffix}`
+    case 'PPE_CRC':
+      return `crc${suffix}`
+    case 'PPE_BSSC':
+      return `bssc${suffix}`
+    case 'PPE_MOCHA_ADMIN':
+      return `mochaAdmin${suffix}`
+    case 'PPE_ADMIN':
+      return `admin${suffix}`
+    default:
+      return 'patient${suffix}'
+  }
+}

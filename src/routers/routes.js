@@ -2,26 +2,27 @@ import React from 'react'
 import { Location, Router, Redirect } from '@reach/router'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-import NotFound from '../pages/NotFoundPage'
-import Home from '../pages/HomePage'
-import About from '../pages/about/AboutPage'
-import Eligibility from '../pages/about/EligibilityPage'
-import Research from '../pages/about/ResearchPage'
-import WhatToExpect from '../pages/expect/WhatToExpectPage'
-import Privacy from '../pages/participation/PrivacyPage'
-import Dashboard from '../pages/dashboard/DashboardPage'
-import SignInCallback from '../pages/dashboard/SignInCallback'
-import Errors from '../pages/ErrorPage' // 'Error' is reserved keyword
-import DashboardMocha from '../pages/dashboard/DashboardMochaPage'
-import MockUsersPage from '../pages/MockUsersPage'
-import NotificationsPage from '../pages/dashboard/NotificationsPage'
-import TestResultsPage from '../pages/dashboard/TestResultsPage'
-import ParticipantPage from '../pages/dashboard/ParticipantPage'
-import ConsentPage from '../pages/dashboard/ConsentPage'
-import ProfilePage from '../pages/dashboard/ProfilePage'
-import ParticipationPage from '../pages/dashboard/ParticipationPage'
-import GetHelpPage from '../pages/dashboard/GetHelpPage'
-import Activate from '../pages/participation/ActivatePage'
+import NotFound           from '../pages/NotFoundPage'
+import Home               from '../pages/HomePage'
+import MockUsersPage      from '../pages/MockUsersPage'
+import Errors             from '../pages/ErrorPage' // 'Error' is reserved keyword
+import About              from '../pages/about/AboutPage'
+import Eligibility        from '../pages/about/EligibilityPage'
+import Research           from '../pages/about/ResearchPage'
+import WhatToExpect       from '../pages/expect/WhatToExpectPage'
+import Privacy            from '../pages/participation/PrivacyPage'
+import Manage             from '../pages/participation/ManagePage'
+import Activate           from '../pages/participation/ActivatePage'
+import Dashboard          from '../pages/dashboard/DashboardPage'
+import SignInCallback     from '../pages/dashboard/SignInCallback'
+import DashboardMocha     from '../pages/dashboard/DashboardMochaPage'
+import NotificationsPage  from '../pages/dashboard/NotificationsPage'
+import TestResultsPage    from '../pages/dashboard/TestResultsPage'
+import ParticipantPage    from '../pages/dashboard/ParticipantPage'
+import ConsentPage        from '../pages/dashboard/ConsentPage'
+import ProfilePage        from '../pages/dashboard/ProfilePage'
+import ParticipationPage  from '../pages/dashboard/ParticipationPage'
+import GetHelpPage        from '../pages/dashboard/GetHelpPage'
 
 import pageWrapper from '../pages/pageWrapper'
 import { LoginConsumer } from '../components/login/Login.context'
@@ -33,8 +34,9 @@ const ResearchPage = pageWrapper(Research)
 const DashboardPage = pageWrapper(Dashboard)
 const DashboardMochaPage = pageWrapper(DashboardMocha)
 const WhatToExpectPage = pageWrapper(WhatToExpect)
-const PrivacyPage = pageWrapper(Privacy)
 const ActivatePage = pageWrapper(Activate)
+const ManagePage = pageWrapper(Manage)
+const PrivacyPage = pageWrapper(Privacy)
 const SignInCallbackPage = pageWrapper(SignInCallback)
 const ErrorPage = pageWrapper(Errors)
 
@@ -63,11 +65,12 @@ export default () => (
         >
           <Router location={location} primary={false}>
             <HomePage path='/' />
-            <ActivatePage path='/participation/activate' />
             <SignInCallbackPage path='/signin' />
             <AboutPage path='/about' />
             <EligibilityPage path='/about/eligibility' />
             <ResearchPage path='/about/research' />
+            <ActivatePage path='/participation/activate' />
+            <ManagePage path='/participation/manage' />
             <PrivacyPage path='/participation/privacy' />
             <ErrorPage path='/error' />
             <PrivateRoute path='/dashboard' component={DashboardPage} />

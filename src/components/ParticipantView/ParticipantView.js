@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     display: 'flex',
     alignItems: 'flex-start',
+    flexDirection: 'column',
     '& a': {
       textDecoration: 'none'
     },
@@ -72,6 +73,7 @@ const useStyles = makeStyles(theme => ({
 const TestResults = (props) => {
 
   const classes = useStyles()
+  const {patientId} = props
   const [loginContext, dispatch] = useContext(LoginContext)
   const [reports, setReports] = useState(false)
   const [files, setFiles] = useState(false)
@@ -83,7 +85,6 @@ const TestResults = (props) => {
   useEffect(() => {
     //fetch participant data
     const {token, env} = loginContext
-    const patientId = props.patientId
     // const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).uuid
     api[env].fetchPatientTestResults({patientId, token}).then(resp => {
       setReports(resp.reports)
@@ -151,6 +152,9 @@ const TestResults = (props) => {
               )
             }}
           </LoginConsumer>
+          {props.location && props.location.state && props.location.state.newParticipantActivated &&
+            <Status state="success" title="New participant added successfully" message="This participant can now activate their Biobank account. You can add additional consent forms under Account actions." />
+          }
         </div>
       )}
       {user && user.isActiveBiobankParticipant === false && <Status state="info" fullWidth title="This participant has withdrawn from the Biobank." message={`The participant withdrew enrollment on ${moment(user.dateDeactivated).format("MMM DD, YYYY")}. The participant must initiate a conversation with their doctor to start participating again.`} />}

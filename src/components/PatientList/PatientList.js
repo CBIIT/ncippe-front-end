@@ -3,6 +3,7 @@ import { Box, Grid, TextField, Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import PatientListItem from './PatientListItem'
+import AddParticipantInfoDialog from '../../components/Participation/AddParticipantInfoDialog'
 
 const useStyles = makeStyles(theme => ({
   titleWithIcon: {
@@ -28,6 +29,8 @@ const PatientList = (props) => {
   const {patients} = props
   const classes = useStyles()
   const [patientList, setPatientList] = useState(patients)
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [patientToActivate, setPatientToActivate] = useState()
   const allPatients = [...patients] // create new object of patients
 
   const filterPatients = (event) => {
@@ -36,6 +39,15 @@ const PatientList = (props) => {
       return name.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
     });
     setPatientList(filteredList)
+  }
+
+  const activateUser = (patient) => {
+    setDialogOpen(true)
+    setPatientToActivate(patient)
+  }
+
+  const closeUploadDialog = (success) => {
+    setDialogOpen(false)
   }
 
   return (
@@ -61,8 +73,9 @@ const PatientList = (props) => {
       </Grid>
 
       <Box>
-        {patientList && patientList.map((patient, i) => <PatientListItem key={i} patient={patient} />)}
+        {patientList && patientList.map((patient, i) => <PatientListItem key={i} patient={patient} activate={activateUser} />)}
       </Box>
+      <AddParticipantInfoDialog open={dialogOpen} patient={patientToActivate} setParentState={closeUploadDialog} />
     </Box>
   )
 }

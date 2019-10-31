@@ -37,7 +37,7 @@ const AboutPage = (props) => {
               <Typography paragraph={true}>The Biobank is part of the Cancer Moonshot, an initiative to accelerate cancer research. It is run by the Biorepository and Biospeciment Research Branch at the National Cancer Institute, part of the National Institutes of Health (NIH).</Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`${process.env.PUBLIC_URL}assets/images/hands2.jpg`} alt="reassuring hands" />
+              <img src={`/${process.env.PUBLIC_URL}assets/images/hands2.jpg`} alt="reassuring hands" />
             </Grid>
           </Grid>
         </Box>

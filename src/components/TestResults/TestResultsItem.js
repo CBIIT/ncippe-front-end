@@ -121,7 +121,9 @@ const TestResultsItem = (props) => {
         // mark this report as viewed in database
         api[env].reportViewedBy({patientId, uuid, reportId, token})
         .then(resp => {
-          if (resp === true) {
+          if(resp instanceof Error) {
+            console.error(resp.message)
+          } else {
             // mark as viewed in front-end state
             setIsNewReport(false)
 
@@ -162,7 +164,6 @@ const TestResultsItem = (props) => {
                 patients: updatedPatients
               })
             }
-            
           }
         })
       })

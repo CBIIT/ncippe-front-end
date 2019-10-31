@@ -8,6 +8,7 @@ import { Clear as ClearIcon } from '@material-ui/icons'
 import { LoginContext } from '../login/Login.context'
 import { api } from '../../data/api'
 import InputGroupError from '../inputs/InputGroupError/InputGroupError'
+import Status from '../Status/Status'
 
 const useStyles = makeStyles( theme => ({
   header: {
@@ -61,7 +62,7 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const LeaveQuestions = (props) => {
-  const {location: {state: {user}}} = props
+  const {location: {state: {user}},cancel} = props
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const [questionData, setQuestionData] = useState({})
@@ -72,6 +73,7 @@ const LeaveQuestions = (props) => {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [saveError, setSaveError] = useState(false)
 
   const changeQuestion = (event, value) => {
     const id = event.currentTarget.parentNode.id
@@ -113,7 +115,7 @@ const LeaveQuestions = (props) => {
       setQ2Error(true)
       isValid = false
     }
-    if(!user && !questionData.q3) {
+    if(!questionData.q3) {
       setQ3Error(true)
       isValid = false
     }
@@ -134,7 +136,6 @@ const LeaveQuestions = (props) => {
 
   const handleSubmit = () => {
     const {uuid, patientId, env, token, patients} = loginContext
-    let q3
     const q1 = {
       question: document.getElementById('q1-text').textContent,
       answer: questionData['q1'],
@@ -145,12 +146,10 @@ const LeaveQuestions = (props) => {
       answer: questionData['q2'],
       questionOrder: "2"
     }
-    if(!user) {
-      q3 = {
-        question: document.getElementById('q3-text').textContent,
-        answer: questionData['q3'],
-        questionOrder: "3"
-      }
+    const q3 = {
+      question: document.getElementById('q3-text').textContent,
+      answer: questionData['q3'],
+      questionOrder: "3"
     }
     const q4 = {
       question: document.getElementById('q4-text').textContent,
@@ -161,12 +160,9 @@ const LeaveQuestions = (props) => {
     const data = [
       q1,
       q2,
+      q3,
       q4
     ]
-
-    if(!user) {
-      data.push(q3)
-    }
 
     api[env].withdrawUser({
       uuid,
@@ -175,9 +171,10 @@ const LeaveQuestions = (props) => {
       token
     })
     .then(resp => {
-      // TODO: catch fucking errors on 500 response
-      if(resp.message) {
-        alert(resp.message)
+      console.log("resp", resp)
+      // TODO: catch errors on 500 response
+      if(resp instanceof Error) {
+        setSaveError(resp)
       } else {
         // Save successful, also update the user context data
         if(user) {
@@ -208,7 +205,7 @@ const LeaveQuestions = (props) => {
           })
         }
         // close the modal
-        props.cancel()
+        cancel()
       }
     })
     .catch(error => {
@@ -263,7 +260,6 @@ const LeaveQuestions = (props) => {
         </InputGroupError>
       </FormControl>
       
-      {!user && <>
       <Typography id="q3-text" variant="h3">Would you like us to contact you to talk about leaving the project and answer any questions you may have?</Typography>
       <Typography className={classes.dim}>If you select yes, your clinical research coordinator will call you.</Typography>
       <FormControl component="fieldset" className={classes.formControl}>
@@ -280,7 +276,6 @@ const LeaveQuestions = (props) => {
           </ToggleButtonGroup>
         </InputGroupError>
       </FormControl>
-      </>}
 
       <Typography id="q4-text" variant="h3">Why {user ? "does the participant" : "do you"} want to leave the Biobank?</Typography>
       <Typography className={classes.dim}>Sharing why {user ? "the participant is" : "you are"} leaving the project will help us improve the program for future participants.</Typography>
@@ -303,7 +298,7 @@ const LeaveQuestions = (props) => {
 
       <div className={classes.formButtons}>
         <Button variant="contained" color="primary" onClick={handleNextStep}>Leave the Biobank program</Button>
-        <Button className={classes.btnCancel} variant="text" onClick={props.cancel}><ClearIcon />Cancel</Button>
+        <Button className={classes.btnCancel} variant="text" onClick={cancel}><ClearIcon />Cancel</Button>
       </div>
 
       <Dialog
@@ -320,6 +315,8 @@ const LeaveQuestions = (props) => {
           <Typography variant="h3" component="h3">Thank you for your participation in the Cancer Moonshot<sup>SM</sup> Biobank. Please confirm your withdrawal.</Typography>
           <Typography>You'll need to speak to your doctor if you'd like to rejoin in the future.</Typography>
           </>}
+
+          {saveError && <Status state="error" title={saveError.name} message={saveError.message} />}
 
         </DialogContent>
         <DialogActions>

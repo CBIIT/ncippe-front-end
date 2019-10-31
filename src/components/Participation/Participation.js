@@ -23,7 +23,6 @@ const Participation = (props) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
 
   const handleNextStep = (data) => {
-    console.log("handleNextStep data:", data)
     if(data === 'leave') {
       navigate(`${window.location.pathname}/leaveOptions`)
     }
@@ -35,9 +34,15 @@ const Participation = (props) => {
   const handleCancel = () => {
     // using state to hijack the back button so it goes back to the dashboard
     // and not back into the 'change participation' workflow
-    navigate('../', {state: {
-      forceNavigation: '/dashboard'
-    }})
+    // navigate('../', {state: {
+    //   forceNavigation: '/dashboard'
+    // }})
+    const isParticipant = window.location.pathname.includes("/profile")
+    navigate(isParticipant ? '/dashboard/profile' : window.location.pathname.match(/^.*\/participant\/.{8}/)[0], {
+      state: {
+        forceNavigation: '/dashboard'
+      }
+    })
   }
 
   return (

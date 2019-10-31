@@ -26,13 +26,14 @@
     "webpack-bundle-analyzer": "^3.6.0"
   },
   "scripts": {
-    "dev-server": "react-scripts start & npm run mock",
-    "start": "react-scripts start",
+    "test-server": "react-scripts start & node server.js",
+    "dev-server": "./node_modules/.bin/env-cmd -e local react-scripts start & npm run mock",
+    "start": "./node_modules/.bin/env-cmd -e local react-scripts start",
     "start_deploy": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "mock": "json-server --watch src/data/mockData.json --port 5000 --routes ./routes.json --middlewares ./server_singular.js"
+    "mock": "json-server --watch src/data/mockData.json --port 5000 --routes ./routes.json --middlewares ./server_getUser.js ./server_singular.js"
   },
   "eslintConfig": {
     "extends": "react-app",

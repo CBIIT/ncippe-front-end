@@ -171,16 +171,16 @@ const UploadReport = () => {
           token
         })
         .then(resp => {
-          if(resp === true) {
-            // Save successful
-            setActiveStep(3)
-          } else {
+          if(resp instanceof Error) {
             // Save unsuccessful - go back a step
             setActiveStep(1)
             setFormData(prevState => ({
               ...prevState,
               uploadError: true
             }))
+          } else {
+            // Save successful
+            setActiveStep(3)
           }
         })
       // }, 3000)

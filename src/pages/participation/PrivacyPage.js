@@ -32,22 +32,22 @@ const PrivacyPage = (props) => {
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
           <IconCard
             icon="identification.svg"
-            title="The Biobank will never give researchers your name."
+            title="We will never give researchers your name."
             desc="Researchers will not know your name, phone number, or where you live."
           />
         </Grid>
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
           <IconCard
             icon="stored-medical-info.svg"
-            title="The Biobank stores your medical information without identifying information."
-            desc="Biobank employees cannot access your name or other indentifying information."
+            title="Your personal information is not stored in the Biobank."
+            desc="Biobank employees cannot access your name or other information that indentifies you."
           />
         </Grid>
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
           <IconCard
             icon="doctor.svg"
             title="We keep your participation private."
-            desc="Your participation is not shared with your health insurance, employer, or anyone else."
+            desc="Your participation and indentifing information is not shared with your health insurance, employer, or anyone else."
           />
         </Grid>
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
@@ -60,15 +60,15 @@ const PrivacyPage = (props) => {
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
           <IconCard
             icon="security-system.svg"
-            title="Our systems meet the highest security standards."
-            desc="We test our systems to protect you from data breeches and other security threats."
+            title="Our systems are secure."
+            desc="We test our systems to protect you from data breaches and other security threats."
           />
         </Grid>
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
           <IconCard
             icon="laws.svg"
             title="There are laws to protect your privacy and prevent discrimination"
-            desc="Certificate of Confidentiality <br/> HIPPA Privacy Rule"
+            descHTML={`<a href="https://www.cancer.gov/resources-for/researchers/certificates-confidentiality" rel="noopener noreferrer" target="_blank">Certificate of Confidentiality</a> <br/> <a href="https://www.hhs.gov/hipaa/for-professionals/privacy/index.html" rel="noopener noreferrer" target="_blank">HIPPA Privacy Rule</a>`}
           />
         </Grid>
       </Grid>

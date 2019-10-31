@@ -63,11 +63,13 @@ const Profile = () => {
         phoneNumber: cleanPhoneNumber,
         allowEmailNotification
       }
-      const { token, env, uuid, id } = loginContext
-      const userId = env === 'local' ? id : uuid
-      api[env].updateUser({uuid: userId, token, data})
+      const { token, env, uuid } = loginContext
+
+      api[env].updateUser({uuid, token, data})
         .then(resp => {
-          if(resp === true) {
+          if(resp instanceof Error) {
+            console.error(resp.message)
+          } else {
             // Save successful, also update the user context data
             dispatch({
               type: 'update',
@@ -77,8 +79,6 @@ const Profile = () => {
               }
             })
             toggleEditMode()
-          } else {
-            alert(resp.message)
           }
         })
     }

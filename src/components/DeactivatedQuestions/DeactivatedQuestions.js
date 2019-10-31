@@ -29,7 +29,7 @@ const DeactivatedQuestions = (props) => {
       <Typography className={classes.cardTitle} variant="h3" component="h3">{user.firstName} {user.lastName} left the Biobank on {moment(user.dateDeactivated).format("MMM DD, YYYY")}</Typography>
       {user.questionAnswers.map((q,i) => <div className={classes.questions} key={i}>
         <Typography className={classes.question}>{q.question}</Typography>
-        <Typography>{q.answer}</Typography>
+        <Typography>{q.answer ? q.answer : 'No response provided'}</Typography>
       </div>)}
     </Paper>
   )

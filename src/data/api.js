@@ -1,60 +1,89 @@
-import { createUUID } from '../utils/utils'
+import { createUUID, flatArray, getUserGroup } from '../utils/utils'
 import queryString from 'query-string'
 
-async function fetchMockUsersLocal(){
-  // get mock user id list
-  const mockUsers = await fetch(`/api/mockUsers`)
-    .then(resp => {
-      if(resp.ok) {
-        return resp.json()
-      } else {
-        throw new Error(`Unable to fetch mock users from the server`)
-      }
-    })
-    .catch(error => {
-      console.error(error)
-      return error
-    })
-
-  if(!mockUsers.hasOwnProperty('message')) {
-    // compose request using mock user list results
-    const url = `/api/users?uuid=${mockUsers.join('&uuid=')}`
-
-    // fetch data for each mock user
-    return await fetch(url)
-    .then(resp => {
-      if(resp.ok) {
-        return resp.json()
-      } else {
-        throw new Error(`Unable to fetch mock users`)
-      }
-    })
-    .catch(error => {
-      console.error(error)
-      return error
-    })
+const handleResponse = resp => {
+  if(resp.ok) {
+    const contentType = resp.headers.get("content-type")
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+      return resp.json()
+    } else {
+      return resp
+    }
   } else {
-    return mockUsers
+    throw new Error(`Request rejected with status ${resp.status}: ${resp.statusText}`)
   }
 }
 
-async function fetchMockUsersProd(){
-  // fetch data for each mock user - this will fetch ALL users :(
-  return await fetch(`/api/v1/users`)
-  .then(resp => {
-    if(resp.ok) {
-      return resp.json()
+const handlePromiseAllResponse = resps => {
+  // console.log("values",resps)
+  let data = []
+  let errorMessage
+
+  resps.map(resp => {
+    if(resp instanceof Error) {
+      // add to the error message only if this message is new. DRY
+      if(!errorMessage) {
+        errorMessage = resp.message
+      }
+      else if (!errorMessage.includes(resp.message)){
+        errorMessage+= ` ${resp.message}`
+      }
     } else {
-      throw new Error(`Unable to fetch mock users`)
+      data.push(resp)
     }
   })
-  .catch(error => {
-    console.error(error)
-    return error
-  })
+
+  // console.log(errorMessage)
+
+  if(errorMessage) {
+    throw new Error(errorMessage)
+  } else {
+    return data
+  }
+}
+
+// handle error with a custom message
+const handleErrorMsg = message => error => {
+  console.error(error)
+  return message ? typeof message === 'string' ? new Error(message) : message : error.message
+}
+
+// handle default error
+const handleError = error => {
+  console.error(error)
+  return error
 }
 
 /*=======================================================================*/
+/*======== Mock Users ===================================================*/
+
+async function fetchMockUsersLocal(){
+  
+  const query = {
+    _embed: [
+      "patients",
+      "providers",
+      "crcs",
+      "bsscs",
+      "mochaAdmins",
+      "admins"
+    ]
+  }
+
+  return await fetch(`/api/mockUsers/1?${queryString.stringify(query)}`)
+    .then(handleResponse)
+    .then(data => flatArray(data))
+    .catch(handleErrorMsg(`Unable to fetch mock users`))
+}
+
+async function fetchMockUsersProd(){
+  return await fetch(`/api/v1/users`)
+    .then(handleResponse)
+    .catch(handleErrorMsg(`Unable to fetch mock users`))
+}
+
+/*=======================================================================*/
+/*======== Request Token ================================================*/
 
 async function fetchTokenLocal({uuid, email, id_token}){
   console.log("fetchToken data sent to server:", 
@@ -64,86 +93,65 @@ async function fetchTokenLocal({uuid, email, id_token}){
   )
 
   // check if the uuid exists in our system
-  const userUUID_exists = await fetch(`/api/users?uuid=${uuid}&singular=1`)
-    .then(resp => {
-      if(resp.ok) {
-        return resp.json()
-      }
-    })
-    .catch(error => {
-      console.error(error)
-      return error
-    })
+  const userUUID_exists = await fetch(`/api/users?uuid=${uuid}`)
+    .then(handleResponse)
+    .catch(handleError)
+
   let userEmail_exists = false
 
   // if no uuid then check if the user is in our system based on the email provided. email used for login.gov account must match email registered in OPEN
+  
   if (!userUUID_exists) {
-    userEmail_exists = await fetch(`/api/users?email=${email}&singular=1`)
-      .then(resp => {
-        if(resp.ok) {
-          return resp.json()
-        }
-      })
-      .catch(error => {
-        console.error(error)
-        return error
-      })
+    userEmail_exists = await fetch(`/api/users?email=${email}`)
+      .then(handleResponse)
+      .catch(handleError)
   }
 
   // use has a valid uuid of email address in our system
-  if (userUUID_exists || userEmail_exists) {
-
+  if ((userUUID_exists && !(userUUID_exists instanceof Error)) || (userEmail_exists && !(userEmail_exists instanceof Error))) {
     // if no uuid was found then this user is logging in for the first time. Add their uuid from login.gov used to fetch this token
     if(!userUUID_exists) {
       // this is probably a mock user without a login.gov account. Save their UUID locally
-      const user = userEmail_exists
-      await fetch(`/users/${user.id}`,{
+      const userData = userEmail_exists
+      await fetch(`/api/${getUserGroup(userData.userType)}/${userData.id}`,{
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({uuid:createUUID()})
       }).then(()=>{
-        console.log("patch successful")
+        console.info('%cpatch successful','color:#00bde3; background:#e7f6f8; display: block')
       })
     }
 
     return await fetch(`/api/token?singular=1`)
-      .then(resp => {
-        if(resp.ok) {
-          return resp.json()
-        } else {
-          throw new Error(`We were unable to fetch user data at this time. Please try again.`)
-        }
-      })
-      .catch(error => {
-        console.error(error)
-        return error
-      })
+      .then(handleResponse)
+      .catch(handleError)
 
   } else {
-    return new Error(`Invalid user`)
+    return new Error(`Invalid user.`)
   }
-
 }
 
 async function fetchTokenProd({uuid, email, id_token}){
   // uuid and email from login.gov as querystring
-  return await fetch(`/api/v1/login?uuid=${uuid}&email=${email}`,{
+  const query = {
+    uuid,
+    email
+  }
+  return await fetch(`/api/v1/login?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': id_token
     }
   })
-    .then(resp => resp.json())
-    .catch(error => {
-      console.error(error)
-      return error
-    })
+  .then(handleResponse)
+  .catch(handleError)
 }
 
 /*=======================================================================*/
+/*======== Fetch User Data ==============================================*/
 
 async function fetchUserLocal({uuid, patientId, email, token}){
   console.log("fetchUser data sent to server:", 
@@ -151,18 +159,10 @@ async function fetchUserLocal({uuid, patientId, email, token}){
     `\npatientId: ${patientId}`,
     `\nemail: ${email}`
   )
+  const query = uuid ? {uuid} : patientId ? {patientId} : {email}
 
-  let userData
-
-  if( typeof uuid === 'string'){
-    userData = await fetch(`/api/users?uuid=${uuid}&singular=1`)
-    .then(resp => {
-      if(resp.ok) {
-        return resp.json()
-      } else {
-        throw new Error(`We were unable to fetch user data at this time. Please try again.`)
-      }
-    })
+  return await fetch(`/api/users?${queryString.stringify(query)}`)
+    .then(handleResponse)
     .then(data => {
       if(data.portalAccountStatus === 'ACCT_TERMINATED_AT_PPE') {
         return new Error(`This account has been closed`)
@@ -170,56 +170,7 @@ async function fetchUserLocal({uuid, patientId, email, token}){
         return data
       }
     })
-    .catch(error => {
-      console.log("no users found using uuid")
-      return error
-    })
-  }
-
-  if( (typeof email === 'string' && !userData) || (userData && userData.hasOwnProperty('message'))){
-    console.log("fetch using email")
-    userData = await fetch(`/api/users?email=${email}&singular=1`)
-    .then(resp => {
-      if(resp.ok) {
-        const data = resp.json()
-        if(data.portalAccountStatus === 'ACCT_TERMINATED_AT_PPE') {
-          throw new Error(`This account has been closed`)
-        } else {
-          return data
-        }
-      } else {
-        throw new Error(`We were unable to fetch user data at this time. Please try again.`)
-      }
-    })
-    .catch(error => {
-      console.log("no users found using email")
-      return error
-    })
-  }
-
-  if((typeof patientId === 'string' && !userData) || (userData && userData.hasOwnProperty('message'))){
-    console.log("fetch using patientId")
-    userData = await fetch(`/api/users?patientId=${patientId}&singular=1`)
-    .then(resp => {
-      if(resp.ok) {
-        const data = resp.json()
-        if(data.portalAccountStatus === 'ACCT_TERMINATED_AT_PPE') {
-          throw new Error(`This account has been closed`)
-        } else {
-          return data
-        }
-      } else {
-        throw new Error(`We were unable to fetch user data at this time. Please try again.`)
-      }
-    })
-    .catch(error => {
-      console.log("no users found using patientId")
-      return error
-    })
-  }
-
-  return userData
-
+    .catch(handleErrorMsg(`Unable to fetch user data based on query: ${query}`))
 }
 
 async function fetchUserProd({uuid, patientId, email, token}){
@@ -240,124 +191,87 @@ async function fetchUserProd({uuid, patientId, email, token}){
       'Authorization': token
     }
   })
-  .then(resp => {
-    if(resp.ok) {
-      return resp.json()
-    } else {
-      throw new Error(`We were unable to fetch user data at this time. Please try again.`)
-    }
-  })
-  .catch(error => {
-    console.error(error)
-    return error
-  })
+  .then(handleResponse)
+  .catch(handleErrorMsg(`Unable to fetch user data based on query: ${query}.`))
 }
 
 /*=======================================================================*/
+/*======== Update User Account Data =====================================*/
 
 async function updateUserLocal({uuid, data, token}){
-  console.log("userData sent to server:",
+  console.log("updateUser data sent to server:",
     `\nuuid: ${uuid}`,
     `\ndata: ${JSON.stringify(data)}`
   )
 
-  return await fetch(`/users/${uuid}`,{
+  // first: identify the user
+  const userData = await fetchUserLocal({uuid})
+
+  return await fetch(`/api/${getUserGroup(userData.userType)}/${userData.id}`,{
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
   })
-    .then(resp => {
-      if(resp.ok) {
-        return true
-      } else {
-        throw new Error(`We were unable to save your changes at this time. Please try again.`)
-      }
-    })
-    .catch(error => {
-      console.error(error)
-      return error
-    })
+  .then(handleResponse)
+  .then(resp => resp)
+  .catch(handleErrorMsg('Unable to save changes.'))
 }
 
 async function updateUserProd({uuid, data, token}){
   const {phoneNumber, allowEmailNotification} = data
-  return await fetch(`/api/v1/user/${uuid}?phoneNumber=${phoneNumber}&allowEmailNotification=${allowEmailNotification}`,{
+  const query = {
+    phoneNumber,
+    allowEmailNotification
+  }
+  return await fetch(`/api/v1/user/${uuid}?${queryString.stringify(query)}`,{
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token
     }
   })
-    .then(resp => {
-      if(resp.ok) {
-        return true
-      } else {
-        throw new Error(`We were unable to save your changes at this time. Please try again.`)
-      }
-    })
-    .catch(error => {
-      console.error(error)
-      return error
-    })
+  .then(handleResponse)
+  .catch(handleErrorMsg('Unable to save changes.'))
 }
 
 /*=======================================================================*/
-
+/*======== Upload Report/File ============================================*/
 
 async function uploadPatientReportLocal({patientId, uuid, reportFile, fileType}){
 
-  // first get reports for this user - local only
-  const userDetails = await fetch(`/api/users?patientId=${patientId}&singular=1`)
-    .then(resp => resp.json())
-    .catch(error => {
-      console.error(error)
-    })
-
-  const userReports = userDetails.reports || []
-  const reports = {
-      "reports": [
-      ...userReports,
-      {
-        "id": userDetails.reports && userDetails.reports.length > 0 ? userDetails.reports.length + 1 : 1,
-        "uploadedBy": uuid,
-        "fileName": reportFile.name,
-        "uploadedFileType": fileType,
-        "description": "",
-        "timestamp": Date.now(),
-        "fileGUID": createUUID()
-      }
-    ]
+  const endpoint = fileType === 'PPE_FILETYPE_BIOMARKER_REPORT' ? '/api/reports' : '/api/otherDocumen3ts'
+  const newFile = {
+    uploadedBy: uuid,
+    fileName: reportFile.name,
+    uploadedFileType: fileType,
+    description: "",
+    dateUploaded: Date.now(),
+    fileGUID: createUUID()
   }
 
-  console.log("userData sent to server:", 
-    `\nuuid: ${uuid}`, 
-    `\npatientId: ${patientId}`, 
-    `\nreportFile:`, reportFile, 
-    `\nuploadedFileType:`, fileType, 
-    `\nreports:`, reports
+  console.log("uploadPatientReport data sent to server:", 
+    `\nnewFile:`, newFile
   )
 
-  return await fetch(`/users/${userDetails.id}`,{
-    method: 'PATCH',
+  // first: identify the user
+  const userData = await fetchUserLocal({patientId})
+
+  // attach
+  newFile.patientId = userData.id
+
+  // upload the report
+  return await fetch(endpoint,{
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(reports)
+    body: JSON.stringify(newFile)
   })
-  .then(resp => {
-    // TODO: put pdf file into dist folder using middleware
-    if(resp.ok) {
-      return true
-    } else {
-      throw new Error(`We were unable to upload your file at this time. Please try again.`)
-    }
-  })
-  .catch(error => {
-    console.error(error)
-    return error
-  })
+  .then(handleResponse)
+  .then(resp => resp)
+  .catch(handleErrorMsg('Unable to upload file.'))
 }
 
 async function uploadPatientReportProd({patientId, uuid, reportFile, fileType, token}){
@@ -378,121 +292,50 @@ async function uploadPatientReportProd({patientId, uuid, reportFile, fileType, t
     },
     body: formData
   })
-  .then(resp => {
-    if(resp.ok) {
-      return true
-    } else {
-      throw new Error(`We were unable to upload your file at this time. Please try again.`)
-    }
-  })
-  .catch(error => {
-    console.error(error)
-    return error
-  })
+  .then(handleResponse)
+  .catch(handleErrorMsg('Unable to upload file.'))
 }
 
 /*=======================================================================*/
+/*======== Mark Notifications as Read ===================================*/
 
-async function uploadConsentFormLocal({patientId, uuid, reportFile, fileType}){
-
-  // first get reports for this user - local only
-  const userDetails = await fetch(`/api/users?patientId=${patientId}&singular=1`)
-    .then(resp => resp.json())
-    .catch(error => {
-      console.error(error)
-    })
-
-  const userDocuments = userDetails.otherDocuments || []
-  const otherDocuments = {
-      "otherDocuments": [
-      ...userDocuments,
-      {
-        "id": userDetails.otherDocuments && userDetails.otherDocuments.length > 0 ? userDetails.otherDocuments.length + 1 : 1,
-        "uploadedBy": uuid,
-        "fileName": reportFile.name,
-        "uploadedFileType": fileType,
-        "description": "",
-        "timestamp": Date.now(),
-        "fileGUID": createUUID()
-      }
-    ]
-  }
-
-  console.log("userData sent to server:", 
-    `\nuuid: ${uuid}`, 
-    `\npatientId: ${patientId}`, 
-    `\nfile:`, reportFile, 
-    `\nuploadedFileType:`, fileType, 
-    `\notherDocuments:`, otherDocuments
-  )
-
-  return await fetch(`/users/${userDetails.id}`,{
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(otherDocuments)
-  })
-  .then(resp => {
-    // TODO: put pdf file into dist folder using middleware
-    if(resp.ok) {
-      return true
-    } else {
-      throw new Error(`We were unable to upload your file at this time. Please try again.`)
-    }
-  })
-  .catch(error => {
-    console.error(error)
-    return error
-  })
-}
-
-
-/*=======================================================================*/
-
-// TODO: fetch notifications - needed as seperate call?
 async function notificationsMarkAsReadLocal({uuid}){
-  const userDetails = await fetch(`/api/users?uuid=${uuid}&singular=1`)
-    .then(resp => resp.json())
-    .catch(error => {
-      console.error(error)
+
+  // first: identify the user
+  const userData = await fetchUserLocal({uuid})
+
+  // get the notifications to be updated
+  const notifications = await fetch(`/api/notifications?${getUserGroup(userData.userType, false)}=${userData.id}`)
+    .then(handleResponse)
+    .catch(handleError)
+
+  // update notifications
+  const updatedNotifications = notifications.map(notification => {
+    return ({
+      ...notification,
+      viewedByUser: 1
     })
+  })
 
-  const userNotificationList = userDetails.notificationList || []
-  const notificationList = {
-    "notificationList": [
-      ...userNotificationList.map(notification => {
-        return ({
-          ...notification,
-          viewedByUser: 1
-        })
-      })
-    ]
-  }
-
-  console.log("userData sent to server:", 
-    `\nuuid: ${uuid}`
+  console.log("notificationsMarkAsRead data sent to server:", 
+    `\nupdatedNotifications:`, updatedNotifications
   )
 
-  return await fetch(`/users/${userDetails.id}`,{
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(notificationList)
-  })
-  .then(resp => {
-    // TODO: put pdf file into dist folder using middleware
-    if(resp.ok) {
-      return true
-    } else {
-      throw new Error(`We were unable to mark notifications as read. Please try again.`)
-    }
-  })
-  .catch(error => {
-    console.error(error)
-    return error
-  })
+  // write updates to the server
+  const promises = updatedNotifications.map(notification => fetch(`/api/notificationsZ/${notification.id}`,{
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(notification)
+    })
+    .then(handleResponse)
+    .catch(handleError)
+  )
+
+  return await Promise.all(promises)
+    .then(handlePromiseAllResponse)
+    .catch(handleError)
 }
 
 async function notificationsMarkAsReadProd({uuid, token}){
@@ -503,38 +346,19 @@ async function notificationsMarkAsReadProd({uuid, token}){
       'Authorization': token
     }
   })
-  .then(resp => {
-    if(resp.ok) {
-      return true
-    } else {
-      throw new Error(`We were unable to mark notifications as read. Please try again.`)
-    }
-  })
-  .catch(error => {
-    console.error(error)
-    return error
-  })
+  .then(handleResponse)
+  .catch(handleErrorMsg('Unable to mark notifications as read.'))
 }
 
 /*=======================================================================*/
+/*======== Fetch Patient Report =========================================*/
 
 async function fetchPatientReportLocal({reportId}){
   // This kind of works, but reports have to be manually placed in the /assets/documents folder and reportId is the filename
-  // return await fetch(`//10.5.62.58:8080/api/patientReport/${reportId}`,{
-  // return await fetch(`/assets/documents/${reportId}`)
   // return await fetch(`/assets/documents/${reportId}`) // - point to local assets
   return await fetch(`/assets/documents/important-document.pdf`) // - point to local assets
-  .then(resp => {
-    if(resp.ok) {
-      return resp
-    } else {
-      throw new Error(`We were unable to fetch this report. Please try again.`)
-    }
-  })
-  .catch(error => {
-    console.error(error)
-    return error
-  })
+  .then(handleResponse)
+  .catch(handleErrorMsg('Unable to fetch report.'))
 }
 
 async function fetchPatientReportProd({reportId, token}){
@@ -544,84 +368,41 @@ async function fetchPatientReportProd({reportId, token}){
       'Authorization': token
     }
   })
-  .then(resp => {
-    if(resp.ok) {
-      return resp
-    } else {
-      throw new Error(`We were unable to fetch this report. Please try again.`)
-    }
-  })
-  .catch(error => {
-    console.error(error)
-    return error
-  })
+  .then(handleResponse)
+  .catch(handleErrorMsg('Unable to fetch report.'))
 }
 
 /*=======================================================================*/
+/*======== Report Viewed By =============================================*/
 
-async function reportViewedByLocal({patientId, uuid, reportId}){
+async function reportViewedByLocal({uuid, reportId}){
 
-  let userDetails
+  // fetch the report to be updated
+  const report = await fetch(`/api/reports?fileGUID=${reportId}&singular=1`)
+    .then(handleResponse)
+    .catch(handleError)
 
-  if(patientId) {
-    userDetails = await fetch(`/api/users?patientId=${patientId}&singular=1`)
-    .then(resp => resp.json())
-    .catch(error => {
-      console.error(error)
-    })
-  } else {
-    userDetails = await fetch(`/api/users?uuid=${uuid}&singular=1`)
-    .then(resp => resp.json())
-    .catch(error => {
-      console.error(error)
-    })
+  const viewedBy = report.viewedBy || []
+  // add the uuid to the report's viewedBy list
+  const updatedReport = {
+    ...report,
+    viewedBy: [...new Set([...viewedBy, uuid])]
   }
 
-  // get the report that needs updating
-  const updatedReports = userDetails.reports.map(report => {
-    if(report.fileGUID === reportId) {
-      const viewedBy = report.viewedBy || []
-      return {
-        ...report,
-        viewedBy: [...new Set([...viewedBy, uuid])]
-      }
-    } else {
-      return report
-    }
-  })
-
-  // update the reports list
-  const reports = {
-    "reports": [
-      ...updatedReports
-    ]
-  }
-
-  console.log("userData sent to server:", 
-    `\nuuid: ${uuid}`,
-    `\nreportId: ${reportId}`
+  console.log("reportViewedBy data sent to server:", 
+    `\nupdatedReport:`, updatedReport
   )
 
-  //TODO: can I patch one report by ID or do I have to patch the whole reports array?
-
-  return await fetch(`/users/${userDetails.id}`,{
+  // write updates
+  return await fetch(`/api/reports/${report.id}`,{
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(reports)
+    body: JSON.stringify(updatedReport)
   })
-    .then(resp => {
-      // TODO: put pdf file into dist folder using middleware
-      if(resp.ok) {
-        return true
-      } else {
-        throw new Error(`We were unable to mark notifications as read. Please try again.`)
-      }
-    })
-    .catch(error => {
-      console.error(error)
-    })
+    .then(handleResponse)
+    .catch(handleErrorMsg('Unable to mark notifications as read.'))
 }
 
 // flag report as read by user
@@ -633,100 +414,77 @@ async function reportViewedByProd({uuid, reportId, token}){
       'Authorization': token
     }
   })
-  .then(resp => {
-    if(resp.ok) {
-      return true
-    } else {
-      throw new Error(`We were unable to mark notifications as read. Please try again.`)
-    }
-  })
-  .catch(error => {
-    console.error(error)
-    return error
-  })
+  .then(handleResponse)
+  .catch(handleErrorMsg('Unable to mark notifications as read.'))
 }
 
 /*=======================================================================*/
+/*======== Withdraw User ================================================*/
 
 async function withdrawUserLocal({uuid, patientId, qsAnsDTO, token}){
+  // this will be two fetch requests since we're updating both the user data and the questionAnswers data
+  
+  // first: identify the patient
+  const patientData = await fetchUserLocal({patientId})
 
-  const updateUser = async () => {
-    const userDetails = await fetch(`/api/users?uuid=${uuid}&singular=1`).then(resp => resp.json()).catch(error => {
-      console.error(error)
-    })
+  // data to save on withdraw
+  const withdrawUpdates = {
+    isActiveBiobankParticipant: false,
+    dateDeactivated: new Date(),
+    lastRevisedUser: uuid,
+  }
 
-    const updatedPatientList = userDetails.patients.map(patient => {
-      if (patient.patientId === patientDetails.patientId) {
-        return {
-          ...patient,
-          isActiveBiobankParticipant: false
-        }
-      }
-      return patient
-    })
+  const questionsWithPatientId = qsAnsDTO.map(q => ({
+    ...q,
+    patientId: patientData.id
+  }))
 
-    return await fetch(`/users/${userDetails.id}`,{
+  const qaUpdates = [...questionsWithPatientId]
+
+  console.log("withdrawUser data sent to server", 
+    `\nwithdrawUpdates:`, withdrawUpdates, 
+    `\nqaUpdates:`, qaUpdates
+  )
+
+  const updatePatients = fetch(`/api/patients/${patientData.id}`,{
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        patients: updatedPatientList
+      body: JSON.stringify(withdrawUpdates)
+    })
+    .then(handleResponse)
+    .catch(handleErrorMsg('Unable to withdraw the participant account.'))
+
+  // write updates to the server
+  const qaPromises = qaUpdates.map(question => fetch(`/api/questionAnswers`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(question)
+    })
+    .then(handleResponse)
+    .catch(handleErrorMsg('Unable to save questions and answers.'))
+  )
+
+  return Promise.all([updatePatients,...qaPromises])
+    .then(handlePromiseAllResponse).then(resp => {
+      const [userData, ...rest ] = resp
+      return ({
+        ...userData,
+        questionAnswers: rest
       })
-    }).catch(error => {
-      console.error(error)
     })
-  }
-
-  const patientDetails = await fetch(`/api/users?patientId=${patientId}&singular=1`)
-    .then(resp => resp.json())
-    .then(resp => {
-      if(resp.uuid !== uuid) {
-        updateUser()
-      }
-      return resp
-    })
-    .catch(error => {
-      console.error(error)
-    })
-
-  const data = {
-    isActiveBiobankParticipant: false,
-    dateDeactivated: new Date(),
-    patientId,
-    lastRevisedUser: uuid,
-    questionAnswers: [
-      ...qsAnsDTO
-    ]
-  }
-  
-  console.log("data sent to api", data)
-
-  return await fetch(`/users/${patientDetails.id}`,{
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-  .then(resp => {
-    if(resp.ok) {
-      return {
-        ...patientDetails,
-        ...data
-      }
-    } else {
-      throw new Error(`We were unable to withdraw the user account at this time. Please try again.`)
-    }
-  })
-  .catch(error => {
-    console.error(error)
-    return error
-  })
+    .catch(handleError)
 }
 
 async function withdrawUserProd({uuid, patientId, qsAnsDTO, token}){
-  return await fetch(`/api/v1/withdraw-user-participation?patientId=${patientId}&updatedByUser=${uuid}`,{
+  const query = {
+    patientId,
+    updatedByUser: uuid
+  }
+  return await fetch(`/api/v1/withdraw-user-participation?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -734,49 +492,29 @@ async function withdrawUserProd({uuid, patientId, qsAnsDTO, token}){
     },
     body: JSON.stringify(qsAnsDTO)
   })
-  .then(resp => {
-    if(resp.ok) {
-      return resp.json()
-    } else {
-      throw new Error(`We were unable to withdraw the user account at this time. Please try again.`)
-    }
-  })
-  .catch(error => {
-    console.error(error)
-    return error
-  })
+  .then(handleResponse)
+  .catch(handleErrorMsg('Unable to withdraw participant account.'))
 }
 
 /*=======================================================================*/
+/*======== Close Account ================================================*/
 
 async function closeAccountLocal({uuid, token}){
 
-  const userDetails = await fetch(`/api/users?uuid=${uuid}&singular=1`)
-    .then(resp => resp.json())
-    .catch(error => {
-      console.error(error)
-    })
+  // first: identify the patient
+  const userData = await fetchUserLocal({uuid})
 
-    return await fetch(`/users/${userDetails.id}`,{
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        portalAccountStatus: 'ACCT_TERMINATED_AT_PPE'
-      })
+  return await fetch(`/api/patients/${userData.id}`,{
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      portalAccountStatus: 'ACCT_TERMINATED_AT_PPE'
     })
-      .then(resp => {
-        // TODO: put pdf file into dist folder using middleware
-        if(resp.ok) {
-          return true
-        } else {
-          throw new Error(`We were unable to close your account at this time. Please try again.`)
-        }
-      })
-      .catch(error => {
-        console.error(error)
-      })
+  })
+  .then(handleResponse)
+  .catch(handleErrorMsg('Unable to close account.'))
 }
 
 async function closeAccountProd({uuid, token}){
@@ -787,20 +525,57 @@ async function closeAccountProd({uuid, token}){
       'Authorization': token
     }
   })
-  .then(resp => {
-    if(resp.ok) {
-      return true
-    } else {
-      throw new Error(`We were unable to withdraw the user account at this time. Please try again.`)
-    }
-  })
-  .catch(error => {
-    console.error(error)
-    return error
-  })
+  .then(handleResponse)
+  .catch(handleErrorMsg('Unable to close account.'))
 }
 
+/*=======================================================================*/
+/*======== Activate Participant =========================================*/
 
+async function updateParticipantDetailsLocal({uuid, token, patient}){
+
+  // first: identify the patient
+  const userData = await fetchUserLocal({patientId: patient.patientId})
+
+  return await fetch(`/api/patients/${userData.id}`,{
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      updatedByUser: uuid,
+      firstName: patient.firstName,
+      lastName: patient.lastName,
+      email: patient.email,
+      portalAccountStatus: 'ACCT_ACTIVE'
+    })
+  })
+    .then(handleResponse)
+    .catch(handleErrorMsg('Unable to activate participant account.'))
+}
+
+async function updateParticipantDetailsProd({uuid, token, patient}){
+  const query = {
+    updatedByUser: uuid,
+    patientId: patient.patientId,
+    firstName: patient.firstName,
+    lastName: patient.lastName,
+    emailId: patient.email
+  }
+
+  return await fetch(`/api/v1/user/invite-participant-to-portal?${queryString.stringify(query)}`,{
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+  })
+  .then(handleResponse)
+  .catch(handleErrorMsg('Unable to activate participant account.'))
+}
+
+/*=======================================================================*/
+/*======== Public API ===================================================*/
 
 export const api = {
   local: {
@@ -813,9 +588,10 @@ export const api = {
     uploadPatientReport: uploadPatientReportLocal,
     notificationsMarkAsRead: notificationsMarkAsReadLocal,
     reportViewedBy: reportViewedByLocal,
-    uploadConsentForm: uploadConsentFormLocal,
+    uploadConsentForm: uploadPatientReportLocal,
     withdrawUser: withdrawUserLocal,
     closeAccount: closeAccountLocal,
+    updateParticipantDetails: updateParticipantDetailsLocal
   },
   prod: {
     fetchMockUsers: fetchMockUsersProd,
@@ -830,5 +606,6 @@ export const api = {
     uploadConsentForm: uploadPatientReportProd,
     withdrawUser: withdrawUserProd,
     closeAccount: closeAccountProd,
+    updateParticipantDetails: updateParticipantDetailsProd
   }
 }

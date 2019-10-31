@@ -46,11 +46,18 @@ const SignInCallback = (props) => {
         email = resp.profile.email
       }
 
-      const {token} = await api[env].fetchToken({uuid, email, id_token:resp.id_token})
+      const {token} = await api[env].fetchToken({uuid, email, id_token:resp.id_token}).then(data => {
+        if(data instanceof Error) {
+          throw new Error(`Sorry, but either you have not been signed up for the Biobank Program, your account has not been activated yet, or your account has been closed. Please contact your Clinical Research Coordinator for assistance.`)
+        } else {
+          return data
+        }
+      })
       const user = await api[env].fetchUser({uuid, token}).then(data => {
 
-        if(data.constructor.name !== 'Error'){
-
+        if(data instanceof Error){
+          throw new Error(`Sorry, but either you have not been signed up for the Biobank Program, your account has not been activated yet, or your account has been closed. Please contact your Clinical Research Coordinator for assistance.`)
+        } else {
           const hasUnviewedReports = (reports, uuid) => {
             //TODO: only for Participants
             if(reports){
@@ -69,7 +76,7 @@ const SignInCallback = (props) => {
           const userData = {
             ...data,
             phoneNumber: formatPhoneNumber(data.phoneNumber), //format "phoneNumber" field
-            newNotificationCount: data.notificationList ? data.notificationList.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0,
+            newNotificationCount: data.notifications ? data.notifications.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0,
             newReport: hasUnviewedReports(data.reports, data.uuid)
           }
 
@@ -81,8 +88,6 @@ const SignInCallback = (props) => {
 
           return userData
 
-        } else {
-          throw new Error(`Sorry, but either you have not been signed up for the Biobank Program, your account has not been activated yet, or your account has been closed. Please contact your Clinical Research Coordinator for assistance.`)
         }
       })
 

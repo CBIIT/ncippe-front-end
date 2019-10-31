@@ -49,7 +49,7 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const IconCard = (props) => {
-  const {icon, title, desc, link, linkText, count = 0, badgeText = 'new'} = props
+  const {icon, title, desc, descHTML, link, linkText, count = 0, badgeText = 'new'} = props
   const classes = useStyles()
 
   return (
@@ -63,7 +63,8 @@ const IconCard = (props) => {
           <div className={classes.cardText}>
             <div>
               <Typography className={classes.cardTitle} variant="body2" component="h2">{title}</Typography>
-              <Typography>{desc}</Typography>
+              {descHTML && <Typography dangerouslySetInnerHTML={{__html:descHTML}} />}
+              {desc && <Typography>{desc}</Typography>}
             </div>
             {link &&
               <div>

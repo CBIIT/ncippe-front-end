@@ -19,12 +19,14 @@ const useStyles = makeStyles(theme => ({
     zIndex: -1
   },
   button: {
-    borderRadius: 0
+    borderRadius: 0,
+    fontWeight: 'normal',
   },
   active: {
     borderBottom: `5px solid ${theme.palette.primary.main}`,
     borderRadius: 0,
     marginTop: 5,
+    fontWeight: 'bold',
   },
   menuList: {
     padding: 0,

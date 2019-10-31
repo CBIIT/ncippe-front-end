@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-const TestResults = (props) => {
+const ProfilePage = (props) => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const {firstName, lastName, dateCreated, isActiveBiobankParticipant, dateDeactivated, questionAnswers} = loginContext
@@ -140,4 +140,4 @@ const TestResults = (props) => {
   )
 }
 
-export default TestResults
+export default ProfilePage

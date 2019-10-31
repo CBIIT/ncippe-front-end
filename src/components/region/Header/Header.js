@@ -59,7 +59,6 @@ const useStyles = makeStyles(theme => ({
     minHeight: 82,
     '& button': {
       fontFamily: '"Open Sans", Montserrat, Helvetica, Arial, sans-serif',
-      fontWeight: 'normal'
     },
     '& button:hover': {
       backgroundColor: 'transparent',

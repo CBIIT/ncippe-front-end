@@ -4,7 +4,7 @@ import { Box, Container, Typography } from '@material-ui/core'
 import { LoginConsumer } from '../../components/login/Login.context'
 import UploadReport from '../../components/Mocha/UploadReport'
 
-const MochaDashboard = () => {
+export default () => {
   return (
     <Box>
       <Container className="mainContainer--dashboard">
@@ -16,5 +16,3 @@ const MochaDashboard = () => {
     </Box>
   )
 }
-
-export default MochaDashboard

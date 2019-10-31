@@ -22,8 +22,8 @@ const useStyles = makeStyles(theme => ({
 const Notifications = () => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
-  const { notificationList } = loginContext
-  const count = notificationList ? notificationList.length : 0
+  const { notifications } = loginContext
+  const count = notifications ? notifications.length : 0
 
   useEffect(() => {
     //mark notifications as read on unmount
@@ -36,7 +36,9 @@ const Notifications = () => {
     return () => {
       if(newNotificationCount){
         api[env].notificationsMarkAsRead({uuid, token}).then((resp)=>{
-          if (resp === true) {
+          if(resp instanceof Error) {
+            console.error(resp.message)
+          } else {
             dispatch({
               type: 'notificationsMarkAsRead'
             })
@@ -52,7 +54,7 @@ const Notifications = () => {
       <Typography variant="h2" component="h2">You have {count} Notification{count !== 1 ? 's' : ''}</Typography>
     </div>
     {count ? 
-      notificationList.map((item, i) => <NotificationItem key={i} notification={item} />)
+      notifications.map((item, i) => <NotificationItem key={i} notification={item} />)
       :
       <Typography variant="h6" className={classes.header}>You do not have any notifications.</Typography>
     }

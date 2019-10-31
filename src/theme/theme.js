@@ -191,6 +191,12 @@ export const theme = createMuiTheme({
         justifyContent: 'flex-start',
         padding: '24px'
       }
+    },
+    MuiStepper: {
+      root: {
+        marginTop: '16px',
+        backgroundColor: 'transparent'
+      }
     }
   }
 });

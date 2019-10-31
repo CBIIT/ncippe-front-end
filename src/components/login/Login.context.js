@@ -35,8 +35,8 @@ const userReducer = (state, action) => {
     })
     case 'notificationsMarkAsRead': return({
       ...state,
-      "notificationList": [
-        ...state.notificationList.map(notification => {
+      "notifications": [
+        ...state.notifications.map(notification => {
           return ({
             ...notification,
             viewedByUser: 1

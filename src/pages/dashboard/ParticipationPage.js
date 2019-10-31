@@ -6,16 +6,11 @@ import ChangeParticipation from '../../components/Participation/Participation'
 
 
 
-const TestResults = (props) => {
-
-  return (
-    <Box className="popup">
-      <Breadcrumbs pageName="Participation" />
-      <Container className="mainContainer">
-        <ChangeParticipation />
-      </Container>
-    </Box>
-  )
-}
-
-export default TestResults
+export default (props) => (
+  <Box className="popup">
+    <Breadcrumbs pageName="Participation" />
+    <Container className="mainContainer">
+      <ChangeParticipation />
+    </Container>
+  </Box>
+)

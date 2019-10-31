@@ -116,18 +116,16 @@ const UploadConcentDialog = (props) => {
           token
         })
         .then(resp => {
-          if(resp === true) {
-            // TODO: Save successful - update front-end state for patient
-
-            // Save successful - close modal
-            handleClose(null, true)
-          } else {
+          if(resp instanceof Error) {
             // Save unsuccessful - go back a step
             setActiveStep(0)
             setFormData(prevState => ({
               ...prevState,
               uploadError: true
             }))
+          } else {
+            // Save successful - close modal
+            handleClose(null, true)
           }
         })
       // }, 3000)
