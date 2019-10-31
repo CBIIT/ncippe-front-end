@@ -92,8 +92,8 @@ const ActivatePage = (props) => {
         <Box mt={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
-              <Typography paragraph={true} variant="body2">You will enroll in the Cancer Moonshot<sup>SM</sup> Biobank through your doctor or a research coordinator. Once you receive an email invitation, you can activate your Biobank account.</Typography>
-              <Typography paragraph={true} variant="body2">Your account lets you download copies of your biomarker test, as well as see your consent form, manage how you participate, and participate in more Biobank research.</Typography>
+              <Typography paragraph={true} variant="body2">After you enroll in the Biobank through your doctor or research coordinator, you’ll receive an email invitation to activate your account. </Typography>
+              <Typography paragraph={true} variant="body2">Your online Biobank account will let you download biomarker test reports and signed consent forms, manage your Biobank participation, and hear directly from the Biobank.</Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
               <img src={`/${process.env.PUBLIC_URL}assets/images/mother-and-son-view-tablet.jpg`} alt="Mother and son looking at tablet computer" />
@@ -145,7 +145,7 @@ const ActivatePage = (props) => {
                     <div className={classes.cardText}>
                       <div>
                         <Typography className={classes.cardTitle} component="h3">Authentication application</Typography>
-                        <Typography>Receive a secure code through an authentication application (like Google Authenticator or Microsoft Authenticator).</Typography>
+                        <Typography>Receive a secure code through an authentication application (such as Google Authenticator or Microsoft Authenticator).</Typography>
                       </div>
                     </div>
                   </div>
@@ -181,7 +181,7 @@ const ActivatePage = (props) => {
             </Step>
             <Step active={true}>
               <StepLabel>You will be signed into your Biobank portal!</StepLabel>
-              <StepContent>The next time you sign in, you will enter your email and password plus the second method you chose for security.</StepContent>
+              <StepContent>The next time you sign in, you will enter your email and password and use the second method you chose for security.</StepContent>
             </Step>
           </Stepper>
           <Link href={`https://${process.env.REACT_APP_LOGIN_LINK}/sign_up/enter_email?request_id=${process.env.REACT_APP_REQUEST_ID}`}><Button className={classes.createAccountBtn} variant="contained" color="primary">Create a login.gov account</Button></Link>
