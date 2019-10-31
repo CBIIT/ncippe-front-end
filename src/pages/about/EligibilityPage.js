@@ -37,14 +37,12 @@ const EligibilityPage = (props) => {
               <Typography paragraph={true} variant="h3" component="h3">You may be eligible if you:</Typography>
               <Typography component="div">
                 <ul className="bulletList bulletList--spreadOut">
-                  <li>Have been diagnosed locally advanced or metastatic:
+                  <li>Have been diagnosed with locally advanced or metastatic:
                     <ul className={classes.nestedList}>
                       <li>Colon cancer</li>
                       <li>Lung cancer</li>
                       <li>Prostate cancer</li>
                       <li>Melanoma</li>
-                    </ul>
-                    <ul className={classes.nestedList}>
                       <li>Gastroesophageal cancer</li>
                       <li>Acute Myeloid luekemia</li>
                       <li>Multiple Myeloma</li>
@@ -65,7 +63,7 @@ const EligibilityPage = (props) => {
             <Grid className={classes.gridItem} item xs={12} md={6}>
               <Typography paragraph={true} variant="h2" component="h2">Participating hospitals</Typography>
               <Typography paragraph={true} variant="body2">To participate in the Biobank, you must be in the care of a doctor at one of these hospitals.</Typography>
-              <Typography>The Cancer Moonshot<sup>SM</sup> Biobank is working with the NCI Communicty Oncology Research Program (NCORP), a national network that brings cancer clinical trials and care delivery studies to people in their own communities.</Typography>
+              <Typography>The Cancer Moonshot<sup>SM</sup> Biobank is working with the NCI Community Oncology Research Program (NCORP), a national network that brings cancer clinical trials and care delivery studies to people in their own communities.</Typography>
             </Grid>
             <HospitalMap />
 
@@ -73,13 +71,13 @@ const EligibilityPage = (props) => {
 
             <Grid item xs={12} md={8}>
               <Typography paragraph={true} variant="h2" component="h2">Not eligible? Join another study</Typography>
-              <Typography paragraph={true} component="div">If you can't join the Cancer Moonshot<sup>SM</sup> Biobank, consider making a difference by participating in projects at NIH or NCI.</Typography>
+              <Typography paragraph={true} component="div">If you can't join the Cancer Moonshot Biobank, consider making a difference by participating in projects at NIH or NCI.</Typography>
               <Typography component="div">
                 <ul className="bulletList bulletList--spreadOut">
-                  <li>All of Us &mdash; a large-scale project to gather data from one million or more people living in the United States to accelerate research and improve health.</li>
-                  <li>My Pediatric and Adult Rare Tumor (MyPART) &mdash; for people with certain rare tumors</li>
-                  <li>Comprehensive Oncology Network Evaluating Rare CNS Tumors (NCI-CONNECT) &mdash; for people with rare brain and spine tumors</li>
-                  <li>National Cancer Institute Clinical Trials &mdash; search for NCI-sponsored clinical trials</li>
+                  <li><a href="https://www.joinallofus.org/en" rel="noopener noreferrer" target="_blank">All of Us</a> &mdash; a large-scale project to gather data from one million or more people living in the United States to accelerate research and improve health</li>
+                  <li><a href="https://www.cancer.gov/pediatric-adult-rare-tumor/" rel="noopener noreferrer" target="_blank">My Pediatric and Adult Rare Tumor (MyPART)</a> &mdash; for people with certain rare tumors</li>
+                  <li><a href="https://www.cancer.gov/rare-brain-spine-tumor/" rel="noopener noreferrer" target="_blank">Comprehensive Oncology Network Evaluating Rare CNS Tumors (NCI-CONNECT)</a> &mdash; for people with rare brain and spine tumors</li>
+                  <li><a href="https://www.cancer.gov/about-cancer/treatment/clinical-trials/search" rel="noopener noreferrer" target="_blank">National Cancer Institute Clinical Trials</a> &mdash; search for NCI-sponsored clinical trials</li>
                 </ul>
               </Typography>
             </Grid>
