@@ -17,6 +17,7 @@
     "i18next-xhr-backend": "^3.2.2",
     "json-server": "^0.15.1",
     "moment": "^2.24.0",
+    "ncippe-content": "github:CBIIT/ncippe-content#dev",
     "oidc-client": "^1.9.1",
     "query-string": "^6.8.3",
     "react": "^16.11.0",
