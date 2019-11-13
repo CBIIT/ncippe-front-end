@@ -7,6 +7,9 @@ import App from './App'
 import logo from './utils/ascii-logo'
 // import * as serviceWorker from './serviceWorker';
 
+// import i18n (needs to be bundled ;)) 
+import './i18n';
+
 ReactDOM.render(<App />, document.getElementById('root'))
 
 // put a logo in the console for fun
