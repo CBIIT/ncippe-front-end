@@ -6,9 +6,7 @@ import {
   Container,
   Drawer,
   IconButton,
-  MenuItem,
   Link,
-  Typography, 
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { MenuRounded as MenuIcon } from '@material-ui/icons'

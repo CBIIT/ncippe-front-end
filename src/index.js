@@ -1,6 +1,6 @@
 import 'react-app-polyfill/ie11'
 import 'react-app-polyfill/stable'
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
@@ -8,9 +8,13 @@ import logo from './utils/ascii-logo'
 // import * as serviceWorker from './serviceWorker';
 
 // import i18n (needs to be bundled ;)) 
-import './i18n';
+import './i18n'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+
+ReactDOM.render(
+  <Suspense fallback="loading">
+    <App />
+  </Suspense>, document.getElementById('root'))
 
 // put a logo in the console for fun
 logo()

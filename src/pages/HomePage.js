@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { navigate } from '@reach/router'
+import { useTranslation } from 'react-i18next'
+import ReactMarkdown from 'react-markdown'
 import { Box, Container, Dialog, DialogContent, Grid, IconButton, Link, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
@@ -214,6 +216,7 @@ const HomePage = (props) => {
   const classes = useStyles()
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { t, i18n } = useTranslation('homePage')
 
   useEffect(() => {
     const resizeEvt = () => {
@@ -244,13 +247,21 @@ const HomePage = (props) => {
         <div className={classes.heroText}>
           {isMobile ? 
           <Paper className={classes.heroPaper}>
-            <Typography className={classes.mainTitle} component="h1">The Cancer Moonshot<sup>SM</sup> Biobank</Typography>
-            <Typography variant="body1" component="h2">Help change the future of cancer treatment.</Typography>
+            <Typography className={classes.mainTitle} component="h1">
+              <ReactMarkdown source={t('hero.title')} escapeHtml={false} />
+            </Typography>
+            <Typography variant="body1" component="h2">
+              <ReactMarkdown source={t('hero.subtitle_mobile')} escapeHtml={false} />
+            </Typography>
           </Paper>
           :
           <>
-            <Typography className={classes.mainTitle} component="h1">The Cancer Moonshot<sup>SM</sup> Biobank</Typography>
-            <Typography variant="h2" component="h2">Help change the future <br /> of cancer treatment.</Typography>
+            <Typography className={classes.mainTitle} component="h1">
+              <ReactMarkdown source={t('hero.title')} escapeHtml={false} />
+            </Typography>
+            <Typography variant="h2" component="h2">
+              <ReactMarkdown source={t('hero.subtitle')} escapeHtml={false} />
+            </Typography>
           </>
           }
         </div>
