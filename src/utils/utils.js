@@ -56,3 +56,17 @@ export const getUserGroup = (role, list = true) => {
       return 'patient${suffix}'
   }
 }
+
+export const flattenObject = (obj,parent,delimiter = '.') => {
+  const flattened = {}
+  Object.keys(obj).forEach((key) => {
+    const refKey = parent ? parent + delimiter + key : key
+    if (typeof obj[key] === 'object' && obj[key] !== null) {
+      Object.assign(flattened, flattenObject(obj[key],refKey,delimiter))
+    } else {
+      flattened[refKey] = obj[key]
+    }
+  })
+
+  return flattened
+}

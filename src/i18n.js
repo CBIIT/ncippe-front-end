@@ -42,7 +42,14 @@ i18n
       'privacy'
     ],
     defaultNS: 'common',
-  });
+  })
+i18n.on('loaded',(loaded)=>{
+    // console.log('loaded:',loaded)
+    // console.log('i18n',i18n)
+    // console.log('en data',i18n.getDataByLanguage('en'))
+    // todo: create lunr index here
+    // todo: consider running search in web workers
+  })
 
 
 export default i18n;

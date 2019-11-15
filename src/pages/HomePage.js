@@ -13,6 +13,8 @@ import {
 import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
 
+import Search from '../components/Search/Search'
+
 const useStyles = makeStyles( theme => ({
   hero: {
     // backgroundColor: theme.palette.primary.lightGrey,
@@ -245,6 +247,7 @@ const HomePage = (props) => {
 
   return (
     <Box>
+      <Search />
       <Container className={classes.hero}>
         <div className={classes.heroText}>
           {isMobile ? 
