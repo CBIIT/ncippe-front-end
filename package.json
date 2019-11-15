@@ -17,6 +17,7 @@
     "i18next-browser-languagedetector": "^4.0.1",
     "i18next-xhr-backend": "^3.2.2",
     "json-server": "^0.15.1",
+    "lunr": "^2.3.8",
     "moment": "^2.24.0",
     "ncippe-content": "github:CBIIT/ncippe-content#dev",
     "oidc-client": "^1.9.1",
