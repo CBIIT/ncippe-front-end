@@ -14,6 +14,7 @@ import { MenuRounded as MenuIcon } from '@material-ui/icons'
 import LoginButton from '../../login/LoginButton'
 import MenuGroup from './MenuGroup';
 import ExpansionMenu from '../../ExpansionMenu/ExpansionMenu'
+import Search from '../../Search/Search'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -124,6 +125,7 @@ const Header = () => {
               <a href="/participation/activate">{t('nav.activate')}</a>
               <a href="/participation/privacy">{t('nav.privacy')}</a>
             </MenuGroup>
+            <Search />
         </nav>
         )}
 

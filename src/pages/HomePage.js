@@ -247,7 +247,6 @@ const HomePage = (props) => {
 
   return (
     <Box>
-      <Search />
       <Container className={classes.hero}>
         <div className={classes.heroText}>
           {isMobile ? 

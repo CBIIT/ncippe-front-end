@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import { Paper, InputBase, IconButton } from '@material-ui/core'
+import React, { useState } from 'react'
+import { navigate } from '@reach/router'
+import { Button, Dialog, Paper, IconButton, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { Search as SearchIcon } from '@material-ui/icons'
-// import elasticlunr from 'elasticlunr'
-import lunr from 'lunr'
-import { useTranslation } from 'react-i18next'
-import { flattenObject } from '../../utils/utils'
+import { 
+  Search as SearchIcon,
+  Clear as ClearIcon
+} from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -17,84 +17,78 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
     width: 200,
   },
+  dialog: {
+    '& .MuiDialog-paper': {
+      width: "70%",
+      maxWidth: 'none',
+    }
+  },
+  paper: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    alignContent: 'center',
+    padding: theme.spacing(2,3),
+    '& > *': {
+      margin: theme.spacing(0,1)
+    }
+  },
+  input: {
+    flexGrow: 1
+  }
 }));
 
 const Search = (props) => {
   const classes = useStyles()
-  const { t, i18n } = useTranslation('homePage')
-  let searchIndex
+  const [open, setOpen] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(true)
 
-  useEffect(() => {
-    const data = i18n.getDataByLanguage('en')
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
 
-    // const textData = Object.keys(data).map(resource => {
-    //   if(resource !== 'common'){
-    //     const flatData = flattenObject(data[resource])
-
-    //     const text =  Object.keys(flatData).map(key=>{
-    //       const cleanUpText = flatData[key].replace(/<[\/]*?([a-z]+) *[\/]*?>/g,'')
-    //       return cleanUpText
-    //     }).join(" ")
-
-    //     console.log('searchIndex',searchIndex)
-
-    //     searchIndex.addDoc({
-    //       id: resource,
-    //       body: text
-    //     })
-
-    //   }
-    // })
-    let textData = []
-    Object.keys(data).map(resource => {
-      if(resource !== 'common'){
-        const flatData = flattenObject(data[resource],resource)
-
-        Object.keys(flatData).map(key=>{
-          const cleanUpText = flatData[key].replace(/<[\/]*?([a-z]+) *[\/]*?>/g,' ')
-          textData.push({
-            id: key,
-            body: cleanUpText
-          })
-        })
-      }
-    })
-
-      searchIndex = lunr(function(){
-        this.ref('id')
-        this.field('body')
-
-        textData.map(doc => {
-          this.add(doc)
-        })
-      })
-
-  }, [searchIndex])
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const rawSearch = e.target.siteSearch.value
-    // split the raw search and wildcard the search terms for 'contains' search
-    const searchTerms = rawSearch.split(" ").map(term => {
-      return `*${term}*`
-    }).join(" ")
+    // send the search terms to the search results page
+    navigate(`/search`,{state: {
+      term: e.target.siteSearch.value
+    }})
+  }
 
-    const result = searchIndex.search(searchTerms)
-    console.log("Search Results:", result)
+  const handleChange = (e) => {
+    const input = e.target.value
+    if(input.length > 1) {
+      setIsDisabled(false)
+    } else (
+      setIsDisabled(true)
+    )
   }
 
   return (
-    <Paper component="form" className={classes.root} onSubmit={handleSubmit}>
-      <InputBase
-        id="siteSearch"
-        className={classes.input}
-        placeholder="Search"
-        inputProps={{ 'aria-label': 'search' }}
-      />
-      <IconButton type="submit" className={classes.iconButton} aria-label="search">
-        <SearchIcon />
-      </IconButton>
-    </Paper>
+    <>
+    <IconButton className={classes.iconButton} aria-label="open search" onClick={handleClickOpen}>
+      <SearchIcon />
+    </IconButton>
+    <Dialog onClose={handleClose} open={open} className={classes.dialog}>
+      <Paper component="form" className={classes.paper} onSubmit={handleSubmit}>
+        <TextField
+          id="siteSearch"
+          className={classes.input}
+          placeholder="Search"
+          inputProps={{ 'aria-label': 'search' }}
+          variant="outlined"
+          onChange={handleChange}
+        />
+        <Button type="submit" variant="contained" color="primary" disabled={isDisabled}>Search</Button>
+        <Button variant="text" color="primary" onClick={handleClose}><ClearIcon /> Close</Button>
+      </Paper>
+    </Dialog>
+    </>
   )
 }
 
