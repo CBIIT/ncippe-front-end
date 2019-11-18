@@ -59,7 +59,7 @@ const Consent = (props) => {
     >
     <Box className={classes.container}>
       <Typography variant={isMobile ? "body1" : "body2"}>
-        <RenderContent source={t('body')} />
+        <RenderContent source={t('intro_text')} />
       </Typography>
       <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="h4" rel="noopener noreferrer" target="_blank">
         <RenderContent source={t('link')} /> <OpenInNewIcon />
