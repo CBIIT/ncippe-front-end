@@ -1,5 +1,5 @@
 import React from 'react'
-import { Location, Router, Redirect } from '@reach/router'
+import { Location, Router, Redirect, navigate } from '@reach/router'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import NotFound           from '../pages/NotFoundPage'
@@ -40,6 +40,13 @@ const ErrorPage = pageWrapper(Errors)
 
 const NotFoundPage = pageWrapper(NotFound)
 
+// catch relative links in the app that could not be made using @reach/router Link components
+document.addEventListener('click', function(event) {
+  if(event.target.dataset.route && event.target.pathname) {
+    event.preventDefault()
+    navigate(event.target.pathname)
+  }
+})
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
