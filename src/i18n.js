@@ -38,7 +38,8 @@ i18n
       'consent',
       'donate',
       'testing',
-      'activate'
+      'activate',
+      'privacy'
     ],
     defaultNS: 'common',
   });
