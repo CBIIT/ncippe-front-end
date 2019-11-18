@@ -272,18 +272,23 @@ const HomePage = (props) => {
         <Box className={classes.infoBoxes}>
           <Paper className={classes.infoOffsetPaper}>
             <Box className={classes.infoBox}>
-              <Typography className={classes.infoBoxTitle} variant="h2" component="h2"><RenderContent source={t('mission.title')} /></Typography>
-
-              <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}><RenderContent source={t('mission.body')} /></Typography>
-
-              <Typography variant="button" component="span" className={classes.extraTopSpace}><Link to="/expect"><RenderContent source={t('mission.link')} /> <ArrowRightIcon /></Link></Typography>
-
+              <Typography className={classes.infoBoxTitle} variant="h2" component="h2">
+                <RenderContent source={t('mission.title')} />
+              </Typography>
+              <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}>
+                <RenderContent source={t('mission.body')} />
+              </Typography>
+              <Typography variant="button" component="span" className={classes.extraTopSpace}><Link to="/expect">
+                <RenderContent source={t('mission.link')} /> <ArrowRightIcon /></Link>
+              </Typography>
             </Box>
           </Paper>
         </Box>
         <Box className={classes.howItWorks}>
           <Box mt={isMobile ? 2 : 4} pb={isMobile ? 4 : 11}>
-            <Typography className={classes.infoBox} variant={isMobile ? "h2" : "h1"} component="h2"><RenderContent source={t('how_it_works.title')} /></Typography>
+            <Typography className={classes.infoBox} variant={isMobile ? "h2" : "h1"} component="h2">
+              <RenderContent source={t('how_it_works.title')} />
+            </Typography>
             <Grid container className={classes.howItWorksGrid} spacing={3}>
               <Grid item xs={12} sm={6} md={3}>
                 <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/patients.svg`} alt={t('how_it_works.cards.0.alt_text')} />
@@ -310,8 +315,12 @@ const HomePage = (props) => {
       </Container>
       <Container className={classes.volunteer}>
         <Box>
-          <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}><RenderContent source={t('participate.title')} /></Typography>
-          <Typography paragraph={true} variant={isMobile ? "body1" : "body2"} className={classes.volunteerText}><RenderContent source={t('participate.body')} /></Typography>
+          <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}>
+            <RenderContent source={t('participate.title')} />
+          </Typography>
+          <Typography paragraph={true} variant={isMobile ? "body1" : "body2"} className={classes.volunteerText}>
+            <RenderContent source={t('participate.body')} />
+          </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={4}>
               <IconCardMedia
@@ -355,8 +364,12 @@ const HomePage = (props) => {
             <ClearIcon />
           </IconButton>
           <CheckCircleIcon className={classes.closeAccountIcon} />
-          <Typography variant="h3" component="h3"><RenderContent source={t('modal.closed_account.title')} /></Typography>
-          <Typography><RenderContent source={t('modal.closed_account.body')} /></Typography>
+          <Typography variant="h3" component="h3">
+            <RenderContent source={t('modal.closed_account.title')} />
+          </Typography>
+          <Typography>
+            <RenderContent source={t('modal.closed_account.body')} />
+          </Typography>
         </DialogContent>
       </Dialog>
     </Box>

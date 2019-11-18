@@ -32,9 +32,17 @@ const AboutPage = (props) => {
         <Box mt={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
-              <Typography paragraph={true} variant="h2" component="h2"><RenderContent source={t('sections.0.title')} /></Typography>
-              <Typography paragraph={true} variant="h3" component="h3"><RenderContent source={t('sections.0.subtitle')} /></Typography>
-              <Typography component="div"><RenderContent source={t('sections.0.body')} /></Typography>
+              <Typography paragraph={true} variant="h2" component="h2">
+                <RenderContent source={t('sections.0.title')} />
+              </Typography>
+
+              <Typography paragraph={true} variant="h3" component="h3">
+                <RenderContent source={t('sections.0.subtitle')} />
+              </Typography>
+              
+              <Typography component="div">
+                <RenderContent source={t('sections.0.body')} />
+              </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
               <img src={`/${process.env.PUBLIC_URL}assets/images/hands2.jpg`} alt={t('sections.0.alt_text')} />
