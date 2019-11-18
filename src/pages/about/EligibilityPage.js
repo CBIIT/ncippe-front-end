@@ -61,7 +61,7 @@ const EligibilityPage = (props) => {
               <Typography paragraph={true} variant="body2">
                 <RenderContent source={t('sections.1.subtitle')} />
               </Typography>
-              <Typography>
+              <Typography component="div">
               <RenderContent source={t('sections.1.body')} />
               </Typography>
             </Grid>
@@ -73,10 +73,8 @@ const EligibilityPage = (props) => {
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent source={t('sections.2.title')} />
               </Typography>
-              <Typography paragraph={true} component="div">
-                <RenderContent source={t('sections.2.body.text')} />
-              </Typography>
               <Typography component="div">
+                <RenderContent source={t('sections.2.body.text')} />
                 <RenderContent source={t('sections.2.body.list')} />
               </Typography>
             </Grid>

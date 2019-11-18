@@ -367,7 +367,7 @@ const HomePage = (props) => {
           <Typography variant="h3" component="h3">
             <RenderContent source={t('modal.closed_account.title')} />
           </Typography>
-          <Typography>
+          <Typography component="div">
             <RenderContent source={t('modal.closed_account.body')} />
           </Typography>
         </DialogContent>
