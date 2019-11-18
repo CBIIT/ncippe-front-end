@@ -26,7 +26,9 @@ const AboutPage = (props) => {
   return (
     <Box>
       <Container className="pageHeader--gradient">
-        <Typography variant="h2" component="h1"><RenderContent source={t('pageTitle')} /></Typography>
+        <Typography variant="h2" component="h1">
+          <RenderContent source={t('pageTitle')} />
+        </Typography>
       </Container>
       <Container className="mainContainer mainContainer--public">
         <Box mt={5}>
