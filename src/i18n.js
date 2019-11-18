@@ -29,7 +29,7 @@ i18n
     load: "languageOnly",
     fallbackLng: 'en',
     debug: true,
-    ns: ['common','homePage'],
+    ns: ['common','homePage','about'],
     defaultNS: 'common',
   });
 

@@ -285,3 +285,7 @@ ul.bulletList > li:last-child {
   padding: 40px;
   flex-grow: 1;
 }
+
+.MuiTypography-body1 > p {
+  margin-bottom: 16px;
+}
