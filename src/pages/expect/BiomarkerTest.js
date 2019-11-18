@@ -1,6 +1,8 @@
 import React from 'react'
 import { Box, Grid, Link, Typography, Stepper, Step, StepLabel, StepContent, Divider } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { useTranslation } from 'react-i18next'
+import RenderContent from '../../components/utils/RenderContent'
 
 import TabPanel from '../../components/Tabs/TabPanel'
 
@@ -33,6 +35,14 @@ const useStyles = makeStyles( theme => ({
       marginBottom: theme.spacing(5)
     }
   },
+  extraSpacing: {
+    '& h3': {
+      marginTop: theme.spacing(4),
+      [theme.breakpoints.up('sm')]: {
+        marginTop: theme.spacing(5)
+      }
+    }
+  },
   img: {
     display: 'block',
     maxWidth: 410,
@@ -61,6 +71,7 @@ const useStyles = makeStyles( theme => ({
 const BiomarkerTest = (props) => {
   const {index, isMobile} = props
   const classes = useStyles()
+  const { t, i18n } = useTranslation('testing')
 
   return (
     <TabPanel
@@ -68,53 +79,72 @@ const BiomarkerTest = (props) => {
       id={`scrollable-auto-tabpanel-${index}`}
       aria-labelledby={`scrollable-auto-tab-${index}`}
     >
+      {/* Intro */}
       <Grid container>
         <Grid item xs={12} sm={6} lg={8} className={classes.textColumn}>
-          <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}>Your cancer is unique to you.</Typography>
-          <Typography className={classes.bottomSpacer} variant={isMobile ? "body1" : "body2"}>After you donate blood and tissue samples to the Biobank, we will run a biomarker test on your samples. Your doctor may be able to use the report to create a more personalized treatment plan for you.</Typography>
+          <Typography variant={isMobile ? "body1" : "body2"}>
+            <RenderContent source={t('intro_text')} />
+          </Typography>
 
-          <Typography variant="h3" component="h3">Biomarker testing</Typography>
-          <Typography>A biomarker test looks specifically at the genetic errors and other changes in your cancer. It does not provide information about genes you were born with. This type of testing may also be called tumor profiling, genomic profiling, molecular testing, tumor DNA sequencing, or genomic cancer testing.</Typography>
+          <Typography className={classes.extraSpacing}>
+            <RenderContent source={t('sections.0.body')} />
+          </Typography>
         </Grid>
         <Grid item xs={12} sm={6} lg={4} className={classes.imgColumn}>
-          <img className={classes.img} src={`/${process.env.PUBLIC_URL}assets/images/researchers4.jpg`} alt="doctor and microscope" height="360" />
+          <img className={classes.img} src={`/${process.env.PUBLIC_URL}assets/images/researchers4.jpg`} alt={t('sections.0.alt_text')} height="360" />
         </Grid>
       </Grid>
+
       <Divider className={classes.divider} />
-      <Typography variant="h2" component="h2">How is the test performed?</Typography>
-      <Typography>The biomarker test involves three steps:</Typography>
+
+      {/* How is the test performed? */}
+      <Typography variant="h2" component="h2">
+        <RenderContent source={t('sections.1.title')} />
+      </Typography>
+      <Typography>
+        <RenderContent source={t('sections.1.body')} />
+      </Typography>
       <Stepper className={classes.stepper} orientation="vertical" nonLinear>
         <Step active={true}>
-          <StepLabel>Share</StepLabel>
-          <StepContent>The Biobank will send the donated sample of your blood or tissue to a lab.</StepContent>
+          <StepLabel>{t('sections.1.stepper.0.label')}</StepLabel>
+          <StepContent>{t('sections.1.stepper.0.description')}</StepContent>
         </Step>
         <Step active={true}>
-          <StepLabel>Analyze</StepLabel>
-          <StepContent>The lab will analyze the tumor or blood sample for certain genetic changes, or biomarkers. These biomarkers can help suggest the targeted therapies, immunotherapies, or clinical trials that might be right for you.</StepContent>
+          <StepLabel>{t('sections.1.stepper.1.label')}</StepLabel>
+          <StepContent>{t('sections.1.stepper.1.description')}</StepContent>
         </Step>
         <Step active={true}>
-          <StepLabel>Report</StepLabel>
-          <StepContent>Your report will be available for you to download through your Biobank account. It will also be sent to your doctor so you can discuss the results together.</StepContent>
+          <StepLabel>{t('sections.1.stepper.2.label')}</StepLabel>
+          <StepContent>{t('sections.1.stepper.2.description')}</StepContent>
         </Step>
       </Stepper>
       <Divider className={classes.divider} />
-      <Typography variant="h2" component="h2">Sample reports</Typography>
+
+      {/* Sample Report */}
+      <Typography variant="h2" component="h2">
+        <RenderContent source={t('sections.2.title')} />
+      </Typography>
+
       <Divider className={classes.divider} />
-        <Box mb={5}>
-          <Grid container className={classes.grid} spacing={2} alignItems="stretch">
-            <Grid item xs={12} md={6}>
-              <Typography paragraph={true} variant="h2" component="h2">Where can I learn more?</Typography>
-              <div className={classes.linkList}>
-                <Link href="https://cancer.gov" variant="button" rel="noopener noreferrer" target="_blank">Tumor DNA sequencing</Link>
-                <Link href="https://cancer.gov" variant="button" rel="noopener noreferrer" target="_blank">Resources for health care providers and educators</Link>
-                <Link href="https://cancer.gov" variant="button" rel="noopener noreferrer" target="_blank">NCI Cancer Information Service</Link>
-              </div>
-            </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/working-on-laptop.jpg`} alt="working on laptop" />
-            </Grid>
+
+      {/* Learn More */}
+      <Box mb={5}>
+        <Grid container className={classes.grid} spacing={2} alignItems="stretch">
+          <Grid item xs={12} md={6}>
+            <Typography paragraph={true} variant="h2" component="h2">
+              <RenderContent source={t('sections.3.title')} />
+            </Typography>
+            <div className={classes.linkList}>
+              <Link href="https://cancer.gov" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.0')}</Link>
+              <Link href="https://cancer.gov" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.1')}</Link>
+              <Link href="https://cancer.gov" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.2')}</Link>
+            </div>
           </Grid>
-        </Box>
+          <Grid className={classes.gridItemImg} item xs={12} md={6}>
+            <img src={`/${process.env.PUBLIC_URL}assets/images/working-on-laptop.jpg`} alt={t('sections.4.alt_text')} />
+          </Grid>
+        </Grid>
+      </Box>
     </TabPanel>
   )
 }

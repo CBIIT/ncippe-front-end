@@ -36,7 +36,8 @@ i18n
       'eligibility',
       'research',
       'consent',
-      'donate'
+      'donate',
+      'testing'
     ],
     defaultNS: 'common',
   });
