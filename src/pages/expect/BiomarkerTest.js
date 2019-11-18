@@ -82,11 +82,11 @@ const BiomarkerTest = (props) => {
       {/* Intro */}
       <Grid container>
         <Grid item xs={12} sm={6} lg={8} className={classes.textColumn}>
-          <Typography variant={isMobile ? "body1" : "body2"}>
+          <Typography variant={isMobile ? "body1" : "body2"} component="div">
             <RenderContent source={t('intro_text')} />
           </Typography>
 
-          <Typography className={classes.extraSpacing}>
+          <Typography className={classes.extraSpacing} component="div">
             <RenderContent source={t('sections.0.body')} />
           </Typography>
         </Grid>
@@ -101,7 +101,7 @@ const BiomarkerTest = (props) => {
       <Typography variant="h2" component="h2">
         <RenderContent source={t('sections.1.title')} />
       </Typography>
-      <Typography>
+      <Typography component="div">
         <RenderContent source={t('sections.1.body')} />
       </Typography>
       <Stepper className={classes.stepper} orientation="vertical" nonLinear>
@@ -141,7 +141,7 @@ const BiomarkerTest = (props) => {
             </div>
           </Grid>
           <Grid className={classes.gridItemImg} item xs={12} md={6}>
-            <img src={`/${process.env.PUBLIC_URL}assets/images/working-on-laptop.jpg`} alt={t('sections.4.alt_text')} />
+            <img src={`/${process.env.PUBLIC_URL}assets/images/working-on-laptop.jpg`} alt={t('sections.3.alt_text')} />
           </Grid>
         </Grid>
       </Box>

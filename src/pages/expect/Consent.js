@@ -58,7 +58,7 @@ const Consent = (props) => {
       aria-labelledby={`scrollable-auto-tab-${index}`}
     >
     <Box className={classes.container}>
-      <Typography variant={isMobile ? "body1" : "body2"}>
+      <Typography variant={isMobile ? "body1" : "body2"} component="div">
         <RenderContent source={t('intro_text')} />
       </Typography>
       <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="h4" rel="noopener noreferrer" target="_blank">

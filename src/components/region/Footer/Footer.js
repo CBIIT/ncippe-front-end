@@ -50,7 +50,7 @@ const Footer = () => {
   const { t } = useTranslation('common');
   return (
     <Container className={classes.root} component="footer">
-      <div className={classes.logo}><img src={`/${process.env.PUBLIC_URL}assets/images/nci-logo-white.svg`} alt={t('footer.logo.alt')} alt={t('footer.logo.alt')} /></div>
+      <div className={classes.logo}><img src={`/${process.env.PUBLIC_URL}assets/images/nci-logo-white.svg`} alt={t('footer.logo.alt_text')} title={t('footer.logo.title')}  /></div>
       <Typography component="div">
         <Grid container className={classes.footerLinks} spacing={3}>
           <Grid item xs={12} sm={4}>

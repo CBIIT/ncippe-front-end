@@ -105,7 +105,7 @@ const Header = () => {
       <Box className={classes.appToolbarContainer}>
         <figure className={classes.toolbarLogo}>
           <Link component={RouterLink} to='/'>
-            <img src={`/${process.env.PUBLIC_URL}assets/images/biobank-logo.svg`} alt={t('logo.alt_text')} title={t('hero.title')} />
+            <img src={`/${process.env.PUBLIC_URL}assets/images/biobank-logo.svg`} alt={t('logo.alt_text')} title={t('logo.title')} />
           </Link>
         </figure>
         {!isMobile && (
