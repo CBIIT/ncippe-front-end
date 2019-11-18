@@ -29,7 +29,15 @@ i18n
     load: "languageOnly",
     fallbackLng: 'en',
     debug: true,
-    ns: ['common','homePage','about','eligibility','research', 'consent'],
+    ns: [
+      'common',
+      'homePage',
+      'about',
+      'eligibility',
+      'research',
+      'consent',
+      'donate'
+    ],
     defaultNS: 'common',
   });
 

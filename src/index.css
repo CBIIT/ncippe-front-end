@@ -289,3 +289,12 @@ ul.bulletList > li:last-child {
 .MuiTypography-body1 > p {
   margin-bottom: 16px;
 }
+
+.MuiTypography-root h3 {
+  font-size: 20px;
+  font-family: Montserrat, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0;
+  paragraph-height: 20px;
+}
