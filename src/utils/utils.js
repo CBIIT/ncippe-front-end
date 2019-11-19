@@ -70,3 +70,23 @@ export const flattenObject = (obj,parent,delimiter = '.') => {
 
   return flattened
 }
+
+export const objectValuesToString = (obj, ignore, divider = ' | ') => {
+
+  let out = ''
+  Object.keys(obj).map((key) => {
+    const exit = ignore.some(ignoreKey => ignoreKey === key)
+    if (exit) {
+      return
+    }
+    else {
+      if (typeof obj[key] === 'object' && obj[key] !== null) {
+        return out += objectValuesToString(obj[key],ignore)
+      } else {
+        return out += obj[key].replace(/<[\/]*?([a-z]+).*? *[\/]*?>/g,'') + divider
+      }
+    }
+  })
+
+  return out
+}

@@ -6,6 +6,7 @@ import {
   Search as SearchIcon,
   Clear as ClearIcon
 } from '@material-ui/icons'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -41,6 +42,7 @@ const useStyles = makeStyles(theme => ({
 
 const Search = (props) => {
   const classes = useStyles()
+  const { t, i18n } = useTranslation('common')
   const [open, setOpen] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
 
@@ -78,14 +80,15 @@ const Search = (props) => {
       <Paper component="form" className={classes.paper} onSubmit={handleSubmit}>
         <TextField
           id="siteSearch"
+          autoFocus
           className={classes.input}
-          placeholder="Search"
+          placeholder={t('search.input_placeholder')}
           inputProps={{ 'aria-label': 'search' }}
           variant="outlined"
           onChange={handleChange}
         />
-        <Button type="submit" variant="contained" color="primary" disabled={isDisabled}>Search</Button>
-        <Button variant="text" color="primary" onClick={handleClose}><ClearIcon /> Close</Button>
+        <Button type="submit" variant="contained" color="primary" disabled={isDisabled}>{t('buttons.search')}</Button>
+        <Button variant="text" color="primary" onClick={handleClose}><ClearIcon /> {t('buttons.close')}</Button>
       </Paper>
     </Dialog>
     </>

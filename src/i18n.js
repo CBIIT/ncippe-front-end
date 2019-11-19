@@ -4,10 +4,7 @@ import Backend from 'i18next-xhr-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import lunr from 'lunr'
 
-import { flattenObject } from './utils/utils'
-// not like to use this?
-// have a look at the Quick start guide 
-// for passing in lng and translations on init
+import { objectValuesToString } from './utils/utils'
 
 export let searchIndex
 
@@ -50,25 +47,27 @@ i18n
 
 
 i18n.on('loaded',(loaded)=>{
-  // console.log('loaded:',loaded)
-  // console.log('i18n',i18n)
-  // console.log('en data',i18n.getDataByLanguage('en'))
-  // todo: create lunr index here
-  // todo: consider running search in web workers
-  // console.log("seach index running")
+
   const data = i18n.getDataByLanguage('en')
-  let textData = []
+  let textData = [] // lunr needs an array of docs
+  let docData = {} // search results need an object keyed to the resource's name space
+
   Object.keys(data).map(resource => {
     if(resource !== 'common'){
-      const flatData = flattenObject(data[resource],resource)
+      const ignoreKeys = ['pageTitle', 'pageRoute', 'alt_text']
+      const value = objectValuesToString(data[resource], ignoreKeys)
 
-      Object.keys(flatData).map(key=>{
-        const cleanUpText = flatData[key].replace(/<[\/]*?([a-z]+) *[\/]*?>/g,' ')
-        textData.push({
-          id: key,
-          body: cleanUpText
-        })
-      })
+      const entry = {
+        id: resource,
+        pageTitle: data[resource].pageTitle,
+        pageRoute: data[resource].pageRoute,
+        body: value
+      }
+
+      textData.push(entry)
+
+      docData[resource] = entry
+
     }
   })
 
@@ -76,11 +75,17 @@ i18n.on('loaded',(loaded)=>{
     this.ref('id')
     this.field('body')
     this.metadataWhitelist = ['position']
+    this.pipeline.remove(lunr.stemmer)
+    // this.pipeline.remove(lunr.stopWordFilter)
 
     textData.map(doc => {
       this.add(doc)
     })
   })
+  
+  // save the docs for later reference in search results
+  searchIndex.docs = docData
+
 })
 
 export default i18n
