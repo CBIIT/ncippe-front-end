@@ -19,7 +19,7 @@
     "json-server": "^0.15.1",
     "lunr": "^2.3.8",
     "moment": "^2.24.0",
-    "ncippe-content": "github:CBIIT/ncippe-content#dev",
+    "ncippe-content": "github:CBIIT/ncippe-content",
     "oidc-client": "^1.9.1",
     "query-string": "^6.9.0",
     "react": "^16.12.0",
