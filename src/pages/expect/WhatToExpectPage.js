@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Router, Link as RouterLink } from '@reach/router'
 import { AppBar, Box, Container, Tab, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { useTranslation } from 'react-i18next'
 
 import StyledTabs from '../../components/Tabs/StyledTabs'
 import Consent from './Consent'
@@ -39,6 +40,7 @@ const a11yProps = (index) => {
 
 const WhatToExpectPage = () => {
   const classes = useStyles()
+  const { t, i18n } = useTranslation(['consent','donate','testing'])
   const [value, setValue] = useState(()=>{
     switch(window.location.pathname){
       case '/expect':
@@ -69,7 +71,7 @@ const WhatToExpectPage = () => {
   return (
     <Box>
       <Container className={classes.pageHeader}>
-        <Typography variant="h2" component="h1">What to expect if you join the Biobank</Typography>
+        <Typography variant="h2" component="h1">{t('about:landing_pageTitle')}</Typography>
       </Container>
       <Container className={classes.appbarContainer}>
         <AppBar className={classes.appbar} position="static" elevation={0}>
@@ -85,9 +87,9 @@ const WhatToExpectPage = () => {
             {/* Reverse the order of the tabs for arrows to display properly */}
             {/* New tabs will become index 0 and other existing tabs must be bumpped up a number */}
             {/* Update {value} default state index as well */}
-            <Tab disableRipple component={RouterLink} to="testing" label="Get your biomarker test" {...a11yProps(0)} />
-            <Tab disableRipple component={RouterLink} to="donate" label="Donate samples" {...a11yProps(1)} />
-            <Tab disableRipple component={RouterLink} to="consent" label="Give your consent" {...a11yProps(2)} />
+            <Tab disableRipple component={RouterLink} to="testing" label={t('testing:pageTitle')} {...a11yProps(0)} />
+            <Tab disableRipple component={RouterLink} to="donate" label={t('donate:pageTitle')} {...a11yProps(1)} />
+            <Tab disableRipple component={RouterLink} to="consent" label={t('consent:pageTitle')} {...a11yProps(2)} />
           </StyledTabs>
         </AppBar>
       </Container>

@@ -2,6 +2,8 @@ import React from 'react'
 import { Box, Card, CardMedia, Link, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { OpenInNew as OpenInNewIcon } from '@material-ui/icons'
+import { useTranslation } from 'react-i18next'
+import RenderContent from '../../components/utils/RenderContent'
 
 import TabPanel from '../../components/Tabs/TabPanel'
 
@@ -47,6 +49,7 @@ const useStyles = makeStyles( theme => ({
 const Consent = (props) => {
   const {index, isMobile} = props
   const classes = useStyles()
+  const { t, i18n } = useTranslation('consent')
 
   return (
     <TabPanel
@@ -55,15 +58,19 @@ const Consent = (props) => {
       aria-labelledby={`scrollable-auto-tab-${index}`}
     >
     <Box className={classes.container}>
-      <Typography variant={isMobile ? "body1" : "body2"}>After you and your doctor discuss the Biobank and you decide you'd like to take part, you’ll be given a consent form to review and sign. Participation in the Biobank is voluntary and deciding not to participate won’t affect your care. You can also leave the program at any time.</Typography>
-      <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="h4" rel="noopener noreferrer" target="_blank">Review a sample adult consent form <OpenInNewIcon /></Link>
+      <Typography variant={isMobile ? "body1" : "body2"} component="div">
+        <RenderContent source={t('intro_text')} />
+      </Typography>
+      <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="h4" rel="noopener noreferrer" target="_blank">
+        <RenderContent source={t('link')} /> <OpenInNewIcon />
+      </Link>
       <Card>
         <div className={classes.mediaWrapper}>
           <CardMedia
             component='iframe'
             className={classes.media}
             src='https://www.youtube.com/embed/OyCFbZYgL3U'
-            title='A Dialogue on Cancer Disparities, Prevention, and Research: Facebook Live'
+            title={t('video_title')}
             allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
             allowFullScreen
           />

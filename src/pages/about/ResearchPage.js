@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Container, Divider, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
+import { useTranslation } from 'react-i18next'
+import RenderContent from '../../components/utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -23,35 +25,42 @@ const useStyles = makeStyles( theme => ({
 
 const ResearchPage = (props) => {
   const classes = useStyles()
+  const { t, i18n } = useTranslation('research')
 
   return (
     <Box>
       <Container className="pageHeader--gradient">
-        <Typography variant="h2" component="h1">Biobanking drives research</Typography>
+        <Typography variant="h2" component="h1">
+          <RenderContent source={t('pageTitle')} />
+        </Typography>
       </Container>
       <Container className="mainContainer mainContainer--public">
         <Box mt={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
-              <Typography paragraph={true} variant="h2" component="h2">It's important to understand how cancer changes over time.</Typography>
-              <Typography paragraph={true}>The main causes of death from cancer are when the disease spreads or becomes resistant to treatment. To understand why these happen, researchers need to look at cancer tissue donated by patients over the course of their treatment. </Typography>
-              <Typography paragraph={true}>These kinds of samples have been hard to get&mdash;but the Cancer Moonshot<sup>SM</sup>  Biobank wants to change that. By donating your samples to the Biobank over the course of your care, for up to 5 years, researchers can study how cancers change over time, and how to fight later-stage cancers.</Typography>
+              <Typography paragraph={true} variant="h2" component="h2">
+                <RenderContent source={t('sections.0.title')} />
+              </Typography>
+              <Typography component="div">
+                <RenderContent source={t('sections.0.body')} />
+              </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/researchers1.jpg`} alt="researchers share results" />
+              <img src={`/${process.env.PUBLIC_URL}assets/images/researchers1.jpg`} alt={t('sections.0.alt_text')} />
             </Grid>
+
             <Divider className={classes.divider} />
-            <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/researchers2.jpg`} alt="researcher with test tube at computer" />
-            </Grid>
-            <Divider className={classes.divider} />
+
             <Grid item xs={12} md={6}>
-              <Typography paragraph={true} variant="h2" component="h2">Who uses the Biobank?</Typography>
-              <Typography paragraph={true}>Researchers from all over the world will use the Biobank. They may work for universities, or for private labs and drug companies.</Typography>
-              <Typography paragraph={true}>To be approved to access Biobank samples, the researchers will have to meet strict standards for ethical and secure use of samples and data.</Typography>
+              <Typography paragraph={true} variant="h2" component="h2">
+                <RenderContent source={t('sections.1.title')} />
+              </Typography>
+              <Typography component="div">
+                <RenderContent source={t('sections.1.body')} />
+              </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/researchers3.jpg`} alt="researchers at microscope" />
+              <img src={`/${process.env.PUBLIC_URL}assets/images/researchers3.jpg`} alt={t('sections.0.alt_text')} />
             </Grid>
           </Grid>
         </Box>

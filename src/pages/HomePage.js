@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { navigate } from '@reach/router'
+import { useTranslation } from 'react-i18next'
+
 import { Box, Container, Dialog, DialogContent, Grid, IconButton, Link, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   Clear as ClearIcon,
-  CheckCircle as CheckCircleIcon
+  CheckCircle as CheckCircleIcon,
+  KeyboardArrowRight as ArrowRightIcon
 } from '@material-ui/icons'
 
 import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
+import RenderContent from '../components/utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
   hero: {
@@ -214,6 +218,7 @@ const HomePage = (props) => {
   const classes = useStyles()
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { t, i18n } = useTranslation('homePage')
 
   useEffect(() => {
     const resizeEvt = () => {
@@ -244,13 +249,21 @@ const HomePage = (props) => {
         <div className={classes.heroText}>
           {isMobile ? 
           <Paper className={classes.heroPaper}>
-            <Typography className={classes.mainTitle} component="h1">The Cancer Moonshot<sup>SM</sup> Biobank</Typography>
-            <Typography variant="body1" component="h2">Help change the future of cancer treatment.</Typography>
+            <Typography className={classes.mainTitle} component="h1">
+              <RenderContent source={t('hero.title')} />
+            </Typography>
+            <Typography variant="body1" component="h2">
+              <RenderContent source={t('hero.subtitle_mobile')} />
+            </Typography>
           </Paper>
           :
           <>
-            <Typography className={classes.mainTitle} component="h1">The Cancer Moonshot<sup>SM</sup> Biobank</Typography>
-            <Typography variant="h2" component="h2">Help change the future <br /> of cancer treatment.</Typography>
+            <Typography className={classes.mainTitle} component="h1">
+              <RenderContent source={t('hero.title')} />
+            </Typography>
+            <Typography variant="h2" component="h2">
+              <RenderContent source={t('hero.subtitle')} />
+            </Typography>
           </>
           }
         </div>
@@ -259,31 +272,39 @@ const HomePage = (props) => {
         <Box className={classes.infoBoxes}>
           <Paper className={classes.infoOffsetPaper}>
             <Box className={classes.infoBox}>
-              <Typography className={classes.infoBoxTitle} variant="h2" component="h2">Our Mission</Typography>
-              <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}>The Cancer Moonshot<sup>SM</sup> Biobank is a 5-year project to learn more about cancer with the help of participants who donate samples as they receive treatment.</Typography>
-              <Typography variant="button" component="div" className={classes.extraTopSpace}><Link to="/expect">What to expect if you participate ></Link></Typography>
+              <Typography className={classes.infoBoxTitle} variant="h2" component="h2">
+                <RenderContent source={t('mission.title')} />
+              </Typography>
+              <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}>
+                <RenderContent source={t('mission.body')} />
+              </Typography>
+              <Typography variant="button" component="span" className={classes.extraTopSpace}><Link to="/expect">
+                <RenderContent source={t('mission.link')} /> <ArrowRightIcon /></Link>
+              </Typography>
             </Box>
           </Paper>
         </Box>
         <Box className={classes.howItWorks}>
           <Box mt={isMobile ? 2 : 4} pb={isMobile ? 4 : 11}>
-            <Typography className={classes.infoBox} variant={isMobile ? "h2" : "h1"} component="h2">How it works</Typography>
+            <Typography className={classes.infoBox} variant={isMobile ? "h2" : "h1"} component="h2">
+              <RenderContent source={t('how_it_works.title')} />
+            </Typography>
             <Grid container className={classes.howItWorksGrid} spacing={3}>
               <Grid item xs={12} sm={6} md={3}>
-                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/patients.svg`} alt="patient icon" />
-                <Typography>People with cancer donate blood and tissue samples during their treatment, for up to 5 years.</Typography>
+                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/patients.svg`} alt={t('how_it_works.cards.0.alt_text')} />
+                <Typography><RenderContent source={t('how_it_works.cards.0.body')} /></Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/multiple-samples.svg`} alt="multiple test tubes icon" />
-                <Typography>The Biobank receives the samples and sends them to researchers.</Typography>
+                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/multiple-samples.svg`} alt={t('how_it_works.cards.1.alt_text')} />
+                <Typography><RenderContent source={t('how_it_works.cards.1.body')} /></Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/one-idea.svg`} alt="lightbulb icon" />
-                <Typography>Researchers develop ideas to test on many different samples and advance their understanding of cancer.</Typography>
+                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/one-idea.svg`} alt={t('how_it_works.cards.2.alt_text')} />
+                <Typography><RenderContent source={t('how_it_works.cards.2.body')} /></Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/breakthrough.svg`} alt="breakthrough icon" />
-                <Typography>Researchers work to find discoveries that improve cancer treatments and increase survival.</Typography>
+                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/breakthrough.svg`} alt={t('how_it_works.cards.3.alt_text')} />
+                <Typography><RenderContent source={t('how_it_works.cards.3.body')} /></Typography>
               </Grid>
             </Grid>
           </Box>
@@ -294,35 +315,39 @@ const HomePage = (props) => {
       </Container>
       <Container className={classes.volunteer}>
         <Box>
-          <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}>Why should I participate?</Typography>
-          <Typography paragraph={true} variant={isMobile ? "body1" : "body2"} className={classes.volunteerText}>By joining the Biobank, you will be a part of the discovery of new cancer therapies, helping patients everywhere.</Typography>
+          <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}>
+            <RenderContent source={t('participate.title')} />
+          </Typography>
+          <Typography paragraph={true} variant={isMobile ? "body1" : "body2"} className={classes.volunteerText}>
+            <RenderContent source={t('participate.body')} />
+          </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={4}>
               <IconCardMedia
-                title="Biomarker tests tell you more about your cancer."
-                desc="Participants get a biomarker test, which can help your doctor find new treatments or clinical trials specific to your individual cancer. There is no charge for the test."
+                title={t('participate.cards.0.title')}
+                desc={t('participate.cards.0.body')}
                 link="/expect"
-                linkText="Learn about biomarker tests"
+                linkText={t('participate.cards.0.link')}
                 image="reviewing-test-results.jpg"
-                imageTitle="doctor reviewing information with partient"
+                imageTitle={t('participate.cards.0.alt_text')}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <IconCardMedia
-                title="Diverse populations are important for research."
-                desc="Cancer treatments don't work the same way for everyone&mdash;samples from many different communities will help researchers understand why this is and how to improve cancer care."
+                title={t('participate.cards.1.title')}
+                desc={t('participate.cards.1.body')}
                 image="friends-and-family--sm.jpg"
-                imageTitle="friends and family"
+                imageTitle={t('participate.cards.1.alt_text')}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <IconCardMedia
-                title="Together we can advance our understanding of cancer."
-                desc="By collecting samples over time, researchers can observe how cancer changes and how to stop it from growing and spreading."
+                title={t('participate.cards.2.title')}
+                desc={t('participate.cards.2.body')}
                 link="/about/research"
-                linkText="Learn about research"
+                linkText={t('participate.cards.2.link')}
                 image="test-tubes.jpg"
-                imageTitle="test tubes"
+                imageTitle={t('participate.cards.2.alt_text')}
               />
             </Grid>
           </Grid>
@@ -339,8 +364,12 @@ const HomePage = (props) => {
             <ClearIcon />
           </IconButton>
           <CheckCircleIcon className={classes.closeAccountIcon} />
-          <Typography variant="h3" component="h3">Your account is closed.</Typography>
-          <Typography>Please contact your clinical research coordinator if you have any questions.</Typography>
+          <Typography variant="h3" component="h3">
+            <RenderContent source={t('modal.closed_account.title')} />
+          </Typography>
+          <Typography component="div">
+            <RenderContent source={t('modal.closed_account.body')} />
+          </Typography>
         </DialogContent>
       </Dialog>
     </Box>

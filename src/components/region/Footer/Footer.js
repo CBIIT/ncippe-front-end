@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Grid, Typography } from '@material-ui/core'
 
@@ -46,33 +47,34 @@ const useStyles = makeStyles(theme => ({
 
 const Footer = () => {
   const classes = useStyles()
+  const { t } = useTranslation('common');
   return (
     <Container className={classes.root} component="footer">
-      <div className={classes.logo}><img src={`/${process.env.PUBLIC_URL}assets/images/nci-logo-white.svg`} alt="NCI logo" /></div>
+      <div className={classes.logo}><img src={`/${process.env.PUBLIC_URL}assets/images/nci-logo-white.svg`} alt={t('footer.logo.alt_text')} title={t('footer.logo.title')}  /></div>
       <Typography component="div">
         <Grid container className={classes.footerLinks} spacing={3}>
           <Grid item xs={12} sm={4}>
-            <a href="mailto:moonshotbiobank@nih.gov">moonshotbiobank@nih.gov</a>
-            <a href="tel:202-222-2222">(202) 222 - 2222</a>
-            <a href="https://www.cancer.gov/contact">Cancer Information Services</a>
+            <a href={`mailto:${t('footer.links.email')}`}>{t('footer.links.email')}</a>
+            <a href={`tel:${t('footer.links.phone')}`}>{t('footer.links.phone')}</a>
+            <a href="https://www.cancer.gov/contact">{t('footer.links.CIS')}</a>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <span className={classes.columnTitle}>Policy Information</span>
-            <a href="https://www.cancer.gov/policies/disclaimer">Disclaimer Policy</a>
-            <a href="https://www.cancer.gov/policies/privacy-security">Privacy Policy</a>
-            <a href="https://www.cancer.gov/policies/accessibility">Accessibility</a>
-            <a href="https://www.cancer.gov/policies/foia">FOIA</a>
+            <span className={classes.columnTitle}>{t('footer.links.policy_title')}</span>
+            <a href="https://www.cancer.gov/policies/disclaimer">{t('footer.links.disclaimer')}</a>
+            <a href="https://www.cancer.gov/policies/privacy-security">{t('footer.links.privacy')}</a>
+            <a href="https://www.cancer.gov/policies/accessibility">{t('footer.links.accessibility')}</a>
+            <a href="https://www.cancer.gov/policies/foia">{t('footer.links.foia')}</a>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <div className={classes.columnTitle}>More Resources</div>
-            <a href="https://biospecimens.cancer.gov">Biorepositories &amp; Biospecimen Research Branch</a>
-            <a href="https://www.cancer.gov/">National Cancer Institute</a>
-            <a href="https://www.nih.gov/">National Institutes of Health</a>
-            <a href="https://www.hhs.gov/">U.S. Department of Health and Human Services</a>
-            <a href="https://usa.gov/">USA.gov</a>
+            <div className={classes.columnTitle}>{t('footer.links.resources_title')}</div>
+            <a href="https://biospecimens.cancer.gov">{t('footer.links.bio')}</a>
+            <a href="https://www.cancer.gov/">{t('footer.links.nci')}</a>
+            <a href="https://www.nih.gov/">{t('footer.links.nih')}</a>
+            <a href="https://www.hhs.gov/">{t('footer.links.hhs')}</a>
+            <a href="https://usa.gov/">{t('footer.links.usa')}</a>
           </Grid>
         </Grid>
-        <div className={classes.tagline}>NIH &hellip; Turning Discovery Into Health &reg;</div>
+        <div className={classes.tagline}>{t('footer.tagline')}</div>
       </Typography>
     </Container>
   )

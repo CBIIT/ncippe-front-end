@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { Box, Button, Container, Divider, Grid, Link, Stepper, Step, StepLabel, StepContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { OpenInNew as OpenInNewIcon } from '@material-ui/icons'
+import { useTranslation } from 'react-i18next'
+import RenderContent from '../../components/utils/RenderContent'
 
 import { AuthContext } from '../../components/login/AuthContext'
 
@@ -76,6 +78,7 @@ const useStyles = makeStyles( theme => ({
 
 const ActivatePage = (props) => {
   const classes = useStyles()
+  const { t, i18n } = useTranslation('activate')
   const { signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
 
   const handleLogin = () => {
@@ -86,17 +89,20 @@ const ActivatePage = (props) => {
   return (
     <Box>
       <Container className="pageHeader--gradient">
-        <Typography variant="h2" component="h1">Activate your account</Typography>
+        <Typography variant="h2" component="h1">
+          <RenderContent source={t('pageTitle')} />
+        </Typography>
       </Container>
       <Container className="mainContainer mainContainer--public">
         <Box mt={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
-              <Typography paragraph={true} variant="body2">After you enroll in the Biobank through your doctor or research coordinator, you’ll receive an email invitation to activate your account. </Typography>
-              <Typography paragraph={true} variant="body2">Your online Biobank account will let you download biomarker test reports and signed consent forms, manage your Biobank participation, and hear directly from the Biobank.</Typography>
+              <Typography paragraph={true} variant="body2" component="div">
+                <RenderContent source={t('intro_text')} />
+              </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/mother-and-son-view-tablet.jpg`} alt="Mother and son looking at tablet computer" />
+              <img src={`/${process.env.PUBLIC_URL}assets/images/mother-and-son-view-tablet.jpg`} alt={t('alt_text.0')} />
             </Grid>
           </Grid>
           <Box className={classes.tintedBox} p={7}>
@@ -105,69 +111,76 @@ const ActivatePage = (props) => {
                 <img className={classes.screenshot} src={`/${process.env.PUBLIC_URL}assets/images/login.gov.jpg`} alt="login.gov screenshot" width="300" />
               </Grid>
               <Grid item xs={12} md={6}>
-                <Typography variant="h2" component="h2">To keep your information secure, the Biobank uses login.gov.</Typography>
-                <Link href={`https://${process.env.REACT_APP_LOGIN_LINK}/sign_up/enter_email?request_id=${process.env.REACT_APP_REQUEST_ID}`}><Button className={classes.createAccountBtn} variant="contained" color="primary">I need to create a login.gov account</Button></Link>
-                <Button className={classes.haveAccountBtn} variant="outlined" color="primary" onClick={handleLogin}>I already have a login.gov account</Button>
+                <Typography variant="h2" component="h2">
+                  <RenderContent source={t('sections.0.title')} />
+                </Typography>
+                <Link href={`https://${process.env.REACT_APP_LOGIN_LINK}/sign_up/enter_email?request_id=${process.env.REACT_APP_REQUEST_ID}`}><Button className={classes.createAccountBtn} variant="contained" color="primary">{t('sections.0.links.0')}</Button></Link>
+                <Button className={classes.haveAccountBtn} variant="outlined" color="primary" onClick={handleLogin}>{t('sections.0.links.1')}</Button>
               </Grid>
             </Grid>
           </Box>
         </Box>
+
         <Divider className={classes.divider} />
+
+        {/* To create your login.gov account */}
         <Box>
-          <Typography variant="h2" component="h2">To create your login.gov account:</Typography>
+          <Typography variant="h2" component="h2">
+            <RenderContent source={t('sections.1.title')} />
+          </Typography>
           <Stepper className={classes.stepper} orientation="vertical" nonLinear>
             <Step active={true}>
-              <StepLabel>Enter and confirm your email</StepLabel>
-              <StepContent>This must be the same email address where you received the invitation to the Biobank.</StepContent>
+              <StepLabel>{t('sections.1.stepper.0.label')}</StepLabel>
+              <StepContent>{t('sections.1.stepper.0.description')}</StepContent>
             </Step>
             <Step active={true}>
-              <StepLabel>Create a strong password</StepLabel>
-              <StepContent>This password must be 12 characters long and not be a commonly used password.</StepContent>
+              <StepLabel>{t('sections.1.stepper.1.label')}</StepLabel>
+              <StepContent>{t('sections.1.stepper.1.description')}</StepContent>
             </Step>
             <Step active={true}>
-              <StepLabel>Select a second method for security</StepLabel>
-              <StepContent>Each method works differently. Choose from:
+              <StepLabel>{t('sections.1.stepper.2.label')}</StepLabel>
+              <StepContent>{t('sections.1.stepper.2.description')}
                 <ul>
                   <li>
                   <div className={classes.cardContent}>
-                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/phone.svg`} alt='card icon' aria-hidden="true" />
+                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/phone.svg`} alt={t('sections.1.security_options.0.alt_text')} aria-hidden="true" />
                     <div className={classes.cardText}>
                       <div>
-                        <Typography className={classes.cardTitle} component="h3">Phone</Typography>
-                        <Typography>Receive a code via text message (SMS) or phone call.</Typography>
+                        <Typography className={classes.cardTitle} component="h3">{t('sections.1.security_options.0.label')}</Typography>
+                        <Typography>{t('sections.1.security_options.0.description')}</Typography>
                       </div>
                     </div>
                   </div>
                   </li>
                   <li>
                   <div className={classes.cardContent}>
-                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/authentification-application.svg`} alt='card icon' aria-hidden="true" />
+                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/authentification-application.svg`} alt={t('sections.1.security_options.1.alt_text')} aria-hidden="true" />
                     <div className={classes.cardText}>
                       <div>
-                        <Typography className={classes.cardTitle} component="h3">Authentication application</Typography>
-                        <Typography>Receive a secure code through an authentication application (such as Google Authenticator or Microsoft Authenticator).</Typography>
+                        <Typography className={classes.cardTitle} component="h3">{t('sections.1.security_options.1.label')}</Typography>
+                        <Typography>{t('sections.1.security_options.1.description')}</Typography>
                       </div>
                     </div>
                   </div>
                   </li>
                   <li>
                   <div className={classes.cardContent}>
-                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/security-key.svg`} alt='card icon' aria-hidden="true" />
+                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/security-key.svg`} alt={t('sections.1.security_options.2.alt_text')} aria-hidden="true" />
                     <div className={classes.cardText}>
                       <div>
-                        <Typography className={classes.cardTitle} component="h3">Security key</Typography>
-                        <Typography>Plug in a USB key to access your account.</Typography>
+                        <Typography className={classes.cardTitle} component="h3">{t('sections.1.security_options.2.label')}</Typography>
+                        <Typography>{t('sections.1.security_options.2.description')}</Typography>
                       </div>
                     </div>
                   </div>
                   </li>
                   <li>
                   <div className={classes.cardContent}>
-                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/backup-codes.svg`} alt='card icon' aria-hidden="true" />
+                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/backup-codes.svg`} alt={t('sections.1.security_options.3.alt_text')} aria-hidden="true" />
                     <div className={classes.cardText}>
                       <div>
-                        <Typography className={classes.cardTitle} component="h3">Backup codes</Typography>
-                        <Typography>We give you a set of 10 codes that you can use when you sign in. If you select this option, make sure to keep your codes in a safe place.</Typography>
+                        <Typography className={classes.cardTitle} component="h3">{t('sections.1.security_options.3.label')}</Typography>
+                        <Typography>{t('sections.1.security_options.3.description')}</Typography>
                       </div>
                     </div>
                   </div>
@@ -176,29 +189,31 @@ const ActivatePage = (props) => {
               </StepContent>
             </Step>
             <Step active={true}>
-              <StepLabel>Select a backup method for security</StepLabel>
-              <StepContent>You won’t use this to sign in each time, but it is important to set up in case you lose access to your second method.</StepContent>
+              <StepLabel>{t('sections.1.stepper.3.label')}</StepLabel>
+              <StepContent>{t('sections.1.stepper.3.description')}</StepContent>
             </Step>
             <Step active={true}>
-              <StepLabel>You will be signed into your Biobank portal!</StepLabel>
-              <StepContent>The next time you sign in, you will enter your email and password and use the second method you chose for security.</StepContent>
+              <StepLabel>{t('sections.1.stepper.4.label')}</StepLabel>
+              <StepContent>{t('sections.1.stepper.4.description')}</StepContent>
             </Step>
           </Stepper>
-          <Link href={`https://${process.env.REACT_APP_LOGIN_LINK}/sign_up/enter_email?request_id=${process.env.REACT_APP_REQUEST_ID}`}><Button className={classes.createAccountBtn} variant="contained" color="primary">Create a login.gov account</Button></Link>
+          <Link href={`https://${process.env.REACT_APP_LOGIN_LINK}/sign_up/enter_email?request_id=${process.env.REACT_APP_REQUEST_ID}`}><Button className={classes.createAccountBtn} variant="contained" color="primary">{t('sections.1.link')}</Button></Link>
         </Box>
         <Divider className={classes.divider} />
         <Box mb={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
-              <Typography paragraph={true} variant="h2" component="h2">More information about login.gov</Typography>
+              <Typography paragraph={true} variant="h2" component="h2">
+                <RenderContent source={t('sections.2.title')} />
+              </Typography>
               <div className={classes.linkList}>
-                <Link href="https://login.gov/help/" variant="button" rel="noopener noreferrer" target="_blank">login.gov help center <OpenInNewIcon /></Link>
-                <Link href="https://login.gov/contact/" variant="button" rel="noopener noreferrer" target="_blank">Contact the login.gov team <OpenInNewIcon /></Link>
-                <Link href="https://login.gov/help/creating-an-account/how-to-create-an-account/" variant="button" rel="noopener noreferrer" target="_blank">Review step-by-step instructions with screen shots <OpenInNewIcon /></Link>
+                <Link href="https://login.gov/help/" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.links.0')} <OpenInNewIcon /></Link>
+                <Link href="https://login.gov/contact/" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.links.1')} <OpenInNewIcon /></Link>
+                <Link href="https://login.gov/help/creating-an-account/how-to-create-an-account/" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.links.2')} <OpenInNewIcon /></Link>
               </div>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/login.gov-logo.jpg`} alt="login.gov logo" />
+              <img src={`/${process.env.PUBLIC_URL}assets/images/login.gov-logo.jpg`} alt={t('sections.2.alt_text')} />
             </Grid>
           </Grid>
         </Box>

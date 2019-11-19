@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import { Link as RouterLink } from "@reach/router"
+import { useTranslation } from 'react-i18next'
 import { 
   Box,
   Container,
   Drawer,
   IconButton,
-  MenuItem,
   Link,
-  Typography, 
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { MenuRounded as MenuIcon } from '@material-ui/icons'
-import { Link as RouterLink } from "@reach/router"
 
 import LoginButton from '../../login/LoginButton'
 import MenuGroup from './MenuGroup';
@@ -72,6 +71,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const loc = window.location.pathname
   const [expanded, setExpanded] = useState(loc)
+  const { t } = useTranslation('common');
 
   // TODO: set active state on nav menu items based on site location
 
@@ -105,29 +105,29 @@ const Header = () => {
       <Box className={classes.appToolbarContainer}>
         <figure className={classes.toolbarLogo}>
           <Link component={RouterLink} to='/'>
-            <img src={`/${process.env.PUBLIC_URL}assets/images/biobank-logo.svg`} alt='NCI Cancer Moonshot Biobank logo' title='NCI Cancer Moonshot Biobank' />
+            <img src={`/${process.env.PUBLIC_URL}assets/images/biobank-logo.svg`} alt={t('logo.alt_text')} title={t('logo.title')} />
           </Link>
         </figure>
         {!isMobile && (
           <nav className={classes.publicNavDesktop}>
             <MenuGroup title="About" active={loc.includes('about')}>
-              <a href="/about">About the Biobank</a>
-              <a href="/about/eligibility">Eligibility and locations</a>
-              <a href="/about/research">Biobanking drives research</a>
+              <a href="/about">{t('nav.about')}</a>
+              <a href="/about/eligibility">{t('nav.eligibility')}</a>
+              <a href="/about/research">{t('nav.research')}</a>
             </MenuGroup>
             <MenuGroup title="What to expect" active={loc.includes('expect')}>
-              <a href="/expect/consent">Give your consent</a>
-              <a href="/expect/donate">Donate samples</a>
-              <a href="/expect/testing">Get a biomarker test</a>
+              <a href="/expect/consent">{t('nav.consent')}</a>
+              <a href="/expect/donate">{t('nav.donate')}</a>
+              <a href="/expect/testing">{t('nav.testing')}</a>
             </MenuGroup>
             <MenuGroup title="Your participation" active={loc.includes('participation')}>
-              <a href="/participation/activate">Activate your account</a>
-              <a href="/participation/privacy">Protecting your privacy</a>
+              <a href="/participation/activate">{t('nav.activate')}</a>
+              <a href="/participation/privacy">{t('nav.privacy')}</a>
             </MenuGroup>
         </nav>
         )}
 
-        {isMobile ? <IconButton aria-label="menu" onClick={toggleDrawer}><MenuIcon /></IconButton> : <LoginButton />}
+        {isMobile ? <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer}><MenuIcon /></IconButton> : <LoginButton />}
         
       </Box>
       {isMobile && (
@@ -137,35 +137,35 @@ const Header = () => {
             handleClick={expandPanel}
             expanded={expanded.includes("about")}
             active={loc.includes('about')}
-            name="About"
+            name={t('nav.topLevel.about')}
             id="about"
           >
-            <a onClick={closeMenu} href="/about">About the Biobank</a>
-            <a onClick={closeMenu} href="/about/eligibility">Eligibility and locations</a>
-            <a onClick={closeMenu} href="/about/research">Biobanking drives research</a>
+            <a onClick={closeMenu} href="/about">{t('nav.about')}</a>
+            <a onClick={closeMenu} href="/about/eligibility">{t('nav.eligibility')}</a>
+            <a onClick={closeMenu} href="/about/research">{t('nav.research')}</a>
           </ExpansionMenu>
 
           <ExpansionMenu
             handleClick={expandPanel}
             expanded={expanded.includes("expect")}
             active={loc.includes('expect')}
-            name="What to expect"
+            name={t('nav.topLevel.expect')}
             id="expect"
           >
-            <a onClick={closeMenu} href="/expect/consent">Give your consent</a>
-            <a onClick={closeMenu} href="/expect/donate">Donate samples</a>
-            <a onClick={closeMenu} href="/expect/testing">Get a biomarker test</a>
+            <a onClick={closeMenu} href="/expect/consent">{t('nav.consent')}</a>
+            <a onClick={closeMenu} href="/expect/donate">{t('nav.donate')}</a>
+            <a onClick={closeMenu} href="/expect/testing">{t('nav.testing')}</a>
           </ExpansionMenu>
 
           <ExpansionMenu
             handleClick={expandPanel}
             expanded={expanded.includes("participation")}
             active={loc.includes('participation')}
-            name="Your participation"
+            name={t('nav.topLevel.participation')}
             id="participation"
           >
-            <a onClick={closeMenu} href="/participation/activate">Activate your account</a>
-            <a onClick={closeMenu} href="/participation/privacy">Protecting your privacy</a>
+            <a onClick={closeMenu} href="/participation/activate">{t('nav.activate')}</a>
+            <a onClick={closeMenu} href="/participation/privacy">{t('nav.privacy')}</a>
           </ExpansionMenu>
         </nav>
       </Drawer>
