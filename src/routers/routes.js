@@ -12,6 +12,7 @@ import Research           from '../pages/about/ResearchPage'
 import WhatToExpect       from '../pages/expect/WhatToExpectPage'
 import Privacy            from '../pages/participation/PrivacyPage'
 import Activate           from '../pages/participation/ActivatePage'
+import SearchResults      from '../pages/SearchResultsPage'
 import Dashboard          from '../pages/dashboard/DashboardPage'
 import SignInCallback     from '../pages/dashboard/SignInCallback'
 import DashboardMocha     from '../pages/dashboard/DashboardMochaPage'
@@ -35,6 +36,7 @@ const DashboardMochaPage = pageWrapper(DashboardMocha)
 const WhatToExpectPage = pageWrapper(WhatToExpect)
 const ActivatePage = pageWrapper(Activate)
 const PrivacyPage = pageWrapper(Privacy)
+const SearchResultsPage = pageWrapper(SearchResults)
 const SignInCallbackPage = pageWrapper(SignInCallback)
 const ErrorPage = pageWrapper(Errors)
 
@@ -76,6 +78,7 @@ export default () => (
             <ResearchPage path='/about/research' />
             <ActivatePage path='/participation/activate' />
             <PrivacyPage path='/participation/privacy' />
+            <SearchResultsPage path='/search' />
             <ErrorPage path='/error' />
             <PrivateRoute path='/dashboard' component={DashboardPage} />
             <MockUsersPage path='/mock-users' />
