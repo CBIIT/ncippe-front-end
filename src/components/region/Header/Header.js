@@ -111,17 +111,17 @@ const Header = () => {
         </figure>
         {!isMobile && (
           <nav className={classes.publicNavDesktop}>
-            <MenuGroup title="About" active={loc.includes('about')}>
+            <MenuGroup title={t('nav.topLevel.about')} active={loc.includes('about')}>
               <a href="/about">{t('nav.about')}</a>
               <a href="/about/eligibility">{t('nav.eligibility')}</a>
               <a href="/about/research">{t('nav.research')}</a>
             </MenuGroup>
-            <MenuGroup title="What to expect" active={loc.includes('expect')}>
+            <MenuGroup title={t('nav.topLevel.expect')} active={loc.includes('expect')}>
               <a href="/expect/consent">{t('nav.consent')}</a>
               <a href="/expect/donate">{t('nav.donate')}</a>
               <a href="/expect/testing">{t('nav.testing')}</a>
             </MenuGroup>
-            <MenuGroup title="Your participation" active={loc.includes('participation')}>
+            <MenuGroup title={t('nav.topLevel.participation')} active={loc.includes('participation')}>
               <a href="/participation/activate">{t('nav.activate')}</a>
               <a href="/participation/privacy">{t('nav.privacy')}</a>
             </MenuGroup>
