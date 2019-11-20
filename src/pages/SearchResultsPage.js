@@ -41,6 +41,7 @@ const SearchResults = (props) => {
   }, [searchTerm])
 
   const processSearch = (results = []) => {
+
     const extract = (str,q) => {
       const regEx = new RegExp(q,"i")
       const match = str.search(regEx,"gi")
@@ -52,7 +53,7 @@ const SearchResults = (props) => {
         return extract(scrub,q)
       }
       else {
-        const regExTrimString = `(?<=\\|?)[a-zA-Z0-9\\s()'’,\.:]*${q}[a-zA-Z0-9\\s()'’,\.:]*(?=\\|?)`
+        const regExTrimString = `[^|]*${q}[^|]*`
         const regExTrim = new RegExp(regExTrimString,"gi")
         const strTrim = str.match(regExTrim)[0].trim().replace(regEx,`<mark>${q}</mark>`)
         return strTrim

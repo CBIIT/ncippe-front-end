@@ -83,7 +83,7 @@ export const objectValuesToString = (obj, ignore, divider = ' | ') => {
       if (typeof obj[key] === 'object' && obj[key] !== null) {
         return out += objectValuesToString(obj[key],ignore)
       } else {
-        return out += obj[key].replace(/<[\/]*?([a-z]+).*? *[\/]*?>/g,'') + divider
+        return out += obj[key].replace(/<[\/]*?([a-z]+).*? *[\/]*?>/g,' ') + divider
       }
     }
   })
