@@ -22,7 +22,7 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const FAQs = (props) => {
-  const { title,faqs } = props
+  const { title, faqs } = props
   const classes = useStyles()
   const { t, i18n } = useTranslation('common')
   const [isExpanded, setIsExpanded] = useState(0)
@@ -38,10 +38,10 @@ const FAQs = (props) => {
       <Button variant="outlined" color="primary" onClick={toggleAll}><MinusIcon className={classes.faq_icon} /> {t('buttons.collapse')}</Button>
     </div>
     <Box mt={3}>
-      {faqs && faqs.map((faq, i) => <FAQ
+      {faqs && Object.keys(faqs).map((faq, i) => <FAQ
         key={i} 
-        title={faq.question}
-        desc={faq.answer}
+        title={faqs[faq].question}
+        desc={faqs[faq].answer}
         expanded={isExpanded}
       />)}
     </Box>
