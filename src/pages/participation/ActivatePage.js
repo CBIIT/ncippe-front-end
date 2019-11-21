@@ -2,14 +2,13 @@ import React, { useState, useContext } from 'react';
 import { Box, Button, Container, Divider, Grid, Link, Stepper, Step, StepLabel, StepContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { 
-  OpenInNew as OpenInNewIcon,
-  RemoveRounded as MinusIcon
+  OpenInNew as OpenInNewIcon
 } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
 import RenderContent from '../../components/utils/RenderContent'
 
 import { AuthContext } from '../../components/login/AuthContext'
-import FAQ from '../../components/FAQ/FAQ'
+import FAQs from '../../components/FAQ/FAQ_Wrapper'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -77,16 +76,6 @@ const useStyles = makeStyles( theme => ({
     '& > a': {
       margin: theme.spacing(1,0)
     }
-  },
-  faq_title: {
-    display: 'flex',
-    '& h3': {
-      flexGrow: 1
-    }
-  },
-  faq_icon: {
-    marginLeft: -8,
-    marginRight: 4
   }
 }))
 
@@ -95,11 +84,6 @@ const ActivatePage = (props) => {
   const { t, i18n } = useTranslation('activate')
   const { signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
   const faqs = i18n.getResourceBundle(i18n.languages[0],'activate').faqs
-  const [isExpanded, setIsExpanded] = useState(0)
-
-  const toggleAll = () => {
-    setIsExpanded(prev => prev + 1)
-  }
 
   const handleLogin = () => {
     // Using openID to redirect to login.gov
@@ -241,20 +225,8 @@ const ActivatePage = (props) => {
       </Container>
 
       {/* Frequently Asked Questions */}
-      <Container className="innerContainer">
-        <div className={classes.faq_title}>
-          <Typography variant="h3" component="h3">{t('faqs_title')}</Typography>
-          <Button variant="outlined" color="primary" onClick={toggleAll}><MinusIcon className={classes.faq_icon} /> {t('common:buttons.collapse')}</Button>
-        </div>
-        <Box mt={3}>
-          {faqs && faqs.map((faq, i) => <FAQ
-            key={i} 
-            title={faq.question}
-            desc={faq.answer}
-            expanded={isExpanded}
-          />)}
-        </Box>
-      </Container>
+      <FAQs title={t('faqs_title')} faqs={faqs} />
+
     </Box>
   )
 }
