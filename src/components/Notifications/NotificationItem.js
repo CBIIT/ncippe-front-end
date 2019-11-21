@@ -40,11 +40,6 @@ const useStyles = makeStyles( theme => ({
       paddingBottom: theme.spacing(4)
     },
   },
-  [theme.breakpoints.up('sm')]: {
-    gridDate: {
-      textAlign: 'right'
-    },
-  },
   divider: {
     margin: theme.spacing(2,0)
   }
@@ -62,14 +57,10 @@ const NotificationItem = (props) => {
         <CardContent className={classes.cardContent}>
           <Typography variant="h3" component="h3">{subject}</Typography>
           <Grid container>
-            <Grid item xs={12} sm={8} md={10}>
-              <Typography>From: {from}</Typography>
-            </Grid>
-            <Grid item xs={12} sm={4} md={2} className={classes.gridDate}>
+            <Grid item xs={12} sm={4} md={2}>
               <Typography>{moment(dateGenerated).format("MMM DD, YYYY")}</Typography>
             </Grid>
           </Grid>
-          
           <Divider className={classes.divider} />
           <Typography dangerouslySetInnerHTML={{__html:message}} />
         </CardContent>
