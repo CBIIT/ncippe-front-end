@@ -1,9 +1,13 @@
-import React from 'react'
-import { Box, Grid, Link, Typography, Stepper, Step, StepLabel, StepContent, Divider } from '@material-ui/core'
+import React, { useState } from 'react'
+import { Button, Box, Container, Grid, Link, Typography, Stepper, Step, StepLabel, StepContent, Divider, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { 
+  RemoveRounded as MinusIcon
+} from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
 import RenderContent from '../../components/utils/RenderContent'
 
+import FAQ from '../../components/FAQ/FAQ'
 import TabPanel from '../../components/Tabs/TabPanel'
 
 const useStyles = makeStyles( theme => ({
@@ -59,12 +63,37 @@ const useStyles = makeStyles( theme => ({
       color: 'rgba(0, 0, 0, 0.38)'
     }
   },
+  samples: {
+    display: 'flex',
+    '& > div': {
+      maxWidth: 320,
+      marginRight: theme.spacing(6),
+      '&:last-child': {
+        marginRight: 0
+      }
+    }
+  },
+  sampleTitle: {
+    paddingBottom: theme.spacing(1),
+    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+    marginBottom: theme.spacing(1),
+  },
   linkList: {
     display: 'flex',
     flexDirection: 'column',
     '& > a': {
       margin: theme.spacing(1,0)
     }
+  },
+  faq_title: {
+    display: 'flex',
+    '& h3': {
+      flexGrow: 1
+    }
+  },
+  faq_icon: {
+    marginLeft: -8,
+    marginRight: 4
   }
 }))
 
@@ -72,12 +101,19 @@ const BiomarkerTest = (props) => {
   const {index, isMobile} = props
   const classes = useStyles()
   const { t, i18n } = useTranslation('testing')
+  const faqs = i18n.getResourceBundle(i18n.languages[0],'testing').faqs
+  const [isExpanded, setIsExpanded] = useState(0)
+
+  const toggleAll = () => {
+    setIsExpanded(prev => prev + 1)
+  }
 
   return (
     <TabPanel
       index={index} 
       id={`scrollable-auto-tabpanel-${index}`}
       aria-labelledby={`scrollable-auto-tab-${index}`}
+      stupidPaddingException
     >
       {/* Intro */}
       <Grid container>
@@ -124,6 +160,24 @@ const BiomarkerTest = (props) => {
       <Typography variant="h2" component="h2">
         <RenderContent source={t('sections.2.title')} />
       </Typography>
+      <Box className={classes.samples} mt={2}>
+        <Paper>
+          <img src={`/${process.env.PUBLIC_URL}assets/images/solid-tumor-sample-test-report.jpg`} alt={t('sections.2.samples.0.alt_text')} />
+          <Divider />
+          <Box p={2}>
+            <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.0.title')}</Typography>
+            <Link href={`/${process.env.PUBLIC_URL}assets/documents/Biobank-Combined-Melanoma-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.samples.0.link')}</Link>
+          </Box>
+        </Paper>
+        <Paper>
+          <img src={`/${process.env.PUBLIC_URL}assets/images/blood-cancer-sample-test-report.jpg`} alt={t('sections.2.samples.1.alt_text')} />
+          <Divider />
+          <Box p={2}>
+            <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.1.title')}</Typography>
+            <Link href={`/${process.env.PUBLIC_URL}assets/documents/Acute-Myeloid-Leukemia-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.samples.1.link')}</Link>
+          </Box>
+        </Paper>
+      </Box>
 
       <Divider className={classes.divider} />
 
@@ -145,6 +199,23 @@ const BiomarkerTest = (props) => {
           </Grid>
         </Grid>
       </Box>
+
+      {/* Frequently Asked Questions */}
+      <Container className="innerContainer">
+        <div className={classes.faq_title}>
+          <Typography variant="h3" component="h3">{t('faqs_title')}</Typography>
+          <Button variant="outlined" color="primary" onClick={toggleAll}><MinusIcon className={classes.faq_icon} /> {t('common:buttons.collapse')}</Button>
+        </div>
+        <Box mt={3}>
+          {faqs && faqs.map((faq, i) => <FAQ
+            key={i} 
+            title={faq.question}
+            desc={faq.answer}
+            expanded={isExpanded}
+          />)}
+        </Box>
+      </Container>
+      
     </TabPanel>
   )
 }

@@ -1,10 +1,13 @@
-import React from 'react'
-import { Link } from '@reach/router'
-import { Grid, Typography } from '@material-ui/core'
+import React, {useState} from 'react'
+import { Box, Button, Grid, Typography, Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { 
+  RemoveRounded as MinusIcon
+} from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
 import RenderContent from '../../components/utils/RenderContent'
 
+import FAQ from '../../components/FAQ/FAQ'
 import TabPanel from '../../components/Tabs/TabPanel'
 
 const useStyles = makeStyles( theme => ({
@@ -38,6 +41,16 @@ const useStyles = makeStyles( theme => ({
     '&:first-of-type': {
       marginBottom: theme.spacing(5)
     }
+  },
+  faq_title: {
+    display: 'flex',
+    '& h3': {
+      flexGrow: 1
+    }
+  },
+  faq_icon: {
+    marginLeft: -8,
+    marginRight: 4
   }
 }))
 
@@ -45,12 +58,19 @@ const Donate = (props) => {
   const {index, isMobile} = props
   const classes = useStyles()
   const { t, i18n } = useTranslation('donate')
+  const faqs = i18n.getResourceBundle(i18n.languages[0],'donate').faqs
+  const [isExpanded, setIsExpanded] = useState(0)
+
+  const toggleAll = () => {
+    setIsExpanded(prev => prev + 1)
+  }
 
   return (
     <TabPanel
       index={index} 
       id={`scrollable-auto-tabpanel-${index}`}
       aria-labelledby={`scrollable-auto-tab-${index}`}
+      stupidPaddingException
     >
       <Grid container>
         <Grid item xs={12} sm={6} lg={8} className={classes.textColumn}>
@@ -66,6 +86,23 @@ const Donate = (props) => {
           <img className={classes.img} src={`/${process.env.PUBLIC_URL}assets/images/test-tubes.jpg`} alt={t('alt_text.1')} height="360" />
         </Grid>
       </Grid>
+
+      {/* Frequently Asked Questions */}
+      <Container className="innerContainer">
+        <div className={classes.faq_title}>
+          <Typography variant="h3" component="h3">{t('faqs_title')}</Typography>
+          <Button variant="outlined" color="primary" onClick={toggleAll}><MinusIcon className={classes.faq_icon} /> {t('common:buttons.collapse')}</Button>
+        </div>
+        <Box mt={3}>
+          {faqs && faqs.map((faq, i) => <FAQ
+            key={i} 
+            title={faq.question}
+            desc={faq.answer}
+            expanded={isExpanded}
+          />)}
+        </Box>
+      </Container>
+
     </TabPanel>
   )
 }
