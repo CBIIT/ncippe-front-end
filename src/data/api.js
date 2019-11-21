@@ -322,7 +322,7 @@ async function notificationsMarkAsReadLocal({uuid}){
   )
 
   // write updates to the server
-  const promises = updatedNotifications.map(notification => fetch(`/api/notificationsZ/${notification.id}`,{
+  const promises = updatedNotifications.map(notification => fetch(`/api/notifications/${notification.id}`,{
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
