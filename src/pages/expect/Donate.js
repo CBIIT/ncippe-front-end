@@ -1,10 +1,10 @@
 import React from 'react'
-import { Link } from '@reach/router'
 import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import RenderContent from '../../components/utils/RenderContent'
 
+import FAQs from '../../components/FAQ/FAQ_Wrapper'
 import TabPanel from '../../components/Tabs/TabPanel'
 
 const useStyles = makeStyles( theme => ({
@@ -45,12 +45,14 @@ const Donate = (props) => {
   const {index, isMobile} = props
   const classes = useStyles()
   const { t, i18n } = useTranslation('donate')
+  const faqs = i18n.getResourceBundle(i18n.languages[0],'donate').faqs
 
   return (
     <TabPanel
       index={index} 
       id={`scrollable-auto-tabpanel-${index}`}
       aria-labelledby={`scrollable-auto-tab-${index}`}
+      stupidPaddingException
     >
       <Grid container>
         <Grid item xs={12} sm={6} lg={8} className={classes.textColumn}>
@@ -66,6 +68,10 @@ const Donate = (props) => {
           <img className={classes.img} src={`/${process.env.PUBLIC_URL}assets/images/test-tubes.jpg`} alt={t('alt_text.1')} height="360" />
         </Grid>
       </Grid>
+
+      {/* Frequently Asked Questions */}
+      <FAQs title={t('faqs_title')} faqs={faqs} />
+
     </TabPanel>
   )
 }

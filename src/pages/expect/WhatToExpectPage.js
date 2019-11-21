@@ -12,7 +12,7 @@ import BiomarkerTest from './BiomarkerTest'
 const useStyles = makeStyles( theme => ({
   pageHeader: {
     backgroundImage: theme.gradients.primaryDiagonal,
-    padding: theme.spacing(4,5),
+    padding: theme.spacing(4,5,0),
     boxShadow: 'inset 0 -13px 13px -13px rgba(30,111,214,0.2)',
     '& h1': {
       fontSize: 22,
@@ -28,7 +28,7 @@ const useStyles = makeStyles( theme => ({
   },
   appbar: {
     backgroundColor: theme.palette.primary.medium
-  },
+  }
 }))
 
 const a11yProps = (index) => {
@@ -96,7 +96,7 @@ const WhatToExpectPage = () => {
       <Container className={classes.tabsContainer}>
         <Router>
           <Consent index={2} isMobile={isMobile} path="/*" />
-          <Donate index={1} isMobile={isMobile} path="donate"/>
+          <Donate index={1} isMobile={isMobile} path="donate" />
           <BiomarkerTest index={0} isMobile={isMobile} path="testing" />
         </Router>
       </Container>

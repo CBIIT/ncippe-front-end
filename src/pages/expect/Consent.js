@@ -24,12 +24,8 @@ const useStyles = makeStyles( theme => ({
     padding: theme.spacing(3)
   },
   iconLink: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    margin: theme.spacing(3,0,4),
-    '& svg': {
-      marginLeft: 4
-    }
+    display: 'block',
+    margin: theme.spacing(1,0),
   },
   mediaWrapper: {
     position: 'relative',
@@ -61,9 +57,18 @@ const Consent = (props) => {
       <Typography variant={isMobile ? "body1" : "body2"} component="div">
         <RenderContent source={t('intro_text')} />
       </Typography>
-      <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="h4" rel="noopener noreferrer" target="_blank">
-        <RenderContent source={t('link')} /> <OpenInNewIcon />
-      </Link>
+      <Box mb={5}>
+        <Typography variant="h3" component="h3">{t('sample_title')}</Typography>
+        <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
+          <RenderContent source={t('form_link_adult')} />
+        </Link>
+        <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
+          <RenderContent source={t('form_link_parental')} />
+        </Link>
+        <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
+          <RenderContent source={t('form_link_minors')} />
+        </Link>
+      </Box>
       <Card>
         <div className={classes.mediaWrapper}>
           <CardMedia

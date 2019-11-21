@@ -1,11 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Box, Button, Container, Divider, Grid, Link, Stepper, Step, StepLabel, StepContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
-import { OpenInNew as OpenInNewIcon } from '@material-ui/icons'
+import { 
+  OpenInNew as OpenInNewIcon
+} from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
 import RenderContent from '../../components/utils/RenderContent'
 
 import { AuthContext } from '../../components/login/AuthContext'
+import FAQs from '../../components/FAQ/FAQ_Wrapper'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -80,6 +83,7 @@ const ActivatePage = (props) => {
   const classes = useStyles()
   const { t, i18n } = useTranslation('activate')
   const { signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
+  const faqs = i18n.getResourceBundle(i18n.languages[0],'activate').faqs
 
   const handleLogin = () => {
     // Using openID to redirect to login.gov
@@ -93,8 +97,8 @@ const ActivatePage = (props) => {
           <RenderContent source={t('pageTitle')} />
         </Typography>
       </Container>
-      <Container className="mainContainer mainContainer--public">
-        <Box mt={5}>
+      <Container>
+        <Box my={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
               <Typography paragraph={true} variant="body2" component="div">
@@ -102,7 +106,7 @@ const ActivatePage = (props) => {
               </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/mother-and-son-view-tablet.jpg`} alt={t('alt_text.0')} />
+              <img src={`/${process.env.PUBLIC_URL}assets/images/father-and-daughter-view-tablet.jpg`} alt={t('alt_text.0')} />
             </Grid>
           </Grid>
           <Box className={classes.tintedBox} p={7}>
@@ -120,8 +124,6 @@ const ActivatePage = (props) => {
             </Grid>
           </Box>
         </Box>
-
-        <Divider className={classes.divider} />
 
         {/* To create your login.gov account */}
         <Box>
@@ -199,8 +201,11 @@ const ActivatePage = (props) => {
           </Stepper>
           <Link href={`https://${process.env.REACT_APP_LOGIN_LINK}/sign_up/enter_email?request_id=${process.env.REACT_APP_REQUEST_ID}`}><Button className={classes.createAccountBtn} variant="contained" color="primary">{t('sections.1.link')}</Button></Link>
         </Box>
+
         <Divider className={classes.divider} />
-        <Box mb={5}>
+
+        {/* More Information */}
+        <Box mb={6}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
               <Typography paragraph={true} variant="h2" component="h2">
@@ -218,6 +223,10 @@ const ActivatePage = (props) => {
           </Grid>
         </Box>
       </Container>
+
+      {/* Frequently Asked Questions */}
+      <FAQs title={t('faqs_title')} faqs={faqs} />
+
     </Box>
   )
 }

@@ -283,6 +283,16 @@ ul.bulletList > li:last-child {
   border-top: 1px solid #e0e0e0;
   padding-bottom: 110px;
 }
+.innerContainer {
+  background-color: #f2f5f8;
+  background-image: url(/assets/images/soft-diamond-background-short.svg);
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  margin-top: 48px;
+  padding-top: 56px;
+  padding-bottom: 240px;
+}
 .mainContainer--public {
   background-color: transparent;
   min-height: calc(100vh - 190px);
@@ -293,13 +303,16 @@ ul.bulletList > li:last-child {
   flex-grow: 1;
 }
 
-.MuiTypography-body1 > p {
+.MuiTypography-body1 > p,
+.MuiTypography-body2 > p,
+.MuiExpansionPanelDetails-root > p {
   margin-bottom: 16px;
 }
 
-.MuiTypography-body2 > p {
-  margin-bottom: 16px;
+.MuiExpansionPanelDetails-root > p:last-child {
+  margin-bottom: 0
 }
+
 @media (min-width: 600px) {
   .MuiTypography-body2 > p {
     margin-bottom: 24px;
