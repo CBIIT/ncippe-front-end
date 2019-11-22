@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { KeyboardArrowRight as KeyboardArrowRightIcon } from '@material-ui/icons'
 
 import ConditionalWrapper from '../utils/ConditionalWrapper'
+import RenderContent from '../utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
   card: {
@@ -49,7 +50,7 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const IconCard = (props) => {
-  const {icon, title, desc, descHTML, link, linkText, count = 0, badgeText = 'new'} = props
+  const {icon, title, desc, link, linkText, count = 0, badgeText = 'new'} = props
   const classes = useStyles()
 
   return (
@@ -63,8 +64,7 @@ const IconCard = (props) => {
           <div className={classes.cardText}>
             <div>
               <Typography className={classes.cardTitle} variant="body2" component="h2">{title}</Typography>
-              {descHTML && <Typography dangerouslySetInnerHTML={{__html:descHTML}} />}
-              {desc && <Typography>{desc}</Typography>}
+              <Typography><RenderContent source={desc} /></Typography>
             </div>
             {link &&
               <div>
