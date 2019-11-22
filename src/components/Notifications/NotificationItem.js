@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
 
 import ConditionalWrapper from '../utils/ConditionalWrapper'
+import RenderContent from '../utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
   badge: {
@@ -62,7 +63,9 @@ const NotificationItem = (props) => {
             </Grid>
           </Grid>
           <Divider className={classes.divider} />
-          <Typography dangerouslySetInnerHTML={{__html:message}} />
+          <Typography>
+            <RenderContent source={message} />
+          </Typography>
         </CardContent>
       </ConditionalWrapper>
     </Card>
