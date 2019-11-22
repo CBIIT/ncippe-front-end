@@ -22,7 +22,7 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const FAQs = (props) => {
-  const { title, faqs } = props
+  const { title,faqs, className, ...other } = props
   const classes = useStyles()
   const { t, i18n } = useTranslation('common')
   const [isExpanded, setIsExpanded] = useState(0)
@@ -32,7 +32,7 @@ const FAQs = (props) => {
   }
 
   return (
-    <Container className="innerContainer">
+    <Container className={`innerContainer ${className}`} {...other}>
     <div className={classes.faq_title}>
       <Typography variant="h3" component="h3">{title}</Typography>
       <Button variant="outlined" color="primary" onClick={toggleAll}><MinusIcon className={classes.faq_icon} /> {t('buttons.collapse')}</Button>
