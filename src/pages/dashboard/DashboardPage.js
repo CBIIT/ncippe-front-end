@@ -47,8 +47,8 @@ export default () => {
               <Typography variant="h1" gutterBottom>Welcome, {firstName} {lastName}</Typography>
               {isActiveBiobankParticipant === false ? 
                 <div>
-                  <Typography className={classes.badge}>Withdrawn</Typography>
-                  <Status state="info" fullWidth title="You are no longer participating in the Biobank." message="If you'd like to rejoin the Biobank, talk to your research coordinator. " />
+                  <Typography className={classes.badge}>Not Participating</Typography>
+                  <Status state="info" fullWidth title="You are no longer participating in the Biobank." message="If you'd like to rejoin the Biobank, talk to your research coordinator." />
                 </div>
                 :
                 <Typography variant="body2">Thank you for joining the Cancer Moonshot<sup>SM</sup> Biobank</Typography>

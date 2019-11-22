@@ -95,7 +95,7 @@ const ProfilePage = (props) => {
           <div className={classes.profileText}>
             <Typography className={classes.profileHeader} variant="h2" component="h2">{firstName} {lastName}</Typography>
             <Typography component="p" gutterBottom>Participant since {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
-            {isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>Withdrawn</Typography></div>}
+            {isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>Not Participating</Typography></div>}
           </div>
           <LoginConsumer>
           {([{roleName}]) => {

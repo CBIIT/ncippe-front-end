@@ -72,7 +72,7 @@ const PatientListItem = (props) => {
         {(hasNewReports || isActiveBiobankParticipant === false || portalAccountStatus === 'ACCT_NEW') && 
         <div className={classes.badges}>
           {hasNewReports && <Badge className={classes.badge} badgeContent="New Document" />}
-          {isActiveBiobankParticipant === false && <Badge className={classes.badge} color="error" badgeContent="Withdrawn" />}
+          {isActiveBiobankParticipant === false && <Badge className={classes.badge} color="error" badgeContent="Not participating" />}
           {portalAccountStatus === 'ACCT_NEW' && <Badge className={classes.newBadge} badgeContent="New Participant" />}
         </div>
         }
