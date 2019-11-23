@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { navigate } from '@reach/router'
+import { navigate, Link as RouterLink } from '@reach/router'
 import { useTranslation } from 'react-i18next'
 
 import { Box, Container, Dialog, DialogContent, Grid, IconButton, Link, Paper, Typography } from '@material-ui/core'
@@ -282,7 +282,7 @@ const HomePage = (props) => {
                 <RenderContent source={t('mission.body')} />
               </Typography>
               <Typography variant="button" className={classes.extraTopSpace}>
-                <Link to="/expect" className={classes.icon_link}>
+                <Link to="/expect" className={classes.icon_link} component={RouterLink}>
                   <RenderContent source={t('mission.link')} />
                   <ArrowRightIcon />
                 </Link>
