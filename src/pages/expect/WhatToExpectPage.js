@@ -12,7 +12,7 @@ import BiomarkerTest from './BiomarkerTest'
 const useStyles = makeStyles( theme => ({
   pageHeader: {
     backgroundImage: theme.gradients.primaryDiagonal,
-    padding: theme.spacing(4,5,0),
+    padding: theme.spacing(4,5),
     boxShadow: 'inset 0 -13px 13px -13px rgba(30,111,214,0.2)',
     '& h1': {
       fontSize: 22,
