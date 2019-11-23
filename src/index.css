@@ -248,6 +248,23 @@ ul.bulletList > li:last-child {
   }
 }
 
+@keyframes whiteToTransparent {
+  0% {
+    background-color: white;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+@keyframes transparentToWhite {
+  0% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: white;
+  }
+}
+
 /* .popup { */
   /* min-height: 100%;
   display: flex;
