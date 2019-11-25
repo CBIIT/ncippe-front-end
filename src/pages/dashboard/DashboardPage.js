@@ -51,7 +51,7 @@ export default () => {
                   <Status state="info" fullWidth title="You are no longer participating in the Biobank." message="If you'd like to rejoin the Biobank, talk to your research coordinator. " />
                 </div>
                 :
-                <Typography variant="body2">Thank you for joining the Cancer Moonshot<sup>SM</sup> Biobank Program!</Typography>
+                <Typography variant="body2">Thank you for joining the Cancer Moonshot<sup>SM</sup> Biobank</Typography>
               }
             </Box>
           )
@@ -120,7 +120,7 @@ export default () => {
             return <IconCard
                 icon={icon}
                 title="Account settings"
-                desc="Update your contactinformation or change how you participate in the Biobank."
+                desc="Update your contact information or change how you participate in the Biobank."
                 link="/dashboard/profile"
                 linkText="Update account"
               />

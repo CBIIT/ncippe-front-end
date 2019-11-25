@@ -170,7 +170,7 @@ const UploadConcentDialog = (props) => {
             <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">Select a file to upload</Button>
           </label>
         )}
-        {formData.uploadError && <Status state="error" title="File failed to upload" message="We're sorry, something went wrong. Please try to upload this file again. If this problem persists, contact your system administrator." />}
+        {formData.uploadError && <Status state="error" title="File failed to upload" message="We're sorry, something went wrong. Please remove the file and try to upload the form again." />}
         </>
       )}
       {activeStep === 1 && (

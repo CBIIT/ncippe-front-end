@@ -56,13 +56,13 @@ const PatientList = (props) => {
         <Grid item xs={6}>
           <div className={classes.titleWithIcon}>
             <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/patients.svg`} alt='patient icon' aria-hidden="true"></img>
-            <Typography className={classes.cardTitle} variant="h2" component="h2">Your Patients</Typography>
+            <Typography className={classes.cardTitle} variant="h2" component="h2">Your Participants</Typography>
           </div>
         </Grid>
         <Grid item xs={6}>
           <TextField
             id="outlined-search"
-            label="Search by patient name"
+            label="Search by name"
             type="search"
             className={classes.textField}
             margin="normal"

@@ -264,6 +264,7 @@ const AddParticipantInfoDialog = (props) => {
     >
       <DialogTitle id="responsive-dialog-title" disableTypography><Typography variant="h3" component="h3">Add participant information</Typography></DialogTitle>
       <DialogContent>
+        <Typography>This will let the participant create their Biobank account to access their program information.</Typography>
       <Stepper activeStep={activeStep} alternativeLabel>
         <Step>
           <StepLabel><Typography >Participant name and email</Typography></StepLabel>
@@ -274,7 +275,7 @@ const AddParticipantInfoDialog = (props) => {
       </Stepper>
       <Paper elevation={3} className={classes.paper}>
         {activeStep === 1 && <Typography variant="h3">{formData.firstName} {formData.lastName}</Typography>}
-        <Typography variant={activeStep === 0 ? "h3" : "body1"}>Patient ID: {patientId}</Typography>
+        <Typography variant={activeStep === 0 ? "h3" : "body1"}>Participant ID: {patientId}</Typography>
         <Typography>Participant since {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
       </Paper>
       {activeStep === 0 && (

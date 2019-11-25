@@ -10,9 +10,9 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const stepText = [
-  'Input Patient ID',
+  'Input Participant ID',
   'Select report from your computer',
-  'System notifies patient'
+  'Complete upload'
 ]
 
 const UploadStepper = (props) => {

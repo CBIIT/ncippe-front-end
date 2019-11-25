@@ -231,7 +231,7 @@ const UploadReport = () => {
     <div className={classes.root}>
       <Box mb={5}>
         <Typography variant="h2" component="h2">Upload Biomarker test reports</Typography>
-        <Typography>Once you upload a report, you will associate it with a participant. At that point, the participant, their provider, and their CRC's will be able to view and download the report.</Typography>
+        <Typography>Once you upload a report, you will associate it with a participant. At that point, the participant, their providers, and their research coordinators will be able to view and download the report.Enter the ID of the participant associated with this report.</Typography>
       </Box>
       <Paper className={classes.paper}>
         <UploadStepper activeStep={activeStep} />
@@ -241,23 +241,23 @@ const UploadReport = () => {
 
         {activeStep === 0 && (
           <>
-          <Typography variant="h6">Enter the ID of the patient associated with this report.</Typography>
+          <Typography variant="h6">Enter the ID of the participant associated with this report.</Typography>
           <TextField
             error={patientData.error}
             required
             id="patientId-required"
-            label="Patient ID"
+            label="Input Participant ID"
             className={classes.textField}
             margin="normal"
             variant="outlined"
-            helperText={patientData.error ? "Please enter a valid 8 character Patient ID" : "This number is on the top of the report"}
+            helperText={patientData.error ? "Please enter a valid 8 character Participant ID" : "This number is on the top of the report"}
             onChange={handlePatientId}
             value={patientData.patientId}
             inputProps={{
               maxLength: 8,
             }}
           />
-          {patientData.notFound && <Status state="error" title="This patient is not in the system" message="Please double check the Patient ID on the hard copy of the report and re-enter it above. If this problem persists, contact the system administrator." />}
+          {patientData.notFound && <Status state="error" title="This participant is not in the system" message="Please double check the Participant ID on the hard copy of the report and re-enter it above. If this problem persists, contact the system administrator." />}
           <div className={classes.formButtons}>
               <Button variant="contained" color="primary" onClick={handleFormSubmit}>Next</Button>
               <Button variant="text" className={classes.btnClear} onClick={goBack}><ClearIcon />Cancel</Button>
@@ -268,7 +268,7 @@ const UploadReport = () => {
 
         {activeStep === 1 && (
           <>
-          <Typography variant="h2" component="h2">Patient: {patientData.firstName} {patientData.lastName}</Typography>
+          <Typography variant="h2" component="h2">Participant: {patientData.firstName} {patientData.lastName}</Typography>
           <Typography variant="h3">Select a report to upload</Typography>
           {formData.reportFile && formData.reportFile.name && (
             <FileItem file={formData.reportFile} onRemove={handleRemoveFile} />
@@ -286,7 +286,7 @@ const UploadReport = () => {
               <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">Select a report</Button>
             </label>
           )}
-          {formData.uploadError && <Status state="error" title="Report failed to upload" message="We're sorry, something went wrong. Please try to upload this report again. If this problem persists, contact your system administrator." />}
+          {formData.uploadError && <Status state="error" title="Report failed to upload" message="We're sorry, something went wrong. Please remove the file and try to upload the report again." />}
 
           <div className={classes.formButtons}>
             <Button variant="contained" color="primary" onClick={handleFormSubmit} disabled={!formData.reportFile}>Submit</Button>
@@ -305,7 +305,7 @@ const UploadReport = () => {
 
         {activeStep === 3 && (
           <>
-          <Status state="success" title="Biomarker report uploaded successfully!" message="We sent an email to let the patient, their provider, and their CRC know." />
+          <Status state="success" title="Biomarker report uploaded successfully!" message="We sent an email to let the participant, their providers, and their research coordinator know. " />
           <div className={classes.formButtons}>
             <Button variant="contained" color="primary" onClick={resetForm}>Upload another report</Button>
           </div>
