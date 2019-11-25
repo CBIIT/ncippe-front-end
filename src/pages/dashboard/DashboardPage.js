@@ -48,7 +48,7 @@ export default () => {
               {isActiveBiobankParticipant === false ? 
                 <div>
                   <Typography className={classes.badge}>Withdrawn</Typography>
-                  <Status state="info" fullWidth title="Your participation has been withdrawn." message="You or a research coordinator has withdrawn your participation in the program. Speak to your doctor if you would like to continue to participate. Your withdrawal choices are recorded in your account settings." />
+                  <Status state="info" fullWidth title="You are no longer participating in the Biobank." message="If you'd like to rejoin the Biobank, talk to your research coordinator. " />
                 </div>
                 :
                 <Typography variant="body2">Thank you for joining the Cancer Moonshot<sup>SM</sup> Biobank Program!</Typography>
@@ -88,7 +88,7 @@ export default () => {
                   <IconCard
                     icon="reports.svg"
                     title="Consent form"
-                    desc="Review the form you signed when you agreed to participate in the Biobank program."
+                    desc="Review the form you signed when you agreed to participate in the Biobank."
                     link="/dashboard/consent"
                     linkText="View forms"
                   />
@@ -99,10 +99,10 @@ export default () => {
                 <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
                   <IconCard
                     icon="biomarker-tests.svg"
-                    title="Biomarker tests"
-                    desc="Your genomic information may help your oncologist treat your cancer."
+                    title="Biomarker reports"
+                    desc="View the reports from your Biomarker tests."
                     link="/dashboard/tests"
-                    linkText="View documents"
+                    linkText="View reports"
                     count={count}
                   />
                 </Grid>
@@ -120,7 +120,7 @@ export default () => {
             return <IconCard
                 icon={icon}
                 title="Account settings"
-                desc="Keep your contact information up to date to receive program notifications."
+                desc="Update your contactinformation or change how you participate in the Biobank."
                 link="/dashboard/profile"
                 linkText="Update account"
               />

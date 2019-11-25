@@ -1,6 +1,7 @@
-import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import React from 'react'
+import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import RenderContent from '../utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
   statusGrid: {
@@ -29,7 +30,7 @@ const NoItems = (props) => {
         <img className={classes.statusIcon} src={`/${process.env.PUBLIC_URL}assets/icons/empty-folder.svg`} alt='patient icon' aria-hidden="true"></img>
       </Grid>
       <Grid item>
-        <Typography className={classes.statusText}>{message}</Typography>
+        <Typography className={classes.statusText}><RenderContent source={message} /></Typography>
       </Grid>
     </Grid>
   )

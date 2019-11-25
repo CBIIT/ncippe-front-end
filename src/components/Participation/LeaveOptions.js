@@ -26,8 +26,8 @@ const LeaveOptions = (props) => {
     <Box>
       <Typography className={classes.header} variant="h1" component="h1">Leave the Biobank project</Typography>
       <Typography variant="h2" className={classes.gutterBottom_2}>We're sorry to see you go.</Typography>
-      <Typography className={classes.gutterBottom_2}>You have the right to leave the program easily and whenever you want to.</Typography>
-      <Typography className={classes.gutterBottom_2}>You have a few options for how we will use your previously collected tissue and data after you leave the Biobank. The next section will walk you through these options. If you have questions, please contact your research coordinator.</Typography>
+      <Typography className={classes.gutterBottom_2}>You have the right to stop participating and leave the Biobank program when you want to.</Typography>
+      <Typography className={classes.gutterBottom_2}>You have a few choices for how we'll use samples and information we've already collected. The next section will walk you through these choices. If you have questions, please contact your research coordinator.</Typography>
       <div className={classes.formButtons}>
         <Button variant="contained" color="primary" component={RouterLink} to='../leaveQuestions'>I understand</Button>
         <Button className={classes.btnCancel} variant="text" onClick={props.cancel}><ClearIcon />Cancel</Button>
