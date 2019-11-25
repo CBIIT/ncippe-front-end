@@ -171,9 +171,9 @@ const BiomarkerTest = (props) => {
               <RenderContent source={t('sections.3.title')} />
             </Typography>
             <div className={classes.linkList}>
-              <Link href="https://cancer.gov" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.0')}</Link>
-              <Link href="https://cancer.gov" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.1')}</Link>
-              <Link href="https://cancer.gov" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.2')}</Link>
+              <Link href="https://www.cancer.gov/about-cancer/treatment/types/precision-medicine/tumor-dna-sequencing" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.0')}</Link>
+              <Link href="https://www.genome.gov/dna-day/15-for-15/cancer-genomics" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.1')}</Link>
+              <Link href="https://www.cancer.gov/contact" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.2')}</Link>
             </div>
           </Grid>
           <Grid className={classes.gridItemImg} item xs={12} md={6}>

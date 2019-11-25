@@ -69,18 +69,21 @@ const Consent = (props) => {
           <RenderContent source={t('form_link_minors')} />
         </Link>
       </Box>
-      <Card>
-        <div className={classes.mediaWrapper}>
-          <CardMedia
-            component='iframe'
-            className={classes.media}
-            src='https://www.youtube.com/embed/OyCFbZYgL3U'
-            title={t('video_title')}
-            allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-            allowFullScreen
-          />
-        </div>
-      </Card>
+      <Box mb={4}>
+        <figure>
+          <Card className={classes.mediaWrapper}>
+            <CardMedia
+              component='iframe'
+              className={classes.media}
+              src='https://www.youtube.com/embed/OyCFbZYgL3U'
+              title={t('video_title')}
+              allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+              allowFullScreen
+            />
+          </Card>
+          <figcaption><RenderContent source={t('video_caption')} /></figcaption>
+        </figure>
+      </Box>
     </Box>
   </TabPanel>
   )
