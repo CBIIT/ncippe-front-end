@@ -34,21 +34,16 @@ const TestResults = () => {
     <>
       <div className={classes.titleWithIcon}>
         <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/biomarker-tests.svg`} alt='patient icon' aria-hidden="true"></img>
-        <Typography variant="h2" component="h2">Biomarker tests</Typography>
+        <Typography variant="h2" component="h2">Biomarker reports</Typography>
       </div>
-      {reports ? (
-        <>
-          <Box mb={3}>
-            <Typography gutterBottom>The NCI lab generates a biomarker report after we collect your biosample. Your reports are available below. Your provider has access to your reports as well.</Typography>
-          </Box>
-          {reports.map((report,i) => <TestResultsItem key={i} report={report} />)}
-        </>
-      ) : (
-        <>
-          <Typography>After we collect your first biosample, an NCI lab will [do something with it] and you will be able to access the results here. We will also send your report to your healthcare provider.</Typography>
-          <NoItems message="You have no reports at this time." />
-        </>
-      )}
+        <Box mb={3}>
+          <Typography gutterBottom>Please download and save your biomarker report in your records. A copy has also been sent to your provider.</Typography>
+        </Box>
+        { reports ? 
+          reports.map((report,i) => <TestResultsItem key={i} report={report} />)
+          :
+          <NoItems message="You have no reports<br/> at this time." />
+        }
     </>
   )
 }

@@ -56,18 +56,17 @@ const CloseAccount = (props) => {
   return (
     <Box>
       <Typography className={classes.header} variant="h1" component="h1">Close your online account</Typography>
+      <Typography>You may choose to close your online Biobank account at any time. You can close your online account, but still participate in the Biobank. </Typography>
       <Typography component="div">
-        After you close your account,
+        After you close your online account:
         <ul className="bulletList bulletList--spreadOut">
-          <li>You will not have online access to your consent form or biomarker reports. Please ask your doctor or clinical research coordinator to send you physical copies of these documents.</li>
-          <li><strong>You are still participating in the Biobank.</strong> This option will only close your online Cancer Moonshot<sup>SM</sup> Biobank account. You will still be participating in the project.</li>
-          <li>Your samples will still be used by researchers, and additional samples or medical information may be requested.You have the right to leave the Biobank if you wishand ask that your samples and medical information no longer be used.</li>
-          <li>Your login.gov account will remain active. You can use this account to access other government services.</li>
-          <li>NCI will keep any data stored in the Biobank website (such as your usage history, notifications, biomarker reports, and consent form). If you wish to permanently delete this data, please contact your clinical research coordinator.</li>
-          <li>Once you close your account, you will have to contact your clinical research coordinator to re-open it.</li>
+          <li>You won't be able to access your consent form or biomarker reports. Please ask your research coordinator if you want copies of the form or the report. </li>
+          <li>Your login.gov account will remain active. You can use this account toaccess other government services.</li>
+          <li>NCI will keep any data stored in the Biobank website (such as your usage history, notifications, biomarker reports, and consent form). If you wish to permanently delete this data, please contact your research coordinator.</li>
         </ul>
+        <Typography>Once you close your account, you will have to contact your clinical research coordinator to re-open it.</Typography>
         <Paper className={classes.crc_card}>
-          <Typography variant="h3">Your Clinical Research Coordinator</Typography>
+          <Typography variant="h3">Your Research Coordinator</Typography>
           <Typography>Herse Hedman</Typography>
           <Typography>(999) 999 - 9999</Typography>
           <Typography><a href="mailto:Herse.hedman@ncorp.nci.gov">Herse.hedman@ncorp.nci.gov</a></Typography>

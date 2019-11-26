@@ -29,7 +29,8 @@ export default ({userName}) => {
             <TestResults userName={userName} />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Box className={classes.aside}></Box>
+            {/* Placeholder for future aside content */}
+            {/* <Box className={classes.aside}></Box> */}
           </Grid>
         </Grid>
       </Container>

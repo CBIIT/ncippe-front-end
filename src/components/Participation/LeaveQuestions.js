@@ -215,19 +215,19 @@ const LeaveQuestions = (props) => {
 
   return (
     <Box>
-      <Typography className={classes.header} variant="h1" component="h1">Leave the Biobank project</Typography>
+      <Typography className={classes.header} variant="h1" component="h1">Leave the Biobank</Typography>
       {user ? 
       <>
       <Typography variant="h2" component="h2">This will end {user.firstName} {user.lastName}'s participation</Typography>
       <Typography className={classes.gutterBottom_2}>Please guide the patient through the following questions so that we can handle their biospecimens and related information in an appropriate manner.</Typography>
       </>
       :
-      <Typography className={classes.gutterBottom_2}>Before you leave the Biobank, we have a few questions about how to handle your samples and information.</Typography>
+      <Typography className={classes.gutterBottom_2}>Before you leave the Biobank, we need to ask youa few questions about how to handle your samples and information.</Typography>
       }
       
 
-      <Typography id="q1-text" variant="h3" gutterBottom>May we continue to share {user ? "the participant's" : "your"} stored donated blood and tissue as well as relevant medical information with researchers?</Typography>
-      <Typography className={classes.dim}>Unfortunately, we cannot recover samples and information that has already been shared with researchers.</Typography>
+      <Typography id="q1-text" variant="h3" gutterBottom>May we continue to share the samples and medical information we already collected with researchers?</Typography>
+      <Typography className={classes.dim}>Unfortunately, we can't get back samples and information that have already been shared.</Typography>
       <FormControl component="fieldset" className={classes.formControl}>
         <InputGroupError error={q1Error} errorMessage="You must complete this field">
           <ToggleButtonGroup
@@ -243,7 +243,7 @@ const LeaveQuestions = (props) => {
         </InputGroupError>
       </FormControl>
 
-      <Typography id="q2-text" variant="h3">May we continue to access {user ? "the participant's" : "your"} medical record for research purposes?</Typography>
+      <Typography id="q2-text" variant="h3">May we continue to use the information in your medical record for research?</Typography>
       <Typography className={classes.dim}>We may collect information from {user ? "the participant's" : "your"} medical record for 10 years or longer. This may include information about {user ? "the participant's" : "your"} diagnosis and past treatments. {user ? "The participant" : "You"} may opt out at any time.</Typography>
       <FormControl component="fieldset" className={classes.formControl}>
         <InputGroupError error={q2Error} errorMessage="You must complete this field">
@@ -260,8 +260,8 @@ const LeaveQuestions = (props) => {
         </InputGroupError>
       </FormControl>
       
-      <Typography id="q3-text" variant="h3">Would you like us to contact you to talk about leaving the project and answer any questions you may have?</Typography>
-      <Typography className={classes.dim}>If you select yes, your clinical research coordinator will call you.</Typography>
+      <Typography id="q3-text" variant="h3">Would you like us to contact you to talk about leaving the program and answer any questions you may have?</Typography>
+      <Typography className={classes.dim}>If you select yes, your research coordinator will call you.</Typography>
       <FormControl component="fieldset" className={classes.formControl}>
         <InputGroupError error={q3Error} errorMessage="You must complete this field">
           <ToggleButtonGroup
@@ -278,7 +278,7 @@ const LeaveQuestions = (props) => {
       </FormControl>
 
       <Typography id="q4-text" variant="h3">Why {user ? "does the participant" : "do you"} want to leave the Biobank?</Typography>
-      <Typography className={classes.dim}>Sharing why {user ? "the participant is" : "you are"} leaving the project will help us improve the program for future participants.</Typography>
+      <Typography className={classes.dim}>Telling us why {user ? "the participant is" : "you're"} leaving will help us improve the program for future participants.</Typography>
       <FormControl component="fieldset" className={classes.textFieldFormControl}>
         <TextField
           id="q4"
@@ -297,7 +297,7 @@ const LeaveQuestions = (props) => {
       </FormControl>
 
       <div className={classes.formButtons}>
-        <Button variant="contained" color="primary" onClick={handleNextStep}>Leave the Biobank program</Button>
+        <Button variant="contained" color="primary" onClick={handleNextStep}>Leave the Biobank</Button>
         <Button className={classes.btnCancel} variant="text" onClick={cancel}><ClearIcon />Cancel</Button>
       </div>
 
@@ -312,15 +312,15 @@ const LeaveQuestions = (props) => {
           <Typography variant="h3" component="h3">Please confirm the withdrawal of {user.firstName} {user.lastName} from further participation in the Biobank.</Typography>
           <Typography>The participant will need to speak to their doctor if they'd like to rejoin in the future.</Typography>
           </>:<>
-          <Typography variant="h3" component="h3">Thank you for your participation in the Cancer Moonshot<sup>SM</sup> Biobank. Please confirm your withdrawal.</Typography>
-          <Typography>You'll need to speak to your doctor if you'd like to rejoin in the future.</Typography>
+          <Typography variant="h3" component="h3">Thank you for your participation in the Cancer Moonshot<sup>SM</sup> Biobank. Please confirm your decision to leave the Biobank.</Typography>
+          <Typography>You'll need to speak to your coordinator if you'd like to rejoin in the future.</Typography>
           </>}
 
           {saveError && <Status state="error" title={saveError.name} message={saveError.message} />}
 
         </DialogContent>
         <DialogActions>
-          <Button className={classes.confirm} onClick={handleSubmit} variant="contained">Yes, withdraw</Button>
+          <Button className={classes.confirm} onClick={handleSubmit} variant="contained">Confirm</Button>
           <Button variant="text" className={classes.btnCancel} onClick={handleClose}><ClearIcon />Cancel</Button>
         </DialogActions>
       </Dialog>
