@@ -6,6 +6,7 @@ import { Clear as ClearIcon } from '@material-ui/icons'
 import { LoginContext } from '../login/Login.context'
 import { AuthContext } from '../login/AuthContext'
 import { api } from '../../data/api'
+import { formatPhoneNumber } from '../../utils/utils'
 
 const useStyles = makeStyles( theme => ({
   header: {
@@ -14,7 +15,11 @@ const useStyles = makeStyles( theme => ({
   crc_card: {
     maxWidth: 450,
     padding: theme.spacing(2),
-    marginBottom: theme.spacing(5)
+    marginBottom: theme.spacing(5),
+    '& a': {
+      textDecoration: 'none',
+      color: theme.palette.text.primary
+    }
   },
   formControl: {
     margin: theme.spacing(2, 0, 5),
@@ -35,6 +40,7 @@ const CloseAccount = (props) => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const { signoutRedirectCallback } = useContext(AuthContext)
+  const { crc } = loginContext
 
   const handleSubmit = () => {
     const {uuid, env, token} = loginContext
@@ -67,9 +73,9 @@ const CloseAccount = (props) => {
         <Typography>Once you close your account, you will have to contact your clinical research coordinator to re-open it.</Typography>
         <Paper className={classes.crc_card}>
           <Typography variant="h3">Your Research Coordinator</Typography>
-          <Typography>Herse Hedman</Typography>
-          <Typography>(999) 999 - 9999</Typography>
-          <Typography><a href="mailto:Herse.hedman@ncorp.nci.gov">Herse.hedman@ncorp.nci.gov</a></Typography>
+          <Typography>{crc.firstName} {crc.lastName}</Typography>
+          <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
+          <Typography><a href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
         </Paper>
       </Typography>
       <div className={classes.formButtons}>

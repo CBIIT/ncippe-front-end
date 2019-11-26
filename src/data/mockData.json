@@ -49,7 +49,7 @@
     {
       "id": 4,
       "userListId": 1,
-      "providers": 1,
+      "providers": [1,2],
       "crcId": 1,
       "mockUserId": 1,
       "firstName": "Alana",

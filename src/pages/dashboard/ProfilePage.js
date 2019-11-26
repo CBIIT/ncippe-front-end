@@ -9,6 +9,7 @@ import { LoginContext, LoginConsumer } from '../../components/login/Login.contex
 import Profile from '../../components/Profile/Profile'
 import Status from '../../components/Status/Status'
 import DeactivatedQuestions from '../../components/DeactivatedQuestions/DeactivatedQuestions'
+import { formatPhoneNumber } from '../../utils/utils'
 
 
 const useStyles = makeStyles(theme => ({
@@ -77,7 +78,7 @@ const useStyles = makeStyles(theme => ({
 const ProfilePage = (props) => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
-  const {firstName, lastName, dateCreated, isActiveBiobankParticipant, dateDeactivated, questionAnswers} = loginContext
+  const {firstName, lastName, dateCreated, isActiveBiobankParticipant, dateDeactivated, questionAnswers, crc, providers} = loginContext
 
   const userData = {
     firstName,
@@ -120,15 +121,20 @@ const ProfilePage = (props) => {
             return roleName === "ROLE_PPE_PARTICIPANT" && (
               <Paper className={classes.biobankInfo}>
                 <Typography className={classes.header} variant="h3" component="h3" gutterBottom>Biobank contacts</Typography>
-                <Typography className={classes.bold} gutterBottom>Doctor</Typography>
-                <Typography>Dr. Alfonso Pinto</Typography>
-                <Typography><a href="tel:202-222-2222">(202) 222-2222</a></Typography>
-                <Typography><a href="mailto:dr.alfonso.pinto@gmail.com">dr.alfonso.pinto@gmail.com</a></Typography>
+
+                {providers && <Typography className={classes.bold} gutterBottom>Doctor</Typography>}
+                {providers && providers.map(provider => (
+                  <Box mb={2}>
+                    <Typography>Dr. {provider.firstname} {provider.lastName}</Typography>
+                    <Typography><a href={`tel:${provider.phoneNumber}`}>{formatPhoneNumber(provider.phoneNumber)}</a></Typography>
+                    <Typography><a href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
+                  </Box>
+                ))}
                 <Divider className={classes.innerDivider} />
-                <Typography className={classes.bold} gutterBottom>Clinical research coordinator</Typography>
-                <Typography>Herse Hedman</Typography>
-                <Typography><a href="tel:909-999-6789">(909) 999-6789</a></Typography>
-                <Typography><a href="mailto:herse.heldman@ncorp.nci.gov">herse.heldman@ncorp.nci.gov</a></Typography>
+                <Typography className={classes.bold} gutterBottom>Research coordinator</Typography>
+                <Typography>{crc.firstName} {crc.lastName}</Typography>
+                <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
+                <Typography><a href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
               </Paper>
             )
           }}
