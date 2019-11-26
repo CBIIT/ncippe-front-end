@@ -153,11 +153,11 @@ const TestResults = (props) => {
             }}
           </LoginConsumer>
           {props.location && props.location.state && props.location.state.newParticipantActivated &&
-            <Status state="success" title="New participant added successfully" message="This participant can now activate their Biobank account. You can add additional consent forms under Account actions." />
+            <Status state="success" title="New participant added successfully" message="This participant can now activate their online Biobank account. You can add additional consent forms under account actions." />
           }
         </div>
       )}
-      {user && user.isActiveBiobankParticipant === false && <Status state="info" fullWidth title="This participant has withdrawn from the Biobank." message={`The participant withdrew enrollment on ${moment(user.dateDeactivated).format("MMM DD, YYYY")}. The participant must initiate a conversation with their doctor to start participating again.`} />}
+      {user && user.isActiveBiobankParticipant === false && <Status state="info" fullWidth title="This participant has left the Biobank." message={`The participant left the Biobank on ${moment(user.dateDeactivated).format("MMM DD, YYYY")}. They will need to talk to their research coordinator to rejoin.`} />}
 
       <Divider className={classes.divider} />
       <Grid container spacing={3}>
@@ -176,7 +176,7 @@ const TestResults = (props) => {
         </Grid>
         <Grid item xs={12} md={6} id="eConsentForms">
           <Typography className={classes.header} variant="h2" component="h2">Consent forms</Typography>
-          {uploadSuccess && <Status state="success" title="Consent form uploaded successfully!" message="We sent an email to let the participant know." />}
+          {uploadSuccess && <Status state="success" title="Consent form uploaded successfully" message="We sent an email to let the participant know." />}
           {files && files.length > 0 ? (
             <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
               {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} patientId={user.patientId} noBadge /></Grid>)}
