@@ -30,11 +30,7 @@ module.exports = (req, res, next) => {
 
     const _query = req.query
 
-    //const _send = res.send
-
-
-    console.log("query",_query)
-
+    // console.log("query",_query)
 
     request({
       url: 'http://localhost:5000/userLists/1',
@@ -69,7 +65,7 @@ module.exports = (req, res, next) => {
                 'questionAnswers',
                 'otherDocuments'
               ]
-              if(user.providerId) { _expand.push('provider')}
+              //if(user.providerId) { _expand.push('provider')}
               if(user.crcId) { _expand.push('crc')}
               break;
             case 'PPE_PROVIDER':
@@ -102,7 +98,7 @@ module.exports = (req, res, next) => {
             default:
               userType = 'patients'
               _embed = ['notifications']
-              if(user.providerId) { _expand.push('provider')}
+              //if(user.providerId) { _expand.push('provider')}
               if(user.crcId) { _expand.push('crc')}
           }
 
@@ -113,6 +109,7 @@ module.exports = (req, res, next) => {
           }
         }
       }
+
       // if there was no query then send back all users
       else {
         const _send = res.send
