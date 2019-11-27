@@ -76,7 +76,7 @@ const PrivacyPage = (props) => {
           <IconCard
             icon="laws.svg"
             title={t('cards.5.title')}
-            descHTML={t('cards.5.description')}
+            desc={t('cards.5.description')}
           />
         </Grid>
       </Grid>

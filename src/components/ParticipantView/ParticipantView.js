@@ -127,7 +127,7 @@ const TestResults = (props) => {
           <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt='card icon' aria-hidden="true" />
           <div className={classes.profileText}>
             <Typography className={classes.profileHeader} variant="h2" component="h2">{user.firstName} {user.lastName}</Typography>
-            {user.isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>Withdrawn</Typography></div>}
+            {user.isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>Not participating</Typography></div>}
             <Typography component="p"><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
             <Typography component="p">{formatPhoneNumber(user.phoneNumber)}</Typography>
           </div>

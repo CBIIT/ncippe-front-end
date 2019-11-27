@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { navigate } from '@reach/router'
+import { navigate, Link as RouterLink } from '@reach/router'
 import { useTranslation } from 'react-i18next'
 
 import { Box, Container, Dialog, DialogContent, Grid, IconButton, Link, Paper, Typography } from '@material-ui/core'
@@ -121,6 +121,9 @@ const useStyles = makeStyles( theme => ({
   },
   extraTopSpace: {
     marginTop: theme.spacing(4)
+  },
+  icon_link: {
+    display: 'inline-flex'
   },
   howItWorksGrid: {
     '& > div': {
@@ -278,8 +281,11 @@ const HomePage = (props) => {
               <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}>
                 <RenderContent source={t('mission.body')} />
               </Typography>
-              <Typography variant="button" component="span" className={classes.extraTopSpace}><Link to="/expect">
-                <RenderContent source={t('mission.link')} /> <ArrowRightIcon /></Link>
+              <Typography variant="button" className={classes.extraTopSpace}>
+                <Link to="/expect" className={classes.icon_link} component={RouterLink}>
+                  <RenderContent source={t('mission.link')} />
+                  <ArrowRightIcon />
+                </Link>
               </Typography>
             </Box>
           </Paper>

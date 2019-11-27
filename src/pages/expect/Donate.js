@@ -38,6 +38,10 @@ const useStyles = makeStyles( theme => ({
     '&:first-of-type': {
       marginBottom: theme.spacing(5)
     }
+  },
+  faqs: {
+    marginLeft: theme.spacing(-7),
+    width: `calc(100% + ${theme.spacing(14)}px)`
   }
 }))
 
@@ -70,7 +74,7 @@ const Donate = (props) => {
       </Grid>
 
       {/* Frequently Asked Questions */}
-      <FAQs title={t('faqs_title')} faqs={faqs} />
+      <FAQs title={t('faqs_title')} faqs={faqs} className={classes.faqs} />
 
     </TabPanel>
   )

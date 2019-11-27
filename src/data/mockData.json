@@ -3,7 +3,7 @@
     {
       "id": 1,
       "userListId": 1,
-      "providerId": 1,
+      "providers": [1,2],
       "crcId": 1,
       "firstName": "Alfred",
       "lastName": "Tromp",
@@ -19,7 +19,7 @@
     {
       "id": 2,
       "userListId": 1,
-      "providerId": 1,
+      "providers": 1,
       "crcId": 1,
       "firstName": "Thurman",
       "lastName": "Kautzer",
@@ -34,7 +34,7 @@
     {
       "id": 3,
       "userListId": 1,
-      "providerId": 1,
+      "providers": 1,
       "crcId": 1,
       "firstName": "Gonzalo",
       "lastName": "Yost",
@@ -49,7 +49,7 @@
     {
       "id": 4,
       "userListId": 1,
-      "providerId": 1,
+      "providers": [1,2],
       "crcId": 1,
       "mockUserId": 1,
       "firstName": "Alana",
@@ -67,7 +67,7 @@
     {
       "id": 5,
       "userListId": 1,
-      "providerId": 1,
+      "providers": 1,
       "crcId": 1,
       "firstName": "Yadira",
       "lastName": "Stehr",
@@ -143,7 +143,7 @@
     {
       "id": 10,
       "userListId": 1,
-      "providerId": 1,
+      "providers": 1,
       "crcId": 1,
       "firstName": "Bartholome",
       "lastName": "Greenfelder",
@@ -202,7 +202,7 @@
     {
       "id": 14,
       "userListId": 1,
-      "providerId": 1,
+      "providers": 1,
       "crcId": 1,
       "mockUserId": 1,
       "firstName": "Frank",

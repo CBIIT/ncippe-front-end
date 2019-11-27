@@ -5,12 +5,14 @@ const middlewares = jsonServer.defaults({
   static: __dirname + '/build/'
 });
 const singularMiddleware = require('./server_singular')
+const getProvidersMiddleware = require('./server_getProviders.js')
 const getUserMiddleware = require('./server_getUser')
 
 const port = process.env.PORT || 5000;
 
 server.use(middlewares)
 server.use(getUserMiddleware)
+server.use(getProvidersMiddleware)
 server.use(singularMiddleware)
 server.use(jsonServer.rewriter({
   "/api/participants/:uuid": "/participants?uuid=:uuid&singular=1",

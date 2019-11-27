@@ -16,6 +16,7 @@ const useStyles = makeStyles( theme => ({
     },
 
     '& .MuiExpansionPanelSummary-root': {
+      position: 'relative',
       backgroundImage: theme.gradients.primaryDiagonal,
       padding: '0 12px',
 
@@ -25,17 +26,34 @@ const useStyles = makeStyles( theme => ({
       },
       '& .MuiExpansionPanelSummary-content': {
         order: 1,
+        zIndex: 1,
         '&.Mui-expanded': {
           margin: '12px 0',
         }
       },
       '& .MuiExpansionPanelSummary-expandIcon': {
         margin: 0,
+        zIndex: 1,
         padding: '0 6px 0 0',
         '&.Mui-expanded': {
           transform: 'none'
         }
       },
+    },
+    '& .MuiExpansionPanelSummary-root::before': {
+      content: '""',
+      display: 'block',
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      zIndex: 0,
+      animation: 'transparentToWhite 300ms',
+      animationFillMode: 'both'
+    },
+    '& .Mui-expanded::before': {
+      animation: 'whiteToTransparent 300ms',
     },
     '& .MuiExpansionPanelDetails-root': {
       display: 'block'
@@ -44,19 +62,27 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const FAQ = (props) => {
-  const { title, desc, expanded = true } = props
+  const { index, title, desc, expanded = true, clickHandler } = props
   const classes = useStyles()
-  const [isExpanded, setIsExpanded] = useState(true)
+  const [isExpanded, setIsExpanded] = useState(false)
 
   // externally control the expansion of this component
   useEffect(() => {
-    if(expanded > 0) {
-      setIsExpanded(false)
-    }
+    setIsExpanded(expanded)
     //clean up
     return () => {}
   },[expanded])
 
+  // alert parent component that this faq's expanded state has changed
+  useEffect(() => {
+    if(clickHandler){
+      clickHandler(index,isExpanded)
+    }
+    //clean up
+    return () => {}
+  },[isExpanded])
+
+  // toggle this faq
   const handleChange = () => {
     setIsExpanded(prev => !prev)
   }

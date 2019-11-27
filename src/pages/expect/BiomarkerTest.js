@@ -81,6 +81,10 @@ const useStyles = makeStyles( theme => ({
     '& > a': {
       margin: theme.spacing(1,0)
     }
+  },
+  faqs: {
+    marginLeft: theme.spacing(-7),
+    width: `calc(100% + ${theme.spacing(14)}px)`
   }
 }))
 
@@ -183,7 +187,7 @@ const BiomarkerTest = (props) => {
       </Box>
 
       {/* Frequently Asked Questions */}
-      <FAQs title={t('faqs_title')} faqs={faqs} />
+      <FAQs title={t('faqs_title')} faqs={faqs} className={classes.faqs} />
 
     </TabPanel>
   )
