@@ -87,7 +87,10 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'right',
     borderBottom: '1px solid #dbdada',
     '& .MuiFormControl-root': {
-      width: '100%'
+      width: '100%',
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: theme.palette.grey.medium,
     },
     '& button': {
       margin: theme.spacing(2,0,0)
@@ -226,7 +229,6 @@ const Header = () => {
             <TextField
               placeholder={t('search.input_placeholder')}
               id="mobileSearch"
-              color="action"
               inputProps={
                 {'aria-label': t('search.input_placeholder')}
               }
