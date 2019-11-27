@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import { Link as RouterLink } from "@reach/router"
+import { Link as RouterLink, navigate } from "@reach/router"
 import { useTranslation } from 'react-i18next'
 import { 
   Box,
+  Button,
   Container,
   Drawer,
   IconButton,
+  InputAdornment,
   Link,
+  TextField
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
-import { MenuRounded as MenuIcon } from '@material-ui/icons'
+import { 
+  MenuRounded as MenuIcon,
+  Search as SearchIcon,
+  Clear as ClearIcon,
+} from '@material-ui/icons'
 
 import LoginButton from '../../login/LoginButton'
 import MenuGroup from './MenuGroup';
@@ -64,15 +71,38 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: 'transparent',
     },
   },
+  closeMobileMenu: {
+    textAlign: 'right',
+    borderBottom: '1px solid #dbdada'
+  },
+  mobileLogin: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: theme.palette.grey.xlight,
+    padding: theme.spacing(2,7),
+  },
+  mobileSearch: {
+    backgroundColor: theme.palette.grey.xlight,
+    padding: theme.spacing(3,2),
+    textAlign: 'right',
+    borderBottom: '1px solid #dbdada',
+    '& .MuiFormControl-root': {
+      width: '100%'
+    },
+    '& button': {
+      margin: theme.spacing(2,0,0)
+    }
+  }
 }))
 
 const Header = () => {
   const classes = useStyles()
+  const loc = window.location.pathname
   const [isMobile, setIsMobile] = useState(window.innerWidth < 800)
   const [menuOpen, setMenuOpen] = useState(false)
-  const loc = window.location.pathname
   const [expanded, setExpanded] = useState(loc)
-  const { t } = useTranslation('common');
+  const [isDisabled, setIsDisabled] = useState(true)
+  const { t } = useTranslation('common')
 
   // TODO: set active state on nav menu items based on site location
 
@@ -101,6 +131,23 @@ const Header = () => {
     setMenuOpen(prev => !prev)
   }
 
+  const handleSearchInputChange = (e) => {
+    const input = e.target.value
+    if(input.length > 1) {
+      setIsDisabled(false)
+    } else (
+      setIsDisabled(true)
+    )
+  }
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault()
+    // send the search terms to the search results page
+    navigate(`/search`,{state: {
+      term: e.target.mobileSearch.value
+    }})
+  }
+
   return (
     <Container component="header" className={classes.root}>
       <Box className={classes.appToolbarContainer}>
@@ -126,7 +173,7 @@ const Header = () => {
               <a href="/participation/privacy">{t('nav.privacy')}</a>
             </MenuGroup>
             <Search />
-        </nav>
+          </nav>
         )}
 
         {isMobile ? <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer}><MenuIcon /></IconButton> : <LoginButton />}
@@ -134,7 +181,13 @@ const Header = () => {
       </Box>
       {isMobile && (
       <Drawer anchor="right" open={menuOpen} onClose={toggleDrawer}>
+        <Box className={classes.closeMobileMenu}>
+          <IconButton aria-label={t('button.close')} onClick={closeMenu}><ClearIcon /></IconButton>
+        </Box>
         <nav>
+          <Box className={classes.mobileLogin}>
+            <LoginButton />
+          </Box>
           <ExpansionMenu
             handleClick={expandPanel}
             expanded={expanded.includes("about")}
@@ -169,6 +222,22 @@ const Header = () => {
             <a onClick={closeMenu} href="/participation/activate">{t('nav.activate')}</a>
             <a onClick={closeMenu} href="/participation/privacy">{t('nav.privacy')}</a>
           </ExpansionMenu>
+          <Box className={classes.mobileSearch} component="form" onSubmit={handleSearchSubmit}>
+            <TextField
+              placeholder={t('search.input_placeholder')}
+              id="mobileSearch"
+              color="action"
+              inputProps={
+                {'aria-label': t('search.input_placeholder')}
+              }
+              InputProps={{
+                startAdornment: <InputAdornment position="start"><SearchIcon color="action" /></InputAdornment>,
+              }}
+              variant="outlined"
+              onChange={handleSearchInputChange}
+            />
+            <Button type="submit" variant="contained" color="primary" disabled={isDisabled}>{t('buttons.search')}</Button>
+          </Box>
         </nav>
       </Drawer>
       )}
