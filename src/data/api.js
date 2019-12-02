@@ -250,7 +250,7 @@ async function updateUserProd({uuid, data, token}){
 
 async function uploadPatientReportLocal({patientId, uuid, reportFile, fileType}){
 
-  const endpoint = fileType === 'PPE_FILETYPE_BIOMARKER_REPORT' ? '/api/reports' : '/api/otherDocumen3ts'
+  const endpoint = fileType === 'PPE_FILETYPE_BIOMARKER_REPORT' ? '/api/reports' : '/api/otherDocuments'
   const newFile = {
     uploadedBy: uuid,
     fileName: reportFile.name,
