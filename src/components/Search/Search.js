@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   dialog: {
     '& .MuiDialog-paper': {
       width: "70%",
-      maxWidth: 'none',
+      maxWidth: 1000,
     }
   },
   paper: {
