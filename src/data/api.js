@@ -167,6 +167,15 @@ async function fetchUserLocal({uuid, patientId, email, token}){
       if(data.portalAccountStatus === 'ACCT_TERMINATED_AT_PPE') {
         return new Error(`This account has been closed`)
       } else {
+        // have to stuff provider into an array to match prod machine. Unfortunatly, json-server does not handle many-to-many relationships, so we're hacking the response here
+        if(data.provider) {
+          return {
+            ...data,
+            providers: [
+              data.provider
+            ]
+          }
+        }
         return data
       }
     })

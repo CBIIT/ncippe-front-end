@@ -65,7 +65,7 @@ module.exports = (req, res, next) => {
                 'questionAnswers',
                 'otherDocuments'
               ]
-              //if(user.providerId) { _expand.push('provider')}
+              if(user.providerId) { _expand.push('provider')}
               if(user.crcId) { _expand.push('crc')}
               break;
             case 'PPE_PROVIDER':
@@ -98,7 +98,7 @@ module.exports = (req, res, next) => {
             default:
               userType = 'patients'
               _embed = ['notifications']
-              //if(user.providerId) { _expand.push('provider')}
+              if(user.providerId) { _expand.push('provider')}
               if(user.crcId) { _expand.push('crc')}
           }
 
