@@ -67,11 +67,11 @@ const FAQs = (props) => {
       </Button>
     </div>
     <Box mt={3}>
-      {faqs && faqs.map((faq, i) => <FAQ
+      {faqs && Object.keys(faqs).map((faq, i) => <FAQ
         key={i}
         index={i}
-        title={faq.question}
-        desc={faq.answer}
+        title={faqs[faq].question}
+        desc={faqs[faq].answer}
         expanded={isExpanded}
         clickHandler={trackToggle}
       />)}

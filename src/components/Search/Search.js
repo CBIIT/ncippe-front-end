@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { navigate } from '@reach/router'
-import { Button, Dialog, Paper, IconButton, TextField } from '@material-ui/core'
+import { Button, Dialog, Paper, IconButton, InputAdornment, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   Search as SearchIcon,
@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   dialog: {
     '& .MuiDialog-paper': {
       width: "70%",
-      maxWidth: 'none',
+      maxWidth: 1000,
     }
   },
   paper: {
@@ -83,7 +83,12 @@ const Search = (props) => {
           autoFocus
           className={classes.input}
           placeholder={t('search.input_placeholder')}
-          inputProps={{ 'aria-label': 'search' }}
+          inputProps={ // attributes applied to the input element
+            { 'aria-label': t('search.input_placeholder') } 
+          }
+          InputProps={ // props applied to the Input component
+            { startAdornment: <InputAdornment position="start"><SearchIcon color="action" /></InputAdornment> }
+          }
           variant="outlined"
           onChange={handleChange}
         />

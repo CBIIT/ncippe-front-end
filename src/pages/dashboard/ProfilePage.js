@@ -101,7 +101,7 @@ const ProfilePage = (props) => {
           <LoginConsumer>
           {([{roleName}]) => {
             return roleName === "ROLE_PPE_PARTICIPANT" && (
-              <Button className={classes.menu} variant="outlined" color="primary" component={RouterLink} to="participation">Change Participation</Button>
+            <Button className={classes.menu} variant="outlined" color="primary" component={RouterLink} to="participation">Change Participation</Button>
             )
           }}
           </LoginConsumer>
@@ -123,9 +123,9 @@ const ProfilePage = (props) => {
                 <Typography className={classes.header} variant="h3" component="h3" gutterBottom>Biobank contacts</Typography>
 
                 {providers && <Typography className={classes.bold} gutterBottom>Doctor</Typography>}
-                {providers && providers.map(provider => (
-                  <Box mb={2}>
-                    <Typography>Dr. {provider.firstname} {provider.lastName}</Typography>
+                {providers && providers.map((provider, i) => (
+                  <Box mb={2} key={i}>
+                    <Typography>Dr. {provider.firstName} {provider.lastName}</Typography>
                     <Typography><a href={`tel:${provider.phoneNumber}`}>{formatPhoneNumber(provider.phoneNumber)}</a></Typography>
                     <Typography><a href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
                   </Box>

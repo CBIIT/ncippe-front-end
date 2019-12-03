@@ -19,6 +19,11 @@ const useStyles = makeStyles(theme => ({
   // formButtons: {
   //   marginTop: theme.spacing(2)
   // },
+  dialog: {
+    '& .MuiDialog-paper': {
+      minWidth: 600,
+    },
+  },
   btnSelectReport: {
     margin: theme.spacing(3,0,3)
   },
@@ -70,6 +75,11 @@ const UploadConcentDialog = (props) => {
     } else {
       setIsOpen(false)
     }
+    // delay form reset so modal can fade out
+    setTimeout(() => {
+      setFormData(formDataDefaults)
+      setActiveStep(0)
+    }, 250)
   }
 
   // controled file input
@@ -149,6 +159,7 @@ const UploadConcentDialog = (props) => {
       open={isOpen}
       onClose={handleClose}
       aria-labelledby="responsive-dialog-title"
+      className={classes.dialog}
     >
       <DialogTitle id="responsive-dialog-title" disableTypography><Typography variant="h3" component="h3">Upload a consent form</Typography></DialogTitle>
       <DialogContent>

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link as RouterLink } from '@reach/router'
-import { Box, Button, Container, Link, TextField, Typography } from '@material-ui/core'
+import { Box, Button, Container, InputAdornment, Link, TextField, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { 
+  Search as SearchIcon
+} from '@material-ui/icons'
 import { searchIndex } from '../i18n'
 import { useTranslation } from 'react-i18next'
 import RenderContent from '../components/utils/RenderContent'
@@ -110,6 +113,9 @@ const SearchResults = (props) => {
               placeholder={t('search.input_placeholder')}
               inputProps={{ 'aria-label': 'search' }}
               variant="outlined"
+              InputProps={ // props applied to the Input component
+                { startAdornment: <InputAdornment position="start"><SearchIcon color="action" /></InputAdornment> }
+              }
               onChange={handleChange}
             />
             <Button type="submit" variant="contained" color="primary" disabled={isDisabled}>{t('buttons.search')}</Button>

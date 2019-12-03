@@ -10,7 +10,10 @@ import moment from 'moment'
 const useStyles = makeStyles( theme => ({
   fileToUpload: {
     margin: theme.spacing(1, 0),
-    maxWidth: '500px'
+    maxWidth: '500px',
+    '& .MuiGrid-root': {
+      flexWrap: 'nowrap',
+    },
   },
   fileToUpload_icon: {
     margin: theme.spacing(2, 0, 2, 2)
