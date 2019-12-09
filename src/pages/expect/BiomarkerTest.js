@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Grid, Link, Typography, Stepper, Step, StepLabel, StepContent, Divider, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
+import track, { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
 
 import FAQs from '../../components/FAQ/FAQ_Wrapper'
@@ -92,8 +93,13 @@ const BiomarkerTest = (props) => {
   const {index, isMobile} = props
   const classes = useStyles()
   const { t, i18n } = useTranslation('testing')
+  const { trackEvent } = useTracking()
   const faqs = i18n.getResourceBundle(i18n.languages[0],'testing').faqs
 
+  useEffect(() => {
+    trackEvent({event:'pageview'})
+  },[trackEvent])
+  
   return (
     <TabPanel
       index={index} 
@@ -192,5 +198,6 @@ const BiomarkerTest = (props) => {
     </TabPanel>
   )
 }
-
-export default BiomarkerTest
+export default track({
+  prop6: "Get your biomarker test",
+})(BiomarkerTest)

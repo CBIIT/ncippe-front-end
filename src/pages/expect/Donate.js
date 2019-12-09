@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
+import track, { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
 
 import FAQs from '../../components/FAQ/FAQ_Wrapper'
@@ -49,7 +50,12 @@ const Donate = (props) => {
   const {index, isMobile} = props
   const classes = useStyles()
   const { t, i18n } = useTranslation('donate')
+  const { trackEvent } = useTracking()
   const faqs = i18n.getResourceBundle(i18n.languages[0],'donate').faqs
+
+  useEffect(() => {
+    trackEvent({event:'pageview'})
+  },[trackEvent])
 
   return (
     <TabPanel
@@ -80,4 +86,6 @@ const Donate = (props) => {
   )
 }
 
-export default Donate
+export default track({
+  prop6: "Donate samples",
+})(Donate)

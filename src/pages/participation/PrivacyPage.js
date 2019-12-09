@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Box, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
+import track, { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
 
 import IconCard from '../../components/IconCard/IconCard'
@@ -25,6 +26,11 @@ const useStyles = makeStyles( theme => ({
 const PrivacyPage = (props) => {
   const classes = useStyles()
   const { t, i18n } = useTranslation('privacy')
+  const { trackEvent } = useTracking()
+
+  useEffect(() => {
+    trackEvent({event:'pageview'})
+  },[trackEvent])
 
   return (
     <Container className="mainContainer">
@@ -87,4 +93,6 @@ const PrivacyPage = (props) => {
   )
 }
 
-export default PrivacyPage
+export default track({
+  prop6: "Protecting your privacy",
+})(PrivacyPage)

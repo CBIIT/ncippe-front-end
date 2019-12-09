@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Box, Grid, Typography, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
+import track, { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
 
 import HospitalMap from '../../components/HospitalMap/HospitalMap'
@@ -25,6 +26,11 @@ const useStyles = makeStyles( theme => ({
 const EligibilityPage = (props) => {
   const classes = useStyles()
   const { t, i18n } = useTranslation('eligibility')
+  const { trackEvent } = useTracking()
+
+  useEffect(() => {
+    trackEvent({event:'pageview'})
+  },[trackEvent])
 
   return (
     <Box>
@@ -85,4 +91,6 @@ const EligibilityPage = (props) => {
   )
 }
 
-export default EligibilityPage
+export default track({
+  prop6: "Eligibility and locations",
+})(EligibilityPage)

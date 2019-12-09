@@ -7,6 +7,7 @@ import {
 } from '@material-ui/icons'
 import { searchIndex } from '../i18n'
 import { useTranslation } from 'react-i18next'
+import track, { useTracking } from 'react-tracking'
 import RenderContent from '../components/utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
@@ -33,10 +34,15 @@ const SearchResults = (props) => {
   const {location} = props
   const classes = useStyles()
   const { t, i18n } = useTranslation('common')
+  const { trackEvent } = useTracking()
   const term = location ? location.state ? location.state.term : '' : ''
   const [searchTerm, setSearchTerm] = useState(term)
   const [searchResults, setSearchResults] = useState([])
   const [isDisabled, setIsDisabled] = useState(true)
+  
+  useEffect(() => {
+    trackEvent({event:'pageview'})
+  },[trackEvent])
 
   useEffect(() => {
     const results = processSearch(searchIndex.search(`*${searchTerm}*~1 ${searchTerm}* *${searchTerm}`))
@@ -146,4 +152,6 @@ const SearchResults = (props) => {
   )
 }
 
-export default SearchResults
+export default track({
+  prop6: "Search results",
+})(SearchResults)
