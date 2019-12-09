@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link as RouterLink, navigate } from "@reach/router"
 import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
 import { 
   Box,
   Button,
@@ -106,6 +107,7 @@ const Header = () => {
   const [expanded, setExpanded] = useState(loc)
   const [isDisabled, setIsDisabled] = useState(true)
   const { t } = useTranslation('common')
+  const { trackEvent } = useTracking()
 
   // TODO: set active state on nav menu items based on site location
 
@@ -127,7 +129,13 @@ const Header = () => {
   }
 
   const expandPanel = (event, newExpanded) => {
-    setExpanded(newExpanded ? event.currentTarget.id : "")
+    const id = event.currentTarget.id
+    setExpanded(newExpanded ? id : "")
+    trackEvent({
+      prop53: `BioBank_TopNav|${id}`,
+      eVar53: `BioBank_TopNav|${id}`,
+      events: 'event26'
+    })
   }
 
   const closeMenu = () => {
@@ -146,16 +154,24 @@ const Header = () => {
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     // send the search terms to the search results page
-    navigate(`/search`,{state: {
+    navigate('/search', {state: {
       term: e.target.mobileSearch.value
     }})
+  }
+
+  const trackLogoClick = (e) => {
+    trackEvent({
+      prop53: 'BioBank_TopNav|Logo',
+      eVar53: 'BioBank_TopNav|Logo',
+      events: 'event26'
+    })
   }
 
   return (
     <Container component="header" className={classes.root}>
       <Box className={classes.appToolbarContainer}>
         <figure className={classes.toolbarLogo}>
-          <Link component={RouterLink} to='/'>
+          <Link component={RouterLink} to='/' onClick={trackLogoClick}>
             <img src={`/${process.env.PUBLIC_URL}assets/images/biobank-logo.svg`} alt={t('logo.alt_text')} title={t('logo.title')} />
           </Link>
         </figure>

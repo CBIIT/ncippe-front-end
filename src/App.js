@@ -31,8 +31,8 @@ export default track({
   channel: "DCTD - Moonshot Biobank: Public", // append "Public" or "Account" based on logged in status
   eVar1: "pagename", // computer page name
   eVar7: "Public", // Audience: unless logged in, then it's userType: "CRC, Participant, Lab Admin, Health Provider"
-  prop1: "", // first 100 characters in the url
-  prop2: "", // remaining characters in the url
+  prop1: window.location.href.substring(0,99), // first 100 characters in the url
+  prop2: window.location.href.substring(100), // remaining characters in the url
   prop6: "short title", // pretty version of browser title
   prop7: "Public", // Audience: unless logged in, then it's userType: "CRC, Participant, Lab Admin, Health Provider"
   prop10: window.document.title, // page - org
@@ -45,28 +45,47 @@ export default track({
   dispatch: (data) => {
     let local_s = window.s_gi(process.env.REACT_APP_ANALYTICS_ACCOUNT)
 
-    const computedData = {
+    // set url specific data on every call
+    let computedData = {
+      pageName: `msbiobank.c.gov${window.location.pathname}`,
+      pageURL: window.location,
       prop1: window.location.href.substring(0,99),
       prop2: window.location.href.substring(100),
-      events: 'event1',
-      eVar1: data.pageName,
-      prop10:  window.document.title,
+      prop10: window.document.title
     }
 
     if(data.event === 'pageview') {
 
+      computedData = {
+        ...computedData,
+        events: 'event1',
+        eVar1: computedData.pageName,
+      }
+
       Object.assign(local_s, data, computedData)
       local_s.t()
 
+      // clear variables when done
+      local_s.clearVars()
+
     } else {
-      // window.s = {...window.s, ...data}
-      // console.log(Object.keys(data).join(','))
-      // TODO: process variables 
-      window.s.linkTrackVars='eVar8'
-      window.s.eVar8 = data.eVar8 || ""
+
+      computedData = {
+        ...computedData,
+        prop67: computedData.pageName,
+        eVar1: computedData.pageName,
+        linkTrackVars: 'prop11,eVar11,prop13,eVar13,prop14,eVar14,prop50,prop53,eVar53,prop67', // no spaces allowed
+        linkTrackEvents: data.events ? data.events.concat(",") : null
+      }
+
+      Object.assign(local_s, data, computedData)
+
       const linkType = data.linkType || "o"
-      const linkName = data.linkName || "missing link name"
-      window.s.tl(this,linkType,linkName)
+
+      local_s.tl(this,linkType)
+
+      // clear variables when done
+      local_s.clearVars()
     }
   }
 })(App)
