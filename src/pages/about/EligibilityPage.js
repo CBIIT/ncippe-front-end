@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Container, Box, Grid, Typography, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
-import track, { useTracking } from 'react-tracking'
+import { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
 
 import HospitalMap from '../../components/HospitalMap/HospitalMap'
@@ -29,7 +29,10 @@ const EligibilityPage = (props) => {
   const { trackEvent } = useTracking()
 
   useEffect(() => {
-    trackEvent({event:'pageview'})
+    trackEvent({
+      event:'pageview',
+      prop6: "Eligibility and locations",
+    })
   },[trackEvent])
 
   return (
@@ -91,6 +94,4 @@ const EligibilityPage = (props) => {
   )
 }
 
-export default track({
-  prop6: "Eligibility and locations",
-})(EligibilityPage)
+export default EligibilityPage

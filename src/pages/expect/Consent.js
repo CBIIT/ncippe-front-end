@@ -3,7 +3,7 @@ import { Box, Card, CardMedia, Link, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { OpenInNew as OpenInNewIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import track, { useTracking } from 'react-tracking'
+import { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
 
 import TabPanel from '../../components/Tabs/TabPanel'
@@ -50,7 +50,10 @@ const Consent = (props) => {
   const { trackEvent } = useTracking()
 
   useEffect(() => {
-    trackEvent({event:'pageview'})
+    trackEvent({
+      event:'pageview',
+      prop6: "Give your consent",
+    })
   },[trackEvent])
 
   return (
@@ -94,6 +97,4 @@ const Consent = (props) => {
   </TabPanel>
   )
 }
-export default track({
-  prop6: "Give your consent",
-})(Consent)
+export default Consent

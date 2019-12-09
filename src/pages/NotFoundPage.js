@@ -4,7 +4,7 @@ import { Box, Button, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import track, { useTracking } from 'react-tracking'
+import { useTracking } from 'react-tracking'
 
 const useStyles = makeStyles( theme => ({
   container: {
@@ -30,7 +30,11 @@ const ErrorPage = () => {
   const { trackEvent } = useTracking()
 
   useEffect(() => {
-    trackEvent({event:'pageview'})
+    trackEvent({
+      event:'pageview',
+      prop6: "Error Page",
+      pageType: "errorpage",
+    })
   },[trackEvent])
 
   return (
@@ -51,7 +55,4 @@ const ErrorPage = () => {
   )
 }
 
-export default track({
-  prop6: "Error Page",
-  pageType: "errorpage"
-})(ErrorPage)
+export default ErrorPage

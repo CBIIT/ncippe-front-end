@@ -5,7 +5,7 @@ import {
   OpenInNew as OpenInNewIcon
 } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import track, { useTracking } from 'react-tracking'
+import { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
 
 import { AuthContext } from '../../components/login/AuthContext'
@@ -88,7 +88,10 @@ const ActivatePage = (props) => {
   const faqs = i18n.getResourceBundle(i18n.languages[0],'activate').faqs
 
   useEffect(() => {
-    trackEvent({event:'pageview'})
+    trackEvent({
+      event:'pageview',
+      prop6: "Activate your online Biobank account",
+    })
   },[trackEvent])
 
   const handleLogin = () => {
@@ -237,6 +240,4 @@ const ActivatePage = (props) => {
   )
 }
 
-export default track({
-  prop6: "Activate your online Biobank account",
-})(ActivatePage)
+export default ActivatePage

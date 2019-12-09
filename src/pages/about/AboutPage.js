@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Container, Box, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
-import track, { useTracking } from 'react-tracking'
+import { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
@@ -26,7 +26,10 @@ const AboutPage = (props) => {
   const { trackEvent } = useTracking()
 
   useEffect(() => {
-    trackEvent({event:'pageview'})
+    trackEvent({
+      event:'pageview',
+      prop6: "About the Boibank",
+    })
   },[trackEvent])
 
   return (
@@ -62,6 +65,4 @@ const AboutPage = (props) => {
   )
 }
 
-export default track({
-  prop6: "About the Boibank",
-})(AboutPage)
+export default AboutPage

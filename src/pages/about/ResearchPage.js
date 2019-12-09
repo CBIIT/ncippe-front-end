@@ -3,7 +3,7 @@ import { Box, Container, Divider, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import RenderContent from '../../components/utils/RenderContent'
-import track, { useTracking } from 'react-tracking'
+import { useTracking } from 'react-tracking'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -30,7 +30,10 @@ const ResearchPage = (props) => {
   const { trackEvent } = useTracking()
 
   useEffect(() => {
-    trackEvent({event:'pageview'})
+    trackEvent({
+      event:'pageview',
+      prop6: "Biobanks are important for research",
+    })
   },[trackEvent])
 
   return (
@@ -74,6 +77,4 @@ const ResearchPage = (props) => {
     </Box>
   )
 }
-export default track({
-  prop6: "Biobanks are important for research",
-})(ResearchPage)
+export default ResearchPage
