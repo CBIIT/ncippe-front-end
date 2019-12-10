@@ -16,8 +16,9 @@ const useStyles = makeStyles(theme => ({
     }
   },
   logo: {
+    padding: theme.spacing(2,0),
     '& img': {
-      width: '430px',
+      width: '320px',
       maxWidth: '100%',
       height: 'auto'
     }
