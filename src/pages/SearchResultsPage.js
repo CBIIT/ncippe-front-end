@@ -119,7 +119,7 @@ const SearchResults = (props) => {
     )
   }
 
-  const trackLinkClick = (e) => {
+  const trackClick = (e) => {
     trackEvent({
       prop50: e.target.textContent,
       prop13: e.target.dataset.rank
@@ -157,7 +157,7 @@ const SearchResults = (props) => {
             return (
               <Box key={i} mb={3}>
                 <Typography component="div">
-                  <Link to={route} className="bold" component={RouterLink} data-rank={i + 1} onClick={trackLinkClick}>{page}</Link>
+                  <Link to={route} className="bold" component={RouterLink} data-rank={i + 1} onClick={trackClick}>{page}</Link>
                 </Typography>
                 <Typography component="div">
                   <RenderContent source={results} />

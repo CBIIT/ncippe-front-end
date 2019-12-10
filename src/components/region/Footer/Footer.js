@@ -51,7 +51,7 @@ const Footer = () => {
   const { t } = useTranslation('common')
   const { trackEvent } = useTracking()
 
-  const trackLinkClick = (e) => {
+  const trackClick = (e) => {
     if(e.target.matches('a')) {
       trackEvent({
         prop53: `BioBank_FooterNav|${e.target.textContent}`,
@@ -65,7 +65,7 @@ const Footer = () => {
     <Container className={classes.root} component="footer">
       <div className={classes.logo}><img src={`/${process.env.PUBLIC_URL}assets/images/nci-logo-white.svg`} alt={t('footer.logo.alt_text')} title={t('footer.logo.title')}  /></div>
       <Typography component="div">
-        <Grid container className={classes.footerLinks} spacing={3} onClick={trackLinkClick}>
+        <Grid container className={classes.footerLinks} spacing={3} onClick={trackClick}>
           <Grid item xs={12} sm={4}>
             <a href={`mailto:${t('footer.links.email')}`}>{t('footer.links.email')}</a>
             <a href={`tel:${t('footer.links.phone')}`}>{t('footer.links.phone')}</a>

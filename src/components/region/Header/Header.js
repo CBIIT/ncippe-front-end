@@ -166,7 +166,7 @@ const Header = () => {
     }})
   }
 
-  const trackLogoClick = (e) => {
+  const trackClick = (e) => {
     trackEvent({
       prop53: 'BioBank_TopNav|Logo',
       eVar53: 'BioBank_TopNav|Logo',
@@ -178,7 +178,7 @@ const Header = () => {
     <Container component="header" className={classes.root}>
       <Box className={classes.appToolbarContainer}>
         <figure className={classes.toolbarLogo}>
-          <Link component={RouterLink} to='/' onClick={trackLogoClick}>
+          <Link component={RouterLink} to='/' onClick={trackClick}>
             <img src={`/${process.env.PUBLIC_URL}assets/images/biobank-logo.svg`} alt={t('logo.alt_text')} title={t('logo.title')} />
           </Link>
         </figure>
