@@ -36,11 +36,11 @@ const pageWrapper = (Component) => ({children, ...props}) => {
     <>
       <Header />
       <div id="main" className={classes.main}>
-        <Container style={{position:"relative"}}>
+        {/* <Container style={{position:"relative"}}>
           <Link component={RouterLink} to='/mock-users' className={classes.mockUsers}>
             <Button variant="outlined" color="primary">Mock User</Button>
           </Link>
-        </Container>
+        </Container> */}
         <Component {...props} />
       </div>
       <Footer />
