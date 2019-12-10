@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { useScript } from './components/utils/useScript'
+import React from 'react'
 import { ThemeProvider } from '@material-ui/styles'
 import { CssBaseline } from '@material-ui/core'
 import track from 'react-tracking'
@@ -9,7 +8,22 @@ import { AuthProvider } from './components/login/AuthContext'
 import { LoginProvider } from './components/login/Login.context'
 import { theme } from './theme/theme'
 
-const App = () => {
+const App = (props) => {
+
+  // generic event deligation for links and buttons in the body
+  document.addEventListener("click", (e) => {
+
+    const target = e.target.closest('#main a, #main button')
+
+    if (target) {
+      props.tracking.trackEvent({
+        prop50: e.target.textContent,
+        prop66: `BioBank|[Section of Page]|${target.tagName}`,
+        eVar66: `BioBank|[Section of Page]|${target.tagName}`,
+        events: 'event71',
+      })
+    }
+  })
 
   return (
     <ThemeProvider theme={theme}>
@@ -74,7 +88,7 @@ export default track({
         ...computedData,
         prop67: computedData.pageName,
         eVar1: computedData.pageName,
-        linkTrackVars: 'prop11,eVar11,prop13,eVar13,prop14,eVar14,prop50,prop53,eVar53,prop67', // no spaces allowed
+        linkTrackVars: 'prop11,eVar11,prop13,eVar13,prop14,eVar14,prop41,prop50,prop53,eVar53,prop66,eVar66,prop67', // no spaces allowed
         linkTrackEvents: data.events ? data.events.concat(",") : null
       }
 

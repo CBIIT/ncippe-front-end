@@ -132,14 +132,21 @@ const Header = () => {
     const id = event.currentTarget.id
     setExpanded(newExpanded ? id : "")
     trackEvent({
-      prop53: `BioBank_TopNav|${id}`,
-      eVar53: `BioBank_TopNav|${id}`,
+      prop53: `BioBank_TopNav|${event.target.textContent}`,
+      eVar53: `BioBank_TopNav|${event.target.textContent}`,
       events: 'event26'
     })
   }
 
-  const closeMenu = () => {
+  const closeMenu = (event) => {
     setMenuOpen(prev => !prev)
+    if(!event.target.closest('#closeMobileMenu')){
+      trackEvent({
+        prop53: `BioBank_TopNav|${event.target.closest("ul").dataset.panelgroup}|${event.target.textContent}`,
+        eVar53: `BioBank_TopNav|${event.target.closest("ul").dataset.panelgroup}|${event.target.textContent}`,
+        events:'event28'
+      })
+    }
   }
 
   const handleSearchInputChange = (e) => {
@@ -201,7 +208,7 @@ const Header = () => {
       {isMobile && (
       <Drawer anchor="right" open={menuOpen} onClose={toggleDrawer}>
         <Box className={classes.closeMobileMenu}>
-          <IconButton aria-label={t('button.close')} onClick={closeMenu}><ClearIcon /></IconButton>
+          <IconButton aria-label={t('button.close')} onClick={closeMenu} id="closeMobileMenu"><ClearIcon /></IconButton>
         </Box>
         <nav>
           <Box className={classes.mobileLogin}>

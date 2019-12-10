@@ -121,7 +121,7 @@ const SearchResults = (props) => {
 
   const trackLinkClick = (e) => {
     trackEvent({
-      prop50: e.target.text,
+      prop50: e.target.textContent,
       prop13: e.target.dataset.rank
     })
   }

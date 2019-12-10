@@ -94,8 +94,8 @@ const MenuGroup = (props) => {
 
     if(event.currentTarget !== window.document) {
       trackEvent({
-        prop53: `BioBank_TopNav|${props.title}|${event.target.text}`,
-        eVar53: `BioBank_TopNav|${props.title}|${event.target.text}`,
+        prop53: `BioBank_TopNav|${props.title}|${event.target.textContent}`,
+        eVar53: `BioBank_TopNav|${props.title}|${event.target.textContent}`,
         events:'event28'
       })
     }

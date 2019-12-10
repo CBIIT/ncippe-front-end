@@ -5,6 +5,7 @@ import {
   AddRounded,
   RemoveRounded
 } from '@material-ui/icons'
+import { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
@@ -65,6 +66,7 @@ const FAQ = (props) => {
   const { index, title, desc, expanded = true, clickHandler } = props
   const classes = useStyles()
   const [isExpanded, setIsExpanded] = useState(false)
+  const { trackEvent } = useTracking()
 
   // externally control the expansion of this component
   useEffect(() => {
@@ -84,13 +86,25 @@ const FAQ = (props) => {
 
   // toggle this faq
   const handleChange = () => {
+    // console.log("isExpanded",isExpanded)
     setIsExpanded(prev => !prev)
+  }
+
+  const trackClick = (e) => {
+    // about to be expanded
+    if(!isExpanded){
+      const location = window.location.pathname.replace(/\//g,"-")
+      trackEvent({
+        prop41: `BioBank|AccordianExpand|FAQ${location}-${index + 1}`,
+        events: 'event72'
+      })
+    }
   }
 
 
   return (
     <ExpansionPanel square expanded={isExpanded} onChange={handleChange} className={classes.root}>
-      <ExpansionPanelSummary expandIcon={isExpanded ? <RemoveRounded /> : <AddRounded />}>
+      <ExpansionPanelSummary expandIcon={isExpanded ? <RemoveRounded /> : <AddRounded />} onClick={trackClick}>
         <Typography variant="h4" component="h4">{title}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>

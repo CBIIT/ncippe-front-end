@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Grid, Typography } from '@material-ui/core'
 
@@ -47,12 +48,24 @@ const useStyles = makeStyles(theme => ({
 
 const Footer = () => {
   const classes = useStyles()
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('common')
+  const { trackEvent } = useTracking()
+
+  const trackLinkClick = (e) => {
+    if(e.target.matches('a')) {
+      trackEvent({
+        prop53: `BioBank_FooterNav|${e.target.textContent}`,
+        eVar53: `BioBank_FooterNav|${e.target.textContent}`,
+        events: 'event16'
+      })
+    }
+  }
+
   return (
     <Container className={classes.root} component="footer">
       <div className={classes.logo}><img src={`/${process.env.PUBLIC_URL}assets/images/nci-logo-white.svg`} alt={t('footer.logo.alt_text')} title={t('footer.logo.title')}  /></div>
       <Typography component="div">
-        <Grid container className={classes.footerLinks} spacing={3}>
+        <Grid container className={classes.footerLinks} spacing={3} onClick={trackLinkClick}>
           <Grid item xs={12} sm={4}>
             <a href={`mailto:${t('footer.links.email')}`}>{t('footer.links.email')}</a>
             <a href={`tel:${t('footer.links.phone')}`}>{t('footer.links.phone')}</a>
@@ -79,5 +92,5 @@ const Footer = () => {
     </Container>
   )
 }
-  
+
 export default Footer
