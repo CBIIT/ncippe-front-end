@@ -4,6 +4,9 @@ import { Button, Card, CardActions, CardMedia, CardContent, Typography } from '@
 import { makeStyles } from '@material-ui/core/styles'
 import { KeyboardArrowRight as KeyboardArrowRightIcon } from '@material-ui/icons'
 
+import RenderContent from '../utils/RenderContent'
+
+
 const useStyles = makeStyles( theme => ({
   root: {
     height: '100%',
@@ -42,7 +45,7 @@ const Component = (props) => {
           </Typography>
           {desc &&
             <Typography component="p">
-              {desc}
+              <RenderContent source={desc} />
             </Typography>
           }
         </CardContent>
