@@ -1,675 +1,590 @@
 {
-  "featureCards": [
-    {
-      "title": "Background",
-      "description": "Here is some background text on this project and why it's important",
-      "link": "/article/nci-intro",
-      "cardImage": "careers-at-nci.jpg",
-      "cardImageAltText": "Scientist using lab equipment"
-    },
-    {
-      "title": "Privacy",
-      "description": "Our top priority is patient privacy. Your information will never be shared outside of NCI. Other reassurances here.",
-      "link": "/article/privacy",
-      "cardImage": "financial-data-book-pen.jpg",
-      "cardImageAltText": "Open book with pen"
-    },
-    {
-      "title": "Value",
-      "description": "When you contribute to the NCI Biobank you will be making an impact on cancer research. See how Biobank specimens are used to advance our knowledge on cancer.",
-      "link": "/article/value",
-      "cardImage": "woman-wearing-head-scarf.jpg",
-      "cardImageAltText": "Cancer survivor with head scarf"
-    }
-  ],
-  "featuredArticle": [
-    {
-      "id": "nci-intro",
-      "title": "NCI is the nation's leader in cancer research",
-      "body": "<p>Health goth twee skateboard jianbing franzen before they sold out gastropub hashtag 90's church-key yr. Deep v humblebrag selfies readymade kombucha roof party raclette poke food truck authentic chia tofu sriracha. Man bun chicharrones blog health goth. Neutra hoodie air plant selvage YOLO, gastropub kitsch hashtag next level banjo irony crucifix biodiesel. Jianbing before they sold out aesthetic taxidermy plaid, shaman deep v bespoke banjo meditation wolf +1 prism ugh sriracha.</p><p>Hammock pitchfork banh mi put a bird on it whatever lomo. Air plant whatever sriracha vexillologist XOXO austin adaptogen cold-pressed cronut copper mug. Twee chicharrones offal, disrupt pok pok raclette adaptogen pour-over PBR&B. Woke vegan brunch raw denim migas keytar lumbersexual blog bushwick schlitz XOXO cold-pressed. Chambray master cleanse keytar put a bird on it four loko. Irony man bun austin mustache poutine narwhal flexitarian kale chips. Pabst tbh poke umami bicycle rights adaptogen seitan viral master cleanse.</p>",
-      "image": "doctor-drawing-blood.jpg",
-      "imageAltText": "Doctor drawing blood",
-      "link": "/article/nci-intro"
-    },
-    {
-      "id": "moonshot-intro",
-      "title": "Be a Part of the Cancer Moonshot Initiative",
-      "body": "<p>Hammock pitchfork banh mi put a bird on it whatever lomo. Air plant whatever sriracha vexillologist XOXO austin adaptogen cold-pressed cronut copper mug. Twee chicharrones offal, disrupt pok pok raclette adaptogen pour-over PBR&B. Woke vegan brunch raw denim migas keytar lumbersexual blog bushwick schlitz XOXO cold-pressed. Chambray master cleanse keytar put a bird on it four loko. Irony man bun austin mustache poutine narwhal flexitarian kale chips. Pabst tbh poke umami bicycle rights adaptogen seitan viral master cleanse.</p><p>Health goth twee skateboard jianbing franzen before they sold out gastropub hashtag 90's church-key yr. Deep v humblebrag selfies readymade kombucha roof party raclette poke food truck authentic chia tofu sriracha. Man bun chicharrones blog health goth. Neutra hoodie air plant selvage YOLO, gastropub kitsch hashtag next level banjo irony crucifix biodiesel. Jianbing before they sold out aesthetic taxidermy plaid, shaman deep v bespoke banjo meditation wolf +1 prism.</p>",
-      "image": "Cancer-Moonshot-Research-Initiatives.jpg",
-      "imageAltText": "Moonshot Logo",
-      "link": "/article/moonshot-intro"
-    }
-  ],
-  "statsBar": [
-    {
-      "statTitle": "Cancer Centers",
-      "statNumber": "250"
-    },
-    {
-      "statTitle": "Cancer Specialists",
-      "statNumber": "500"
-    },
-    {
-      "statTitle": "Support Staff",
-      "statNumber": "300"
-    },
-    {
-      "statTitle": "Research Centers",
-      "statNumber": "12"
-    }
-  ],
-  "featureLists": [
-    {
-      "title": "Resources",
-      "list": [
-        {
-          "title": "Clinical Trials Information for Patients and Caregivers",
-          "link": "",
-          "icon": "LinkIcon"
-        },
-        {
-          "title": "Types of Treatment",
-          "link": "",
-          "icon": "LinkIcon"
-        },
-        {
-          "title": "Cancer Drugs",
-          "link": "",
-          "icon": "LinkIcon"
-        },
-        {
-          "title": "Choices for Care",
-          "link": "",
-          "icon": "LinkIcon"
-        },
-        {
-          "title": "Questions to Ask Your Doctor About Cancer",
-          "link": "",
-          "icon": "LinkIcon"
-        }
-      ]
-    },
-    {
-      "title": "FAQs",
-      "list": [
-        {
-          "title": "What is the purpose of this site?",
-          "link": "",
-          "icon": "HowToRegIcon"
-        },
-        {
-          "title": "What happens to my data?",
-          "link": "",
-          "icon": "HowToRegIcon"
-        },
-        {
-          "title": "How do I find a BSS?",
-          "link": "",
-          "icon": "HowToRegIcon"
-        }
-      ]
-    },
-    {
-      "title": "Media",
-      "list": [
-        {
-          "title": "Immunotherapy: How the Immune System Fights Cancer",
-          "link": "",
-          "icon": "VideoLibraryIcon"
-        },
-        {
-          "title": "BioBank Concent Form",
-          "link": "",
-          "icon": "FileCopyIcon"
-        },
-        {
-          "title": "Cancer Clinical Trials in Your Community - NCI Community Oncology Research Program (NCORP)",
-          "link": "",
-          "icon": "VideoLibraryIcon"
-        }
-      ]
-    }
-  ],
-  "articles": [
-    {
-      "id": "nci-intro",
-      "title": "NCI is the nation's leader in cancer research",
-      "body": "<p>Health goth twee skateboard jianbing franzen before they sold out gastropub hashtag 90's church-key yr. Deep v humblebrag selfies readymade kombucha roof party raclette poke food truck authentic chia tofu sriracha. Man bun chicharrones blog health goth. Neutra hoodie air plant selvage YOLO, gastropub kitsch hashtag next level banjo irony crucifix biodiesel. Jianbing before they sold out aesthetic taxidermy plaid, shaman deep v bespoke banjo meditation wolf +1 prism ugh sriracha.</p><p>Hammock pitchfork banh mi put a bird on it whatever lomo. Air plant whatever sriracha vexillologist XOXO austin adaptogen cold-pressed cronut copper mug. Twee chicharrones offal, disrupt pok pok raclette adaptogen pour-over PBR&B. Woke vegan brunch raw denim migas keytar lumbersexual blog bushwick schlitz XOXO cold-pressed. Chambray master cleanse keytar put a bird on it four loko. Irony man bun austin mustache poutine narwhal flexitarian kale chips. Pabst tbh poke umami bicycle rights adaptogen seitan viral master cleanse.</p><p>Banh mi tattooed semiotics biodiesel jianbing swag. Air plant leggings cred narwhal, vice ramps readymade DIY post-ironic migas neutra. Ugh selvage shoreditch, man bun lumbersexual tbh raw denim occupy scenester pug listicle. Viral farm-to-table heirloom fanny pack single-origin coffee raw denim dreamcatcher cornhole kombucha hammock cronut kinfolk. Hexagon shoreditch offal, farm-to-table man braid 90's yr hot chicken tattooed cloud bread pickled echo park synth.</p><p>Edison bulb jianbing sartorial you probably haven't heard of them, hella chicharrones messenger bag celiac occupy tofu crucifix salvia pug green juice. Cray readymade master cleanse gastropub next level kinfolk retro shoreditch sartorial. Listicle freegan offal hot chicken cronut. Hell of celiac organic authentic, coloring book umami gastropub waistcoat literally. Vice wolf kombucha etsy mixtape, irony next level tumblr slow-carb. La croix franzen hoodie portland tbh snackwave vinyl you probably haven't heard of them heirloom. Biodiesel hella health goth brunch, sartorial subway tile ethical.</p><p>Pitchfork PBR&B williamsburg chambray activated charcoal taiyaki. Messenger bag cronut readymade lomo glossier authentic brooklyn tumeric food truck hoodie shaman helvetica mumblecore. Subway tile fam glossier, seitan selfies chicharrones squid. DIY semiotics fam fingerstache gochujang deep v wayfarers narwhal brunch poke disrupt.</p>",
-      "image": "doctor-drawing-blood.jpg",
-      "imageAltText": "Doctor drawing blood"
-    },
-    {
-      "id": "moonshot-intro",
-      "title": "Be a Part of the Cancer Moonshot Initiative",
-      "body": "<p>Hammock pitchfork banh mi put a bird on it whatever lomo. Air plant whatever sriracha vexillologist XOXO austin adaptogen cold-pressed cronut copper mug. Twee chicharrones offal, disrupt pok pok raclette adaptogen pour-over PBR&B. Woke vegan brunch raw denim migas keytar lumbersexual blog bushwick schlitz XOXO cold-pressed. Chambray master cleanse keytar put a bird on it four loko. Irony man bun austin mustache poutine narwhal flexitarian kale chips. Pabst tbh poke umami bicycle rights adaptogen seitan viral master cleanse.</p><p>Health goth twee skateboard jianbing franzen before they sold out gastropub hashtag 90's church-key yr. Deep v humblebrag selfies readymade kombucha roof party raclette poke food truck authentic chia tofu sriracha. Man bun chicharrones blog health goth. Neutra hoodie air plant selvage YOLO, gastropub kitsch hashtag next level banjo irony crucifix biodiesel. Jianbing before they sold out aesthetic taxidermy plaid, shaman deep v bespoke banjo meditation wolf +1 prism.</p><p>Health goth twee skateboard jianbing franzen before they sold out gastropub hashtag 90's church-key yr. Deep v humblebrag selfies readymade kombucha roof party raclette poke food truck authentic chia tofu sriracha. Man bun chicharrones blog health goth. Neutra hoodie air plant selvage YOLO, gastropub kitsch hashtag next level banjo irony crucifix biodiesel. Jianbing before they sold out aesthetic taxidermy plaid, shaman deep v bespoke banjo meditation wolf +1 prism ugh sriracha.</p><p>Hammock pitchfork banh mi put a bird on it whatever lomo. Air plant whatever sriracha vexillologist XOXO austin adaptogen cold-pressed cronut copper mug. Twee chicharrones offal, disrupt pok pok raclette adaptogen pour-over PBR&B. Woke vegan brunch raw denim migas keytar lumbersexual blog bushwick schlitz XOXO cold-pressed. Chambray master cleanse keytar put a bird on it four loko. Irony man bun austin mustache poutine narwhal flexitarian kale chips. Pabst tbh poke umami bicycle rights adaptogen seitan viral master cleanse.</p><p>Banh mi tattooed semiotics biodiesel jianbing swag. Air plant leggings cred narwhal, vice ramps readymade DIY post-ironic migas neutra. Ugh selvage shoreditch, man bun lumbersexual tbh raw denim occupy scenester pug listicle. Viral farm-to-table heirloom fanny pack single-origin coffee raw denim dreamcatcher cornhole kombucha hammock cronut kinfolk. Hexagon shoreditch offal, farm-to-table man braid 90's yr hot chicken tattooed cloud bread pickled echo park synth.</p><p>Edison bulb jianbing sartorial you probably haven't heard of them, hella chicharrones messenger bag celiac occupy tofu crucifix salvia pug green juice. Cray readymade master cleanse gastropub next level kinfolk retro shoreditch sartorial. Listicle freegan offal hot chicken cronut. Hell of celiac organic authentic, coloring book umami gastropub waistcoat literally. Vice wolf kombucha etsy mixtape, irony next level tumblr slow-carb. La croix franzen hoodie portland tbh snackwave vinyl you probably haven't heard of them heirloom. Biodiesel hella health goth brunch, sartorial subway tile ethical.</p><p>Pitchfork PBR&B williamsburg chambray activated charcoal taiyaki. Messenger bag cronut readymade lomo glossier authentic brooklyn tumeric food truck hoodie shaman helvetica mumblecore. Subway tile fam glossier, seitan selfies chicharrones squid. DIY semiotics fam fingerstache gochujang deep v wayfarers narwhal brunch poke disrupt.</p>",
-      "image": "Cancer-Moonshot-Research-Initiatives.jpg",
-      "imageAltText": "Moonshot Logo"
-    },
-    {
-      "id": "privacy",
-      "title": "Privacy Is Our Top Priority",
-      "body": "<p>Your information will never be shared outside of NCI. Other reassurances here. Health goth twee skateboard jianbing franzen before they sold out gastropub hashtag 90's church-key yr. Deep v humblebrag selfies readymade kombucha roof party raclette poke food truck authentic chia tofu sriracha. Man bun chicharrones blog health goth. Neutra hoodie air plant selvage YOLO, gastropub kitsch hashtag next level banjo irony crucifix biodiesel. Jianbing before they sold out aesthetic taxidermy plaid, shaman deep v bespoke banjo meditation wolf +1 prism ugh sriracha.</p><p>Hammock pitchfork banh mi put a bird on it whatever lomo. Air plant whatever sriracha vexillologist XOXO austin adaptogen cold-pressed cronut copper mug. Twee chicharrones offal, disrupt pok pok raclette adaptogen pour-over PBR&B. Woke vegan brunch raw denim migas keytar lumbersexual blog bushwick schlitz XOXO cold-pressed. Chambray master cleanse keytar put a bird on it four loko. Irony man bun austin mustache poutine narwhal flexitarian kale chips. Pabst tbh poke umami bicycle rights adaptogen seitan viral master cleanse.</p><p>Banh mi tattooed semiotics biodiesel jianbing swag. Air plant leggings cred narwhal, vice ramps readymade DIY post-ironic migas neutra. Ugh selvage shoreditch, man bun lumbersexual tbh raw denim occupy scenester pug listicle. Viral farm-to-table heirloom fanny pack single-origin coffee raw denim dreamcatcher cornhole kombucha hammock cronut kinfolk. Hexagon shoreditch offal, farm-to-table man braid 90's yr hot chicken tattooed cloud bread pickled echo park synth.</p><p>Edison bulb jianbing sartorial you probably haven't heard of them, hella chicharrones messenger bag celiac occupy tofu crucifix salvia pug green juice. Cray readymade master cleanse gastropub next level kinfolk retro shoreditch sartorial. Listicle freegan offal hot chicken cronut. Hell of celiac organic authentic, coloring book umami gastropub waistcoat literally. Vice wolf kombucha etsy mixtape, irony next level tumblr slow-carb. La croix franzen hoodie portland tbh snackwave vinyl you probably haven't heard of them heirloom. Biodiesel hella health goth brunch, sartorial subway tile ethical.</p><p>Pitchfork PBR&B williamsburg chambray activated charcoal taiyaki. Messenger bag cronut readymade lomo glossier authentic brooklyn tumeric food truck hoodie shaman helvetica mumblecore. Subway tile fam glossier, seitan selfies chicharrones squid. DIY semiotics fam fingerstache gochujang deep v wayfarers narwhal brunch poke disrupt.</p>",
-      "image": "financial-data-book-pen.jpg",
-      "imageAltText": "Open book with pen"
-    },
-    {
-      "id": "value",
-      "title": "The Value of the BioBank",
-      "body": "<p>When you contribute to the NCI Biobank you will be making an impact on cancer research. See how Biobank specimens are used to advance our knowledge on cancer. Health goth twee skateboard jianbing franzen before they sold out gastropub hashtag 90's church-key yr. Deep v humblebrag selfies readymade kombucha roof party raclette poke food truck authentic chia tofu sriracha. Man bun chicharrones blog health goth. Neutra hoodie air plant selvage YOLO, gastropub kitsch hashtag next level banjo irony crucifix biodiesel. Jianbing before they sold out aesthetic taxidermy plaid, shaman deep v bespoke banjo meditation wolf +1 prism ugh sriracha.</p><p>Hammock pitchfork banh mi put a bird on it whatever lomo. Air plant whatever sriracha vexillologist XOXO austin adaptogen cold-pressed cronut copper mug. Twee chicharrones offal, disrupt pok pok raclette adaptogen pour-over PBR&B. Woke vegan brunch raw denim migas keytar lumbersexual blog bushwick schlitz XOXO cold-pressed. Chambray master cleanse keytar put a bird on it four loko. Irony man bun austin mustache poutine narwhal flexitarian kale chips. Pabst tbh poke umami bicycle rights adaptogen seitan viral master cleanse.</p><p>Banh mi tattooed semiotics biodiesel jianbing swag. Air plant leggings cred narwhal, vice ramps readymade DIY post-ironic migas neutra. Ugh selvage shoreditch, man bun lumbersexual tbh raw denim occupy scenester pug listicle. Viral farm-to-table heirloom fanny pack single-origin coffee raw denim dreamcatcher cornhole kombucha hammock cronut kinfolk. Hexagon shoreditch offal, farm-to-table man braid 90's yr hot chicken tattooed cloud bread pickled echo park synth.</p><p>Edison bulb jianbing sartorial you probably haven't heard of them, hella chicharrones messenger bag celiac occupy tofu crucifix salvia pug green juice. Cray readymade master cleanse gastropub next level kinfolk retro shoreditch sartorial. Listicle freegan offal hot chicken cronut. Hell of celiac organic authentic, coloring book umami gastropub waistcoat literally. Vice wolf kombucha etsy mixtape, irony next level tumblr slow-carb. La croix franzen hoodie portland tbh snackwave vinyl you probably haven't heard of them heirloom. Biodiesel hella health goth brunch, sartorial subway tile ethical.</p><p>Pitchfork PBR&B williamsburg chambray activated charcoal taiyaki. Messenger bag cronut readymade lomo glossier authentic brooklyn tumeric food truck hoodie shaman helvetica mumblecore. Subway tile fam glossier, seitan selfies chicharrones squid. DIY semiotics fam fingerstache gochujang deep v wayfarers narwhal brunch poke disrupt.</p>",
-      "image": "woman-wearing-head-scarf.jpg",
-      "imageAltText": "Cancer survivor with head scarf"
-    }
-  ],
-  "users": [
+  "patients": [
     {
       "id": 1,
-      "userName": "alfredTromp",
+      "userListId": 1,
+      "providerId": 1,
+      "crcId": 1,
       "firstName": "Alfred",
       "lastName": "Tromp",
+      "patientId": "SILxki4k",
       "email": "SkyBlue@Chauncey.tv",
-      "userGUID": "22cfc58c-f9b3-4008-8586-6e122f36a6a7",
       "phoneNumber": "559-428-5906",
-      "allowEmailNotification": "1",
+      "allowEmailNotification": true,
+      "hasNewReports": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
-      "providers": [
-        {
-          "id": 1,
-          "userName": "madelineHamill",
-          "firstName": "Madeline",
-          "lastName": "Hamill",
-          "email": "Plum@Kris.info",
-          "userGUID": "59ee321e-2fcd-4aac-98ed-46e4136f8f08",
-          "phoneNumber": "9218102877",
-          "allowEmailNotification": "1",
-          "userType": "PPE_PROVIDER",
-          "roleName": "ROLE_PPE_PROVIDER"
-        }
-      ],
-      "reports": [
-        {
-          "id": 1,
-          "reportName": "New Report",
-          "description": "A sort report description",
-          "timestamp": 1564691140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        },
-        {
-          "id": 2,
-          "reportName": "Older Report",
-          "description": "A sort report description",
-          "timestamp": 1563431140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        }
-      ]
+      "dateCreated": 1567606345000
     },
     {
       "id": 2,
-      "userName": "katlynnPrice",
-      "firstName": "Katlynn",
-      "lastName": "Price",
-      "email": "BlueViolet@Cody.org",
-      "userGUID": "dacd9cba-9963-467d-9179-31cba316f456",
-      "phoneNumber": "",
-      "allowEmailNotification": "0",
-      "userType": "PPE_BSSC",
-      "roleName": "ROLE_PPE_BSSC"
+      "userListId": 1,
+      "providerId": 1,
+      "crcId": 1,
+      "firstName": "Thurman",
+      "lastName": "Kautzer",
+      "patientId": "AhBW4XAy",
+      "email": "CadetBlue@Keagan.biz",
+      "phoneNumber": "018-374-1064",
+      "allowEmailNotification": false,
+      "userType": "PPE_PARTICIPANT",
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1550129389000
     },
     {
       "id": 3,
-      "userName": "angelitaWeber",
-      "firstName": "Angelita",
-      "lastName": "Weber",
-      "email": "Lavender@Maeve.biz",
-      "userGUID": "908faf59-884d-4291-8518-ba324fad1009",
-      "phoneNumber": "430-868-6925",
-      "allowEmailNotification": "1",
-      "userType": "PPE_ADMIN",
-      "roleName": "ROLE_PPE_ADMIN"
+      "userListId": 1,
+      "providerId": 1,
+      "crcId": 1,
+      "firstName": "Gonzalo",
+      "lastName": "Yost",
+      "patientId": "MmF2H0C8",
+      "email": "RoyalBlue@Wiza.org",
+      "phoneNumber": "905-341-7482",
+      "allowEmailNotification": true,
+      "userType": "PPE_PARTICIPANT",
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1554791389000
     },
     {
       "id": 4,
-      "userName": "thurmanKautzer",
-      "firstName": "Thurman",
-      "lastName": "Kautzer",
-      "email": "CadetBlue@Keagan.biz",
-      "userGUID": "988a4a78-f947-4118-90ae-fc0c3dc612d8",
-      "phoneNumber": "018-374-1064",
-      "allowEmailNotification": "0",
+      "userListId": 1,
+      "providerId": 2,
+      "crcId": 1,
+      "mockUserId": 1,
+      "firstName": "Alana",
+      "lastName": "Sporer",
+      "patientId": "TI7TtATY",
+      "uuid": "9df70109-0dda-44bf-ab94-91dedc42fe05",
+      "email": "ppe.patient.1@hotmail.com",
+      "phoneNumber": "9493906330",
+      "allowEmailNotification": true,
+      "hasNewReports": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
-      "providers": [
-        {
-          "id": 1,
-          "userName": "madelineHamill",
-          "firstName": "Madeline",
-          "lastName": "Hamill",
-          "email": "Plum@Kris.info",
-          "userGUID": "59ee321e-2fcd-4aac-98ed-46e4136f8f08",
-          "phoneNumber": "9218102877",
-          "allowEmailNotification": "1",
-          "userType": "PPE_PROVIDER",
-          "roleName": "ROLE_PPE_PROVIDER"
-        }
-      ]
+      "dateCreated": 1554877789000
     },
     {
       "id": 5,
-      "userName": "madelineHamill",
-      "firstName": "Madeline",
-      "lastName": "Hamill",
-      "email": "Plum@Kris.info",
-      "userGUID": "59ee321e-2fcd-4aac-98ed-46e4136f8f08",
-      "phoneNumber": "9218102877",
-      "allowEmailNotification": "0",
-      "userType": "PPE_PROVIDER",
-      "roleName": "ROLE_PPE_PROVIDER",
-      "patients": [
-        {
-          "userName": "alfredTromp",
-          "firstName": "Alfred",
-          "lastName": "Tromp",
-          "email": "SkyBlue@Chauncey.tv",
-          "userGUID": "22cfc58c-f9b3-4008-8586-6e122f36a6a7",
-          "phoneNumber": "559-428-5906",
-          "allowEmailNotification": "1",
-          "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
-        },
-        {
-          "userName": "bartholomeGreenfelder",
-          "firstName": "Bartholome",
-          "lastName": "Greenfelder",
-          "email": "MediumSlateBlue@Jewess.tv",
-          "userGUID": "d0fce764-1c20-4d86-92f3-f7e19972ec19",
-          "phoneNumber": "147-164-3905",
-          "allowEmailNotification": "1",
-          "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
-        },
-        {
-          "userName": "thurmanKautzer",
-          "firstName": "Thurman",
-          "lastName": "Kautzer",
-          "email": "CadetBlue@Keagan.biz",
-          "userGUID": "988a4a78-f947-4118-90ae-fc0c3dc612d8",
-          "phoneNumber": "018-374-1064",
-          "allowEmailNotification": "0",
-          "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
-        },
-        {
-          "userName": "gonzaloYost",
-          "firstName": "Gonzalo",
-          "lastName": "Yost",
-          "email": "RoyalBlue@Wiza.org",
-          "userGUID": "d77c10ed-26bd-4ba9-921b-518f52f6aa5e",
-          "phoneNumber": "905-341-7482",
-          "allowEmailNotification": "1",
-          "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
-        },
-        {
-          "userName": "alanaSporer",
-          "firstName": "Alana",
-          "lastName": "Sporer",
-          "email": "LightSteelBlue@Orn.info",
-          "userGUID": "2ad983dd-d265-4325-b083-c16cc1b050aa",
-          "phoneNumber": "9493906330",
-          "allowEmailNotification": "1",
-          "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
-        },
-        {
-          "userName": "yadiraStehr",
-          "firstName": "Yadira",
-          "lastName": "Stehr",
-          "email": "Fuchsia@Elmer.biz",
-          "userGUID": "bd4c2dc8-17f8-43a1-b70f-715274e3ae2b",
-          "phoneNumber": "789-273-2170",
-          "allowEmailNotification": "1",
-          "userType": "PPE_PARTICIPANT",
-          "roleName": "ROLE_PPE_PARTICIPANT"
-        }
-      ]
+      "userListId": 1,
+      "providerId": 1,
+      "crcId": 1,
+      "firstName": "Yadira",
+      "lastName": "Stehr",
+      "patientId": "cwyv9yU7",
+      "email": "Fuchsia@Elmer.biz",
+      "phoneNumber": "789-273-2170",
+      "allowEmailNotification": true,
+      "userType": "PPE_PARTICIPANT",
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1555655389000
     },
     {
       "id": 6,
-      "userName": "chloeKulas",
-      "firstName": "Chloe",
-      "lastName": "Kulas",
-      "email": "DarkGoldenRod@Aimee.info",
-      "userGUID": "4599159c-e3f7-4a95-a4e9-972eb26d2c3b",
-      "phoneNumber": "918-965-0850",
-      "allowEmailNotification": "1",
-      "userType": "PPE_CRC",
-      "roleName": "ROLE_PPE_CRC"
+      "userListId": 1,
+      "crcId": 1,
+      "firstName": "Amaya",
+      "lastName": "Lindgren",
+      "patientId": "22C0PF3K",
+      "email": "Maroon@Lavonne.net",
+      "phoneNumber": "424-660-9024",
+      "allowEmailNotification": true,
+      "userType": "PPE_PARTICIPANT",
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1556173789000
     },
     {
       "id": 7,
-      "userName": "bruceDaniel",
-      "firstName": "Bruce",
-      "lastName": "Daniel",
-      "email": "DarkOliveGreen@Ledner.info",
-      "userGUID": "d02b0233-c9a9-49d0-be20-7bb2b62792cf",
-      "phoneNumber": "985-290-8042",
-      "allowEmailNotification": "1",
-      "userType": "PPE_ADMIN",
-      "roleName": "ROLE_PPE_ADMIN"
+      "userListId": 1,
+      "crcId": 1,
+      "firstName": "Jacques",
+      "lastName": "Sauer",
+      "patientId": "9R7FFbkR",
+      "email": "BurlyWood@Laila.org",
+      "phoneNumber": "288-581-9427",
+      "allowEmailNotification": true,
+      "userType": "PPE_PARTICIPANT",
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1556605789000
     },
     {
       "id": 8,
-      "userName": "theresaEichmann",
-      "firstName": "Theresa",
-      "lastName": "Eichmann",
-      "email": "Peru@Catalina.co.uk",
-      "userGUID": "4a5c6a8a-4abb-4f90-9bdd-329235fd0182",
-      "phoneNumber": "407-459-9972",
-      "allowEmailNotification": "0",
-      "userType": "PPE_PROVIDER",
-      "roleName": "ROLE_PPE_PROVIDER"
+      "userListId": 1,
+      "crcId": 1,
+      "firstName": "Amani",
+      "lastName": "Nader",
+      "patientId": "jhRML9yC",
+      "email": "Indigo @Lakin.info",
+      "phoneNumber": "268-279-7718",
+      "allowEmailNotification": false,
+      "userType": "PPE_PARTICIPANT",
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1561271389000
     },
     {
       "id": 9,
-      "userName": "aniyahMurray",
-      "firstName": "Aniyah",
-      "lastName": "Murray",
-      "email": "Red@Hammes.org",
-      "userGUID": "3dd48ace-70e5-4849-ac1c-f0ab022886ef",
-      "phoneNumber": "289-026-0799",
-      "allowEmailNotification": "1",
-      "userType": "PPE_CRC",
-      "roleName": "ROLE_PPE_CRC"
+      "userListId": 1,
+      "crcId": 1,
+      "mockUserId": 1,
+      "firstName": "Francesco",
+      "lastName": "Altenwerth",
+      "patientId": "ZaxspiqD",
+      "uuid": "4e764406-5062-4034-bcd6-8901f21eb28e",
+      "email": "Teal@Anderson.io",
+      "phoneNumber": "013-546-5388",
+      "allowEmailNotification": true,
+      "userType": "PPE_PARTICIPANT",
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1560320989000,
+      "isActiveBiobankParticipant": false,
+      "dateDeactivated": 1560320999000,
+      "lastRevisedUser": "8b36b0c8-69d0-4042-ae02-03e795b2f0f8"
     },
     {
       "id": 10,
-      "userName": "gonzaloYost",
-      "firstName": "Gonzalo",
-      "lastName": "Yost",
-      "email": "RoyalBlue@Wiza.org",
-      "userGUID": "d77c10ed-26bd-4ba9-921b-518f52f6aa5e",
-      "phoneNumber": "905-341-7482",
-      "allowEmailNotification": "1",
+      "userListId": 1,
+      "providerId": 1,
+      "crcId": 1,
+      "firstName": "Bartholome",
+      "lastName": "Greenfelder",
+      "patientId": "95v4qQ8w",
+      "email": "MediumSlateBlue@Jewess.tv",
+      "phoneNumber": "147-164-3905",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
-      "providers": [
-        {
-          "id": 1,
-          "userName": "madelineHamill",
-          "firstName": "Madeline",
-          "lastName": "Hamill",
-          "email": "Plum@Kris.info",
-          "userGUID": "59ee321e-2fcd-4aac-98ed-46e4136f8f08",
-          "phoneNumber": "9218102877",
-          "allowEmailNotification": "1",
-          "userType": "PPE_PROVIDER",
-          "roleName": "ROLE_PPE_PROVIDER"
-        }
-      ],
-      "reports": [
-        {
-          "id": 1,
-          "reportName": "New Report",
-          "description": "A sort report description",
-          "timestamp": 1564691140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        }
-      ]
+      "dateCreated": 1560148189000,
+      "isActiveBiobankParticipant": false,
+      "dateDeactivated": 1560148199000
     },
     {
       "id": 11,
-      "userName": "alanaSporer",
-      "firstName": "Alana",
-      "lastName": "Sporer",
-      "email": "LightSteelBlue@Orn.info",
-      "userGUID": "2ad983dd-d265-4325-b083-c16cc1b050aa",
-      "phoneNumber": "9493906330",
-      "allowEmailNotification": "1",
+      "userListId": 1,
+      "crcId": 1,
+      "firstName": "Roosevelt",
+      "lastName": "Wiegand",
+      "patientId": "FAXHV8sv",
+      "email": "LightSalmon@Bogan.biz",
+      "phoneNumber": "792-091-2209",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
-      "providers": [
-        {
-          "id": 1,
-          "userName": "madelineHamill",
-          "firstName": "Madeline",
-          "lastName": "Hamill",
-          "email": "Plum@Kris.info",
-          "userGUID": "59ee321e-2fcd-4aac-98ed-46e4136f8f08",
-          "phoneNumber": "9218102877",
-          "allowEmailNotification": "1",
-          "userType": "PPE_PROVIDER",
-          "roleName": "ROLE_PPE_PROVIDER"
-        }
-      ],
-      "reports": [
-        {
-          "id": 1,
-          "reportName": "New Report",
-          "description": "A sort report description",
-          "timestamp": 1564691140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        },
-        {
-          "id": 2,
-          "reportName": "Some Report",
-          "description": "A sort report description",
-          "timestamp": 1562291140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        },
-        {
-          "id": 3,
-          "reportName": "Old Report",
-          "description": "A sort report description",
-          "timestamp": 1551291140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        }
-      ]
+      "dateCreated": 1559197789000
     },
     {
       "id": 12,
-      "userName": "yadiraStehr",
-      "firstName": "Yadira",
-      "lastName": "Stehr",
-      "email": "Fuchsia@Elmer.biz",
-      "userGUID": "bd4c2dc8-17f8-43a1-b70f-715274e3ae2b",
-      "phoneNumber": "789-273-2170",
-      "allowEmailNotification": "1",
+      "userListId": 1,
+      "crcId": 1,
+      "firstName": "Lesly",
+      "lastName": "Nienow",
+      "patientId": "CjPN461M",
+      "email": "LightSteelBlue@Narciso.name",
+      "phoneNumber": "461-257-4088",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
-      "providers": [
-        {
-          "id": 1,
-          "userName": "madelineHamill",
-          "firstName": "Madeline",
-          "lastName": "Hamill",
-          "email": "Plum@Kris.info",
-          "userGUID": "59ee321e-2fcd-4aac-98ed-46e4136f8f08",
-          "phoneNumber": "9218102877",
-          "allowEmailNotification": "1",
-          "userType": "PPE_PROVIDER",
-          "roleName": "ROLE_PPE_PROVIDER"
-        }
-      ],
-      "reports": [
-        {
-          "id": 1,
-          "reportName": "New Report",
-          "description": "A sort report description",
-          "timestamp": 1564691140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        }
-      ]
+      "dateCreated": 1558852189000
     },
     {
       "id": 13,
-      "userName": "amayaLindgren",
-      "firstName": "Amaya",
-      "lastName": "Lindgren",
-      "email": "Maroon@Lavonne.net",
-      "userGUID": "0eeac9ba-305e-483e-949e-a34e5a183c18",
-      "phoneNumber": "424-660-9024",
-      "allowEmailNotification": "1",
+      "userListId": 1,
+      "crcId": 1,
+      "firstName": "Anabel",
+      "lastName": "Heller",
+      "patientId": "giNTNHy6",
+      "email": "BurlyWood@Glover.us",
+      "phoneNumber": "691-599-9221",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1558333789000
     },
     {
       "id": 14,
-      "userName": "jacquesSauer",
-      "firstName": "Jacques",
-      "lastName": "Sauer",
-      "email": "BurlyWood@Laila.org",
-      "userGUID": "bd48433a-7560-471c-8310-163a235cd3bb",
-      "phoneNumber": "288-581-9427",
-      "allowEmailNotification": "1",
+      "userListId": 1,
+      "providerId": 1,
+      "crcId": 1,
+      "mockUserId": 1,
+      "firstName": "Frank",
+      "lastName": "Ali",
+      "patientId": "TJgC11zP",
+      "uuid": "4e764406-5062-4034-bcd6-8901f21eb28d",
+      "email": "frank.ali@publicissapient.com",
+      "phoneNumber": "4245554705",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
+      "roleName": "ROLE_PPE_PARTICIPANT",
+      "dateCreated": 1556778589000
     },
     {
       "id": 15,
-      "userName": "amaniNader",
-      "firstName": "Amani",
-      "lastName": "Nader",
-      "email": "Indigo @Lakin.info",
-      "userGUID": "9176e4a3-6ba6-4453-b6dc-e131533d8dc9",
-      "phoneNumber": "268-279-7718",
-      "allowEmailNotification": "0",
-      "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
-    },
-    {
-      "id": 16,
-      "userName": "mayraHilll",
-      "firstName": "Mayra",
-      "lastName": "Hilll",
-      "email": "Cyan@Cyril.biz",
-      "userGUID": "26e74f2a-1700-42b5-af4d-af617521e9e7",
-      "phoneNumber": "004-443-1596",
-      "allowEmailNotification": "0",
-      "userType": "PPE_PROVIDER",
-      "roleName": "ROLE_PPE_PROVIDER"
-    },
-    {
-      "id": 17,
-      "userName": "francescoAltenwerth",
-      "firstName": "Francesco",
-      "lastName": "Altenwerth",
-      "email": "Teal@Anderson.io",
-      "userGUID": "5500be85-ade3-4997-91df-f1123defaf60",
-      "phoneNumber": "013-546-5388",
-      "allowEmailNotification": "1",
-      "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
-    },
-    {
-      "id": 18,
-      "userName": "bartholomeGreenfelder",
-      "firstName": "Bartholome",
-      "lastName": "Greenfelder",
-      "email": "MediumSlateBlue@Jewess.tv",
-      "userGUID": "d0fce764-1c20-4d86-92f3-f7e19972ec19",
-      "phoneNumber": "147-164-3905",
-      "allowEmailNotification": "1",
+      "userListId": 1,
+      "crcId": 1,
+      "firstName": "",
+      "lastName": "",
+      "patientId": "giNTNHy7",
+      "email": "",
+      "phoneNumber": "",
+      "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
-      "providers": [
-        {
-          "id": 1,
-          "userName": "madelineHamill",
-          "firstName": "Madeline",
-          "lastName": "Hamill",
-          "email": "Plum@Kris.info",
-          "userGUID": "59ee321e-2fcd-4aac-98ed-46e4136f8f08",
-          "phoneNumber": "9218102877",
-          "allowEmailNotification": "1",
-          "userType": "PPE_PROVIDER",
-          "roleName": "ROLE_PPE_PROVIDER"
-        }
-      ],
-      "reports": [
-        {
-          "id": 1,
-          "reportName": "New Report",
-          "description": "A sort report description",
-          "timestamp": 1564691140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        },
-        {
-          "id": 2,
-          "reportName": "Another Report",
-          "description": "A sort report description",
-          "timestamp": 1564561140370,
-          "s3Url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-        }
-      ]
+      "dateCreated": 1558333789000,
+      "portalAccountStatus": "ACCT_NEW"
+    }
+  ],
+  "providers": [
+    {
+      "id": 1,
+      "userListId": 1,
+      "crcId": 1,
+      "mockUserId": 1,
+      "firstName": "Madeline",
+      "lastName": "Hamill",
+      "uuid": "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
+      "email": "ppe.provider1@yahoo.com",
+      "phoneNumber": "9218102877",
+      "allowEmailNotification": false,
+      "userType": "PPE_PROVIDER",
+      "roleName": "ROLE_PPE_PROVIDER",
+      "dateCreated": 1550647789000
     },
     {
-      "id": 19,
-      "userName": "rooseveltWiegand",
-      "firstName": "Roosevelt",
-      "lastName": "Wiegand",
-      "email": "LightSalmon@Bogan.biz",
-      "userGUID": "eb2f3b77-6bbb-42af-b840-ef954e0fb291",
-      "phoneNumber": "792-091-2209",
-      "allowEmailNotification": "1",
-      "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
+      "id": 2,
+      "userListId": 1,
+      "crcId": 1,
+      "firstName": "Mayra",
+      "lastName": "Hill",
+      "email": "Cyan@Cyril.biz",
+      "phoneNumber": "004-443-1596",
+      "allowEmailNotification": false,
+      "userType": "PPE_PROVIDER",
+      "roleName": "ROLE_PPE_PROVIDER",
+      "dateCreated": 1560839389000
+    }
+  ],
+  "crcs": [
+    {
+      "id": 1,
+      "userListId": 1,
+      "mockUserId": 1,
+      "firstName": "Chloe",
+      "lastName": "Kulas",
+      "uuid": "8b36b0c8-69d0-4042-ae02-03e795b2f0f8",
+      "email": "DarkGoldenRod@Aimee.info",
+      "phoneNumber": "918-965-0850",
+      "allowEmailNotification": true,
+      "userType": "PPE_CRC",
+      "roleName": "ROLE_PPE_CRC",
+      "dateCreated": 1553063389000
     },
     {
-      "id": 20,
-      "userName": "leslyNienow",
-      "firstName": "Lesly",
-      "lastName": "Nienow",
-      "email": "LightSteelBlue@Narciso.name",
-      "userGUID": "900f3f4b-575d-4520-847e-aa295a094fe9",
-      "phoneNumber": "461-257-4088",
-      "allowEmailNotification": "1",
-      "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
-    },
+      "id": 2,
+      "userListId": 1,
+      "firstName": "Aniyah",
+      "lastName": "Murray",
+      "email": "Red@Hammes.org",
+      "phoneNumber": "289-026-0799",
+      "allowEmailNotification": true,
+      "userType": "PPE_CRC",
+      "roleName": "ROLE_PPE_CRC",
+      "dateCreated": 1554100189000
+    }
+  ],
+  "bsscs": [
     {
-      "id": 21,
-      "userName": "anabelHeller",
-      "firstName": "Anabel",
-      "lastName": "Heller",
-      "email": "BurlyWood@Glover.us",
-      "userGUID": "b7f52021-15bc-442e-898f-80ff0ae67c06",
-      "phoneNumber": "691-599-9221",
-      "allowEmailNotification": "1",
-      "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
-    },
+      "id": 1,
+      "userListId": 1,
+      "mockUserId": 1,
+      "firstName": "Katlynn",
+      "lastName": "Price",
+      "uuid": "8d85a263-b346-41e8-bf2f-4163b4c5f467",
+      "email": "BlueViolet@Cody.org",
+      "phoneNumber": "",
+      "allowEmailNotification": false,
+      "userType": "PPE_BSSC",
+      "roleName": "ROLE_PPE_BSSC",
+      "dateCreated": 1548746989000
+    }
+  ],
+  "mochaAdmins": [
     {
-      "id": 22,
-      "userName": "emelieFranecki",
+      "id": 1,
+      "userListId": 1,
+      "mockUserId": 1,
       "firstName": "Emelie",
       "lastName": "Franecki",
-      "email": "Salmon@Zemlak.biz",
-      "userGUID": "f720a7ff-3129-4545-b9d2-f446dbefec2e",
+      "uuid": "877fd0f1-29dc-4a47-9468-371b91836831",
+      "email": "ppe.mocha@aol.com",
       "phoneNumber": "783-222-5215",
-      "allowEmailNotification": "0",
-      "userType": "PPE_PARTICIPANT",
-      "roleName": "ROLE_PPE_PARTICIPANT"
+      "allowEmailNotification": false,
+      "userType": "PPE_MOCHA_ADMIN",
+      "roleName": "ROLE_PPE_MOCHA_ADMIN",
+      "dateCreated": 1556778589000
     },
     {
-      "id": 23,
-      "userName": "olaCollier",
+      "id": 2,
+      "userListId": 1,
       "firstName": "Ola",
       "lastName": "Collier",
       "email": "Thistle@Rosalind.biz",
-      "userGUID": "b36284a2-cecf-4756-996c-abb0d8ba652c",
       "phoneNumber": "424-533-4748",
-      "allowEmailNotification": "0",
-      "userType": "PPE_PROVIDER",
-      "roleName": "ROLE_PPE_PROVIDER"
+      "allowEmailNotification": false,
+      "userType": "PPE_MOCHA_ADMIN",
+      "roleName": "ROLE_PPE_MOCHA_ADMIN",
+      "dateCreated": 1556778589000
+    }
+  ],
+  "admins": [
+    {
+      "id": 1,
+      "userListId": 1,
+      "mockUserId": 1,
+      "firstName": "Angelita",
+      "lastName": "Weber",
+      "uuid": "3baf314f-9498-4b0c-8f74-6828f728982e",
+      "email": "Lavender@Maeve.biz",
+      "phoneNumber": "430-868-6925",
+      "allowEmailNotification": true,
+      "userType": "PPE_ADMIN",
+      "roleName": "ROLE_PPE_ADMIN",
+      "dateCreated": 1549265389000
+    },
+    {
+      "id": 2,
+      "userListId": 1,
+      "firstName": "Bruce",
+      "lastName": "Daniel",
+      "email": "DarkOliveGreen@Ledner.info",
+      "phoneNumber": "985-290-8042",
+      "allowEmailNotification": true,
+      "userType": "PPE_ADMIN",
+      "roleName": "ROLE_PPE_ADMIN",
+      "dateCreated": 1553236189000
+    }
+  ],
+  "notifications": [
+    {
+      "id": 1,
+      "patientId": 4,
+      "portalNotificationId": 1,
+      "from": "Madeline Hamill, Dr. of Oncology, at [BSS Name]",
+      "subject": "Notification Title",
+      "message": "Test Message",
+      "dateGenerated": 1555309789000
+    },
+    {
+      "id": 2,
+      "patientId": 4,
+      "portalNotificationId": 2,
+      "from": "Madeline Hamill, Dr. of Oncology, at [BSS Name]",
+      "subject": "Welcome to PPE",
+      "message": "Thank you for participating in the Cancer Moonshot Biobank Program!",
+      "dateGenerated": 1554964189000
+    },
+    {
+      "id": 3,
+      "patientId": 4,
+      "portalNotificationId": 3,
+      "from": "MOCHA Labs",
+      "subject": "We added a biomarker report to Marco's account",
+      "message": "<p>Dear Marco,</p><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"83.44\">We added&nbsp;a biomarker report to Marco's account.&nbsp;Log into&nbsp;the PPE&nbsp;Portal to view&nbsp;this report.&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"83.44\"><h3 data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"50.82\"><strong>Why&nbsp;is this&nbsp;important?</strong></h3><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"123.02000000000001\">Your biomarker&nbsp;report&nbsp;may&nbsp;inform your treatment.&nbsp;Each&nbsp;report&nbsp;is available&nbsp;to the patient, their&nbsp;provider, and&nbsp;a family member if they&nbsp;have&nbsp;been added to the patient&nbsp;account.</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"123.02000000000001\">&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"123.02000000000001\"><h3 data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"187.43666666666667\"><strong>What action should I&nbsp;take?</strong></h3><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"176.54\"><strong>For patients and family&nbsp;members</strong>&nbsp;:&nbsp;set up a time to talk with your&nbsp;provider about these results.</div><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"102.22\"><strong>For providers</strong>&nbsp;: review the&nbsp;report&nbsp;and any supporting&nbsp;NCI materials to determine&nbsp;whether or not you&nbsp;should&nbsp;alter your&nbsp;patient&rsquo;s treatment.</div><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"102.22\">&nbsp;</div><div data-font-name=\"g_d0_f1\" data-angle=\"0\" data-canvas-width=\"102.22\"><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"45.24\">If you&nbsp;have&nbsp;questions,&nbsp;you can&nbsp;reply to this&nbsp;email or&nbsp;call us at (202) 000 &ndash; 0000.</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"258.5\">&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"258.5\">Thank you for participating in the&nbsp;Cancer&nbsp;Moonshot&nbsp;Biobank Program!</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"41.559999999999995\">&nbsp;</div><div data-font-name=\"g_d0_f2\" data-angle=\"0\" data-canvas-width=\"41.559999999999995\">NCI&nbsp;Program Staff</div></div></div></div>",
+      "dateGenerated": 1556000989000
+    },
+    {
+      "id": 4,
+      "patientId": 14,
+      "portalNotificationId": 1,
+      "from": "Madeline Hamill, Dr. of Oncology, at [BSS Name]",
+      "subject": "Notification Title",
+      "message": "Test Message",
+      "dateGenerated": 1555309789000,
+      "viewedByUser": 1
+    }
+  ],
+  "reports": [
+    {
+      "id": 1,
+      "patientId": 1,
+      "fileName": "New Report",
+      "description": "A sort report description",
+      "uploadedFileType": "PPE_FILETYPE_BIOMARKER_REPORT",
+      "uploadedBy": "877fd0f1-29dc-4a47-9468-371b91836831",
+      "dateUploaded": 1567751389000,
+      "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44e"
+    },
+    {
+      "id": 2,
+      "patientId": 1,
+      "fileName": "One_long_report_title_that_needs_wrapping_08-28-2019",
+      "description": "A sort report description",
+      "uploadedFileType": "PPE_FILETYPE_BIOMARKER_REPORT",
+      "uploadedBy": "877fd0f1-29dc-4a47-9468-371b91836831",
+      "dateUploaded": 1567924189000,
+      "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44f",
+      "viewedBy": [
+        "8ad6c624-ad65-4b1d-848e-4b4f590788e3"
+      ]
+    },
+    {
+      "id": 3,
+      "patientId": 14,
+      "fileName": "New Report",
+      "description": "A sort report description",
+      "uploadedFileType": "PPE_FILETYPE_BIOMARKER_REPORT",
+      "uploadedBy": "877fd0f1-29dc-4a47-9468-371b91836831",
+      "dateUploaded": 1555136989000,
+      "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44g",
+      "viewedBy": [
+        "8ad6c624-ad65-4b1d-848e-4b4f590788e3"
+      ]
+    },
+    {
+      "id": 4,
+      "patientId": 4,
+      "fileName": "New Report",
+      "description": "A sort report description",
+      "uploadedFileType": "PPE_FILETYPE_BIOMARKER_REPORT",
+      "uploadedBy": "877fd0f1-29dc-4a47-9468-371b91836831",
+      "dateUploaded": 1556000989000,
+      "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb2"
+    },
+    {
+      "id": 5,
+      "patientId": 4,
+      "fileName": "Another New Report",
+      "description": "A sort report description",
+      "uploadedFileType": "PPE_FILETYPE_BIOMARKER_REPORT",
+      "uploadedBy": "877fd0f1-29dc-4a47-9468-371b91836831",
+      "dateUploaded": 1555136989000,
+      "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb3"
+    },
+    {
+      "id": 6,
+      "patientId": 4,
+      "fileName": "Some Report",
+      "description": "A sort report description",
+      "uploadedFileType": "PPE_FILETYPE_BIOMARKER_REPORT",
+      "uploadedBy": "877fd0f1-29dc-4a47-9468-371b91836831",
+      "dateUploaded": 1556087389000,
+      "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb4"
+    },
+    {
+      "id": 7,
+      "patientId": 4,
+      "fileName": "Old Report",
+      "description": "A sort report description",
+      "uploadedFileType": "PPE_FILETYPE_BIOMARKER_REPORT",
+      "uploadedBy": "877fd0f1-29dc-4a47-9468-371b91836831",
+      "dateUploaded": 1556087389370,
+      "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb5",
+      "viewedBy": [
+        "9df70109-0dda-44bf-ab94-91dedc42fe05",
+        "8ad6c624-ad65-4b1d-848e-4b4f590788e3"
+      ]
+    },
+    {
+      "id": 8,
+      "patientId": 4,
+      "fileName": "report (2).pdf",
+      "uploadedFileType": "PPE_FILETYPE_BIOMARKER_REPORT",
+      "uploadedBy": "877fd0f1-29dc-4a47-9468-371b91836831",
+      "description": "",
+      "dateUploaded": 1569942000863,
+      "fileGUID": "7fc90817-a089-4632-989f-bdf021c095b9",
+      "viewedBy": [
+        "8ad6c624-ad65-4b1d-848e-4b4f590788e3"
+      ]
+    },
+    {
+      "id": 9,
+      "patientId": 5,
+      "fileName": "New Report",
+      "description": "A sort report description",
+      "uploadedFileType": "PPE_FILETYPE_BIOMARKER_REPORT",
+      "uploadedBy": "877fd0f1-29dc-4a47-9468-371b91836831",
+      "dateUploaded": 1556000989000,
+      "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44h",
+      "viewedBy": [
+        "8ad6c624-ad65-4b1d-848e-4b4f590788e3"
+      ]
+    },
+    {
+      "id": 10,
+      "patientId": 9,
+      "fileName": "Test Results.pdf",
+      "description": "",
+      "uploadedFileType": "PPE_FILETYPE_BIOMARKER_REPORT",
+      "uploadedBy": "877fd0f1-29dc-4a47-9468-371b91836831",
+      "dateUploaded": 1569941084340,
+      "fileGUID": "91444ed9-cd1f-43d8-8b08-f468c509a44d"
+    }
+  ],
+  "otherDocuments": [
+    {
+      "id": 1,
+      "patientId": 2,
+      "uploadedBy": "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
+      "fileName": "Consent Form.pdf",
+      "uploadedFileType": "PPE_FILETYPE_ECONSENT_FORM",
+      "description": "",
+      "dateUploaded": 1570035150592,
+      "fileGUID": "309fb3b2-b23e-4ad0-8632-53a8916fa0e4"
+    },
+    {
+      "id": 2,
+      "patientId": 4,
+      "fileName": "Consent Form.pdf",
+      "uploadedFileType": "PPE_FILETYPE_ECONSENT_FORM",
+      "description": "A sort description",
+      "dateUploaded": 1555959689000,
+      "fileGUID": "bccc161f-4f61-4e21-8114-9968bc740eb2",
+      "viewedBy": []
+    },
+    {
+      "id": 3,
+      "patientId": 14,
+      "uploadedBy": "8ad6c624-ad65-4b1d-848e-4b4f590788e3",
+      "fileName": "Account Settings.pdf",
+      "uploadedFileType": "PPE_FILETYPE_ECONSENT_FORM",
+      "description": "",
+      "dateUploaded": 1569941461150,
+      "fileGUID": "a0d76330-3e10-424b-9a4a-b8d5f0c2b601"
+    }
+  ],
+  "questionAnswers": [
+    {
+      "id": 1,
+      "patientId": 9,
+      "questionOrder": 1,
+      "question": "Program can continue to use samples already collected",
+      "answer": "Yes"
+    },
+    {
+      "id": 2,
+      "patientId": 9,
+      "questionOrder": 2,
+      "question": "Program can keep collecting relevant data from patient medical record",
+      "answer": "Yes"
+    },
+    {
+      "id": 3,
+      "patientId": 9,
+      "questionOrder": 3,
+      "question": "Reason for leaving the Biobank",
+      "answer": "Because I don't want to participate anymore."
+    }
+  ],
+  "userLists": [
+    {
+      "id": 1,
+      "description": "This stub will include all users who have a `'userListId': 1` key entry. This is intended for all"
     }
   ],
   "mockUsers": [
-    "alanaSporer",
-    "madelineHamill",
-    "chloeKulas",
-    "katlynnPrice",
-    "angelitaWeber",
-    "thurmanKautzer"
+    {
+      "id": 1,
+      "description": "This stub will include all users who have a `'mockUserId': 1` key entry"
+    }
   ],
   "token": {
     "token": "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoidGVzdCIsImlzcyI6Im1kYXMyIiwiZXhwIjoxNTYzOTk5MTk4LCJ1c2VybmFtZSI6IlRvbURpY2tBbmRIYXJyeSJ9.BglervXAFiPGDtMCptVAMrBFkmduxJ63635l_twhJMjurJFqKJS7G4WqU6SUerIP8RgQBatNo-pp-QO1QXZs80Cw0iDrwL9myc4H94v7ZjTWhKnVgaYkB4_bSEY6bwpd0qldnOiiAPYSWHDExaPFHvOSDp-BsYCMgVd0V4T_9w2uNBGAGux0r7fdSBSvgjyTgr0SzIgaSuD3EybpfcJwuxmI0VbSrSiQDrirpCGZb3EeI-EYcOXn6IoUxSDl9726yTD9cHdNz0IrHb5HViZJKt9tcGVDENeGGrn7yMHj2pnhhRbtFGVi-SBvgLEkYWd4c4B4Pflq26aBozS4txwjrg"

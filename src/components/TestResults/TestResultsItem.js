@@ -1,22 +1,31 @@
-import React from 'react'
-import { Card, CardActions, CardContent, Grid, Typography, Button, Link } from '@material-ui/core';
+import React, { useContext, useState } from 'react'
+import { Badge, Card, CardActions, CardContent, Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   GetApp as GetAppIcon,
   Launch as LaunchIcon
-} from '@material-ui/icons';
+} from '@material-ui/icons'
 import moment from 'moment'
 
-const useStyles = makeStyles(theme => ({
-  paper: {
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(1)
-  },
-  card: {
+import { api } from '../../data/api'
+import { LoginContext } from '../login/Login.context'
+import ConditionalWrapper from '../utils/ConditionalWrapper'
+import { getBool } from '../../utils/utils'
 
+const useStyles = makeStyles(theme => ({
+  card: {
+    position: 'relative',
+    justifyContent: 'space-between',
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: theme.spacing(2),
+    padding: theme.spacing(2,1),
   },
   cardAction: {
     justifyContent: 'space-between',
+    borderTop: `1px solid ${theme.palette.grey[300]}`,
+    margin: theme.spacing(0,2),
+    padding: theme.spacing(2,0,0,0),
 
     '& a:last-of-type': {
       alignSelf: 'flex-end'
@@ -28,30 +37,156 @@ const useStyles = makeStyles(theme => ({
     '& $card': {
       height: '100%'
     }
+  },
+  fileTitle: {
+    wordBreak: 'break-all'
+  },
+  icon: {
+    marginRight: '4px'
+  },
+  badge: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
   }
 }))
 
-const TestResultsItem = ({report}) => {
+const TestResultsItem = (props) => {
+  const {report, noBadge, patientId} = props
   const classes = useStyles()
-  const {reportName, timestamp, s3Url} = report
+  const [loginContext, dispatch] = useContext(LoginContext)
+  const {uuid, env, token} = loginContext
+  const {fileName, dateUploaded, fileGUID} = report
+  const [isNewReport, setIsNewReport] = useState(report.viewedBy ? !report.viewedBy.includes(uuid) : true)
+
+  // response header example to parse
+  //Content-Disposition: attachment; filename=dummy_PatientReport - Copy8322721829336469280.pdf
+
+  const handleViewReport = (e) => {
+    e.preventDefault()
+    const download = e.currentTarget.dataset.download
+    const reportId = e.currentTarget.dataset.reportid
+    let filename
+    let win
+
+    // set up new tab window before fetch call
+    if(!download) {
+      win = window.open("", "reportId")
+      win.document.title = "View Report"
+      win.document.body.style.margin = 0
+    }
+
+    api[env].fetchPatientReport({reportId, token})
+      .then(resp => {
+        try{
+          const disposition = resp.headers.get('Content-Disposition')
+          filename = disposition ? disposition.replace(/.*filename=(.*\.pdf$)/,'$1') : 'report.pdf'
+          return resp.blob()
+        } catch(error) {
+          throw new Error(error)
+        }
+      })
+      .then(blob => {
+        // const file = new Blob([resp], {type: "application/pdf"})
+
+        // you can only trigger save in IE - viewing blob data not supported
+        // TODO: conditionally show "View" for IE browser
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+          window.navigator.msSaveOrOpenBlob(blob);
+          return;
+        } 
+        // create url reference to blob buffer
+        const fileData = window.URL.createObjectURL(blob);
+
+        // trigger download or render blob buffer to new window
+        if(download) {
+          const link = document.createElement('a');
+          link.style.display = 'none';
+          document.body.appendChild(link);
+          link.download = filename
+          link.href = fileData
+          link.click();
+          document.body.removeChild(link);
+        } else {
+          win.document.body.innerHTML = `<embed src='${fileData}' type='application/pdf' width='100%' height='100%' />`
+        }
+
+        // ensure blob buffer is cleared for garbage collection
+        setTimeout(function(){
+          // For Firefox it is necessary to delay revoking the ObjectURL
+          window.URL.revokeObjectURL(fileData);
+        }, 100);
+      })
+      .then(() => {
+        // mark this report as viewed in database
+        api[env].reportViewedBy({patientId, uuid, reportId, token})
+        .then(resp => {
+          if(resp instanceof Error) {
+            console.error(resp.message)
+          } else {
+            // mark as viewed in front-end state
+            setIsNewReport(false)
+
+            // update participant state
+            if(!patientId) {
+              const updatedReports = loginContext.reports.map((report,i) => {
+                if(report.fileGUID === reportId) {
+                  const viewedBy = report.viewedBy || []
+                  return {
+                    ...report,
+                    viewedBy: [...new Set([...viewedBy, uuid])]
+                  }
+                }
+                return report
+              })
+
+              dispatch({
+                type: 'reportViewedByPatient',
+                reports: updatedReports,
+                uuid
+              })
+            }
+            // update user roles that can view this patient's reports
+            else {
+              const updatedPatients = loginContext.patients.map((patient,i) => {
+                const badgesOnPage = document.querySelectorAll('#reports .MuiBadge-root')
+                if(patient.patientId === patientId) {
+                  return {
+                    ...patient,
+                    hasNewReports: getBool(badgesOnPage.length)
+                  }
+                }
+                return patient
+              })
+              
+              dispatch({
+                type: 'reportViewedByOther',
+                patients: updatedPatients
+              })
+            }
+          }
+        })
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }
 
   return (
-    <Grid className={classes.gridItem} item>
-      <Card className={classes.card}>
+    <Card className={classes.card}>
+      <ConditionalWrapper
+        condition={noBadge ? false : isNewReport}
+        wrapper={children => <Badge className={classes.badge} badgeContent="new document" component="div">{children}</Badge>}>
         <CardContent>
-        <Typography variant="h4">{reportName}</Typography>
-        <Typography>{moment(timestamp).format("MMM Do YYYY")}</Typography>
+          <Typography className={classes.fileTitle} variant="h3" component="h3">{fileName}</Typography>
+          <Typography>Uploaded {moment(dateUploaded).format("MMM DD, YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
-          <Link href={`/assets/documents/important-document.pdf`} rel="noopener noreferrer" target="_blank" underline="none">
-            <Button color="primary" variant="text"><LaunchIcon />View</Button>
-          </Link>
-          <Link href={`/assets/documents/important-document.pdf`} download="important-document.pdf" underline="none">
-            <Button color="primary" variant="text"><GetAppIcon />Download</Button>
-          </Link>
+          <Button color="primary" variant="text" data-reportid={fileGUID} onClick={handleViewReport}><LaunchIcon className={classes.icon} /> View</Button>
+          <Button color="primary" variant="text" data-download data-reportid={fileGUID} onClick={handleViewReport}><GetAppIcon className={classes.icon}  /> Download</Button>
         </CardActions>
-      </Card>
-    </Grid>
+      </ConditionalWrapper>
+    </Card>
   )
 }
 

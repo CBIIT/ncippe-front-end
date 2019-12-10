@@ -1,8 +1,8 @@
-import React from 'react';
-import { Container, Typography, Button } from '@material-ui/core';
+import React from 'react'
+import { navigate } from '@reach/router'
+import { Container, Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { Link, navigate } from '@reach/router';
-import { Close } from '@material-ui/icons'
+import { ArrowBack } from '@material-ui/icons'
 
 const useStyles = makeStyles(theme => ({
   Breadcrumbs: {
@@ -11,36 +11,34 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: theme.spacing(3),
-    marginBottom: theme.spacing(2),
-    width: 'auto',
-    backgroundColor: theme.palette.common.white,
-    boxShadow: theme.shadows[1]
   },
-  pipe: {
-    padding: `0 ${theme.spacing(2)}px`
-  },
-  close: {
-    float: 'right',
+  back: {
+    marginLeft: theme.spacing(4),
+    fontSize: theme.typography.h6.fontSize,
+    lineHeight: 0,
     textTransform: 'none',
-    fontSize: theme.typography.h6.fontSize
+  },
+  backIcon: {
+    marginRight: theme.spacing(1)
   }
 }))
 
 const Breadcrumbs = (props) => {
-  const classes = useStyles();
-  const handleClick = (event) => {
-    navigate('/dashboard')
+  const classes = useStyles()
+  const handleClick = () => {
+    if(props.link) {
+      navigate(props.link)
+    } else {
+      window.history.back()
+    }
   }
   return (
     <Container className={classes.Breadcrumbs}>
-      <Typography variant="h5" component="p">
-        <Link to="/dashboard">Home</Link> <span className={classes.pipe}>|</span> {props.pageName}
+      <Typography>
+        <Button className={classes.back} color="primary" variant="text" onClick={handleClick}><ArrowBack className={classes.backIcon} /> Back</Button>
       </Typography>
-      
-      <Button variant="text" color="primary" size="large" className={classes.close} onClick={handleClick}><Close/>Close</Button>
-      
     </Container>
   )
 }
 
-export default Breadcrumbs;
+export default Breadcrumbs

@@ -1,45 +1,272 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
+import { Link as RouterLink, navigate } from "@reach/router"
+import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
 import { 
+  Box,
+  Button,
   Container,
+  Drawer,
+  IconButton,
+  InputAdornment,
   Link,
-  Typography, 
+  TextField
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
-import { Link as RouterLink } from "@reach/router"
+import { 
+  MenuRounded as MenuIcon,
+  Search as SearchIcon,
+  Clear as ClearIcon,
+} from '@material-ui/icons'
 
-import LoginButton from '../../login/SharedLogin/LoginButton'
+import LoginButton from '../../login/LoginButton'
+import MenuGroup from './MenuGroup';
+import ExpansionMenu from '../../ExpansionMenu/ExpansionMenu'
+import Search from '../../Search/Search'
 
 const useStyles = makeStyles(theme => ({
+  root: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    paddingRight: theme.spacing(1),
+    [theme.breakpoints.up('smLandscape')]: {
+      marginTop: 0,
+      marginBottom: 0,
+      paddingRight: theme.spacing(3)
+    }
+  },
   appToolbarContainer: {
     display: 'flex',
     alignItems: 'center',
+    padding: 0
   },
   toolbarLogo: {
     flexGrow: 1,
     maxHeight: 50,
     margin: 0,
-    marginTop: theme.spacing(3),
-
+    
     '& img': {
       height: 50,
       width: 'auto',
+      maxWidth: '100%',
     },
   },
+  headerLink: {
+    color: theme.palette.grey[800],
+    marginRight: theme.spacing(1),
+    
+    '&:hover': {
+      color: theme.palette.grey[900],
+      fontWeight: 600
+    }
+  },
+  publicNavDesktop: {
+    display: 'flex',
+    position: 'relative',
+    margin: theme.spacing(0,2),
+    minHeight: 82,
+    '& button': {
+      fontFamily: '"Open Sans", Montserrat, Helvetica, Arial, sans-serif',
+    },
+    '& button:hover': {
+      backgroundColor: 'transparent',
+    },
+  },
+  closeMobileMenu: {
+    textAlign: 'right',
+    borderBottom: '1px solid #dbdada'
+  },
+  mobileLogin: {
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: theme.palette.grey.xlight,
+    padding: theme.spacing(2,7),
+  },
+  mobileSearch: {
+    backgroundColor: theme.palette.grey.xlight,
+    padding: theme.spacing(3,2),
+    textAlign: 'right',
+    borderBottom: '1px solid #dbdada',
+    '& .MuiFormControl-root': {
+      width: '100%',
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: theme.palette.grey.medium,
+    },
+    '& button': {
+      margin: theme.spacing(2,0,0)
+    }
+  }
 }))
 
 const Header = () => {
   const classes = useStyles()
+  const loc = window.location.pathname
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 800)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [expanded, setExpanded] = useState(loc)
+  const [isDisabled, setIsDisabled] = useState(true)
+  const { t } = useTranslation('common')
+  const { trackEvent } = useTracking()
+
+  // TODO: set active state on nav menu items based on site location
+
+  useEffect(() => {
+    const resizeEvt = () => {
+      setIsMobile(window.innerWidth < 800)
+    }
+    window.addEventListener('resize', resizeEvt, {passive: true})
+    //clean up
+    return () => window.removeEventListener('resize', resizeEvt, {passive: true})
+  },[isMobile])
+
+  const toggleDrawer = event => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setMenuOpen(prev => !prev)
+  }
+
+  const expandPanel = (event, newExpanded) => {
+    const id = event.currentTarget.id
+    setExpanded(newExpanded ? id : "")
+    trackEvent({
+      prop53: `BioBank_TopNav|${event.target.textContent}`,
+      eVar53: `BioBank_TopNav|${event.target.textContent}`,
+      events: 'event26'
+    })
+  }
+
+  const closeMenu = (event) => {
+    setMenuOpen(prev => !prev)
+    if(!event.target.closest('#closeMobileMenu')){
+      trackEvent({
+        prop53: `BioBank_TopNav|${event.target.closest("ul").dataset.panelgroup}|${event.target.textContent}`,
+        eVar53: `BioBank_TopNav|${event.target.closest("ul").dataset.panelgroup}|${event.target.textContent}`,
+        events:'event28'
+      })
+    }
+  }
+
+  const handleSearchInputChange = (e) => {
+    const input = e.target.value
+    if(input.length > 1) {
+      setIsDisabled(false)
+    } else (
+      setIsDisabled(true)
+    )
+  }
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault()
+    // send the search terms to the search results page
+    navigate('/search', {state: {
+      term: e.target.mobileSearch.value
+    }})
+  }
+
+  const trackClick = (e) => {
+    trackEvent({
+      prop53: 'BioBank_TopNav|Logo',
+      eVar53: 'BioBank_TopNav|Logo',
+      events: 'event26'
+    })
+  }
+
   return (
-    <Typography component="header">
-      <Container className={classes.appToolbarContainer}>
+    <Container component="header" className={classes.root}>
+      <Box className={classes.appToolbarContainer}>
         <figure className={classes.toolbarLogo}>
-          <Link component={RouterLink} to='/'>
-            <img src={`/${process.env.PUBLIC_URL}assets/images/nci-ppe-logo.svg`} alt='NCI PPE logo' title='NCI Patient and Provider Engagement Portal' />
+          <Link component={RouterLink} to='/' onClick={trackClick}>
+            <img src={`/${process.env.PUBLIC_URL}assets/images/biobank-logo.svg`} alt={t('logo.alt_text')} title={t('logo.title')} />
           </Link>
         </figure>
-        <LoginButton />
-      </Container>
-    </Typography>
+        {!isMobile && (
+          <nav className={classes.publicNavDesktop}>
+            <MenuGroup title={t('nav.topLevel.about')} active={loc.includes('about')}>
+              <a href="/about">{t('nav.about')}</a>
+              <a href="/about/eligibility">{t('nav.eligibility')}</a>
+              <a href="/about/research">{t('nav.research')}</a>
+            </MenuGroup>
+            <MenuGroup title={t('nav.topLevel.expect')} active={loc.includes('expect')}>
+              <a href="/expect/consent">{t('nav.consent')}</a>
+              <a href="/expect/donate">{t('nav.donate')}</a>
+              <a href="/expect/testing">{t('nav.testing')}</a>
+            </MenuGroup>
+            <MenuGroup title={t('nav.topLevel.participation')} active={loc.includes('participation')}>
+              <a href="/participation/activate">{t('nav.activate')}</a>
+              <a href="/participation/privacy">{t('nav.privacy')}</a>
+            </MenuGroup>
+            <Search />
+          </nav>
+        )}
+
+        {isMobile ? <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer}><MenuIcon /></IconButton> : <LoginButton />}
+        
+      </Box>
+      {isMobile && (
+      <Drawer anchor="right" open={menuOpen} onClose={toggleDrawer}>
+        <Box className={classes.closeMobileMenu}>
+          <IconButton aria-label={t('button.close')} onClick={closeMenu} id="closeMobileMenu"><ClearIcon /></IconButton>
+        </Box>
+        <nav>
+          <Box className={classes.mobileLogin}>
+            <LoginButton />
+          </Box>
+          <ExpansionMenu
+            handleClick={expandPanel}
+            expanded={expanded.includes("about")}
+            active={loc.includes('about')}
+            name={t('nav.topLevel.about')}
+            id="about"
+          >
+            <a onClick={closeMenu} href="/about">{t('nav.about')}</a>
+            <a onClick={closeMenu} href="/about/eligibility">{t('nav.eligibility')}</a>
+            <a onClick={closeMenu} href="/about/research">{t('nav.research')}</a>
+          </ExpansionMenu>
+
+          <ExpansionMenu
+            handleClick={expandPanel}
+            expanded={expanded.includes("expect")}
+            active={loc.includes('expect')}
+            name={t('nav.topLevel.expect')}
+            id="expect"
+          >
+            <a onClick={closeMenu} href="/expect/consent">{t('nav.consent')}</a>
+            <a onClick={closeMenu} href="/expect/donate">{t('nav.donate')}</a>
+            <a onClick={closeMenu} href="/expect/testing">{t('nav.testing')}</a>
+          </ExpansionMenu>
+
+          <ExpansionMenu
+            handleClick={expandPanel}
+            expanded={expanded.includes("participation")}
+            active={loc.includes('participation')}
+            name={t('nav.topLevel.participation')}
+            id="participation"
+          >
+            <a onClick={closeMenu} href="/participation/activate">{t('nav.activate')}</a>
+            <a onClick={closeMenu} href="/participation/privacy">{t('nav.privacy')}</a>
+          </ExpansionMenu>
+          <Box className={classes.mobileSearch} component="form" onSubmit={handleSearchSubmit}>
+            <TextField
+              placeholder={t('search.input_placeholder')}
+              id="mobileSearch"
+              inputProps={
+                {'aria-label': t('search.input_placeholder')}
+              }
+              InputProps={{
+                startAdornment: <InputAdornment position="start"><SearchIcon color="action" /></InputAdornment>,
+              }}
+              variant="outlined"
+              onChange={handleSearchInputChange}
+            />
+            <Button type="submit" variant="contained" color="primary" disabled={isDisabled}>{t('buttons.search')}</Button>
+          </Box>
+        </nav>
+      </Drawer>
+      )}
+    </Container>
   )
 }
 

@@ -48,22 +48,35 @@ const randomBooleanAsString = ({no = 50,yes = 50}) => {
   }
 }
 
+casual.define('alphaNumeric', function(length = 8){
+  // return Math.random().toString(36).substring(2, 6) + Math.random().toString(36).substring(2, 6)
+  let text;
+  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for(let i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+})
+
 casual.define('user', function() {
   const firstName = casual.first_name
   const lastName = casual.last_name
   const domain = casual.domain
   const emailName = casual.color_name
 	return {
-    userName: `${firstName.toLowerCase()}${lastName}`,
+    // userName: `${firstName.toLowerCase()}${lastName}`,
 		firstName,
 		lastName,
 		email: `${emailName}@${domain}`,
-    userGUID: casual.uuid,
+    uuid: casual.uuid,
+    patientId: casual.alphaNumeric(8),
     phoneNumber: casual.phone,
     allowEmailNotification: randomBooleanAsString({no:25,yes:75}),
     ...randomRole()
 	};
 });
+
+
 
 // const person = (() => {console.log("Person Here")})()
 
