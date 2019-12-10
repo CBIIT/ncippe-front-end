@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Box, Button, Container, Divider, Grid, Link, Stepper, Step, StepLabel, StepContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   OpenInNew as OpenInNewIcon
 } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
 
 import { AuthContext } from '../../components/login/AuthContext'
@@ -82,8 +83,16 @@ const useStyles = makeStyles( theme => ({
 const ActivatePage = (props) => {
   const classes = useStyles()
   const { t, i18n } = useTranslation('activate')
+  const { trackEvent } = useTracking()
   const { signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
   const faqs = i18n.getResourceBundle(i18n.languages[0],'activate').faqs
+
+  useEffect(() => {
+    trackEvent({
+      event:'pageview',
+      prop6: "Activate your online Biobank account",
+    })
+  },[trackEvent])
 
   const handleLogin = () => {
     // Using openID to redirect to login.gov

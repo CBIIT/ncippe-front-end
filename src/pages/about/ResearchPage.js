@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Container, Divider, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import RenderContent from '../../components/utils/RenderContent'
+import { useTracking } from 'react-tracking'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -26,6 +27,14 @@ const useStyles = makeStyles( theme => ({
 const ResearchPage = (props) => {
   const classes = useStyles()
   const { t, i18n } = useTranslation('research')
+  const { trackEvent } = useTracking()
+
+  useEffect(() => {
+    trackEvent({
+      event:'pageview',
+      prop6: "Biobanks are important for research",
+    })
+  },[trackEvent])
 
   return (
     <Box>
@@ -68,5 +77,4 @@ const ResearchPage = (props) => {
     </Box>
   )
 }
-
 export default ResearchPage

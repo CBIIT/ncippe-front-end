@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link as RouterLink, navigate } from "@reach/router"
 import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
 import { 
   Box,
   Button,
@@ -106,6 +107,7 @@ const Header = () => {
   const [expanded, setExpanded] = useState(loc)
   const [isDisabled, setIsDisabled] = useState(true)
   const { t } = useTranslation('common')
+  const { trackEvent } = useTracking()
 
   // TODO: set active state on nav menu items based on site location
 
@@ -127,11 +129,24 @@ const Header = () => {
   }
 
   const expandPanel = (event, newExpanded) => {
-    setExpanded(newExpanded ? event.currentTarget.id : "")
+    const id = event.currentTarget.id
+    setExpanded(newExpanded ? id : "")
+    trackEvent({
+      prop53: `BioBank_TopNav|${event.target.textContent}`,
+      eVar53: `BioBank_TopNav|${event.target.textContent}`,
+      events: 'event26'
+    })
   }
 
-  const closeMenu = () => {
+  const closeMenu = (event) => {
     setMenuOpen(prev => !prev)
+    if(!event.target.closest('#closeMobileMenu')){
+      trackEvent({
+        prop53: `BioBank_TopNav|${event.target.closest("ul").dataset.panelgroup}|${event.target.textContent}`,
+        eVar53: `BioBank_TopNav|${event.target.closest("ul").dataset.panelgroup}|${event.target.textContent}`,
+        events:'event28'
+      })
+    }
   }
 
   const handleSearchInputChange = (e) => {
@@ -146,16 +161,24 @@ const Header = () => {
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     // send the search terms to the search results page
-    navigate(`/search`,{state: {
+    navigate('/search', {state: {
       term: e.target.mobileSearch.value
     }})
+  }
+
+  const trackClick = (e) => {
+    trackEvent({
+      prop53: 'BioBank_TopNav|Logo',
+      eVar53: 'BioBank_TopNav|Logo',
+      events: 'event26'
+    })
   }
 
   return (
     <Container component="header" className={classes.root}>
       <Box className={classes.appToolbarContainer}>
         <figure className={classes.toolbarLogo}>
-          <Link component={RouterLink} to='/'>
+          <Link component={RouterLink} to='/' onClick={trackClick}>
             <img src={`/${process.env.PUBLIC_URL}assets/images/biobank-logo.svg`} alt={t('logo.alt_text')} title={t('logo.title')} />
           </Link>
         </figure>
@@ -185,7 +208,7 @@ const Header = () => {
       {isMobile && (
       <Drawer anchor="right" open={menuOpen} onClose={toggleDrawer}>
         <Box className={classes.closeMobileMenu}>
-          <IconButton aria-label={t('button.close')} onClick={closeMenu}><ClearIcon /></IconButton>
+          <IconButton aria-label={t('button.close')} onClick={closeMenu} id="closeMobileMenu"><ClearIcon /></IconButton>
         </Box>
         <nav>
           <Box className={classes.mobileLogin}>

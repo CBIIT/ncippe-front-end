@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Card, CardMedia, Link, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { OpenInNew as OpenInNewIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
 
 import TabPanel from '../../components/Tabs/TabPanel'
@@ -46,6 +47,14 @@ const Consent = (props) => {
   const {index, isMobile} = props
   const classes = useStyles()
   const { t, i18n } = useTranslation('consent')
+  const { trackEvent } = useTracking()
+
+  useEffect(() => {
+    trackEvent({
+      event:'pageview',
+      prop6: "Give your consent",
+    })
+  },[trackEvent])
 
   return (
     <TabPanel
@@ -88,5 +97,4 @@ const Consent = (props) => {
   </TabPanel>
   )
 }
-
 export default Consent

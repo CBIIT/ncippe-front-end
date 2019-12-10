@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Link } from '@reach/router'
+import { useTracking } from 'react-tracking'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { 
   Button,
@@ -34,6 +35,7 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: theme.palette.navy.dark,
       color: theme.palette.common.white,
       fontWeight: 600,
+      padding: '6px 16px',
       '& a': {
         color: theme.palette.common.white,
       }
@@ -44,13 +46,16 @@ const useStyles = makeStyles(theme => ({
 const StyledMenuItem = withStyles(theme => ({
   root: {
     borderBottom: `1px solid #ccc`,
+    padding: 0,
 
     '&:last-child': {
       borderBottom: 'none'
     },
     '& a': {
+      flexGrow: 1,
       color: theme.palette.common.black,
       textDecoration: 'none',
+      padding: '6px 16px',
       // fontWeight: 600
     },
     '&:focus': {
@@ -70,15 +75,29 @@ const MenuGroup = (props) => {
   const [popperClass, setPopperClass] = useState(false)
   const anchorRef = useRef(null)
   const containerNode = document.querySelector("#root .transitionGroup")
+  const { trackEvent } = useTracking()
 
   const handleToggle = (event) => {
     setOpen(prevOpen => !prevOpen);
     setPopperClass(prev => !prev ? 'active-popper' : false)
+    trackEvent({
+      prop53: `BioBank_TopNav|${props.title}`,
+      eVar53: `BioBank_TopNav|${props.title}`,
+      events:'event26'
+    })
   }
 
   const handleClose = event => {
     if (event.target.classList.contains("Mui-selected") || anchorRef.current && anchorRef.current.contains(event.target)) {
       return
+    }
+
+    if(event.currentTarget !== window.document) {
+      trackEvent({
+        prop53: `BioBank_TopNav|${props.title}|${event.target.textContent}`,
+        eVar53: `BioBank_TopNav|${props.title}|${event.target.textContent}`,
+        events:'event28'
+      })
     }
 
     setOpen(false)

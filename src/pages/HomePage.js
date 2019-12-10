@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { navigate, Link as RouterLink } from '@reach/router'
 import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
 
 import { Box, Container, Dialog, DialogContent, Grid, IconButton, Link, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -222,6 +223,9 @@ const HomePage = (props) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { t, i18n } = useTranslation('homePage')
+  const { trackEvent } = useTracking()
+
+
 
   useEffect(() => {
     const resizeEvt = () => {
@@ -240,6 +244,16 @@ const HomePage = (props) => {
       }
     }
   }, [props.location])
+
+  useEffect(() => {
+    trackEvent({
+      event:'pageview',
+      pageName:'msbiobank.c.gov/',
+      prop6: "Home Page",
+      route: "/",
+    })
+    //trackEvent({linkName:'somewhere', eVar8:"Frank Ali", event:'custom'})
+  },[trackEvent])
 
   const handleClose = () => {
     setIsModalOpen(false)

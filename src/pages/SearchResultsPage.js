@@ -7,6 +7,7 @@ import {
 } from '@material-ui/icons'
 import { searchIndex } from '../i18n'
 import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
 import RenderContent from '../components/utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
@@ -33,15 +34,25 @@ const SearchResults = (props) => {
   const {location} = props
   const classes = useStyles()
   const { t, i18n } = useTranslation('common')
+  const { trackEvent } = useTracking()
   const term = location ? location.state ? location.state.term : '' : ''
   const [searchTerm, setSearchTerm] = useState(term)
-  const [searchResults, setSearchResults] = useState([])
+  const [searchResults, setSearchResults] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
-
+  
   useEffect(() => {
     const results = processSearch(searchIndex.search(`*${searchTerm}*~1 ${searchTerm}* *${searchTerm}`))
     setSearchResults(results)
-  }, [searchTerm])
+
+    trackEvent({
+      event:'pageview',
+      prop6: "Search results",
+      eVar10: results.length.toString(),
+      prop14: searchTerm,
+      eVar14: searchTerm
+    })
+
+  }, [searchTerm, trackEvent])
 
   const processSearch = (results = []) => {
 
@@ -88,6 +99,15 @@ const SearchResults = (props) => {
     e.preventDefault()
     const term = e.target.searchPageSearch.value
     setSearchTerm(term)
+
+    trackEvent({
+      prop11: "BioBank Global Search - Results New Search",
+      eVar11: "BioBank Global Search - Results New Search",
+      eVar13: "+1",
+      prop14: term,
+      eVar14: term,
+      events: "event2"
+    })
   }
 
   const handleChange = (e) => {
@@ -97,6 +117,13 @@ const SearchResults = (props) => {
     } else (
       setIsDisabled(true)
     )
+  }
+
+  const trackClick = (e) => {
+    trackEvent({
+      prop50: e.target.textContent,
+      prop13: e.target.dataset.rank
+    })
   }
 
   return (
@@ -125,12 +152,12 @@ const SearchResults = (props) => {
           <Typography variant="h3" component="h3">{t('search.results_title')} {searchTerm}</Typography>
         </Box>
         <Box mt={3}>
-          {searchResults.map((result,i) => {
+          {searchResults && searchResults.map((result,i) => {
             const {page,route,results} = result
             return (
               <Box key={i} mb={3}>
                 <Typography component="div">
-                  <Link to={route} className="bold" component={RouterLink}>{page}</Link>
+                  <Link to={route} className="bold" component={RouterLink} data-rank={i + 1} onClick={trackClick}>{page}</Link>
                 </Typography>
                 <Typography component="div">
                   <RenderContent source={results} />
@@ -139,7 +166,7 @@ const SearchResults = (props) => {
               </Box>
             )
           })}
-          {!searchResults.length && <Typography variant="body2">{t('search.results_none')}</Typography>}
+          {searchResults && !searchResults.length && <Typography variant="body2">{t('search.results_none')}</Typography>}
         </Box>
       </Container>
     </Box>

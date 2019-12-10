@@ -77,14 +77,20 @@ const useStyles = makeStyles(theme => ({
       },
     },
     '& .MuiList-root': {
+      '& li': {
+        padding: 0
+      },
       '& a': {
         color: theme.palette.common.black,
         textDecoration: 'none',
+        flexGrow: 1,
+        padding: '6px 16px'
       },
       '& .Mui-selected,& .Mui-selected:focus,& .Mui-selected:hover': {
         backgroundColor: theme.palette.navy.dark,
         color: theme.palette.common.white,
         fontWeight: 600,
+        padding: '6px 16px',
         '& a': {
           color: theme.palette.common.white,
         }
@@ -150,7 +156,7 @@ const ExpansionMenu = (props) => {
         <Typography variant="h4">{name}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-        <MenuList className={classes.menuList} autoFocusItem={isExpanded}>
+        <MenuList className={classes.menuList} autoFocusItem={isExpanded} data-panelgroup={name}>
           {
             React.Children.map(props.children, child => {
               if(child && child.type === "a") {

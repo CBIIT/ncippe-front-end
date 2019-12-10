@@ -7,6 +7,7 @@ import {
   Clear as ClearIcon
 } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -43,11 +44,17 @@ const useStyles = makeStyles(theme => ({
 const Search = (props) => {
   const classes = useStyles()
   const { t, i18n } = useTranslation('common')
+  const { trackEvent } = useTracking()
   const [open, setOpen] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
 
   const handleClickOpen = () => {
     setOpen(true)
+    trackEvent({
+      prop53: 'BioBank_TopNav|Search',
+      eVar53: 'BioBank_TopNav|Search',
+      events: 'event26'
+    })
   }
 
   const handleClose = () => {
@@ -57,8 +64,17 @@ const Search = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     // send the search terms to the search results page
+    const searchTerm = e.target.siteSearch.value
+    trackEvent({
+      prop11: "BioBank Global Search",
+      eVar11: "BioBank Global Search",
+      eVar13: "+1",
+      prop14: searchTerm,
+      eVar14: searchTerm,
+      events: "event2"
+    })
     navigate(`/search`,{state: {
-      term: e.target.siteSearch.value
+      term: searchTerm
     }})
   }
 

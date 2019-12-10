@@ -3,6 +3,7 @@ import { Router, Link as RouterLink } from '@reach/router'
 import { AppBar, Box, Container, Tab, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
 
 import StyledTabs from '../../components/Tabs/StyledTabs'
 import Consent from './Consent'
@@ -42,6 +43,7 @@ const a11yProps = (index) => {
 const WhatToExpectPage = () => {
   const classes = useStyles()
   const { t, i18n } = useTranslation(['consent','donate','testing'])
+  const { trackEvent } = useTracking()
   const [value, setValue] = useState(()=>{
     switch(window.location.pathname){
       case '/expect':
@@ -66,7 +68,12 @@ const WhatToExpectPage = () => {
   },[isMobile])
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setValue(newValue)
+    trackEvent({
+      prop53: `BioBank_SectionTabNav|${event.currentTarget.textContent}`,
+      eVar53: `BioBank_SectionTabNav|${event.currentTarget.textContent}`,
+      events: 'event33'
+    })
   }
 
   return (
