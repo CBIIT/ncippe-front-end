@@ -14,6 +14,9 @@ import {
 import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
 
+// Internet Explorer 6-11
+const isIE = /*@cc_on!@*/false || !!document.documentMode;
+
 const useStyles = makeStyles( theme => ({
   hero: {
     // backgroundColor: theme.palette.primary.lightGrey,
@@ -333,7 +336,7 @@ const HomePage = (props) => {
       <Container className={classes.fullWidthAccentImage}>
         <Box>{/* empty box because Container must have children */}</Box>
       </Container>
-      <Container className={classes.volunteer}>
+      <Container className={`${classes.volunteer} accentImage`}>
         <Box>
           <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}>
             <RenderContent source={t('participate.title')} />
@@ -372,6 +375,7 @@ const HomePage = (props) => {
             </Grid>
           </Grid>
         </Box>
+        {isIE && <img className="accentImage--img" src={`/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-long.svg`} alt="accent image" aria-hidden="true" />}
       </Container>
       <Dialog
         open={isModalOpen}

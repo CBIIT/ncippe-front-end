@@ -84,6 +84,7 @@ const WhatToExpectPage = () => {
       <Container className={classes.appbarContainer}>
         <AppBar className={classes.appbar} position="static" elevation={0}>
           <StyledTabs
+            id="tabBar"
             value={value}
             onChange={handleChange}
             indicatorColor="primary"

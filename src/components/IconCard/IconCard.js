@@ -54,12 +54,12 @@ const IconCard = (props) => {
   const classes = useStyles()
 
   return (
-    <Card className={classes.card}>
+    <Card className={`${classes.card} IconCard`}>
       <ConditionalWrapper
         condition={count > 0}
         wrapper={children => <Badge className={classes.badge} badgeContent={badgeText} component="div">{children}</Badge>}>
 
-        <CardContent className={classes.cardContent}>
+        <CardContent className={`${classes.cardContent} IconCardContent`}>
           {icon && <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/${icon}`} alt='card icon' aria-hidden="true" />}
           <div className={classes.cardText}>
             <div>

@@ -349,3 +349,65 @@ ul.bulletList > li:last-child {
   letter-spacing: 0;
   paragraph-height: 20px;
 }
+
+/* Stupid IE11 hacks */
+@media all and (-ms-high-contrast:none) {
+  /* Header nav */
+  #mainNav > * {
+    height: 82px;
+  }
+  #mainNav--mobile > div > .MuiExpansionPanelSummary-root {
+    height: 48px;
+  }
+
+  #mainNav .active {
+    margin-top: 0;
+    padding-top: 10px;
+  }
+
+  .mainContainer, .innerContainer {
+    background-size: 541px 349px;
+  }
+
+  .mainContainer--dashboard {
+
+  }
+
+  /* Home Page accent image */
+  .accentImage {
+    background: linear-gradient(315deg, #FFEBF1 0%, #F3EEF6 51%, #E8F0FA 100%) !important;
+  }
+  
+  .accentImage--img {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  /* What to Expect tab nav */
+  #tabBar a::after, #tabBar a::before {
+    display: none;
+  }
+  #tabBar a {
+    padding: 6px 12px;
+    border: none;
+  }
+  #tabBar a.Mui-selected {
+    background-color: #fff;
+  }
+
+  /* Icon Cards */
+  .IconCardContent > img {
+    height: 74px;
+  }
+  .IconCardContent > div {
+    width: calc(100% - 100px);
+  }
+
+  /* Footer */
+  #appFooter {
+    flex: 0 0 auto;
+  }
+}
+
