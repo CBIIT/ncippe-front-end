@@ -337,6 +337,7 @@ const HomePage = (props) => {
         <Box>{/* empty box because Container must have children */}</Box>
       </Container>
       <Container className={`${classes.volunteer} accentImage`}>
+        {isIE && <img className="accentImage--img" src={`/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-long.svg`} alt="accent image" aria-hidden="true" />}
         <Box>
           <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}>
             <RenderContent source={t('participate.title')} />
@@ -375,7 +376,6 @@ const HomePage = (props) => {
             </Grid>
           </Grid>
         </Box>
-        {isIE && <img className="accentImage--img" src={`/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-long.svg`} alt="accent image" aria-hidden="true" />}
       </Container>
       <Dialog
         open={isModalOpen}
