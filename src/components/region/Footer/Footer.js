@@ -16,8 +16,9 @@ const useStyles = makeStyles(theme => ({
     }
   },
   logo: {
+    padding: theme.spacing(2,0),
     '& img': {
-      width: '430px',
+      width: '320px',
       maxWidth: '100%',
       height: 'auto'
     }
@@ -63,7 +64,7 @@ const Footer = () => {
 
   return (
     <Container className={classes.root} component="footer">
-      <div className={classes.logo}><img src={`/${process.env.PUBLIC_URL}assets/images/nci-logo-white.svg`} alt={t('footer.logo.alt_text')} title={t('footer.logo.title')}  /></div>
+      <div className={classes.logo}><img src={`/${process.env.PUBLIC_URL}assets/images/nci-logo-text-white.svg`} alt={t('footer.logo.alt_text')} title={t('footer.logo.title')}  /></div>
       <Typography component="div">
         <Grid container className={classes.footerLinks} spacing={3} onClick={trackClick}>
           <Grid item xs={12} sm={4}>
