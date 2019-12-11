@@ -63,7 +63,7 @@ const Footer = () => {
   }
 
   return (
-    <Container className={classes.root} component="footer">
+    <Container className={classes.root} component="footer" id="appFooter">
       <div className={classes.logo}><img src={`/${process.env.PUBLIC_URL}assets/images/nci-logo-text-white.svg`} alt={t('footer.logo.alt_text')} title={t('footer.logo.title')}  /></div>
       <Typography component="div">
         <Grid container className={classes.footerLinks} spacing={3} onClick={trackClick}>

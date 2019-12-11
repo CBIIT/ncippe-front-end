@@ -145,7 +145,7 @@ const MenuGroup = (props) => {
       aria-controls="menu-list-grow"
       aria-haspopup="true"
       onClick={handleToggle}
-      className={props.active ? classes.active : classes.button}
+      className={props.active ? `${classes.active} active` : classes.button}
     >
       {props.title}
     </Button>

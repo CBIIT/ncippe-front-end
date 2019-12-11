@@ -175,7 +175,7 @@ const Header = () => {
   }
 
   return (
-    <Container component="header" className={classes.root}>
+    <Container component="header" className={classes.root} id="appHeader">
       <Box className={classes.appToolbarContainer}>
         <figure className={classes.toolbarLogo}>
           <Link component={RouterLink} to='/' onClick={trackClick}>
@@ -183,7 +183,7 @@ const Header = () => {
           </Link>
         </figure>
         {!isMobile && (
-          <nav className={classes.publicNavDesktop}>
+          <nav className={classes.publicNavDesktop} id="mainNav">
             <MenuGroup title={t('nav.topLevel.about')} active={loc.includes('about')}>
               <a href="/about">{t('nav.about')}</a>
               <a href="/about/eligibility">{t('nav.eligibility')}</a>
@@ -211,7 +211,7 @@ const Header = () => {
         <Box className={classes.closeMobileMenu}>
           <IconButton aria-label={t('button.close')} onClick={closeMenu} id="closeMobileMenu"><ClearIcon /></IconButton>
         </Box>
-        <nav>
+        <nav id="mainNav--mobile">
           {/* <Box className={classes.mobileLogin}>
             <LoginButton />
           </Box> */}
