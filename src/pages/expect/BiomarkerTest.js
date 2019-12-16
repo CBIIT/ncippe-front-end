@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
+import ArticleImage from '../../components/utils/ArticleImage'
 
 import FAQs from '../../components/FAQ/FAQ_Wrapper'
 import TabPanel from '../../components/Tabs/TabPanel'
@@ -22,34 +23,16 @@ const useStyles = makeStyles( theme => ({
     }
   },
   textColumn: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       paddingRight: theme.spacing(3)
-    }
-  },
-  imgColumn: {
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing(3)
-    }
-  },
-  bottomSpacer: {
-    marginBottom: theme.spacing(4),
-    [theme.breakpoints.up('sm')]: {
-      marginBottom: theme.spacing(5)
     }
   },
   extraSpacing: {
     '& h3': {
       marginTop: theme.spacing(4),
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up('md')]: {
         marginTop: theme.spacing(5)
       }
-    }
-  },
-  img: {
-    display: 'block',
-    maxWidth: 410,
-    '&:first-of-type': {
-      marginBottom: theme.spacing(5)
     }
   },
   divider: {
@@ -64,10 +47,21 @@ const useStyles = makeStyles( theme => ({
   samples: {
     display: 'flex',
     '& > div': {
-      maxWidth: 320,
-      marginRight: theme.spacing(6),
-      '&:last-child': {
-        marginRight: 0
+      maxWidth: 336,
+    },
+
+    [theme.breakpoints.up('sm')]: {
+      flexWrap: 'nowrap',
+      '& > div': {
+        marginRight: theme.spacing(2),
+        '&:last-child': {
+          marginRight: 0
+        }
+      },
+    },
+    [theme.breakpoints.up('md')]: {
+      '& > div': {
+        marginRight: theme.spacing(6)
       }
     }
   },
@@ -112,7 +106,7 @@ const BiomarkerTest = (props) => {
     >
       {/* Intro */}
       <Grid container>
-        <Grid item xs={12} sm={6} lg={8} className={classes.textColumn}>
+        <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>
           <Typography variant={isMobile ? "body1" : "body2"} component="div">
             <RenderContent source={t('intro_text')} />
           </Typography>
@@ -121,8 +115,8 @@ const BiomarkerTest = (props) => {
             <RenderContent source={t('sections.0.body')} />
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={6} lg={4} className={classes.imgColumn}>
-          <img className={classes.img} src={`/${process.env.PUBLIC_URL}assets/images/researchers4.jpg`} alt={t('sections.0.alt_text')} height="360" />
+        <Grid item xs={12} md={6} lg={4} className={classes.gridItemImg}>
+          <ArticleImage src="researchers-3.jpg" alt={t('sections.0.alt_text')} height="360" />
         </Grid>
       </Grid>
 
@@ -155,24 +149,38 @@ const BiomarkerTest = (props) => {
       <Typography variant="h2" component="h2">
         <RenderContent source={t('sections.2.title')} />
       </Typography>
-      <Box className={classes.samples} mt={2}>
-        <Paper>
-          <img src={`/${process.env.PUBLIC_URL}assets/images/solid-tumor-sample-test-report.jpg`} alt={t('sections.2.samples.0.alt_text')} />
-          <Divider />
-          <Box p={2}>
-            <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.0.title')}</Typography>
-            <Link href={`/${process.env.PUBLIC_URL}assets/documents/Biobank-Combined-Melanoma-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.samples.0.link')}</Link>
-          </Box>
-        </Paper>
-        <Paper>
-          <img src={`/${process.env.PUBLIC_URL}assets/images/blood-cancer-sample-test-report.jpg`} alt={t('sections.2.samples.1.alt_text')} />
-          <Divider />
-          <Box p={2}>
-            <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.1.title')}</Typography>
-            <Link href={`/${process.env.PUBLIC_URL}assets/documents/Acute-Myeloid-Leukemia-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.samples.1.link')}</Link>
-          </Box>
-        </Paper>
-      </Box>
+      <Grid container mt={2} spacing={2} className={classes.samples}>
+        <Grid item xs={12} md={6}>
+          <Paper>
+            <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/solid-tumor-sample-test-report.jpg`} alt={t('sections.2.samples.0.alt_text')}
+              srcSet={`
+                /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/solid-tumor-sample-test-report.jpg 1x,
+                /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/solid-tumor-sample-test-report.jpg 2x
+              `}
+            />
+            <Divider />
+            <Box p={2}>
+              <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.0.title')}</Typography>
+              <Link href={`/${process.env.PUBLIC_URL}assets/documents/Biobank-Combined-Melanoma-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.samples.0.link')}</Link>
+            </Box>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Paper>
+            <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/blood-cancer-sample-test-report.jpg`} alt={t('sections.2.samples.1.alt_text')}
+              srcSet={`
+                /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/blood-cancer-sample-test-report.jpg 1x,
+                /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/blood-cancer-sample-test-report.jpg 2x
+              `}
+            />
+            <Divider />
+            <Box p={2}>
+              <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.1.title')}</Typography>
+              <Link href={`/${process.env.PUBLIC_URL}assets/documents/Acute-Myeloid-Leukemia-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.samples.1.link')}</Link>
+            </Box>
+          </Paper>
+        </Grid>
+      </Grid>
 
       <Divider className={classes.divider} />
 
@@ -190,7 +198,7 @@ const BiomarkerTest = (props) => {
             </div>
           </Grid>
           <Grid className={classes.gridItemImg} item xs={12} md={6}>
-            <img src={`/${process.env.PUBLIC_URL}assets/images/working-on-laptop.jpg`} alt={t('sections.3.alt_text')} />
+            <ArticleImage src="working-on-laptop.jpg" alt={t('sections.3.alt_text')} />
           </Grid>
         </Grid>
       </Box>
