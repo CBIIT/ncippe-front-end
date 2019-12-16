@@ -4,8 +4,9 @@ import { CssBaseline } from '@material-ui/core'
 import track from 'react-tracking'
 
 import Routes from './routers/routes'
-import { AuthProvider } from './components/login/AuthContext'
-import { LoginProvider } from './components/login/Login.context'
+import { HelmetProvider } from 'react-helmet-async'
+// import { AuthProvider } from './components/login/AuthContext'
+// import { LoginProvider } from './components/login/Login.context'
 import { theme } from './theme/theme'
 
 const App = (props) => {
@@ -27,12 +28,14 @@ const App = (props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AuthProvider>
-        <LoginProvider>
-          <CssBaseline />
-          <Routes />
-        </LoginProvider>
-      </AuthProvider>
+      {/* <AuthProvider>
+        <LoginProvider> */}
+          <HelmetProvider>
+            <CssBaseline />
+            <Routes />
+          </HelmetProvider>
+        {/* </LoginProvider>
+      </AuthProvider> */}
     </ThemeProvider>
   )
 }

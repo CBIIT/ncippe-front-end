@@ -10,6 +10,7 @@ import {
   CheckCircle as CheckCircleIcon,
   KeyboardArrowRight as ArrowRightIcon
 } from '@material-ui/icons'
+import { Helmet } from 'react-helmet-async'
 
 import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
@@ -312,6 +313,11 @@ const HomePage = (props) => {
 
   return (
     <Box>
+      <Helmet>
+        <title>Home Page | Cancer Moonshot Biobank | NCI</title>
+        <meta name="title"        content="Home Page | Cancer Moonshot Biobank" />
+        <meta property="og:title" content="Home Page | Cancer Moonshot Biobank" />
+      </Helmet>
       <Container className={classes.hero}>
         <div className={classes.heroText}>
           {isMobile ? 

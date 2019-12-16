@@ -3,6 +3,7 @@ import { Container, Box, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 
@@ -35,6 +36,15 @@ const AboutPage = (props) => {
 
   return (
     <Box>
+      <Helmet>
+        <title>About the Biobank | Cancer Moonshot Biobank | NCI</title>
+        <meta name="title"        content="About the Biobank | Cancer Moonshot Biobank" />
+        <meta property="og:title" content="About the Biobank | Cancer Moonshot Biobank" />
+        <meta name="description"        content="The Cancer Moonshot Biobank is an unprecedented effort to learn how cancers behave over time." />
+        <meta property="og:description" content="The Cancer Moonshot Biobank is an unprecedented effort to learn how cancers behave over time." />
+        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/about" />
+        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/about" />
+      </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">
           <RenderContent source={t('pageTitle')} />
