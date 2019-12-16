@@ -72,8 +72,8 @@ const Donate = (props) => {
         <meta property="og:title" content="What to expect – donating samples | Cancer Moonshot Biobank" />
         <meta name="description"        content="During the course of your treatment, you’ll donate samples of blood and tissue. Those samples will be securely stored in the Biobank until they’re shared with researchers." />
         <meta property="og:description" content="During the course of your treatment, you’ll donate samples of blood and tissue. Those samples will be securely stored in the Biobank until they’re shared with researchers." />
-        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/expect/donate" />
-        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/expect/donate" />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/expect/donate`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect/donate`} />
       </Helmet>
       <Grid container>
         <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>

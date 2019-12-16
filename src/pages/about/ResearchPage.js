@@ -47,8 +47,8 @@ const ResearchPage = (props) => {
         <meta property="og:title" content="Biobanking is important to research | Cancer Moonshot Biobank" />
         <meta name="description"        content="To understand why cancer spreads or becomes resistant to treatment, researchers will be able to access tissue donated by patients over the course of their treatment." />
         <meta property="og:description" content="To understand why cancer spreads or becomes resistant to treatment, researchers will be able to access tissue donated by patients over the course of their treatment." />
-        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/about/research" />
-        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/about/research" />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/about/research`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/about/research`} />
       </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">

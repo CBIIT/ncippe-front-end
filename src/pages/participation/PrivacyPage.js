@@ -44,8 +44,8 @@ const PrivacyPage = (props) => {
         <meta property="og:title" content="Protecting your privacy | Cancer Moonshot Biobank" />
         <meta name="description"        content="We protect your data and your privacy by controlling who can access your information, not sharing your participation, and testing our systems regularly." />
         <meta property="og:description" content="We protect your data and your privacy by controlling who can access your information, not sharing your participation, and testing our systems regularly." />
-        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/participation/privacy" />
-        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/participation/privacy" />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/participation/privacy`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/participation/privacy`} />
       </Helmet>
       <Box my={6} mx={0}>
         <Typography variant="h1" gutterBottom>

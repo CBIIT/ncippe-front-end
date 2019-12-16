@@ -50,8 +50,8 @@ const EligibilityPage = (props) => {
         <meta property="og:title" content="Eligibility and locations | Cancer Moonshot Biobank" />
         <meta name="description"        content="To start, the Cancer Moonshot Biobank is working with specific hospitals across the country to find participants with certain kinds of cancer." />
         <meta property="og:description" content="To start, the Cancer Moonshot Biobank is working with specific hospitals across the country to find participants with certain kinds of cancer." />
-        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/about/eligibility" />
-        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/about/eligibility" />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/about/eligibility`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/about/eligibility`} />
       </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1"><RenderContent source={t('pageTitle')} /></Typography>

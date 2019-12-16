@@ -43,8 +43,8 @@ const AboutPage = (props) => {
         <meta property="og:title" content="About the Biobank | Cancer Moonshot Biobank" />
         <meta name="description"        content="The Cancer Moonshot Biobank is an unprecedented effort to learn how cancers behave over time." />
         <meta property="og:description" content="The Cancer Moonshot Biobank is an unprecedented effort to learn how cancers behave over time." />
-        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/about" />
-        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/about" />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/about`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/about`} />
       </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">

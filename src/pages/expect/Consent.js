@@ -69,8 +69,8 @@ const Consent = (props) => {
         <meta property="og:title" content="What to expect – giving consent | Cancer Moonshot Biobank" />
         <meta name="description"        content="After you and your doctor discuss the Biobank and you decide you'd like to join you’ll be given a consent form to review and sign." />
         <meta property="og:description" content="After you and your doctor discuss the Biobank and you decide you'd like to join you’ll be given a consent form to review and sign." />
-        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/expect" />
-        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/expect" />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/expect`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect`} />
       </Helmet>
       <Box className={classes.container}>
         <Typography variant={isMobile ? "body1" : "body2"} component="div">

@@ -111,8 +111,8 @@ const BiomarkerTest = (props) => {
         <meta property="og:title" content="What to expect – getting a biomarker test | Cancer Moonshot Biobank" />
         <meta name="description"        content="Biobank participants get a biomarker test, which looks at the genetic structure of your cancer and can help your doctor find new treatments or clinical trials." />
         <meta property="og:description" content="Biobank participants get a biomarker test, which looks at the genetic structure of your cancer and can help your doctor find new treatments or clinical trials." />
-        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/expect/testing" />
-        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/expect/testing" />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/expect/testing`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect/testing`} />
       </Helmet>
       {/* Intro */}
       <Grid container>

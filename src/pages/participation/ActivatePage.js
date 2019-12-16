@@ -109,8 +109,8 @@ const ActivatePage = (props) => {
         <meta property="og:title" content="Activate your account | Cancer Moonshot Biobank" />
         <meta name="description"        content="After you enroll in the Biobank through your doctor or research coordinator, you’ll receive an email invitation to activate your online Biobank account." />
         <meta property="og:description" content="After you enroll in the Biobank through your doctor or research coordinator, you’ll receive an email invitation to activate your online Biobank account." />
-        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/participation/activate" />
-        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/participation/activate" />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/participation/activate`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/participation/activate`} />
       </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">
