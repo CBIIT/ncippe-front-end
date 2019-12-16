@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
 import { Box, Container, Divider, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
-import { useTranslation } from 'react-i18next'
+
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
-import { useTracking } from 'react-tracking'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -39,6 +41,15 @@ const ResearchPage = (props) => {
 
   return (
     <Box>
+      <Helmet>
+        <title>Biobanking is important to research | Cancer Moonshot Biobank | NCI</title>
+        <meta name="title"        content="Biobanking is important to research | Cancer Moonshot Biobank" />
+        <meta property="og:title" content="Biobanking is important to research | Cancer Moonshot Biobank" />
+        <meta name="description"        content="To understand why cancer spreads or becomes resistant to treatment, researchers will be able to access tissue donated by patients over the course of their treatment." />
+        <meta property="og:description" content="To understand why cancer spreads or becomes resistant to treatment, researchers will be able to access tissue donated by patients over the course of their treatment." />
+        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/about/research" />
+        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/about/research" />
+      </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">
           <RenderContent source={t('pageTitle')} />

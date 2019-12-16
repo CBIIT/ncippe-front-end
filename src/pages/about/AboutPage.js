@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
-import { Container, Box, Grid, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
-import { Helmet } from 'react-helmet-async'
+import { Container, Box, Grid, Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 

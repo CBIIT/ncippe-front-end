@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
 import { Box, Button, Container, Divider, Grid, Link, Stepper, Step, StepLabel, StepContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   OpenInNew as OpenInNewIcon
 } from '@material-ui/icons'
-import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
-
 import { AuthContext } from '../../components/login/AuthContext'
 import FAQs from '../../components/FAQ/FAQ_Wrapper'
 
@@ -102,6 +103,15 @@ const ActivatePage = (props) => {
 
   return (
     <Box>
+      <Helmet>
+        <title>Activate your account | Cancer Moonshot Biobank | NCI</title>
+        <meta name="title"        content="Activate your account | Cancer Moonshot Biobank" />
+        <meta property="og:title" content="Activate your account | Cancer Moonshot Biobank" />
+        <meta name="description"        content="After you enroll in the Biobank through your doctor or research coordinator, you’ll receive an email invitation to activate your online Biobank account." />
+        <meta property="og:description" content="After you enroll in the Biobank through your doctor or research coordinator, you’ll receive an email invitation to activate your online Biobank account." />
+        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/participation/activate" />
+        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/participation/activate" />
+      </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">
           <RenderContent source={t('pageTitle')} />

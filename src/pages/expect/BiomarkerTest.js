@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
-import { Box, Grid, Link, Typography, Stepper, Step, StepLabel, StepContent, Divider, Paper } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
+import { Box, Grid, Link, Typography, Stepper, Step, StepLabel, StepContent, Divider, Paper } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
-
 import FAQs from '../../components/FAQ/FAQ_Wrapper'
 import TabPanel from '../../components/Tabs/TabPanel'
 
@@ -104,6 +105,15 @@ const BiomarkerTest = (props) => {
       aria-labelledby={`scrollable-auto-tab-${index}`}
       stupidPaddingException
     >
+      <Helmet>
+        <title>What to expect – getting a biomarker test | Cancer Moonshot Biobank | NCI</title>
+        <meta name="title"        content="What to expect – getting a biomarker test | Cancer Moonshot Biobank" />
+        <meta property="og:title" content="What to expect – getting a biomarker test | Cancer Moonshot Biobank" />
+        <meta name="description"        content="Biobank participants get a biomarker test, which looks at the genetic structure of your cancer and can help your doctor find new treatments or clinical trials." />
+        <meta property="og:description" content="Biobank participants get a biomarker test, which looks at the genetic structure of your cancer and can help your doctor find new treatments or clinical trials." />
+        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/expect/testing" />
+        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/expect/testing" />
+      </Helmet>
       {/* Intro */}
       <Grid container>
         <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>

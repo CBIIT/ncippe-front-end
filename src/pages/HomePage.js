@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { navigate, Link as RouterLink } from '@reach/router'
+import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 
@@ -10,7 +11,7 @@ import {
   CheckCircle as CheckCircleIcon,
   KeyboardArrowRight as ArrowRightIcon
 } from '@material-ui/icons'
-import { Helmet } from 'react-helmet-async'
+
 
 import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'

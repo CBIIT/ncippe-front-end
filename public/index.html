@@ -29,16 +29,20 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <!-- TODO: implement translations for meta tags - perhaps by placing them in the App Helmet where t() is available -->
     <title>Cancer Moonshot Biobank | NCI</title>
     <meta name="robots" content="index" />
     <meta name="description"        content="The Cancer Moonshot Biobank is a 5-year project to learn more about cancer with the help of participants who donate samples as they receive treatment." />
     <meta property="og:description" content="The Cancer Moonshot Biobank is a 5-year project to learn more about cancer with the help of participants who donate samples as they receive treatment." />
-    <link rel="canonical"      href="https://moonshotbiobank.cancer.gov" />
-    <meta property="og:url" content="https://moonshotbiobank.cancer.gov" />
+    <link rel="canonical"      href="%PUBLIC_URL%" />
+    <meta property="og:url" content="%PUBLIC_URL%" />
     <meta property="og:site_name" content="Cancer Moonshot Biobank" />
     <meta property="og:title" content="Cancer Moonshot Biobank" />
-    <meta property="og:type" content="Website" />
+    <meta property="og:type" content="article" />
     <meta property="og:image" content="%PUBLIC_URL%/assets/images/Cancer-Moonshot-Biobank-Banner-for-Social-Media.jpg" />
+    <meta name="twitter:image:alt" content="Cancer Moonshot Biobank – Help change the future of cancer treatment " />
+    <meta name="twitter:card" value="summary_large_image" />
+
     <!-- Fonts to support Material Design -->
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" /> -->
     <!-- Icons to support Material Design -->

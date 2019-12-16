@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { Container, Box, Grid, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
-import RenderContent from '../../components/utils/RenderContent'
+import { Helmet } from 'react-helmet-async'
+import { Container, Box, Grid, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles'
 
+import RenderContent from '../../components/utils/RenderContent'
 import IconCard from '../../components/IconCard/IconCard'
 
 const useStyles = makeStyles( theme => ({
@@ -37,6 +38,15 @@ const PrivacyPage = (props) => {
 
   return (
     <Container className="mainContainer">
+      <Helmet>
+        <title>Protecting your privacy | Cancer Moonshot Biobank | NCI</title>
+        <meta name="title"        content="Protecting your privacy | Cancer Moonshot Biobank" />
+        <meta property="og:title" content="Protecting your privacy | Cancer Moonshot Biobank" />
+        <meta name="description"        content="We protect your data and your privacy by controlling who can access your information, not sharing your participation, and testing our systems regularly." />
+        <meta property="og:description" content="We protect your data and your privacy by controlling who can access your information, not sharing your participation, and testing our systems regularly." />
+        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/participation/privacy" />
+        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/participation/privacy" />
+      </Helmet>
       <Box my={6} mx={0}>
         <Typography variant="h1" gutterBottom>
           <RenderContent source={t('pageTitle')} />

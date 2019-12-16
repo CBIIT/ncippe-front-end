@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
-import { Grid, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
+import { Grid, Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
@@ -65,6 +66,15 @@ const Donate = (props) => {
       aria-labelledby={`scrollable-auto-tab-${index}`}
       stupidPaddingException
     >
+      <Helmet>
+        <title>What to expect – donating samples | Cancer Moonshot Biobank | NCI</title>
+        <meta name="title"        content="What to expect – donating samples | Cancer Moonshot Biobank" />
+        <meta property="og:title" content="What to expect – donating samples | Cancer Moonshot Biobank" />
+        <meta name="description"        content="During the course of your treatment, you’ll donate samples of blood and tissue. Those samples will be securely stored in the Biobank until they’re shared with researchers." />
+        <meta property="og:description" content="During the course of your treatment, you’ll donate samples of blood and tissue. Those samples will be securely stored in the Biobank until they’re shared with researchers." />
+        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/expect/donate" />
+        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/expect/donate" />
+      </Helmet>
       <Grid container>
         <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>
           <Typography className={classes.bottomSpacer} variant={isMobile ? "body1" : "body2"}>

@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { Container, Box, Grid, Typography, Divider } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
+import { Container, Box, Grid, Typography, Divider } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles'
+
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 
@@ -42,6 +44,15 @@ const EligibilityPage = (props) => {
 
   return (
     <Box>
+      <Helmet>
+        <title>Eligibility and locations | Cancer Moonshot Biobank | NCI</title>
+        <meta name="title"        content="Eligibility and locations | Cancer Moonshot Biobank" />
+        <meta property="og:title" content="Eligibility and locations | Cancer Moonshot Biobank" />
+        <meta name="description"        content="To start, the Cancer Moonshot Biobank is working with specific hospitals across the country to find participants with certain kinds of cancer." />
+        <meta property="og:description" content="To start, the Cancer Moonshot Biobank is working with specific hospitals across the country to find participants with certain kinds of cancer." />
+        <link rel="canonical"      href="https://moonshotbiobank.cancer.gov/about/eligibility" />
+        <meta property="og:url" content="https://moonshotbiobank.cancer.gov/about/eligibility" />
+      </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1"><RenderContent source={t('pageTitle')} /></Typography>
       </Container>
