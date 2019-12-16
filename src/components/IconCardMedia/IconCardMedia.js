@@ -36,7 +36,7 @@ const Component = (props) => {
       <div>
         <CardMedia
           className={classes.media}
-          image={`/${process.env.PUBLIC_URL}assets/images/${image}`}
+          image={image}
           title={imageTitle}
         />
         <CardContent>

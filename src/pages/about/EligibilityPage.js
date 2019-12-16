@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
+import ArticleImage from '../../components/utils/ArticleImage'
+
 
 import HospitalMap from '../../components/HospitalMap/HospitalMap'
 
@@ -18,7 +20,10 @@ const useStyles = makeStyles( theme => ({
   gridItemImg: {
     textAlign: 'center',
     '& img': {
-      maxWidth: 380
+      maxWidth: 600,
+      [theme.breakpoints.up('md')]: {
+        maxWidth: 380
+      }
     }
   }
 }))
@@ -58,7 +63,7 @@ const EligibilityPage = (props) => {
               </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/patient-crop.jpg`} alt={t('sections.0.alt_text')} />
+              <ArticleImage src="patient-1.jpg" alt={t('sections.0.alt_text')} />
             </Grid>
 
             <Divider className={classes.divider} />
@@ -78,7 +83,7 @@ const EligibilityPage = (props) => {
 
             <Divider className={classes.divider} />
 
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} md={6}>
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent source={t('sections.2.title')} />
               </Typography>
@@ -86,6 +91,9 @@ const EligibilityPage = (props) => {
                 <RenderContent source={t('sections.2.body.text')} />
                 <RenderContent source={t('sections.2.body.list')} />
               </Typography>
+            </Grid>
+            <Grid className={classes.gridItemImg} item xs={12} md={6}>
+              <ArticleImage src="patient-and-nurse-1.jpg" alt={t('sections.2.alt_text')} />
             </Grid>
           </Grid>
         </Box>

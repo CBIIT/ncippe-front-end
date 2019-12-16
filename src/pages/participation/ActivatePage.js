@@ -7,6 +7,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
+import ArticleImage from '../../components/utils/ArticleImage'
 
 import { AuthContext } from '../../components/login/AuthContext'
 import FAQs from '../../components/FAQ/FAQ_Wrapper'
@@ -115,13 +116,18 @@ const ActivatePage = (props) => {
               </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/father-and-daughter-view-tablet.jpg`} alt={t('alt_text.0')} />
+              <ArticleImage src="father-and-daughter-view-tablet.jpg" alt={t('alt_text.0')} />
             </Grid>
           </Grid>
           <Box className={classes.tintedBox} p={7}>
             <Grid container className={classes.grid} spacing={2} alignItems="stretch">
               <Grid className={classes.centerText} item xs={12} md={6}>
-                <img className={classes.screenshot} src={`/${process.env.PUBLIC_URL}assets/images/login.gov.jpg`} alt="login.gov screenshot" width="300" />
+                <img className={classes.screenshot} src={`/${process.env.PUBLIC_URL}assets/images/login.gov.jpg`} alt="login.gov screenshot" width="300"
+                  srcSet={`
+                    /${process.env.PUBLIC_URL}assets/images/misc/standard/login.gov.jpg 1x,
+                    /${process.env.PUBLIC_URL}assets/images/misc/HD/login.gov.jpg 2x
+                  `}
+                />
               </Grid>
               <Grid item xs={12} md={6}>
                 <Typography variant="h2" component="h2">
@@ -227,7 +233,12 @@ const ActivatePage = (props) => {
               </div>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/login.gov-logo.jpg`} alt={t('sections.2.alt_text')} />
+              <img src={`/${process.env.PUBLIC_URL}assets/images/login.gov-logo.jpg`} alt={t('sections.2.alt_text')}
+                srcSet={`
+                /${process.env.PUBLIC_URL}assets/images/misc/standard/login.gov-logo.jpg 1x,
+                /${process.env.PUBLIC_URL}assets/images/misc/HD/login.gov-logo.jpg 2x
+              `}
+              />
             </Grid>
           </Grid>
         </Box>

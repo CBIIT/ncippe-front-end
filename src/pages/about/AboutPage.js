@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
-import { Container, Box, Grid, Typography } from '@material-ui/core';
+import React, { useEffect } from 'react'
+import { Container, Box, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
+import ArticleImage from '../../components/utils/ArticleImage'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -56,7 +57,7 @@ const AboutPage = (props) => {
               </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/hands2.jpg`} alt={t('sections.0.alt_text')} />
+              <ArticleImage src="father-son.jpg" alt={t('sections.0.alt_text')} />
             </Grid>
           </Grid>
         </Box>
