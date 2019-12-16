@@ -68,7 +68,7 @@ const Donate = (props) => {
       stupidPaddingException
     >
       <Grid container>
-        <Grid item xs={12} sm={6} lg={8} className={classes.textColumn}>
+        <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>
           <Typography className={classes.bottomSpacer} variant={isMobile ? "body1" : "body2"}>
             <RenderContent source={t('intro_text')} />
           </Typography>
@@ -76,7 +76,7 @@ const Donate = (props) => {
             <RenderContent source={t('body')} />
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={6} lg={4} className={classes.imgColumn}>
+        <Grid item xs={12} md={6} lg={4} className={classes.imgColumn}>
           <img className={classes.img} src={`/${process.env.PUBLIC_URL}assets/images/doctor-and-patient-wide.jpg`} alt={t('alt_text.0')} height="360" />
           <img className={classes.img} src={`/${process.env.PUBLIC_URL}assets/images/test-tubes.jpg`} alt={t('alt_text.1')} height="360" />
         </Grid>

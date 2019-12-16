@@ -3,7 +3,7 @@ import { navigate, Link as RouterLink } from '@reach/router'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 
-import { Box, Container, Dialog, DialogContent, Grid, IconButton, Link, Paper, Typography } from '@material-ui/core'
+import { useMediaQuery, Box, Container, Dialog, DialogContent, Grid, IconButton, Link, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   Clear as ClearIcon,
@@ -20,7 +20,7 @@ const isIE = /*@cc_on!@*/false || !!document.documentMode;
 const useStyles = makeStyles( theme => ({
   hero: {
     // backgroundColor: theme.palette.primary.lightGrey,
-    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero-image-mobile.png), ${theme.gradients.primaryDiagonal}`,
+    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobile/hero-image-mobile.png), ${theme.gradients.primaryDiagonal}`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "top right",
     backgroundSize: "auto 100%",
@@ -30,10 +30,19 @@ const useStyles = makeStyles( theme => ({
       height: "500px",
       alignItems: 'center',
     },
+    // mobile HD background
+    ['@media (min-resolution: 192dpi)']: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobileHD/hero-image-mobile.png), ${theme.gradients.primaryDiagonal}`
+    },
+    // desktop background
     [theme.breakpoints.up('md')]: {
       height: "700px",
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero-image-desktop.png), ${theme.gradients.primaryDiagonal}`,
-    }
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktop/hero-image-desktop.png), ${theme.gradients.primaryDiagonal}`,
+    },
+    // desktop HD background
+    [`@media (min-width: ${theme.breakpoints.values.md}px) and (min-resolution: 192dpi)`]: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktopHD/hero-image-desktop.png), ${theme.gradients.primaryDiagonal}`
+    },
 
   },
   heroText: {
@@ -150,12 +159,41 @@ const useStyles = makeStyles( theme => ({
     height: '100px'
   },
   fullWidthAccentImage: {
-    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/woman-with-head-scarf.jpg)`,
+    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/micro/woman-with-head-scarf.jpg)`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center 22%",
     backgroundSize: "cover",
     height: "40vw",
-    maxHeight: 450
+    maxHeight: 450,
+    // mobile
+    [`@media (min-width: 380px)`]: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/mobile/woman-with-head-scarf.jpg)`,
+    },
+    // micro HD
+    ['@media (min-resolution: 192dpi)']: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/tablet/woman-with-head-scarf.jpg), ${theme.gradients.primaryDiagonal}`
+    },
+    // mobile HD
+    [`@media (min-width: 380px) and (min-resolution: 192dpi)`]: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
+    },
+    // tablet
+    [`@media (min-width: ${theme.breakpoints.values.sm}px)`]: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/tablet/woman-with-head-scarf.jpg)`,
+    },
+    // tablet HD
+    [`@media (min-width: ${theme.breakpoints.values.sm}px) and (min-resolution: 192dpi)`]: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/tabletHD/woman-with-head-scarf.jpg)`,
+    },
+    // desktop
+    [`@media (min-width: ${theme.breakpoints.values.md}px)`]: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
+    },
+    // desktop HD
+    [`@media (min-width: ${theme.breakpoints.values.md}px) and (min-resolution: 192dpi)`]: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/desktopHD/woman-with-head-scarf.jpg)`,
+    },
+
   },
   biobank: {
     backgroundImage: theme.gradients.primaryDiagonal
@@ -225,8 +263,10 @@ const HomePage = (props) => {
   const classes = useStyles()
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [mediaCardPath, setMediaCardPath] = useState(`/${process.env.PUBLIC_URL}assets/images/mediaCard/standard/`)
   const { t, i18n } = useTranslation('homePage')
   const { trackEvent } = useTracking()
+  const isHighResolution = useMediaQuery('@media (min-resolution: 192dpi)')
 
 
 
@@ -238,6 +278,13 @@ const HomePage = (props) => {
     //clean up
     return () => window.removeEventListener('resize', resizeEvt, {passive: true})
   },[isMobile])
+
+  useEffect(() => {
+    // upgrade image to HD, no need to downgrade if not highResolution
+    if(isHighResolution) {
+      setMediaCardPath(`/${process.env.PUBLIC_URL}assets/images/mediaCard/HD/`)
+    }
+  }, [isHighResolution])
 
   useEffect(() => {
     if(props.location && props.location.state) {
@@ -352,7 +399,7 @@ const HomePage = (props) => {
                 desc={t('participate.cards.0.body')}
                 link="/expect"
                 linkText={t('participate.cards.0.link')}
-                image="reviewing-test-results.jpg"
+                image={`${mediaCardPath}reviewing-test-results.jpg`}
                 imageTitle={t('participate.cards.0.alt_text')}
               />
             </Grid>
@@ -360,7 +407,7 @@ const HomePage = (props) => {
               <IconCardMedia
                 title={t('participate.cards.1.title')}
                 desc={t('participate.cards.1.body')}
-                image="friends-and-family--sm.jpg"
+                image={`${mediaCardPath}friends-and-family.jpg`}
                 imageTitle={t('participate.cards.1.alt_text')}
               />
             </Grid>
@@ -370,7 +417,7 @@ const HomePage = (props) => {
                 desc={t('participate.cards.2.body')}
                 link="/about/research"
                 linkText={t('participate.cards.2.link')}
-                image="test-tubes.jpg"
+                image={`${mediaCardPath}researcher-examines-slide.jpg`}
                 imageTitle={t('participate.cards.2.alt_text')}
               />
             </Grid>

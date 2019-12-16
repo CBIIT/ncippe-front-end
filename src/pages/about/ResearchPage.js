@@ -3,6 +3,7 @@ import { Box, Container, Divider, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import RenderContent from '../../components/utils/RenderContent'
+import ArticleImage from '../../components/utils/ArticleImage'
 import { useTracking } from 'react-tracking'
 
 const useStyles = makeStyles( theme => ({
@@ -55,7 +56,7 @@ const ResearchPage = (props) => {
               </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/researchers1.jpg`} alt={t('sections.0.alt_text')} />
+              <ArticleImage src="researchers-2.jpg" alt={t('sections.0.alt_text')} />
             </Grid>
 
             <Divider className={classes.divider} />
@@ -69,7 +70,7 @@ const ResearchPage = (props) => {
               </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/researchers3.jpg`} alt={t('sections.0.alt_text')} />
+              <ArticleImage src="researchers-1.jpg" alt={t('sections.0.alt_text')} />
             </Grid>
           </Grid>
         </Box>
