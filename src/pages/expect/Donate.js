@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
-import { Grid, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
+import { Grid, Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
@@ -65,6 +66,15 @@ const Donate = (props) => {
       aria-labelledby={`scrollable-auto-tab-${index}`}
       stupidPaddingException
     >
+      <Helmet>
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/expect/donate`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect/donate`} />
+      </Helmet>
       <Grid container>
         <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>
           <Typography className={classes.bottomSpacer} variant={isMobile ? "body1" : "body2"}>

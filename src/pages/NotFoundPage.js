@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
 
 const useStyles = makeStyles( theme => ({
   container: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles( theme => ({
 
 const ErrorPage = () => {
   const classes = useStyles()
-  const { t, i18n } = useTranslation('errorPage')
+  const { t, i18n } = useTranslation('notFoundPage')
   const { trackEvent } = useTracking()
 
   useEffect(() => {
@@ -39,6 +40,15 @@ const ErrorPage = () => {
 
   return (
     <Box mt={5}>
+      <Helmet>
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/notfound`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/notfound`} />
+      </Helmet>
       <Container className={classes.container}>
         <div>
           <div className={classes.clear}>
