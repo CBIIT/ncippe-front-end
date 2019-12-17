@@ -45,11 +45,11 @@ const EligibilityPage = (props) => {
   return (
     <Box>
       <Helmet>
-        <title>Eligibility and locations | Cancer Moonshot Biobank | NCI</title>
-        <meta name="title"        content="Eligibility and locations | Cancer Moonshot Biobank" />
-        <meta property="og:title" content="Eligibility and locations | Cancer Moonshot Biobank" />
-        <meta name="description"        content="To start, the Cancer Moonshot Biobank is working with specific hospitals across the country to find participants with certain kinds of cancer." />
-        <meta property="og:description" content="To start, the Cancer Moonshot Biobank is working with specific hospitals across the country to find participants with certain kinds of cancer." />
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/about/eligibility`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/about/eligibility`} />
       </Helmet>

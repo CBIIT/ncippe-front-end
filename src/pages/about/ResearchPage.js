@@ -42,11 +42,11 @@ const ResearchPage = (props) => {
   return (
     <Box>
       <Helmet>
-        <title>Biobanking is important to research | Cancer Moonshot Biobank | NCI</title>
-        <meta name="title"        content="Biobanking is important to research | Cancer Moonshot Biobank" />
-        <meta property="og:title" content="Biobanking is important to research | Cancer Moonshot Biobank" />
-        <meta name="description"        content="To understand why cancer spreads or becomes resistant to treatment, researchers will be able to access tissue donated by patients over the course of their treatment." />
-        <meta property="og:description" content="To understand why cancer spreads or becomes resistant to treatment, researchers will be able to access tissue donated by patients over the course of their treatment." />
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/about/research`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/about/research`} />
       </Helmet>

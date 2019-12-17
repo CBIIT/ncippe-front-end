@@ -2,14 +2,16 @@ import React from 'react'
 import { ThemeProvider } from '@material-ui/styles'
 import { CssBaseline } from '@material-ui/core'
 import track from 'react-tracking'
+import { HelmetProvider, Helmet } from 'react-helmet-async'
+import { useTranslation } from 'react-i18next'
 
 import Routes from './routers/routes'
-import { HelmetProvider } from 'react-helmet-async'
 // import { AuthProvider } from './components/login/AuthContext'
 // import { LoginProvider } from './components/login/Login.context'
 import { theme } from './theme/theme'
 
 const App = (props) => {
+  const { t, i18n } = useTranslation('common')
 
   // generic event deligation for links and buttons in the body
   document.addEventListener("click", (e) => {
@@ -31,6 +33,9 @@ const App = (props) => {
       {/* <AuthProvider>
         <LoginProvider> */}
           <HelmetProvider>
+            <Helmet>
+              <meta name="twitter:image:alt" content={t('metaData.twitter_image_alt')} />
+            </Helmet>
             <CssBaseline />
             <Routes />
           </HelmetProvider>

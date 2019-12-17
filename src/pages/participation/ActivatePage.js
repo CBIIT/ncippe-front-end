@@ -104,11 +104,11 @@ const ActivatePage = (props) => {
   return (
     <Box>
       <Helmet>
-        <title>Activate your account | Cancer Moonshot Biobank | NCI</title>
-        <meta name="title"        content="Activate your account | Cancer Moonshot Biobank" />
-        <meta property="og:title" content="Activate your account | Cancer Moonshot Biobank" />
-        <meta name="description"        content="After you enroll in the Biobank through your doctor or research coordinator, you’ll receive an email invitation to activate your online Biobank account." />
-        <meta property="og:description" content="After you enroll in the Biobank through your doctor or research coordinator, you’ll receive an email invitation to activate your online Biobank account." />
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/participation/activate`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/participation/activate`} />
       </Helmet>

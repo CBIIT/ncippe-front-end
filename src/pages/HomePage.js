@@ -315,9 +315,9 @@ const HomePage = (props) => {
   return (
     <Box>
       <Helmet>
-        <title>Home Page | Cancer Moonshot Biobank | NCI</title>
-        <meta name="title"        content="Home Page | Cancer Moonshot Biobank" />
-        <meta property="og:title" content="Home Page | Cancer Moonshot Biobank" />
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
       </Helmet>
       <Container className={classes.hero}>
         <div className={classes.heroText}>

@@ -64,11 +64,11 @@ const Consent = (props) => {
       aria-labelledby={`scrollable-auto-tab-${index}`}
     >
       <Helmet>
-        <title>What to expect – giving consent | Cancer Moonshot Biobank | NCI</title>
-        <meta name="title"        content="What to expect – giving consent | Cancer Moonshot Biobank" />
-        <meta property="og:title" content="What to expect – giving consent | Cancer Moonshot Biobank" />
-        <meta name="description"        content="After you and your doctor discuss the Biobank and you decide you'd like to join you’ll be given a consent form to review and sign." />
-        <meta property="og:description" content="After you and your doctor discuss the Biobank and you decide you'd like to join you’ll be given a consent form to review and sign." />
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/expect`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect`} />
       </Helmet>

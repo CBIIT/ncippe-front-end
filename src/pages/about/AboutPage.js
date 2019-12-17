@@ -38,11 +38,11 @@ const AboutPage = (props) => {
   return (
     <Box>
       <Helmet>
-        <title>About the Biobank | Cancer Moonshot Biobank | NCI</title>
-        <meta name="title"        content="About the Biobank | Cancer Moonshot Biobank" />
-        <meta property="og:title" content="About the Biobank | Cancer Moonshot Biobank" />
-        <meta name="description"        content="The Cancer Moonshot Biobank is an unprecedented effort to learn how cancers behave over time." />
-        <meta property="og:description" content="The Cancer Moonshot Biobank is an unprecedented effort to learn how cancers behave over time." />
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/about`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/about`} />
       </Helmet>

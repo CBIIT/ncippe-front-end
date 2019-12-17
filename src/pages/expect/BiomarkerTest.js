@@ -106,11 +106,11 @@ const BiomarkerTest = (props) => {
       stupidPaddingException
     >
       <Helmet>
-        <title>What to expect – getting a biomarker test | Cancer Moonshot Biobank | NCI</title>
-        <meta name="title"        content="What to expect – getting a biomarker test | Cancer Moonshot Biobank" />
-        <meta property="og:title" content="What to expect – getting a biomarker test | Cancer Moonshot Biobank" />
-        <meta name="description"        content="Biobank participants get a biomarker test, which looks at the genetic structure of your cancer and can help your doctor find new treatments or clinical trials." />
-        <meta property="og:description" content="Biobank participants get a biomarker test, which looks at the genetic structure of your cancer and can help your doctor find new treatments or clinical trials." />
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/expect/testing`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect/testing`} />
       </Helmet>

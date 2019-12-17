@@ -39,11 +39,11 @@ const PrivacyPage = (props) => {
   return (
     <Container className="mainContainer">
       <Helmet>
-        <title>Protecting your privacy | Cancer Moonshot Biobank | NCI</title>
-        <meta name="title"        content="Protecting your privacy | Cancer Moonshot Biobank" />
-        <meta property="og:title" content="Protecting your privacy | Cancer Moonshot Biobank" />
-        <meta name="description"        content="We protect your data and your privacy by controlling who can access your information, not sharing your participation, and testing our systems regularly." />
-        <meta property="og:description" content="We protect your data and your privacy by controlling who can access your information, not sharing your participation, and testing our systems regularly." />
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/participation/privacy`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/participation/privacy`} />
       </Helmet>
