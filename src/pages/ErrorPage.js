@@ -1,10 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link as RouterLink } from "@reach/router"
 import { Box, Container, Button, Link, Typography } from '@material-ui/core'
 import Status from '../components/Status/Status'
+import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
 
 
 const ErrorPage = (props) => {
+  const { t, i18n } = useTranslation('notFoundPage')
+  const { trackEvent } = useTracking()
+
+  useEffect(() => {
+    trackEvent({
+      event:'pageview',
+      prop6: "Error Page",
+      pageType: "errorpage",
+    })
+  },[trackEvent])
+
   const errorDefaults = {
     status: "error",
     name: "Error",
@@ -16,11 +30,20 @@ const ErrorPage = (props) => {
   }
   return (
     <Container>
+      <Helmet>
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/errorPage`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/errorPage`} />
+      </Helmet>
       <Box my={6} mx={0}>
         <Status state={error.status} title={error.name} message={error.message} />
-        <Link component={RouterLink} to='/'>
-          <Button variant="outlined" color="primary">Return to homepage</Button>
-        </Link>
+        <div>
+          <Button variant="contained" color="primary" component={RouterLink} to="/">{t('buttonText')}</Button>
+        </div>
       </Box>
     </Container>
   )

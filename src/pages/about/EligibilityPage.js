@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { Container, Box, Grid, Typography, Divider } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
+import { Container, Box, Grid, Typography, Divider } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles'
+
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 
@@ -42,6 +44,15 @@ const EligibilityPage = (props) => {
 
   return (
     <Box>
+      <Helmet>
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/about/eligibility`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/about/eligibility`} />
+      </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1"><RenderContent source={t('pageTitle')} /></Typography>
       </Container>

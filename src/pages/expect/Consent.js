@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
 import { Box, Card, CardMedia, Link, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { OpenInNew as OpenInNewIcon } from '@material-ui/icons'
-import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
-import RenderContent from '../../components/utils/RenderContent'
 
+import RenderContent from '../../components/utils/RenderContent'
 import TabPanel from '../../components/Tabs/TabPanel'
 
 const useStyles = makeStyles( theme => ({
@@ -62,39 +63,48 @@ const Consent = (props) => {
       id={`scrollable-auto-tabpanel-${index}`}
       aria-labelledby={`scrollable-auto-tab-${index}`}
     >
-    <Box className={classes.container}>
-      <Typography variant={isMobile ? "body1" : "body2"} component="div">
-        <RenderContent source={t('intro_text')} />
-      </Typography>
-      <Box mb={5}>
-        <Typography variant="h3" component="h3">{t('sample_title')}</Typography>
-        <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
-          <RenderContent source={t('form_link_adult')} />
-        </Link>
-        <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
-          <RenderContent source={t('form_link_parental')} />
-        </Link>
-        <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
-          <RenderContent source={t('form_link_minors')} />
-        </Link>
+      <Helmet>
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/expect`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect`} />
+      </Helmet>
+      <Box className={classes.container}>
+        <Typography variant={isMobile ? "body1" : "body2"} component="div">
+          <RenderContent source={t('intro_text')} />
+        </Typography>
+        <Box mb={5}>
+          <Typography variant="h3" component="h3">{t('sample_title')}</Typography>
+          <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
+            <RenderContent source={t('form_link_adult')} />
+          </Link>
+          <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
+            <RenderContent source={t('form_link_parental')} />
+          </Link>
+          <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
+            <RenderContent source={t('form_link_minors')} />
+          </Link>
+        </Box>
+        <Box mb={4}>
+          <figure>
+            <Card className={classes.mediaWrapper}>
+              <CardMedia
+                component='iframe'
+                className={classes.media}
+                src='https://www.youtube.com/embed/OyCFbZYgL3U'
+                title={t('video_title')}
+                allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+                allowFullScreen
+              />
+            </Card>
+            <figcaption><RenderContent source={t('video_caption')} /></figcaption>
+          </figure>
+        </Box>
       </Box>
-      <Box mb={4}>
-        <figure>
-          <Card className={classes.mediaWrapper}>
-            <CardMedia
-              component='iframe'
-              className={classes.media}
-              src='https://www.youtube.com/embed/OyCFbZYgL3U'
-              title={t('video_title')}
-              allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-              allowFullScreen
-            />
-          </Card>
-          <figcaption><RenderContent source={t('video_caption')} /></figcaption>
-        </figure>
-      </Box>
-    </Box>
-  </TabPanel>
+    </TabPanel>
   )
 }
 export default Consent

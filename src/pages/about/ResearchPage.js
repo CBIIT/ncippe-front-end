@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
 import { Box, Container, Divider, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
-import { useTranslation } from 'react-i18next'
+
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
-import { useTracking } from 'react-tracking'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -39,6 +41,15 @@ const ResearchPage = (props) => {
 
   return (
     <Box>
+      <Helmet>
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/about/research`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/about/research`} />
+      </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">
           <RenderContent source={t('pageTitle')} />
