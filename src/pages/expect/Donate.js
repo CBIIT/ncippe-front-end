@@ -3,8 +3,9 @@ import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
-import RenderContent from '../../components/utils/RenderContent'
 
+import RenderContent from '../../components/utils/RenderContent'
+import ArticleImage from '../../components/utils/ArticleImage'
 import FAQs from '../../components/FAQ/FAQ_Wrapper'
 import TabPanel from '../../components/Tabs/TabPanel'
 
@@ -14,9 +15,13 @@ const useStyles = makeStyles( theme => ({
       paddingRight: theme.spacing(3)
     }
   },
-  imgColumn: {
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing(3)
+  gridItemImg: {
+    textAlign: 'center',
+    '& img': {
+      maxWidth: 600,
+      [theme.breakpoints.up('md')]: {
+        maxWidth: 380
+      }
     }
   },
   bottomSpacer: {
@@ -31,13 +36,6 @@ const useStyles = makeStyles( theme => ({
       [theme.breakpoints.up('sm')]: {
         marginTop: theme.spacing(5)
       }
-    }
-  },
-  img: {
-    display: 'block',
-    maxWidth: 410,
-    '&:first-of-type': {
-      marginBottom: theme.spacing(5)
     }
   },
   faqs: {
@@ -76,9 +74,8 @@ const Donate = (props) => {
             <RenderContent source={t('body')} />
           </Typography>
         </Grid>
-        <Grid item xs={12} md={6} lg={4} className={classes.imgColumn}>
-          <img className={classes.img} src={`/${process.env.PUBLIC_URL}assets/images/doctor-and-patient-wide.jpg`} alt={t('alt_text.0')} height="360" />
-          <img className={classes.img} src={`/${process.env.PUBLIC_URL}assets/images/test-tubes.jpg`} alt={t('alt_text.1')} height="360" />
+        <Grid item xs={12} md={6} lg={4} className={classes.gridItemImg}>
+          <ArticleImage src="doctor-and-patient-1.jpg" alt={t('alt_text.0')} />
         </Grid>
       </Grid>
 
