@@ -2,7 +2,9 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import { makeStyles } from '@material-ui/core/styles'
-import { Container, Grid, Typography } from '@material-ui/core'
+import { Container, Grid, IconButton, Typography } from '@material-ui/core'
+
+import { newWindow } from '../../../utils/utils'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,6 +45,10 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.pink.main,
     fontWeight: 'bold',
     textTransform: 'uppercase'
+  },
+  socialIcon: {
+    width: 60,
+    paddingLeft: 5
   }
 }))
 
@@ -62,6 +68,17 @@ const Footer = () => {
     }
   }
 
+  const handleShareOnFacebook = (e) => {
+    const url = `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`
+    newWindow(url)
+  }
+
+  const handleShareOnTwitter = (e) => {
+    const url = `https://twitter.com/share?url=${window.location.href}`
+    newWindow(url)
+  }
+
+
   return (
     <Container className={classes.root} component="footer" id="appFooter">
       <div className={classes.logo}><img src={`/${process.env.PUBLIC_URL}assets/images/nci-logo-text-white.svg`} alt={t('footer.logo.alt_text')} title={t('footer.logo.title')}  /></div>
@@ -71,6 +88,10 @@ const Footer = () => {
             <a href={`mailto:${t('footer.links.email')}`}>{t('footer.links.email')}</a>
             <a href={`tel:${t('footer.links.phone')}`}>{t('footer.links.phone')}</a>
             <a href="https://www.cancer.gov/contact">{t('footer.links.CIS')}</a>
+            <div className={classes.social}>
+              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnFacebook}><img src={`/${process.env.PUBLIC_URL}assets/icons/facebook.svg`} alt="facebook icon" title="Share this page on Facebook" /></IconButton>
+              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnTwitter}><img src={`/${process.env.PUBLIC_URL}assets/icons/twitter.svg`} alt="twitter icon" title="Share this page on Twitter" /></IconButton>
+            </div>
           </Grid>
           <Grid item xs={12} sm={4}>
             <span className={classes.columnTitle}>{t('footer.links.policy_title')}</span>
