@@ -116,7 +116,7 @@ const BiomarkerTest = (props) => {
           </Typography>
         </Grid>
         <Grid item xs={12} md={6} lg={4} className={classes.gridItemImg}>
-          <ArticleImage src="researchers-3.jpg" alt={t('sections.0.alt_text')} height="360" />
+          <ArticleImage src="researchers-3.jpg" alt={t('sections.0.alt_text')} />
         </Grid>
       </Grid>
 
