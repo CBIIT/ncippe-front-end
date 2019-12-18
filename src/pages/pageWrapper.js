@@ -35,7 +35,7 @@ const pageWrapper = (Component) => ({children, ...props}) => {
   return (
     <>
       <Header />
-      <div id="main" className={classes.main}>
+      <div id="main" className={classes.main} role="main">
         {/* <Container style={{position:"relative"}}>
           <Link component={RouterLink} to='/mock-users' className={classes.mockUsers}>
             <Button variant="outlined" color="primary">Mock User</Button>

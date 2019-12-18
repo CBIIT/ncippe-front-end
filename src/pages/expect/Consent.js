@@ -72,7 +72,7 @@ const Consent = (props) => {
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/expect`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect`} />
       </Helmet>
-      <Box className={classes.container}>
+      <Box className={classes.container} component="section">
         <Typography variant={isMobile ? "body1" : "body2"} component="div">
           <RenderContent source={t('intro_text')} />
         </Typography>

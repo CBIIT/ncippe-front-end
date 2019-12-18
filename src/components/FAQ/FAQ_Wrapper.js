@@ -19,6 +19,9 @@ const useStyles = makeStyles( theme => ({
   faq_icon: {
     marginLeft: -8,
     marginRight: 4
+  },
+  whiteBG: {
+    backgroundColor: theme.palette.common.white
   }
 }))
 
@@ -55,28 +58,28 @@ const FAQs = (props) => {
   }
 
   return (
-    <Container className={`innerContainer ${className}`} {...other}>
-    <div className={classes.faq_title}>
-      <Typography variant="h3" component="h3">{title}</Typography>
-      <Button variant="outlined" color="primary" onClick={toggleAll}>
-        { isExpanded ? 
-          <><MinusIcon className={classes.faq_icon} /> {t('buttons.collapse')}</>
-          : 
-          <><PlusIcon className={classes.faq_icon} /> {t('buttons.expand')}</>
-        }
-      </Button>
-    </div>
-    <Box mt={3}>
-      {faqs && Object.keys(faqs).map((faq, i) => <FAQ
-        key={i}
-        index={i}
-        title={faqs[faq].question}
-        desc={faqs[faq].answer}
-        expanded={isExpanded}
-        clickHandler={trackToggle}
-      />)}
-    </Box>
-  </Container>
+    <Container className={`innerContainer ${className}`} {...other} component="section">
+      <div className={classes.faq_title}>
+        <Typography variant="h3" component="h3">{title}</Typography>
+        <Button className={classes.whiteBG} variant="outlined" color="primary" onClick={toggleAll}>
+          { isExpanded ? 
+            <><MinusIcon className={classes.faq_icon} /> {t('buttons.collapse')}</>
+            : 
+            <><PlusIcon className={classes.faq_icon} /> {t('buttons.expand')}</>
+          }
+        </Button>
+      </div>
+      <Box mt={3}>
+        {faqs && Object.keys(faqs).map((faq, i) => <FAQ
+          key={i}
+          index={i}
+          title={faqs[faq].question}
+          desc={faqs[faq].answer}
+          expanded={isExpanded}
+          clickHandler={trackToggle}
+        />)}
+      </Box>
+    </Container>
   )
 }
 

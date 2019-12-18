@@ -36,7 +36,7 @@ const AboutPage = (props) => {
   },[trackEvent])
 
   return (
-    <Box>
+    <Box component="article">
       <Helmet>
         <title>{t("metaData.title")} | NCI</title>
         <meta name="title" content={t("metaData.title")} />
@@ -52,7 +52,7 @@ const AboutPage = (props) => {
         </Typography>
       </Container>
       <Container className="mainContainer mainContainer--public">
-        <Box mt={5}>
+        <Box mt={5} component="section">
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
               <Typography paragraph={true} variant="h2" component="h2">
@@ -67,7 +67,7 @@ const AboutPage = (props) => {
                 <RenderContent source={t('sections.0.body')} />
               </Typography>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6}>
+            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
               <ArticleImage src="father-son.jpg" alt={t('sections.0.alt_text')} />
             </Grid>
           </Grid>

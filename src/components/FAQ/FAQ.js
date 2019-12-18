@@ -53,8 +53,12 @@ const useStyles = makeStyles( theme => ({
       animation: 'transparentToWhite 300ms',
       animationFillMode: 'both'
     },
+    '& .Mui-focused::before': {
+      animation: 'whiteToPink 300ms both',
+      outline: '1px solid #aaa'
+    },
     '& .Mui-expanded::before': {
-      animation: 'whiteToTransparent 300ms',
+      animation: 'whiteToTransparent 300ms both',
     },
     '& .MuiExpansionPanelDetails-root': {
       display: 'block'
@@ -104,7 +108,7 @@ const FAQ = (props) => {
 
   return (
     <ExpansionPanel square expanded={isExpanded} onChange={handleChange} className={classes.root}>
-      <ExpansionPanelSummary expandIcon={isExpanded ? <RemoveRounded /> : <AddRounded />} onClick={trackClick}>
+      <ExpansionPanelSummary expandIcon={isExpanded ? <RemoveRounded /> : <AddRounded />} onClick={trackClick} aria-controls={`faq-${index}-content`} id={`faq-${index}-header`}>
         <Typography variant="h4" component="h4">{title}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>

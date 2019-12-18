@@ -43,7 +43,7 @@ const EligibilityPage = (props) => {
   },[trackEvent])
 
   return (
-    <Box>
+    <Box component="article">
       <Helmet>
         <title>{t("metaData.title")} | NCI</title>
         <meta name="title" content={t("metaData.title")} />
@@ -59,7 +59,7 @@ const EligibilityPage = (props) => {
       <Container className="mainContainer mainContainer--public">
         <Box mt={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} component="section">
               <Typography paragraph={true}>
                 <RenderContent source={t('introText')} />
               </Typography>
@@ -73,13 +73,13 @@ const EligibilityPage = (props) => {
                 <RenderContent source={t('sections.0.body.list')} />
               </Typography>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6}>
+            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
               <ArticleImage src="patient-1.jpg" alt={t('sections.0.alt_text')} />
             </Grid>
 
             <Divider className={classes.divider} />
             
-            <Grid className={classes.gridItem} item xs={12} md={6}>
+            <Grid className={classes.gridItem} item xs={12} md={6} component="section">
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent source={t('sections.1.title')} />
               </Typography>
@@ -94,7 +94,7 @@ const EligibilityPage = (props) => {
 
             <Divider className={classes.divider} />
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} component="section">
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent source={t('sections.2.title')} />
               </Typography>
@@ -103,7 +103,7 @@ const EligibilityPage = (props) => {
                 <RenderContent source={t('sections.2.body.list')} />
               </Typography>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6}>
+            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
               <ArticleImage src="patient-and-nurse-1.jpg" alt={t('sections.2.alt_text')} />
             </Grid>
           </Grid>
