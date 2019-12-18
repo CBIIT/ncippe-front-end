@@ -2,6 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <!-- favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/assets/favicons/apple-touch-icon.png" />
     <link rel="icon" type="image/png" href="%PUBLIC_URL%/assets/favicons/favicon-32x32.png" sizes="32x32" />
@@ -44,12 +46,13 @@
     <!-- Fonts for PPE Portal design -->
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap"> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:400,500,600,700&display=swap">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=Element.prototype.closest"></script>
+
+    <script defer src="https://polyfill.io/v3/polyfill.min.js?features=Element.prototype.closest"></script>
     <script defer type="text/javascript">
       // analytics configs
       var s_account="%REACT_APP_ANALYTICS_ACCOUNT%"
     </script>
-    <script src="%PUBLIC_URL%/assets/analytics/AppMeasurement.js"></script>
+    <script defer src="%PUBLIC_URL%/assets/analytics/AppMeasurement.js"></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this website.</noscript>
