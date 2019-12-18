@@ -50,7 +50,7 @@ const SearchResults = (props) => {
     let textData = [] // lunr needs an array of docs
     let tempData = {} // search results need an object keyed to the resource's name space
   
-    Object.keys(data).map(resource => {
+    Object.keys(data).forEach(resource => {
       if(resource !== 'common'){
         const ignoreKeys = ['pageTitle', 'pageRoute', 'alt_text']
         const value = objectValuesToString(data[resource], ignoreKeys)
@@ -73,7 +73,7 @@ const SearchResults = (props) => {
       this.pipeline.remove(lunr.stemmer)
       // this.pipeline.remove(lunr.stopWordFilter)
   
-      textData.map(doc => {
+      textData.forEach(doc => {
         this.add(doc)
       })
     })
@@ -87,6 +87,50 @@ const SearchResults = (props) => {
   }, [i18n])
   
   useEffect(() => {
+    const extract = (str,q) => {
+      const regEx = new RegExp(q,"i")
+      const match = str.search(regEx,"gi")
+      if(match < 0){
+        return null
+      }
+      // if string has two matches, then discard one
+      if (match > 0 && match < 40) {
+        return null
+        // const scrub = str.replace(regEx,'x'.repeat(q.length))
+        // return extract(scrub,q)
+      }
+      else {
+        const regExTrimString = `[^|]*${q}[^|]*`
+        const regExTrim = new RegExp(regExTrimString,"gi")
+        const regExG = new RegExp(q,"gi")
+        const strTrim = str.match(regExTrim)[0].trim().replace(regExG,`<mark>${q}</mark>`)
+        return strTrim
+      }
+    }
+
+    const processSearch = (results = []) => {
+
+      return results.map(result => {
+  
+        const doc = docData[result.ref]
+        const processResults = Object.keys(result.matchData.metadata).map(match => {
+          const matchData = result.matchData.metadata[match]
+          return matchData.body.position.map((matchPos,i) => {
+            if(i > 5) return null // limit results to 5 example snippits per match set
+            const start = matchPos[0]-40
+            const end = matchPos[0] + matchPos[1] + 40
+            return extract(doc.body.slice(start,end),match)
+          }).filter(Boolean).join('… …') // remove empty entries and join the remainder together
+        })
+  
+        return {
+          page: doc.pageTitle,
+          route: doc.pageRoute,
+          results: `…${processResults.join('… …')}…`
+        }
+      })
+    }
+
     // perform search
     if(searchIndex){
       const results = processSearch(searchIndex.search(`*${searchTerm}*~1 ${searchTerm}* *${searchTerm}`))
@@ -101,51 +145,7 @@ const SearchResults = (props) => {
       })
     }
 
-  }, [searchTerm, trackEvent, searchIndex])
-
-  const processSearch = (results = []) => {
-    
-    const extract = (str,q) => {
-      const regEx = new RegExp(q,"i")
-      const match = str.search(regEx,"gi")
-      if(match < 0){
-        return null
-      }
-      // if string has two matches, then discard one
-      if (match > 0 && match < 40) {
-        const scrub = str.replace(regEx,'x'.repeat(q.length))
-        return null
-        // return extract(scrub,q)
-      }
-      else {
-        const regExTrimString = `[^|]*${q}[^|]*`
-        const regExTrim = new RegExp(regExTrimString,"gi")
-        const regExG = new RegExp(q,"gi")
-        const strTrim = str.match(regExTrim)[0].trim().replace(regExG,`<mark>${q}</mark>`)
-        return strTrim
-      }
-    }
-
-    return results.map(result => {
-
-      const doc = docData[result.ref]
-      const processResults = Object.keys(result.matchData.metadata).map(match => {
-        const matchData = result.matchData.metadata[match]
-        return matchData.body.position.map((matchPos,i) => {
-          if(i > 5) return // limit results to 5 example snippits per match set
-          const start = matchPos[0]-40
-          const end = matchPos[0] + matchPos[1] + 40
-          return extract(doc.body.slice(start,end),match)
-        }).filter(Boolean).join('… …') // remove empty entries and join the remainder together
-      })
-
-      return {
-        page: doc.pageTitle,
-        route: doc.pageRoute,
-        results: `…${processResults.join('… …')}…`
-      }
-    })
-  }
+  }, [searchTerm, trackEvent, searchIndex, docData])
 
   const handleSubmit = (e) => {
     e.preventDefault()

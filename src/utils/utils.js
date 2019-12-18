@@ -53,7 +53,7 @@ export const getUserGroup = (role, list = true) => {
     case 'PPE_ADMIN':
       return `admin${suffix}`
     default:
-      return 'patient${suffix}'
+      return `patient${suffix}`
   }
 }
 
@@ -77,7 +77,7 @@ export const objectValuesToString = (obj, ignore, divider = ' | ') => {
   Object.keys(obj).map((key) => {
     const exit = ignore.some(ignoreKey => ignoreKey === key)
     if (exit) {
-      return
+      return null
     }
     else {
       if (typeof obj[key] === 'object' && obj[key] !== null) {

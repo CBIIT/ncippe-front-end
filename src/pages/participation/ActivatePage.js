@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
@@ -82,7 +82,7 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const ActivatePage = (props) => {
+const ActivatePage = () => {
   const classes = useStyles()
   const { t, i18n } = useTranslation('activate')
   const { trackEvent } = useTracking()

@@ -13,7 +13,7 @@ import Research           from '../pages/about/ResearchPage'
 import WhatToExpect       from '../pages/expect/WhatToExpectPage'
 import Privacy            from '../pages/participation/PrivacyPage'
 import Activate           from '../pages/participation/ActivatePage'
-const SearchResults = lazy(() => import('../pages/SearchResultsPage'))
+
 // import SearchResults      from '../pages/SearchResultsPage'
 // import Dashboard          from '../pages/dashboard/DashboardPage'
 // import SignInCallback     from '../pages/dashboard/SignInCallback'
@@ -25,9 +25,9 @@ const SearchResults = lazy(() => import('../pages/SearchResultsPage'))
 // import ProfilePage        from '../pages/dashboard/ProfilePage'
 // import ParticipationPage  from '../pages/dashboard/ParticipationPage'
 // import GetHelpPage        from '../pages/dashboard/GetHelpPage'
-
-
 // import { LoginConsumer } from '../components/login/Login.context'
+
+const SearchResults = lazy(() => import('../pages/SearchResultsPage'))
 
 const HomePage = pageWrapper(Home)
 const AboutPage = pageWrapper(About)

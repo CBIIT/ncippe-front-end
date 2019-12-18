@@ -4,7 +4,7 @@ import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
 import { Box, Card, CardMedia, Link, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { OpenInNew as OpenInNewIcon } from '@material-ui/icons'
+// import { OpenInNew as OpenInNewIcon } from '@material-ui/icons'
 
 import RenderContent from '../../components/utils/RenderContent'
 import TabPanel from '../../components/Tabs/TabPanel'
@@ -47,7 +47,7 @@ const useStyles = makeStyles( theme => ({
 const Consent = (props) => {
   const {index, isMobile} = props
   const classes = useStyles()
-  const { t, i18n } = useTranslation('consent')
+  const { t } = useTranslation('consent')
   const { trackEvent } = useTracking()
 
   useEffect(() => {

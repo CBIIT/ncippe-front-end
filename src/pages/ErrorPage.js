@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link as RouterLink } from "@reach/router"
-import { Box, Container, Button, Link, Typography } from '@material-ui/core'
+import { Box, Container, Button } from '@material-ui/core'
 import Status from '../components/Status/Status'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
@@ -8,7 +8,7 @@ import { Helmet } from 'react-helmet-async'
 
 
 const ErrorPage = (props) => {
-  const { t, i18n } = useTranslation('notFoundPage')
+  const { t } = useTranslation('notFoundPage')
   const { trackEvent } = useTracking()
 
   useEffect(() => {

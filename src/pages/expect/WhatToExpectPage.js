@@ -42,7 +42,7 @@ const a11yProps = (index) => {
 
 const WhatToExpectPage = () => {
   const classes = useStyles()
-  const { t, i18n } = useTranslation(['consent','donate','testing'])
+  const { t } = useTranslation(['consent','donate','testing'])
   const { trackEvent } = useTracking()
   const [value, setValue] = useState(()=>{
     switch(window.location.pathname){
