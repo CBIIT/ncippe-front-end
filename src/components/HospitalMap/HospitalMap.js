@@ -56,7 +56,7 @@ const HospitalMap = (props) => {
   useEffect(()=>{
     if(mapScriptLoaded) {
       map = window.L.map('map').setView([38.5561, -90.2496], 5)
-      const OpenStreetMap = window.L.tileLayer('	https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
+      const OpenStreetMap = window.L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
               maxZoom: 19,
               attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             });
