@@ -1,9 +1,9 @@
 import 'react-app-polyfill/ie11'
 import 'react-app-polyfill/stable'
-import React, { Suspense } from 'react'
+import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import App from './App'
+// import App from './App'
 import Loading from './components/Loading/Loading'
 import logo from './utils/ascii-logo'
 // import * as serviceWorker from './serviceWorker';
@@ -11,6 +11,7 @@ import logo from './utils/ascii-logo'
 // import i18n (needs to be bundled ;)) 
 import './i18n'
 
+const App = lazy(() => import('./App')) // code splitting out the main app
 
 ReactDOM.render(
   <Suspense fallback={<div style={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}><Loading /></div>}>
