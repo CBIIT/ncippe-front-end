@@ -37,7 +37,7 @@ const PrivacyPage = (props) => {
   },[trackEvent])
 
   return (
-    <Container className="mainContainer">
+    <Container className="mainContainer" component="article">
       <Helmet>
         <title>{t("metaData.title")} | NCI</title>
         <meta name="title" content={t("metaData.title")} />
@@ -47,7 +47,7 @@ const PrivacyPage = (props) => {
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/participation/privacy`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/participation/privacy`} />
       </Helmet>
-      <Box my={6} mx={0}>
+      <Box my={6} mx={0} component="section">
         <Typography variant="h1" gutterBottom>
           <RenderContent source={t('pageTitle')} />
         </Typography>
@@ -55,12 +55,13 @@ const PrivacyPage = (props) => {
           <RenderContent source={t('subtitle')} />
         </Typography>
       </Box>
-      <Grid container className={classes.grid} spacing={2} direction="row" justify="center" alignItems="stretch">
+      <Grid container className={classes.grid} spacing={2} direction="row" justify="center" alignItems="stretch" component="section">
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
           <IconCard
             icon="identification.svg"
             title={t('cards.0.title')}
             desc={t('cards.0.description')}
+            altText={t('cards.0.alt_text')}
           />
         </Grid>
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
@@ -68,6 +69,7 @@ const PrivacyPage = (props) => {
             icon="stored-medical-info.svg"
             title={t('cards.1.title')}
             desc={t('cards.1.description')}
+            altText={t('cards.1.alt_text')}
           />
         </Grid>
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
@@ -75,6 +77,7 @@ const PrivacyPage = (props) => {
             icon="doctor.svg"
             title={t('cards.2.title')}
             desc={t('cards.2.description')}
+            altText={t('cards.2.alt_text')}
           />
         </Grid>
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
@@ -82,6 +85,7 @@ const PrivacyPage = (props) => {
             icon="secure-practices.svg"
             title={t('cards.3.title')}
             desc={t('cards.3.description')}
+            altText={t('cards.3.alt_text')}
           />
         </Grid>
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
@@ -89,6 +93,7 @@ const PrivacyPage = (props) => {
             icon="security-system.svg"
             title={t('cards.4.title')}
             desc={t('cards.4.description')}
+            altText={t('cards.4.alt_text')}
           />
         </Grid>
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
@@ -96,6 +101,7 @@ const PrivacyPage = (props) => {
             icon="laws.svg"
             title={t('cards.5.title')}
             desc={t('cards.5.description')}
+            altText={t('cards.5.alt_text')}
           />
         </Grid>
       </Grid>
