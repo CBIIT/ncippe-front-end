@@ -10,7 +10,7 @@ import {
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
-import { AuthContext } from '../../components/login/AuthContext'
+// import { AuthContext } from '../../components/login/AuthContext'
 import FAQs from '../../components/FAQ/FAQ_Wrapper'
 
 const useStyles = makeStyles( theme => ({
@@ -86,7 +86,7 @@ const ActivatePage = (props) => {
   const classes = useStyles()
   const { t, i18n } = useTranslation('activate')
   const { trackEvent } = useTracking()
-  const { signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
+  // const { signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
   const faqs = i18n.getResourceBundle(i18n.languages[0],'activate').faqs
 
   useEffect(() => {
@@ -96,13 +96,13 @@ const ActivatePage = (props) => {
     })
   },[trackEvent])
 
-  const handleLogin = () => {
-    // Using openID to redirect to login.gov
-    signinRedirect()
-  }
+  // const handleLogin = () => {
+  //   // Using openID to redirect to login.gov
+  //   signinRedirect()
+  // }
 
   return (
-    <Box>
+    <Box component="article">
       <Helmet>
         <title>{t("metaData.title")} | NCI</title>
         <meta name="title" content={t("metaData.title")} />
@@ -118,18 +118,18 @@ const ActivatePage = (props) => {
         </Typography>
       </Container>
       <Container>
-        <Box my={5}>
+        <Box my={5} component="section">
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
               <Typography paragraph={true} variant="body2" component="div">
                 <RenderContent source={t('intro_text')} />
               </Typography>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6}>
+            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
               <ArticleImage src="father-and-daughter-view-tablet.jpg" alt={t('alt_text.0')} />
             </Grid>
           </Grid>
-          <Box className={classes.tintedBox} p={7}>
+          <Box className={classes.tintedBox} p={7} component="section">
             <Grid container className={classes.grid} spacing={2} alignItems="stretch">
               <Grid className={classes.centerText} item xs={12} md={6}>
                 <img className={classes.screenshot} src={`/${process.env.PUBLIC_URL}assets/images/login.gov.jpg`} alt="login.gov screenshot" width="300"
@@ -144,14 +144,15 @@ const ActivatePage = (props) => {
                   <RenderContent source={t('sections.0.title')} />
                 </Typography>
                 <Link href={`https://${process.env.REACT_APP_LOGIN_LINK}/sign_up/enter_email?request_id=${process.env.REACT_APP_REQUEST_ID}`}><Button className={classes.createAccountBtn} variant="contained" color="primary">{t('sections.0.links.0')}</Button></Link>
-                <Button className={classes.haveAccountBtn} variant="outlined" color="primary" onClick={handleLogin}>{t('sections.0.links.1')}</Button>
+                {/* <Button className={classes.haveAccountBtn} variant="outlined" color="primary" onClick={handleLogin}>{t('sections.0.links.1')}</Button> */}
+                <Button className={classes.haveAccountBtn} variant="outlined" color="primary" disabled>{t('sections.0.links.1')}</Button>
               </Grid>
             </Grid>
           </Box>
         </Box>
 
         {/* To create your login.gov account */}
-        <Box>
+        <Box component="section">
           <Typography variant="h2" component="h2">
             <RenderContent source={t('sections.1.title')} />
           </Typography>
@@ -230,7 +231,7 @@ const ActivatePage = (props) => {
         <Divider className={classes.divider} />
 
         {/* More Information */}
-        <Box mb={6}>
+        <Box mb={6} component="section">
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
               <Typography paragraph={true} variant="h2" component="h2">
@@ -242,7 +243,7 @@ const ActivatePage = (props) => {
                 <Link href="https://login.gov/help/creating-an-account/how-to-create-an-account/" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.links.2')} <OpenInNewIcon /></Link>
               </div>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6}>
+            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
               <img src={`/${process.env.PUBLIC_URL}assets/images/login.gov-logo.jpg`} alt={t('sections.2.alt_text')}
                 srcSet={`
                 /${process.env.PUBLIC_URL}assets/images/misc/standard/login.gov-logo.jpg 1x,
