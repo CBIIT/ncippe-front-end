@@ -5,9 +5,11 @@ import { makeStyles } from '@material-ui/core/styles'
 import { 
   Search as SearchIcon
 } from '@material-ui/icons'
-import { searchIndex } from '../i18n'
+// import { searchIndex } from '../i18n'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
+import lunr from 'lunr'
+import { objectValuesToString } from '../utils/utils'
 import RenderContent from '../components/utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
@@ -33,58 +35,108 @@ const useStyles = makeStyles( theme => ({
 const SearchResults = (props) => {
   const {location} = props
   const classes = useStyles()
-  const { t, i18n } = useTranslation('common')
+  const { t, i18n } = useTranslation(['common','homePage','about','eligibility','research','consent','donate','testing','activate','privacy'])
   const { trackEvent } = useTracking()
   const term = location ? location.state ? location.state.term : '' : ''
   const [searchTerm, setSearchTerm] = useState(term)
   const [searchResults, setSearchResults] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
-  
-  useEffect(() => {
-    const results = processSearch(searchIndex.search(`*${searchTerm}*~1 ${searchTerm}* *${searchTerm}`))
-    setSearchResults(results)
+  const [searchIndex, setSearchIndex] = useState()
+  const [docData, setDocData] = useState({})
 
-    trackEvent({
-      event:'pageview',
-      prop6: "Search results",
-      eVar10: results.length.toString(),
-      prop14: searchTerm,
-      eVar14: searchTerm
+  useEffect(() => {
+    // create search index
+    const data = i18n.getDataByLanguage('en')
+    let textData = [] // lunr needs an array of docs
+    let tempData = {} // search results need an object keyed to the resource's name space
+  
+    Object.keys(data).map(resource => {
+      if(resource !== 'common'){
+        const ignoreKeys = ['pageTitle', 'pageRoute', 'alt_text']
+        const value = objectValuesToString(data[resource], ignoreKeys)
+        const entry = {
+          id: resource,
+          pageTitle: data[resource].pageTitle,
+          pageRoute: data[resource].pageRoute,
+          body: value
+        }
+  
+        textData.push(entry)
+        tempData[resource] = entry
+      }
+    })
+  
+    const index = lunr(function(){
+      this.ref('id')
+      this.field('body')
+      this.metadataWhitelist = ['position']
+      this.pipeline.remove(lunr.stemmer)
+      // this.pipeline.remove(lunr.stopWordFilter)
+  
+      textData.map(doc => {
+        this.add(doc)
+      })
     })
 
-  }, [searchTerm, trackEvent])
+    // set the index
+    setSearchIndex(index)
+    
+    // save the docs for later reference in search results
+    setDocData(tempData)
+
+  }, [i18n])
+  
+  useEffect(() => {
+    // perform search
+    if(searchIndex){
+      const results = processSearch(searchIndex.search(`*${searchTerm}*~1 ${searchTerm}* *${searchTerm}`))
+      setSearchResults(results)
+
+      trackEvent({
+        event:'pageview',
+        prop6: "Search results",
+        eVar10: results.length.toString(),
+        prop14: searchTerm,
+        eVar14: searchTerm
+      })
+    }
+
+  }, [searchTerm, trackEvent, searchIndex])
 
   const processSearch = (results = []) => {
-
+    
     const extract = (str,q) => {
       const regEx = new RegExp(q,"i")
       const match = str.search(regEx,"gi")
       if(match < 0){
         return null
       }
+      // if string has two matches, then discard one
       if (match > 0 && match < 40) {
         const scrub = str.replace(regEx,'x'.repeat(q.length))
-        return extract(scrub,q)
+        return null
+        // return extract(scrub,q)
       }
       else {
         const regExTrimString = `[^|]*${q}[^|]*`
         const regExTrim = new RegExp(regExTrimString,"gi")
-        const strTrim = str.match(regExTrim)[0].trim().replace(regEx,`<mark>${q}</mark>`)
+        const regExG = new RegExp(q,"gi")
+        const strTrim = str.match(regExTrim)[0].trim().replace(regExG,`<mark>${q}</mark>`)
         return strTrim
       }
     }
 
     return results.map(result => {
 
-      const doc = searchIndex.docs[result.ref]
-
+      const doc = docData[result.ref]
       const processResults = Object.keys(result.matchData.metadata).map(match => {
         const matchData = result.matchData.metadata[match]
-        return matchData.body.position.map(matchPos => {
+        return matchData.body.position.map((matchPos,i) => {
+          if(i > 5) return // limit results to 5 example snippits per match set
           const start = matchPos[0]-40
           const end = matchPos[0] + matchPos[1] + 40
           return extract(doc.body.slice(start,end),match)
-        })
+        }).filter(Boolean).join('… …') // remove empty entries and join the remainder together
       })
 
       return {
