@@ -50,7 +50,7 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const IconCard = (props) => {
-  const {icon, title, desc, link, linkText, count = 0, badgeText = 'new'} = props
+  const {icon, title, altText, desc, link, linkText, count = 0, badgeText = 'new'} = props
   const classes = useStyles()
 
   return (
@@ -60,7 +60,7 @@ const IconCard = (props) => {
         wrapper={children => <Badge className={classes.badge} badgeContent={badgeText} component="div">{children}</Badge>}>
 
         <CardContent className={`${classes.cardContent} IconCardContent`}>
-          {icon && <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/${icon}`} alt='card icon' aria-hidden="true" />}
+          {icon && <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/${icon}`} alt={altText} aria-hidden="true" />}
           <div className={classes.cardText}>
             <div>
               <Typography className={classes.cardTitle} variant="body2" component="h2">{title}</Typography>

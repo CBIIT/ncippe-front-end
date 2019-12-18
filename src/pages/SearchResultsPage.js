@@ -132,7 +132,7 @@ const SearchResults = (props) => {
         <Typography variant="h2" component="h1">{t('search.title')}</Typography>
       </Container>
       <Container className="mainContainer mainContainer--public">
-        <Box mt={3}>
+        <Box my={3} component="section">
           <form className={classes.searchForm} onSubmit={handleSubmit}>
             <TextField
               id="searchPageSearch"
@@ -148,25 +148,25 @@ const SearchResults = (props) => {
             <Button type="submit" variant="contained" color="primary" disabled={isDisabled}>{t('buttons.search')}</Button>
           </form>
         </Box>
-        <Box mt={3}>
+        <Box mt={3} component="section">
           <Typography variant="h3" component="h3">{t('search.results_title')} {searchTerm}</Typography>
-        </Box>
-        <Box mt={3}>
-          {searchResults && searchResults.map((result,i) => {
-            const {page,route,results} = result
-            return (
-              <Box key={i} mb={3}>
-                <Typography component="div">
-                  <Link to={route} className="bold" component={RouterLink} data-rank={i + 1} onClick={trackClick}>{page}</Link>
-                </Typography>
-                <Typography component="div">
-                  <RenderContent source={results} />
-                </Typography>
-                <Typography className={classes.dim}>{window.location.origin + route}</Typography>
-              </Box>
-            )
-          })}
-          {searchResults && !searchResults.length && <Typography variant="body2">{t('search.results_none')}</Typography>}
+          <Box mt={3}>
+            {searchResults && searchResults.map((result,i) => {
+              const {page,route,results} = result
+              return (
+                <Box key={i} mb={3}>
+                  <Typography component="div">
+                    <Link to={route} className="bold" component={RouterLink} data-rank={i + 1} onClick={trackClick}>{page}</Link>
+                  </Typography>
+                  <Typography component="div">
+                    <RenderContent source={results} />
+                  </Typography>
+                  <Typography className={classes.dim}>{window.location.origin + route}</Typography>
+                </Box>
+              )
+            })}
+            {searchResults && !searchResults.length && <Typography variant="body2">{t('search.results_none')}</Typography>}
+          </Box>
         </Box>
       </Container>
     </Box>

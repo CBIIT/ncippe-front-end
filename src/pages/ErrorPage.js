@@ -39,7 +39,7 @@ const ErrorPage = (props) => {
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/errorPage`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/errorPage`} />
       </Helmet>
-      <Box my={6} mx={0}>
+      <Box my={6} mx={0} component="section">
         <Status state={error.status} title={error.name} message={error.message} />
         <div>
           <Button variant="contained" color="primary" component={RouterLink} to="/">{t('buttonText')}</Button>

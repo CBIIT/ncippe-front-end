@@ -77,7 +77,7 @@ const WhatToExpectPage = () => {
   }
 
   return (
-    <Box>
+    <Box component="article">
       <Container className={classes.pageHeader}>
         <Typography variant="h2" component="h1">{t('about:landing_pageTitle')}</Typography>
       </Container>
@@ -104,9 +104,9 @@ const WhatToExpectPage = () => {
       </Container>
       <Container className={classes.tabsContainer}>
         <Router>
-          <Consent index={2} isMobile={isMobile} path="/*" />
-          <Donate index={1} isMobile={isMobile} path="donate" />
-          <BiomarkerTest index={0} isMobile={isMobile} path="testing" />
+          <Consent index={2} isMobile={isMobile} path="/*" component="h2" />
+          <Donate index={1} isMobile={isMobile} path="donate" component="h2" />
+          <BiomarkerTest index={0} isMobile={isMobile} path="testing" component="h2" />
         </Router>
       </Container>
     </Box>

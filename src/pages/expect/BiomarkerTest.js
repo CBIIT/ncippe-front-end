@@ -115,7 +115,7 @@ const BiomarkerTest = (props) => {
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect/testing`} />
       </Helmet>
       {/* Intro */}
-      <Grid container>
+      <Grid container component="section">
         <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>
           <Typography variant={isMobile ? "body1" : "body2"} component="div">
             <RenderContent source={t('intro_text')} />
@@ -125,7 +125,7 @@ const BiomarkerTest = (props) => {
             <RenderContent source={t('sections.0.body')} />
           </Typography>
         </Grid>
-        <Grid item xs={12} md={6} lg={4} className={classes.gridItemImg}>
+        <Grid item xs={12} md={6} lg={4} className={classes.gridItemImg} component="aside">
           <ArticleImage src="researchers-3.jpg" alt={t('sections.0.alt_text')} />
         </Grid>
       </Grid>
@@ -133,69 +133,74 @@ const BiomarkerTest = (props) => {
       <Divider className={classes.divider} />
 
       {/* How is the test performed? */}
-      <Typography variant="h2" component="h2">
-        <RenderContent source={t('sections.1.title')} />
-      </Typography>
-      <Typography component="div">
-        <RenderContent source={t('sections.1.body')} />
-      </Typography>
-      <Stepper className={classes.stepper} orientation="vertical" nonLinear>
-        <Step active={true}>
-          <StepLabel>{t('sections.1.stepper.0.label')}</StepLabel>
-          <StepContent>{t('sections.1.stepper.0.description')}</StepContent>
-        </Step>
-        <Step active={true}>
-          <StepLabel>{t('sections.1.stepper.1.label')}</StepLabel>
-          <StepContent>{t('sections.1.stepper.1.description')}</StepContent>
-        </Step>
-        <Step active={true}>
-          <StepLabel>{t('sections.1.stepper.2.label')}</StepLabel>
-          <StepContent>{t('sections.1.stepper.2.description')}</StepContent>
-        </Step>
-      </Stepper>
+      <Box component="section">
+        <Typography variant="h2" component="h2">
+          <RenderContent source={t('sections.1.title')} />
+        </Typography>
+        <Typography component="div">
+          <RenderContent source={t('sections.1.body')} />
+        </Typography>
+        <Stepper className={classes.stepper} orientation="vertical" nonLinear>
+          <Step active={true}>
+            <StepLabel>{t('sections.1.stepper.0.label')}</StepLabel>
+            <StepContent>{t('sections.1.stepper.0.description')}</StepContent>
+          </Step>
+          <Step active={true}>
+            <StepLabel>{t('sections.1.stepper.1.label')}</StepLabel>
+            <StepContent>{t('sections.1.stepper.1.description')}</StepContent>
+          </Step>
+          <Step active={true}>
+            <StepLabel>{t('sections.1.stepper.2.label')}</StepLabel>
+            <StepContent>{t('sections.1.stepper.2.description')}</StepContent>
+          </Step>
+        </Stepper>
+      </Box>
+
       <Divider className={classes.divider} />
 
       {/* Sample Report */}
-      <Typography variant="h2" component="h2">
-        <RenderContent source={t('sections.2.title')} />
-      </Typography>
-      <Grid container mt={2} spacing={2} className={classes.samples}>
-        <Grid item xs={12} md={6}>
-          <Paper>
-            <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/solid-tumor-sample-test-report.jpg`} alt={t('sections.2.samples.0.alt_text')}
-              srcSet={`
-                /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/solid-tumor-sample-test-report.jpg 1x,
-                /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/solid-tumor-sample-test-report.jpg 2x
-              `}
-            />
-            <Divider />
-            <Box p={2}>
-              <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.0.title')}</Typography>
-              <Link href={`/${process.env.PUBLIC_URL}assets/documents/Biobank-Combined-Melanoma-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.samples.0.link')}</Link>
-            </Box>
-          </Paper>
+      <Box component="section">
+        <Typography variant="h2" component="h2">
+          <RenderContent source={t('sections.2.title')} />
+        </Typography>
+        <Grid container mt={2} spacing={2} className={classes.samples}>
+          <Grid item xs={12} md={6}>
+            <Paper>
+              <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/solid-tumor-sample-test-report.jpg`} alt={t('sections.2.samples.0.alt_text')}
+                srcSet={`
+                  /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/solid-tumor-sample-test-report.jpg 1x,
+                  /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/solid-tumor-sample-test-report.jpg 2x
+                `}
+              />
+              <Divider />
+              <Box p={2}>
+                <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.0.title')}</Typography>
+                <Link href={`/${process.env.PUBLIC_URL}assets/documents/Biobank-Combined-Melanoma-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.0.aria_label')}>{t('sections.2.samples.0.link')}</Link>
+              </Box>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Paper>
+              <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/blood-cancer-sample-test-report.jpg`} alt={t('sections.2.samples.1.alt_text')}
+                srcSet={`
+                  /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/blood-cancer-sample-test-report.jpg 1x,
+                  /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/blood-cancer-sample-test-report.jpg 2x
+                `}
+              />
+              <Divider />
+              <Box p={2}>
+                <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.1.title')}</Typography>
+                <Link href={`/${process.env.PUBLIC_URL}assets/documents/Acute-Myeloid-Leukemia-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.1.aria_label')}>{t('sections.2.samples.1.link')}</Link>
+              </Box>
+            </Paper>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper>
-            <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/blood-cancer-sample-test-report.jpg`} alt={t('sections.2.samples.1.alt_text')}
-              srcSet={`
-                /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/blood-cancer-sample-test-report.jpg 1x,
-                /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/blood-cancer-sample-test-report.jpg 2x
-              `}
-            />
-            <Divider />
-            <Box p={2}>
-              <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.1.title')}</Typography>
-              <Link href={`/${process.env.PUBLIC_URL}assets/documents/Acute-Myeloid-Leukemia-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.samples.1.link')}</Link>
-            </Box>
-          </Paper>
-        </Grid>
-      </Grid>
+      </Box>
 
       <Divider className={classes.divider} />
 
       {/* Learn More */}
-      <Box mb={5}>
+      <Box mb={5} component="section">
         <Grid container className={classes.grid} spacing={2} alignItems="stretch">
           <Grid item xs={12} md={6}>
             <Typography paragraph={true} variant="h2" component="h2">
@@ -207,7 +212,7 @@ const BiomarkerTest = (props) => {
               <Link href="https://www.cancer.gov/contact" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.2')}</Link>
             </div>
           </Grid>
-          <Grid className={classes.gridItemImg} item xs={12} md={6}>
+          <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
             <ArticleImage src="working-on-laptop.jpg" alt={t('sections.3.alt_text')} />
           </Grid>
         </Grid>

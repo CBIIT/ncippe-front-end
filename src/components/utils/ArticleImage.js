@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default (props) => <img 
-  src={process.env.PUBLIC_URL + 'assets/images/article/mobile/' + props.src} 
+  src={process.env.PUBLIC_URL + '/assets/images/article/desktop/' + props.src} 
   alt={props.alt}
   srcSet={`
   /${process.env.PUBLIC_URL}assets/images/article/desktop/${props.src} 380w,

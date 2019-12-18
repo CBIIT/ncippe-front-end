@@ -12,17 +12,26 @@ import {
   KeyboardArrowRight as ArrowRightIcon
 } from '@material-ui/icons'
 
-
+import { check_webp_feature } from '../utils/utils'
 import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
 
 // Internet Explorer 6-11
 const isIE = /*@cc_on!@*/false || !!document.documentMode;
 
+let extension = 'png'
+
+check_webp_feature('alpha', (feature, isSupported) => {
+  if (isSupported) {
+    // webp is supported, 
+    extension = 'webp'
+  }
+})
+
 const useStyles = makeStyles( theme => ({
   hero: {
     // backgroundColor: theme.palette.primary.lightGrey,
-    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobile/hero-image-mobile.png), ${theme.gradients.primaryDiagonal}`,
+    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobile/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "top right",
     backgroundSize: "auto 100%",
@@ -34,16 +43,16 @@ const useStyles = makeStyles( theme => ({
     },
     // mobile HD background
     ['@media (min-resolution: 192dpi)']: {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobileHD/hero-image-mobile.png), ${theme.gradients.primaryDiagonal}`
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobileHD/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`
     },
     // desktop background
     [theme.breakpoints.up('md')]: {
       height: "700px",
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktop/hero-image-desktop.png), ${theme.gradients.primaryDiagonal}`,
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktop/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`,
     },
     // desktop HD background
     [`@media (min-width: ${theme.breakpoints.values.md}px) and (min-resolution: 192dpi)`]: {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktopHD/hero-image-desktop.png), ${theme.gradients.primaryDiagonal}`
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktopHD/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`
     },
 
   },
@@ -318,9 +327,13 @@ const HomePage = (props) => {
         <title>{t("metaData.title")} | NCI</title>
         <meta name="title" content={t("metaData.title")} />
         <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}`} />
       </Helmet>
       <Container className={classes.hero}>
-        <div className={classes.heroText}>
+        <Box className={classes.heroText} component="section">
           {isMobile ? 
           <Paper className={classes.heroPaper}>
             <Typography className={classes.mainTitle} component="h1">
@@ -340,10 +353,10 @@ const HomePage = (props) => {
             </Typography>
           </>
           }
-        </div>
+        </Box>
       </Container>
       <Container className={classes.blueGradientContainer}>
-        <Box className={classes.infoBoxes}>
+        <Box className={classes.infoBoxes} component="section">
           <Paper className={classes.infoOffsetPaper}>
             <Box className={classes.infoBox}>
               <Typography className={classes.infoBoxTitle} variant="h2" component="h2">
@@ -361,7 +374,7 @@ const HomePage = (props) => {
             </Box>
           </Paper>
         </Box>
-        <Box className={classes.howItWorks}>
+        <Box className={classes.howItWorks} component="section">
           <Box mt={isMobile ? 2 : 4} pb={isMobile ? 4 : 11}>
             <Typography className={classes.infoBox} variant={isMobile ? "h2" : "h1"} component="h2">
               <RenderContent source={t('how_it_works.title')} />
@@ -392,7 +405,7 @@ const HomePage = (props) => {
       </Container>
       <Container className={`${classes.volunteer} accentImage`}>
         {isIE && <img className="accentImage--img" src={`/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-long.svg`} alt="accent image" aria-hidden="true" />}
-        <Box>
+        <Box component="section">
           <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}>
             <RenderContent source={t('participate.title')} />
           </Typography>
@@ -404,7 +417,7 @@ const HomePage = (props) => {
               <IconCardMedia
                 title={t('participate.cards.0.title')}
                 desc={t('participate.cards.0.body')}
-                link="/expect"
+                link="/expect/testing"
                 linkText={t('participate.cards.0.link')}
                 image={`${mediaCardPath}reviewing-test-results.jpg`}
                 imageTitle={t('participate.cards.0.alt_text')}
