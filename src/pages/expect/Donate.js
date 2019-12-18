@@ -75,7 +75,7 @@ const Donate = (props) => {
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/expect/donate`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect/donate`} />
       </Helmet>
-      <Grid container>
+      <Grid container component="section">
         <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>
           <Typography className={classes.bottomSpacer} variant={isMobile ? "body1" : "body2"}>
             <RenderContent source={t('intro_text')} />
@@ -84,7 +84,7 @@ const Donate = (props) => {
             <RenderContent source={t('body')} />
           </Typography>
         </Grid>
-        <Grid item xs={12} md={6} lg={4} className={classes.gridItemImg}>
+        <Grid item xs={12} md={6} lg={4} className={classes.gridItemImg} component="aside">
           <ArticleImage src="doctor-and-patient-1.jpg" alt={t('alt_text.0')} />
         </Grid>
       </Grid>

@@ -320,7 +320,7 @@ const HomePage = (props) => {
         <meta property="og:title" content={t("metaData.OG_title")} />
       </Helmet>
       <Container className={classes.hero}>
-        <div className={classes.heroText}>
+        <Box className={classes.heroText} component="section">
           {isMobile ? 
           <Paper className={classes.heroPaper}>
             <Typography className={classes.mainTitle} component="h1">
@@ -340,10 +340,10 @@ const HomePage = (props) => {
             </Typography>
           </>
           }
-        </div>
+        </Box>
       </Container>
       <Container className={classes.blueGradientContainer}>
-        <Box className={classes.infoBoxes}>
+        <Box className={classes.infoBoxes} component="section">
           <Paper className={classes.infoOffsetPaper}>
             <Box className={classes.infoBox}>
               <Typography className={classes.infoBoxTitle} variant="h2" component="h2">
@@ -361,7 +361,7 @@ const HomePage = (props) => {
             </Box>
           </Paper>
         </Box>
-        <Box className={classes.howItWorks}>
+        <Box className={classes.howItWorks} component="section">
           <Box mt={isMobile ? 2 : 4} pb={isMobile ? 4 : 11}>
             <Typography className={classes.infoBox} variant={isMobile ? "h2" : "h1"} component="h2">
               <RenderContent source={t('how_it_works.title')} />
@@ -392,7 +392,7 @@ const HomePage = (props) => {
       </Container>
       <Container className={`${classes.volunteer} accentImage`}>
         {isIE && <img className="accentImage--img" src={`/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-long.svg`} alt="accent image" aria-hidden="true" />}
-        <Box>
+        <Box component="section">
           <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}>
             <RenderContent source={t('participate.title')} />
           </Typography>
@@ -404,7 +404,7 @@ const HomePage = (props) => {
               <IconCardMedia
                 title={t('participate.cards.0.title')}
                 desc={t('participate.cards.0.body')}
-                link="/expect"
+                link="/expect/testing"
                 linkText={t('participate.cards.0.link')}
                 image={`${mediaCardPath}reviewing-test-results.jpg`}
                 imageTitle={t('participate.cards.0.alt_text')}

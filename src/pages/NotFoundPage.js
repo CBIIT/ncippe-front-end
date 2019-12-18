@@ -49,7 +49,7 @@ const ErrorPage = () => {
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/notfound`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/notfound`} />
       </Helmet>
-      <Container className={classes.container}>
+      <Container className={classes.container} component="section">
         <div>
           <div className={classes.clear}>
             <ClearIcon />

@@ -40,7 +40,7 @@ const ResearchPage = (props) => {
   },[trackEvent])
 
   return (
-    <Box>
+    <Box component="article">
       <Helmet>
         <title>{t("metaData.title")} | NCI</title>
         <meta name="title" content={t("metaData.title")} />
@@ -58,7 +58,7 @@ const ResearchPage = (props) => {
       <Container className="mainContainer mainContainer--public">
         <Box mt={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} component="section">
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent source={t('sections.0.title')} />
               </Typography>
@@ -66,13 +66,13 @@ const ResearchPage = (props) => {
                 <RenderContent source={t('sections.0.body')} />
               </Typography>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6}>
+            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
               <ArticleImage src="researchers-2.jpg" alt={t('sections.0.alt_text')} />
             </Grid>
 
             <Divider className={classes.divider} />
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} component="section">
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent source={t('sections.1.title')} />
               </Typography>
@@ -80,8 +80,8 @@ const ResearchPage = (props) => {
                 <RenderContent source={t('sections.1.body')} />
               </Typography>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <ArticleImage src="researchers-1.jpg" alt={t('sections.0.alt_text')} />
+            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
+              <ArticleImage src="researchers-1.jpg" alt={t('sections.1.alt_text')} />
             </Grid>
           </Grid>
         </Box>
