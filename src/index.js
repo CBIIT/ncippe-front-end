@@ -6,7 +6,7 @@ import './index.css'
 // import App from './App'
 import Loading from './components/Loading/Loading'
 import logo from './utils/ascii-logo'
-// import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './serviceWorker'
 
 // import i18n (needs to be bundled ;)) 
 import './i18n'
@@ -24,4 +24,4 @@ logo()
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-// serviceWorker.unregister();
+serviceWorker.register();
