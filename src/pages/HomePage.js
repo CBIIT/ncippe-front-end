@@ -12,17 +12,26 @@ import {
   KeyboardArrowRight as ArrowRightIcon
 } from '@material-ui/icons'
 
-
+import { check_webp_feature } from '../utils/utils'
 import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
 
 // Internet Explorer 6-11
 const isIE = /*@cc_on!@*/false || !!document.documentMode;
 
+let extension = 'png'
+
+check_webp_feature('alpha', (feature, isSupported) => {
+  if (isSupported) {
+    // webp is supported, 
+    extension = 'webp'
+  }
+})
+
 const useStyles = makeStyles( theme => ({
   hero: {
     // backgroundColor: theme.palette.primary.lightGrey,
-    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobile/hero-image-mobile.png), ${theme.gradients.primaryDiagonal}`,
+    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobile/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "top right",
     backgroundSize: "auto 100%",
@@ -34,16 +43,16 @@ const useStyles = makeStyles( theme => ({
     },
     // mobile HD background
     ['@media (min-resolution: 192dpi)']: {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobileHD/hero-image-mobile.png), ${theme.gradients.primaryDiagonal}`
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobileHD/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`
     },
     // desktop background
     [theme.breakpoints.up('md')]: {
       height: "700px",
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktop/hero-image-desktop.png), ${theme.gradients.primaryDiagonal}`,
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktop/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`,
     },
     // desktop HD background
     [`@media (min-width: ${theme.breakpoints.values.md}px) and (min-resolution: 192dpi)`]: {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktopHD/hero-image-desktop.png), ${theme.gradients.primaryDiagonal}`
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktopHD/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`
     },
 
   },
