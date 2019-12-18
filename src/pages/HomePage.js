@@ -318,6 +318,10 @@ const HomePage = (props) => {
         <title>{t("metaData.title")} | NCI</title>
         <meta name="title" content={t("metaData.title")} />
         <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}`} />
       </Helmet>
       <Container className={classes.hero}>
         <Box className={classes.heroText} component="section">
