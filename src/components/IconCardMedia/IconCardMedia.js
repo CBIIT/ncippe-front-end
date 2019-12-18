@@ -40,7 +40,7 @@ const Component = (props) => {
           title={imageTitle}
         />
         <CardContent>
-          <Typography className={classes.cardTitle} gutterBottom variant="body2">
+          <Typography className={classes.cardTitle} gutterBottom variant="body2" component="h4">
             {title}
           </Typography>
           {desc &&
