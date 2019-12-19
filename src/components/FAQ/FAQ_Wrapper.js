@@ -28,7 +28,7 @@ const useStyles = makeStyles( theme => ({
 const FAQs = (props) => {
   const { title, faqs, className, ...other } = props
   const classes = useStyles()
-  const { t, i18n } = useTranslation('common')
+  const { t } = useTranslation('common')
   const [isExpanded, setIsExpanded] = useState(false)
   const [toggleState,setToggleState] = useState([])
 

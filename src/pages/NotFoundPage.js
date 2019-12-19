@@ -27,7 +27,7 @@ const useStyles = makeStyles( theme => ({
 
 const ErrorPage = () => {
   const classes = useStyles()
-  const { t, i18n } = useTranslation('notFoundPage')
+  const { t } = useTranslation('notFoundPage')
   const { trackEvent } = useTracking()
 
   useEffect(() => {

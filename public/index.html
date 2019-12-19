@@ -21,7 +21,7 @@
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -56,7 +56,11 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this website.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div style="display:flex; flex-direction:row; justify-content:center; width: 100vw; height: 50vh">
+        <img src="%PUBLIC_URL%/assets/images/spinner-dna.svg" alt="loading indicator" width="250px" style="width:250px" />
+      </div>
+    </div>
 
   </body>
 </html>

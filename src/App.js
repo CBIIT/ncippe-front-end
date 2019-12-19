@@ -11,7 +11,7 @@ import Routes from './routers/routes'
 import { theme } from './theme/theme'
 
 const App = (props) => {
-  const { t, i18n } = useTranslation('common')
+  const { t } = useTranslation('common')
 
   // generic event deligation for links and buttons in the body
   document.addEventListener("click", (e) => {

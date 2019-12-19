@@ -41,9 +41,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Search = (props) => {
+const Search = () => {
   const classes = useStyles()
-  const { t, i18n } = useTranslation('common')
+  const { t } = useTranslation('common')
   const { trackEvent } = useTracking()
   const [open, setOpen] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
