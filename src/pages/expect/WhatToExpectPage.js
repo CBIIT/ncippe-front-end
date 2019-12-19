@@ -103,7 +103,7 @@ const WhatToExpectPage = () => {
         </AppBar>
       </Container>
       <Container className={classes.tabsContainer}>
-        <Router>
+        <Router primary={false}>
           <Consent index={2} isMobile={isMobile} path="/*" component="h2" />
           <Donate index={1} isMobile={isMobile} path="donate" component="h2" />
           <BiomarkerTest index={0} isMobile={isMobile} path="testing" component="h2" />
