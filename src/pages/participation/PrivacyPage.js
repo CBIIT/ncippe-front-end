@@ -24,9 +24,9 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const PrivacyPage = (props) => {
+const PrivacyPage = () => {
   const classes = useStyles()
-  const { t, i18n } = useTranslation('privacy')
+  const { t } = useTranslation('privacy')
   const { trackEvent } = useTracking()
 
   useEffect(() => {

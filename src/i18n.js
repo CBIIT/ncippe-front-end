@@ -2,11 +2,6 @@ import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import Backend from 'i18next-xhr-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
-import lunr from 'lunr'
-
-import { objectValuesToString } from './utils/utils'
-
-export let searchIndex
 
 i18n
   // load translation using xhr -> see /public/locales
@@ -31,61 +26,9 @@ i18n
     fallbackLng: ['en'],
     debug: false,
     ns: [
-      'common',
-      'homePage',
-      'about',
-      'eligibility',
-      'research',
-      'consent',
-      'donate',
-      'testing',
-      'activate',
-      'privacy'
+      'common'
     ],
     defaultNS: 'common',
   })
-
-
-i18n.on('loaded',(loaded)=>{
-
-  const data = i18n.getDataByLanguage('en')
-  let textData = [] // lunr needs an array of docs
-  let docData = {} // search results need an object keyed to the resource's name space
-
-  Object.keys(data).map(resource => {
-    if(resource !== 'common'){
-      const ignoreKeys = ['pageTitle', 'pageRoute', 'alt_text']
-      const value = objectValuesToString(data[resource], ignoreKeys)
-
-      const entry = {
-        id: resource,
-        pageTitle: data[resource].pageTitle,
-        pageRoute: data[resource].pageRoute,
-        body: value
-      }
-
-      textData.push(entry)
-
-      docData[resource] = entry
-
-    }
-  })
-
-  searchIndex = lunr(function(){
-    this.ref('id')
-    this.field('body')
-    this.metadataWhitelist = ['position']
-    this.pipeline.remove(lunr.stemmer)
-    // this.pipeline.remove(lunr.stopWordFilter)
-
-    textData.map(doc => {
-      this.add(doc)
-    })
-  })
-  
-  // save the docs for later reference in search results
-  searchIndex.docs = docData
-
-})
 
 export default i18n

@@ -30,9 +30,9 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const EligibilityPage = (props) => {
+const EligibilityPage = () => {
   const classes = useStyles()
-  const { t, i18n } = useTranslation('eligibility')
+  const { t } = useTranslation('eligibility')
   const { trackEvent } = useTracking()
 
   useEffect(() => {

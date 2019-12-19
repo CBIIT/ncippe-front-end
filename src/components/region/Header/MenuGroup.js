@@ -79,7 +79,7 @@ const MenuGroup = (props) => {
   const containerNode = document.querySelector("#root .transitionGroup")
   const { trackEvent } = useTracking()
 
-  const handleToggle = (event) => {
+  const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
     setPopperClass(prev => !prev ? 'active-popper' : false)
     trackEvent({

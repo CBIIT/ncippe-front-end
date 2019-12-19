@@ -171,7 +171,7 @@ const LeaveQuestions = (props) => {
       token
     })
     .then(resp => {
-      console.log("resp", resp)
+      // console.log("resp", resp)
       // TODO: catch errors on 500 response
       if(resp instanceof Error) {
         setSaveError(resp)

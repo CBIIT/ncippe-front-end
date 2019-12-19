@@ -23,9 +23,9 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const AboutPage = (props) => {
+const AboutPage = () => {
   const classes = useStyles()
-  const { t, i18n } = useTranslation('about')
+  const { t } = useTranslation('about')
   const { trackEvent } = useTracking()
 
   useEffect(() => {
