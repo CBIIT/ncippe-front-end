@@ -65,7 +65,7 @@ export default track({
 },{
   // tracking options - {dispatch, dispatchOnMount, process} - see https://github.com/nytimes/react-tracking
   dispatch: (data) => {
-    let local_s = window.s_gi(process.env.REACT_APP_ANALYTICS_ACCOUNT)
+    const local_s = window.s_gi(process.env.REACT_APP_ANALYTICS_ACCOUNT)
 
     // set url specific data on every call
     let computedData = {
@@ -77,10 +77,14 @@ export default track({
     }
 
     if(data.event === 'pageview') {
+      local_s.getPercentPageViewed(local_s.pageName,false,".transitionGroup")
 
       computedData = {
         ...computedData,
-        events: 'event1',
+        events: `event1,event47=${window.s_getLoadTime()}`,
+        prop61: local_s._ppvPreviousPage,
+        prop64: `${local_s._ppvInitialPercentViewed}|${local_s._ppvHighestPercentViewed}`,
+        prop65: window.s_getLoadTime(),
         eVar1: computedData.pageName,
       }
 
