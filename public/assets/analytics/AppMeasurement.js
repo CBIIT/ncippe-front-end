@@ -43,6 +43,51 @@ s.trackingServer="nci.122.2o7.net"
 // copy and paste implementation plug-ins here - See "Implementation Plug-ins" @ 
 // https://marketing.adobe.com/resources/help/en_US/sc/implement/#Implementation_Plugins 
 // Plug-ins can then be used in the s_doPlugins(s) function above  
+
+/*
+ * Copyright 2011-2013 Adobe Systems, Inc.
+ * s_getLoadTime v1.36 - Get page load time in units of 1/10 seconds
+ */
+function s_getLoadTime(){
+  if(!window.s_loadT){
+    var b=new Date().getTime(),o=window.performance?performance.timing:0,a=o?o.requestStart:window.inHeadTS||0;s_loadT=a?Math.round((b-a)/100):''
+  }
+  return s_loadT
+}
+
+/* 
+ * Plugin: getPreviousValue_v1.0 - return previous value of designated 
+ * variable (requires split utility) 
+ */ 
+s.getPreviousValue=new Function("v","c","el","" 
++"var s=this,t=new Date,i,j,r='';t.setTime(t.getTime()+1800000);if(el" 
++"){if(s.events){i=s.split(el,',');j=s.split(s.events,',');for(x in i" 
++"){for(y in j){if(i[x]==j[y]){if(s.c_r(c)) r=s.c_r(c);v?s.c_w(c,v,t)" 
++":s.c_w(c,'no value',t);return r}}}}}else{if(s.c_r(c)) r=s.c_r(c);v?" 
++"s.c_w(c,v,t):s.c_w(c,'no value',t);return r}"); 
+/* 
+ * Utility Function: split v1.5 - split a string (JS 1.0 compatible) 
+ */ 
+s.split=new Function("l","d","" 
++"var i,x=0,a=new Array;while(l){i=l.indexOf(d);i=i>-1?i:l.length;a[x" 
++"++]=l.substring(0,i);l=l.substring(i+d.length);}return a"); 
+
+// throttle for event listeners
+var throttle=function(o,n,t,i){var e,u=!1,a=0;function c(){e&&clearTimeout(e)}function f(){var f=this,r=Date.now()-a,v=arguments;function d(){a=Date.now(),t.apply(f,v)}u||(i&&!e&&d(),c(),void 0===i&&r>o?d():!0!==n&&(e=setTimeout(i?function(){e=void 0}:d,void 0===i?o-r:o)))}return"boolean"!=typeof n&&(i=t,t=n,n=void 0),f.cancel=function(){c(),u=!0},f}
+
+/* Adobe Consulting Plugin: getPercentPageViewed v3.01 w/handlePPVevents helper function (Requires AppMeasurement and p_fo plugin) */
+/* modified for PPE Project to accept `targetSelector` argument since scroll events do no occur on the window or document elements */
+s.getPercentPageViewed=function(pid,ch=!0,targetSelector){var s=this,a=s.c_r("s_ppv"),boundPPVevents=throttle(100,s.handlePPVevents.bind(null,targetSelector)),targetEl=targetSelector?document.querySelector(targetSelector):window;a=-1<a.indexOf(",")?a.split(","):[];a[0]=s.unescape(a[0]);pid=pid?pid:s.pageName?s.pageName:document.location.href;s.ppvChange=ch;if("undefined"===typeof s.linkType||"o"!==s.linkType)s.ppvID&&s.ppvID===pid||(s.ppvID=pid,s.c_w("s_ppv",""),s.handlePPVevents(targetSelector)),window.addEventListener&&(window.addEventListener("load",boundPPVevents,!1),targetEl.addEventListener("scroll",boundPPVevents,{passive:!0}),window.addEventListener("resize",boundPPVevents,{passive:!0})),s._ppvPreviousPage=a[0]?a[0]:"",s._ppvHighestPercentViewed=a[1]?a[1]:"",s._ppvInitialPercentViewed=a[2]?a[2]:"",s._ppvHighestPixelsSeen=a[3]?a[3]:""}
+
+/* Adobe Consulting Plugin: handlePPVevents helper function (for getPercentPageViewed v3.01 Plugin) */ 
+/* modified for PPE Project to accept `targetSelector` argument since scroll events do no occur on the window or document elements */
+// TODO: resize event is resetting cookie values
+s.handlePPVevents=function(targetSelector){if("undefined"!==typeof s_c_il){for(var c=0,d=s_c_il.length;c<d;c++)
+  if(s_c_il[c]&&s_c_il[c].getPercentPageViewed){var a=s_c_il[c];break}if(a&&a.ppvID){var targetEl=document.querySelector(targetSelector)
+  var f=Math.max(targetEl.scrollHeight,Math.max(document.body.scrollHeight,document.documentElement.scrollHeight),Math.max(document.body.offsetHeight,document.documentElement.offsetHeight),Math.max(document.body.clientHeight,document.documentElement.clientHeight));c=(targetEl.scrollTop||window.pageYOffset||window.document.documentElement.scrollTop||window.document.body.scrollTop)+(window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight);d=Math.min(Math.round(c/f*100),100);var e="";!a.c_r("s_tp")||a.unescape(a.c_r("s_ppv").split(",")[0])!==a.ppvID||1==a.ppvChange&&a.c_r("s_tp")&&f!=a.c_r("s_tp")?(a.c_w("s_tp",f),a.c_w("s_ppv","")):e=a.c_r("s_ppv");var b=e&&-1<e.indexOf(",")?e.split(",",4):[];f=0<b.length?b[0]:escape(a.ppvID);var g=1<b.length?parseInt(b[1]):d,h=2<b.length?parseInt(b[2]):d;b=3<b.length?parseInt(b[3]):c;0<d&&(e=f+","+(d>g?d:g)+","+h+","+(c>b?c:b));a.c_w("s_ppv",e)}}}
+
+/* Adobe Consulting Plugin: p_fo (pageFirstOnly) v2.0 (Requires AppMeasurement) */ 
+s.p_fo=function(on){var s=this;s.__fo||(s.__fo={});if(s.__fo[on])return!1;s.__fo[on]={};return!0}; 
  
 /****************************** MODULES *****************************/ 
  
