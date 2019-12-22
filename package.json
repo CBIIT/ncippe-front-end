@@ -34,6 +34,7 @@
     "react-text-mask": "^5.4.3",
     "react-tracking": "^7.2.1",
     "react-transition-group": "^4.3.0",
+    "throttle-debounce": "^2.1.0",
     "webpack-bundle-analyzer": "^3.6.0"
   },
   "scripts": {

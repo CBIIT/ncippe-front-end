@@ -10,7 +10,9 @@ import Errors             from '../pages/ErrorPage' // 'Error' is reserved keywo
 import About              from '../pages/about/AboutPage'
 import Eligibility        from '../pages/about/EligibilityPage'
 import Research           from '../pages/about/ResearchPage'
-import WhatToExpect       from '../pages/expect/WhatToExpectPage'
+import Consent            from '../pages/expect/Consent'
+import Donate             from '../pages/expect/Donate'
+import BiomarkerTest      from '../pages/expect/BiomarkerTest'
 import Privacy            from '../pages/participation/PrivacyPage'
 import Activate           from '../pages/participation/ActivatePage'
 
@@ -35,7 +37,9 @@ const EligibilityPage = pageWrapper(Eligibility)
 const ResearchPage = pageWrapper(Research)
 // const DashboardPage = pageWrapper(Dashboard)
 // const DashboardMochaPage = pageWrapper(DashboardMocha)
-const WhatToExpectPage = pageWrapper(WhatToExpect)
+const ConsentPage = pageWrapper(Consent)
+const DonatePage = pageWrapper(Donate)
+const TestingPage = pageWrapper(BiomarkerTest)
 const ActivatePage = pageWrapper(Activate)
 const PrivacyPage = pageWrapper(Privacy)
 const SearchResultsPage = pageWrapper(SearchResults)
@@ -78,6 +82,9 @@ export default () => (
             <AboutPage path='/about' />
             <EligibilityPage path='/about/eligibility' />
             <ResearchPage path='/about/research' />
+            <ConsentPage path='/expect/consent' /> 
+            <DonatePage path='/expect/donate' /> 
+            <TestingPage path='/expect/testing' /> 
             <ActivatePage path='/participation/activate' />
             <PrivacyPage path='/participation/privacy' />
             <SearchResultsPage path='/search' />
@@ -93,7 +100,6 @@ export default () => (
             <PrivateRoute path='/dashboard/profile' component={ProfilePage} />
             <PrivateRoute path='/dashboard/profile/participation/*' component={ParticipationPage} />
             <PrivateRoute path='/dashboard/help' component={GetHelpPage} /> */}
-            <WhatToExpectPage path='/expect/*' /> 
             <NotFoundPage default />
           </Router>
         </CSSTransition>
