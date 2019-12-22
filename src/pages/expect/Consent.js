@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
-import { Box, Card, CardMedia, Link, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Card, CardMedia, Container, Link, Typography, useMediaQuery } from '@material-ui/core'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 // import { OpenInNew as OpenInNewIcon } from '@material-ui/icons'
 
 import RenderContent from '../../components/utils/RenderContent'
-import TabPanel from '../../components/Tabs/TabPanel'
+import TabAppBar from './AppBar'
 
 const useStyles = makeStyles( theme => ({
   container: {
@@ -44,11 +44,12 @@ const useStyles = makeStyles( theme => ({
   },
 }))
 
-const Consent = (props) => {
-  const {index, isMobile} = props
+const Consent = () => {
   const classes = useStyles()
   const { t } = useTranslation('consent')
   const { trackEvent } = useTracking()
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
   useEffect(() => {
     trackEvent({
@@ -58,53 +59,56 @@ const Consent = (props) => {
   },[trackEvent])
 
   return (
-    <TabPanel
-      index={index} 
-      id={`scrollable-auto-tabpanel-${index}`}
-      aria-labelledby={`scrollable-auto-tab-${index}`}
-    >
+    <Box component="article">
       <Helmet>
         <title>{t("metaData.title")} | NCI</title>
         <meta name="title" content={t("metaData.title")} />
         <meta property="og:title" content={t("metaData.OG_title")} />
         <meta name="description" content={t("metaData.description")} />
         <meta property="og:description" content={t("metaData.OG_description")} />
-        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/expect`} />
-        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect`} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/expect/consent`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect/consent`} />
       </Helmet>
-      <Box className={classes.container} component="section">
-        <Typography variant={isMobile ? "body1" : "body2"} component="div">
-          <RenderContent source={t('intro_text')} />
-        </Typography>
-        <Box mb={5}>
-          <Typography variant="h3" component="h3">{t('sample_title')}</Typography>
-          <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
-            <RenderContent source={t('form_link_adult')} />
-          </Link>
-          <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
-            <RenderContent source={t('form_link_parental')} />
-          </Link>
-          <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
-            <RenderContent source={t('form_link_minors')} />
-          </Link>
+      <Container className="pageHeader--gradient">
+        <Typography variant="h2" component="h1">{t('pageTitle')}</Typography>
+      </Container>
+      <TabAppBar value={2} />
+
+      <Container component="section">
+        <Box className={classes.container}>
+          <Typography variant={isMobile ? "body1" : "body2"} component="div">
+            <RenderContent source={t('intro_text')} />
+          </Typography>
+          <Box mb={5}>
+            <Typography variant="h3" component="h3">{t('sample_title')}</Typography>
+            <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
+              <RenderContent source={t('form_link_adult')} />
+            </Link>
+            <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
+              <RenderContent source={t('form_link_parental')} />
+            </Link>
+            <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
+              <RenderContent source={t('form_link_minors')} />
+            </Link>
+          </Box>
+          <Box mb={4}>
+            <figure>
+              <Card className={classes.mediaWrapper}>
+                <CardMedia
+                  component='iframe'
+                  className={classes.media}
+                  src='https://www.youtube.com/embed/OyCFbZYgL3U'
+                  title={t('video_title')}
+                  allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+                  allowFullScreen
+                />
+              </Card>
+              <figcaption><RenderContent source={t('video_caption')} /></figcaption>
+            </figure>
+          </Box>
         </Box>
-        <Box mb={4}>
-          <figure>
-            <Card className={classes.mediaWrapper}>
-              <CardMedia
-                component='iframe'
-                className={classes.media}
-                src='https://www.youtube.com/embed/OyCFbZYgL3U'
-                title={t('video_title')}
-                allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-                allowFullScreen
-              />
-            </Card>
-            <figcaption><RenderContent source={t('video_caption')} /></figcaption>
-          </figure>
-        </Box>
-      </Box>
-    </TabPanel>
+      </Container>
+    </Box>
   )
 }
 export default Consent

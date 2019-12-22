@@ -26,7 +26,6 @@ const useStyles = makeStyles( theme => ({
       color: '#0D1C3C',
       fontWeight: 'bold',
       fontSize: 16,
-      // backgroundColor: '#d2e2f7',
       zIndex: 0,
       [theme.breakpoints.up('sm')]: {
         border: 'none',
@@ -74,17 +73,13 @@ const useStyles = makeStyles( theme => ({
         zIndex: 1,
         transform: 'rotate(-45deg)',
         fontSize: 36,
-        
         textShadow: '0 0 13px #7a98bf',
-        // borderLeft: '24px solid #fff',
-        // borderTop: '24px solid transparent',
-        // borderBottom: '24px solid transparent',
       },
     },
     '& .Mui-selected': {
       borderLeft: '1px solid transparent',
       borderRight: '1px solid transparent',
-      backgroundColor: '#fff',
+      backgroundColor: theme.palette.common.white,
       [theme.breakpoints.up('sm')]: {
         backgroundColor: 'transparent',
       },
@@ -94,15 +89,23 @@ const useStyles = makeStyles( theme => ({
       }
     },
     '& .Mui-selected::before': {
-      backgroundColor: '#fff',
+      backgroundColor: theme.palette.common.white,
     },
 
     '& .Mui-selected::after': {
-      color: '#fff',
-      // textShadow: '0 0 13px #7a98bf',
-      // borderLeft: '24px solid #fff',
-      // borderTop: '24px solid transparent',
-      // borderBottom: '24px solid transparent',
+      color: theme.palette.common.white,
+    },
+    '& .Mui-focusVisible::before': {
+      backgroundColor: theme.palette.pink.light,
+    },
+    '& .Mui-focusVisible': {
+      backgroundColor: theme.palette.pink.light,
+      [theme.breakpoints.up('sm')]: {
+        backgroundColor: 'transparent',
+      },
+    },
+    '& .Mui-focusVisible::after': {
+      color: theme.palette.pink.light,
     },
     '& .MuiTabs-indicator': {
       display: 'none'

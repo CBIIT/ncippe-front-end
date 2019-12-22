@@ -366,7 +366,7 @@ const HomePage = (props) => {
                 <RenderContent source={t('mission.body')} />
               </Typography>
               <Typography variant="button" className={classes.extraTopSpace}>
-                <Link to="/expect" className={classes.icon_link} component={RouterLink}>
+                <Link to="/expect/consent" className={classes.icon_link} component={RouterLink}>
                   <RenderContent source={t('mission.link')} />
                   <ArrowRightIcon />
                 </Link>

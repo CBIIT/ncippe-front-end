@@ -12,8 +12,8 @@ import {
   Step,
   StepLabel,
   TextField,
-  Typography } from '@material-ui/core'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+  Typography,
+  useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import moment from 'moment'
