@@ -10,9 +10,10 @@ import {
   IconButton,
   InputAdornment,
   Link,
-  TextField
+  TextField,
+  useMediaQuery
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { 
   MenuRounded as MenuIcon,
   Search as SearchIcon,
@@ -102,23 +103,28 @@ const useStyles = makeStyles(theme => ({
 const Header = () => {
   const classes = useStyles()
   const loc = window.location.pathname
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 800)
+  // const [isMobile, setIsMobile] = useState(window.innerWidth < 800)
   const [menuOpen, setMenuOpen] = useState(false)
   const [expanded, setExpanded] = useState(loc)
   const [isDisabled, setIsDisabled] = useState(true)
   const { t } = useTranslation('common')
   const { trackEvent } = useTracking()
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down(theme.breakpoints.values.smLandscape))
+
+  //TODO: use built-in mobile media query, see Consent page
+  // TODO: add analytics to mobile search
 
   // TODO: set active state on nav menu items based on site location
 
-  useEffect(() => {
-    const resizeEvt = () => {
-      setIsMobile(window.innerWidth < 800)
-    }
-    window.addEventListener('resize', resizeEvt, {passive: true})
-    //clean up
-    return () => window.removeEventListener('resize', resizeEvt, {passive: true})
-  },[isMobile])
+  // useEffect(() => {
+  //   const resizeEvt = () => {
+  //     setIsMobile(window.innerWidth < 800)
+  //   }
+  //   window.addEventListener('resize', resizeEvt, {passive: true})
+  //   //clean up
+  //   return () => window.removeEventListener('resize', resizeEvt, {passive: true})
+  // },[isMobile])
 
   const toggleDrawer = event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -159,10 +165,20 @@ const Header = () => {
   }
 
   const handleSearchSubmit = (e) => {
+    // TODO: add analytics to mobile search
     e.preventDefault()
     // send the search terms to the search results page
+    const searchTerm = e.target.mobileSearch.value
+    trackEvent({
+      prop11: "BioBank Global Search",
+      eVar11: "BioBank Global Search",
+      eVar13: "+1",
+      prop14: searchTerm,
+      eVar14: searchTerm,
+      events: "event2"
+    })
     navigate('/search', {state: {
-      term: e.target.mobileSearch.value
+      term: searchTerm
     }})
   }
 
