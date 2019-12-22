@@ -38,6 +38,10 @@ const useStyles = makeStyles( theme => ({
         padding: '0 6px 0 0',
         '&.Mui-expanded': {
           transform: 'none'
+        },
+        '& svg': {
+          color: theme.palette.grey['900'],
+          stroke: theme.palette.grey['900'],
         }
       },
     },
