@@ -58,10 +58,6 @@ export default track({
   prop6: "short title", // pretty version of browser title
   prop7: "Public", // Audience: unless logged in, then it's userType: "CRC, Participant, Lab Admin, Health Provider"
   prop10: window.document.title, // page - org
-  // TODO: Previous Page Plugin
-  // TODO: Page Load Speed Plugin
-  // TODO: Percentage of Page Viewed
-  
 },{
   // tracking options - {dispatch, dispatchOnMount, process} - see https://github.com/nytimes/react-tracking
   dispatch: (data) => {

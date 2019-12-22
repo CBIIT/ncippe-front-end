@@ -103,7 +103,6 @@ const useStyles = makeStyles(theme => ({
 const Header = () => {
   const classes = useStyles()
   const loc = window.location.pathname
-  // const [isMobile, setIsMobile] = useState(window.innerWidth < 800)
   const [menuOpen, setMenuOpen] = useState(false)
   const [expanded, setExpanded] = useState(loc)
   const [isDisabled, setIsDisabled] = useState(true)
@@ -111,20 +110,6 @@ const Header = () => {
   const { trackEvent } = useTracking()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down(theme.breakpoints.values.smLandscape))
-
-  //TODO: use built-in mobile media query, see Consent page
-  // TODO: add analytics to mobile search
-
-  // TODO: set active state on nav menu items based on site location
-
-  // useEffect(() => {
-  //   const resizeEvt = () => {
-  //     setIsMobile(window.innerWidth < 800)
-  //   }
-  //   window.addEventListener('resize', resizeEvt, {passive: true})
-  //   //clean up
-  //   return () => window.removeEventListener('resize', resizeEvt, {passive: true})
-  // },[isMobile])
 
   const toggleDrawer = event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -165,7 +150,6 @@ const Header = () => {
   }
 
   const handleSearchSubmit = (e) => {
-    // TODO: add analytics to mobile search
     e.preventDefault()
     // send the search terms to the search results page
     const searchTerm = e.target.mobileSearch.value
