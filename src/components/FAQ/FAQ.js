@@ -67,6 +67,11 @@ const useStyles = makeStyles( theme => ({
     '& .MuiExpansionPanelDetails-root': {
       display: 'block'
     }
+  },
+  panelDetails: {
+    '& p:last-child': {
+      marginBottom: 0
+    }
   }
 }))
 
@@ -116,7 +121,9 @@ const FAQ = (props) => {
         <Typography variant="h4" component="h4">{title}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <RenderContent source={desc} />
+        <Typography className={classes.panelDetails}>
+          <RenderContent source={desc} />
+        </Typography>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   )

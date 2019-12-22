@@ -332,7 +332,8 @@ ul.bulletList > li:last-child {
 }
 
 /* default body link styles */
-.mainContainer .MuiTypography-root a:not(.MuiLink-root) {
+.mainContainer .MuiTypography-root a:not(.MuiLink-root),
+#main .MuiTypography-root a:not(.MuiLink-root) {
   color: #1e6fd6;
   font-size: 16px;
   font-family: Montserrat, Helvetica, Arial, sans-serif;
@@ -341,6 +342,11 @@ ul.bulletList > li:last-child {
   letter-spacing: 1px;
   text-transform: none;
   text-decoration: none;
+}
+
+.mainContainer .MuiTypography-root a:not(.MuiLink-root):hover,
+#main .MuiTypography-root a:not(.MuiLink-root):hover {
+  text-decoration: underline;
 }
 
 .popup .mainContainer {
