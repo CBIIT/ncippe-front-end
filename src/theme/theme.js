@@ -133,7 +133,8 @@ export const theme = createMuiTheme({
           fontSize: '16px',
           lineHeight: '30px',
           paragraphHeight: '20px',
-          letterSpacing: '.46px'
+          letterSpacing: '.46px',
+          backgroundColor: "#fff",
         }
       }
     },
