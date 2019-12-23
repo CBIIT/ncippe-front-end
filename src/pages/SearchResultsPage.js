@@ -13,13 +13,22 @@ import { objectValuesToString } from '../utils/utils'
 import RenderContent from '../components/utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
+  wrapper: {
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '74%'
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '64%'
+    }
+  },
   searchForm: {
     display: 'flex',
     flexWrap: 'nowrap',
     justifyContent: 'space-around',
     alignItems: 'center',
     alignContent: 'center',
-    padding: theme.spacing(2,3),
+    padding: theme.spacing(2,3,2,0),
     '& > *': {
       margin: theme.spacing(0,1)
     }
@@ -28,7 +37,8 @@ const useStyles = makeStyles( theme => ({
     flexGrow: 1
   },
   dim: {
-    color: theme.palette.grey.medium
+    color: theme.palette.grey.medium,
+    wordBreak: 'break-all'
   }
 }))
 
@@ -184,40 +194,42 @@ const SearchResults = (props) => {
         <Typography variant="h2" component="h1">{t('search.title')}</Typography>
       </Container>
       <Container className="mainContainer mainContainer--public">
-        <Box my={3} component="section">
-          <form className={classes.searchForm} onSubmit={handleSubmit}>
-            <TextField
-              id="searchPageSearch"
-              className={classes.input}
-              placeholder={t('search.input_placeholder')}
-              inputProps={{ 'aria-label': 'search' }}
-              variant="outlined"
-              InputProps={ // props applied to the Input component
-                { startAdornment: <InputAdornment position="start"><SearchIcon color="action" /></InputAdornment> }
-              }
-              onChange={handleChange}
-            />
-            <Button type="submit" variant="contained" color="primary" disabled={isDisabled}>{t('buttons.search')}</Button>
-          </form>
-        </Box>
-        <Box mt={3} component="section">
-          <Typography variant="h3" component="h3">{t('search.results_title')} {searchTerm}</Typography>
-          <Box mt={3}>
-            {searchResults && searchResults.map((result,i) => {
-              const {page,route,results} = result
-              return (
-                <Box key={i} mb={3}>
-                  <Typography component="div">
-                    <Link to={route} className="bold" component={RouterLink} data-rank={i + 1} onClick={trackClick}>{page}</Link>
-                  </Typography>
-                  <Typography component="div">
-                    <RenderContent source={results} />
-                  </Typography>
-                  <Typography className={classes.dim}>{window.location.origin + route}</Typography>
-                </Box>
-              )
-            })}
-            {searchResults && !searchResults.length && <Typography variant="body2">{t('search.results_none')}</Typography>}
+        <Box className={classes.wrapper}>
+          <Box my={3} component="section">
+            <form className={classes.searchForm} onSubmit={handleSubmit}>
+              <TextField
+                id="searchPageSearch"
+                className={classes.input}
+                placeholder={t('search.input_placeholder')}
+                inputProps={{ 'aria-label': 'search' }}
+                variant="outlined"
+                InputProps={ // props applied to the Input component
+                  { startAdornment: <InputAdornment position="start"><SearchIcon color="action" /></InputAdornment> }
+                }
+                onChange={handleChange}
+              />
+              <Button type="submit" variant="contained" color="primary" disabled={isDisabled}>{t('buttons.search')}</Button>
+            </form>
+          </Box>
+          <Box mt={3} component="section">
+            <Typography variant="h3" component="h3">{searchResults.length} {t('search.results_title')} {searchTerm}</Typography>
+            <Box mt={3}>
+              {searchResults && searchResults.map((result,i) => {
+                const {page,route,results} = result
+                return (
+                  <Box key={i} mb={3}>
+                    <Typography component="div">
+                      <Link to={route} className="bold" component={RouterLink} data-rank={i + 1} onClick={trackClick}>{page}</Link>
+                    </Typography>
+                    <Typography component="div">
+                      <RenderContent source={results} />
+                    </Typography>
+                    <Typography className={classes.dim}>{window.location.origin + route}</Typography>
+                  </Box>
+                )
+              })}
+              {searchResults && !searchResults.length && <Typography variant="body2">{t('search.results_none')}</Typography>}
+            </Box>
           </Box>
         </Box>
       </Container>
