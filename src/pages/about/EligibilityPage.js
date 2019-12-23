@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
-import { Container, Box, Grid, Typography, Divider } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles'
+import { Container, Box, Grid, Typography, Divider, useMediaQuery } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
@@ -37,6 +37,8 @@ const EligibilityPage = () => {
   const classes = useStyles()
   const { t } = useTranslation('eligibility')
   const { trackEvent } = useTracking()
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
   useEffect(() => {
     trackEvent({
@@ -63,9 +65,14 @@ const EligibilityPage = () => {
         <Box mt={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6} component="section">
-              <Typography paragraph={true}>
+              <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}>
                 <RenderContent source={t('introText')} />
               </Typography>
+            </Grid>
+            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
+              <ArticleImage src="patient-1.jpg" alt={t('sections.0.alt_text')} />
+            </Grid>
+            <Grid item component="section">
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent source={t('sections.0.title')} />
               </Typography>
@@ -75,9 +82,6 @@ const EligibilityPage = () => {
               <Typography component="div">
                 <RenderContent source={t('sections.0.body.list')} />
               </Typography>
-            </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
-              <ArticleImage src="patient-1.jpg" alt={t('sections.0.alt_text')} />
             </Grid>
 
             <Divider className={classes.divider} />

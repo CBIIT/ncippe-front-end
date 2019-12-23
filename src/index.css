@@ -110,7 +110,7 @@ sup {
 
 ul.bulletList, ul.bulletList ul {
   margin-left: 20px;
-  list-style-type: disc;
+  list-style-type: '•';
 }
 ul.bulletList--spreadOut, ul.bulletList--spreadOut ul {
   margin-left: 30px;
@@ -119,7 +119,7 @@ ul.bulletList--spreadOut ul {
   margin-top: 16px;
 }
 ul.bulletList--spreadOut li {
-  padding-left: 10px;
+  padding-left: 15px;
   margin-bottom: 16px;
 }
 
@@ -387,7 +387,6 @@ ul.bulletList > li:last-child {
   font-weight: 700;
   line-height: 32px;
   letter-spacing: 0;
-  paragraph-height: 20px;
 }
 
 /* Stupid IE11 hacks */
@@ -409,9 +408,9 @@ ul.bulletList > li:last-child {
     background-size: 541px 349px;
   }
 
-  .mainContainer--dashboard {
+  /* .mainContainer--dashboard {
 
-  }
+  } */
 
   /* Home Page accent image */
   .accentImage {
