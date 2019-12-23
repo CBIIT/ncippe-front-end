@@ -38,7 +38,10 @@ const useStyles = makeStyles( theme => ({
   },
   divider: {
     width: '100%',
-    margin: theme.spacing(7,0)
+    margin: theme.spacing(3,0),
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing(7,0)
+    }
   },
   stepper: {
     '& .MuiStepIcon-root.MuiStepIcon-active': {
@@ -72,10 +75,9 @@ const useStyles = makeStyles( theme => ({
     marginBottom: theme.spacing(1),
   },
   linkList: {
-    display: 'flex',
-    flexDirection: 'column',
-    '& > a': {
-      margin: theme.spacing(1,0)
+    '& a': {
+      display: "inline-block",
+      margin: theme.spacing(1,0),
     }
   },
 }))
@@ -109,7 +111,7 @@ const BiomarkerTest = () => {
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">{t('pageTitle')}</Typography>
       </Container>
-      <TabAppBar value={0} />
+      <TabAppBar value={2} />
 
       <Container>
         {/* Intro */}
@@ -204,11 +206,11 @@ const BiomarkerTest = () => {
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent source={t('sections.3.title')} />
               </Typography>
-              <div className={classes.linkList}>
-                <Link href="https://www.cancer.gov/about-cancer/treatment/types/precision-medicine/tumor-dna-sequencing" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.0')}</Link>
-                <Link href="https://www.genome.gov/dna-day/15-for-15/cancer-genomics" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.1')}</Link>
-                <Link href="https://www.cancer.gov/contact" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.2')}</Link>
-              </div>
+              <ul className={classes.linkList}>
+                <li><Link href="https://www.cancer.gov/about-cancer/treatment/types/precision-medicine/tumor-dna-sequencing" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.0')}</Link></li>
+                <li><Link href="https://www.genome.gov/dna-day/15-for-15/cancer-genomics" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.1')}</Link></li>
+                <li><Link href="https://www.cancer.gov/contact" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.2')}</Link></li>
+              </ul>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
               <ArticleImage src="working-on-laptop.jpg" alt={t('sections.3.alt_text')} />

@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   logo: {
-    padding: theme.spacing(2,0),
+    padding: theme.spacing(2,0,3),
     '& img': {
       width: '320px',
       maxWidth: '100%',
@@ -27,24 +27,31 @@ const useStyles = makeStyles(theme => ({
   },
   footerLinks: {
     marginBottom: theme.spacing(4),
+    fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
     [theme.breakpoints.up('sm')]: {
       marginBottom: 0
     },
     '& a': {
       display: 'block',
-      fontWeight: 'bold',
+      fontWeight: 600,
       color: theme.palette.common.white,
       textDecoration: 'none',
-      wordBreak: 'break-word',
+      wordWrap: 'break-word',
+      lineHeight: '22px',
+      marginBottom: 14
     },
     '& a:hover': {
       textDecoration: 'underline'
     },
   },
+  breakAll: {
+    wordBreak: 'break-all'
+  },
   columnTitle: {
     color: theme.palette.pink.main,
     fontWeight: 'bold',
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
+    marginBottom: 14
   },
   // socialIcon: {
   //   width: 60,
@@ -85,7 +92,7 @@ const Footer = () => {
       <Typography component="div">
         <Grid container className={classes.footerLinks} spacing={3} onClick={trackClick}>
           <Grid item xs={12} sm={4}>
-            <a href={`mailto:${t('footer.links.email')}`}>{t('footer.links.email')}</a>
+            <a className={classes.breakAll} href={`mailto:${t('footer.links.email')}`}>{t('footer.links.email')}</a>
             <a href={`tel:${t('footer.links.phone')}`}>{t('footer.links.phone')}</a>
             <a href="https://www.cancer.gov/contact">{t('footer.links.CIS')}</a>
             {/* <div className={classes.social}>
@@ -94,7 +101,7 @@ const Footer = () => {
             </div> */}
           </Grid>
           <Grid item xs={12} sm={4}>
-            <span className={classes.columnTitle}>{t('footer.links.policy_title')}</span>
+            <div className={classes.columnTitle}>{t('footer.links.policy_title')}</div>
             <a href="https://www.cancer.gov/policies/disclaimer">{t('footer.links.disclaimer')}</a>
             <a href="https://www.cancer.gov/policies/privacy-security">{t('footer.links.privacy')}</a>
             <a href="https://www.cancer.gov/policies/accessibility">{t('footer.links.accessibility')}</a>

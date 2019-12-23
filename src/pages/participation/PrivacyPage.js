@@ -11,7 +11,7 @@ import IconCard from '../../components/IconCard/IconCard'
 const useStyles = makeStyles( theme => ({
   grid: {
     justifyContent: 'flex-start',
-    marginBottom: theme.spacing(4)
+    marginBottom: theme.spacing(3)
   },
   gridItem: {
     width: '33.333333%',
@@ -21,6 +21,15 @@ const useStyles = makeStyles( theme => ({
     //     margin: 0
     //   }
     // }
+  },
+  disclaimer: {
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '74%'
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '64%'
+    }
   }
 }))
 
@@ -47,8 +56,8 @@ const PrivacyPage = () => {
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/participation/privacy`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/participation/privacy`} />
       </Helmet>
-      <Box my={6} mx={0} component="section">
-        <Typography variant="h1" gutterBottom>
+      <Box my={4} mx={0} component="section">
+        <Typography variant="h2" component="h1" gutterBottom>
           <RenderContent source={t('pageTitle')} />
         </Typography>
         <Typography variant="body2" component="div">
@@ -82,18 +91,18 @@ const PrivacyPage = () => {
         </Grid>
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
           <IconCard
-            icon="secure-practices.svg"
-            title={t('cards.3.title')}
-            desc={t('cards.3.description')}
-            altText={t('cards.3.alt_text')}
-          />
-        </Grid>
-        <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
-          <IconCard
             icon="security-system.svg"
             title={t('cards.4.title')}
             desc={t('cards.4.description')}
             altText={t('cards.4.alt_text')}
+          />
+        </Grid>
+        <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+          <IconCard
+            icon="secure-practices.svg"
+            title={t('cards.3.title')}
+            desc={t('cards.3.description')}
+            altText={t('cards.3.alt_text')}
           />
         </Grid>
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
@@ -105,7 +114,7 @@ const PrivacyPage = () => {
           />
         </Grid>
       </Grid>
-      <Typography paragraph={true} component="div">
+      <Typography className={classes.disclaimer} paragraph={true} component="div">
         <RenderContent source={t('disclaimer')} />
       </Typography>
     </Container>
