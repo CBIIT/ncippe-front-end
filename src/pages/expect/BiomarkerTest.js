@@ -111,7 +111,7 @@ const BiomarkerTest = () => {
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">{t('pageTitle')}</Typography>
       </Container>
-      <TabAppBar value={0} />
+      <TabAppBar value={2} />
 
       <Container>
         {/* Intro */}

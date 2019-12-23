@@ -424,15 +424,8 @@ ul.bulletList > li:last-child {
   }
 
   /* What to Expect tab nav */
-  #tabBar a::after, #tabBar a::before {
-    display: none;
-  }
-  #tabBar a {
-    padding: 6px 12px;
-    border: none;
-  }
-  #tabBar a.Mui-selected {
-    background-color: #fff;
+  #tabBar a::before {
+    top: 4px;
   }
 
   /* Icon Cards */

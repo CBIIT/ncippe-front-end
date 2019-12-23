@@ -14,7 +14,6 @@ const useStyles = makeStyles( theme => ({
   },
   appbar: {
     backgroundColor: theme.palette.primary.medium,
-    zIndex: 1
   },
 }))
 
@@ -46,12 +45,9 @@ const TabAppBar = (props) => {
           scrollButtons={isMobile ? 'on' : 'auto'}
           aria-label="scrollable auto tabs"
         >
-          {/* Reverse the order of the tabs for arrows to display properly */}
-          {/* New tabs will become index 0 and other existing tabs must be bumpped up a number */}
-          {/* Update {value} default state index as well */}
-          <Tab disableRipple component={RouterLink} to="/expect/testing" label={t('common:tabs.expect.testing')} />
-          <Tab disableRipple component={RouterLink} to="/expect/donate" label={t('common:tabs.expect.donate')} />
-          <Tab disableRipple component={RouterLink} to="/expect/consent" label={t('common:tabs.expect.consent')} />
+          <Tab disableRipple component={RouterLink} to="/expect/consent" label={t('tabs.expect.consent')} />
+          <Tab disableRipple component={RouterLink} to="/expect/donate" label={t('tabs.expect.donate')} />
+          <Tab disableRipple component={RouterLink} to="/expect/testing" label={t('tabs.expect.testing')} />
         </StyledTabs>
       </AppBar>
     </Container>

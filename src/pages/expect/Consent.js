@@ -72,7 +72,7 @@ const Consent = () => {
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">{t('pageTitle')}</Typography>
       </Container>
-      <TabAppBar value={2} />
+      <TabAppBar value={0} />
 
       <Container component="section">
         <Box className={classes.container}>
