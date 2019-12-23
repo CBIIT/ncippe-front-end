@@ -23,7 +23,10 @@ const useStyles = makeStyles( theme => ({
     padding: theme.spacing(4,3,3,3)
   },
   cardTitle: {
-    fontWeight: 'bold'
+    fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+    fontWeight: 'bold',
+    lineHeight: '32px',
+    marginBottom: theme.spacing(1)
   },
   cardIcon: {
     paddingRight: theme.spacing(3),
