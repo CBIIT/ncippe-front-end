@@ -121,7 +121,7 @@ const FAQ = (props) => {
         <Typography variant="h4" component="h4">{title}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <Typography className={classes.panelDetails}>
+        <Typography className={classes.panelDetails} component="div">
           <RenderContent source={desc} />
         </Typography>
       </ExpansionPanelDetails>
