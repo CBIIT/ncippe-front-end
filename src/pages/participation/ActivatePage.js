@@ -32,7 +32,10 @@ const useStyles = makeStyles( theme => ({
   },
   divider: {
     width: '100%',
-    margin: theme.spacing(3,0,7)
+    margin: theme.spacing(0,0,4),
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing(3,0,7)
+    }
   },
   tintedBox: {
     backgroundColor: theme.palette.primary.lightGrey

@@ -297,34 +297,45 @@ ul.bulletList > li:last-child {
   }
 }
 
-.mainContainer {
+.mainContainer,
+.mainContainer--dashboard,
+.innerContainer {
   background-color: #f2f5f8;
-  background-image: url(/assets/images/soft-diamond-background-short.svg);
   background-position: bottom right;
   background-repeat: no-repeat;
-  background-size: 50%;
-  border-top: 1px solid #e0e0e0;
+  background-size: 90%;
   padding-bottom: 110px;
+}
+
+.mainContainer {
+  background-image: url(/assets/images/soft-diamond-background-short.svg);
+  border-top: 1px solid #e0e0e0;
   min-height: calc(100vh - 84px);
 }
 .mainContainer--dashboard {
-  background-color: #f2f5f8;
   background-image: url(/assets/images/soft-diamond-background-short.svg);
-  background-position: bottom right;
-  background-repeat: no-repeat;
-  background-size: 50%;
   border-top: 1px solid #e0e0e0;
-  padding-bottom: 110px;
 }
 .innerContainer {
-  background-color: #f2f5f8;
   background-image: url(/assets/images/soft-diamond-background-short.svg);
-  background-position: bottom right;
-  background-repeat: no-repeat;
-  background-size: 50%;
   margin-top: 48px;
   padding-top: 56px;
-  padding-bottom: 240px;
+}
+
+@media (min-width: 600px) {
+  .mainContainer,
+  .mainContainer--dashboard,
+  .innerContainer {
+    background-size: 60%;
+  }
+}
+@media (min-width: 960px) {
+  .mainContainer,
+  .mainContainer--dashboard,
+  .innerContainer {
+    background-size: 50%;
+    padding-bottom: 240px;
+  }
 }
 .mainContainer--public {
   background-color: transparent;

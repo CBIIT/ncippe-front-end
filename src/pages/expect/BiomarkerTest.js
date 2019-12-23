@@ -38,7 +38,10 @@ const useStyles = makeStyles( theme => ({
   },
   divider: {
     width: '100%',
-    margin: theme.spacing(7,0)
+    margin: theme.spacing(3,0),
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing(7,0)
+    }
   },
   stepper: {
     '& .MuiStepIcon-root.MuiStepIcon-active': {
