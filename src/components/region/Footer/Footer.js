@@ -36,13 +36,16 @@ const useStyles = makeStyles(theme => ({
       fontWeight: 600,
       color: theme.palette.common.white,
       textDecoration: 'none',
-      wordBreak: 'break-word',
+      wordWrap: 'break-word',
       lineHeight: '22px',
       marginBottom: 14
     },
     '& a:hover': {
       textDecoration: 'underline'
     },
+  },
+  breakAll: {
+    wordBreak: 'break-all'
   },
   columnTitle: {
     color: theme.palette.pink.main,
@@ -89,7 +92,7 @@ const Footer = () => {
       <Typography component="div">
         <Grid container className={classes.footerLinks} spacing={3} onClick={trackClick}>
           <Grid item xs={12} sm={4}>
-            <a href={`mailto:${t('footer.links.email')}`}>{t('footer.links.email')}</a>
+            <a className={classes.breakAll} href={`mailto:${t('footer.links.email')}`}>{t('footer.links.email')}</a>
             <a href={`tel:${t('footer.links.phone')}`}>{t('footer.links.phone')}</a>
             <a href="https://www.cancer.gov/contact">{t('footer.links.CIS')}</a>
             {/* <div className={classes.social}>
