@@ -50,7 +50,7 @@ const NotFoundPage = pageWrapper(NotFound)
 
 // catch relative links in the app that could not be made using @reach/router Link components
 document.addEventListener('click', function(event) {
-  if(event.target.dataset.route && event.target.pathname) {
+  if(event.target.dataset && event.target.dataset.route && event.target.pathname) {
     event.preventDefault()
     navigate(event.target.pathname)
   }
@@ -72,7 +72,7 @@ export default () => (
       <TransitionGroup className="transitionGroup" component={null}>
         <CSSTransition 
           key={location.key}
-          timeout={location.pathname.match(/\/dashboard\//) ? 350 : location.pathname.match(/\/expect\//) ? 50 : 550}
+          timeout={location.pathname.match(/\/dashboard\//) ? 350 : 550}
           classNames={location.pathname.match(/\/dashboard\//) ? 'zoom' : 'fade'}
           className="transitionGroup"
         >
