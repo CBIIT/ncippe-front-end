@@ -17,6 +17,10 @@ const useStyles = makeStyles( theme => ({
   grid: {
     justifyContent: 'flex-start'
   },
+  featureGridImage: {
+    justifyContent: 'flex-start'
+
+  },
   gridItemImg: {
     textAlign: 'center',
     '& img': {
@@ -28,13 +32,28 @@ const useStyles = makeStyles( theme => ({
   },
   divider: {
     width: '100%',
-    margin: theme.spacing(7,0)
+    margin: theme.spacing(0,0,4),
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing(3,0,7)
+    }
   },
   tintedBox: {
     backgroundColor: theme.palette.primary.lightGrey
   },
-  centerText: {
-    textAlign: 'center'
+  featureImage: {
+    order: 1,
+    marginTop: theme.spacing(2),
+    textAlign: 'center',
+    [theme.breakpoints.up('md')]: {
+      marginTop: 0,
+      order: 0,
+    }
+  },
+  featureLinks: {
+    textAlign: 'center',
+    [theme.breakpoints.up('md')]: {
+      textAlign: 'left'
+    }
   },
   screenshot: {
     maxWidth: 300
@@ -44,11 +63,22 @@ const useStyles = makeStyles( theme => ({
     padding: theme.spacing(1,4)
   },
   haveAccountBtn: {
-    padding: theme.spacing(1,4)
+    padding: theme.spacing(1,4),
+    backgroundColor: theme.palette.common.white
   },
   stepper: {
     '& .MuiStepIcon-root.MuiStepIcon-active': {
       color: 'rgba(0, 0, 0, 0.38)'
+    },
+    '& .MuiStepContent-root': {
+      width: '100%',
+      maxWidth: 580,
+      [theme.breakpoints.up('sm')]: {
+        width: '74%'
+      },
+      [theme.breakpoints.up('md')]: {
+        width: '64%'
+      }
     }
   },
   cardContent: {
@@ -56,7 +86,12 @@ const useStyles = makeStyles( theme => ({
     height: '100%',
     width: '100%',
     alignItems: 'flex-start',
-    padding: theme.spacing(3,3,2,3)
+    padding: theme.spacing(3,3,2,3),
+    ['@media (-ms-high-contrast:none)']: {
+      '& div': {
+        width: 'calc(100% - 50px)'
+      }
+    }
   },
   cardTitle: {
     fontWeight: 'bold'
@@ -118,7 +153,7 @@ const ActivatePage = () => {
         </Typography>
       </Container>
       <Container>
-        <Box my={5} component="section">
+        <Box mt={5} mb={4} component="section">
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
               <Typography paragraph={true} variant="body2" component="div">
@@ -129,30 +164,36 @@ const ActivatePage = () => {
               <ArticleImage src="father-and-daughter-view-tablet.jpg" alt={t('alt_text.0')} />
             </Grid>
           </Grid>
-          <Box className={classes.tintedBox} p={7} component="section">
-            <Grid container className={classes.grid} spacing={2} alignItems="stretch">
-              <Grid className={classes.centerText} item xs={12} md={6}>
-                <img className={classes.screenshot} src={`/${process.env.PUBLIC_URL}assets/images/login.gov.jpg`} alt="login.gov screenshot" width="300"
-                  srcSet={`
-                    /${process.env.PUBLIC_URL}assets/images/misc/standard/login.gov.jpg 1x,
-                    /${process.env.PUBLIC_URL}assets/images/misc/HD/login.gov.jpg 2x
-                  `}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Typography variant="h2" component="h2">
-                  <RenderContent source={t('sections.0.title')} />
-                </Typography>
+          </Box>
+        </Container>
+
+        <Box className={classes.tintedBox} p={7} component="section">
+          <Grid container className={classes.grid} spacing={2} alignItems="stretch">
+            <Grid className={classes.featureImage} item xs={12} md={6}>
+              <img className={classes.screenshot} src={`/${process.env.PUBLIC_URL}assets/images/login.gov.jpg`} alt="login.gov screenshot" width="300"
+                srcSet={`
+                  /${process.env.PUBLIC_URL}assets/images/misc/standard/login.gov.jpg 1x,
+                  /${process.env.PUBLIC_URL}assets/images/misc/HD/login.gov.jpg 2x
+                `}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Typography variant="h2" component="h2">
+                <RenderContent source={t('sections.0.title')} />
+              </Typography>
+              <Box className={classes.featureLinks}>
                 <Link href={`https://${process.env.REACT_APP_LOGIN_LINK}/sign_up/enter_email?request_id=${process.env.REACT_APP_REQUEST_ID}`}><Button className={classes.createAccountBtn} variant="contained" color="primary">{t('sections.0.links.0')}</Button></Link>
+                <br />
                 {/* <Button className={classes.haveAccountBtn} variant="outlined" color="primary" onClick={handleLogin}>{t('sections.0.links.1')}</Button> */}
                 <Button className={classes.haveAccountBtn} variant="outlined" color="primary" disabled>{t('sections.0.links.1')}</Button>
-              </Grid>
+              </Box>
             </Grid>
-          </Box>
+          </Grid>
         </Box>
+        <Container>
 
         {/* To create your login.gov account */}
-        <Box component="section">
+        <Box component="section" mt={5}>
           <Typography variant="h2" component="h2">
             <RenderContent source={t('sections.1.title')} />
           </Typography>
