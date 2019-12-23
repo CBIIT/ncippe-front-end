@@ -11,11 +11,10 @@ import FAQ from './FAQ'
 
 const useStyles = makeStyles( theme => ({
   faq_title: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    flexDirection: 'column',
-
+    
     [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+      alignItems: 'flex-start',
       flexDirection: 'row',
       alignItems: 'center',
     },

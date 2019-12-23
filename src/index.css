@@ -318,8 +318,15 @@ ul.bulletList > li:last-child {
 }
 .innerContainer {
   background-image: url(/assets/images/soft-diamond-background-short.svg);
-  margin-top: 48px;
-  padding-top: 56px;
+  margin-top: 40px;
+  padding-top: 36px;
+}
+
+@media (min-width: 600px) {
+  .innerContainer {
+    margin-top: 48px;
+    padding-top: 56px;
+  }
 }
 
 @media (min-width: 600px) {
