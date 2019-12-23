@@ -38,7 +38,12 @@ const useStyles = makeStyles( theme => ({
     flexGrow: 1,
     flexDirection: 'column',
     height: '100%',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    '& a': {
+      display: 'inline-block',
+      lineHeight: '22px',
+      marginBottom: theme.spacing(1)
+    }
   },
   link: {
     display: 'flex',
