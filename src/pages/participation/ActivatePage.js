@@ -86,7 +86,12 @@ const useStyles = makeStyles( theme => ({
     height: '100%',
     width: '100%',
     alignItems: 'flex-start',
-    padding: theme.spacing(3,3,2,3)
+    padding: theme.spacing(3,3,2,3),
+    ['@media (-ms-high-contrast:none)']: {
+      '& div': {
+        width: 'calc(100% - 50px)'
+      }
+    }
   },
   cardTitle: {
     fontWeight: 'bold'
