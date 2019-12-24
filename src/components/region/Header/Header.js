@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link as RouterLink, navigate } from "@reach/router"
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
@@ -20,7 +20,7 @@ import {
   Clear as ClearIcon,
 } from '@material-ui/icons'
 
-// import LoginButton from '../../login/LoginButton'
+import LoginButton from '../../login/LoginButton'
 import MenuGroup from './MenuGroup';
 import ExpansionMenu from '../../ExpansionMenu/ExpansionMenu'
 import Search from '../../Search/Search'
@@ -202,8 +202,8 @@ const Header = () => {
           </nav>
         )}
 
-        {/* {isMobile ? <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer}><MenuIcon /></IconButton> : <LoginButton />} */}
-        {isMobile && <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer}><MenuIcon /></IconButton>}
+        {isMobile ? <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer}><MenuIcon /></IconButton> : <LoginButton />}
+        {/* {isMobile && <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer}><MenuIcon /></IconButton>} */}
         
       </Box>
       {isMobile && (
@@ -212,9 +212,9 @@ const Header = () => {
           <IconButton aria-label={t('button.close')} onClick={closeMenu} id="closeMobileMenu"><ClearIcon /></IconButton>
         </Box>
         <nav id="mainNav--mobile">
-          {/* <Box className={classes.mobileLogin}>
+          <Box className={classes.mobileLogin}>
             <LoginButton />
-          </Box> */}
+          </Box>
           <ExpansionMenu
             handleClick={expandPanel}
             expanded={expanded.includes("about")}
