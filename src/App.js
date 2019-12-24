@@ -6,8 +6,8 @@ import { HelmetProvider, Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 
 import Routes from './routers/routes'
-// import { AuthProvider } from './components/login/AuthContext'
-// import { LoginProvider } from './components/login/Login.context'
+import { AuthProvider } from './components/login/AuthContext'
+import { LoginProvider } from './components/login/Login.context'
 import { theme } from './theme/theme'
 
 const App = (props) => {
@@ -30,8 +30,8 @@ const App = (props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* <AuthProvider>
-        <LoginProvider> */}
+      <AuthProvider>
+        <LoginProvider>
           <HelmetProvider>
             <Helmet>
               <meta name="twitter:image:alt" content={t('metaData.twitter_image_alt')} />
@@ -39,8 +39,8 @@ const App = (props) => {
             <CssBaseline />
             <Routes />
           </HelmetProvider>
-        {/* </LoginProvider>
-      </AuthProvider> */}
+        </LoginProvider>
+      </AuthProvider>
     </ThemeProvider>
   )
 }
