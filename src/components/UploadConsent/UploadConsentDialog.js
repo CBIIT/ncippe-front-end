@@ -4,7 +4,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 
-import { api } from '../../data/api'
+// import { api } from '../../data/api'
+import getAPI from '../../data'
 import { LoginContext } from '../login/Login.context'
 import Status from '../Status/Status'
 import FileItem from '../Mocha/FileItem'
@@ -106,7 +107,7 @@ const UploadConcentDialog = (props) => {
   }
 
   const uploadFile = () => {
-    const {token, env, uuid} = loginContext
+    const {token, uuid} = loginContext
 
     // verify that report data exists before fetch call
     if(!!formData.file) {
@@ -118,25 +119,27 @@ const UploadConcentDialog = (props) => {
       }))
       // fake response delay
       // setTimeout(() => {
-        api[env].uploadConsentForm({
-          patientId,
-          uuid,
-          reportFile: formData.file,
-          fileType: 'PPE_FILETYPE_ECONSENT_FORM',
-          token
-        })
-        .then(resp => {
-          if(resp instanceof Error) {
-            // Save unsuccessful - go back a step
-            setActiveStep(0)
-            setFormData(prevState => ({
-              ...prevState,
-              uploadError: true
-            }))
-          } else {
-            // Save successful - close modal
-            handleClose(null, true)
-          }
+        getAPI.then(api => {
+          api.uploadConsentForm({
+            patientId,
+            uuid,
+            reportFile: formData.file,
+            fileType: 'PPE_FILETYPE_ECONSENT_FORM',
+            token
+          })
+          .then(resp => {
+            if(resp instanceof Error) {
+              // Save unsuccessful - go back a step
+              setActiveStep(0)
+              setFormData(prevState => ({
+                ...prevState,
+                uploadError: true
+              }))
+            } else {
+              // Save successful - close modal
+              handleClose(null, true)
+            }
+          })
         })
       // }, 3000)
     } else {
