@@ -5,7 +5,8 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { AuthContext } from '../../components/login/AuthContext'
 import { LoginContext } from '../../components/login/Login.context'
-import { api } from '../../data/api'
+// import { api } from '../../data/api'
+import getAPI from '../../data'
 import { formatPhoneNumber } from '../../utils/utils'
 
 const useStyles = makeStyles( theme => ({
@@ -46,49 +47,54 @@ const SignInCallback = (props) => {
         email = resp.profile.email
       }
 
-      const {token} = await api[env].fetchToken({uuid, email, id_token:resp.id_token}).then(data => {
-        if(data instanceof Error) {
-          throw new Error(`Sorry, but either you have not been signed up for the Biobank Program, your account has not been activated yet, or your account has been closed. Please contact your Clinical Research Coordinator for assistance.`)
-        } else {
-          return data
-        }
+      const {token} = await getAPI.then(api => {
+        return api.fetchToken({uuid, email, id_token:resp.id_token}).then(data => {
+          if(data instanceof Error) {
+            throw new Error(`Sorry, but either you have not been signed up for the Biobank Program, your account has not been activated yet, or your account has been closed. Please contact your Clinical Research Coordinator for assistance.`)
+          } else {
+            return data
+          }
+        })
       })
-      const user = await api[env].fetchUser({uuid, token}).then(data => {
 
-        if(data instanceof Error){
-          throw new Error(`Sorry, but either you have not been signed up for the Biobank Program, your account has not been activated yet, or your account has been closed. Please contact your Clinical Research Coordinator for assistance.`)
-        } else {
-          const hasUnviewedReports = (reports, uuid) => {
-            //TODO: only for Participants
-            if(reports){
-              return reports.some(report => {
-                if (!report.viewedBy) {
-                  return true
-                } else {
-                  return !report.viewedBy.includes(uuid)
-                }
-              })          
-            } else {
-              return null
+      const user = await getAPI.then(api => {
+        return api.fetchUser({uuid, token}).then(data => {
+
+          if(data instanceof Error){
+            throw new Error(`Sorry, but either you have not been signed up for the Biobank Program, your account has not been activated yet, or your account has been closed. Please contact your Clinical Research Coordinator for assistance.`)
+          } else {
+            const hasUnviewedReports = (reports, uuid) => {
+              //TODO: only for Participants
+              if(reports){
+                return reports.some(report => {
+                  if (!report.viewedBy) {
+                    return true
+                  } else {
+                    return !report.viewedBy.includes(uuid)
+                  }
+                })          
+              } else {
+                return null
+              }
             }
+            
+            const userData = {
+              ...data,
+              phoneNumber: formatPhoneNumber(data.phoneNumber), //format "phoneNumber" field
+              newNotificationCount: data.notifications ? data.notifications.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0,
+              newReport: hasUnviewedReports(data.reports, data.uuid)
+            }
+  
+            // sort patient list alphabetically by last name
+            if(userData.patients && userData.patients.length > 1){
+              const sortedPatients = userData.patients.sort((a, b) => a.lastName.localeCompare(b.lastName))
+              userData.patients = sortedPatients
+            }
+  
+            return userData
+  
           }
-          
-          const userData = {
-            ...data,
-            phoneNumber: formatPhoneNumber(data.phoneNumber), //format "phoneNumber" field
-            newNotificationCount: data.notifications ? data.notifications.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0,
-            newReport: hasUnviewedReports(data.reports, data.uuid)
-          }
-
-          // sort patient list alphabetically by last name
-          if(userData.patients && userData.patients.length > 1){
-            const sortedPatients = userData.patients.sort((a, b) => a.lastName.localeCompare(b.lastName))
-            userData.patients = sortedPatients
-          }
-
-          return userData
-
-        }
+        })
       })
 
       dispatch({

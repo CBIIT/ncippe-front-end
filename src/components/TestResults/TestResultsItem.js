@@ -7,7 +7,8 @@ import {
 } from '@material-ui/icons'
 import moment from 'moment'
 
-import { api } from '../../data/api'
+// import { api } from '../../data/api'
+import getAPI from '../../data'
 import { LoginContext } from '../login/Login.context'
 import ConditionalWrapper from '../utils/ConditionalWrapper'
 import { getBool } from '../../utils/utils'
@@ -55,7 +56,7 @@ const TestResultsItem = (props) => {
   const {report, noBadge, patientId} = props
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
-  const {uuid, env, token} = loginContext
+  const {uuid, token} = loginContext
   const {fileName, dateUploaded, fileGUID} = report
   const [isNewReport, setIsNewReport] = useState(report.viewedBy ? !report.viewedBy.includes(uuid) : true)
 
@@ -75,101 +76,103 @@ const TestResultsItem = (props) => {
       win.document.title = "View Report"
       win.document.body.style.margin = 0
     }
-
-    api[env].fetchPatientReport({reportId, token})
-      .then(resp => {
-        try{
-          const disposition = resp.headers.get('Content-Disposition')
-          filename = disposition ? disposition.replace(/.*filename=(.*\.pdf$)/,'$1') : 'report.pdf'
-          return resp.blob()
-        } catch(error) {
-          throw new Error(error)
-        }
-      })
-      .then(blob => {
-        // const file = new Blob([resp], {type: "application/pdf"})
-
-        // you can only trigger save in IE - viewing blob data not supported
-        // TODO: conditionally show "View" for IE browser
-        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-          window.navigator.msSaveOrOpenBlob(blob);
-          return;
-        } 
-        // create url reference to blob buffer
-        const fileData = window.URL.createObjectURL(blob);
-
-        // trigger download or render blob buffer to new window
-        if(download) {
-          const link = document.createElement('a');
-          link.style.display = 'none';
-          document.body.appendChild(link);
-          link.download = filename
-          link.href = fileData
-          link.click();
-          document.body.removeChild(link);
-        } else {
-          win.document.body.innerHTML = `<embed src='${fileData}' type='application/pdf' width='100%' height='100%' />`
-        }
-
-        // ensure blob buffer is cleared for garbage collection
-        setTimeout(function(){
-          // For Firefox it is necessary to delay revoking the ObjectURL
-          window.URL.revokeObjectURL(fileData);
-        }, 100);
-      })
-      .then(() => {
-        // mark this report as viewed in database
-        api[env].reportViewedBy({patientId, uuid, reportId, token})
+    getAPI.then(api => {
+      api.fetchPatientReport({reportId, token})
         .then(resp => {
-          if(resp instanceof Error) {
-            console.error(resp.message)
-          } else {
-            // mark as viewed in front-end state
-            setIsNewReport(false)
-
-            // update participant state
-            if(!patientId) {
-              const updatedReports = loginContext.reports.map((report,i) => {
-                if(report.fileGUID === reportId) {
-                  const viewedBy = report.viewedBy || []
-                  return {
-                    ...report,
-                    viewedBy: [...new Set([...viewedBy, uuid])]
-                  }
-                }
-                return report
-              })
-
-              dispatch({
-                type: 'reportViewedByPatient',
-                reports: updatedReports,
-                uuid
-              })
-            }
-            // update user roles that can view this patient's reports
-            else {
-              const updatedPatients = loginContext.patients.map((patient,i) => {
-                const badgesOnPage = document.querySelectorAll('#reports .MuiBadge-root')
-                if(patient.patientId === patientId) {
-                  return {
-                    ...patient,
-                    hasNewReports: getBool(badgesOnPage.length)
-                  }
-                }
-                return patient
-              })
-              
-              dispatch({
-                type: 'reportViewedByOther',
-                patients: updatedPatients
-              })
-            }
+          try{
+            const disposition = resp.headers.get('Content-Disposition')
+            filename = disposition ? disposition.replace(/.*filename=(.*\.pdf$)/,'$1') : 'report.pdf'
+            return resp.blob()
+          } catch(error) {
+            throw new Error(error)
           }
         })
-      })
-      .catch(error => {
-        console.error(error)
-      })
+        .then(blob => {
+          // const file = new Blob([resp], {type: "application/pdf"})
+
+          // you can only trigger save in IE - viewing blob data not supported
+          // TODO: conditionally show "View" for IE browser
+          if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveOrOpenBlob(blob);
+            return;
+          } 
+          // create url reference to blob buffer
+          const fileData = window.URL.createObjectURL(blob);
+
+          // trigger download or render blob buffer to new window
+          if(download) {
+            const link = document.createElement('a');
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.download = filename
+            link.href = fileData
+            link.click();
+            document.body.removeChild(link);
+          } else {
+            win.document.body.innerHTML = `<embed src='${fileData}' type='application/pdf' width='100%' height='100%' />`
+          }
+
+          // ensure blob buffer is cleared for garbage collection
+          setTimeout(function(){
+            // For Firefox it is necessary to delay revoking the ObjectURL
+            window.URL.revokeObjectURL(fileData);
+          }, 100);
+        })
+        .then(() => {
+          // mark this report as viewed in database
+          getAPI.then(api => {
+            api.reportViewedBy({patientId, uuid, reportId, token}).then(resp => {
+              if(resp instanceof Error) {
+                console.error(resp.message)
+              } else {
+                // mark as viewed in front-end state
+                setIsNewReport(false)
+
+                // update participant state
+                if(!patientId) {
+                  const updatedReports = loginContext.reports.map((report,i) => {
+                    if(report.fileGUID === reportId) {
+                      const viewedBy = report.viewedBy || []
+                      return {
+                        ...report,
+                        viewedBy: [...new Set([...viewedBy, uuid])]
+                      }
+                    }
+                    return report
+                  })
+
+                  dispatch({
+                    type: 'reportViewedByPatient',
+                    reports: updatedReports,
+                    uuid
+                  })
+                }
+                // update user roles that can view this patient's reports
+                else {
+                  const updatedPatients = loginContext.patients.map((patient,i) => {
+                    const badgesOnPage = document.querySelectorAll('#reports .MuiBadge-root')
+                    if(patient.patientId === patientId) {
+                      return {
+                        ...patient,
+                        hasNewReports: getBool(badgesOnPage.length)
+                      }
+                    }
+                    return patient
+                  })
+                  
+                  dispatch({
+                    type: 'reportViewedByOther',
+                    patients: updatedPatients
+                  })
+                }
+              }
+            })
+          })
+        })
+        .catch(error => {
+          console.error(error)
+        })
+    })
   }
 
   return (
