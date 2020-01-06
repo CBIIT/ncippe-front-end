@@ -3,7 +3,8 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { LoginContext } from '../login/Login.context'
-import { api } from '../../data/api'
+// import { api } from '../../data/api'
+import getAPI from '../../data'
 
 import NotificationItem from './NotificationItem'
 
@@ -27,7 +28,7 @@ const Notifications = () => {
 
   useEffect(() => {
     //mark notifications as read on unmount
-    const {token, env, uuid, newNotificationCount} = loginContext
+    const {token, uuid, newNotificationCount} = loginContext
     if(newNotificationCount){
       dispatch({
         type: 'clearNewNotifications'
@@ -35,14 +36,16 @@ const Notifications = () => {
     }
     return () => {
       if(newNotificationCount){
-        api[env].notificationsMarkAsRead({uuid, token}).then((resp)=>{
-          if(resp instanceof Error) {
-            console.error(resp.message)
-          } else {
-            dispatch({
-              type: 'notificationsMarkAsRead'
-            })
-          }
+        getAPI.then(api => {
+          api.notificationsMarkAsRead({uuid, token}).then((resp)=>{
+            if(resp instanceof Error) {
+              console.error(resp.message)
+            } else {
+              dispatch({
+                type: 'notificationsMarkAsRead'
+              })
+            }
+          })
         })
       }
     }

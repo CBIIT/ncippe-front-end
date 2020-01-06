@@ -5,7 +5,8 @@ import {
   Clear as ClearIcon
 } from '@material-ui/icons'
 
-import { api } from '../../data/api'
+// import { api } from '../../data/api'
+import getAPI from '../../data'
 import { LoginContext } from '../login/Login.context'
 import UploadStepper from './UploadStepper'
 import FileItem from './FileItem'
@@ -104,7 +105,7 @@ const UploadReport = () => {
   }
 
   const validatePatientId = (event) => {
-    const {token, env} = loginContext
+    const {token} = loginContext
     
     // clear any previous errors
     if(patientData.error) {
@@ -117,29 +118,32 @@ const UploadReport = () => {
     // example GUID: b36284a2-cecf-4756-996c-abb0d8ba652c
     if(isValidUserId(patientData.patientId)) {
 
-      api[env].fetchUser({patientId: patientData.patientId, token})
-      .then(resp => {
-        if(resp.hasOwnProperty('message')) {
-          // user not found - show error
-          setPatientData(prevState => ({
-            ...prevState,
-            notFound: true
-          }))
-        } else {
-          // user found - progress
-          const {firstName, lastName, patientId} = resp
-          setPatientData(prevState => ({
-            ...prevState,
-            firstName,
-            lastName,
-            notFound: false
-          }))
-          setFormData(prevState => ({
-            ...prevState,
-            patientId
-          }))
-          setActiveStep(1)
-        }
+      // api[env].fetchUser({patientId: patientData.patientId, token})
+      getAPI.then(api => {
+        api.fetchUser({patientId: patientData.patientId, token})
+          .then(resp => {
+            if(resp.hasOwnProperty('message')) {
+              // user not found - show error
+              setPatientData(prevState => ({
+                ...prevState,
+                notFound: true
+              }))
+            } else {
+              // user found - progress
+              const {firstName, lastName, patientId} = resp
+              setPatientData(prevState => ({
+                ...prevState,
+                firstName,
+                lastName,
+                notFound: false
+              }))
+              setFormData(prevState => ({
+                ...prevState,
+                patientId
+              }))
+              setActiveStep(1)
+            }
+          })
       })
     } else {
       // validation error
@@ -163,25 +167,28 @@ const UploadReport = () => {
       }))
       // fake response delay
       // setTimeout(() => {
-        api[env].uploadPatientReport({
-          patientId: formData.patientId,
-          uuid,
-          reportFile: formData.reportFile,
-          fileType: 'PPE_FILETYPE_BIOMARKER_REPORT',
-          token
-        })
-        .then(resp => {
-          if(resp instanceof Error) {
-            // Save unsuccessful - go back a step
-            setActiveStep(1)
-            setFormData(prevState => ({
-              ...prevState,
-              uploadError: true
-            }))
-          } else {
-            // Save successful
-            setActiveStep(3)
-          }
+        // api[env].uploadPatientReport({
+        getAPI.then(api => {
+          api.uploadPatientReport({
+            patientId: formData.patientId,
+            uuid,
+            reportFile: formData.reportFile,
+            fileType: 'PPE_FILETYPE_BIOMARKER_REPORT',
+            token
+          })
+          .then(resp => {
+            if(resp instanceof Error) {
+              // Save unsuccessful - go back a step
+              setActiveStep(1)
+              setFormData(prevState => ({
+                ...prevState,
+                uploadError: true
+              }))
+            } else {
+              // Save successful
+              setActiveStep(3)
+            }
+          })
         })
       // }, 3000)
     } else {

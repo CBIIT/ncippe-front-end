@@ -4,7 +4,8 @@ import {Box, Button, Container, Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { LoginConsumer, LoginContext } from '../components/login/Login.context'
-import { api } from '../data/api'
+// import { api } from '../data/api'
+import getAPI from '../data'
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
 import Status from '../components/Status/Status'
 import { randomString } from '../utils/utils'
@@ -34,20 +35,21 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-
 const MockRoles = () => {
   const classes = useStyles()
   const [users, setUsers] = useState()
   const [error, setError] = useState(false)
   const [loginContext, dispatch] = useContext(LoginContext)
 
+
   // Fetch mock users on ComponentDidMount
   useEffect(() => {
-    //fetch mock users list
-    api[loginContext.env].fetchMockUsers().then(resp => {
-      Array.isArray(resp) ? setUsers(resp) : setError(resp)
+    getAPI.then(api => {
+      api.fetchMockUsers().then(resp => {
+        Array.isArray(resp) ? setUsers(resp) : setError(resp)
+      })
     })
-  }, [])
+  }, [getAPI])
 
   const mockLogin = user => event => {
     // get token

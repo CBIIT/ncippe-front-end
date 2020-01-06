@@ -2,8 +2,7 @@ import React, { createContext, useReducer } from 'react'
 
 const userInitialState = {
   auth: false,
-  roleName: 'public',
-  env: window.location.hostname === 'localhost' || window.location.hostname.startsWith("10.5.53") || window.location.hostname.startsWith("192.168.1") ? 'local' : 'prod'
+  roleName: 'public'
 }
 
 export const LoginContext = createContext()

@@ -4,7 +4,8 @@ import { ClickAwayListener, Divider, Grid, MenuItem, Typography } from '@materia
 import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
 
-import { api } from '../../data/api'
+// import { api } from '../../data/api'
+import getAPI from '../../data'
 import { LoginContext, LoginConsumer } from '../login/Login.context'
 import TestResultsItem from '../TestResults/TestResultsItem'
 import NoItems from '../NoItems/NoItems'
@@ -84,15 +85,17 @@ const TestResults = (props) => {
 
   useEffect(() => {
     //fetch participant data
-    const {token, env} = loginContext
+    const {token} = loginContext
     // const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).uuid
-    api[env].fetchPatientTestResults({patientId, token}).then(resp => {
-      setReports(resp.reports)
-      setFiles(resp.otherDocuments)
-      setUser(resp)
+    getAPI.then(api => {
+      api.fetchPatientTestResults({patientId, token}).then(resp => {
+        setReports(resp.reports)
+        setFiles(resp.otherDocuments)
+        setUser(resp)
+      })
     })
     return () => {}
-  }, [uploadSuccess])
+  }, [uploadSuccess,getAPI])
 
   const openUploadDialog = (e) => {
     setDialogOpen(true)

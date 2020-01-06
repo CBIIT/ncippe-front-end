@@ -7,7 +7,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import { LoginContext } from '../../components/login/Login.context'
 import PhoneNumbner from '../inputs/PhoneNumber/PhoneNumber'
 import EmailOption from '../inputs/EmailOption/EmailOption'
-import { api } from '../../data/api'
+// import { api } from '../../data/api'
+import getAPI from '../../data'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -63,10 +64,10 @@ const Profile = () => {
         phoneNumber: cleanPhoneNumber,
         allowEmailNotification
       }
-      const { token, env, uuid } = loginContext
+      const { token, uuid } = loginContext
 
-      api[env].updateUser({uuid, token, data})
-        .then(resp => {
+      getAPI.then(api => {
+        api.updateUser({uuid, token, data}).then(resp => {
           if(resp instanceof Error) {
             console.error(resp.message)
           } else {
@@ -81,6 +82,7 @@ const Profile = () => {
             toggleEditMode()
           }
         })
+      })
     }
   }
 
