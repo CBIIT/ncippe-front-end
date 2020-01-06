@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
 
       if(data.providers) {
 
-        console.log('fetch all providers here')
+        // console.log('fetch all providers here')
 
         const providerIds = Array.isArray(data.providers) ? 'id=' + data.providers.join("&id=") : 'id=' + data.providers
 
@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
           url: `http://localhost:5000/providers?${providerIds}`,
         },
         (error, resp, providers) => {
-          console.log("providers response", providers)
+          // console.log("providers response", providers)
 
           const providersData = JSON.parse(providers)
 
