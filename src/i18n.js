@@ -22,6 +22,7 @@ i18n
     // react: {
     //   useSuspense: true
     // },
+    // lng: 'en',
     load: "languageOnly",
     fallbackLng: ['en'],
     debug: false,
