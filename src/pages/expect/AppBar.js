@@ -14,6 +14,7 @@ const useStyles = makeStyles( theme => ({
   },
   appbar: {
     backgroundColor: theme.palette.primary.medium,
+    zIndex: 5
   },
 }))
 
