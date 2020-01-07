@@ -127,7 +127,7 @@ ul.bulletList > li:last-child {
   margin-bottom: 0
 }
 
-.transitionGroup {
+.siteWrapper {
   display: flex;
   flex-direction: column;
   position: relative;
