@@ -3,6 +3,7 @@ import { Box, Container, Divider, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
+import ArticleImage from '../../components/utils/ArticleImage'
 
 const useStyles = makeStyles(theme => ({
   titleWithIcon: {
@@ -56,7 +57,7 @@ export default () => {
               <Typography paragraph={true}>Leaving the Biobank means you'll stop donating blood and tissue samples. When you leave, you can choose if you want previously donated samples to continue to be shared, or if samples in storage should be destroyed. If samples have already been sent to researchers, we may not be able to get them back.</Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/tablet.jpg`} alt="tablet computer" />
+              <ArticleImage src="tablet.jpg" alt="tablet computer" />
             </Grid>
           </Grid>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
@@ -65,7 +66,7 @@ export default () => {
               <Typography paragraph={true}>If you change to a different doctor or hospital, and they are not participating in the Biobank, you may not be able to donate any more samples. Samples you have already donated will stay in the Biobank and be used for research unless you request they be destroyed.</Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/hospital-exterior.jpg`} alt="hospital exterior" />
+              <ArticleImage src="hospital-building.jpg" alt="hospital building" />
             </Grid>
           </Grid>
         </Box>
