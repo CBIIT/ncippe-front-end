@@ -40,7 +40,8 @@ const useStyles = makeStyles( theme => ({
     height: '100%',
     justifyContent: 'space-between',
     '& a': {
-      display: 'inline-block',
+      // display: 'flex',
+      flex: '0 0 auto',
       lineHeight: '22px',
       marginBottom: theme.spacing(1)
     }
