@@ -56,7 +56,7 @@ const PrivacyPage = () => {
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/participation/privacy`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/participation/privacy`} />
       </Helmet>
-      <Box my={4} mx={0} component="section">
+      <Box py={4} mx={0} component="section">
         <Typography variant="h2" component="h1" gutterBottom>
           <RenderContent source={t('pageTitle')} />
         </Typography>
