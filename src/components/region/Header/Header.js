@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link as RouterLink, navigate } from "@reach/router"
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
@@ -10,9 +10,10 @@ import {
   IconButton,
   InputAdornment,
   Link,
-  TextField
+  TextField,
+  useMediaQuery
 } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { 
   MenuRounded as MenuIcon,
   Search as SearchIcon,
@@ -102,23 +103,13 @@ const useStyles = makeStyles(theme => ({
 const Header = () => {
   const classes = useStyles()
   const loc = window.location.pathname
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 800)
   const [menuOpen, setMenuOpen] = useState(false)
   const [expanded, setExpanded] = useState(loc)
   const [isDisabled, setIsDisabled] = useState(true)
   const { t } = useTranslation('common')
   const { trackEvent } = useTracking()
-
-  // TODO: set active state on nav menu items based on site location
-
-  useEffect(() => {
-    const resizeEvt = () => {
-      setIsMobile(window.innerWidth < 800)
-    }
-    window.addEventListener('resize', resizeEvt, {passive: true})
-    //clean up
-    return () => window.removeEventListener('resize', resizeEvt, {passive: true})
-  },[isMobile])
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down(theme.breakpoints.values.smLandscape))
 
   const toggleDrawer = event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -161,8 +152,17 @@ const Header = () => {
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     // send the search terms to the search results page
+    const searchTerm = e.target.mobileSearch.value
+    trackEvent({
+      prop11: "BioBank Global Search",
+      eVar11: "BioBank Global Search",
+      eVar13: "+1",
+      prop14: searchTerm,
+      eVar14: searchTerm,
+      events: "event2"
+    })
     navigate('/search', {state: {
-      term: e.target.mobileSearch.value
+      term: searchTerm
     }})
   }
 
@@ -175,7 +175,7 @@ const Header = () => {
   }
 
   return (
-    <Container component="header" className={classes.root}>
+    <Container component="header" className={classes.root} id="appHeader">
       <Box className={classes.appToolbarContainer}>
         <figure className={classes.toolbarLogo}>
           <Link component={RouterLink} to='/' onClick={trackClick}>
@@ -183,18 +183,18 @@ const Header = () => {
           </Link>
         </figure>
         {!isMobile && (
-          <nav className={classes.publicNavDesktop}>
-            <MenuGroup title={t('nav.topLevel.about')} active={loc.includes('about')}>
+          <nav className={classes.publicNavDesktop} id="mainNav">
+            <MenuGroup title={t('nav.topLevel.about')} active={loc.includes('about')} id="about">
               <a href="/about">{t('nav.about')}</a>
               <a href="/about/eligibility">{t('nav.eligibility')}</a>
               <a href="/about/research">{t('nav.research')}</a>
             </MenuGroup>
-            <MenuGroup title={t('nav.topLevel.expect')} active={loc.includes('expect')}>
+            <MenuGroup title={t('nav.topLevel.expect')} active={loc.includes('expect')} id="expect">
               <a href="/expect/consent">{t('nav.consent')}</a>
               <a href="/expect/donate">{t('nav.donate')}</a>
               <a href="/expect/testing">{t('nav.testing')}</a>
             </MenuGroup>
-            <MenuGroup title={t('nav.topLevel.participation')} active={loc.includes('participation')}>
+            <MenuGroup title={t('nav.topLevel.participation')} active={loc.includes('participation')} id="participation">
               <a href="/participation/activate">{t('nav.activate')}</a>
               <a href="/participation/privacy">{t('nav.privacy')}</a>
             </MenuGroup>
@@ -203,6 +203,7 @@ const Header = () => {
         )}
 
         {isMobile ? <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer}><MenuIcon /></IconButton> : <LoginButton />}
+        {/* {isMobile && <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer}><MenuIcon /></IconButton>} */}
         
       </Box>
       {isMobile && (
@@ -210,7 +211,7 @@ const Header = () => {
         <Box className={classes.closeMobileMenu}>
           <IconButton aria-label={t('button.close')} onClick={closeMenu} id="closeMobileMenu"><ClearIcon /></IconButton>
         </Box>
-        <nav>
+        <nav id="mainNav--mobile">
           <Box className={classes.mobileLogin}>
             <LoginButton />
           </Box>

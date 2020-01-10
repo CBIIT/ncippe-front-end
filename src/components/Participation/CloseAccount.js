@@ -5,7 +5,8 @@ import { Clear as ClearIcon } from '@material-ui/icons'
 
 import { LoginContext } from '../login/Login.context'
 import { AuthContext } from '../login/AuthContext'
-import { api } from '../../data/api'
+// import { api } from '../../data/api'
+import getAPI from '../../data'
 import { formatPhoneNumber } from '../../utils/utils'
 
 const useStyles = makeStyles( theme => ({
@@ -43,19 +44,21 @@ const CloseAccount = (props) => {
   const { crc } = loginContext
 
   const handleSubmit = () => {
-    const {uuid, env, token} = loginContext
-    api[env].closeAccount({uuid, token}).then(resp => {
-      if(resp) {
-        // Save successful, also update the user context data
-        signoutRedirectCallback({
-          accountClosed: true
-        })
-        dispatch({
-          type: 'reset'
-        })
-      } else {
-        alert(resp.message)
-      }
+    const {uuid, token} = loginContext
+    getAPI.then(api => {
+      api.closeAccount({uuid, token}).then(resp => {
+        if(resp) {
+          // Save successful, also update the user context data
+          signoutRedirectCallback({
+            accountClosed: true
+          })
+          dispatch({
+            type: 'reset'
+          })
+        } else {
+          alert(resp.message)
+        }
+      })
     })
   }
 

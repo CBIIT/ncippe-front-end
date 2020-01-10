@@ -70,6 +70,8 @@ const StyledMenuItem = withStyles(theme => ({
 }))(props => <MenuItem {...props}/>)
 
 const MenuGroup = (props) => {
+  const randomNum = Math.floor(Math.random() * 1000) + 1
+  const { id = randomNum} = props
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const [popperClass, setPopperClass] = useState(false)
@@ -77,7 +79,7 @@ const MenuGroup = (props) => {
   const containerNode = document.querySelector("#root .transitionGroup")
   const { trackEvent } = useTracking()
 
-  const handleToggle = (event) => {
+  const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
     setPopperClass(prev => !prev ? 'active-popper' : false)
     trackEvent({
@@ -142,10 +144,10 @@ const MenuGroup = (props) => {
     <>
     <Button
       ref={anchorRef}
-      aria-controls="menu-list-grow"
+      aria-controls={`menu-list-grow-${id}`}
       aria-haspopup="true"
       onClick={handleToggle}
-      className={props.active ? classes.active : classes.button}
+      className={props.active ? `${classes.active} active` : classes.button}
     >
       {props.title}
     </Button>
@@ -163,7 +165,7 @@ const MenuGroup = (props) => {
           {...TransitionProps}
           style={{ transformOrigin: 'left top' }}
         >
-          <Paper className="menu-list-grow" elevation={1} square={true}>
+          <Paper id={`menu-list-grow-${id}`} elevation={1} square={true}>
             <ClickAwayListener onClickAway={handleClose}>
               <MenuList className={classes.menuList} autoFocusItem={open} onKeyDown={handleListKeyDown}>
                 {

@@ -42,7 +42,7 @@ const a11yProps = (index) => {
 
 const WhatToExpectPage = () => {
   const classes = useStyles()
-  const { t, i18n } = useTranslation(['consent','donate','testing'])
+  const { t } = useTranslation(['consent','donate','testing'])
   const { trackEvent } = useTracking()
   const [value, setValue] = useState(()=>{
     switch(window.location.pathname){
@@ -77,13 +77,14 @@ const WhatToExpectPage = () => {
   }
 
   return (
-    <Box>
+    <Box component="article">
       <Container className={classes.pageHeader}>
         <Typography variant="h2" component="h1">{t('about:landing_pageTitle')}</Typography>
       </Container>
       <Container className={classes.appbarContainer}>
         <AppBar className={classes.appbar} position="static" elevation={0}>
           <StyledTabs
+            id="tabBar"
             value={value}
             onChange={handleChange}
             indicatorColor="primary"
@@ -102,10 +103,10 @@ const WhatToExpectPage = () => {
         </AppBar>
       </Container>
       <Container className={classes.tabsContainer}>
-        <Router>
-          <Consent index={2} isMobile={isMobile} path="/*" />
-          <Donate index={1} isMobile={isMobile} path="donate" />
-          <BiomarkerTest index={0} isMobile={isMobile} path="testing" />
+        <Router primary={false}>
+          <Consent index={2} isMobile={isMobile} path="/*" component="h2" />
+          <Donate index={1} isMobile={isMobile} path="donate" component="h2" />
+          <BiomarkerTest index={0} isMobile={isMobile} path="testing" component="h2" />
         </Router>
       </Container>
     </Box>

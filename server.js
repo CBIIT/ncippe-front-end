@@ -15,14 +15,15 @@ server.use(getUserMiddleware)
 server.use(getProvidersMiddleware)
 server.use(singularMiddleware)
 server.use(jsonServer.rewriter({
-  "/api/participants/:uuid": "/participants?uuid=:uuid&singular=1",
-  "/api/providers/:uuid": "/providers?uuid=:uuid&singular=1",
-  "/api/crcs/:uuid": "/crcs?uuid=:uuid&singular=1",
-  "/api/bsscs/:uuid": "/bsscs?uuid=:uuid&singular=1",
-  "/api/mochaAdmins/:uuid": "/mochaAdmins?uuid=:uuid&singular=1",
-  "/api/admins/:uuid": "/admins?uuid=:uuid&singular=1",
-  "/api/reports/:uuid": "/reports?fileGUID=:uuid&singular=1",
-  "/api/otherDocuments/:uuid": "/otherDocuments?fileGUID=:uuid&singular=1",
+  // since refactoring mockData (now using references) we no longer need these routes, but keeping them as examples
+  // "/api/participants/:uuid": "/participants?uuid=:uuid&singular=1",
+  // "/api/providers/:uuid": "/providers?uuid=:uuid&singular=1",
+  // "/api/crcs/:uuid": "/crcs?uuid=:uuid&singular=1",
+  // "/api/bsscs/:uuid": "/bsscs?uuid=:uuid&singular=1",
+  // "/api/mochaAdmins/:uuid": "/mochaAdmins?uuid=:uuid&singular=1",
+  // "/api/admins/:uuid": "/admins?uuid=:uuid&singular=1",
+  // "/api/reports/:uuid": "/reports?fileGUID=:uuid&singular=1",
+  // "/api/otherDocuments/:uuid": "/otherDocuments?fileGUID=:uuid&singular=1",
   "/api/*": "/$1"
 }));
 server.use(router)

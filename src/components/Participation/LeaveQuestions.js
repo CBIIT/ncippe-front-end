@@ -6,7 +6,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { Clear as ClearIcon } from '@material-ui/icons'
 
 import { LoginContext } from '../login/Login.context'
-import { api } from '../../data/api'
+// import { api } from '../../data/api'
+import getAPI from '../../data'
 import InputGroupError from '../inputs/InputGroupError/InputGroupError'
 import Status from '../Status/Status'
 
@@ -135,7 +136,7 @@ const LeaveQuestions = (props) => {
   }
 
   const handleSubmit = () => {
-    const {uuid, patientId, env, token, patients} = loginContext
+    const {uuid, patientId, token, patients} = loginContext
     const q1 = {
       question: document.getElementById('q1-text').textContent,
       answer: questionData['q1'],
@@ -164,52 +165,54 @@ const LeaveQuestions = (props) => {
       q4
     ]
 
-    api[env].withdrawUser({
-      uuid,
-      patientId: user ? user.patientId : patientId,
-      qsAnsDTO: data,
-      token
-    })
-    .then(resp => {
-      console.log("resp", resp)
-      // TODO: catch errors on 500 response
-      if(resp instanceof Error) {
-        setSaveError(resp)
-      } else {
-        // Save successful, also update the user context data
-        if(user) {
-          // mark this one patient as withdrawn in the user's patients array
-          const updatedPatientList = patients.map(patient => {
-            if (patient.patientId === user.patientId) {
-              return {
-                ...patient,
-                isActiveBiobankParticipant: false
-              }
-            }
-            return patient
-          })
-          dispatch({
-            type: 'update',
-            userData: {
-              patients: updatedPatientList
-            }
-          })
-
+    getAPI.then(api => {
+      api.withdrawUser({
+        uuid,
+        patientId: user ? user.patientId : patientId,
+        qsAnsDTO: data,
+        token
+      })
+      .then(resp => {
+        // console.log("resp", resp)
+        // TODO: catch errors on 500 response
+        if(resp instanceof Error) {
+          setSaveError(resp)
         } else {
-          // update user data
-          dispatch({
-            type: 'update',
-            userData: {
-              ...resp
-            }
-          })
+          // Save successful, also update the user context data
+          if(user) {
+            // mark this one patient as withdrawn in the user's patients array
+            const updatedPatientList = patients.map(patient => {
+              if (patient.patientId === user.patientId) {
+                return {
+                  ...patient,
+                  isActiveBiobankParticipant: false
+                }
+              }
+              return patient
+            })
+            dispatch({
+              type: 'update',
+              userData: {
+                patients: updatedPatientList
+              }
+            })
+
+          } else {
+            // update user data
+            dispatch({
+              type: 'update',
+              userData: {
+                ...resp
+              }
+            })
+          }
+          // close the modal
+          cancel()
         }
-        // close the modal
-        cancel()
-      }
-    })
-    .catch(error => {
-      console.error(error)
+      })
+      .catch(error => {
+        console.error(error)
+      })
     })
   }
 

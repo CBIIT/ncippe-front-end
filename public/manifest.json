@@ -1,8 +1,8 @@
 {
-  "name": "NCI PPE",
-  "short_name": "NCI Patient and Provider Engagement",
-  "gcm_sender_id": "978053703099",
+  "name": "Moonshot Biobank",
+  "short_name": "Moonshot Biobank",
   "display": "standalone",
+  "gcm_sender_id": "978053703099",
   "gcm_user_visible_only": true,
   "icons": [
     {

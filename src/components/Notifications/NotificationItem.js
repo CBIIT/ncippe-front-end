@@ -63,7 +63,7 @@ const NotificationItem = (props) => {
             </Grid>
           </Grid>
           <Divider className={classes.divider} />
-          <Typography>
+          <Typography component="div">
             <RenderContent source={message} />
           </Typography>
         </CardContent>

@@ -38,6 +38,10 @@ const useStyles = makeStyles( theme => ({
         padding: '0 6px 0 0',
         '&.Mui-expanded': {
           transform: 'none'
+        },
+        '& svg': {
+          color: theme.palette.grey['900'],
+          stroke: theme.palette.grey['900'],
         }
       },
     },
@@ -53,11 +57,20 @@ const useStyles = makeStyles( theme => ({
       animation: 'transparentToWhite 300ms',
       animationFillMode: 'both'
     },
+    '& .Mui-focused::before': {
+      animation: 'whiteToPink 300ms both',
+      outline: '1px solid #aaa'
+    },
     '& .Mui-expanded::before': {
-      animation: 'whiteToTransparent 300ms',
+      animation: 'whiteToTransparent 300ms both',
     },
     '& .MuiExpansionPanelDetails-root': {
       display: 'block'
+    }
+  },
+  panelDetails: {
+    '& p:last-child': {
+      marginBottom: 0
     }
   }
 }))
@@ -104,11 +117,13 @@ const FAQ = (props) => {
 
   return (
     <ExpansionPanel square expanded={isExpanded} onChange={handleChange} className={classes.root}>
-      <ExpansionPanelSummary expandIcon={isExpanded ? <RemoveRounded /> : <AddRounded />} onClick={trackClick}>
+      <ExpansionPanelSummary expandIcon={isExpanded ? <RemoveRounded /> : <AddRounded />} onClick={trackClick} aria-controls={`faq-${index}-content`} id={`faq-${index}-header`}>
         <Typography variant="h4" component="h4">{title}</Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
-        <RenderContent source={desc} />
+        <Typography className={classes.panelDetails} component="div">
+          <RenderContent source={desc} />
+        </Typography>
       </ExpansionPanelDetails>
     </ExpansionPanel>
   )

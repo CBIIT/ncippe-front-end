@@ -16,7 +16,7 @@ export const theme = createMuiTheme({
     values: {
       xs: 0,
       sm: 600,
-      smLandscape: 800,
+      smLandscape: 880,
       md: 960,
       lg: 1280,
       xl: 1920
@@ -133,7 +133,8 @@ export const theme = createMuiTheme({
           fontSize: '16px',
           lineHeight: '30px',
           paragraphHeight: '20px',
-          letterSpacing: '.46px'
+          letterSpacing: '.46px',
+          backgroundColor: "#fff",
         }
       }
     },

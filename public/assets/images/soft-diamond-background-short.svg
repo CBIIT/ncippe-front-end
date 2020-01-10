@@ -1,52 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" x="0px" y="0px" viewBox="0 0 541.8 349" xmlns="http://www.w3.org/2000/svg">
-  <style type="text/css">
-	.st0{fill:#FFEBF1;}
-	.st1{fill:#F2F5F8;}
-	.st2{fill:#FFFFFF;}
-</style>
-  <g>
-    <polygon class="st0" points="413.9,178 382.7,235 349.7,178 "/>
-    <polygon class="st1" points="349.7,178 319.1,235 286.2,178 "/>
-    <polygon class="st1" points="351.5,292 382.7,235 415.6,292 "/>
-    <polygon class="st2" points="415.6,292 384.4,349 351.5,292 "/>
-    <polygon class="st2" points="382.7,235 413.9,178 446.8,235 "/>
-    <polygon class="st0" points="446.8,235 415.6,292 382.7,235 "/>
-    <polygon class="st0" points="384.5,349 415.7,292 448.6,349 "/>
-    <polygon class="st1" points="446.8,235 478,178 510.9,235 "/>
-    <polygon class="st2" points="510.9,235 479.7,292 446.8,235 "/>
-    <polygon class="st1" points="448.6,349 479.8,292 512.7,349 "/>
-    <polygon class="st1" points="318.6,235 349.7,178 382.7,235 "/>
-    <polygon class="st2" points="382.7,235 351.5,292 318.6,235 "/>
-    <polygon class="st1" points="320.3,349 351.5,292 384.5,349 "/>
-    <polygon class="st1" points="415.6,292 446.8,235 479.8,292 "/>
-    <polygon class="st0" points="479.8,292 448.6,349 415.6,292 "/>
-    <polygon class="st2" points="64.3,349 95.5,292 128.4,349 "/>
-    <polygon class="st1" points="0,349 31.2,292 64.1,349 "/>
-    <polygon class="st0" points="95.5,292 64.3,349 31.3,292 "/>
-    <polygon class="st1" points="95.8,292 127,235 160,292 "/>
-    <polygon class="st0" points="160,292 128.8,349 95.8,292 "/>
-    <polygon class="st1" points="191.1,235 159.9,292 127,235 "/>
-    <polygon class="st0" points="128.8,349 160,292 192.9,349 "/>
-    <polygon class="st1" points="191.1,235 222.3,178 255.3,235 "/>
-    <polygon class="st2" points="255.3,235 224.1,292 191.1,235 "/>
-    <polygon class="st2" points="192.9,349 224.1,292 257,349 "/>
-    <polygon class="st2" points="255.3,235 286.5,178 319.4,235 "/>
-    <polygon class="st1" points="319.4,235 288.2,292 255.3,235 "/>
-    <polygon class="st1" points="257,349 288.2,292 321.2,349 "/>
-    <polygon class="st2" points="160,292 191.1,235 224.1,292 "/>
-    <polygon class="st1" points="224.1,292 192.9,349 160,292 "/>
-    <polygon class="st0" points="224.1,292 255.3,235 288.2,292 "/>
-    <polygon class="st2" points="288.2,292 257,349 224.1,292 "/>
-    <polygon class="st0" points="287.9,292 319,235 352,292 "/>
-    <polygon class="st0" points="352,292 320.8,349 287.9,292 "/>
-    <polygon class="st1" points="541.2,176.5 509.2,121 478,178 541.2,178 &#9;"/>
-    <polygon class="st2" points="478,178 510.9,235 541.2,179.6 541.2,178 &#9;"/>
-    <polygon class="st0" points="541.2,121 509.2,121 509.2,121 541.2,176.5 &#9;"/>
-    <polygon class="st1" points="541.2,179.6 510.9,235 541.2,235 &#9;"/>
-    <polygon class="st0" points="541.2,287.4 541.2,235 510.9,235 511,235 511,235 &#9;"/>
-    <polygon class="st1" points="512.7,349 541.2,349 541.2,296.9 &#9;"/>
-    <polygon class="st0" points="541.2,287.4 511,235 511,235 479.8,292 541.2,292 &#9;"/>
-    <polygon class="st2" points="479.8,292 512.7,349 541.2,296.9 541.2,292 &#9;"/>
-  </g>
+<svg viewBox="0 0 541.8 349" preserveAspectRatio="xMinYMid" xmlns="http://www.w3.org/2000/svg">
+  <path d="m413.9 178-31.2 57-33-57z" fill="#ffebf1"/>
+  <path d="m349.7 178-30.6 57-32.9-57z" fill="#f2f5f8"/>
+  <path d="m351.5 292 31.2-57 32.9 57z" fill="#f2f5f8"/>
+  <path d="m415.6 292-31.2 57-32.9-57z" fill="#fff"/>
+  <path d="m382.7 235 31.2-57 32.9 57z" fill="#fff"/>
+  <path d="m446.8 235-31.2 57-32.9-57z" fill="#ffebf1"/>
+  <path d="m384.5 349 31.2-57 32.9 57z" fill="#ffebf1"/>
+  <path d="m446.8 235 31.2-57 32.9 57z" fill="#f2f5f8"/>
+  <path d="m510.9 235-31.2 57-32.9-57z" fill="#fff"/>
+  <path d="m448.6 349 31.2-57 32.9 57z" fill="#f2f5f8"/>
+  <path d="m318.6 235 31.1-57 33 57z" fill="#f2f5f8"/>
+  <path d="m382.7 235-31.2 57-32.9-57z" fill="#fff"/>
+  <path d="m320.3 349 31.2-57 33 57z" fill="#f2f5f8"/>
+  <path d="m415.6 292 31.2-57 33 57z" fill="#f2f5f8"/>
+  <path d="m479.8 292-31.2 57-33-57z" fill="#ffebf1"/>
+  <path d="m64.3 349 31.2-57 32.9 57z" fill="#fff"/>
+  <path d="m0 349 31.2-57 32.9 57z" fill="#f2f5f8"/>
+  <path d="m95.5 292-31.2 57-33-57z" fill="#ffebf1"/>
+  <path d="m95.8 292 31.2-57 33 57z" fill="#f2f5f8"/>
+  <path d="m160 292-31.2 57-33-57z" fill="#ffebf1"/>
+  <path d="m191.1 235-31.2 57-32.9-57z" fill="#f2f5f8"/>
+  <path d="m128.8 349 31.2-57 32.9 57z" fill="#ffebf1"/>
+  <path d="m191.1 235 31.2-57 33 57z" fill="#f2f5f8"/>
+  <path d="m255.3 235-31.2 57-33-57z" fill="#fff"/>
+  <path d="m192.9 349 31.2-57 32.9 57z" fill="#fff"/>
+  <path d="m255.3 235 31.2-57 32.9 57z" fill="#fff"/>
+  <path d="m319.4 235-31.2 57-32.9-57z" fill="#f2f5f8"/>
+  <path d="m257 349 31.2-57 33 57z" fill="#f2f5f8"/>
+  <path d="m160 292 31.1-57 33 57z" fill="#fff"/>
+  <path d="m224.1 292-31.2 57-32.9-57z" fill="#f2f5f8"/>
+  <path d="m224.1 292 31.2-57 32.9 57z" fill="#ffebf1"/>
+  <path d="m288.2 292-31.2 57-32.9-57z" fill="#fff"/>
+  <path d="m287.9 292 31.1-57 33 57z" fill="#ffebf1"/>
+  <path d="m352 292-31.2 57-32.9-57z" fill="#ffebf1"/>
+  <path d="m541.2 176.5-32-55.5-31.2 57h63.2z" fill="#f2f5f8"/>
+  <path d="m478 178 32.9 57 30.3-55.4v-1.6z" fill="#fff"/>
+  <path d="m541.2 121h-32l32 55.5z" fill="#ffebf1"/>
+  <path d="m541.2 179.6-30.3 55.4h30.3z" fill="#f2f5f8"/>
+  <path d="m541.2 287.4v-52.4h-30.3.1z" fill="#ffebf1"/>
+  <path d="m512.7 349h28.5v-52.1z" fill="#f2f5f8"/>
+  <path d="m541.2 287.4-30.2-52.4-31.2 57h61.4z" fill="#ffebf1"/>
+  <path d="m479.8 292 32.9 57 28.5-52.1v-4.9z" fill="#fff"/>
 </svg>

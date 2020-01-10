@@ -11,21 +11,37 @@ import FAQ from './FAQ'
 
 const useStyles = makeStyles( theme => ({
   faq_title: {
-    display: 'flex',
+    
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+      alignItems: 'flex-start',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
     '& h3': {
-      flexGrow: 1
+      flexGrow: 1,
     }
   },
   faq_icon: {
     marginLeft: -8,
     marginRight: 4
+  },
+  whiteBG: {
+    minWidth: 148,
+    margin: theme.spacing(1, 0, 0, 0),
+    backgroundColor: theme.palette.common.white,
+    whiteSpace: 'nowrap',
+    
+    [theme.breakpoints.up('sm')]: {
+      margin: theme.spacing(0, 0, 0, 2),
+    }
   }
 }))
 
 const FAQs = (props) => {
   const { title, faqs, className, ...other } = props
   const classes = useStyles()
-  const { t, i18n } = useTranslation('common')
+  const { t } = useTranslation('common')
   const [isExpanded, setIsExpanded] = useState(false)
   const [toggleState,setToggleState] = useState([])
 
@@ -55,28 +71,28 @@ const FAQs = (props) => {
   }
 
   return (
-    <Container className={`innerContainer ${className}`} {...other}>
-    <div className={classes.faq_title}>
-      <Typography variant="h3" component="h3">{title}</Typography>
-      <Button variant="outlined" color="primary" onClick={toggleAll}>
-        { isExpanded ? 
-          <><MinusIcon className={classes.faq_icon} /> {t('buttons.collapse')}</>
-          : 
-          <><PlusIcon className={classes.faq_icon} /> {t('buttons.expand')}</>
-        }
-      </Button>
-    </div>
-    <Box mt={3}>
-      {faqs && Object.keys(faqs).map((faq, i) => <FAQ
-        key={i}
-        index={i}
-        title={faqs[faq].question}
-        desc={faqs[faq].answer}
-        expanded={isExpanded}
-        clickHandler={trackToggle}
-      />)}
-    </Box>
-  </Container>
+    <Container className={`innerContainer ${className}`} {...other} component="section">
+      <div className={classes.faq_title}>
+        <Typography variant="h2" component="h3">{title}</Typography>
+        <Button className={classes.whiteBG} variant="outlined" color="primary" onClick={toggleAll}>
+          { isExpanded ? 
+            <><MinusIcon className={classes.faq_icon} /> {t('buttons.collapse')}</>
+            : 
+            <><PlusIcon className={classes.faq_icon} /> {t('buttons.expand')}</>
+          }
+        </Button>
+      </div>
+      <Box mt={3}>
+        {faqs && Object.keys(faqs).map((faq, i) => <FAQ
+          key={i}
+          index={i}
+          title={faqs[faq].question}
+          desc={faqs[faq].answer}
+          expanded={isExpanded}
+          clickHandler={trackToggle}
+        />)}
+      </Box>
+    </Container>
   )
 }
 

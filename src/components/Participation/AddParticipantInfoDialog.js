@@ -12,13 +12,14 @@ import {
   Step,
   StepLabel,
   TextField,
-  Typography } from '@material-ui/core'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+  Typography,
+  useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import moment from 'moment'
 
-import { api } from '../../data/api'
+// import { api } from '../../data/api'
+import getAPI from '../../data'
 import { LoginContext } from '../login/Login.context'
 import Status from '../Status/Status'
 import FileItem from '../Mocha/FileItem'
@@ -104,69 +105,73 @@ const AddParticipantInfoDialog = (props) => {
   },[open])
 
   useEffect(() => {
-    const {token, env, uuid} = loginContext
+    const {token, uuid} = loginContext
     // if we're validating then we're attempting to submit the form
     if (activeStep === 0 && formDataValidation.firstName && formDataValidation.lastName && formDataValidation.email) {
       // submit user update
-      api[env].updateParticipantDetails({
-        uuid,
-        token,
-        patient: {
-          patientId,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-        }
-      }).then(resp => {
-        if(resp instanceof Error) {
-          //TODO: perhaps another status message?
-          console.error(resp.message)
-        } else {
-          // save successful, move to the next step - upload consent form
-          setActiveStep(1)
-          // TODO: dispatch update
-          // At this point the patient had name, email and marked as active
-          // Front-end store should be updated to reflect backend updates
-          // This disrupts the flow
-          // perhaps only send fetch requests when both name and consent file has been completed
-          // send both requests together in a Promise.all
-        }
-      })
-      .catch(error => {
-        console.error(error)
+      getAPI.then(api => {
+        api.updateParticipantDetails({
+          uuid,
+          token,
+          patient: {
+            patientId,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+          }
+        }).then(resp => {
+          if(resp instanceof Error) {
+            //TODO: perhaps another status message?
+            console.error(resp.message)
+          } else {
+            // save successful, move to the next step - upload consent form
+            setActiveStep(1)
+            // TODO: dispatch update
+            // At this point the patient had name, email and marked as active
+            // Front-end store should be updated to reflect backend updates
+            // This disrupts the flow
+            // perhaps only send fetch requests when both name and consent file has been completed
+            // send both requests together in a Promise.all
+          }
+        })
+        .catch(error => {
+          console.error(error)
+        })
       })
     }
     if( activeStep === 1 && formDataValidation.hasFile) {
       // submit consent form
       setActiveStep(2)
-      setTimeout(() => {
-      api[env].uploadPatientReport({
-        patientId,
-        uuid,
-        reportFile: formData.file,
-        fileType: 'PPE_FILETYPE_ECONSENT_FORM',
-        token
-      }).then(resp => {
-        if(resp instanceof Error) {
-          // Save unsuccessful - display status error
-          setActiveStep(1)
-          setFormData(prevState => ({
-            ...prevState,
-            uploadError: true
-          }))
-        } else {
-          // save successful, close modal and redirect to Participant View
-          navigate(`/dashboard/participant/${patientId}`, {
-            state: {
-              newParticipantActivated: true
-            }
-          })
-        }
+      // setTimeout(() => {
+      getAPI.then(api => {
+        api.uploadPatientReport({
+          patientId,
+          uuid,
+          reportFile: formData.file,
+          fileType: 'PPE_FILETYPE_ECONSENT_FORM',
+          token
+        }).then(resp => {
+          if(resp instanceof Error) {
+            // Save unsuccessful - display status error
+            setActiveStep(1)
+            setFormData(prevState => ({
+              ...prevState,
+              uploadError: true
+            }))
+          } else {
+            // save successful, close modal and redirect to Participant View
+            navigate(`/dashboard/participant/${patientId}`, {
+              state: {
+                newParticipantActivated: true
+              }
+            })
+          }
+        })
+        .catch(error => {
+          console.error(error)
+        })
       })
-      .catch(error => {
-        console.error(error)
-      })
-    }, 5000)
+    // }, 5000)
     }
   }, [formDataValidation])
 

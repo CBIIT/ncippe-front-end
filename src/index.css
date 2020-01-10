@@ -110,7 +110,7 @@ sup {
 
 ul.bulletList, ul.bulletList ul {
   margin-left: 20px;
-  list-style-type: disc;
+  list-style-type: '•';
 }
 ul.bulletList--spreadOut, ul.bulletList--spreadOut ul {
   margin-left: 30px;
@@ -119,7 +119,7 @@ ul.bulletList--spreadOut ul {
   margin-top: 16px;
 }
 ul.bulletList--spreadOut li {
-  padding-left: 10px;
+  padding-left: 15px;
   margin-bottom: 16px;
 }
 
@@ -127,7 +127,7 @@ ul.bulletList > li:last-child {
   margin-bottom: 0
 }
 
-.transitionGroup {
+.siteWrapper {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -264,6 +264,14 @@ ul.bulletList > li:last-child {
     background-color: white;
   }
 }
+@keyframes whiteToPink {
+  0% {
+    background: white;
+  }
+  100% {
+    background: #ffebf1;
+  }
+}
 
 /* .popup { */
   /* min-height: 100%;
@@ -271,7 +279,7 @@ ul.bulletList > li:last-child {
   flex-direction: column; */
 /* } */
 .pageHeader--gradient {
-  padding: 32px 40px;
+  padding: 24px 8px;
   box-shadow: inset 0 -13px 13px -13px rgba(30,111,214,0.2);
   background-image: linear-gradient(315deg, #FFEBF1 0%, #F3EEF6 51%, #E8F0FA 100%)
 }
@@ -280,44 +288,81 @@ ul.bulletList > li:last-child {
   text-align: center;
 }
 @media (min-width: 600px) {
+  .pageHeader--gradient {
+    padding: 32px 40px;
+  }
   .pageHeader--gradient h1 {
     font-size: 26px;
     text-align: left;
   }
 }
 
-.mainContainer {
+.mainContainer,
+.mainContainer--dashboard,
+.innerContainer {
   background-color: #f2f5f8;
-  background-image: url(/assets/images/soft-diamond-background-short.svg);
   background-position: bottom right;
   background-repeat: no-repeat;
-  background-size: 50%;
-  border-top: 1px solid #e0e0e0;
+  background-size: 90%;
   padding-bottom: 110px;
+}
+
+.mainContainer {
+  background-image: url(/assets/images/soft-diamond-background-short.svg);
+  /* border-top: 1px solid #e0e0e0; */
   min-height: calc(100vh - 84px);
 }
 .mainContainer--dashboard {
-  background-color: #f2f5f8;
   background-image: url(/assets/images/soft-diamond-background-short.svg);
-  background-position: bottom right;
-  background-repeat: no-repeat;
-  background-size: 50%;
   border-top: 1px solid #e0e0e0;
-  padding-bottom: 110px;
 }
 .innerContainer {
-  background-color: #f2f5f8;
   background-image: url(/assets/images/soft-diamond-background-short.svg);
-  background-position: bottom right;
-  background-repeat: no-repeat;
-  background-size: 50%;
-  margin-top: 48px;
-  padding-top: 56px;
-  padding-bottom: 240px;
+  margin-top: 40px;
+  padding-top: 36px;
+}
+
+@media (min-width: 600px) {
+  .innerContainer {
+    margin-top: 48px;
+    padding-top: 56px;
+  }
+}
+
+@media (min-width: 600px) {
+  .mainContainer,
+  .mainContainer--dashboard,
+  .innerContainer {
+    background-size: 60%;
+  }
+}
+@media (min-width: 960px) {
+  .mainContainer,
+  .mainContainer--dashboard,
+  .innerContainer {
+    background-size: 50%;
+    padding-bottom: 240px;
+  }
 }
 .mainContainer--public {
   background-color: transparent;
   min-height: calc(100vh - 190px);
+}
+
+/* default body link styles */
+.mainContainer .MuiTypography-root a:not(.MuiLink-root),
+#main .MuiTypography-root a:not(.MuiLink-root) {
+  color: #1e6fd6;
+  font-family: Montserrat, Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: none;
+  text-decoration: none;
+}
+
+.mainContainer .MuiTypography-root a:not(.MuiLink-root):hover,
+#main .MuiTypography-root a:not(.MuiLink-root):hover {
+  text-decoration: underline;
 }
 
 .popup .mainContainer {
@@ -347,5 +392,60 @@ ul.bulletList > li:last-child {
   font-weight: 700;
   line-height: 32px;
   letter-spacing: 0;
-  paragraph-height: 20px;
 }
+
+/* Stupid IE11 hacks */
+@media all and (-ms-high-contrast:none) {
+  /* Header nav */
+  #mainNav > * {
+    height: 82px;
+  }
+  #mainNav--mobile > div > .MuiExpansionPanelSummary-root {
+    height: 48px;
+  }
+
+  #mainNav .active {
+    margin-top: 0;
+    padding-top: 10px;
+  }
+
+  .mainContainer, .innerContainer {
+    background-size: 541px 349px;
+  }
+
+  /* .mainContainer--dashboard {
+
+  } */
+
+  /* Home Page accent image */
+  .accentImage {
+    background: linear-gradient(315deg, #FFEBF1 0%, #F3EEF6 51%, #E8F0FA 100%) !important;
+  }
+  
+  .accentImage--img {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+  }
+
+  /* What to Expect tab nav */
+  #tabBar a::before {
+    top: 4px;
+  }
+
+  /* Icon Cards */
+  .IconCardContent > img {
+    height: 74px;
+  }
+  .IconCardContent > div {
+    width: calc(100% - 100px);
+  }
+
+  /* Footer */
+  #appFooter {
+    flex: 0 0 auto;
+  }
+}
+

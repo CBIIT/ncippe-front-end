@@ -33,9 +33,9 @@ const useStyles = makeStyles(theme => ({
 const pageWrapper = (Component) => ({children, ...props}) => {
   const classes = useStyles()
   return (
-    <>
+    <div className="siteWrapper"> {/* returning a fragment here does not work in ie11 */}
       <Header />
-      <div id="main" className={classes.main}>
+      <div id="main" className={classes.main} role="main">
         <Container style={{position:"relative"}}>
           <Link component={RouterLink} to='/mock-users' className={classes.mockUsers}>
             <Button variant="outlined" color="primary">Mock User</Button>
@@ -44,7 +44,7 @@ const pageWrapper = (Component) => ({children, ...props}) => {
         <Component {...props} />
       </div>
       <Footer />
-    </>
+    </div>
   )
 }
 

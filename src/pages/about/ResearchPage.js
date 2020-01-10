@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
 import { Box, Container, Divider, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
-import { useTranslation } from 'react-i18next'
+
 import RenderContent from '../../components/utils/RenderContent'
-import { useTracking } from 'react-tracking'
+import ArticleImage from '../../components/utils/ArticleImage'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -11,7 +14,10 @@ const useStyles = makeStyles( theme => ({
   },
   divider: {
     width: '100%',
-    margin: theme.spacing(7,0)
+    margin: theme.spacing(3,0),
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing(7,0)
+    }
   },
   gridItemImg: {
     textAlign: 'center',
@@ -24,9 +30,9 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const ResearchPage = (props) => {
+const ResearchPage = () => {
   const classes = useStyles()
-  const { t, i18n } = useTranslation('research')
+  const { t } = useTranslation('research')
   const { trackEvent } = useTracking()
 
   useEffect(() => {
@@ -37,7 +43,16 @@ const ResearchPage = (props) => {
   },[trackEvent])
 
   return (
-    <Box>
+    <Box component="article">
+      <Helmet>
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/about/research`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/about/research`} />
+      </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">
           <RenderContent source={t('pageTitle')} />
@@ -46,7 +61,7 @@ const ResearchPage = (props) => {
       <Container className="mainContainer mainContainer--public">
         <Box mt={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} component="section">
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent source={t('sections.0.title')} />
               </Typography>
@@ -54,13 +69,13 @@ const ResearchPage = (props) => {
                 <RenderContent source={t('sections.0.body')} />
               </Typography>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/researchers1.jpg`} alt={t('sections.0.alt_text')} />
+            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
+              <ArticleImage src="researchers-2.jpg" alt={t('sections.0.alt_text')} />
             </Grid>
 
             <Divider className={classes.divider} />
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} component="section">
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent source={t('sections.1.title')} />
               </Typography>
@@ -68,8 +83,8 @@ const ResearchPage = (props) => {
                 <RenderContent source={t('sections.1.body')} />
               </Typography>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/researchers3.jpg`} alt={t('sections.0.alt_text')} />
+            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
+              <ArticleImage src="researchers-1.jpg" alt={t('sections.1.alt_text')} />
             </Grid>
           </Grid>
         </Box>

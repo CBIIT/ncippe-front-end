@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
-import { Box, Grid, Link, Typography, Stepper, Step, StepLabel, StepContent, Divider, Paper } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
-import RenderContent from '../../components/utils/RenderContent'
+import { Helmet } from 'react-helmet-async'
+import { Box, Container, Divider, Grid, Link, Paper, Step, StepContent, StepLabel, Stepper, Typography, useMediaQuery } from '@material-ui/core'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 
+import RenderContent from '../../components/utils/RenderContent'
+import ArticleImage from '../../components/utils/ArticleImage'
 import FAQs from '../../components/FAQ/FAQ_Wrapper'
-import TabPanel from '../../components/Tabs/TabPanel'
+import TabAppBar from './AppBar'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -22,39 +24,24 @@ const useStyles = makeStyles( theme => ({
     }
   },
   textColumn: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       paddingRight: theme.spacing(3)
-    }
-  },
-  imgColumn: {
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing(3)
-    }
-  },
-  bottomSpacer: {
-    marginBottom: theme.spacing(4),
-    [theme.breakpoints.up('sm')]: {
-      marginBottom: theme.spacing(5)
     }
   },
   extraSpacing: {
     '& h3': {
       marginTop: theme.spacing(4),
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up('md')]: {
         marginTop: theme.spacing(5)
       }
     }
   },
-  img: {
-    display: 'block',
-    maxWidth: 410,
-    '&:first-of-type': {
-      marginBottom: theme.spacing(5)
-    }
-  },
   divider: {
     width: '100%',
-    margin: theme.spacing(7,0)
+    margin: theme.spacing(3,0),
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing(7,0)
+    }
   },
   stepper: {
     '& .MuiStepIcon-root.MuiStepIcon-active': {
@@ -64,10 +51,21 @@ const useStyles = makeStyles( theme => ({
   samples: {
     display: 'flex',
     '& > div': {
-      maxWidth: 320,
-      marginRight: theme.spacing(6),
-      '&:last-child': {
-        marginRight: 0
+      maxWidth: 336,
+    },
+
+    [theme.breakpoints.up('sm')]: {
+      flexWrap: 'nowrap',
+      '& > div': {
+        marginRight: theme.spacing(2),
+        '&:last-child': {
+          marginRight: 0
+        }
+      },
+    },
+    [theme.breakpoints.up('md')]: {
+      '& > div': {
+        marginRight: theme.spacing(6)
       }
     }
   },
@@ -77,24 +75,20 @@ const useStyles = makeStyles( theme => ({
     marginBottom: theme.spacing(1),
   },
   linkList: {
-    display: 'flex',
-    flexDirection: 'column',
-    '& > a': {
-      margin: theme.spacing(1,0)
+    '& a': {
+      display: "inline-block",
+      margin: theme.spacing(1,0),
     }
   },
-  faqs: {
-    marginLeft: theme.spacing(-7),
-    width: `calc(100% + ${theme.spacing(14)}px)`
-  }
 }))
 
-const BiomarkerTest = (props) => {
-  const {index, isMobile} = props
+const BiomarkerTest = () => {
   const classes = useStyles()
   const { t, i18n } = useTranslation('testing')
   const { trackEvent } = useTracking()
   const faqs = i18n.getResourceBundle(i18n.languages[0],'testing').faqs
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
   useEffect(() => {
     trackEvent({
@@ -104,101 +98,131 @@ const BiomarkerTest = (props) => {
   },[trackEvent])
   
   return (
-    <TabPanel
-      index={index} 
-      id={`scrollable-auto-tabpanel-${index}`}
-      aria-labelledby={`scrollable-auto-tab-${index}`}
-      stupidPaddingException
-    >
-      {/* Intro */}
-      <Grid container>
-        <Grid item xs={12} sm={6} lg={8} className={classes.textColumn}>
-          <Typography variant={isMobile ? "body1" : "body2"} component="div">
-            <RenderContent source={t('intro_text')} />
-          </Typography>
+    <Box component="article">
+      <Helmet>
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/expect/testing`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect/testing`} />
+      </Helmet>
+      <Container className="pageHeader--gradient">
+        <Typography variant="h2" component="h1">{t('pageTitle')}</Typography>
+      </Container>
+      <TabAppBar value={2} />
 
-          <Typography className={classes.extraSpacing} component="div">
-            <RenderContent source={t('sections.0.body')} />
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={6} lg={4} className={classes.imgColumn}>
-          <img className={classes.img} src={`/${process.env.PUBLIC_URL}assets/images/researchers4.jpg`} alt={t('sections.0.alt_text')} height="360" />
-        </Grid>
-      </Grid>
-
-      <Divider className={classes.divider} />
-
-      {/* How is the test performed? */}
-      <Typography variant="h2" component="h2">
-        <RenderContent source={t('sections.1.title')} />
-      </Typography>
-      <Typography component="div">
-        <RenderContent source={t('sections.1.body')} />
-      </Typography>
-      <Stepper className={classes.stepper} orientation="vertical" nonLinear>
-        <Step active={true}>
-          <StepLabel>{t('sections.1.stepper.0.label')}</StepLabel>
-          <StepContent>{t('sections.1.stepper.0.description')}</StepContent>
-        </Step>
-        <Step active={true}>
-          <StepLabel>{t('sections.1.stepper.1.label')}</StepLabel>
-          <StepContent>{t('sections.1.stepper.1.description')}</StepContent>
-        </Step>
-        <Step active={true}>
-          <StepLabel>{t('sections.1.stepper.2.label')}</StepLabel>
-          <StepContent>{t('sections.1.stepper.2.description')}</StepContent>
-        </Step>
-      </Stepper>
-      <Divider className={classes.divider} />
-
-      {/* Sample Report */}
-      <Typography variant="h2" component="h2">
-        <RenderContent source={t('sections.2.title')} />
-      </Typography>
-      <Box className={classes.samples} mt={2}>
-        <Paper>
-          <img src={`/${process.env.PUBLIC_URL}assets/images/solid-tumor-sample-test-report.jpg`} alt={t('sections.2.samples.0.alt_text')} />
-          <Divider />
-          <Box p={2}>
-            <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.0.title')}</Typography>
-            <Link href={`/${process.env.PUBLIC_URL}assets/documents/Biobank-Combined-Melanoma-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.samples.0.link')}</Link>
-          </Box>
-        </Paper>
-        <Paper>
-          <img src={`/${process.env.PUBLIC_URL}assets/images/blood-cancer-sample-test-report.jpg`} alt={t('sections.2.samples.1.alt_text')} />
-          <Divider />
-          <Box p={2}>
-            <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.1.title')}</Typography>
-            <Link href={`/${process.env.PUBLIC_URL}assets/documents/Acute-Myeloid-Leukemia-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.samples.1.link')}</Link>
-          </Box>
-        </Paper>
-      </Box>
-
-      <Divider className={classes.divider} />
-
-      {/* Learn More */}
-      <Box mb={5}>
-        <Grid container className={classes.grid} spacing={2} alignItems="stretch">
-          <Grid item xs={12} md={6}>
-            <Typography paragraph={true} variant="h2" component="h2">
-              <RenderContent source={t('sections.3.title')} />
+      <Container>
+        {/* Intro */}
+        <Grid container component="section">
+          <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>
+            <Typography variant={isMobile ? "body1" : "body2"} component="div">
+              <RenderContent source={t('intro_text')} />
             </Typography>
-            <div className={classes.linkList}>
-              <Link href="https://www.cancer.gov/about-cancer/treatment/types/precision-medicine/tumor-dna-sequencing" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.0')}</Link>
-              <Link href="https://www.genome.gov/dna-day/15-for-15/cancer-genomics" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.1')}</Link>
-              <Link href="https://www.cancer.gov/contact" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.2')}</Link>
-            </div>
+
+            <Typography className={classes.extraSpacing} component="div">
+              <RenderContent source={t('sections.0.body')} />
+            </Typography>
           </Grid>
-          <Grid className={classes.gridItemImg} item xs={12} md={6}>
-            <img src={`/${process.env.PUBLIC_URL}assets/images/working-on-laptop.jpg`} alt={t('sections.3.alt_text')} />
+          <Grid item xs={12} md={6} lg={4} className={classes.gridItemImg} component="aside">
+            <ArticleImage src="researchers-3.jpg" alt={t('sections.0.alt_text')} />
           </Grid>
         </Grid>
-      </Box>
+
+        <Divider className={classes.divider} />
+
+        {/* How is the test performed? */}
+        <Box component="section">
+          <Typography variant="h2" component="h2">
+            <RenderContent source={t('sections.1.title')} />
+          </Typography>
+          <Typography component="div">
+            <RenderContent source={t('sections.1.body')} />
+          </Typography>
+          <Stepper className={classes.stepper} orientation="vertical" nonLinear>
+            <Step active={true}>
+              <StepLabel>{t('sections.1.stepper.0.label')}</StepLabel>
+              <StepContent>{t('sections.1.stepper.0.description')}</StepContent>
+            </Step>
+            <Step active={true}>
+              <StepLabel>{t('sections.1.stepper.1.label')}</StepLabel>
+              <StepContent>{t('sections.1.stepper.1.description')}</StepContent>
+            </Step>
+            <Step active={true}>
+              <StepLabel>{t('sections.1.stepper.2.label')}</StepLabel>
+              <StepContent>{t('sections.1.stepper.2.description')}</StepContent>
+            </Step>
+          </Stepper>
+        </Box>
+
+        <Divider className={classes.divider} />
+
+        {/* Sample Report */}
+        <Box component="section">
+          <Typography variant="h2" component="h2">
+            <RenderContent source={t('sections.2.title')} />
+          </Typography>
+          <Grid container mt={2} spacing={2} className={classes.samples}>
+            <Grid item xs={12} md={6}>
+              <Paper>
+                <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/solid-tumor-sample-test-report.jpg`} alt={t('sections.2.samples.0.alt_text')}
+                  srcSet={`
+                    /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/solid-tumor-sample-test-report.jpg 1x,
+                    /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/solid-tumor-sample-test-report.jpg 2x
+                  `}
+                />
+                <Divider />
+                <Box p={2}>
+                  <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.0.title')}</Typography>
+                  <Link href={`/${process.env.PUBLIC_URL}assets/documents/Biobank-Combined-Melanoma-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.0.aria_label')}>{t('sections.2.samples.0.link')}</Link>
+                </Box>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Paper>
+                <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/blood-cancer-sample-test-report.jpg`} alt={t('sections.2.samples.1.alt_text')}
+                  srcSet={`
+                    /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/blood-cancer-sample-test-report.jpg 1x,
+                    /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/blood-cancer-sample-test-report.jpg 2x
+                  `}
+                />
+                <Divider />
+                <Box p={2}>
+                  <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.1.title')}</Typography>
+                  <Link href={`/${process.env.PUBLIC_URL}assets/documents/Acute-Myeloid-Leukemia-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.1.aria_label')}>{t('sections.2.samples.1.link')}</Link>
+                </Box>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Box>
+
+        <Divider className={classes.divider} />
+
+        {/* Learn More */}
+        <Box mb={5} component="section">
+          <Grid container className={classes.grid} spacing={2} alignItems="stretch">
+            <Grid item xs={12} md={6}>
+              <Typography paragraph={true} variant="h2" component="h2">
+                <RenderContent source={t('sections.3.title')} />
+              </Typography>
+              <ul className={classes.linkList}>
+                <li><Link href="https://www.cancer.gov/about-cancer/treatment/types/precision-medicine/tumor-dna-sequencing" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.0')}</Link></li>
+                <li><Link href="https://www.genome.gov/dna-day/15-for-15/cancer-genomics" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.1')}</Link></li>
+                <li><Link href="https://www.cancer.gov/contact" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.2')}</Link></li>
+              </ul>
+            </Grid>
+            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
+              <ArticleImage src="working-on-laptop.jpg" alt={t('sections.3.alt_text')} />
+            </Grid>
+          </Grid>
+        </Box>
+      </Container>
 
       {/* Frequently Asked Questions */}
       <FAQs title={t('faqs_title')} faqs={faqs} className={classes.faqs} />
 
-    </TabPanel>
+    </Box>
   )
 }
 export default  BiomarkerTest

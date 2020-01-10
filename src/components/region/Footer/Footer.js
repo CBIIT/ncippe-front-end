@@ -4,6 +4,8 @@ import { useTracking } from 'react-tracking'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Grid, Typography } from '@material-ui/core'
 
+// import { newWindow } from '../../../utils/utils'
+
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: '#0D1C3C',
@@ -16,33 +18,45 @@ const useStyles = makeStyles(theme => ({
     }
   },
   logo: {
+    padding: theme.spacing(2,0,3),
     '& img': {
-      width: '430px',
+      width: '320px',
       maxWidth: '100%',
       height: 'auto'
     }
   },
   footerLinks: {
     marginBottom: theme.spacing(4),
+    fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
     [theme.breakpoints.up('sm')]: {
       marginBottom: 0
     },
     '& a': {
       display: 'block',
-      fontWeight: 'bold',
+      fontWeight: 600,
       color: theme.palette.common.white,
       textDecoration: 'none',
-      wordBreak: 'break-word',
+      wordWrap: 'break-word',
+      lineHeight: '22px',
+      marginBottom: 14
     },
     '& a:hover': {
       textDecoration: 'underline'
     },
   },
+  breakAll: {
+    wordBreak: 'break-all'
+  },
   columnTitle: {
     color: theme.palette.pink.main,
     fontWeight: 'bold',
-    textTransform: 'uppercase'
-  }
+    textTransform: 'uppercase',
+    marginBottom: 14
+  },
+  // socialIcon: {
+  //   width: 60,
+  //   paddingLeft: 5
+  // }
 }))
 
 
@@ -61,18 +75,33 @@ const Footer = () => {
     }
   }
 
+  // const handleShareOnFacebook = (e) => {
+  //   const url = `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`
+  //   newWindow(url)
+  // }
+
+  // const handleShareOnTwitter = (e) => {
+  //   const url = `https://twitter.com/share?url=${window.location.href}`
+  //   newWindow(url)
+  // }
+
+
   return (
-    <Container className={classes.root} component="footer">
-      <div className={classes.logo}><img src={`/${process.env.PUBLIC_URL}assets/images/nci-logo-white.svg`} alt={t('footer.logo.alt_text')} title={t('footer.logo.title')}  /></div>
+    <Container className={classes.root} component="footer" id="appFooter">
+      <div className={classes.logo}><img src={`/${process.env.PUBLIC_URL}assets/images/nci-logo-text-white.svg`} alt={t('footer.logo.alt_text')} title={t('footer.logo.title')}  /></div>
       <Typography component="div">
         <Grid container className={classes.footerLinks} spacing={3} onClick={trackClick}>
           <Grid item xs={12} sm={4}>
-            <a href={`mailto:${t('footer.links.email')}`}>{t('footer.links.email')}</a>
+            <a className={classes.breakAll} href={`mailto:${t('footer.links.email')}`}>{t('footer.links.email')}</a>
             <a href={`tel:${t('footer.links.phone')}`}>{t('footer.links.phone')}</a>
             <a href="https://www.cancer.gov/contact">{t('footer.links.CIS')}</a>
+            {/* <div className={classes.social}>
+              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnFacebook}><img src={`/${process.env.PUBLIC_URL}assets/icons/facebook.svg`} alt="facebook icon" title="Share this page on Facebook" /></IconButton>
+              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnTwitter}><img src={`/${process.env.PUBLIC_URL}assets/icons/twitter.svg`} alt="twitter icon" title="Share this page on Twitter" /></IconButton>
+            </div> */}
           </Grid>
           <Grid item xs={12} sm={4}>
-            <span className={classes.columnTitle}>{t('footer.links.policy_title')}</span>
+            <div className={classes.columnTitle}>{t('footer.links.policy_title')}</div>
             <a href="https://www.cancer.gov/policies/disclaimer">{t('footer.links.disclaimer')}</a>
             <a href="https://www.cancer.gov/policies/privacy-security">{t('footer.links.privacy')}</a>
             <a href="https://www.cancer.gov/policies/accessibility">{t('footer.links.accessibility')}</a>

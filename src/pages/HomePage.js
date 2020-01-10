@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { navigate, Link as RouterLink } from '@reach/router'
+import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 
-import { Box, Container, Dialog, DialogContent, Grid, IconButton, Link, Paper, Typography } from '@material-ui/core'
+import { useMediaQuery, Box, Container, Dialog, DialogContent, Grid, IconButton, Link, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   Clear as ClearIcon,
@@ -11,13 +12,26 @@ import {
   KeyboardArrowRight as ArrowRightIcon
 } from '@material-ui/icons'
 
+import { check_webp_feature } from '../utils/utils'
 import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
+
+// Internet Explorer 6-11
+const isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+let extension = 'png'
+
+check_webp_feature('alpha', (feature, isSupported) => {
+  if (isSupported) {
+    // webp is supported, 
+    extension = 'webp'
+  }
+})
 
 const useStyles = makeStyles( theme => ({
   hero: {
     // backgroundColor: theme.palette.primary.lightGrey,
-    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero-image-mobile.png), ${theme.gradients.primaryDiagonal}`,
+    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobile/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "top right",
     backgroundSize: "auto 100%",
@@ -27,10 +41,19 @@ const useStyles = makeStyles( theme => ({
       height: "500px",
       alignItems: 'center',
     },
+    // mobile HD background
+    ['@media (min-resolution: 192dpi)']: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobileHD/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`
+    },
+    // desktop background
     [theme.breakpoints.up('md')]: {
       height: "700px",
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero-image-desktop.png), ${theme.gradients.primaryDiagonal}`,
-    }
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktop/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`,
+    },
+    // desktop HD background
+    [`@media (min-width: ${theme.breakpoints.values.md}px) and (min-resolution: 192dpi)`]: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktopHD/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`
+    },
 
   },
   heroText: {
@@ -147,12 +170,41 @@ const useStyles = makeStyles( theme => ({
     height: '100px'
   },
   fullWidthAccentImage: {
-    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/woman-with-head-scarf.jpg)`,
+    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/micro/woman-with-head-scarf.jpg)`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center 22%",
     backgroundSize: "cover",
     height: "40vw",
-    maxHeight: 450
+    maxHeight: 450,
+    // mobile
+    [`@media (min-width: 380px)`]: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/mobile/woman-with-head-scarf.jpg)`,
+    },
+    // micro HD
+    ['@media (min-resolution: 192dpi)']: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/tablet/woman-with-head-scarf.jpg), ${theme.gradients.primaryDiagonal}`
+    },
+    // mobile HD
+    [`@media (min-width: 380px) and (min-resolution: 192dpi)`]: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
+    },
+    // tablet
+    [`@media (min-width: ${theme.breakpoints.values.sm}px)`]: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/tablet/woman-with-head-scarf.jpg)`,
+    },
+    // tablet HD
+    [`@media (min-width: ${theme.breakpoints.values.sm}px) and (min-resolution: 192dpi)`]: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/tabletHD/woman-with-head-scarf.jpg)`,
+    },
+    // desktop
+    [`@media (min-width: ${theme.breakpoints.values.md}px)`]: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
+    },
+    // desktop HD
+    [`@media (min-width: ${theme.breakpoints.values.md}px) and (min-resolution: 192dpi)`]: {
+      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/desktopHD/woman-with-head-scarf.jpg)`,
+    },
+
   },
   biobank: {
     backgroundImage: theme.gradients.primaryDiagonal
@@ -222,8 +274,10 @@ const HomePage = (props) => {
   const classes = useStyles()
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [mediaCardPath, setMediaCardPath] = useState(`/${process.env.PUBLIC_URL}assets/images/mediaCard/standard/`)
   const { t, i18n } = useTranslation('homePage')
   const { trackEvent } = useTracking()
+  const isHighResolution = useMediaQuery('@media (min-resolution: 192dpi)')
 
 
 
@@ -235,6 +289,13 @@ const HomePage = (props) => {
     //clean up
     return () => window.removeEventListener('resize', resizeEvt, {passive: true})
   },[isMobile])
+
+  useEffect(() => {
+    // upgrade image to HD, no need to downgrade if not highResolution
+    if(isHighResolution) {
+      setMediaCardPath(`/${process.env.PUBLIC_URL}assets/images/mediaCard/HD/`)
+    }
+  }, [isHighResolution])
 
   useEffect(() => {
     if(props.location && props.location.state) {
@@ -262,8 +323,17 @@ const HomePage = (props) => {
 
   return (
     <Box>
+      <Helmet>
+        <title>{t("metaData.title")} | NCI</title>
+        <meta name="title" content={t("metaData.title")} />
+        <meta property="og:title" content={t("metaData.OG_title")} />
+        <meta name="description" content={t("metaData.description")} />
+        <meta property="og:description" content={t("metaData.OG_description")} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}`} />
+      </Helmet>
       <Container className={classes.hero}>
-        <div className={classes.heroText}>
+        <Box className={classes.heroText} component="section">
           {isMobile ? 
           <Paper className={classes.heroPaper}>
             <Typography className={classes.mainTitle} component="h1">
@@ -283,10 +353,10 @@ const HomePage = (props) => {
             </Typography>
           </>
           }
-        </div>
+        </Box>
       </Container>
       <Container className={classes.blueGradientContainer}>
-        <Box className={classes.infoBoxes}>
+        <Box className={classes.infoBoxes} component="section">
           <Paper className={classes.infoOffsetPaper}>
             <Box className={classes.infoBox}>
               <Typography className={classes.infoBoxTitle} variant="h2" component="h2">
@@ -296,7 +366,7 @@ const HomePage = (props) => {
                 <RenderContent source={t('mission.body')} />
               </Typography>
               <Typography variant="button" className={classes.extraTopSpace}>
-                <Link to="/expect" className={classes.icon_link} component={RouterLink}>
+                <Link to="/expect/consent" className={classes.icon_link} component={RouterLink}>
                   <RenderContent source={t('mission.link')} />
                   <ArrowRightIcon />
                 </Link>
@@ -304,7 +374,7 @@ const HomePage = (props) => {
             </Box>
           </Paper>
         </Box>
-        <Box className={classes.howItWorks}>
+        <Box className={classes.howItWorks} component="section">
           <Box mt={isMobile ? 2 : 4} pb={isMobile ? 4 : 11}>
             <Typography className={classes.infoBox} variant={isMobile ? "h2" : "h1"} component="h2">
               <RenderContent source={t('how_it_works.title')} />
@@ -333,8 +403,9 @@ const HomePage = (props) => {
       <Container className={classes.fullWidthAccentImage}>
         <Box>{/* empty box because Container must have children */}</Box>
       </Container>
-      <Container className={classes.volunteer}>
-        <Box>
+      <Container className={`${classes.volunteer} accentImage`}>
+        {isIE && <img className="accentImage--img" src={`/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-long.svg`} alt="accent image" aria-hidden="true" />}
+        <Box component="section">
           <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}>
             <RenderContent source={t('participate.title')} />
           </Typography>
@@ -346,9 +417,9 @@ const HomePage = (props) => {
               <IconCardMedia
                 title={t('participate.cards.0.title')}
                 desc={t('participate.cards.0.body')}
-                link="/expect"
+                link="/expect/testing"
                 linkText={t('participate.cards.0.link')}
-                image="reviewing-test-results.jpg"
+                image={`${mediaCardPath}reviewing-test-results.jpg`}
                 imageTitle={t('participate.cards.0.alt_text')}
               />
             </Grid>
@@ -356,7 +427,7 @@ const HomePage = (props) => {
               <IconCardMedia
                 title={t('participate.cards.1.title')}
                 desc={t('participate.cards.1.body')}
-                image="friends-and-family--sm.jpg"
+                image={`${mediaCardPath}friends-and-family.jpg`}
                 imageTitle={t('participate.cards.1.alt_text')}
               />
             </Grid>
@@ -366,7 +437,7 @@ const HomePage = (props) => {
                 desc={t('participate.cards.2.body')}
                 link="/about/research"
                 linkText={t('participate.cards.2.link')}
-                image="test-tubes.jpg"
+                image={`${mediaCardPath}researcher-examines-slide.jpg`}
                 imageTitle={t('participate.cards.2.alt_text')}
               />
             </Grid>

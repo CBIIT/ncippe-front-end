@@ -23,7 +23,10 @@ const useStyles = makeStyles( theme => ({
     padding: theme.spacing(4,3,3,3)
   },
   cardTitle: {
-    fontWeight: 'bold'
+    fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+    fontWeight: 'bold',
+    lineHeight: '32px',
+    marginBottom: theme.spacing(1)
   },
   cardIcon: {
     paddingRight: theme.spacing(3),
@@ -35,7 +38,13 @@ const useStyles = makeStyles( theme => ({
     flexGrow: 1,
     flexDirection: 'column',
     height: '100%',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    '& a': {
+      // display: 'flex',
+      flex: '0 0 auto',
+      lineHeight: '22px',
+      marginBottom: theme.spacing(1)
+    }
   },
   link: {
     display: 'flex',
@@ -50,17 +59,17 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const IconCard = (props) => {
-  const {icon, title, desc, link, linkText, count = 0, badgeText = 'new'} = props
+  const {icon, title, altText, desc, link, linkText, count = 0, badgeText = 'new'} = props
   const classes = useStyles()
 
   return (
-    <Card className={classes.card}>
+    <Card className={`${classes.card} IconCard`}>
       <ConditionalWrapper
         condition={count > 0}
         wrapper={children => <Badge className={classes.badge} badgeContent={badgeText} component="div">{children}</Badge>}>
 
-        <CardContent className={classes.cardContent}>
-          {icon && <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/${icon}`} alt='card icon' aria-hidden="true" />}
+        <CardContent className={`${classes.cardContent} IconCardContent`}>
+          {icon && <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/${icon}`} alt={altText} aria-hidden="true" />}
           <div className={classes.cardText}>
             <div>
               <Typography className={classes.cardTitle} variant="body2" component="h2">{title}</Typography>
