@@ -164,9 +164,9 @@ const ActivatePage = () => {
               <ArticleImage src="father-and-daughter-view-tablet.jpg" alt={t('alt_text.0')} />
             </Grid>
           </Grid>
-          </Box>
-        </Container>
-
+        </Box>
+      </Container>
+      <Container>
         <Box className={classes.tintedBox} p={7} component="section">
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid className={classes.featureImage} item xs={12} md={6}>
@@ -190,7 +190,8 @@ const ActivatePage = () => {
             </Grid>
           </Grid>
         </Box>
-        <Container>
+      </Container>
+      <Container>
 
         {/* To create your login.gov account */}
         <Box component="section" mt={5}>

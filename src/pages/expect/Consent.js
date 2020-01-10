@@ -74,7 +74,7 @@ const Consent = () => {
       </Container>
       <TabAppBar value={0} />
 
-      <Container component="section">
+      <Container component="section" className="mainContainer mainContainer--public">
         <Box className={classes.container}>
           <Typography variant={isMobile ? "body1" : "body2"} component="div">
             <RenderContent source={t('intro_text')} />
