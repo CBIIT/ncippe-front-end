@@ -127,7 +127,7 @@ ul.bulletList > li:last-child {
   margin-bottom: 0
 }
 
-.transitionGroup {
+.siteWrapper {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -309,7 +309,7 @@ ul.bulletList > li:last-child {
 
 .mainContainer {
   background-image: url(/assets/images/soft-diamond-background-short.svg);
-  border-top: 1px solid #e0e0e0;
+  /* border-top: 1px solid #e0e0e0; */
   min-height: calc(100vh - 84px);
 }
 .mainContainer--dashboard {
