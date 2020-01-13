@@ -23,8 +23,6 @@ const LanguageToggle = (props) => {
     })
   }
 
-  console.log(i18n)
-
   return (
     <Button className={classes.root} variant="contained" onClick={toggleLang}>
       {lang === 'en' ? "Español": "English" }
