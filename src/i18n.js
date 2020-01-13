@@ -23,8 +23,9 @@ i18n
     //   useSuspense: true
     // },
     // lng: 'en',
+    whitelist: ['en','es'],
     load: "languageOnly",
-    fallbackLng: ['en'],
+    fallbackLng: 'en',
     debug: false,
     ns: [
       'common'

@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import Header from '../components/region/Header/Header';
 import Footer from '../components/region/Footer/Footer';
+import LanguageToggle from '../components/inputs/LanguageToggle/LanguageToggle';
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -43,6 +44,7 @@ const pageWrapper = (Component) => ({children, ...props}) => {
         </Container>
         <Component {...props} />
       </div>
+      <LanguageToggle />
       <Footer />
     </div>
   )
