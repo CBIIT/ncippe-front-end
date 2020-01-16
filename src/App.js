@@ -73,7 +73,10 @@ export default track({
     }
 
     if(data.event === 'pageview') {
-      local_s.getPercentPageViewed(local_s.pageName,false,".transitionGroup")
+      // console.log("data", data)
+      const pageName = `msbiobank.c.gov${window.location.pathname}` // needed for homepage
+      local_s.getPercentPageViewed(pageName,false,".siteWrapper")
+      // const percentViewed = local_s._ppvInitialPercentViewed ? `${local_s._ppvInitialPercentViewed}|${local_s._ppvHighestPercentViewed}` : ""
 
       computedData = {
         ...computedData,

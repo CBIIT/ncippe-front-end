@@ -77,13 +77,79 @@ var throttle=function(o,n,t,i){var e,u=!1,a=0;function c(){e&&clearTimeout(e)}fu
 
 /* Adobe Consulting Plugin: getPercentPageViewed v3.01 w/handlePPVevents helper function (Requires AppMeasurement and p_fo plugin) */
 /* modified for PPE Project to accept `targetSelector` argument since scroll events do no occur on the window or document elements */
-s.getPercentPageViewed=function(pid,ch,targetSelector){var s=this,a=s.c_r("s_ppv"),ch=ch||!0,boundPPVevents=throttle(100,s.handlePPVevents.bind(null,targetSelector)),targetEl=targetSelector?document.querySelector(targetSelector):window;a=-1<a.indexOf(",")?a.split(","):[];a[0]=s.unescape(a[0]);pid=pid?pid:s.pageName?s.pageName:document.location.href;s.ppvChange=ch;if("undefined"===typeof s.linkType||"o"!==s.linkType)s.ppvID&&s.ppvID===pid||(s.ppvID=pid,s.c_w("s_ppv",""),s.handlePPVevents(targetSelector)),window.addEventListener&&(window.addEventListener("load",boundPPVevents,!1),targetEl.addEventListener("scroll",boundPPVevents,{passive:!0}),window.addEventListener("resize",boundPPVevents,{passive:!0})),s._ppvPreviousPage=a[0]?a[0]:"",s._ppvHighestPercentViewed=a[1]?a[1]:"",s._ppvInitialPercentViewed=a[2]?a[2]:"",s._ppvHighestPixelsSeen=a[3]?a[3]:""}
+
+s.percentPageViewedInit = !1
+s.getPercentPageViewed = function(pid, ch, targetSelector) {
+  var s = this,
+      a = s.c_r("s_ppv"),
+      ch = ch || !0,
+      boundPPVevents = throttle(100, s.handlePPVevents.bind(null, targetSelector)),
+      targetEl = targetSelector ? document.querySelector(targetSelector) : window;
+  a = -1 < a.indexOf(",") ? a.split(",") : [];
+  a[0] = s.unescape(a[0]);
+
+  pid = pid ? pid : s.pageName ? s.pageName : document.location.href;
+  s.ppvChange = ch;
+  if (typeof s.linkType === "undefined" || s.linkType !== "o" ) {
+    // s.ppvID && s.ppvID === pid || (
+    s.ppvID = pid
+    // s.c_w("s_ppv", "")
+    s.handlePPVevents(targetSelector)
+    // a = s.c_r("s_ppv")
+    // a = -1 < a.indexOf(",") ? a.split(",") : [];
+    // a[0] = s.unescape(a[0]);
+    if(!s.percentPageViewedInit){
+      window.addEventListener("load", boundPPVevents, !1)
+      window.addEventListener("resize", boundPPVevents, {
+        passive: !0
+      })
+      if(targetEl === window) {
+        targetEl.addEventListener("scroll", boundPPVevents, {
+          passive: !0
+        })
+      }
+      s.percentPageViewedInit = !0
+    }
+    if(targetEl !== window) {
+      targetEl.addEventListener("scroll", boundPPVevents, {
+        passive: !0
+      })
+    }
+    s._ppvPreviousPage = a[0] ? a[0] : ""
+    s._ppvHighestPercentViewed = a[1] ? a[1] : ""
+    s._ppvInitialPercentViewed = a[2] ? a[2] : ""
+    s._ppvHighestPixelsSeen = a[3] ? a[3] : ""
+  }
+}
 
 /* Adobe Consulting Plugin: handlePPVevents helper function (for getPercentPageViewed v3.01 Plugin) */ 
 /* modified for PPE Project to accept `targetSelector` argument since scroll events do no occur on the window or document elements */
-s.handlePPVevents=function(targetSelector){if("undefined"!==typeof s_c_il){for(var c=0,d=s_c_il.length;c<d;c++)
-  if(s_c_il[c]&&s_c_il[c].getPercentPageViewed){var a=s_c_il[c];break}if(a&&a.ppvID){var targetEl=document.querySelector(targetSelector)
-  var f=Math.max(targetEl.scrollHeight,Math.max(document.body.scrollHeight,document.documentElement.scrollHeight),Math.max(document.body.offsetHeight,document.documentElement.offsetHeight),Math.max(document.body.clientHeight,document.documentElement.clientHeight));c=(targetEl.scrollTop||window.pageYOffset||window.document.documentElement.scrollTop||window.document.body.scrollTop)+(window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight);d=Math.min(Math.round(c/f*100),100);var e="";!a.c_r("s_tp")||a.unescape(a.c_r("s_ppv").split(",")[0])!==a.ppvID||1==a.ppvChange&&a.c_r("s_tp")&&f!=a.c_r("s_tp")?(a.c_w("s_tp",f),a.c_w("s_ppv","")):e=a.c_r("s_ppv");var b=e&&-1<e.indexOf(",")?e.split(",",4):[];f=0<b.length?b[0]:escape(a.ppvID);var g=1<b.length?parseInt(b[1]):d,h=2<b.length?parseInt(b[2]):d;b=3<b.length?parseInt(b[3]):c;0<d&&(e=f+","+(d>g?d:g)+","+h+","+(c>b?c:b));a.c_w("s_ppv",e)}}}
+
+s.handlePPVevents = function(targetSelector) {
+  if ("undefined" !== typeof s_c_il) {
+    for (var c = 0, d = s_c_il.length; c < d; c++) {
+      if (s_c_il[c] && s_c_il[c].getPercentPageViewed) {
+        var a = s_c_il[c];
+        break
+      }
+    }
+    if (a && a.ppvID) {
+      var targetEl = document.querySelector(targetSelector)
+      var f = Math.max(targetEl.scrollHeight, Math.max(document.body.scrollHeight, document.documentElement.scrollHeight), Math.max(document.body.offsetHeight, document.documentElement.offsetHeight), Math.max(document.body.clientHeight, document.documentElement.clientHeight));
+      c = (targetEl.scrollTop || window.pageYOffset || window.document.documentElement.scrollTop || window.document.body.scrollTop) + (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
+      d = Math.min(Math.round(c / f * 100), 100);
+      var e = "";
+      !a.c_r("s_tp") || a.unescape(a.c_r("s_ppv").split(",")[0]) !== a.ppvID || 1 == a.ppvChange && a.c_r("s_tp") && f != a.c_r("s_tp") ? (a.c_w("s_tp", f), a.c_w("s_ppv", "")) : e = a.c_r("s_ppv");
+      var b = e && -1 < e.indexOf(",") ? e.split(",", 4) : [];
+      f = 0 < b.length ? b[0] : escape(a.ppvID);
+      var g = 1 < b.length ? parseInt(b[1]) : d,
+          h = 2 < b.length ? parseInt(b[2]) : d;
+      b = 3 < b.length ? parseInt(b[3]) : c;
+      0 < d && (e = f + "," + (d > g ? d : g) + "," + h + "," + (c > b ? c : b));
+      a.c_w("s_ppv", e)
+    }
+  }
+}
 
 /* Adobe Consulting Plugin: p_fo (pageFirstOnly) v2.0 (Requires AppMeasurement) */ 
 s.p_fo=function(on){var s=this;s.__fo||(s.__fo={});if(s.__fo[on])return!1;s.__fo[on]={};return!0}; 
