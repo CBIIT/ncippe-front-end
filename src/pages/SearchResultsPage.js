@@ -56,7 +56,7 @@ const SearchResults = (props) => {
 
   useEffect(() => {
     // create search index
-    const data = i18n.getDataByLanguage('en')
+    const data = i18n.getDataByLanguage(i18n.language)
     let textData = [] // lunr needs an array of docs
     let tempData = {} // search results need an object keyed to the resource's name space
   
