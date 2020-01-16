@@ -279,8 +279,6 @@ const HomePage = (props) => {
   const { trackEvent } = useTracking()
   const isHighResolution = useMediaQuery('@media (min-resolution: 192dpi)')
 
-
-
   useEffect(() => {
     const resizeEvt = () => {
       setIsMobile(window.innerWidth < 600)
@@ -310,8 +308,7 @@ const HomePage = (props) => {
     trackEvent({
       event:'pageview',
       pageName:'msbiobank.c.gov/',
-      prop6: "Home Page",
-      route: "/",
+      prop6: "Home Page"
     })
     //trackEvent({linkName:'somewhere', eVar8:"Frank Ali", event:'custom'})
   },[trackEvent])
