@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link as RouterLink } from '@reach/router'
 import { Box, Button, Container, InputAdornment, Link, TextField, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { Helmet } from 'react-helmet-async'
 import { 
   Search as SearchIcon
 } from '@material-ui/icons'
@@ -45,7 +46,7 @@ const useStyles = makeStyles( theme => ({
 const SearchResults = (props) => {
   const {location} = props
   const classes = useStyles()
-  const { t, i18n } = useTranslation(['common','homePage','about','eligibility','research','consent','donate','testing','activate','privacy'])
+  const { t, i18n } = useTranslation(['common','homePage','about','eligibility','research','consent','donate','testing','activate','privacy','searchResults'])
   const { trackEvent } = useTracking()
   const term = location ? location.state ? location.state.term : '' : ''
   const [searchTerm, setSearchTerm] = useState(term)
@@ -62,7 +63,7 @@ const SearchResults = (props) => {
   
     Object.keys(data).forEach(resource => {
       if(resource !== 'common'){
-        const ignoreKeys = ['pageTitle', 'pageRoute', 'alt_text']
+        const ignoreKeys = ['pageTitle', 'pageRoute', 'alt_text', 'metaData']
         const value = objectValuesToString(data[resource], ignoreKeys)
         const entry = {
           id: resource,
@@ -151,7 +152,8 @@ const SearchResults = (props) => {
         prop6: "Search results",
         eVar10: results.length.toString(),
         prop14: searchTerm,
-        eVar14: searchTerm
+        eVar14: searchTerm,
+        prop10: t("searchResults:metaData.title")
       })
     }
 
@@ -190,8 +192,17 @@ const SearchResults = (props) => {
 
   return (
     <Box>
+      <Helmet>
+      <title>{t("searchResults:metaData.title")} | NCI</title>
+        <meta name="title" content={t("searchResults:metaData.title")} />
+        <meta property="og:title" content={t("searchResults:metaData.OG_title")} />
+        <meta name="description" content={t("searchResults:metaData.description")} />
+        <meta property="og:description" content={t("searchResults:metaData.OG_description")} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/search`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/search`} />
+      </Helmet>
       <Container className="pageHeader--gradient">
-        <Typography variant="h2" component="h1">{t('search.title')}</Typography>
+        <Typography variant="h2" component="h1">{t('searchResults:title')}</Typography>
       </Container>
       <Container className="mainContainer mainContainer--public">
         <Box className={classes.wrapper}>
@@ -200,7 +211,7 @@ const SearchResults = (props) => {
               <TextField
                 id="searchPageSearch"
                 className={classes.input}
-                placeholder={t('search.input_placeholder')}
+                placeholder={t('searchResults:input_placeholder')}
                 inputProps={{ 'aria-label': 'search' }}
                 variant="outlined"
                 InputProps={ // props applied to the Input component
@@ -212,7 +223,7 @@ const SearchResults = (props) => {
             </form>
           </Box>
           <Box mt={3} component="section">
-            <Typography variant="h3" component="h3">{searchResults.length} {t('search.results_title')} {searchTerm}</Typography>
+            <Typography variant="h3" component="h3">{searchResults.length} {t('searchResults:results_title')} {searchTerm}</Typography>
             <Box mt={3}>
               {searchResults && searchResults.map((result,i) => {
                 const {page,route,results} = result
@@ -228,7 +239,7 @@ const SearchResults = (props) => {
                   </Box>
                 )
               })}
-              {searchResults && !searchResults.length && <Typography variant="body2">{t('search.results_none')}</Typography>}
+              {searchResults && !searchResults.length && <Typography variant="body2">{t('searchResults:results_none')}</Typography>}
             </Box>
           </Box>
         </Box>
