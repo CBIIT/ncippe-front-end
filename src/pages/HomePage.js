@@ -279,8 +279,6 @@ const HomePage = (props) => {
   const { trackEvent } = useTracking()
   const isHighResolution = useMediaQuery('@media (min-resolution: 192dpi)')
 
-
-
   useEffect(() => {
     const resizeEvt = () => {
       setIsMobile(window.innerWidth < 600)
