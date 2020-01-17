@@ -55,6 +55,7 @@ const Consent = () => {
     trackEvent({
       event:'pageview',
       prop6: "Give your consent",
+      prop10: t("metaData.title")
     })
   },[trackEvent])
 

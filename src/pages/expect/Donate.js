@@ -53,6 +53,7 @@ const Donate = () => {
     trackEvent({
       event:'pageview',
       prop6: "Donate samples",
+      prop10: t("metaData.title")
     })
   },[trackEvent])
 

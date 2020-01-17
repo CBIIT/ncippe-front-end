@@ -311,7 +311,7 @@ const HomePage = (props) => {
       event:'pageview',
       pageName:'msbiobank.c.gov/',
       prop6: "Home Page",
-      route: "/",
+      prop10: t("metaData.title")
     })
     //trackEvent({linkName:'somewhere', eVar8:"Frank Ali", event:'custom'})
   },[trackEvent])

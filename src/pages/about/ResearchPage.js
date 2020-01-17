@@ -39,6 +39,7 @@ const ResearchPage = () => {
     trackEvent({
       event:'pageview',
       prop6: "Biobanks are important for research",
+      prop10: t("metaData.title")
     })
   },[trackEvent])
 

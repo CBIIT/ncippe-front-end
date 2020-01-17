@@ -42,6 +42,7 @@ const PrivacyPage = () => {
     trackEvent({
       event:'pageview',
       prop6: "Protecting your privacy",
+      prop10: t("metaData.title")
     })
   },[trackEvent])
 
