@@ -62,6 +62,7 @@ export default track({
   // tracking options - {dispatch, dispatchOnMount, process} - see https://github.com/nytimes/react-tracking
   dispatch: (data) => {
     const local_s = window.s_gi(process.env.REACT_APP_ANALYTICS_ACCOUNT)
+    const isPrivate = window.location.pathname.match("dashboard")
 
     // set url specific data on every call
     let computedData = {
@@ -69,7 +70,9 @@ export default track({
       pageURL: window.location,
       prop1: window.location.href.substring(0,99),
       prop2: window.location.href.substring(100),
-      // prop10: window.document.title
+      prop7: isPrivate ? "Private" : "Public",
+      eVar7: isPrivate ? "Private" : "Public",
+      prop10: window.document.title
     }
 
     if(data.event === 'pageview') {
