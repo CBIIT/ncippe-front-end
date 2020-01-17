@@ -44,7 +44,7 @@ const HospitalMap = (props) => {
   const [mapStylesLoaded, mapStylesError] = useScript('https://unpkg.com/leaflet@1.5.1/dist/leaflet.css')
   const [mapScriptLoaded, mapScriptError] = useScript('https://unpkg.com/leaflet@1.5.1/dist/leaflet.js')
   const { t, i18n } = useTranslation(['eligibility','hospitalList'])
-  const hospitalData = i18n.getResourceBundle(i18n.languages[0],'hospitalList').hospitals
+  const hospitalData = i18n.getResourceBundle(i18n.language,'hospitalList').hospitals
 
   let map
 
