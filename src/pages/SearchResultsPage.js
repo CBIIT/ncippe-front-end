@@ -94,7 +94,7 @@ const SearchResults = (props) => {
     // save the docs for later reference in search results
     setDocData(tempData)
 
-  }, [i18n])
+  }, [i18n,i18n.language])
   
   useEffect(() => {
     const extract = (str,q) => {
