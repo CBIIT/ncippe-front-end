@@ -94,6 +94,7 @@ const BiomarkerTest = () => {
     trackEvent({
       event:'pageview',
       prop6: "Get your biomarker test",
+      prop10: t("metaData.title")
     })
   },[trackEvent])
   

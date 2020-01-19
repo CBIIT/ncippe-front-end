@@ -44,6 +44,7 @@ const EligibilityPage = () => {
     trackEvent({
       event:'pageview',
       prop6: "Eligibility and locations",
+      prop10: t("metaData.title")
     })
   },[trackEvent])
 

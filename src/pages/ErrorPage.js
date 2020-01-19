@@ -16,6 +16,7 @@ const ErrorPage = (props) => {
       event:'pageview',
       prop6: "Error Page",
       pageType: "errorpage",
+      prop10: t("metaData.title")
     })
   },[trackEvent])
 

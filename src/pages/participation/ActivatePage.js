@@ -128,6 +128,7 @@ const ActivatePage = () => {
     trackEvent({
       event:'pageview',
       prop6: "Activate your online Biobank account",
+      prop10: t("metaData.title")
     })
   },[trackEvent])
 
