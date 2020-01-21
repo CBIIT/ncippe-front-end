@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Box, Button, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
+import { useTracking } from 'react-tracking'
 
 import { LoginContext } from '../login/Login.context'
 import { AuthContext } from '../login/AuthContext'
@@ -39,12 +40,18 @@ const useStyles = makeStyles( theme => ({
 
 const CloseAccount = (props) => {
   const classes = useStyles()
+  const { trackEvent } = useTracking()
   const [loginContext, dispatch] = useContext(LoginContext)
   const { signoutRedirectCallback } = useContext(AuthContext)
   const { crc } = loginContext
 
   const handleSubmit = () => {
     const {uuid, token} = loginContext
+    trackEvent({
+      prop42: `BioBank_ChangeParticipation|Close:CloseAccount`,
+      eVar42: `BioBank_ChangeParticipation|Close:CloseAccount`,
+      events: 'event78'
+    })
     getAPI.then(api => {
       api.closeAccount({uuid, token}).then(resp => {
         if(resp) {
