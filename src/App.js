@@ -102,7 +102,7 @@ export default track({
         ...computedData,
         prop67: computedData.pageName,
         eVar1: computedData.pageName,
-        linkTrackVars: 'prop11,eVar11,prop13,eVar13,prop14,eVar14,prop41,prop50,prop53,eVar53,prop66,eVar66,prop67', // no spaces allowed
+        linkTrackVars: 'prop11,eVar11,prop13,eVar13,prop14,eVar14,prop41,prop42,eVar42,prop50,prop53,eVar53,prop66,eVar66,prop67', // no spaces allowed
         linkTrackEvents: data.events ? data.events.concat(",") : null
       }
 

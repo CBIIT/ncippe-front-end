@@ -3,6 +3,7 @@ import { Link as RouterLink } from '@reach/router'
 import { Box, Button, Container, Divider, Grid, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
+import { useTracking } from 'react-tracking'
 
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
 import { LoginContext, LoginConsumer } from '../../components/login/Login.context'
@@ -79,12 +80,21 @@ const ProfilePage = (props) => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const {firstName, lastName, dateCreated, isActiveBiobankParticipant, dateDeactivated, questionAnswers, crc, providers} = loginContext
+  const { trackEvent } = useTracking()
 
   const userData = {
     firstName,
     lastName,
     dateDeactivated,
     questionAnswers
+  }
+
+  const trackParticipationClick = (e) => {
+    trackEvent({
+      prop42: `BioBank_ChangeParticipation|Start`,
+      eVar42: `BioBank_ChangeParticipation|Start`,
+      events: 'event73'
+    })
   }
 
   return (
@@ -101,7 +111,7 @@ const ProfilePage = (props) => {
           <LoginConsumer>
           {([{roleName}]) => {
             return roleName === "ROLE_PPE_PARTICIPANT" && (
-            <Button className={classes.menu} variant="outlined" color="primary" component={RouterLink} to="participation">Change Participation</Button>
+            <Button className={classes.menu} variant="outlined" color="primary" component={RouterLink} to="participation" onClick={trackParticipationClick}>Change Participation</Button>
             )
           }}
           </LoginConsumer>
