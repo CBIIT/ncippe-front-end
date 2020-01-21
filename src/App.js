@@ -72,7 +72,7 @@ export default track({
       prop2: window.location.href.substring(100),
       prop7: isPrivate ? "Private" : "Public",
       eVar7: isPrivate ? "Private" : "Public",
-      prop10: window.document.title
+      // prop10: window.document.title
     }
 
     if(data.event === 'pageview') {
