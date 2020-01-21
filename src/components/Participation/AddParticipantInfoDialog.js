@@ -16,6 +16,7 @@ import {
   useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
+import { useTracking } from 'react-tracking'
 import moment from 'moment'
 
 // import { api } from '../../data/api'
@@ -94,6 +95,7 @@ const AddParticipantInfoDialog = (props) => {
   const [activeStep, setActiveStep] = useState(0)
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const { trackEvent } = useTracking()
   const stringRegex = /^[a-zA-Z\s]{1,}/
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   // const {patients} = loginContext
@@ -108,6 +110,11 @@ const AddParticipantInfoDialog = (props) => {
     const {token, uuid} = loginContext
     // if we're validating then we're attempting to submit the form
     if (activeStep === 0 && formDataValidation.firstName && formDataValidation.lastName && formDataValidation.email) {
+      trackEvent({
+        prop42: `BioBank_NewParticipant|Next`,
+        eVar42: `BioBank_NewParticipant|Next`,
+        events: 'event75'
+      })
       // submit user update
       getAPI.then(api => {
         api.updateParticipantDetails({
@@ -142,6 +149,11 @@ const AddParticipantInfoDialog = (props) => {
     if( activeStep === 1 && formDataValidation.hasFile) {
       // submit consent form
       setActiveStep(2)
+      trackEvent({
+        prop42: `BioBank_NewParticipant|Submit`,
+        eVar42: `BioBank_NewParticipant|Submit`,
+        events: 'event78'
+      })
       // setTimeout(() => {
       getAPI.then(api => {
         api.uploadPatientReport({
@@ -159,6 +171,27 @@ const AddParticipantInfoDialog = (props) => {
               uploadError: true
             }))
           } else {
+            // update patient data front-end state
+            const { patients } = loginContext
+            const updatedPatients = patients.map(patient => {
+              if (patient.patientId === patientId) {
+                return {
+                  ...patient,
+                  firstName: formData.firstName,
+                  lastName: formData.lastName,
+                  email: formData.email,
+                  portalAccountStatus: null,
+                }
+              } else {
+                return patient
+              }
+            }).sort((a, b) => a.lastName.localeCompare(b.lastName))
+
+            dispatch({
+              type: 'accountActivated',
+              patients: updatedPatients
+            })
+
             // save successful, close modal and redirect to Participant View
             navigate(`/dashboard/participant/${patientId}`, {
               state: {

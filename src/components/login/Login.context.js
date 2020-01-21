@@ -49,6 +49,13 @@ const userReducer = (state, action) => {
         patients: action.patients
       })
     }
+    case 'accountActivated': {
+      return ({
+        ...state,
+        patients: action.patients
+      })
+    }
+
     case 'reportViewedByPatient': {
       return ({
         ...state,
