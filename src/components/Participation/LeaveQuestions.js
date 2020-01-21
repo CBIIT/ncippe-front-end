@@ -4,6 +4,7 @@ import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { Clear as ClearIcon } from '@material-ui/icons'
+import { useTracking } from 'react-tracking'
 
 import { LoginContext } from '../login/Login.context'
 // import { api } from '../../data/api'
@@ -65,6 +66,7 @@ const useStyles = makeStyles( theme => ({
 const LeaveQuestions = (props) => {
   const {location: {state: {user}},cancel} = props
   const classes = useStyles()
+  const { trackEvent } = useTracking()
   const [loginContext, dispatch] = useContext(LoginContext)
   const [questionData, setQuestionData] = useState({})
   const [q1Error, setQ1Error] = useState(false)
@@ -126,6 +128,11 @@ const LeaveQuestions = (props) => {
   const handleNextStep = () => {
     // validate - check for errors
     if(validateQuestions()){
+      trackEvent({
+        prop42: `BioBank_ChangeParticipation|Leave:LeaveBioBank`,
+        eVar42: `BioBank_ChangeParticipation|Leave:LeaveBioBank`,
+        events: 'event77'
+      })
       // open modal for final confirmation
       setIsModalOpen(true)
     }
@@ -164,6 +171,12 @@ const LeaveQuestions = (props) => {
       q3,
       q4
     ]
+
+    trackEvent({
+      prop42: `BioBank_ChangeParticipation|Leave:Confirm`,
+      eVar42: `BioBank_ChangeParticipation|Leave:Confirm`,
+      events: 'event78'
+    })
 
     getAPI.then(api => {
       api.withdrawUser({
