@@ -59,11 +59,17 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const IconCard = (props) => {
-  const {icon, title, altText, desc, link, linkText, count = 0, badgeText = 'new'} = props
+  const {icon, title, altText, desc, link, linkText, count = 0, badgeText = 'new', cardClick} = props
   const classes = useStyles()
 
+  const handleClick = (e) => {
+    if (cardClick && e.target.tagName === "A") {
+      return cardClick(e)
+    }
+  }
+
   return (
-    <Card className={`${classes.card} IconCard`}>
+    <Card className={`${classes.card} IconCard`} onClick={handleClick}>
       <ConditionalWrapper
         condition={count > 0}
         wrapper={children => <Badge className={classes.badge} badgeContent={badgeText} component="div">{children}</Badge>}>
