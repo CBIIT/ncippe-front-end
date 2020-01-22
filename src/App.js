@@ -81,12 +81,14 @@ export default track({
     if(data.event === 'pageview') {
       // console.log("data", data)
       const pageName = `msbiobank.c.gov${window.location.pathname}` // needed for homepage
-      let targetElement = ".siteWrapper";
-      if (isPrivate && window.location.pathname !== "/dashboard") {
-        targetElement = ".transitionGroup"
-      }
-      local_s.getPercentPageViewed(pageName,false,targetElement)
-      // const percentViewed = local_s._ppvInitialPercentViewed ? `${local_s._ppvInitialPercentViewed}|${local_s._ppvHighestPercentViewed}` : ""
+      local_s.getPercentPageViewed(pageName,false,".siteWrapper")
+
+      // for capturing percent page view on dashboard popups - not currently in scope
+      // let targetElement = ".siteWrapper";
+      // if (isPrivate && window.location.pathname !== "/dashboard") {
+      //   targetElement = ".transitionGroup"
+      // }
+      // local_s.getPercentPageViewed(pageName,false,targetElement)
 
       computedData = {
         ...computedData,
