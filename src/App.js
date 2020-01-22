@@ -79,7 +79,7 @@ export default track({
     }
 
     if(data.event === 'pageview') {
-      console.log("data", data)
+      // console.log("data", data)
       const pageName = `msbiobank.c.gov${window.location.pathname}` // needed for homepage
       let targetElement = ".siteWrapper";
       if (isPrivate && window.location.pathname !== "/dashboard") {
