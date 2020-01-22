@@ -112,6 +112,12 @@ const TestResults = (props) => {
   }, [props.location.state])
 
   const openUploadDialog = (e) => {
+    const buttonText = e.target.textContent
+    trackEvent({
+      prop42: `BioBank_AccountActions|Click:${buttonText}`,
+      eVar42: `BioBank_AccountActions|Click:${buttonText}`,
+      events: 'event28'
+    })
     setDialogOpen(true)
     setMenuOpen(false)
   }
@@ -122,13 +128,24 @@ const TestResults = (props) => {
     setUploadSuccess(success)
   }
 
-  const openLeaveQuestions = () => {
+  const openLeaveQuestions = (e) => {
+    const buttonText = e.target.textContent
+    trackEvent({
+      prop42: `BioBank_AccountActions|Click:${buttonText}`,
+      eVar42: `BioBank_AccountActions|Click:${buttonText}`,
+      events: 'event28'
+    })
     navigate(`${window.location.pathname}/participation/leaveQuestions`,{state: {
       user
     }})
   }
 
   const handleMenuState = (state) => {
+    trackEvent({
+      prop42: `BioBank_AccountActions|Expand`,
+      eVar42: `BioBank_AccountActions|Expand`,
+      events: 'event26'
+    })
     setMenuOpen(prevState => !prevState)
   }
 
