@@ -5,6 +5,7 @@ import {
   GetApp as GetAppIcon,
   Launch as LaunchIcon
 } from '@material-ui/icons'
+import { useTracking } from 'react-tracking'
 import moment from 'moment'
 
 // import { api } from '../../data/api'
@@ -59,6 +60,7 @@ const TestResultsItem = (props) => {
   const {uuid, token} = loginContext
   const {fileName, dateUploaded, fileGUID} = report
   const [isNewReport, setIsNewReport] = useState(report.viewedBy ? !report.viewedBy.includes(uuid) : true)
+  const { trackEvent } = useTracking()
 
   // response header example to parse
   //Content-Disposition: attachment; filename=dummy_PatientReport - Copy8322721829336469280.pdf
@@ -101,6 +103,13 @@ const TestResultsItem = (props) => {
 
           // trigger download or render blob buffer to new window
           if(download) {
+            trackEvent({
+              prop42: `BioBank_AccountDocuments|Download`,
+              eVar42: `BioBank_AccountDocuments|Download`,
+              events: 'event29',
+              pe: 'lnk_e',
+              pev1: `${fileName}`,
+            })
             const link = document.createElement('a');
             link.style.display = 'none';
             document.body.appendChild(link);
@@ -109,6 +118,14 @@ const TestResultsItem = (props) => {
             link.click();
             document.body.removeChild(link);
           } else {
+            trackEvent({
+              prop42: `BioBank_AccountDocuments|View in Browser`,
+              eVar42: `BioBank_AccountDocuments|View in Browser`,
+              events: 'event29',
+              pe: 'lnk_e',
+              pev1: `${fileName}`,
+
+            })
             win.document.body.innerHTML = `<embed src='${fileData}' type='application/pdf' width='100%' height='100%' />`
           }
 
