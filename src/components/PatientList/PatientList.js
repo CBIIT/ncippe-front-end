@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Grid, TextField, Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { useTracking } from 'react-tracking'
 
 import PatientListItem from './PatientListItem'
 import AddParticipantInfoDialog from '../../components/Participation/AddParticipantInfoDialog'
@@ -31,6 +32,7 @@ const PatientList = (props) => {
   const [patientList, setPatientList] = useState(patients)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [patientToActivate, setPatientToActivate] = useState()
+  const { trackEvent } = useTracking()
   const allPatients = [...patients] // create new object of patients
 
   const filterPatients = (event) => {
@@ -42,6 +44,11 @@ const PatientList = (props) => {
   }
 
   const activateUser = (patient) => {
+    trackEvent({
+      prop42: `BioBank_NewParticipant|Start`,
+      eVar42: `BioBank_NewParticipant|Start`,
+      events: 'event73'
+    })
     setDialogOpen(true)
     setPatientToActivate(patient)
   }

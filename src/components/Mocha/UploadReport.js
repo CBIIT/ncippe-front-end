@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { 
   Clear as ClearIcon
 } from '@material-ui/icons'
+import { useTracking } from 'react-tracking'
 
 // import { api } from '../../data/api'
 import getAPI from '../../data'
@@ -69,6 +70,7 @@ const UploadReport = () => {
   const [activeStep, setActiveStep] = useState(0)
   const [patientData, setPatientData] = useState(patientDataDefaults)
   const [loginContext] = useContext(LoginContext)
+  const { trackEvent } = useTracking()
 
   // controlled text input
   const handlePatientId = (event) => {
@@ -142,6 +144,11 @@ const UploadReport = () => {
                 patientId
               }))
               setActiveStep(1)
+              trackEvent({
+                prop42: `BioBank_AdminUpload|PatientIDEntered`,
+                eVar42: `BioBank_AdminUpload|PatientIDEntered`,
+                events: 'event73',
+              })
             }
           })
       })
@@ -160,6 +167,11 @@ const UploadReport = () => {
     // verify that report data exists before fetch call
     if(!!formData.reportFile) {
       setActiveStep(2)
+      trackEvent({
+        prop42: `BioBank_AdminUpload|FilesUploaded`,
+        eVar42: `BioBank_AdminUpload|FilesUploaded`,
+        events: 'event78',
+      })
       // reset errors
       setFormData(prevState => ({
         ...prevState,
@@ -184,9 +196,19 @@ const UploadReport = () => {
                 ...prevState,
                 uploadError: true
               }))
+              trackEvent({
+                prop42: `BioBank_AdminUpload|Error`,
+                eVar42: `BioBank_AdminUpload|Error`,
+                events: 'event81',
+              })
             } else {
               // Save successful
               setActiveStep(3)
+              trackEvent({
+                prop42: `BioBank_AdminUpload|Completed`,
+                eVar42: `BioBank_AdminUpload|Completed`,
+                events: 'event80',
+              })
             }
           })
         })

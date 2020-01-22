@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Container, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
 
 import { LoginConsumer } from '../../components/login/Login.context'
 import PatientList from '../../components/PatientList/PatientList'
@@ -35,10 +37,35 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default () => {
-  const classes = useStyles();
+  const classes = useStyles()
+  const { trackEvent } = useTracking()
 
+  useEffect(() => {
+    // only want to track the dashboard landing page load event once, saving state to session variable
+    const tracked = sessionStorage.getItem('isDashboardTracked')
+    if(tracked === 'false' || !tracked) {
+      trackEvent({
+        event:'pageview',
+        prop6: "Dashboard Page",
+        prop10: "Dashboard | Cancer Moonshot Biobank"
+      })
+      sessionStorage.setItem('isDashboardTracked',true)
+    }
+  },[])
+
+  const trackCardClick = (e) => {
+    trackEvent({
+      prop53: `BioBank_AccountCard|${e.currentTarget.querySelector("h2").textContent}`,
+      eVar53: `BioBank_AccountCard|${e.currentTarget.querySelector("h2").textContent}`,
+      events: 'event27'
+    })
+  }
   return (
     <Box>
+      <Helmet>
+        <title>Dashboard | NCI</title>
+        <meta name="title" content="Dashboard" />
+      </Helmet>
       <Container className="mainContainer--dashboard">
         <LoginConsumer>
         {([{firstName, lastName, isActiveBiobankParticipant}]) => {
@@ -72,6 +99,7 @@ export default () => {
                   link="/dashboard/notifications"
                   linkText="Review"
                   count={count}
+                  cardClick={trackCardClick}
                 />
               )
             }}
@@ -91,6 +119,7 @@ export default () => {
                     desc="Review the form you signed when you agreed to participate in the Biobank."
                     link="/dashboard/consent"
                     linkText="View forms"
+                    cardClick={trackCardClick}
                   />
                 </Grid>
                 {/* END: Participant Consent Form */}
@@ -104,6 +133,7 @@ export default () => {
                     link="/dashboard/tests"
                     linkText="View reports"
                     count={count}
+                    cardClick={trackCardClick}
                   />
                 </Grid>
                 {/* END: Participant Biomarker Test Results */}
@@ -123,6 +153,7 @@ export default () => {
                 desc="Update your contact information or change how you participate in the Biobank."
                 link="/dashboard/profile"
                 linkText="Update account"
+                cardClick={trackCardClick}
               />
             }}
             </LoginConsumer>
@@ -139,6 +170,7 @@ export default () => {
                   desc="We are here to answer all your questions about the PPE Portal and Biobank program."
                   link="/dashboard/help"
                   linkText="Learn more"
+                  cardClick={trackCardClick}
                 />
               </Grid>
             )

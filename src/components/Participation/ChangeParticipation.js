@@ -3,6 +3,7 @@ import { Link as RouterLink } from '@reach/router'
 import { Button, Box, FormControl, FormControlLabel, Link, RadioGroup, Radio, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
+import { useTracking } from 'react-tracking'
 
 import { LoginContext } from '../login/Login.context'
 import InputGroupError from '../inputs/InputGroupError/InputGroupError'
@@ -30,6 +31,7 @@ const ChangeParticipation = (props) => {
   const [participationOption, setParticipationOption] = useState(false);
   const [participationOptionError, setParticipationOptionError] = useState(false);
   const classes = useStyles()
+  const { trackEvent } = useTracking()
 
   const changeParticipationOption = event => {
     setParticipationOption(event.target.value)
@@ -41,6 +43,11 @@ const ChangeParticipation = (props) => {
     if(!participationOption) {
       setParticipationOptionError(true)
     } else {
+      trackEvent({
+        prop42: `BioBank_ChangeParticipation|Next:${participationOption}`,
+        eVar42: `BioBank_ChangeParticipation|Next:${participationOption}`,
+        events: 'event74'
+      })
       nextStep(participationOption)
     }
   }

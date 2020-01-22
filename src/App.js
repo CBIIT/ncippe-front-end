@@ -21,12 +21,15 @@ const App = (props) => {
     if (target) {
       props.tracking.trackEvent({
         prop50: e.target.textContent,
-        prop66: `BioBank|[Section of Page]|${target.tagName}`,
-        eVar66: `BioBank|[Section of Page]|${target.tagName}`,
+        prop66: `BioBank|${target.tagName}`,
+        eVar66: `BioBank|${target.tagName}`,
         events: 'event71',
       })
     }
   })
+
+  // clear tracking on app reload
+  sessionStorage.setItem('isDashboardTracked',false)
 
   return (
     <ThemeProvider theme={theme}>
@@ -62,6 +65,7 @@ export default track({
   // tracking options - {dispatch, dispatchOnMount, process} - see https://github.com/nytimes/react-tracking
   dispatch: (data) => {
     const local_s = window.s_gi(process.env.REACT_APP_ANALYTICS_ACCOUNT)
+    const isPrivate = window.location.pathname.match("dashboard")
 
     // set url specific data on every call
     let computedData = {
@@ -69,6 +73,8 @@ export default track({
       pageURL: window.location,
       prop1: window.location.href.substring(0,99),
       prop2: window.location.href.substring(100),
+      prop7: isPrivate ? "Private" : "Public",
+      eVar7: isPrivate ? "Private" : "Public",
       // prop10: window.document.title
     }
 
@@ -76,7 +82,13 @@ export default track({
       // console.log("data", data)
       const pageName = `msbiobank.c.gov${window.location.pathname}` // needed for homepage
       local_s.getPercentPageViewed(pageName,false,".siteWrapper")
-      // const percentViewed = local_s._ppvInitialPercentViewed ? `${local_s._ppvInitialPercentViewed}|${local_s._ppvHighestPercentViewed}` : ""
+
+      // for capturing percent page view on dashboard popups - not currently in scope
+      // let targetElement = ".siteWrapper";
+      // if (isPrivate && window.location.pathname !== "/dashboard") {
+      //   targetElement = ".transitionGroup"
+      // }
+      // local_s.getPercentPageViewed(pageName,false,targetElement)
 
       computedData = {
         ...computedData,
@@ -99,7 +111,7 @@ export default track({
         ...computedData,
         prop67: computedData.pageName,
         eVar1: computedData.pageName,
-        linkTrackVars: 'prop11,eVar11,prop13,eVar13,prop14,eVar14,prop41,prop50,prop53,eVar53,prop66,eVar66,prop67', // no spaces allowed
+        linkTrackVars: 'prop11,eVar11,prop13,eVar13,prop14,eVar14,prop41,prop42,eVar42,prop50,prop53,eVar53,prop66,eVar66,prop67', // no spaces allowed
         linkTrackEvents: data.events ? data.events.concat(",") : null
       }
 

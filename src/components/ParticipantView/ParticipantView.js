@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { navigate } from '@reach/router'
 import { ClickAwayListener, Divider, Grid, MenuItem, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { useTracking } from 'react-tracking'
 import moment from 'moment'
 
 // import { api } from '../../data/api'
@@ -82,6 +83,8 @@ const TestResults = (props) => {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [isNewParticipant, setIsNewParticipant] = useState(false)
+  const { trackEvent } = useTracking()
 
   useEffect(() => {
     //fetch participant data
@@ -97,7 +100,24 @@ const TestResults = (props) => {
     return () => {}
   }, [uploadSuccess,getAPI])
 
+  useEffect(() => {
+    if(props.location && props.location.state && props.location.state.newParticipantActivated) {
+      trackEvent({
+        prop42: `BioBank_NewParticipant|Success`,
+        eVar42: `BioBank_NewParticipant|Success`,
+        events: 'event80'
+      })
+      setIsNewParticipant(true)
+    }
+  }, [props.location.state])
+
   const openUploadDialog = (e) => {
+    const buttonText = e.target.textContent
+    trackEvent({
+      prop42: `BioBank_AccountActions|Click:${buttonText}`,
+      eVar42: `BioBank_AccountActions|Click:${buttonText}`,
+      events: 'event28'
+    })
     setDialogOpen(true)
     setMenuOpen(false)
   }
@@ -108,13 +128,24 @@ const TestResults = (props) => {
     setUploadSuccess(success)
   }
 
-  const openLeaveQuestions = () => {
+  const openLeaveQuestions = (e) => {
+    const buttonText = e.target.textContent
+    trackEvent({
+      prop42: `BioBank_AccountActions|Click:${buttonText}`,
+      eVar42: `BioBank_AccountActions|Click:${buttonText}`,
+      events: 'event28'
+    })
     navigate(`${window.location.pathname}/participation/leaveQuestions`,{state: {
       user
     }})
   }
 
   const handleMenuState = (state) => {
+    trackEvent({
+      prop42: `BioBank_AccountActions|Expand`,
+      eVar42: `BioBank_AccountActions|Expand`,
+      events: 'event26'
+    })
     setMenuOpen(prevState => !prevState)
   }
 
@@ -155,7 +186,7 @@ const TestResults = (props) => {
               )
             }}
           </LoginConsumer>
-          {props.location && props.location.state && props.location.state.newParticipantActivated &&
+          {isNewParticipant &&
             <Status state="success" title="New participant added successfully" message="This participant can now activate their online Biobank account. You can add additional consent forms under account actions." />
           }
         </div>
