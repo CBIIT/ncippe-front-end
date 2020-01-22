@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react'
 import { FormControl, TextField, Paper, Typography, Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import EditIcon from '@material-ui/icons/Edit';
+import { useTracking } from 'react-tracking'
 
 import { LoginContext } from '../../components/login/Login.context'
 import PhoneNumbner from '../inputs/PhoneNumber/PhoneNumber'
@@ -46,6 +47,7 @@ const Profile = () => {
   const [errorPhone, setErrorPhone] = useState(false)
   const [userPhone, setUserPhone] = useState(loginContext.phoneNumber)
   const [userOptIn, setUserOptIn] = useState(loginContext.allowEmailNotification)
+  const { trackEvent } = useTracking()
 
 
   const handleSubmit = (event) => {
@@ -71,6 +73,11 @@ const Profile = () => {
           if(resp instanceof Error) {
             console.error(resp.message)
           } else {
+            trackEvent({
+              prop42: `BioBank_ProfileSettings|Save`,
+              eVar42: `BioBank_ProfileSettings|Save`,
+              events: 'event78'
+            })
             // Save successful, also update the user context data
             dispatch({
               type: 'update',
@@ -102,7 +109,16 @@ const Profile = () => {
     setUserOptIn(!userOptIn)
   }
 
-  const toggleEditMode = () => setEditMode(!editMode)
+  const toggleEditMode = () => {
+    if(!editMode){
+      trackEvent({
+        prop42: `BioBank_ProfileSettings|Edit`,
+        eVar42: `BioBank_ProfileSettings|Edit`,
+        events: 'event73'
+      })
+    }
+    setEditMode(!editMode)
+  }
 
   return (
     <Paper className={classes.root}>
