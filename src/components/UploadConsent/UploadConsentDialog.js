@@ -3,6 +3,7 @@ import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogT
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
+import { useTracking } from 'react-tracking'
 
 // import { api } from '../../data/api'
 import getAPI from '../../data'
@@ -57,6 +58,7 @@ const UploadConcentDialog = (props) => {
   const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState(formDataDefaults)
   const [activeStep, setActiveStep] = useState(0)
+  const { trackEvent } = useTracking()
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
@@ -111,6 +113,11 @@ const UploadConcentDialog = (props) => {
 
     // verify that report data exists before fetch call
     if(!!formData.file) {
+      trackEvent({
+        prop42: `BioBank_ConsentUpload|Submit`,
+        eVar42: `BioBank_ConsentUpload|Submit`,
+        events: 'event75'
+      })
       setActiveStep(1)
       // reset errors
       setFormData(prevState => ({
@@ -129,6 +136,11 @@ const UploadConcentDialog = (props) => {
           })
           .then(resp => {
             if(resp instanceof Error) {
+              trackEvent({
+                prop42: `BioBank_ConsentUpload|Error`,
+                eVar42: `BioBank_ConsentUpload|Error`,
+                events: 'event81'
+              })
               // Save unsuccessful - go back a step
               setActiveStep(0)
               setFormData(prevState => ({
@@ -136,6 +148,11 @@ const UploadConcentDialog = (props) => {
                 uploadError: true
               }))
             } else {
+              trackEvent({
+                prop42: `BioBank_ConsentUpload|Success`,
+                eVar42: `BioBank_ConsentUpload|Success`,
+                events: 'event80'
+              })
               // Save successful - close modal
               handleClose(null, true)
             }
