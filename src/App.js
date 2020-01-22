@@ -21,12 +21,15 @@ const App = (props) => {
     if (target) {
       props.tracking.trackEvent({
         prop50: e.target.textContent,
-        prop66: `BioBank|[Section of Page]|${target.tagName}`,
-        eVar66: `BioBank|[Section of Page]|${target.tagName}`,
+        prop66: `BioBank|${target.tagName}`,
+        eVar66: `BioBank|${target.tagName}`,
         events: 'event71',
       })
     }
   })
+
+  // clear tracking on app reload
+  sessionStorage.setItem('isDashboardTracked',false)
 
   return (
     <ThemeProvider theme={theme}>
@@ -76,9 +79,13 @@ export default track({
     }
 
     if(data.event === 'pageview') {
-      // console.log("data", data)
+      console.log("data", data)
       const pageName = `msbiobank.c.gov${window.location.pathname}` // needed for homepage
-      local_s.getPercentPageViewed(pageName,false,".siteWrapper")
+      let targetElement = ".siteWrapper";
+      if (isPrivate && window.location.pathname !== "/dashboard") {
+        targetElement = ".transitionGroup"
+      }
+      local_s.getPercentPageViewed(pageName,false,targetElement)
       // const percentViewed = local_s._ppvInitialPercentViewed ? `${local_s._ppvInitialPercentViewed}|${local_s._ppvHighestPercentViewed}` : ""
 
       computedData = {

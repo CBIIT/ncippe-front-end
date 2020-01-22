@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { Box, Container, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTracking } from 'react-tracking'
@@ -38,18 +38,18 @@ const useStyles = makeStyles(theme => ({
 
 export default () => {
   const classes = useStyles()
-  const [tracked, setTracked] = useState(false)
   const { trackEvent } = useTracking()
 
   useEffect(() => {
-    // only want to track the dashboard landing page load event once, saving state to login context
-    if(!tracked) {
+    // only want to track the dashboard landing page load event once, saving state to session variable
+    const tracked = sessionStorage.getItem('isDashboardTracked')
+    if(tracked === 'false' || !tracked) {
       trackEvent({
         event:'pageview',
         prop6: "Dashboard Page",
         prop10: "Dashboard | Cancer Moonshot Biobank"
       })
-      setTracked(true)
+      sessionStorage.setItem('isDashboardTracked',true)
     }
   },[])
 
