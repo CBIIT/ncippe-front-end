@@ -27,19 +27,22 @@ import Search from '../../Search/Search'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
     paddingRight: theme.spacing(1),
     [theme.breakpoints.up('smLandscape')]: {
-      marginTop: 0,
-      marginBottom: 0,
       paddingRight: theme.spacing(3)
     }
   },
   appToolbarContainer: {
     display: 'flex',
     alignItems: 'center',
-    padding: 0
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    
+    [theme.breakpoints.up('smLandscape')]: {
+      marginTop: 0,
+      marginBottom: 0,
+    }
+    // padding: 0
   },
   toolbarLogo: {
     flexGrow: 1,
@@ -97,6 +100,16 @@ const useStyles = makeStyles(theme => ({
     '& button': {
       margin: theme.spacing(2,0,0)
     }
+  },
+  languageToggle: {
+    textAlign: "right",
+    backgroundImage: theme.gradients.lightBlue,
+    margin: theme.spacing(0, -3, 0, -4),
+    paddingRight: theme.spacing(3),
+    '& a': {
+      cursor: "pointer",
+      fontSize: "90%"
+    }
   }
 }))
 
@@ -106,7 +119,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const [expanded, setExpanded] = useState(loc)
   const [isDisabled, setIsDisabled] = useState(true)
-  const { t } = useTranslation('common')
+  const { t, i18n } = useTranslation('common')
   const { trackEvent } = useTracking()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down(theme.breakpoints.values.smLandscape))
@@ -172,6 +185,12 @@ const Header = () => {
       eVar53: 'BioBank_TopNav|Logo',
       events: 'event26'
     })
+  }
+
+  const toggleLang = (e) => {
+    e.preventDefault()
+    const newLang = i18n.language === 'en' ? "es" : "en"
+    i18n.changeLanguage(newLang)
   }
 
   return (
@@ -267,6 +286,9 @@ const Header = () => {
         </nav>
       </Drawer>
       )}
+      <Box className={classes.languageToggle}>
+        <Link href="#" onClick={toggleLang}>{t('links.language_toggle')}</Link>
+      </Box>
     </Container>
   )
 }

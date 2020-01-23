@@ -59,6 +59,7 @@ export const theme = createMuiTheme({
   gradients: {
     primary: 'linear-gradient(#d2e2f7, #facfdc)',
     blue: 'linear-gradient(#d2e2f7, transparent)',
+    lightBlue: 'linear-gradient(#eff4fb, transparent 40%)',
     blueReverse: 'linear-gradient(transparent, #f0f5fb)',
     primaryDiagonal: 'linear-gradient(315deg, #FFEBF1 0%, #F3EEF6 51%, #E8F0FA 100%)'
   },
