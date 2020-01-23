@@ -62,7 +62,7 @@ const SearchResults = (props) => {
     let tempData = {} // search results need an object keyed to the resource's name space
   
     Object.keys(data).forEach(resource => {
-      if(resource !== 'common'){
+      if(resource !== 'common' && resource !== 'searchResults'){
         const ignoreKeys = ['pageTitle', 'pageRoute', 'alt_text', 'metaData']
         const value = objectValuesToString(data[resource], ignoreKeys)
         const entry = {
