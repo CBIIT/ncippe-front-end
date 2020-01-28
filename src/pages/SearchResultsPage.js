@@ -46,7 +46,7 @@ const useStyles = makeStyles( theme => ({
 const SearchResults = (props) => {
   const {location} = props
   const classes = useStyles()
-  const { t, i18n } = useTranslation(['common','homePage','about','eligibility','research','consent','donate','testing','activate','privacy','searchResults'])
+  const { t, i18n } = useTranslation(['common','homePage','about','eligibility','research','consent','donate','testing','activate','privacy','hospitalList','searchResults'])
   const { trackEvent } = useTracking()
   const term = location ? location.state ? location.state.term : '' : ''
   const [searchTerm, setSearchTerm] = useState(term)
@@ -57,7 +57,7 @@ const SearchResults = (props) => {
 
   useEffect(() => {
     // create search index
-    const data = i18n.getDataByLanguage(i18n.language)
+    const data = i18n.getDataByLanguage(i18n.languages[0])
     let textData = [] // lunr needs an array of docs
     let tempData = {} // search results need an object keyed to the resource's name space
   

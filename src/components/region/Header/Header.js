@@ -189,7 +189,7 @@ const Header = () => {
 
   const toggleLang = (e) => {
     e.preventDefault()
-    const newLang = i18n.language === 'en' ? "es" : "en"
+    const newLang = i18n.languages[0] === 'en' ? "es" : "en"
     i18n.changeLanguage(newLang)
   }
 
