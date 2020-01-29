@@ -2,16 +2,20 @@ import React, { useEffect, useState } from 'react';
 import MaskedInput from 'react-text-mask';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import { FormControl, FormHelperText, Input, InputLabel} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
-    margin: theme.spacing(1),
-    minWidth: '200px'
+    minWidth: '200px',
+    '& .MuiInput-formControl': {
+      marginTop: 20
+    }
   },
+  label: {
+    fontWeight: 700,
+    color: theme.palette.text.primary,
+    transform: "none"
+  }
 }));
 
 // move input cursor to first available placeholder character
@@ -68,11 +72,12 @@ const PhoneNumber = (props) => {
   };
 
   return (
-    <FormControl className={classes.formControl}>
+    <FormControl className={classes.formControl} margin="normal">
       <InputLabel 
         htmlFor="phone-number-input" 
         shrink 
         error={error}
+        className={classes.label}
       >
         Phone number (optional)
       </InputLabel>

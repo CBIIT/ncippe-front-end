@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 
-import { FormControl, TextField, Paper, Typography, Button} from '@material-ui/core'
+import { FormControl, Input, InputLabel, TextField, Paper, Typography, Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import EditIcon from '@material-ui/icons/Edit';
 import { useTracking } from 'react-tracking'
@@ -21,8 +21,10 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column'
   },
   formControl: {
-    margin: theme.spacing(1),
-    minWidth: '200px'
+    minWidth: '200px',
+    '& .MuiInput-formControl': {
+      marginTop: 20
+    }
   },
   editButton: {
     position: 'absolute',
@@ -32,6 +34,14 @@ const useStyles = makeStyles(theme => ({
   cta: {
     display: 'flex',
     flexDirection: 'row'
+  },
+  label: {
+    fontWeight: 700,
+    color: theme.palette.text.primary,
+    transform: "none"
+  },
+  btnCancel: {
+    marginLeft: theme.spacing(1)
   }
 }))
 
@@ -137,20 +147,20 @@ const Profile = () => {
         <Typography variant="h3" component="h3" gutterBottom>
         Your contact information
         </Typography>
-        <FormControl className={classes.formControl}>
-          <TextField
-            id="email"
-            label="Email"
-            disabled
-            value={loginContext.email}
+        <FormControl className={classes.formControl} margin="normal">
+          <InputLabel 
+            htmlFor="email-input" 
+            shrink
+            className={classes.label}
+          >
+            Email
+          </InputLabel>
+          <Input
+            id="email-input"
             placeholder="email"
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            InputProps={{
-              readOnly: true,
-            }}
+            value={loginContext.email}
+            readOnly={true}
+            disabled
           />
         </FormControl>
         <PhoneNumbner value={userPhone} editMode={editMode} error={errorPhone} onChange={updatePhoneNumber} />
@@ -158,7 +168,7 @@ const Profile = () => {
         {editMode && (
           <FormControl className={`${classes.formControl} ${classes.cta}`} >
             <Button type="submit" variant="contained" color="primary">Save</Button>
-            <Button variant="text" onClick={cancelEdit} color="primary">Cancel</Button>
+            <Button className={classes.btnCancel} variant="text" onClick={cancelEdit} color="primary">Cancel</Button>
           </FormControl>
         )}
       </form>
