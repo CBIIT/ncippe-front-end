@@ -286,9 +286,10 @@ const Header = () => {
         </nav>
       </Drawer>
       )}
-      <Box className={classes.languageToggle}>
+      {!loc.includes('dashboard') && <Box className={classes.languageToggle}>
         <Link href="#" onClick={toggleLang}>{t('links.language_toggle')}</Link>
       </Box>
+      }
     </Container>
   )
 }

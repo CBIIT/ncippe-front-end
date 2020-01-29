@@ -167,7 +167,7 @@ export default () => {
                 <IconCard
                   icon="get-help.svg"
                   title="Get help"
-                  desc="We are here to answer all your questions about the PPE Portal and Biobank program."
+                  desc="Learn about changing your participation in the Biobank."
                   link="/dashboard/help"
                   linkText="Learn more"
                   cardClick={trackCardClick}

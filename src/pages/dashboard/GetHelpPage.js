@@ -46,7 +46,7 @@ export default () => {
           <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/get-help.svg`} alt='patient icon' aria-hidden="true"></img>
           <Typography variant="h2" component="h2">Get help</Typography>
         </div>
-        <Typography>If you have questions about the Biobank or your participation, contact your research coordinator.</Typography>
+        <Typography>If you have additional questions about the Biobank or your participation, contact your research coordinator. </Typography>
         <Box mt={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
