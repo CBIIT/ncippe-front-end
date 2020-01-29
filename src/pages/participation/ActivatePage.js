@@ -102,7 +102,7 @@ const useStyles = makeStyles( theme => ({
   },
   cardText: {
     display: 'flex',
-    flexGrow: 1,
+    // flexGrow: 1,
     flexDirection: 'column',
     paddingLeft: theme.spacing(3),
     height: '100%',

@@ -41,7 +41,8 @@ const useStyles = makeStyles( theme => ({
     justifyContent: 'space-between',
     '& a': {
       // display: 'flex',
-      flex: '0 0 auto',
+      // flex: '0 0 auto',
+      display: "inline-block",
       lineHeight: '22px',
       marginBottom: theme.spacing(1)
     }
