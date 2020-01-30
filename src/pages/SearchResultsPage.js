@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link as RouterLink } from '@reach/router'
+import { Link as RouterLink, navigate } from '@reach/router'
 import { Box, Button, Container, InputAdornment, Link, TextField, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Helmet } from 'react-helmet-async'
@@ -163,6 +163,8 @@ const SearchResults = (props) => {
     e.preventDefault()
     const term = e.target.searchPageSearch.value
     setSearchTerm(term)
+    // update the history to store the search term
+    window.history.replaceState({term}, "", "/search")
 
     trackEvent({
       prop11: "BioBank Global Search - Results New Search",
