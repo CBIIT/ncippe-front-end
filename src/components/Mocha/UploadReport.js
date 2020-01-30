@@ -283,7 +283,7 @@ const UploadReport = () => {
             onChange={handlePatientId}
             value={patientData.patientId}
             inputProps={{
-              maxLength: 8,
+              maxLength: 20,
             }}
           />
           {patientData.notFound && <Status state="error" title="This participant is not in the system" message="Please double check the Participant ID on the hard copy of the report and re-enter it above. If this problem persists, contact the system administrator." />}
