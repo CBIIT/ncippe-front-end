@@ -72,12 +72,12 @@ const CloseAccount = (props) => {
   return (
     <Box>
       <Typography className={classes.header} variant="h1" component="h1">Close your online account</Typography>
-      <Typography>You may choose to close your online Biobank account at any time. You can close your online account, but still participate in the Biobank. </Typography>
+      <Typography paragraph={true}>You may choose to close your online Biobank account at any time. You can close your online account, but still participate in the Biobank. </Typography>
       <Typography component="div">
         After you close your online account:
         <ul className="bulletList bulletList--spreadOut">
           <li>You won't be able to access your consent form or biomarker reports. Please ask your research coordinator if you want copies of the form or the report. </li>
-          <li>Your login.gov account will remain active. You can use this account toaccess other government services.</li>
+          <li>Your login.gov account will remain active. You can use this account to access other government services.</li>
           <li>NCI will keep any data stored in the Biobank website (such as your usage history, notifications, biomarker reports, and consent form). If you wish to permanently delete this data, please contact your research coordinator.</li>
         </ul>
         <Typography>Once you close your account, you will have to contact your clinical research coordinator to re-open it.</Typography>

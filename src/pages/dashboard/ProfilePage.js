@@ -130,7 +130,7 @@ const ProfilePage = (props) => {
           {([{roleName}]) => {
             return roleName === "ROLE_PPE_PARTICIPANT" && (
               <Paper className={classes.biobankInfo}>
-                <Typography className={classes.header} variant="h3" component="h3" gutterBottom>Biobank contacts</Typography>
+                <Typography className={classes.header} variant="h3" component="h3" gutterBottom>Your Biobank contacts</Typography>
 
                 {providers && <Typography className={classes.bold} gutterBottom>Doctor</Typography>}
                 {providers && providers.map((provider, i) => (

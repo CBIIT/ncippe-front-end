@@ -39,7 +39,7 @@ const TestResults = () => {
         <Box mb={3}>
           <Typography gutterBottom>Please download and save your biomarker report in your records. A copy has also been sent to your provider.</Typography>
         </Box>
-        { reports ? 
+        { reports && reports.length > 0 ? 
           reports.map((report,i) => <TestResultsItem key={i} report={report} />)
           :
           <NoItems message="You have no reports<br/> at this time." />

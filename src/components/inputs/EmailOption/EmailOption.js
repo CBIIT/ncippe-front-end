@@ -8,12 +8,16 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(2,0,1,0),
     minWidth: '200px'
   },
   formLegend: {
-    transform: 'translate(0, 1.5px) scale(0.75)',
-    transformOrigin: 'top left'
+    // transform: 'translate(0, 1.5px) scale(0.75)',
+    // transformOrigin: 'top left',
+    fontWeight: 700,
+    color: theme.palette.text.primary,
+    transform: "none",
+    marginBottom: theme.spacing(1)
   }
 }));
 

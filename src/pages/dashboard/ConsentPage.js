@@ -46,10 +46,10 @@ export default () => {
             <Box mb={3}>
               <Typography>When you signed up for the Biobank program, you signed at least one consent form. Please download and save this form in your records.</Typography>
             </Box>
-            {files ? 
+            {files && files.length > 0 ? 
               files.map((file,i) => <TestResultsItem key={i} report={file} noBadge />)
               : 
-              <NoItems message="Your consent forms are not available at this time." />
+              <NoItems message="You have no forms<br/> at this time." />
             }
           </Grid>
           <Grid item xs={12} md={6}>

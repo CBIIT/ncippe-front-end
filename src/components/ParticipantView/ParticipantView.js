@@ -202,7 +202,7 @@ const TestResults = (props) => {
               {reports && reports.map((report,i) => <Grid item xs={12} key={i}><TestResultsItem report={report} patientId={user.patientId} /></Grid>)}
             </Grid>
           ) : (
-            <NoItems message="No reports available for this participant." />
+            <NoItems message="No reports available<br /> for this participant." />
           )}
           {user && user.isActiveBiobankParticipant === false && user.questionAnswers && (
             <DeactivatedQuestions user={user} />
@@ -216,7 +216,7 @@ const TestResults = (props) => {
               {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} patientId={user.patientId} noBadge /></Grid>)}
             </Grid>
           ) : (
-            <NoItems message="No consent forms are available for this participant." />
+            <NoItems message="No consent forms available<br/> for this participant." />
           )}
         </Grid>
       </Grid>

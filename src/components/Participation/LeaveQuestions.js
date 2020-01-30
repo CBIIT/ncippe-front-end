@@ -238,7 +238,7 @@ const LeaveQuestions = (props) => {
       <Typography className={classes.gutterBottom_2}>Please guide the participant through the following questions so that we can handle their biospecimens and related information in an appropriate manner.</Typography>
       </>
       :
-      <Typography className={classes.gutterBottom_2}>Before you leave the Biobank, we need to ask youa few questions about how to handle your samples and information.</Typography>
+      <Typography className={classes.gutterBottom_2}>Before you leave the Biobank, we need to ask you a few questions about how to handle your samples and information.</Typography>
       }
       
 
@@ -341,7 +341,7 @@ const LeaveQuestions = (props) => {
           <Typography>The participant will need to speak to their doctor if they'd like to rejoin in the future.</Typography>
           </>:<>
           <Typography variant="h3" component="h3">Thank you for your participation in the Cancer Moonshot<sup>SM</sup> Biobank. Please confirm your decision to leave the Biobank.</Typography>
-          <Typography>You'll need to speak to your coordinator if you'd like to rejoin in the future.</Typography>
+          <Typography>You'll need to talk to your research coordinator if you'd like to rejoin in the future.</Typography>
           </>}
 
           {saveError && <Status state="error" title={saveError.name} message={saveError.message} />}
