@@ -200,6 +200,11 @@ export const theme = createMuiTheme({
         marginTop: '16px',
         backgroundColor: 'transparent'
       }
+    },
+    MuiDivider: {
+      root: {
+        height: '2px'
+      }
     }
   }
 });
