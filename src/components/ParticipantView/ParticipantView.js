@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { navigate } from '@reach/router'
 import { ClickAwayListener, Divider, Grid, MenuItem, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import moment from 'moment'
 
@@ -84,6 +85,7 @@ const TestResults = (props) => {
   const [uploadSuccess, setUploadSuccess] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isNewParticipant, setIsNewParticipant] = useState(false)
+  const { t } = useTranslation('a_common')
   const { trackEvent } = useTracking()
 
   useEffect(() => {
@@ -158,12 +160,12 @@ const TestResults = (props) => {
     <>
       {user && (
         <div className={classes.profile}>
-          <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt='card icon' aria-hidden="true" />
+          <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt={t('icons.user_profile')} aria-hidden="true" />
           <div className={classes.profileText}>
             <Typography className={classes.profileHeader} variant="h2" component="h2">{user.firstName} {user.lastName}</Typography>
-            {user.isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>Not participating</Typography></div>}
-            <Typography component="p"><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
-            <Typography component="p">{formatPhoneNumber(user.phoneNumber)}</Typography>
+            {user.isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>{t('badges.not_participating')}</Typography></div>}
+            <Typography><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
+            <Typography>{formatPhoneNumber(user.phoneNumber)}</Typography>
           </div>
           <LoginConsumer>
             {([{roleName}]) => {
@@ -172,14 +174,14 @@ const TestResults = (props) => {
                   <div className={classes.menuContainer}>
                     <ExpansionMenu
                       id="panel1"
-                      name="Account actions"
+                      name={t('menu.account_actions.name')}
                       className={classes.menu}
                       expanded={menuOpen}
                       handleClick={handleMenuState}
                       style="floating"
                       >
-                        <MenuItem onClick={openUploadDialog}>Upload consent form</MenuItem>
-                        {user.isActiveBiobankParticipant !== false && <MenuItem onClick={openLeaveQuestions}>Leave the Biobank</MenuItem>}
+                        <MenuItem onClick={openUploadDialog}>{t('menu.account_actions.upload_consent')}</MenuItem>
+                        {user.isActiveBiobankParticipant !== false && <MenuItem onClick={openLeaveQuestions}>{t('menu.account_actions.leave_biobank')}</MenuItem>}
                     </ExpansionMenu>
                   </div>
                 </ClickAwayListener>
@@ -187,36 +189,44 @@ const TestResults = (props) => {
             }}
           </LoginConsumer>
           {isNewParticipant &&
-            <Status state="success" title="New participant added successfully" message="This participant can now activate their online Biobank account. You can add additional consent forms under account actions." />
+            <Status state="success" 
+              title={t('components.participantView.status.added.title')} 
+              message={t('components.participantView.status.added.message')} />
           }
         </div>
       )}
-      {user && user.isActiveBiobankParticipant === false && <Status state="info" fullWidth title="This participant has left the Biobank." message={`The participant left the Biobank on ${moment(user.dateDeactivated).format("MMM DD, YYYY")}. They will need to talk to their research coordinator to rejoin.`} />}
+      {user && user.isActiveBiobankParticipant === false && <Status state="info" fullWidth 
+        title={t('components.participantView.status.info.title')} 
+        message={t('components.participantView.status.info.message', {date:moment(user.dateDeactivated).format("MMM DD, YYYY")})} />
+      }
 
       <Divider className={classes.divider} />
       <Grid container spacing={3}>
         <Grid item xs={12} md={6} id="reports">
-          <Typography className={classes.header} variant="h2" component="h2">Biomarker tests</Typography>
+          <Typography className={classes.header} variant="h2" component="h2">{t('components.biomarkerView.pageTitle')} </Typography>
           {reports && reports.length > 0 ? (
             <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
               {reports && reports.map((report,i) => <Grid item xs={12} key={i}><TestResultsItem report={report} patientId={user.patientId} /></Grid>)}
             </Grid>
           ) : (
-            <NoItems message="No reports available<br /> for this participant." />
+            <NoItems message={t('components.biomarkerView.no_results.admin')} />
           )}
           {user && user.isActiveBiobankParticipant === false && user.questionAnswers && (
             <DeactivatedQuestions user={user} />
           )}
         </Grid>
         <Grid item xs={12} md={6} id="eConsentForms">
-          <Typography className={classes.header} variant="h2" component="h2">Consent forms</Typography>
-          {uploadSuccess && <Status state="success" title="Consent form uploaded successfully" message="We sent an email to let the participant know." />}
+          <Typography className={classes.header} variant="h2" component="h2">{t('components.biomarkerView.pageTitle')}</Typography>
+          {uploadSuccess && <Status state="success" 
+            title={t('components.participantView.status.uploaded.title')}
+            message={t('components.participantView.status.uploaded.message')} />
+          }
           {files && files.length > 0 ? (
             <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
               {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} patientId={user.patientId} noBadge /></Grid>)}
             </Grid>
           ) : (
-            <NoItems message="No consent forms available<br/> for this participant." />
+            <NoItems message={t('components.consentView.no_results.admin')} />
           )}
         </Grid>
       </Grid>

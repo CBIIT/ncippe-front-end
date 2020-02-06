@@ -3,7 +3,7 @@ import { Badge, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from '@reach/router' 
 import moment from 'moment'
-
+import { useTranslation } from 'react-i18next'
 import ConditionalWrapper from '../utils/ConditionalWrapper'
 
 
@@ -59,6 +59,7 @@ const PatientListItem = (props) => {
     isActiveBiobankParticipant,
     portalAccountStatus} = props.patient
   const classes = useStyles()
+  const { t } = useTranslation('a_common')
   const handleClick = (event) => {
     if (portalAccountStatus === 'ACCT_NEW') {
       event.preventDefault()
@@ -71,15 +72,15 @@ const PatientListItem = (props) => {
       <Paper className={`${classes.paper} ${portalAccountStatus === 'ACCT_NEW' && classes.new}`}>
         {(hasNewReports || isActiveBiobankParticipant === false || portalAccountStatus === 'ACCT_NEW') && 
         <div className={classes.badges}>
-          {hasNewReports && <Badge className={classes.badge} badgeContent="New Document" />}
-          {isActiveBiobankParticipant === false && <Badge className={classes.badge} color="error" badgeContent="Not participating" />}
-          {portalAccountStatus === 'ACCT_NEW' && <Badge className={classes.newBadge} badgeContent="New Participant" />}
+          {hasNewReports && <Badge className={classes.badge} badgeContent={t('badges.new_document')} />}
+          {isActiveBiobankParticipant === false && <Badge className={classes.badge} color="error" badgeContent={t('badges.not_participating')} />}
+          {portalAccountStatus === 'ACCT_NEW' && <Badge className={classes.newBadge} badgeContent={t('badges.new_participant')} />}
         </div>
         }
         <Typography className={classes.name} variant="h3" component="h3">{
-          firstName ? `${firstName} ${lastName}` : `Participant ID: ${patientId}`
+          firstName ? `${firstName} ${lastName}` : `${t('participant.id')}: ${patientId}`
         }</Typography>
-        <Typography>Participant since {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
+        <Typography>{t('participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
       </Paper>
     </Link>
   )

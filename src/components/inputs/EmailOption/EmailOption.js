@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import Checkbox from '@material-ui/core/Checkbox';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import React, { useEffect, useState } from 'react'
+import Checkbox from '@material-ui/core/Checkbox'
+import PropTypes from 'prop-types'
+import { FormControl, FormLabel, FormControlLabel } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -24,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 const EmailOption = (props) => {
   const {value, editMode, onClick} = props
   const classes = useStyles()
+  const { t } = useTranslation('a_accountSettings')
   const [checked, setChecked] = useState(value)
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const EmailOption = (props) => {
       <FormLabel 
       htmlFor="notifications-input" 
       component="legend" 
-      className={classes.formLegend}>Notification settings</FormLabel>
+      className={classes.formLegend}>{t('profile.notifications.title')}</FormLabel>
       {editMode ? (
         <FormControlLabel
           control={
@@ -54,11 +54,11 @@ const EmailOption = (props) => {
             checked={checked} 
             onChange={handleChange} />
           }
-          label="Send email notifications (recommended)"
+          label={t('profile.notifications.edit_label')}
           labelPlacement="end"
         />
       ) : (
-        <span>Notifications {checked ? "on" : "off"}</span>
+        <span>{t('profile.notifications.label')} {checked ? t('profile.notifications.on') : t('profile.notifications.off')}</span>
       )}
     </FormControl>
   )

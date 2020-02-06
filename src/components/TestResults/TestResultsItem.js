@@ -5,6 +5,7 @@ import {
   GetApp as GetAppIcon,
   Launch as LaunchIcon
 } from '@material-ui/icons'
+import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import moment from 'moment'
 
@@ -60,6 +61,7 @@ const TestResultsItem = (props) => {
   const {uuid, token} = loginContext
   const {fileName, dateUploaded, fileGUID} = report
   const [isNewReport, setIsNewReport] = useState(report.viewedBy ? !report.viewedBy.includes(uuid) : true)
+  const { t } = useTranslation('a_common')
   const { trackEvent } = useTracking()
 
   // response header example to parse
@@ -196,14 +198,14 @@ const TestResultsItem = (props) => {
     <Card className={classes.card}>
       <ConditionalWrapper
         condition={noBadge ? false : isNewReport}
-        wrapper={children => <Badge className={classes.badge} badgeContent="new document" component="div">{children}</Badge>}>
+        wrapper={children => <Badge className={classes.badge} badgeContent={t('badges.new_document')} component="div">{children}</Badge>}>
         <CardContent>
           <Typography className={classes.fileTitle} variant="h3" component="h3">{fileName}</Typography>
-          <Typography>Uploaded {moment(dateUploaded).format("MMM DD, YYYY")}</Typography>
+          <Typography>{t('components.testResultItem.uploaded')} {moment(dateUploaded).format("MMM DD, YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
-          <Button color="primary" variant="text" data-reportid={fileGUID} onClick={handleViewReport}><LaunchIcon className={classes.icon} /> View</Button>
-          <Button color="primary" variant="text" data-download data-reportid={fileGUID} onClick={handleViewReport}><GetAppIcon className={classes.icon}  /> Download</Button>
+          <Button color="primary" variant="text" data-reportid={fileGUID} onClick={handleViewReport}><LaunchIcon className={classes.icon} /> {t('buttons.view')}</Button>
+          <Button color="primary" variant="text" data-download data-reportid={fileGUID} onClick={handleViewReport}><GetAppIcon className={classes.icon}  /> {t('buttons.download')}</Button>
         </CardActions>
       </ConditionalWrapper>
     </Card>

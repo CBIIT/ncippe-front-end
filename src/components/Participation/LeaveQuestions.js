@@ -4,6 +4,7 @@ import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { Clear as ClearIcon } from '@material-ui/icons'
+import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 
 import { LoginContext } from '../login/Login.context'
@@ -11,6 +12,7 @@ import { LoginContext } from '../login/Login.context'
 import getAPI from '../../data'
 import InputGroupError from '../inputs/InputGroupError/InputGroupError'
 import Status from '../Status/Status'
+import RenderContent from '../utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
   header: {
@@ -66,6 +68,7 @@ const useStyles = makeStyles( theme => ({
 const LeaveQuestions = (props) => {
   const {location: {state: {user}},cancel} = props
   const classes = useStyles()
+  const { t } = useTranslation(['a_changeParticipation','a_common'])
   const { trackEvent } = useTracking()
   const [loginContext, dispatch] = useContext(LoginContext)
   const [questionData, setQuestionData] = useState({})
@@ -231,25 +234,25 @@ const LeaveQuestions = (props) => {
 
   return (
     <Box>
-      <Typography className={classes.header} variant="h1" component="h1">Leave the Biobank</Typography>
+      <Typography className={classes.header} variant="h1" component="h1">{t('leave.1.pageTitle')}</Typography>
       {user ? 
       <>
-      <Typography variant="h2" component="h2">This will end {user.firstName} {user.lastName}'s participation</Typography>
-      <Typography className={classes.gutterBottom_2}>Please guide the participant through the following questions so that we can handle their biospecimens and related information in an appropriate manner.</Typography>
+      <Typography variant="h2" component="h2">{t('leave.1.subtitle.admin',{firstName:user.firstName,lastName:user.lastName})}</Typography>
+      <Typography className={classes.gutterBottom_2}>{t('leave.1.description.admin')}</Typography>
       </>
       :
-      <Typography className={classes.gutterBottom_2}>Before you leave the Biobank, we need to ask you a few questions about how to handle your samples and information.</Typography>
+      <Typography className={classes.gutterBottom_2}>{t('leave.1.description.participant')}</Typography>
       }
       
 
       <Typography id="q1-text" variant="h3" gutterBottom>{ user ? 
-        "May we continue to share the participant’s previously donated blood and tissue as well as relevant medical information with researchers?"
-        :
-        "May we continue to share the samples and medical information we already collected with researchers?"
+        t('leave.1.form.questions.0.question.admin'):t('leave.1.form.questions.0.question.participant')
       }</Typography>
-      <Typography className={classes.dim}>Unfortunately, we can't get back samples and information that have already been shared.</Typography>
+      <Typography className={classes.dim}>{ user ? 
+        t('leave.1.form.questions.0.helper_text.admin'):t('leave.1.form.questions.0.helper_text.participant')
+      }</Typography>
       <FormControl component="fieldset" className={classes.formControl}>
-        <InputGroupError error={q1Error} errorMessage="You must complete this field">
+        <InputGroupError error={q1Error} errorMessage={t('leave.1.form.error')}>
           <ToggleButtonGroup
             id="q1"
             className={classes.toggleButtonGroup}
@@ -257,20 +260,20 @@ const LeaveQuestions = (props) => {
             exclusive
             onChange={changeQuestion}
           >
-            <ToggleButton value="Yes">Yes</ToggleButton>
-            <ToggleButton value="No">No</ToggleButton>
+            <ToggleButton value="Yes">{t('a_common:buttons.yes')}</ToggleButton>
+            <ToggleButton value="No">{t('a_common:buttons.no')}</ToggleButton>
           </ToggleButtonGroup>
         </InputGroupError>
       </FormControl>
 
       <Typography id="q2-text" variant="h3">{user ?
-        "May we continue to access the participant’s medical record for research purposes?"
-        :
-        "May we continue to use the information in your medical record for research?"
+        t('leave.1.form.questions.1.question.admin'):t('leave.1.form.questions.1.question.participant')
       }</Typography>
-      <Typography className={classes.dim}>We may collect information from {user ? "the participant's" : "your"} medical record for 10 years or longer. This may include information about {user ? "their" : "your"} diagnosis and past treatments. {user ? "They" : "You"} may opt out at any time.</Typography>
+      <Typography className={classes.dim}>{user ?
+        t('leave.1.form.questions.1.helper_text.admin'):t('leave.1.form.questions.1.helper_text.participant')
+      }</Typography>
       <FormControl component="fieldset" className={classes.formControl}>
-        <InputGroupError error={q2Error} errorMessage="You must complete this field">
+        <InputGroupError error={q2Error} errorMessage={t('leave.1.form.error')}>
           <ToggleButtonGroup
             id="q2"
             className={classes.toggleButtonGroup}
@@ -278,20 +281,20 @@ const LeaveQuestions = (props) => {
             exclusive
             onChange={changeQuestion}
           >
-            <ToggleButton value="Yes">Yes</ToggleButton>
-            <ToggleButton value="No">No</ToggleButton>
+            <ToggleButton value="Yes">{t('a_common:buttons.yes')}</ToggleButton>
+            <ToggleButton value="No">{t('a_common:buttons.no')}</ToggleButton>
           </ToggleButtonGroup>
         </InputGroupError>
       </FormControl>
       
-      <Typography id="q3-text" variant="h3">Would {user ? "the participant" : "you"} like us to contact {user ? "them" : "you"} to talk about leaving the program and answer any questions {user ? "they" : "you"} may have?</Typography>
+      <Typography id="q3-text" variant="h3">{user ?
+        t('leave.1.form.questions.2.question.admin'):t('leave.1.form.questions.2.question.participant')
+      }</Typography>
       <Typography className={classes.dim}>{user ? 
-        "If they select yes, you or another research coordinator will call them."
-        :
-        "If you select yes, your research coordinator will call you."
+        t('leave.1.form.questions.1.helper_text.admin'):t('leave.1.form.questions.1.helper_text.participant')
       }</Typography>
       <FormControl component="fieldset" className={classes.formControl}>
-        <InputGroupError error={q3Error} errorMessage="You must complete this field">
+        <InputGroupError error={q3Error} errorMessage={t('leave.1.form.error')}>
           <ToggleButtonGroup
             id="q3"
             className={classes.toggleButtonGroup}
@@ -299,24 +302,28 @@ const LeaveQuestions = (props) => {
             exclusive
             onChange={changeQuestion}
           >
-            <ToggleButton value="Yes">Yes</ToggleButton>
-            <ToggleButton value="No">No</ToggleButton>
+            <ToggleButton value="Yes">{t('a_common:buttons.yes')}</ToggleButton>
+            <ToggleButton value="No">{t('a_common:buttons.no')}</ToggleButton>
           </ToggleButtonGroup>
         </InputGroupError>
       </FormControl>
 
-      <Typography id="q4-text" variant="h3">Why {user ? "does the participant" : "do you"} want to leave the Biobank?</Typography>
-      <Typography className={classes.dim}>Telling us why {user ? "they are" : "you're"} leaving will help us improve the program for future participants.</Typography>
+      <Typography id="q4-text" variant="h3">{user ?
+        t('leave.1.form.questions.3.question.admin'):t('leave.1.form.questions.3.question.participant')
+      }</Typography>
+      <Typography className={classes.dim}>{user ? 
+        t('leave.1.form.questions.3.helper_text.admin'):t('leave.1.form.questions.3.helper_text.participant')
+      }</Typography>
       <FormControl component="fieldset" className={classes.textFieldFormControl}>
         <TextField
           id="q4"
-          label="Reason for leaving (optional)"
+          label={t('leave.1.form.questions.3.textfield.label')}
           multiline
           rows="6"
           className={classes.textField}
           margin="normal"
           variant="outlined"
-          helperText="1000 character limit"
+          helperText={t('leave.1.form.questions.3.textfield.helper_text')}
           inputProps={{
             maxLength: 1000,
           }}
@@ -325,8 +332,8 @@ const LeaveQuestions = (props) => {
       </FormControl>
 
       <div className={classes.formButtons}>
-        <Button variant="contained" color="primary" onClick={handleNextStep}>Leave the Biobank</Button>
-        <Button className={classes.btnCancel} variant="text" onClick={cancel}><ClearIcon />Cancel</Button>
+        <Button variant="contained" color="primary" onClick={handleNextStep}>{t('leave.1.submit')}</Button>
+        <Button className={classes.btnCancel} variant="text" onClick={cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </div>
 
       <Dialog
@@ -337,19 +344,19 @@ const LeaveQuestions = (props) => {
       >
         <DialogContent>
           { user ? <>
-          <Typography variant="h3" component="h3">Please confirm that {user.firstName} {user.lastName} is leaving the Biobank.</Typography>
-          <Typography>The participant will need to speak to their doctor if they'd like to rejoin in the future.</Typography>
+            <Typography variant="h3" component="h3">{t('leave.2.modalTitle.admin',{user:`${user.firstName} ${user.lastName}`})}</Typography>
+            <Typography>{t('leave.2.body.admin')}</Typography>
           </>:<>
-          <Typography variant="h3" component="h3">Thank you for your participation in the Cancer Moonshot<sup>SM</sup> Biobank. Please confirm your decision to leave the Biobank.</Typography>
-          <Typography>You'll need to talk to your research coordinator if you'd like to rejoin in the future.</Typography>
+            <Typography variant="h3" component="h3"><RenderContent source={t('leave.2.modalTitle.participant')} /></Typography>
+            <Typography>{t('leave.2.body.participant')}</Typography>
           </>}
 
           {saveError && <Status state="error" title={saveError.name} message={saveError.message} />}
 
         </DialogContent>
         <DialogActions>
-          <Button className={classes.confirm} onClick={handleSubmit} variant="contained">Confirm</Button>
-          <Button variant="text" className={classes.btnCancel} onClick={handleClose}><ClearIcon />Cancel</Button>
+          <Button className={classes.confirm} onClick={handleSubmit} variant="contained">{t('leave.2.submit')}</Button>
+          <Button variant="text" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
         </DialogActions>
       </Dialog>
     </Box>

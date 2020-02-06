@@ -27,7 +27,7 @@ const NoItems = (props) => {
   return (
     <Grid container className={classes.statusGrid}>
       <Grid item>
-        <img className={classes.statusIcon} src={`/${process.env.PUBLIC_URL}assets/icons/empty-folder.svg`} alt='patient icon' aria-hidden="true"></img>
+        <img className={classes.statusIcon} src={`/${process.env.PUBLIC_URL}assets/icons/empty-folder.svg`} alt='empty folder icon' aria-hidden="true"></img>
       </Grid>
       <Grid item>
         <Typography className={classes.statusText}><RenderContent source={message} /></Typography>

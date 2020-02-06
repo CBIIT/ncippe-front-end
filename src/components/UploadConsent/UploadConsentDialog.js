@@ -3,6 +3,7 @@ import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogT
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
+import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 
 // import { api } from '../../data/api'
@@ -58,6 +59,7 @@ const UploadConcentDialog = (props) => {
   const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState(formDataDefaults)
   const [activeStep, setActiveStep] = useState(0)
+  const { t } = useTranslation(['a_uploadConsent','a_common'])
   const { trackEvent } = useTracking()
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
@@ -168,8 +170,6 @@ const UploadConcentDialog = (props) => {
   const handleSubmit = (e) => {
     if(activeStep === 0) {
       uploadFile()
-    } else {
-
     }
   }
 
@@ -181,11 +181,11 @@ const UploadConcentDialog = (props) => {
       aria-labelledby="responsive-dialog-title"
       className={classes.dialog}
     >
-      <DialogTitle id="responsive-dialog-title" disableTypography><Typography variant="h3" component="h3">Upload a consent form</Typography></DialogTitle>
+      <DialogTitle id="responsive-dialog-title" disableTypography><Typography variant="h3" component="h3">{t('title')}</Typography></DialogTitle>
       <DialogContent>
       {activeStep === 0 && (
         <>
-        <Typography>Once you complete this upload, the participant will be able to view and download this consent form.</Typography>
+        <Typography>{t('description')}</Typography>
         {formData.file && formData.file.name && (
           <FileItem file={formData.file} onRemove={handleRemoveFile} />
         )}
@@ -198,23 +198,23 @@ const UploadConcentDialog = (props) => {
         />
         {!formData.file && (
           <label htmlFor="upload-file">
-            <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">Select a file to upload</Button>
+            <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">{t('upload.0.button_select')}</Button>
           </label>
         )}
-        {formData.uploadError && <Status state="error" title="File failed to upload" message="We're sorry, something went wrong. Please remove the file and try to upload the form again." />}
+        {formData.uploadError && <Status state="error" title={t('upload.0.error.title')} message={t('upload.0.error.message')} />}
         </>
       )}
       {activeStep === 1 && (
         <>
         <CircularProgress className={classes.progress} size={70} />
-        <Typography className={classes.titleUploading} variant="h6">Uploading file...</Typography>
+        <Typography className={classes.titleUploading} variant="h6">{t('upload.1.progress')}</Typography>
         {/* <img src={`/${process.env.PUBLIC_URL}assets/images/spinner-dna.svg`} className={classes.spinner} alt="Loading..." /> */}
         </>
       )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSubmit} color="primary" variant="contained">Submit</Button>
-        <Button variant="text" className={classes.btnCancel} onClick={handleClose}><ClearIcon />Cancel</Button>
+        <Button onClick={handleSubmit} color="primary" variant="contained">{t('a_common:buttons.submit')}</Button>
+        <Button variant="text" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>
   )

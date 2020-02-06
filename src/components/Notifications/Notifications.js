@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
-import { Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import { useTranslation } from 'react-i18next'
 
 import { LoginContext } from '../login/Login.context'
 // import { api } from '../../data/api'
@@ -25,6 +26,7 @@ const Notifications = () => {
   const [loginContext, dispatch] = useContext(LoginContext)
   const { notifications } = loginContext
   const count = notifications ? notifications.length : 0
+  const { t } = useTranslation('a_common')
 
   useEffect(() => {
     //mark notifications as read on unmount
@@ -53,13 +55,13 @@ const Notifications = () => {
 
   return <>
     <div className={classes.titleWithIcon}>
-      <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/notifications.svg`} alt='notification icon' aria-hidden="true"></img>
-      <Typography variant="h2" component="h2">You have {count} Notification{count !== 1 ? 's' : ''}</Typography>
+      <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/notifications.svg`} alt={t('a_common:icons.notifications')} aria-hidden="true"></img>
+      <Typography variant="h2" component="h2">{t('components.notificationView.pageTitle', {count,s:count !== 1 ? t('a_common:pluralizer') : ''})}</Typography>
     </div>
     {count ? 
       notifications.map((item, i) => <NotificationItem key={i} notification={item} />)
       :
-      <Typography variant="h6" className={classes.header}>You do not have any notifications.</Typography>
+      <Typography variant="h6" className={classes.header}>{t('components.notificationView.no_results')}</Typography>
     }
   </>
 }

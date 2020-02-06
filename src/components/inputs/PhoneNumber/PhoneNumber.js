@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import MaskedInput from 'react-text-mask';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react'
+import MaskedInput from 'react-text-mask'
+import PropTypes from 'prop-types'
+import { makeStyles } from '@material-ui/core/styles'
 import { FormControl, FormHelperText, Input, InputLabel} from '@material-ui/core'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -24,7 +25,7 @@ const selectAfterUserInput = (event) => {
   let placeholder = '\u2000';
   let i = input.value.indexOf(placeholder)
   if (i === -1) { i = input.value.length; }
-  setTimeout(function() { input.setSelectionRange(i, i); }, 0);
+  setTimeout(function() { input.setSelectionRange(i, i); }, 0)
 }
 
 const TextMaskCustom = (props) => {
@@ -49,7 +50,8 @@ TextMaskCustom.propTypes = {
 
 const PhoneNumber = (props) => {
   const { value, editMode, error = false, onChange } = props
-  const classes = useStyles();
+  const classes = useStyles()
+  const { t } = useTranslation('a_accountSettings')
   const [phoneNum, setPhoneNum] = useState({
     textmask: value || '(   )    -    '
   });
@@ -79,7 +81,7 @@ const PhoneNumber = (props) => {
         error={error}
         className={classes.label}
       >
-        Phone number (optional)
+        {t('profile.phone.title')}
       </InputLabel>
       <Input
         error={error}
@@ -90,7 +92,7 @@ const PhoneNumber = (props) => {
         variant="outlined"
         readOnly={!editMode}
         />
-      {editMode && <FormHelperText>Enter your preferred contact number.</FormHelperText>}
+      {editMode && <FormHelperText>{t('profile.phone.helper_text')}</FormHelperText>}
     </FormControl>
   )
 }

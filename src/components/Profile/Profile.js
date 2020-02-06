@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
 
-import { FormControl, Input, InputLabel, TextField, Paper, Typography, Button} from '@material-ui/core'
+import { FormControl, Input, InputLabel, Paper, Typography, Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from '@material-ui/icons/Edit'
+import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 
 import { LoginContext } from '../../components/login/Login.context'
@@ -57,6 +58,7 @@ const Profile = () => {
   const [errorPhone, setErrorPhone] = useState(false)
   const [userPhone, setUserPhone] = useState(loginContext.phoneNumber)
   const [userOptIn, setUserOptIn] = useState(loginContext.allowEmailNotification)
+  const { t } = useTranslation(['a_accountSettings','a_common'])
   const { trackEvent } = useTracking()
 
 
@@ -141,11 +143,11 @@ const Profile = () => {
             color="primary"
             onClick={toggleEditMode}
           >
-            <EditIcon/> Edit
+            <EditIcon/> {t('a_common:buttons.edit')}
           </Button>
         )}
         <Typography variant="h3" component="h3" gutterBottom>
-        Your contact information
+        {t('profile.title')}
         </Typography>
         <FormControl className={classes.formControl} margin="normal">
           <InputLabel 
@@ -153,11 +155,11 @@ const Profile = () => {
             shrink
             className={classes.label}
           >
-            Email
+            {t('profile.email')}
           </InputLabel>
           <Input
             id="email-input"
-            placeholder="email"
+            placeholder={t('profile.email')}
             value={loginContext.email}
             readOnly={true}
             disabled
@@ -167,8 +169,8 @@ const Profile = () => {
         <EmailOption value={userOptIn} editMode={editMode} onClick={updateEmailOption} />
         {editMode && (
           <FormControl className={`${classes.formControl} ${classes.cta}`} >
-            <Button type="submit" variant="contained" color="primary">Save</Button>
-            <Button className={classes.btnCancel} variant="text" onClick={cancelEdit} color="primary">Cancel</Button>
+            <Button type="submit" variant="contained" color="primary">{t('a_common:buttons.save')}</Button>
+            <Button className={classes.btnCancel} variant="text" onClick={cancelEdit} color="primary">{t('a_common:buttons.cancel')}</Button>
           </FormControl>
         )}
       </form>

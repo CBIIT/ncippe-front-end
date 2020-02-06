@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Container, Divider, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
+import { useTranslation } from 'react-i18next'
 
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
 import ArticleImage from '../../components/utils/ArticleImage'
@@ -38,35 +39,36 @@ const useStyles = makeStyles(theme => ({
 
 export default () => {
   const classes = useStyles()
+  const { t } = useTranslation(['a_help','a_common'])
   return (
     <Box className="popup">
       <Breadcrumbs pageName="Get Help" />
       <Container className="mainContainer">
         <div className={classes.titleWithIcon}>
-          <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/get-help.svg`} alt='patient icon' aria-hidden="true"></img>
-          <Typography variant="h2" component="h2">Get help</Typography>
+          <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/get-help.svg`} alt={t('a_common:icons.help')} aria-hidden="true"></img>
+          <Typography variant="h2" component="h2">{t('pageTitle')}</Typography>
         </div>
-        <Typography>If you have additional questions about the Biobank or your participation, contact your research coordinator. </Typography>
+        <Typography>{t('description')} </Typography>
         <Box mt={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
-              <Typography paragraph={true} variant="h3" component="h3">Close your online Biobank account</Typography>
-              <Typography paragraph={true}>Closing your online Biobank account means you will still be a participant in the Biobank, but you won't be able to directly download your biomarker test reports or signed consent forms or receive other communications through the online account. You can still get copies of your reports and consent forms from your provider or research coordinator.</Typography>
+              <Typography paragraph={true} variant="h3" component="h3">{t('sections.0.title')}</Typography>
+              <Typography paragraph={true}>{t('sections.0.body')}</Typography>
 
-              <Typography paragraph={true} variant="h3" component="h3">Leave the Biobank</Typography>
-              <Typography paragraph={true}>Leaving the Biobank means you'll stop donating blood and tissue samples. When you leave, you can choose if you want previously donated samples to continue to be shared, or if samples in storage should be destroyed. If samples have already been sent to researchers, we may not be able to get them back.</Typography>
+              <Typography paragraph={true} variant="h3" component="h3">{t('sections.1.title')}</Typography>
+              <Typography paragraph={true}>{t('sections.1.body')}</Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <ArticleImage src="tablet.jpg" alt="tablet computer" />
+              <ArticleImage src="tablet.jpg" alt={t('sections.1.alt_text')} />
             </Grid>
           </Grid>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
-              <Typography paragraph={true} variant="h3" component="h3">Changing doctors or hospitals</Typography>
-              <Typography paragraph={true}>If you change to a different doctor or hospital, and they are not participating in the Biobank, you may not be able to donate any more samples. Samples you have already donated will stay in the Biobank and be used for research unless you request they be destroyed.</Typography>
+              <Typography paragraph={true} variant="h3" component="h3">{t('sections.2.title')}</Typography>
+              <Typography paragraph={true}>{t('sections.2.body')}</Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6}>
-              <ArticleImage src="hospital-building.jpg" alt="hospital building" />
+              <ArticleImage src="hospital-building.jpg" alt={t('sections.2.alt_text')} />
             </Grid>
           </Grid>
         </Box>

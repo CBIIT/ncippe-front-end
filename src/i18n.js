@@ -19,6 +19,26 @@ i18n
     //   // for all available options read the backend's repository readme file
     //   loadPath: '/locales/{{lng}}/{{ns}}.json'
     // },
+    // setup backend to look for subfolders withing languages
+    // turning off since BabelEdit does not detect subfolders either. Seems the paradigm is a flat file structures withing the language folders
+    // backend: {
+    //   // for all available options read the backend's repository readme file
+    //   loadPath: (lng,ns) => {
+    //     return ns.map(name => {
+    //       // 'a_' prefix indicates an 'account' file 
+    //       if(name.match('a_')){
+    //         return `/locales/${lng}/account/${name.split('_')[1]}.json`
+    //       }
+    //       // 'c_' prefix indicates an 'component' file
+    //       else if(name.match('c_')){
+    //         return `/locales/${lng}/components/${name.split('_')[1]}.json`
+    //       }
+    //       else {
+    //         return `/locales/${lng}/${name}.json`
+    //       }
+    //     })
+    //   }
+    // },
     // react: {
     //   useSuspense: true
     // },
