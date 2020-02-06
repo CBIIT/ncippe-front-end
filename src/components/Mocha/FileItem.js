@@ -6,6 +6,7 @@ import {
 } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles( theme => ({
   fileToUpload: {
@@ -34,6 +35,7 @@ const useStyles = makeStyles( theme => ({
 const FileItem = (props) => {
   const {file,onRemove} = props
   const classes = useStyles()
+  const { t } = useTranslation('a_common')
 
   const handleRemoveFile = (e) => {
     onRemove()
@@ -47,9 +49,9 @@ const FileItem = (props) => {
         </Grid>
         <Grid item className={classes.fileToUpload_content}>
           <Typography className={classes.fileToUpload_title}>{file.name}</Typography>
-          <Typography>Last modified: {moment(file.lastModified).format("MMM DD, YYYY")}</Typography>
+          <Typography>{t('components.fileItem.last_modified')}: {moment(file.lastModified).format("MMM DD, YYYY")}</Typography>
         </Grid>
-        <Grid item className={classes.fileToUpload_clear}><IconButton aria-label="remove file" onClick={handleRemoveFile}><ClearIcon /></IconButton></Grid>
+        <Grid item className={classes.fileToUpload_clear}><IconButton aria-label={t('aria.remove_file')} onClick={handleRemoveFile}><ClearIcon /></IconButton></Grid>
       </Grid>
     </Paper>
   )

@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { 
   Clear as ClearIcon
 } from '@material-ui/icons'
+import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 
 // import { api } from '../../data/api'
@@ -13,7 +14,6 @@ import UploadStepper from './UploadStepper'
 import FileItem from './FileItem'
 import { isValidUserId } from '../../utils/utils'
 import Status from '../Status/Status'
-// import ToggleEnvButton from '../login/ToggleEnvButton'
 
 const useStyles = makeStyles( theme => ({
   paper: {
@@ -70,6 +70,7 @@ const UploadReport = () => {
   const [activeStep, setActiveStep] = useState(0)
   const [patientData, setPatientData] = useState(patientDataDefaults)
   const [loginContext] = useContext(LoginContext)
+  const { t } = useTranslation(['a_landingMocha','a_common'])
   const { trackEvent } = useTracking()
 
   // controlled text input
@@ -259,8 +260,8 @@ const UploadReport = () => {
   return (
     <div className={classes.root}>
       <Box mb={5}>
-        <Typography variant="h2" component="h2">Upload Biomarker test reports</Typography>
-        <Typography>Once you upload a report, you will associate it with a participant. At that point, the participant, their providers, and their research coordinators will be able to view and download the report.Enter the ID of the participant associated with this report.</Typography>
+        <Typography variant="h2" component="h2">{t('title')}</Typography>
+        <Typography>{t('description')}</Typography>
       </Box>
       <Paper className={classes.paper}>
         <UploadStepper activeStep={activeStep} />
@@ -270,26 +271,26 @@ const UploadReport = () => {
 
         {activeStep === 0 && (
           <>
-          <Typography variant="h6">Enter the ID of the participant associated with this report.</Typography>
+          <Typography variant="h6">{t('upload.0.form_title')}</Typography>
           <TextField
             error={patientData.error}
             required
             id="patientId-required"
-            label="Input Participant ID"
+            label={t('upload.0.input_label')}
             className={classes.textField}
             margin="normal"
             variant="outlined"
-            helperText={patientData.error ? "Please enter a valid 8 character Participant ID" : "This number is on the top of the report"}
+            helperText={patientData.error ? t('upload.0.input_error') : t('upload.0.input_helper_text')}
             onChange={handlePatientId}
             value={patientData.patientId}
             inputProps={{
               maxLength: 20,
             }}
           />
-          {patientData.notFound && <Status state="error" title="This participant is not in the system" message="Please double check the Participant ID on the hard copy of the report and re-enter it above. If this problem persists, contact the system administrator." />}
+          {patientData.notFound && <Status state="error" title={t('upload.0.error.title')} message={t('upload.0.error.message')} />}
           <div className={classes.formButtons}>
-              <Button variant="contained" color="primary" onClick={handleFormSubmit}>Next</Button>
-              <Button variant="text" className={classes.btnClear} onClick={goBack}><ClearIcon />Cancel</Button>
+              <Button variant="contained" color="primary" onClick={handleFormSubmit}>{t('a_common:buttons.next')}</Button>
+              <Button variant="text" className={classes.btnClear} onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
           </div>
           </>
         )}
@@ -297,8 +298,8 @@ const UploadReport = () => {
 
         {activeStep === 1 && (
           <>
-          <Typography variant="h2" component="h2">Participant: {patientData.firstName} {patientData.lastName}</Typography>
-          <Typography variant="h3">Select a report to upload</Typography>
+          <Typography variant="h2" component="h2">{t('upload.1.form_title')}: {patientData.firstName} {patientData.lastName}</Typography>
+          <Typography variant="h3">{t('upload.1.form_subtitle')}</Typography>
           {formData.reportFile && formData.reportFile.name && (
             <FileItem file={formData.reportFile} onRemove={handleRemoveFile} />
           )}
@@ -312,14 +313,14 @@ const UploadReport = () => {
           />
           {!formData.reportFile && (
             <label htmlFor="report-upload-file">
-              <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">Select a report</Button>
+              <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">{t('upload.1.button_select')}</Button>
             </label>
           )}
-          {formData.uploadError && <Status state="error" title="Report failed to upload" message="We're sorry, something went wrong. Please remove the file and try to upload the report again." />}
+          {formData.uploadError && <Status state="error" title={t('upload.1.error.title')} message={t('upload.1.error.message')} />}
 
           <div className={classes.formButtons}>
-            <Button variant="contained" color="primary" onClick={handleFormSubmit} disabled={!formData.reportFile}>Submit</Button>
-            <Button variant="text" className={classes.buttonClear} onClick={goBack}><ClearIcon />Cancel</Button>
+            <Button variant="contained" color="primary" onClick={handleFormSubmit} disabled={!formData.reportFile}>{t('a_common:buttons.submit')}</Button>
+            <Button variant="text" className={classes.buttonClear} onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
           </div>
           </>
         )}
@@ -327,22 +328,19 @@ const UploadReport = () => {
         {activeStep === 2 && (
           <>
           <CircularProgress className={classes.progress} size={70} />
-          <Typography className={classes.titleUploading} variant="h6">Uploading report...</Typography>
+          <Typography className={classes.titleUploading} variant="h6">{t('upload.2.progress')}</Typography>
           {/* <img src={`/${process.env.PUBLIC_URL}assets/images/spinner-dna.svg`} className={classes.spinner} alt="Loading..." /> */}
           </>
         )}
 
         {activeStep === 3 && (
           <>
-          <Status state="success" title="Biomarker report uploaded successfully!" message="We sent an email to let the participant, their providers, and their research coordinator know. " />
+          <Status state="success" title={t('upload.3.success.title')} message={t('upload.3.success.message')} />
           <div className={classes.formButtons}>
-            <Button variant="contained" color="primary" onClick={resetForm}>Upload another report</Button>
+            <Button variant="contained" color="primary" onClick={resetForm}>{t('upload.3.success.button_reset')}</Button>
           </div>
           </>
         )}
-
-        {/* <ToggleEnvButton /> */}
-          
         </form>
       </Paper>
     </div>

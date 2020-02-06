@@ -3,6 +3,7 @@ import { Link } from '@reach/router'
 import { Badge, Card, CardContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { KeyboardArrowRight as KeyboardArrowRightIcon } from '@material-ui/icons'
+import { useTranslation } from 'react-i18next'
 
 import ConditionalWrapper from '../utils/ConditionalWrapper'
 import RenderContent from '../utils/RenderContent'
@@ -60,7 +61,8 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const IconCard = (props) => {
-  const {icon, title, altText, desc, link, linkText, count = 0, badgeText = 'new', cardClick} = props
+  const { t } = useTranslation('a_common')
+  const {icon, title, altText, desc, link, linkText, count = 0, badgeText = t('badges.new'), cardClick} = props
   const classes = useStyles()
 
   const handleClick = (e) => {

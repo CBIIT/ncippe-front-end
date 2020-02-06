@@ -3,6 +3,7 @@ import { Link as RouterLink } from '@reach/router'
 import { Box, Button, Container, Divider, Grid, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
+import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
@@ -78,8 +79,9 @@ const useStyles = makeStyles(theme => ({
 
 const ProfilePage = (props) => {
   const classes = useStyles()
-  const [loginContext, dispatch] = useContext(LoginContext)
+  const [loginContext] = useContext(LoginContext)
   const {firstName, lastName, dateCreated, isActiveBiobankParticipant, dateDeactivated, questionAnswers, crc, providers} = loginContext
+  const { t } = useTranslation(['a_accountSettings','a_common'])
   const { trackEvent } = useTracking()
 
   const userData = {
@@ -102,21 +104,21 @@ const ProfilePage = (props) => {
       <Breadcrumbs pageName="Profile" link={props.location.state.forceNavigation} />
       <Container className="mainContainer">
         <div className={classes.profile}>
-          <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt='card icon' aria-hidden="true" />
+          <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt={t('a_common:icons.user_profile')} aria-hidden="true" />
           <div className={classes.profileText}>
             <Typography className={classes.profileHeader} variant="h2" component="h2">{firstName} {lastName}</Typography>
-            <Typography component="p" gutterBottom>Participant since {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
-            {isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>Not Participating</Typography></div>}
+            <Typography component="p" gutterBottom>{t('a_common:participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
+            {isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>{t('a_common:not_participating.badge')}</Typography></div>}
           </div>
           <LoginConsumer>
           {([{roleName}]) => {
             return roleName === "ROLE_PPE_PARTICIPANT" && (
-            <Button className={classes.menu} variant="outlined" color="primary" component={RouterLink} to="participation" onClick={trackParticipationClick}>Change Participation</Button>
+            <Button className={classes.menu} variant="outlined" color="primary" component={RouterLink} to="participation" onClick={trackParticipationClick}>{t('a_common:buttons.change_participation')}</Button>
             )
           }}
           </LoginConsumer>
         </div>
-        {isActiveBiobankParticipant === false && <Status state="info" fullWidth title="You are no longer participating in the Biobank." message="If you'd like to rejoin the Biobank, talk to your research coordinator." />}
+        {isActiveBiobankParticipant === false && <Status state="info" fullWidth title={t('a_common:not_participating.status.title')} message={t('a_common:not_participating.status.message')} />}
         <Divider className={classes.divider} />
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
@@ -130,9 +132,9 @@ const ProfilePage = (props) => {
           {([{roleName}]) => {
             return roleName === "ROLE_PPE_PARTICIPANT" && (
               <Paper className={classes.biobankInfo}>
-                <Typography className={classes.header} variant="h3" component="h3" gutterBottom>Your Biobank contacts</Typography>
+                <Typography className={classes.header} variant="h3" component="h3" gutterBottom>{t('contacts.title')}</Typography>
 
-                {providers && <Typography className={classes.bold} gutterBottom>Doctor</Typography>}
+                {providers && <Typography className={classes.bold} gutterBottom>{t('contacts.doctor')}</Typography>}
                 {providers && providers.map((provider, i) => (
                   <Box mb={2} key={i}>
                     <Typography>Dr. {provider.firstName} {provider.lastName}</Typography>
@@ -141,7 +143,7 @@ const ProfilePage = (props) => {
                   </Box>
                 ))}
                 <Divider className={classes.innerDivider} />
-                <Typography className={classes.bold} gutterBottom>Research coordinator</Typography>
+                <Typography className={classes.bold} gutterBottom>{t('contacts.crc')}</Typography>
                 <Typography>{crc.firstName} {crc.lastName}</Typography>
                 <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
                 <Typography><a href={`mailto:${crc.email}`}>{crc.email}</a></Typography>

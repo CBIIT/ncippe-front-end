@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Box, Button, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
+import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 
 import { LoginContext } from '../login/Login.context'
@@ -40,6 +41,7 @@ const useStyles = makeStyles( theme => ({
 
 const CloseAccount = (props) => {
   const classes = useStyles()
+  const { t } = useTranslation(['a_changeParticipation','a_common'])
   const { trackEvent } = useTracking()
   const [loginContext, dispatch] = useContext(LoginContext)
   const { signoutRedirectCallback } = useContext(AuthContext)
@@ -71,26 +73,17 @@ const CloseAccount = (props) => {
 
   return (
     <Box>
-      <Typography className={classes.header} variant="h1" component="h1">Close your online account</Typography>
-      <Typography paragraph={true}>You may choose to close your online Biobank account at any time. You can close your online account, but still participate in the Biobank. </Typography>
-      <Typography component="div">
-        After you close your online account:
-        <ul className="bulletList bulletList--spreadOut">
-          <li>You won't be able to access your consent form or biomarker reports. Please ask your research coordinator if you want copies of the form or the report. </li>
-          <li>Your login.gov account will remain active. You can use this account to access other government services.</li>
-          <li>NCI will keep any data stored in the Biobank website (such as your usage history, notifications, biomarker reports, and consent form). If you wish to permanently delete this data, please contact your research coordinator.</li>
-        </ul>
-        <Typography>Once you close your account, you will have to contact your clinical research coordinator to re-open it.</Typography>
-        <Paper className={classes.crc_card}>
-          <Typography variant="h3">Your Research Coordinator</Typography>
-          <Typography>{crc.firstName} {crc.lastName}</Typography>
-          <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
-          <Typography><a href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
-        </Paper>
-      </Typography>
+      <Typography className={classes.header} variant="h1" component="h1">{t('close.pageTitle')}</Typography>
+      <Typography paragraph={true}>{t('close.body')}</Typography>
+      <Paper className={classes.crc_card}>
+        <Typography variant="h3">{t('close.crc_card_title')}</Typography>
+        <Typography>{crc.firstName} {crc.lastName}</Typography>
+        <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
+        <Typography><a href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
+      </Paper>
       <div className={classes.formButtons}>
-        <Button className={classes.confirm} variant="contained" onClick={handleSubmit}>Close online account</Button>
-        <Button className={classes.btnCancel} variant="text" onClick={props.cancel}><ClearIcon />Cancel</Button>
+        <Button className={classes.confirm} variant="contained" onClick={handleSubmit}>{t('close.submit')}</Button>
+        <Button className={classes.btnCancel} variant="text" onClick={props.cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </div>
     </Box>
   )

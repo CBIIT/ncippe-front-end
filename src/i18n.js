@@ -19,6 +19,24 @@ i18n
     //   // for all available options read the backend's repository readme file
     //   loadPath: '/locales/{{lng}}/{{ns}}.json'
     // },
+    backend: {
+      // for all available options read the backend's repository readme file
+      loadPath: (lng,ns) => {
+        return ns.map(name => {
+          // 'a_' prefix indicates an 'account' file 
+          if(name.match('a_')){
+            return `/locales/${lng}/account/${name.split('_')[1]}.json`
+          }
+          // 'c_' prefix indicates an 'component' file
+          else if(name.match('c_')){
+            return `/locales/${lng}/components/${name.split('_')[1]}.json`
+          }
+          else {
+            return `/locales/${lng}/${name}.json`
+          }
+        })
+      }
+    },
     // react: {
     //   useSuspense: true
     // },

@@ -16,6 +16,7 @@ import {
   useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
+import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import moment from 'moment'
 
@@ -95,6 +96,7 @@ const AddParticipantInfoDialog = (props) => {
   const [activeStep, setActiveStep] = useState(0)
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const { t } = useTranslation(['a_addParticipant','a_common'])
   const { trackEvent } = useTracking()
   const stringRegex = /^[a-zA-Z\s]{1,}/
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -300,21 +302,21 @@ const AddParticipantInfoDialog = (props) => {
       onClose={handleClose}
       aria-labelledby="responsive-dialog-title"
     >
-      <DialogTitle id="responsive-dialog-title" disableTypography><Typography variant="h3" component="h3">Add participant information</Typography></DialogTitle>
+      <DialogTitle id="responsive-dialog-title" disableTypography><Typography variant="h3" component="h3">{t('pageTitle')}</Typography></DialogTitle>
       <DialogContent>
-        <Typography>This will let the participant create their Biobank account to access their program information.</Typography>
+        <Typography>{t('subtitle')}</Typography>
       <Stepper activeStep={activeStep} alternativeLabel>
         <Step>
-          <StepLabel><Typography >Participant name and email</Typography></StepLabel>
+          <StepLabel><Typography>{t('stepper.0.label')}</Typography></StepLabel>
         </Step>
         <Step>
-          <StepLabel><Typography >Upload consent form</Typography></StepLabel>
+          <StepLabel><Typography>{t('stepper.1.label')}</Typography></StepLabel>
         </Step>
       </Stepper>
       <Paper elevation={3} className={classes.paper}>
         {activeStep === 1 && <Typography variant="h3">{formData.firstName} {formData.lastName}</Typography>}
-        <Typography variant={activeStep === 0 ? "h3" : "body1"}>Participant ID: {patientId}</Typography>
-        <Typography>Participant since {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
+        <Typography variant={activeStep === 0 ? "h3" : "body1"}>{t('a_common:participant.id')}: {patientId}</Typography>
+        <Typography>{t('a_common:participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
       </Paper>
       {activeStep === 0 && (
         <form id="activatePatient" className={classes.form} autoComplete="off" onSubmit={handleFormSubmit}>
@@ -322,37 +324,37 @@ const AddParticipantInfoDialog = (props) => {
             error={formData.firstName_error}
             required
             id="firstName"
-            label="First name"
+            label={t('form.firstName')}
             className={classes.textField}
             margin="normal"
             variant="outlined"
             onChange={handleOnChange}
             value={formData.firstName}
-            helperText={formData.firstName_error && "Please enter a first name"}
+            helperText={formData.firstName_error && t('form.error.firstName')}
           />
           <TextField
             error={formData.lastName_error}
             required
             id="lastName"
-            label="Last name"
+            label={t('form.lastName')}
             className={classes.textField}
             margin="normal"
             variant="outlined"
             onChange={handleOnChange}
             value={formData.lastName}
-            helperText={formData.lastName_error && "Please enter a last name"}
+            helperText={formData.lastName_error && t('form.error.lastName')}
           />
           <TextField
             error={formData.email_error}
             required
             id="email"
-            label="Email"
+            label={t('form.email')}
             className={classes.textField}
             margin="normal"
             variant="outlined"
             onChange={handleOnChange}
             value={formData.email}
-            helperText={formData.email_error && "Please enter a valid email address"}
+            helperText={formData.email_error && t('form.error.email')}
           />
         </form>
       )}
@@ -371,22 +373,22 @@ const AddParticipantInfoDialog = (props) => {
           />
           {!formData.file && (
             <label htmlFor="report-upload-file">
-              <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">Select consent form to upload</Button>
+              <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">{t('form.consentFile')}</Button>
             </label>
           )}
-          {formData.uploadError && <Status state="error" title="Report failed to upload" message="We're sorry, something went wrong. Please try to upload this report again. If this problem persists, contact your system administrator." />}
+          {formData.uploadError && <Status state="error" title={t('form.error.submit.title')} message={t('form.error.submit.message')} />}
         </>
       )}
       {activeStep === 2 && (
         <>
         <CircularProgress className={classes.progress} size={70} />
-        <Typography className={classes.titleUploading} variant="h6">Uploading file...</Typography>
+        <Typography className={classes.titleUploading} variant="h6">{t('progress')}</Typography>
         </>
       )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleFormSubmit} color="primary" variant="contained">Next</Button>
-        <Button variant="text" className={classes.btnCancel} onClick={handleClose}><ClearIcon />Cancel</Button>
+        <Button onClick={handleFormSubmit} color="primary" variant="contained">{t('a_common:buttons.next')}</Button>
+        <Button variant="text" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>
   )

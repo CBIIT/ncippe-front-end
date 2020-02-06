@@ -1,6 +1,7 @@
 import React from 'react';
 import { Stepper, Typography, Step, StepLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles( theme => ({
   stepper: {
@@ -9,19 +10,22 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const stepText = [
-  'Input Participant ID',
-  'Select report from your computer',
-  'Complete upload'
-]
+
 
 const UploadStepper = (props) => {
   const {activeStep = 0} = props
   const classes = useStyles()
+  const { t } = useTranslation('a_landingMocha')
+
+  const stepText = [
+    t('stepper.0.label'),
+    t('stepper.1.label'),
+    t('stepper.2.label')
+  ]
 
   return (
     <div className={classes.root}>
-      <Typography variant="h3" component="h3">Upload process</Typography>
+      <Typography variant="h3" component="h3">{t('stepper_title')}</Typography>
       <Stepper className={classes.stepper} activeStep={activeStep} alternativeLabel>
         {stepText.map((text, i) => (
           <Step key={i}>

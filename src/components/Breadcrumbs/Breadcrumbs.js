@@ -3,6 +3,7 @@ import { navigate } from '@reach/router'
 import { Container, Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { ArrowBack } from '@material-ui/icons'
+import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(theme => ({
   Breadcrumbs: {
@@ -25,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 const Breadcrumbs = (props) => {
   const classes = useStyles()
+  const { t } = useTranslation('a_common')
   const handleClick = () => {
     if(props.link) {
       navigate(props.link)
@@ -35,7 +37,7 @@ const Breadcrumbs = (props) => {
   return (
     <Container className={classes.Breadcrumbs}>
       <Typography>
-        <Button className={classes.back} color="primary" variant="text" onClick={handleClick}><ArrowBack className={classes.backIcon} /> Back</Button>
+        <Button className={classes.back} color="primary" variant="text" onClick={handleClick}><ArrowBack className={classes.backIcon} /> {t('buttons.back')}</Button>
       </Typography>
     </Container>
   )

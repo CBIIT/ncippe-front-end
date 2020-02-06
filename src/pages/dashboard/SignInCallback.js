@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { navigate } from '@reach/router'
 import { Typography, CircularProgress, Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
+import { useTranslation } from 'react-i18next'
 
 import { AuthContext } from '../../components/login/AuthContext'
 import { LoginContext } from '../../components/login/Login.context'
@@ -26,7 +27,8 @@ const SignInCallback = (props) => {
   const [loginContext, dispatch] = useContext(LoginContext)
   const authContext = useContext(AuthContext)
   const { signinRedirectCallback } = authContext
-  const {env, mockState} = loginContext
+  const {mockState} = loginContext
+  const { t } = useTranslation('a_common')
 
   useEffect(() => {
 
@@ -40,7 +42,7 @@ const SignInCallback = (props) => {
           uuid = resp.profile.sub
           email = resp.profile.email
         } else {
-          throw new Error("State does not match")
+          throw new Error(t('components.signin.error.no_state'))
         }
       } else {
         uuid = resp.profile.sub
@@ -50,7 +52,7 @@ const SignInCallback = (props) => {
       const {token} = await getAPI.then(api => {
         return api.fetchToken({uuid, email, id_token:resp.id_token}).then(data => {
           if(data instanceof Error) {
-            throw new Error(`Sorry, but either you have not been signed up for the Biobank Program, your account has not been activated yet, or your account has been closed. Please contact your Clinical Research Coordinator for assistance.`)
+            throw new Error(t('components.signin.error.not_auth'))
           } else {
             return data
           }
@@ -61,7 +63,7 @@ const SignInCallback = (props) => {
         return api.fetchUser({uuid, token}).then(data => {
 
           if(data instanceof Error){
-            throw new Error(`Sorry, but either you have not been signed up for the Biobank Program, your account has not been activated yet, or your account has been closed. Please contact your Clinical Research Coordinator for assistance.`)
+            throw new Error(t('components.signin.error.not_auth'))
           } else {
             const hasUnviewedReports = (reports, uuid) => {
               //TODO: only for Participants
@@ -139,7 +141,7 @@ const SignInCallback = (props) => {
   return (
     <Container className={classes.container}>
       <CircularProgress className={classes.progress} size={70} />
-      <Typography className={classes.titleUploading} variant="h6">Loading User Data...</Typography>
+      <Typography className={classes.titleUploading} variant="h6">{t('components.signin.loading')}</Typography>
     </Container>
   )
 }

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Box, Container, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
 
@@ -8,6 +9,7 @@ import { LoginConsumer } from '../../components/login/Login.context'
 import PatientList from '../../components/PatientList/PatientList'
 import IconCard from '../../components/IconCard/IconCard'
 import Status from '../../components/Status/Status'
+import RenderContent from '../../components/utils/RenderContent'
 
 
 const useStyles = makeStyles(theme => ({
@@ -38,6 +40,7 @@ const useStyles = makeStyles(theme => ({
 
 export default () => {
   const classes = useStyles()
+  const { t } = useTranslation(['a_landing','a_common'])
   const { trackEvent } = useTracking()
 
   useEffect(() => {
@@ -71,14 +74,14 @@ export default () => {
         {([{firstName, lastName, isActiveBiobankParticipant}]) => {
           return (
             <Box my={6} mx={0}>
-              <Typography variant="h1" gutterBottom>Welcome, {firstName} {lastName}</Typography>
+              <Typography variant="h1" gutterBottom>{t('pageTitle')}, {firstName} {lastName}</Typography>
               {isActiveBiobankParticipant === false ? 
                 <div>
-                  <Typography className={classes.badge}>Not Participating</Typography>
-                  <Status state="info" fullWidth title="You are no longer participating in the Biobank." message="If you'd like to rejoin the Biobank, talk to your research coordinator." />
+                  <Typography className={classes.badge}>{t('a_common:not_participating.badge')}</Typography>
+                  <Status state="info" fullWidth title={t('a_common:not_participating.status.title')} message={t('a_common:not_participating.status.message')} />
                 </div>
                 :
-                <Typography variant="body2">Thank you for joining the Cancer Moonshot<sup>SM</sup> Biobank</Typography>
+                <Typography variant="body2"><RenderContent source={t('subtitle')} /></Typography>
               }
             </Box>
           )
@@ -91,13 +94,14 @@ export default () => {
           <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
           <LoginConsumer>
             {([{newNotificationCount: count}]) => {
+              //{`You have ${count} new notification${count !== 1 ? 's' : ''}.`}
               return (
                 <IconCard
                   icon="notifications.svg"
-                  title="Notifications"
-                  desc={`You have ${count} new notification${count !== 1 ? 's' : ''}.`}
+                  title={t('cards.notifications.title')}
+                  desc={t('cards.notifications.description', {count,s:count !== 1 ? t('a_common:pluralizer') : ''})}
                   link="/dashboard/notifications"
-                  linkText="Review"
+                  linkText={t('cards.notifications.link')}
                   count={count}
                   cardClick={trackCardClick}
                 />
@@ -115,10 +119,10 @@ export default () => {
                 <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
                   <IconCard
                     icon="reports.svg"
-                    title="Consent form"
-                    desc="Review the form you signed when you agreed to participate in the Biobank."
+                    title={t('cards.consent.title')}
+                    desc={t('cards.notifications.description')}
                     link="/dashboard/consent"
-                    linkText="View forms"
+                    linkText={t('cards.notifications.link')}
                     cardClick={trackCardClick}
                   />
                 </Grid>
@@ -128,10 +132,10 @@ export default () => {
                 <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
                   <IconCard
                     icon="biomarker-tests.svg"
-                    title="Biomarker reports"
-                    desc="View the reports from your Biomarker tests."
+                    title={t('cards.biomarker.title')}
+                    desc={t('cards.biomarker.description')}
                     link="/dashboard/tests"
-                    linkText="View reports"
+                    linkText={t('cards.biomarker.link')}
                     count={count}
                     cardClick={trackCardClick}
                   />
@@ -149,10 +153,10 @@ export default () => {
             const icon = roleName === "ROLE_PPE_PARTICIPANT" ? "user-profile.svg" : "doctor.svg"
             return <IconCard
                 icon={icon}
-                title="Account settings"
-                desc="Update your contact information or change how you participate in the Biobank."
+                title={t('cards.settings.title')}
+                desc={t('cards.settings.description')}
                 link="/dashboard/profile"
-                linkText="Update account"
+                linkText={t('cards.settings.link')}
                 cardClick={trackCardClick}
               />
             }}
@@ -166,10 +170,10 @@ export default () => {
               <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
                 <IconCard
                   icon="get-help.svg"
-                  title="Get help"
-                  desc="Learn about changing your participation in the Biobank."
+                  title={t('cards.help.title')}
+                  desc={t('cards.help.description')}
                   link="/dashboard/help"
-                  linkText="Learn more"
+                  linkText={t('cards.help.link')}
                   cardClick={trackCardClick}
                 />
               </Grid>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Box, Grid, TextField, Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 
 import PatientListItem from './PatientListItem'
@@ -32,6 +33,7 @@ const PatientList = (props) => {
   const [patientList, setPatientList] = useState(patients)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [patientToActivate, setPatientToActivate] = useState()
+  const { t } = useTranslation('a_common')
   const { trackEvent } = useTracking()
   const allPatients = [...patients] // create new object of patients
 
@@ -62,14 +64,14 @@ const PatientList = (props) => {
       <Grid container className={classes.title} spacing={3} alignItems="center">
         <Grid item xs={6}>
           <div className={classes.titleWithIcon}>
-            <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/patients.svg`} alt='patient icon' aria-hidden="true"></img>
-            <Typography className={classes.cardTitle} variant="h2" component="h2">Your Participants</Typography>
+            <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/patients.svg`} alt={t('a_common:icons.user_profile')} aria-hidden="true"></img>
+            <Typography className={classes.cardTitle} variant="h2" component="h2">{t('components.participantList.title')}</Typography>
           </div>
         </Grid>
         <Grid item xs={6}>
           <TextField
             id="outlined-search"
-            label="Search by name"
+            label={t('components.participantList.search_label')}
             type="search"
             className={classes.textField}
             margin="normal"

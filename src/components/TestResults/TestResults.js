@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Box, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import { useTranslation } from 'react-i18next'
 
 import { LoginContext } from '../login/Login.context'
 import TestResultsItem from './TestResultsItem'
@@ -22,6 +23,7 @@ const TestResults = () => {
   const classes = useStyles()
   const [loginContext] = useContext(LoginContext)
   const [reports, setReports] = useState(false)
+  const { t } = useTranslation('a_common')
 
   useEffect(() => {
     const {reports} = loginContext
@@ -33,16 +35,16 @@ const TestResults = () => {
   return (
     <>
       <div className={classes.titleWithIcon}>
-        <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/biomarker-tests.svg`} alt='patient icon' aria-hidden="true"></img>
-        <Typography variant="h2" component="h2">Biomarker reports</Typography>
+        <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/biomarker-tests.svg`} alt={t('a_common:icons.biomarker_test')} aria-hidden="true"></img>
+        <Typography variant="h2" component="h2">{t('components.biomarkerView.pageTitle')}</Typography>
       </div>
         <Box mb={3}>
-          <Typography gutterBottom>Please download and save your biomarker report in your records. A copy has also been sent to your provider.</Typography>
+          <Typography gutterBottom>{t('components.biomarkerView.description')}</Typography>
         </Box>
         { reports && reports.length > 0 ? 
           reports.map((report,i) => <TestResultsItem key={i} report={report} />)
           :
-          <NoItems message="You have no reports<br/> at this time." />
+          <NoItems message={t('components.biomarkerView.no_results.participant')} />
         }
     </>
   )
