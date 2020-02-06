@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 
-import { FormControl, Input, InputLabel, Paper, Typography, Button} from '@material-ui/core'
+import { Divider, FormControl, Input, InputLabel, Paper, Typography, Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import EditIcon from '@material-ui/icons/Edit'
 import { useTranslation } from 'react-i18next'
@@ -9,6 +9,7 @@ import { useTracking } from 'react-tracking'
 import { LoginContext } from '../../components/login/Login.context'
 import PhoneNumbner from '../inputs/PhoneNumber/PhoneNumber'
 import EmailOption from '../inputs/EmailOption/EmailOption'
+import LangOption from '../inputs/LangOption/LangOption'
 // import { api } from '../../data/api'
 import getAPI from '../../data'
 
@@ -23,6 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
   formControl: {
     minWidth: '200px',
+    
     '& .MuiInput-formControl': {
       marginTop: 20
     }
@@ -34,7 +36,8 @@ const useStyles = makeStyles(theme => ({
   },
   cta: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginTop: theme.spacing(3)
   },
   label: {
     fontWeight: 700,
@@ -46,19 +49,16 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-// add edit button to toggle editMode state
-// pass editMode to phone and notification components
-// save event handler to submit data back to the server
-// cancel will revert values back to data values
-
 const Profile = () => {
   const classes = useStyles()
+  
   const [loginContext, dispatch] = useContext(LoginContext)
   const [editMode, setEditMode] = useState(false)
   const [errorPhone, setErrorPhone] = useState(false)
   const [userPhone, setUserPhone] = useState(loginContext.phoneNumber)
   const [userOptIn, setUserOptIn] = useState(loginContext.allowEmailNotification)
-  const { t } = useTranslation(['a_accountSettings','a_common'])
+  const [userLang, setUserLang] = useState(loginContext.lang || 'en')
+  const { t, i18n } = useTranslation(['a_accountSettings','a_common'])
   const { trackEvent } = useTracking()
 
 
@@ -76,7 +76,8 @@ const Profile = () => {
       const cleanPhoneNumber = phoneNumber.replace(/\D*/g,"") // remove formatting and just send numbers
       const data = {
         phoneNumber: cleanPhoneNumber,
-        allowEmailNotification
+        allowEmailNotification,
+        lang: userLang
       }
       const { token, uuid } = loginContext
 
@@ -95,9 +96,11 @@ const Profile = () => {
               type: 'update',
               userData: {
                 phoneNumber,
-                allowEmailNotification
+                allowEmailNotification,
+                lang: userLang
               }
             })
+            i18n.changeLanguage(userLang)
             toggleEditMode()
           }
         })
@@ -108,7 +111,9 @@ const Profile = () => {
   const cancelEdit = () => {
     //restore user context
     setUserPhone(loginContext.phoneNumber)
+    setErrorPhone(false)
     setUserOptIn(loginContext.allowEmailNotification)
+    setUserLang(loginContext.lang || 'en')
 
     toggleEditMode()
   }
@@ -119,6 +124,10 @@ const Profile = () => {
   
   const updateEmailOption = () => {
     setUserOptIn(!userOptIn)
+  }
+
+  const updateLang = (lang) => {
+    setUserLang(lang)
   }
 
   const toggleEditMode = () => {
@@ -166,7 +175,12 @@ const Profile = () => {
           />
         </FormControl>
         <PhoneNumbner value={userPhone} editMode={editMode} error={errorPhone} onChange={updatePhoneNumber} />
+        <Divider />
         <EmailOption value={userOptIn} editMode={editMode} onClick={updateEmailOption} />
+        <Divider />
+        <LangOption value={userLang} editMode={editMode} onChange={updateLang} />
+        <Divider />
+
         {editMode && (
           <FormControl className={`${classes.formControl} ${classes.cta}`} >
             <Button type="submit" variant="contained" color="primary">{t('a_common:buttons.save')}</Button>
