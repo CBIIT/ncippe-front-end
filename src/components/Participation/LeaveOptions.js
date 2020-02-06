@@ -37,7 +37,7 @@ const LeaveOptions = (props) => {
     <Box>
       <Typography className={classes.header} variant="h1" component="h1">{t('leave.0.pageTitle')}</Typography>
       <Typography variant="h2" className={classes.gutterBottom_2}>{t('leave.0.subtitle')}</Typography>
-      <Typography paragraph={true}><RenderContent source={t('leave.0.body')} /></Typography>
+      <Typography component="div"><RenderContent source={t('leave.0.body')} /></Typography>
       <div className={classes.formButtons}>
         <Button variant="contained" color="primary" component={RouterLink} to='../leaveQuestions' onClick={trackClick}>{t('leave.0.submit')}</Button>
         <Button className={classes.btnCancel} variant="text" onClick={props.cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
