@@ -62,7 +62,8 @@
       "hasNewReports": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
-      "dateCreated": 1554877789000
+      "dateCreated": 1554877789000,
+      "lang": "es"
     },
     {
       "id": 5,
@@ -214,7 +215,8 @@
       "allowEmailNotification": true,
       "userType": "PPE_PARTICIPANT",
       "roleName": "ROLE_PPE_PARTICIPANT",
-      "dateCreated": 1556778589000
+      "dateCreated": 1556778589000,
+      "lang": "en"
     },
     {
       "id": 15,
