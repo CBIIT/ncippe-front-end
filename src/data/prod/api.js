@@ -87,7 +87,7 @@ async function updateUser({uuid, data, token}){
   const query = {
     phoneNumber,
     allowEmailNotification,
-    lang
+    preferredLanguage: lang
   }
   return await fetch(`/api/v1/user/${uuid}?${queryString.stringify(query)}`,{
     method: 'PUT',
@@ -215,7 +215,7 @@ async function updateParticipantDetails({uuid, token, patient}){
     firstName: patient.firstName,
     lastName: patient.lastName,
     emailId: patient.email,
-    lang: patient.lang
+    preferredLanguage: patient.lang
   }
 
   return await fetch(`/api/v1/user/invite-participant-to-portal?${queryString.stringify(query)}`,{
