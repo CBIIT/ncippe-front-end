@@ -178,7 +178,7 @@ const Profile = () => {
         <Divider />
         <EmailOption value={userOptIn} editMode={editMode} onClick={updateEmailOption} />
         <Divider />
-        <LangOption value={userLang} editMode={editMode} onChange={updateLang} />
+        <LangOption label={t('profile.lang.title')} value={userLang} editMode={editMode} onChange={updateLang} />
         <Divider />
 
         {editMode && (

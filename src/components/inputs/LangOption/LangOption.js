@@ -37,9 +37,9 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const LanguagePreferences = (props) => {
-  const {value, editMode, onChange} = props
-  const classes = useStyles()
   const { t } = useTranslation(['a_accountSettings','a_common'])
+  const {label, helperText, value, editMode, onChange} = props
+  const classes = useStyles()
   const [lang, setLang] = useState(value)
 
   useEffect(() => {
@@ -57,20 +57,25 @@ const LanguagePreferences = (props) => {
 
   return (
     <FormControl component="fieldset" className={classes.formControl}>
+      {label && 
       <FormLabel 
         htmlFor="language-input" 
         component="legend" 
-        className={classes.formLegend}>{t('profile.lang.title')}</FormLabel>
-      {editMode ? <ToggleButtonGroup
-        id="language-input"
-        className={classes.toggleButtonGroup}
-        value={lang}
-        exclusive
-        onChange={handleChange}
-      >
-        <ToggleButton value="en">{t('profile.lang.english')}</ToggleButton>
-        <ToggleButton value="es">{t('profile.lang.spanish')}</ToggleButton>
-      </ToggleButtonGroup>
+        className={classes.formLegend}>{label}</FormLabel>
+      }
+      {editMode ? <>
+        <ToggleButtonGroup
+          id="language-input"
+          className={classes.toggleButtonGroup}
+          value={lang}
+          exclusive
+          onChange={handleChange}
+        >
+          <ToggleButton value="en">{t('profile.lang.english')}</ToggleButton>
+          <ToggleButton value="es">{t('profile.lang.spanish')}</ToggleButton>
+        </ToggleButtonGroup>
+        {helperText && <p className="MuiFormHelperText-root" id="language-input-helper-text">{helperText}</p>}
+      </>
       :
       <span>{lang === 'en' ? t('profile.lang.english') : t('profile.lang.spanish')}</span>
     }
