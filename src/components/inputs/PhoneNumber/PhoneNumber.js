@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import MaskedInput from 'react-text-mask'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
-import { FormControl, FormHelperText, Input, InputLabel} from '@material-ui/core'
+import { FormControl, TextField} from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(theme => ({
@@ -10,12 +10,18 @@ const useStyles = makeStyles(theme => ({
     minWidth: '200px',
     '& .MuiInput-formControl': {
       marginTop: 20
+    },
+    '& .MuiInput-underline:before': {
+      display: 'none'
     }
   },
   label: {
     fontWeight: 700,
     color: theme.palette.text.primary,
     transform: "none"
+  },
+  helperText: {
+    marginBottom: theme.spacing(2)
   }
 }));
 
@@ -75,24 +81,28 @@ const PhoneNumber = (props) => {
 
   return (
     <FormControl className={classes.formControl} margin="normal">
-      <InputLabel 
-        htmlFor="phone-number-input" 
-        shrink 
-        error={error}
-        className={classes.label}
-      >
-        {t('profile.phone.title')}
-      </InputLabel>
-      <Input
+      <TextField
+        label={t('profile.phone.title')}
         error={error}
         value={phoneNum.textmask}
         onChange={handleChange('textmask')}
         id="phone-number-input"
-        inputComponent={TextMaskCustom}
-        variant="outlined"
-        readOnly={!editMode}
-        />
-      {editMode && <FormHelperText>{t('profile.phone.helper_text')}</FormHelperText>}
+        variant={editMode ? 'outlined': 'standard'}
+        
+        helperText={editMode ? t('profile.phone.helper_text') : ''}
+        InputProps={{
+          inputComponent: TextMaskCustom,
+          readOnly: !editMode
+        }}
+        InputLabelProps={{
+          shrink: true,
+          className: classes.label,
+          error
+        }}
+        FormHelperTextProps={{
+          className: classes.helperText
+        }}
+      />
     </FormControl>
   )
 }
