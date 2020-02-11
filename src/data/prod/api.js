@@ -83,10 +83,11 @@ async function fetchUser({uuid, patientId, email, token}){
 /*======== Update User Account Data =====================================*/
 
 async function updateUser({uuid, data, token}){
-  const {phoneNumber, allowEmailNotification} = data
+  const {phoneNumber, allowEmailNotification, lang} = data
   const query = {
     phoneNumber,
-    allowEmailNotification
+    allowEmailNotification,
+    lang
   }
   return await fetch(`/api/v1/user/${uuid}?${queryString.stringify(query)}`,{
     method: 'PUT',
@@ -213,7 +214,8 @@ async function updateParticipantDetails({uuid, token, patient}){
     patientId: patient.patientId,
     firstName: patient.firstName,
     lastName: patient.lastName,
-    emailId: patient.email
+    emailId: patient.email,
+    lang: patient.lang
   }
 
   return await fetch(`/api/v1/user/invite-participant-to-portal?${queryString.stringify(query)}`,{
