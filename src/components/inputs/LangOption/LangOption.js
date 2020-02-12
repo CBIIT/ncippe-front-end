@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FormControl, FormLabel } from '@material-ui/core'
+import { FormControl, FormLabel, FormHelperText } from '@material-ui/core'
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
@@ -38,7 +38,7 @@ const useStyles = makeStyles( theme => ({
 
 const LanguagePreferences = (props) => {
   const { t } = useTranslation(['a_accountSettings','a_common'])
-  const {label, helperText, value, editMode, onChange} = props
+  const {id = "language-input", label, helperText, value, editMode, onChange} = props
   const classes = useStyles()
   const [lang, setLang] = useState(value)
 
@@ -59,13 +59,13 @@ const LanguagePreferences = (props) => {
     <FormControl component="fieldset" className={classes.formControl}>
       {label && 
       <FormLabel 
-        htmlFor="language-input" 
+        htmlFor={id} 
         component="legend" 
         className={classes.formLegend}>{label}</FormLabel>
       }
       {editMode ? <>
         <ToggleButtonGroup
-          id="language-input"
+          id={id}
           className={classes.toggleButtonGroup}
           value={lang}
           exclusive
@@ -74,7 +74,7 @@ const LanguagePreferences = (props) => {
           <ToggleButton value="en">{t('profile.lang.english')}</ToggleButton>
           <ToggleButton value="es">{t('profile.lang.spanish')}</ToggleButton>
         </ToggleButtonGroup>
-        {helperText && <p className="MuiFormHelperText-root" id="language-input-helper-text">{helperText}</p>}
+        {helperText && <FormHelperText id={`${id}-helper-text`}>{helperText}</FormHelperText>}
       </>
       :
       <span>{lang === 'en' ? t('profile.lang.english') : t('profile.lang.spanish')}</span>
