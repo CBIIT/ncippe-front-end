@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Grid, TextField, Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const PatientList = (props) => {
-  const {patients} = props
+  const {patients, patientsUpdated} = props
   const classes = useStyles()
   const [patientList, setPatientList] = useState(patients)
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -36,6 +36,11 @@ const PatientList = (props) => {
   const { t } = useTranslation('a_common')
   const { trackEvent } = useTracking()
   const allPatients = [...patients] // create new object of patients
+
+  useEffect(() => {
+    // use patientsUpdated flag to trigger re-renders of deep patient data
+    setPatientList(patients)
+  }, [patientsUpdated])
 
   const filterPatients = (event) => {
     const filteredList = allPatients.filter(item => {

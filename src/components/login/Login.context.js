@@ -46,13 +46,15 @@ const userReducer = (state, action) => {
     case 'reportViewedByOther': {
       return ({
         ...state,
-        patients: action.patients
+        patients: action.patients,
+        patientsUpdated: Date.now()
       })
     }
     case 'accountActivated': {
       return ({
         ...state,
-        patients: action.patients
+        patients: action.patients,
+        patientsUpdated: Date.now()
       })
     }
 
