@@ -218,8 +218,8 @@ async function updateParticipantDetails({uuid, token, patient}){
     preferredLanguage: patient.lang
   }
 
-  return await fetch(`/api/v1/user/${uuid}?${queryString.stringify(query)}`,{
-    method: 'PUT',
+  return await fetch(`/api/v1/user/enter-new-participant-details?${queryString.stringify(query)}`,{
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token
