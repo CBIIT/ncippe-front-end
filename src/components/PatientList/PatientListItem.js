@@ -53,6 +53,8 @@ const PatientListItem = (props) => {
   const {
     firstName, 
     lastName, 
+    email,
+    lang,
     patientId, 
     dateCreated, 
     hasNewReports, 
@@ -63,7 +65,7 @@ const PatientListItem = (props) => {
   const handleClick = (event) => {
     if (portalAccountStatus === 'ACCT_NEW') {
       event.preventDefault()
-      props.activate({patientId,dateCreated})
+      props.activate({firstName,lastName,email,lang,patientId,dateCreated})
     }
   }
   return (

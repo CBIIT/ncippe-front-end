@@ -25,6 +25,8 @@ import getAPI from '../../data'
 import { LoginContext } from '../login/Login.context'
 import Status from '../Status/Status'
 import FileItem from '../Mocha/FileItem'
+import InputGroupError from '../inputs/InputGroupError/InputGroupError'
+import LangOption from '../inputs/LangOption/LangOption'
 
 const useStyles = makeStyles(theme => ({
   // contentText: {
@@ -72,10 +74,13 @@ const formDataDefaults = {
   firstName: '',
   lastName: '',
   email: '',
+  lang: null,
   firstName_error: false,
   lastName_error: false,
   email_error: false,
+  lang_error: false,
   file: null,
+  updateUserError: false,
   uploadError: false
 }
 
@@ -83,11 +88,12 @@ const formValidationDefaults = {
   firstName: false,
   lastName: false,
   email: false,
+  lang: false,
   hasFile: false
 }
 
 const AddParticipantInfoDialog = (props) => {
-  const {open, setParentState, patient: {patientId, dateCreated} = {} } = props
+  const {open, setParentState, patient: {firstName, lastName, email, lang, patientId, dateCreated} = {} } = props
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const [isOpen, setIsOpen] = useState(false)
@@ -98,26 +104,88 @@ const AddParticipantInfoDialog = (props) => {
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const { t } = useTranslation(['a_addParticipant','a_common'])
   const { trackEvent } = useTracking()
+  const [submitText, setSubmitText] = useState(t('form.save'))
   const stringRegex = /^[a-zA-Z\s]{1,}/
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   // const {patients} = loginContext
 
   useEffect(() => {
     setIsOpen(open)
+    setSubmitText(t('form.save'))
+    setFormData(prev => ({
+      ...prev,
+      firstName,
+      lastName,
+      email,
+      lang
+    }))
     //clean up
     return () => {}
   },[open])
 
   useEffect(() => {
     const {token, uuid} = loginContext
+    const { patients } = loginContext
+    const updatePatient = () => {
+      const updatedPatients = patients.map(patient => {
+        if (patient.patientId === patientId) {
+          return {
+            ...patient,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            lang: formData.lang,
+          }
+        } else {
+          return patient
+        }
+      })
+      // sort alphabetically
+      .sort((a, b) => a.lastName.localeCompare(b.lastName))
+      // bring new accounts to the top
+      .sort((a,b) => {
+        if(a.portalAccountStatus === "ACCT_NEW" && b.portalAccountStatus !== "ACCT_NEW") {
+          return -1
+        }
+        if(b.portalAccountStatus === "ACCT_NEW" && a.portalAccountStatus !== "ACCT_NEW") {
+          return 1
+        }
+        return 0
+      })
+      
+
+      dispatch({
+        type: 'accountActivated',
+        patients: updatedPatients
+      })
+    }
+    
+    const activatePatient = () => {
+      const updatedPatients = patients.map(patient => {
+        if (patient.patientId === patientId) {
+          return {
+            ...patient,
+            portalAccountStatus: null,
+          }
+        } else {
+          return patient
+        }
+      })
+
+      dispatch({
+        type: 'accountActivated',
+        patients: updatedPatients
+      })
+    }
     // if we're validating then we're attempting to submit the form
-    if (activeStep === 0 && formDataValidation.firstName && formDataValidation.lastName && formDataValidation.email) {
+    if (activeStep === 0 && formDataValidation.firstName && formDataValidation.lastName && formDataValidation.email && formDataValidation.lang) {
       trackEvent({
         prop42: `BioBank_NewParticipant|Next`,
         eVar42: `BioBank_NewParticipant|Next`,
         events: 'event75'
       })
       // submit user update
+      setActiveStep(2)
       getAPI.then(api => {
         api.updateParticipantDetails({
           uuid,
@@ -127,24 +195,27 @@ const AddParticipantInfoDialog = (props) => {
             firstName: formData.firstName,
             lastName: formData.lastName,
             email: formData.email,
+            lang: formData.lang
           }
         }).then(resp => {
           if(resp instanceof Error) {
             //TODO: perhaps another status message?
-            console.error(resp.message)
+            throw resp
           } else {
             // save successful, move to the next step - upload consent form
+            updatePatient()
             setActiveStep(1)
-            // TODO: dispatch update
-            // At this point the patient had name, email and marked as active
-            // Front-end store should be updated to reflect backend updates
-            // This disrupts the flow
-            // perhaps only send fetch requests when both name and consent file has been completed
-            // send both requests together in a Promise.all
+            setSubmitText(t('form.submit'))
           }
         })
         .catch(error => {
           console.error(error)
+          setActiveStep(0)
+          setFormData(prevState => ({
+            ...prevState,
+            updateUserError: true
+          }))
+
         })
       })
     }
@@ -167,32 +238,28 @@ const AddParticipantInfoDialog = (props) => {
         }).then(resp => {
           if(resp instanceof Error) {
             // Save unsuccessful - display status error
-            setActiveStep(1)
-            setFormData(prevState => ({
-              ...prevState,
-              uploadError: true
-            }))
+            throw resp
+          } else {
+            // return API so user can be activated
+            return getAPI
+          }
+        })
+        .then(api => {
+          api.activateParticipant({
+            uuid,
+            token,
+            patient: {
+              patientId
+            }
+          })
+        })
+        .then(resp => {
+          if(resp instanceof Error) {
+            // Save unsuccessful - display status error
+            throw resp
           } else {
             // update patient data front-end state
-            const { patients } = loginContext
-            const updatedPatients = patients.map(patient => {
-              if (patient.patientId === patientId) {
-                return {
-                  ...patient,
-                  firstName: formData.firstName,
-                  lastName: formData.lastName,
-                  email: formData.email,
-                  portalAccountStatus: null,
-                }
-              } else {
-                return patient
-              }
-            }).sort((a, b) => a.lastName.localeCompare(b.lastName))
-
-            dispatch({
-              type: 'accountActivated',
-              patients: updatedPatients
-            })
+            activatePatient()
 
             // save successful, close modal and redirect to Participant View
             navigate(`/dashboard/participant/${patientId}`, {
@@ -204,6 +271,11 @@ const AddParticipantInfoDialog = (props) => {
         })
         .catch(error => {
           console.error(error)
+          setActiveStep(1)
+          setFormData(prevState => ({
+            ...prevState,
+            uploadError: true
+          }))
         })
       })
     // }, 5000)
@@ -237,6 +309,13 @@ const AddParticipantInfoDialog = (props) => {
     }))
   }
 
+  const updateLang = lang => {
+    setFormData(prev => ({
+      ...prev,
+      lang
+    }))
+  }
+
   // controled file input
   const handleFileChange = (event) => {
     //f = f.replace(/.*[\/\\]/, ''); -ie: evt.target.files[0].name
@@ -261,20 +340,23 @@ const AddParticipantInfoDialog = (props) => {
   }
 
   const handleFormSubmit = (e) => {
+    e.preventDefault()
     if(activeStep === 0) {
       // reverse error booleans. If test fails then error is true
       setFormData(prev => ({
         ...prev,
         firstName_error: !stringRegex.test(formData.firstName),
         lastName_error: !stringRegex.test(formData.lastName),
-        email_error: !emailRegex.test(formData.email)
+        email_error: !emailRegex.test(formData.email),
+        lang_error: typeof formData.lang === 'string' ? false : true
       }))
       // if test fails then validation is false
       setFormDataValidation(prev => ({
         ...prev,
         firstName: stringRegex.test(formData.firstName),
         lastName: stringRegex.test(formData.lastName),
-        email: emailRegex.test(formData.email)
+        email: emailRegex.test(formData.email),
+        lang: typeof formData.lang === 'string' ? true : false
       }))
     }
 
@@ -285,12 +367,19 @@ const AddParticipantInfoDialog = (props) => {
           ...prev,
           hasFile: true
         }))
+        setFormData(prev => ({
+          ...prev,
+          noFileError: false
+        }))
       } else {
         setFormDataValidation(prev => ({
           ...prev,
           hasFile: false
         }))
-        alert("you must upload a file")
+        setFormData(prev => ({
+          ...prev,
+          noFileError: true
+        }))
       }
     }
   }
@@ -302,7 +391,7 @@ const AddParticipantInfoDialog = (props) => {
       onClose={handleClose}
       aria-labelledby="responsive-dialog-title"
     >
-      <DialogTitle id="responsive-dialog-title" disableTypography><Typography variant="h3" component="h3">{t('pageTitle')}</Typography></DialogTitle>
+      <DialogTitle id="responsive-dialog-title" disableTypography><Typography variant="h3" component="h3">{t('title')}</Typography></DialogTitle>
       <DialogContent>
         <Typography>{t('subtitle')}</Typography>
       <Stepper activeStep={activeStep} alternativeLabel>
@@ -314,7 +403,7 @@ const AddParticipantInfoDialog = (props) => {
         </Step>
       </Stepper>
       <Paper elevation={3} className={classes.paper}>
-        {activeStep === 1 && <Typography variant="h3">{formData.firstName} {formData.lastName}</Typography>}
+        {activeStep >= 1 && <Typography variant="h3">{formData.firstName} {formData.lastName}</Typography>}
         <Typography variant={activeStep === 0 ? "h3" : "body1"}>{t('a_common:participant.id')}: {patientId}</Typography>
         <Typography>{t('a_common:participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
       </Paper>
@@ -356,14 +445,24 @@ const AddParticipantInfoDialog = (props) => {
             value={formData.email}
             helperText={formData.email_error && t('form.error.email')}
           />
+          <InputGroupError error={formData.lang_error} errorMessage={t('form.lang.error')}>
+            <LangOption 
+              id="lang"
+              label={t('form.lang.label')}
+              helperText={t('form.lang.helper_text')}
+              editMode={true}
+              value={formData.lang}
+              onChange={updateLang}
+            />
+          </InputGroupError>
+          {formData.updateUserError && <Status state="error" title={t('form.error.updateUser.title')} message={t('form.error.updateUser.message')} />}
         </form>
       )}
       {activeStep === 1 && (
-        <>
+        <form id="activatePatient" className={classes.form} autoComplete="off" onSubmit={handleFormSubmit}>
           {formData.file && formData.file.name && (
             <FileItem file={formData.file} onRemove={handleRemoveFile} />
           )}
-
           <input
             accept=".pdf"
             className={classes.input}
@@ -376,8 +475,9 @@ const AddParticipantInfoDialog = (props) => {
               <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">{t('form.consentFile')}</Button>
             </label>
           )}
-          {formData.uploadError && <Status state="error" title={t('form.error.submit.title')} message={t('form.error.submit.message')} />}
-        </>
+          {formData.noFileError && <Status state="error" title={t('form.error.noFile.title')} message={t('form.error.noFile.message')} />}
+          {formData.uploadError && <Status state="error" title={t('form.error.uploadFile.title')} message={t('form.error.uploadFile.message')} />}
+        </form>
       )}
       {activeStep === 2 && (
         <>
@@ -387,7 +487,7 @@ const AddParticipantInfoDialog = (props) => {
       )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleFormSubmit} color="primary" variant="contained">{t('a_common:buttons.next')}</Button>
+        <Button color="primary" variant="contained" type="submit" form="activatePatient">{submitText}</Button>
         <Button variant="text" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>

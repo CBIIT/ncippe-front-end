@@ -185,13 +185,13 @@ export default () => {
       </Container>
 
       <LoginConsumer>
-      {([{roleName, patients}]) => {
+      {([{roleName, patients, patientsUpdated}]) => {
         return (roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && patients && (
         <Container>
           {/* Provider's Patient List */}
             {/* Secondary row */}
               <Box my={6}>
-                <PatientList patients={patients} />
+                <PatientList patients={patients} patientsUpdated={patientsUpdated} />
               </Box>
           {/* End: Provider's Patient List */}
         </Container>

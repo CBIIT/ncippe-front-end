@@ -415,7 +415,27 @@ async function updateParticipantDetails({uuid, token, patient}){
       firstName: patient.firstName,
       lastName: patient.lastName,
       email: patient.email,
-      portalAccountStatus: 'ACCT_ACTIVE'
+      // portalAccountStatus: 'ACCT_ACTIVE',
+      lang: patient.lang
+    })
+  })
+    .then(handleResponse)
+    .catch(handleErrorMsg('Unable to update participant information.'))
+}
+
+async function activateParticipant({uuid, token, patient}){
+
+  // first: identify the patient
+  const userData = await fetchUser({patientId: patient.patientId})
+
+  return await fetch(`/api/patients/${userData.id}`,{
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      updatedByUser: uuid,
+      portalAccountStatus: 'ACCT_ACTIVE',
     })
   })
     .then(handleResponse)
@@ -438,5 +458,6 @@ export const api = {
   uploadConsentForm: uploadPatientReport,
   withdrawUser,
   closeAccount,
-  updateParticipantDetails
+  updateParticipantDetails,
+  activateParticipant
 }
