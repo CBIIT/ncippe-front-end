@@ -89,7 +89,19 @@ const SignInCallback = (props) => {
   
             // sort patient list alphabetically by last name
             if(userData.patients && userData.patients.length > 1){
-              const sortedPatients = userData.patients.sort((a, b) => a.lastName.localeCompare(b.lastName))
+              const sortedPatients = userData.patients
+                // sort alphabetically
+                .sort((a, b) => a.lastName.localeCompare(b.lastName))
+                // bring new accounts to the top
+                .sort((a,b) => {
+                  if(a.portalAccountStatus === "ACCT_NEW" && b.portalAccountStatus !== "ACCT_NEW") {
+                    return -1
+                  }
+                  if(b.portalAccountStatus === "ACCT_NEW" && a.portalAccountStatus !== "ACCT_NEW") {
+                    return 1
+                  }
+                  return 0
+                })
               userData.patients = sortedPatients
             }
   
