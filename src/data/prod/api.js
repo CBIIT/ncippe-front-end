@@ -226,6 +226,23 @@ async function updateParticipantDetails({uuid, token, patient}){
     }
   })
   .then(handleResponse)
+  .catch(handleErrorMsg('Unable to update participant information.'))
+}
+
+async function activateParticipant({uuid, token, patient}){
+  const query = {
+    updatedByUser: uuid,
+    patientId: patient.patientId,
+  }
+
+  return await fetch(`/api/v1/user/invite-participant-to-portal?${queryString.stringify(query)}`,{
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+  })
+  .then(handleResponse)
   .catch(handleErrorMsg('Unable to activate participant account.'))
 }
 
@@ -246,4 +263,5 @@ export const api = {
   withdrawUser,
   closeAccount,
   updateParticipantDetails,
+  activateParticipant
 }
