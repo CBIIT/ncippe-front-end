@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Grid, Link, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useScript } from '../../components/utils/useScript'
 import { useTranslation } from 'react-i18next'
+
+import getAPI from '../../data'
+import {formatPhoneNumber} from '../../utils/utils'
 
 const useStyles = makeStyles( theme => ({
   title: {
@@ -44,7 +47,8 @@ const HospitalMap = (props) => {
   const [mapStylesLoaded, mapStylesError] = useScript('https://unpkg.com/leaflet@1.5.1/dist/leaflet.css')
   const [mapScriptLoaded, mapScriptError] = useScript('https://unpkg.com/leaflet@1.5.1/dist/leaflet.js')
   const { t, i18n } = useTranslation(['eligibility','hospitalList'])
-  const hospitalData = i18n.getResourceBundle(i18n.languages[0],'hospitalList').hospitals
+  // const hospitalData = i18n.getResourceBundle(i18n.languages[0],'hospitalList').hospitals
+  const [hospitalData, setHospitalData] = useState([])
 
   let map
 
@@ -66,11 +70,26 @@ const HospitalMap = (props) => {
         const hospital = hospitalData[item]
         const gpsMarker = hospital.gps_coordinates.split(",")
         window.L.marker(gpsMarker,{
-          title: hospital.pin_popup_text
-        }).addTo(map).bindPopup(hospital.pin_popup_text).on('click',clickZoom); 
+          title: hospital.title
+        }).addTo(map).bindPopup(hospital.title).on('click',clickZoom); 
       })
     }
   },[mapScriptLoaded])
+
+  useEffect(() => {
+    getAPI.then(api => {
+      api.getHospitalList().then(resp => {
+        if(resp instanceof Error) {
+          throw resp
+        }
+        setHospitalData(resp)
+      })
+    })
+    .catch(error => {
+      console.error(error)
+    })
+        
+  }, [])
 
   const updateMap = (e) => {
     e.preventDefault()
@@ -98,7 +117,7 @@ const HospitalMap = (props) => {
                         {hospital.address_2 && <>{hospital.address_2} <br /></>}
                         {hospital.city}, {hospital.state} {hospital.zip}<br />
                         {hospital.poc && <>{hospital.poc} <br /></>}
-                        {hospital.telephone}
+                        {formatPhoneNumber(hospital.telephone)}
                       </Typography>
                     </Link>
                   )
