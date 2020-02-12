@@ -443,6 +443,15 @@ async function activateParticipant({uuid, token, patient}){
 }
 
 /*=======================================================================*/
+/*======== Get Hospital List =========================================*/
+
+async function getHospitalList(){
+  return await fetch(`/api/hospitals/`)
+    .then(handleResponse)
+    .catch(handleErrorMsg('Unable to fetch hospital list at this time.'))
+}
+
+/*=======================================================================*/
 /*======== Public API ===================================================*/
 
 export const api = {
@@ -459,5 +468,6 @@ export const api = {
   withdrawUser,
   closeAccount,
   updateParticipantDetails,
-  activateParticipant
+  activateParticipant,
+  getHospitalList
 }
