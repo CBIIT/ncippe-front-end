@@ -49,8 +49,8 @@ export default () => {
     if(tracked === 'false' || !tracked) {
       trackEvent({
         event:'pageview',
-        prop6: "Dashboard Page",
-        prop10: "Dashboard | Cancer Moonshot Biobank"
+        prop6: "Account Page",
+        prop10: t('metaData.title')
       })
       sessionStorage.setItem('isDashboardTracked',true)
     }
@@ -66,8 +66,8 @@ export default () => {
   return (
     <Box>
       <Helmet>
-        <title>Dashboard | NCI</title>
-        <meta name="title" content="Dashboard" />
+        <title>{t('metaData.title')}</title>
+        <meta name="title" content={t('metaData.title')} />
       </Helmet>
       <Container className="mainContainer--dashboard">
         <LoginConsumer>

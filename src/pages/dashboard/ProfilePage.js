@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
+import { Helmet } from 'react-helmet-async'
 
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
 import { LoginContext, LoginConsumer } from '../../components/login/Login.context'
@@ -101,6 +102,10 @@ const ProfilePage = (props) => {
 
   return (
     <Box className="popup">
+      <Helmet>
+        <title>{t('metaData.title')}</title>
+        <meta name="title" content={t('metaData.title')} />
+      </Helmet>
       <Breadcrumbs pageName="Profile" link={props.location.state.forceNavigation} />
       <Container className="mainContainer">
         <div className={classes.profile}>
