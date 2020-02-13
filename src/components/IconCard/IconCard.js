@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@reach/router'
-import { Badge, Card, CardContent, Typography } from '@material-ui/core';
+import { Badge, Button, Card, CardActions, CardContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { KeyboardArrowRight as KeyboardArrowRightIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
@@ -34,30 +34,24 @@ const useStyles = makeStyles( theme => ({
     maxWidth: '100px',
     width: '100%'
   },
-  cardText: {
+  cardTextContainer: {
     display: 'flex',
     flexGrow: 1,
     flexDirection: 'column',
     height: '100%',
-    justifyContent: 'space-between',
+  },
+  cardText: {
+    flexGrow: 1,
     '& a': {
-      // display: 'flex',
-      // flex: '0 0 auto',
       display: "inline-block",
       lineHeight: '22px',
       marginBottom: theme.spacing(1)
     }
   },
-  link: {
-    display: 'flex',
-    alignItems: 'center',
-    textDecoration: 'none',
-    fontWeight: 600,
-    paddingTop: theme.spacing(2),
-    marginTop: theme.spacing(2),
+  cardActions: {
     borderTop: `1px solid ${theme.palette.grey[300]}`,
-    color: theme.palette.primary.main
-  },
+    padding: theme.spacing(1,0,0,0)
+  }
 }))
 
 const IconCard = (props) => {
@@ -79,16 +73,18 @@ const IconCard = (props) => {
 
         <CardContent className={`${classes.cardContent} IconCardContent`}>
           {icon && <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/${icon}`} alt={altText} aria-hidden="true" />}
-          <div className={classes.cardText}>
-            <div>
+          <div className={classes.cardTextContainer}>
+            <div className={classes.cardText}>
               <Typography className={classes.cardTitle} variant="body2" component="h2">{title}</Typography>
               <Typography><RenderContent source={desc} /></Typography>
             </div>
-            {link &&
-              <div>
-                <Typography><Link className={classes.link} to={link}>{linkText} <KeyboardArrowRightIcon className={classes.linkIcon} /></Link></Typography>
-              </div>
-            }
+            {link && (
+              <CardActions className={classes.cardActions}>
+                <Button color="primary" component={Link} to={link}>
+                  {linkText} <KeyboardArrowRightIcon className={classes.linkIcon} />
+                </Button>
+              </CardActions>
+            )}
           </div>
         </CardContent>
         
