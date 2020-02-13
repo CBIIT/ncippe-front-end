@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Box, Container, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
+import { Helmet } from 'react-helmet-async'
 
 import { LoginContext } from '../../components/login/Login.context'
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
@@ -37,6 +38,10 @@ export default () => {
   const { t } = useTranslation('a_common')
   return (
     <Box className="popup">
+      <Helmet>
+        <title>{t('components.consentView.metaData.title')}</title>
+        <meta name="title" content={t('components.consentView.metaData.title')} />
+      </Helmet>
       <Breadcrumbs pageName="Consent Page" />
       <Container className="mainContainer">
         <Grid container className={classes.grid}>

@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Container, Divider, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
+import { Helmet } from 'react-helmet-async'
 
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
 import ArticleImage from '../../components/utils/ArticleImage'
@@ -42,6 +43,10 @@ export default () => {
   const { t } = useTranslation(['a_help','a_common'])
   return (
     <Box className="popup">
+      <Helmet>
+        <title>{t('metaData.title')}</title>
+        <meta name="title" content={t('metaData.title')} />
+      </Helmet>
       <Breadcrumbs pageName="Get Help" />
       <Container className="mainContainer">
         <div className={classes.titleWithIcon}>
