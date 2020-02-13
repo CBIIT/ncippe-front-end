@@ -70,7 +70,7 @@ const PatientListItem = (props) => {
   }
   return (
     <Link className={classes.Link} onClick={handleClick}
-      to={`/dashboard/participant/${patientId}`}>
+      to={`/account/participant/${patientId}`}>
       <Paper className={`${classes.paper} ${portalAccountStatus === 'ACCT_NEW' && classes.new}`}>
         {(hasNewReports || isActiveBiobankParticipant === false || portalAccountStatus === 'ACCT_NEW') && 
         <div className={classes.badges}>

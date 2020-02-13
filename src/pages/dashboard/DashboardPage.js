@@ -100,7 +100,7 @@ export default () => {
                   icon="notifications.svg"
                   title={t('cards.notifications.title')}
                   desc={t('cards.notifications.description', {count,s:count !== 1 ? t('a_common:pluralizer') : ''})}
-                  link="/dashboard/notifications"
+                  link="/account/notifications"
                   linkText={t('cards.notifications.link')}
                   count={count}
                   cardClick={trackCardClick}
@@ -121,7 +121,7 @@ export default () => {
                     icon="reports.svg"
                     title={t('cards.consent.title')}
                     desc={t('cards.notifications.description')}
-                    link="/dashboard/consent"
+                    link="/account/consent"
                     linkText={t('cards.notifications.link')}
                     cardClick={trackCardClick}
                   />
@@ -134,7 +134,7 @@ export default () => {
                     icon="biomarker-tests.svg"
                     title={t('cards.biomarker.title')}
                     desc={t('cards.biomarker.description')}
-                    link="/dashboard/tests"
+                    link="/account/tests"
                     linkText={t('cards.biomarker.link')}
                     count={count}
                     cardClick={trackCardClick}
@@ -155,7 +155,7 @@ export default () => {
                 icon={icon}
                 title={t('cards.settings.title')}
                 desc={t('cards.settings.description')}
-                link="/dashboard/profile"
+                link="/account/profile"
                 linkText={t('cards.settings.link')}
                 cardClick={trackCardClick}
               />
@@ -172,7 +172,7 @@ export default () => {
                   icon="get-help.svg"
                   title={t('cards.help.title')}
                   desc={t('cards.help.description')}
-                  link="/dashboard/help"
+                  link="/account/help"
                   linkText={t('cards.help.link')}
                   cardClick={trackCardClick}
                 />

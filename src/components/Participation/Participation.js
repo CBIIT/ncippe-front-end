@@ -35,12 +35,12 @@ const Participation = (props) => {
     // using state to hijack the back button so it goes back to the dashboard
     // and not back into the 'change participation' workflow
     // navigate('../', {state: {
-    //   forceNavigation: '/dashboard'
+    //   forceNavigation: '/account'
     // }})
     const isParticipant = window.location.pathname.includes("/profile")
-    navigate(isParticipant ? '/dashboard/profile' : window.location.pathname.match(/^.*\/participant\/.{8}/)[0], {
+    navigate(isParticipant ? '/account/profile' : window.location.pathname.match(/^.*\/participant\/.{8}/)[0], {
       state: {
-        forceNavigation: '/dashboard'
+        forceNavigation: '/account'
       }
     })
   }
