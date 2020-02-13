@@ -144,9 +144,9 @@ const SignInCallback = (props) => {
     if(uuid && auth){
       i18n.changeLanguage(lang)
       if( roleName === 'ROLE_PPE_MOCHA_ADMIN') {
-        navigate('/dashboard-mocha')
+        navigate('/account-mocha')
       } else {
-        navigate('/dashboard')
+        navigate('/account')
       }
     }
   }, [loginContext])

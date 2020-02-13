@@ -73,8 +73,8 @@ export default () => (
       <TransitionGroup className="transitionGroup" component={null}>
         <CSSTransition 
           key={location.key}
-          timeout={location.pathname.match(/\/dashboard\//) ? 350 : 550}
-          classNames={location.pathname.match(/\/dashboard\//) ? 'zoom' : 'fade'}
+          timeout={location.pathname.match(/\/account\//) ? 350 : 550}
+          classNames={location.pathname.match(/\/account\//) ? 'zoom' : 'fade'}
           className="transitionGroup"
         >
           <Router location={location} primary={false}>
@@ -91,17 +91,17 @@ export default () => (
             <ErrorPage path='/error' />
 
             <SignInCallbackPage path='/signin' />
-            <PrivateRoute path='/dashboard' component={DashboardPage} />
+            <PrivateRoute path='/account' component={DashboardPage} />
             <MockUsersPage path='/mock-users' />
-            <PrivateRoute path='/dashboard-mocha' component={DashboardMochaPage} />
-            <PrivateRoute path='/dashboard/notifications' component={NotificationsPage} />
-            <PrivateRoute path='/dashboard/consent' component={ConsentPage} />
-            <PrivateRoute path='/dashboard/tests' component={TestResultsPage} />
-            <PrivateRoute path='/dashboard/participant/:patientId' component={ParticipantPage} />
-            <PrivateRoute path='/dashboard/participant/:patientId/participation/*' component={ParticipationPage} />
-            <PrivateRoute path='/dashboard/profile' component={ProfilePage} />
-            <PrivateRoute path='/dashboard/profile/participation/*' component={ParticipationPage} />
-            <PrivateRoute path='/dashboard/help' component={GetHelpPage} />
+            <PrivateRoute path='/account-mocha' component={DashboardMochaPage} />
+            <PrivateRoute path='/account/notifications' component={NotificationsPage} />
+            <PrivateRoute path='/account/consent' component={ConsentPage} />
+            <PrivateRoute path='/account/tests' component={TestResultsPage} />
+            <PrivateRoute path='/account/participant/:patientId' component={ParticipantPage} />
+            <PrivateRoute path='/account/participant/:patientId/participation/*' component={ParticipationPage} />
+            <PrivateRoute path='/account/profile' component={ProfilePage} />
+            <PrivateRoute path='/account/profile/participation/*' component={ParticipationPage} />
+            <PrivateRoute path='/account/help' component={GetHelpPage} />
             <NotFoundPage default />
           </Router>
         </CSSTransition>

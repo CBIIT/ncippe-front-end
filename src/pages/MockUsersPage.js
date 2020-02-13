@@ -93,8 +93,8 @@ const MockRoles = () => {
             const {auth, roleName, firstName, lastName} = state
             return auth ? (
               <>
-                <Typography variant="h2"><Button variant="contained" className={classes.largeButton} onClick={() => navigate('/dashboard')}>Return to Dashboard as {firstName} {lastName} ({roleName})</Button></Typography>
-                <Typography variant="h2"><Button variant="contained" className={classes.largeButton} color="primary" onClick={clearRole}>Clear Role as {firstName} {lastName} ({roleName})</Button></Typography>
+                <Typography variant="h2"><Button variant="contained" className={classes.largeButton} onClick={() => navigate('/account')}>Return to account as {firstName} {lastName} ({roleName})</Button></Typography>
+                <Typography variant="h2"><Button variant="contained" className={classes.largeButton} color="primary" onClick={clearRole}>Clear role as {firstName} {lastName} ({roleName})</Button></Typography>
               </>
             ) : (
               <>

@@ -262,7 +262,7 @@ const AddParticipantInfoDialog = (props) => {
             activatePatient()
 
             // save successful, close modal and redirect to Participant View
-            navigate(`/dashboard/participant/${patientId}`, {
+            navigate(`/account/participant/${patientId}`, {
               state: {
                 newParticipantActivated: true
               }

@@ -65,7 +65,7 @@ export default track({
   // tracking options - {dispatch, dispatchOnMount, process} - see https://github.com/nytimes/react-tracking
   dispatch: (data) => {
     const local_s = window.s_gi(process.env.REACT_APP_ANALYTICS_ACCOUNT)
-    const isPrivate = window.location.pathname.match("dashboard")
+    const isPrivate = window.location.pathname.match("account")
 
     // set url specific data on every call
     let computedData = {
@@ -85,7 +85,7 @@ export default track({
 
       // for capturing percent page view on dashboard popups - not currently in scope
       // let targetElement = ".siteWrapper";
-      // if (isPrivate && window.location.pathname !== "/dashboard") {
+      // if (isPrivate && window.location.pathname !== "/account") {
       //   targetElement = ".transitionGroup"
       // }
       // local_s.getPercentPageViewed(pageName,false,targetElement)
