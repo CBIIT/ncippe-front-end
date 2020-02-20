@@ -260,7 +260,7 @@ const UploadReport = () => {
   return (
     <div className={classes.root}>
       <Box mb={5}>
-        <Typography variant="h2" component="h2">{t('title')}</Typography>
+        <Typography variant="h2" component="h2">{t('pageTitle')}</Typography>
         <Typography>{t('description')}</Typography>
       </Box>
       <Paper className={classes.paper}>
