@@ -120,9 +120,9 @@ export default () => {
                   <IconCard
                     icon="reports.svg"
                     title={t('cards.consent.title')}
-                    desc={t('cards.notifications.description')}
+                    desc={t('cards.consent.description')}
                     link="/account/consent"
-                    linkText={t('cards.notifications.link')}
+                    linkText={t('cards.consent.link')}
                     cardClick={trackCardClick}
                   />
                 </Grid>
