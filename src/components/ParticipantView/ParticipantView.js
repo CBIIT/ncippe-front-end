@@ -216,7 +216,7 @@ const TestResults = (props) => {
           )}
         </Grid>
         <Grid item xs={12} md={6} id="eConsentForms">
-          <Typography className={classes.header} variant="h2" component="h2">{t('components.biomarkerView.pageTitle')}</Typography>
+          <Typography className={classes.header} variant="h2" component="h2">{t('components.consentView.pageTitle')}</Typography>
           {uploadSuccess && <Status state="success" 
             title={t('components.participantView.status.uploaded.title')}
             message={t('components.participantView.status.uploaded.message')} />
