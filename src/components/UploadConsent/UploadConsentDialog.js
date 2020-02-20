@@ -22,11 +22,11 @@ const useStyles = makeStyles(theme => ({
   // formButtons: {
   //   marginTop: theme.spacing(2)
   // },
-  dialog: {
-    '& .MuiDialog-paper': {
-      minWidth: 600,
-    },
-  },
+  // dialog: {
+  //   '& .MuiDialog-paper': {
+  //     minWidth: 600,
+  //   },
+  // },
   btnSelectReport: {
     margin: theme.spacing(3,0,3)
   },
