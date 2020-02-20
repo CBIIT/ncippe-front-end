@@ -7,7 +7,7 @@ import { LoginConsumer } from '../../components/login/Login.context'
 import UploadReport from '../../components/Mocha/UploadReport'
 
 export default () => {
-  const { t } = useTranslation('a_common')
+  const { t } = useTranslation(['a_landingMocha','a_common'])
   return (
     <Box>
       <Helmet>
@@ -16,7 +16,7 @@ export default () => {
       </Helmet>
       <Container className="mainContainer--dashboard">
           <LoginConsumer>
-          {([{firstName, lastName}]) => <Box my={6} mx={0}><Typography variant='h1' component='h1' gutterBottom>{t('welcome')}, {firstName} {lastName}</Typography></Box>}
+          {([{firstName, lastName}]) => <Box my={6} mx={0}><Typography variant='h1' component='h1' gutterBottom>{t('a_common:welcome')}, {firstName} {lastName}</Typography></Box>}
           </LoginConsumer>
           <UploadReport />
       </Container>

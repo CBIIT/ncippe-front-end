@@ -44,12 +44,14 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const SearchResults = (props) => {
-  const {location} = props
+  // const {location} = props
   const classes = useStyles()
   const { t, i18n } = useTranslation(['common','homePage','about','eligibility','research','consent','donate','testing','activate','privacy','hospitalList','searchResults'])
   const { trackEvent } = useTracking()
-  const term = location ? location.state ? location.state.term : '' : ''
+  // const term = location ? location.state ? location.state.term : '' : ''
+  const term = window.history.state ? window.history.state.term : ""
   const [searchTerm, setSearchTerm] = useState(term)
+  const [searchTermInput, setSearchTermInput] = useState(term)
   const [searchResults, setSearchResults] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
   const [searchIndex, setSearchIndex] = useState()
@@ -98,6 +100,11 @@ const SearchResults = (props) => {
   }, [i18n,i18n.language])
   
   useEffect(() => {
+    if(term === "" || searchTerm !== term) {
+      setSearchTermInput(term)
+      setSearchTerm(term)
+      return
+    }
     const extract = (str,q) => {
       const regEx = new RegExp(q,"i")
       const match = str.search(regEx,"gi")
@@ -157,14 +164,14 @@ const SearchResults = (props) => {
       })
     }
 
-  }, [searchTerm, trackEvent, searchIndex, docData])
+  }, [searchTerm, trackEvent, searchIndex, docData, window.history.state])
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const term = e.target.searchPageSearch.value
     setSearchTerm(term)
     // update the history to store the search term
-    window.history.replaceState({term}, "", "/search")
+    window.history.pushState({term}, "", "/search")
 
     trackEvent({
       prop11: "BioBank Global Search - Results New Search",
@@ -183,6 +190,7 @@ const SearchResults = (props) => {
     } else (
       setIsDisabled(true)
     )
+    setSearchTermInput(input)
   }
 
   const trackClick = (e) => {
@@ -216,6 +224,7 @@ const SearchResults = (props) => {
                 placeholder={t('searchResults:input_placeholder')}
                 inputProps={{ 'aria-label': 'search' }}
                 variant="outlined"
+                value={searchTermInput}
                 InputProps={ // props applied to the Input component
                   { startAdornment: <InputAdornment position="start"><SearchIcon color="action" /></InputAdornment> }
                 }
@@ -225,8 +234,8 @@ const SearchResults = (props) => {
             </form>
           </Box>
           <Box mt={3} component="section">
-            <Typography variant="h3" component="h3">{searchResults.length} {t('searchResults:results_title')} {searchTerm}</Typography>
-            <Box mt={3}>
+            {searchTerm && <Typography variant="h3" component="h3">{searchResults.length} {t('searchResults:results_title')} {searchTerm}</Typography>}
+            {searchTerm && <Box mt={3}>
               {searchResults && searchResults.map((result,i) => {
                 const {page,route,results} = result
                 return (
@@ -243,6 +252,7 @@ const SearchResults = (props) => {
               })}
               {searchResults && !searchResults.length && <Typography variant="body2">{t('searchResults:results_none')}</Typography>}
             </Box>
+            }
           </Box>
         </Box>
       </Container>

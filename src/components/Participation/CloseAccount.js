@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Box, Button, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
@@ -11,6 +11,7 @@ import { AuthContext } from '../login/AuthContext'
 import getAPI from '../../data'
 import { formatPhoneNumber } from '../../utils/utils'
 import RenderContent from '../utils/RenderContent'
+import Status from '../Status/Status'
 
 const useStyles = makeStyles( theme => ({
   header: {
@@ -46,6 +47,7 @@ const CloseAccount = (props) => {
   const { trackEvent } = useTracking()
   const [loginContext, dispatch] = useContext(LoginContext)
   const { signoutRedirectCallback } = useContext(AuthContext)
+  const [ closeError, setCloseError ] = useState(false)
   const { crc } = loginContext
 
   const handleSubmit = () => {
@@ -57,7 +59,9 @@ const CloseAccount = (props) => {
     })
     getAPI.then(api => {
       api.closeAccount({uuid, token}).then(resp => {
-        if(resp) {
+        if(resp instanceof Error) {
+          throw resp
+        } else {
           // Save successful, also update the user context data
           signoutRedirectCallback({
             accountClosed: true
@@ -65,9 +69,11 @@ const CloseAccount = (props) => {
           dispatch({
             type: 'reset'
           })
-        } else {
-          alert(resp.message)
         }
+      })
+      .catch(error => {
+        console.error(error)
+        setCloseError(true)
       })
     })
   }
@@ -75,13 +81,14 @@ const CloseAccount = (props) => {
   return (
     <Box>
       <Typography className={classes.header} variant="h1" component="h1">{t('close.pageTitle')}</Typography>
-      <Typography paragraph={true}><RenderContent source={t('close.body')} /></Typography>
+      <Typography paragraph={true} component="div"><RenderContent source={t('close.body')} /></Typography>
       <Paper className={classes.crc_card}>
         <Typography variant="h3">{t('close.crc_card_title')}</Typography>
         <Typography>{crc.firstName} {crc.lastName}</Typography>
         <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
         <Typography><a href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
       </Paper>
+      {closeError && <Status state="error" title={t('close.error.title')} message={t('close.error.message')} />}
       <div className={classes.formButtons}>
         <Button className={classes.confirm} variant="contained" onClick={handleSubmit}>{t('close.submit')}</Button>
         <Button className={classes.btnCancel} variant="text" onClick={props.cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>

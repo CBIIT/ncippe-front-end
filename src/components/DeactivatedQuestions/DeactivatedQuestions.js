@@ -10,7 +10,7 @@ const useStyles = makeStyles( theme => ({
     padding: theme.spacing(4, 3),
   },
   questions: {
-    borderBottom: '1px solid #ccc',
+    borderBottom: '2px solid #ccc',
     padding: theme.spacing(3, 0),
     '&:last-child': {
       borderBottom: 'none'
