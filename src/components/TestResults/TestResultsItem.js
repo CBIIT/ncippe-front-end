@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
   },
   cardAction: {
     justifyContent: 'space-between',
-    borderTop: `1px solid ${theme.palette.grey[300]}`,
+    borderTop: `2px solid ${theme.palette.grey[300]}`,
     margin: theme.spacing(0,2),
     padding: theme.spacing(2,0,0,0),
 
