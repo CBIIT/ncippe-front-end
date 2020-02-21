@@ -49,23 +49,29 @@ const HospitalMap = (props) => {
   const { t, i18n } = useTranslation(['eligibility','hospitalList'])
   // const hospitalData = i18n.getResourceBundle(i18n.languages[0],'hospitalList').hospitals
   const [hospitalData, setHospitalData] = useState([])
-
-  let map
+  const [map, setMap] = useState()
 
   useEffect(()=>{
     if(mapScriptLoaded) {
-      map = window.L.map('map').setView([38.5561, -90.2496], 5)
-      const OpenStreetMap = window.L.tileLayer('https://{s}.tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=401fa637f2f647f298b4176b24ca7ef5', {
-              maxZoom: 19,
-              attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            });
-
-      OpenStreetMap.addTo(map)
-
-      const clickZoom = (e) => {
-        map.setView(e.target.getLatLng(),11);
+      if(!map){
+        const bssMap = window.L.map('map').setView([38.5561, -90.2496], 5)
+        const OpenStreetMap = window.L.tileLayer('https://{s}.tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=401fa637f2f647f298b4176b24ca7ef5', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              });
+  
+        OpenStreetMap.addTo(bssMap)
+        setMap(bssMap)
       }
+    }
+  },[mapScriptLoaded])
 
+  useEffect(() => {
+    const clickZoom = (e) => {
+      map.setView(e.target.getLatLng(),11);
+    }
+    
+    if(map && hospitalData.length > 0) {
       Object.keys(hospitalData).map((item, i) => {
         const hospital = hospitalData[item]
         const gpsMarker = hospital.gps_coordinates.split(",")
@@ -74,7 +80,9 @@ const HospitalMap = (props) => {
         }).addTo(map).bindPopup(hospital.title).on('click',clickZoom); 
       })
     }
-  },[mapScriptLoaded])
+
+    
+  }, [map, hospitalData])
 
   useEffect(() => {
     getAPI.then(api => {
