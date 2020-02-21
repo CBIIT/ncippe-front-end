@@ -44,8 +44,8 @@ const useStyles = makeStyles( theme => ({
 
 const HospitalMap = (props) => {
   const classes = useStyles()
-  const [mapStylesLoaded, mapStylesError] = useScript('https://unpkg.com/leaflet@1.5.1/dist/leaflet.css')
-  const [mapScriptLoaded, mapScriptError] = useScript('https://unpkg.com/leaflet@1.5.1/dist/leaflet.js')
+  const [mapStylesLoaded, mapStylesError] = useScript('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css')
+  const [mapScriptLoaded, mapScriptError] = useScript('https://unpkg.com/leaflet@1.6.0/dist/leaflet.js')
   const { t, i18n } = useTranslation(['eligibility','hospitalList'])
   // const hospitalData = i18n.getResourceBundle(i18n.languages[0],'hospitalList').hospitals
   const [hospitalData, setHospitalData] = useState([])
@@ -55,15 +55,15 @@ const HospitalMap = (props) => {
   useEffect(()=>{
     if(mapScriptLoaded) {
       map = window.L.map('map').setView([38.5561, -90.2496], 5)
-      const OpenStreetMap = window.L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
+      const OpenStreetMap = window.L.tileLayer('https://{s}.tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=401fa637f2f647f298b4176b24ca7ef5', {
               maxZoom: 19,
-              attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             });
 
       OpenStreetMap.addTo(map)
 
       const clickZoom = (e) => {
-        map.setView(e.target.getLatLng(),9);
+        map.setView(e.target.getLatLng(),11);
       }
 
       Object.keys(hospitalData).map((item, i) => {

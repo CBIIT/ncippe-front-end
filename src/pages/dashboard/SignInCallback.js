@@ -28,7 +28,7 @@ const SignInCallback = (props) => {
   const authContext = useContext(AuthContext)
   const { signinRedirectCallback } = authContext
   const {mockState} = loginContext
-  const { t, i18n } = useTranslation('a_common')
+  const { t } = useTranslation('a_common')
 
   useEffect(() => {
 
@@ -139,10 +139,9 @@ const SignInCallback = (props) => {
   }, [])
 
   useEffect(() => {
-    const { roleName, uuid, auth, lang = 'en' } = loginContext
+    const { roleName, uuid, auth } = loginContext
     
     if(uuid && auth){
-      i18n.changeLanguage(lang)
       if( roleName === 'ROLE_PPE_MOCHA_ADMIN') {
         navigate('/account-mocha')
       } else {
