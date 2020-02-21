@@ -28,7 +28,8 @@ import ConsentPage        from '../pages/dashboard/ConsentPage'
 import ProfilePage        from '../pages/dashboard/ProfilePage'
 import ParticipationPage  from '../pages/dashboard/ParticipationPage'
 import GetHelpPage        from '../pages/dashboard/GetHelpPage'
-import { LoginConsumer } from '../components/login/Login.context'
+import { LoginConsumer }  from '../components/login/Login.context'
+import { useTranslation } from 'react-i18next'
 
 const SearchResults = lazy(() => import('../pages/SearchResultsPage'))
 
@@ -58,10 +59,20 @@ document.addEventListener('click', function(event) {
 })
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { t, i18n } = useTranslation()
   return (
     <LoginConsumer>
       {([state]) => {
-        return state.auth ? <Component {...rest} /> : <Redirect from="" to="/" noThrow />
+        if(state.auth) {
+          // set default language in case it's not specified
+          const lang = state.lang || "en"
+          if(lang !== i18n.language) {
+            i18n.changeLanguage(lang)
+          }
+          return <Component {...rest} />
+        } else {
+          return <Redirect from="" to="/" noThrow />
+        }
       }}
     </LoginConsumer>
   )
