@@ -44,8 +44,8 @@ const useStyles = makeStyles( theme => ({
 
 const HospitalMap = (props) => {
   const classes = useStyles()
-  const [mapStylesLoaded, mapStylesError] = useScript('https://unpkg.com/leaflet@1.5.1/dist/leaflet.css')
-  const [mapScriptLoaded, mapScriptError] = useScript('https://unpkg.com/leaflet@1.5.1/dist/leaflet.js')
+  const [mapStylesLoaded, mapStylesError] = useScript('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css')
+  const [mapScriptLoaded, mapScriptError] = useScript('https://unpkg.com/leaflet@1.6.0/dist/leaflet.js')
   const { t, i18n } = useTranslation(['eligibility','hospitalList'])
   // const hospitalData = i18n.getResourceBundle(i18n.languages[0],'hospitalList').hospitals
   const [hospitalData, setHospitalData] = useState([])
