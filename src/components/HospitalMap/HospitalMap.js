@@ -77,7 +77,8 @@ const HospitalMap = (props) => {
         const gpsMarker = hospital.gps_coordinates.split(",")
         window.L.marker(gpsMarker,{
           title: hospital.title
-        }).addTo(map).bindPopup(hospital.title).on('click',clickZoom); 
+        }).addTo(map).bindPopup(hospital.title)
+        // .on('click',clickZoom); 
       })
     }
 
