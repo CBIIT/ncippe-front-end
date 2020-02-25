@@ -610,59 +610,59 @@
   },
   "hospitals": [
     {
-			"address_1": "2240 West Ogden Avenue",
-			"address_2": "Floor 12",
-			"city": "Chicago",
-			"gps_coordinates": "41.868636,-87.681454",
-			"poc": "Meng Ru",
-			"state": "Illinois",
-			"telephone": "(555) 555-5555",
-			"title": "Stroger Hospital of Cook County Minority Underserved NCORP",
-			"zip": "60612"
-		},
-		{
-			"title": "Baptist Memorial Health Care/Mid South Minority Underserved NCORP",
-			"address_1": "Baptist Cancer Center",
-			"address_2": "1995 Highway 51 South",
-			"city": "Covington",
-			"state": "Tennessee",
-			"zip": "38019",
-			"gps_coordinates": "35.5354435,-89.6785178",
-			"poc": "Emlen Beaver",
-			"telephone": "(555) 555-5555"
-		},
-		{
-			"title": "New Mexico Minority Underserved NCORP",
-			"address_1": "The University of New Mexico",
-			"address_2": "MSC 09 5220",
-			"city": "Albuquerque",
-			"state": "New Mexico",
-			"zip": "87131",
-			"gps_coordinates": "35.0843187,-106.6219699",
-			"poc": "Saami Al Samad",
-			"telephone": "(555) 555-5555"
-		},
-		{
-			"title": "VCU Massey Cancer Center Minority Underserved NCORP",
-			"address_1": "800 East Leigh Street",
-			"address_2": "",
-			"city": "Richmond",
-			"state": "Virginia",
-			"zip": "23298",
-			"gps_coordinates": "37.544077,-77.432143",
-			"poc": "Paulina Gayoso",
-			"telephone": "(555) 555-5555"
-		},
-		{
-			"title": "Montefiore Minority Underserved NCORP",
-			"address_1": "111 East 210th Street",
-			"address_2": "",
-			"city": "Bronx",
-			"state": "New York",
-			"zip": "10467",
-			"gps_coordinates": "40.8800853,-73.8798439",
-			"poc": "Heather Clark",
-			"telephone": "(555) 555-5555"
+      "address_1": "2240 West Ogden Avenue",
+      "address_2": "Floor 12",
+      "city": "Chicago",
+      "gps_coordinates": "41.868636,-87.681454",
+      "poc": "Meng Ru",
+      "state": "Illinois",
+      "telephone": "(555) 555-5555",
+      "title": "Stroger Hospital of Cook County Minority Underserved NCORP",
+      "zip": "60612"
+    },
+    {
+      "title": "Baptist Memorial Health Care/Mid South Minority Underserved NCORP",
+      "address_1": "Baptist Cancer Center",
+      "address_2": "1995 Highway 51 South",
+      "city": "Covington",
+      "state": "Tennessee",
+      "zip": "38019",
+      "gps_coordinates": "35.5354435,-89.6785178",
+      "poc": "Emlen Beaver",
+      "telephone": "(555) 555-5555"
+    },
+    {
+      "title": "New Mexico Minority Underserved NCORP",
+      "address_1": "The University of New Mexico",
+      "address_2": "MSC 09 5220",
+      "city": "Albuquerque",
+      "state": "New Mexico",
+      "zip": "87131",
+      "gps_coordinates": "35.0843187,-106.6219699",
+      "poc": "Saami Al Samad",
+      "telephone": "(555) 555-5555"
+    },
+    {
+      "title": "VCU Massey Cancer Center Minority Underserved NCORP",
+      "address_1": "800 East Leigh Street",
+      "address_2": "",
+      "city": "Richmond",
+      "state": "Virginia",
+      "zip": "23298",
+      "gps_coordinates": "37.544077,-77.432143",
+      "poc": "Paulina Gayoso",
+      "telephone": "(555) 555-5555"
+    },
+    {
+      "title": "Montefiore Minority Underserved NCORP",
+      "address_1": "111 East 210th Street",
+      "address_2": "",
+      "city": "Bronx",
+      "state": "New York",
+      "zip": "10467",
+      "gps_coordinates": "40.8800853,-73.8798439",
+      "poc": "Heather Clark",
+      "telephone": "(555) 555-5555"
     },
     {
       "title": "Mercy Hospital Fort Smith",
@@ -685,6 +685,32 @@
       "gps_coordinates": "33.908332, -84.352865",
       "poc": "Mickey Mouse",
       "telephone": "4043033355"
+    },
+    {
+      "city": "Belfast",
+      "state": "ME",
+      "title": "Waldo County General Hospital",
+      "address_1": "118 Northport Avenue",
+      "address_2": null,
+      "zip": "04915",
+      "poc": null,
+      "telephone": "(207) 338-2500",
+      "extension": "4790",
+      "poc_email": null,
+      "gps_coordinates": "44.4126255,-68.9942489"
+    },
+    {
+      "city": "Norway",
+      "state": "ME",
+      "title": "Stephens Memorial Hospital",
+      "address_1": "181 Main Street",
+      "address_2": null,
+      "zip": "04268",
+      "poc": null,
+      "telephone": "(207) 396-8670",
+      "extension": null,
+      "poc_email": "OncClinicalResearch@mmc.org",
+      "gps_coordinates": "44.2095554,-70.5324363"
     }
   ]
 }
