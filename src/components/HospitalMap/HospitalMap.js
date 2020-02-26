@@ -67,6 +67,11 @@ const HospitalMap = (props) => {
         const bssMap = window.L.map('map')
           .locate({setView: true, maxZoom:7}) //local view based on user's geolocation
           // .setView([38.5561, -90.2496], 5) //wide view from central USA
+
+        // fallback map view if location is not available
+        bssMap.on('locationerror',(e) => {
+          bssMap.setView([38.5561, -90.2496], 5)
+        })
           
         const mapTiles = window.L.tileLayer('https://{s}.tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=401fa637f2f647f298b4176b24ca7ef5', {
                 maxZoom: 19,
@@ -75,23 +80,6 @@ const HospitalMap = (props) => {
   
         mapTiles.addTo(bssMap)
 
-        const updateList = (e) => {
-          const i = e.popup._source.options.i
-          if(e.type === 'popupclose') {
-            refs.map((ref) => {
-              ref.current.classList.remove('active')
-            })
-          }
-          else {
-            refs[i].current.classList.add('active')
-            refs[i].current.scrollIntoView({
-              behavior: 'smooth',
-              block: 'nearest',
-            })
-          }
-        }
-
-        bssMap.on('popupopen popupclose',updateList)
         setMap(bssMap)
       }
     }
@@ -116,6 +104,27 @@ const HospitalMap = (props) => {
         setMarkers(prev => [...prev,thisMarker])
         // .on('click',clickZoom); 
       })
+
+      const updateList = (index) => {
+        refs.map((ref) => {
+          ref.current.classList.remove('active')
+        })
+        if(index){
+          refs[index].current.classList.add("active")
+      
+          refs[index].current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+          })
+        }
+      }
+
+      const handlePopup = (e) => {
+        const i = e.popup._source.options.i
+        updateList(i)
+      }
+
+      map.on('popupopen popupclose',handlePopup)
 
       // const bounds = window.L.latLngBounds(pins)
       // const group = new window.L.featureGroup(pins);
@@ -150,16 +159,6 @@ const HospitalMap = (props) => {
     e.preventDefault()
     const cords = e.currentTarget.dataset.location.split(",")
     const i = e.currentTarget.dataset.index
-    refs.map((ref) => {
-      ref.current.classList.remove('active')
-    })
-    refs[i].current.classList.add("active")
-
-    refs[i].current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-    })
-
     map.setView(cords,11)
     markers[i].openPopup()
   }
