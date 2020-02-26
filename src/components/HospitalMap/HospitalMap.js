@@ -109,7 +109,7 @@ const HospitalMap = (props) => {
         refs.map((ref) => {
           ref.current.classList.remove('active')
         })
-        if(index){
+        if(index !== undefined){
           refs[index].current.classList.add("active")
       
           refs[index].current.scrollIntoView({
@@ -120,7 +120,7 @@ const HospitalMap = (props) => {
       }
 
       const handlePopup = (e) => {
-        const i = e.popup._source.options.i
+        const i = e.type === 'popupopen' ? e.popup._source.options.i : undefined
         updateList(i)
       }
 
