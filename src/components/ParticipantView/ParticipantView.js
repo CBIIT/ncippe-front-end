@@ -161,11 +161,11 @@ const TestResults = (props) => {
       {user && (
         <div className={classes.profile}>
           <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt={t('icons.user_profile')} aria-hidden="true" />
-          <div className={classes.profileText}>
+          <div className={classes.profileText} className="highContrast">
             <Typography className={classes.profileHeader} variant="h2" component="h2">{user.firstName} {user.lastName}</Typography>
             {user.isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>{t('badges.not_participating')}</Typography></div>}
             <Typography><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
-            <Typography>{formatPhoneNumber(user.phoneNumber)}</Typography>
+            <Typography><a href={`tel:${user.phoneNumber}`}>{formatPhoneNumber(user.phoneNumber)}</a></Typography>
           </div>
           <LoginConsumer>
             {([{roleName}]) => {

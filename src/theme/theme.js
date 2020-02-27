@@ -27,6 +27,7 @@ export const theme = createMuiTheme({
       main: '#1e6fd6',
       light: '#e7f2ff',
       medium: '#d2e2f7',
+      dark: '#194F93',
       lightGrey: '#f2f5f8'
     },
     error: {
@@ -98,6 +99,12 @@ export const theme = createMuiTheme({
       lineHeight: '26px',
       paragraphHeight: '20px',
       letterSpacing: '.2',
+    },
+    h5: {
+      fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+    },
+    h6: {
+      fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
     },
     body1: {
       fontFamily: '"Open Sans", Montserrat, Helvetica, Arial, sans-serif',

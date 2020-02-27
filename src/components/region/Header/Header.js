@@ -35,13 +35,14 @@ const useStyles = makeStyles(theme => ({
   appToolbarContainer: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    minHeight: 82,
+    // marginTop: theme.spacing(2),
+    // marginBottom: theme.spacing(2),
     
-    [theme.breakpoints.up('smLandscape')]: {
-      marginTop: 0,
-      marginBottom: 0,
-    }
+    // [theme.breakpoints.up('smLandscape')]: {
+    //   marginTop: 0,
+    //   marginBottom: 0,
+    // }
     // padding: 0
   },
   toolbarLogo: {
@@ -105,10 +106,13 @@ const useStyles = makeStyles(theme => ({
     textAlign: "right",
     backgroundImage: theme.gradients.lightBlue,
     margin: theme.spacing(0, -3, 0, -4),
-    paddingRight: theme.spacing(3),
+    padding: theme.spacing(.5, 3),
     '& a': {
       cursor: "pointer",
-      fontSize: "90%"
+      fontSize: 12,
+      fontFamily: theme.typography.body1.fontFamily,
+      fontWeight: 'normal',
+      lineHeight: 'normal'
     }
   }
 }))
@@ -201,7 +205,7 @@ const Header = () => {
             <img src={`/${process.env.PUBLIC_URL}assets/images/biobank-logo.svg`} alt={t('logo.alt_text')} title={t('logo.title')} />
           </Link>
         </figure>
-        {!isMobile && (
+        {!isMobile && !loc.includes('account') && (
           <nav className={classes.publicNavDesktop} id="mainNav">
             <MenuGroup title={t('nav.topLevel.about')} active={loc.includes('about')} id="about">
               <a href="/about">{t('nav.about')}</a>
@@ -234,60 +238,63 @@ const Header = () => {
           <Box className={classes.mobileLogin}>
             <LoginButton />
           </Box>
-          <ExpansionMenu
-            handleClick={expandPanel}
-            expanded={expanded.includes("about")}
-            active={loc.includes('about')}
-            name={t('nav.topLevel.about')}
-            id="about"
-          >
-            <a onClick={closeMenu} href="/about">{t('nav.about')}</a>
-            <a onClick={closeMenu} href="/about/eligibility">{t('nav.eligibility')}</a>
-            <a onClick={closeMenu} href="/about/research">{t('nav.research')}</a>
-          </ExpansionMenu>
+          {!loc.includes('account') && <>
+            <ExpansionMenu
+              handleClick={expandPanel}
+              expanded={expanded.includes("about")}
+              active={loc.includes('about')}
+              name={t('nav.topLevel.about')}
+              id="about"
+            >
+              <a onClick={closeMenu} href="/about">{t('nav.about')}</a>
+              <a onClick={closeMenu} href="/about/eligibility">{t('nav.eligibility')}</a>
+              <a onClick={closeMenu} href="/about/research">{t('nav.research')}</a>
+            </ExpansionMenu>
 
-          <ExpansionMenu
-            handleClick={expandPanel}
-            expanded={expanded.includes("expect")}
-            active={loc.includes('expect')}
-            name={t('nav.topLevel.expect')}
-            id="expect"
-          >
-            <a onClick={closeMenu} href="/expect/consent">{t('nav.consent')}</a>
-            <a onClick={closeMenu} href="/expect/donate">{t('nav.donate')}</a>
-            <a onClick={closeMenu} href="/expect/testing">{t('nav.testing')}</a>
-          </ExpansionMenu>
+            <ExpansionMenu
+              handleClick={expandPanel}
+              expanded={expanded.includes("expect")}
+              active={loc.includes('expect')}
+              name={t('nav.topLevel.expect')}
+              id="expect"
+            >
+              <a onClick={closeMenu} href="/expect/consent">{t('nav.consent')}</a>
+              <a onClick={closeMenu} href="/expect/donate">{t('nav.donate')}</a>
+              <a onClick={closeMenu} href="/expect/testing">{t('nav.testing')}</a>
+            </ExpansionMenu>
 
-          <ExpansionMenu
-            handleClick={expandPanel}
-            expanded={expanded.includes("participation")}
-            active={loc.includes('participation')}
-            name={t('nav.topLevel.participation')}
-            id="participation"
-          >
-            <a onClick={closeMenu} href="/participation/activate">{t('nav.activate')}</a>
-            <a onClick={closeMenu} href="/participation/privacy">{t('nav.privacy')}</a>
-          </ExpansionMenu>
-          <Box className={classes.mobileSearch} component="form" onSubmit={handleSearchSubmit}>
-            <TextField
-              placeholder={t('search.input_placeholder')}
-              id="mobileSearch"
-              inputProps={
-                {'aria-label': t('search.input_placeholder')}
-              }
-              InputProps={{
-                startAdornment: <InputAdornment position="start"><SearchIcon color="action" /></InputAdornment>,
-              }}
-              variant="outlined"
-              onChange={handleSearchInputChange}
-            />
-            <Button type="submit" variant="contained" color="primary" disabled={isDisabled}>{t('buttons.search')}</Button>
-          </Box>
+            <ExpansionMenu
+              handleClick={expandPanel}
+              expanded={expanded.includes("participation")}
+              active={loc.includes('participation')}
+              name={t('nav.topLevel.participation')}
+              id="participation"
+            >
+              <a onClick={closeMenu} href="/participation/activate">{t('nav.activate')}</a>
+              <a onClick={closeMenu} href="/participation/privacy">{t('nav.privacy')}</a>
+            </ExpansionMenu>
+            <Box className={classes.mobileSearch} component="form" onSubmit={handleSearchSubmit}>
+              <TextField
+                placeholder={t('search.input_placeholder')}
+                id="mobileSearch"
+                inputProps={
+                  {'aria-label': t('search.input_placeholder')}
+                }
+                InputProps={{
+                  startAdornment: <InputAdornment position="start"><SearchIcon color="action" /></InputAdornment>,
+                }}
+                variant="outlined"
+                onChange={handleSearchInputChange}
+              />
+              <Button type="submit" variant="contained" color="primary" disabled={isDisabled}>{t('buttons.search')}</Button>
+            </Box>
+          </>
+          }
         </nav>
       </Drawer>
       )}
       {!loc.includes('account') && <Box className={classes.languageToggle}>
-        <Link href="#" onClick={toggleLang}>{t('links.language_toggle')}</Link>
+        <Button href="#" color="primary" onClick={toggleLang}>{t('links.language_toggle')}</Button>
       </Box>
       }
     </Container>

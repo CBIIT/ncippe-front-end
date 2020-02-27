@@ -74,7 +74,8 @@ const HospitalMap = (props) => {
         })
           
         const mapTiles = window.L.tileLayer('https://{s}.tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=401fa637f2f647f298b4176b24ca7ef5', {
-                maxZoom: 19,
+                maxZoom: 17,
+                minZoom: 4,
                 attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               });
   

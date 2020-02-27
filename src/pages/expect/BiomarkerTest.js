@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
-import { Box, Container, Divider, Grid, Link, Paper, Step, StepContent, StepLabel, Stepper, Typography, useMediaQuery } from '@material-ui/core'
+import { Box, Button, Container, Divider, Grid, Paper, Step, StepContent, StepLabel, Stepper, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 import RenderContent from '../../components/utils/RenderContent'
@@ -76,8 +76,7 @@ const useStyles = makeStyles( theme => ({
   },
   linkList: {
     '& a': {
-      display: "inline-block",
-      margin: theme.spacing(1,0),
+      margin: theme.spacing(.5,0),
     }
   },
 }))
@@ -176,7 +175,7 @@ const BiomarkerTest = () => {
                 <Divider />
                 <Box p={2}>
                   <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.0.title')}</Typography>
-                  <Link href={`/${process.env.PUBLIC_URL}assets/documents/Biobank-Combined-Melanoma-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.0.aria_label')}>{t('sections.2.samples.0.link')}</Link>
+                  <Button href={`/${process.env.PUBLIC_URL}assets/documents/Biobank-Combined-Melanoma-Sample.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.0.aria_label')}>{t('sections.2.samples.0.link')}</Button>
                 </Box>
               </Paper>
             </Grid>
@@ -191,7 +190,7 @@ const BiomarkerTest = () => {
                 <Divider />
                 <Box p={2}>
                   <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.1.title')}</Typography>
-                  <Link href={`/${process.env.PUBLIC_URL}assets/documents/Acute-Myeloid-Leukemia-Sample.pdf`} variant="button" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.1.aria_label')}>{t('sections.2.samples.1.link')}</Link>
+                  <Button href={`/${process.env.PUBLIC_URL}assets/documents/Acute-Myeloid-Leukemia-Sample.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.1.aria_label')}>{t('sections.2.samples.1.link')}</Button>
                 </Box>
               </Paper>
             </Grid>
@@ -208,9 +207,9 @@ const BiomarkerTest = () => {
                 <RenderContent source={t('sections.3.title')} />
               </Typography>
               <ul className={classes.linkList}>
-                <li><Link href="https://www.cancer.gov/about-cancer/treatment/types/precision-medicine/tumor-dna-sequencing" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.0')}</Link></li>
-                <li><Link href="https://www.genome.gov/dna-day/15-for-15/cancer-genomics" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.1')}</Link></li>
-                <li><Link href="https://www.cancer.gov/contact" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.3.links.2')}</Link></li>
+                <li><Button href="https://www.cancer.gov/about-cancer/treatment/types/precision-medicine/tumor-dna-sequencing" color="primary" rel="noopener noreferrer" target="_blank">{t('sections.3.links.0')}</Button></li>
+                <li><Button href="https://www.genome.gov/dna-day/15-for-15/cancer-genomics" color="primary" rel="noopener noreferrer" target="_blank">{t('sections.3.links.1')}</Button></li>
+                <li><Button href="https://www.cancer.gov/contact" color="primary" rel="noopener noreferrer" target="_blank">{t('sections.3.links.2')}</Button></li>
               </ul>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
