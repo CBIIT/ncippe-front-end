@@ -27,6 +27,7 @@ export const theme = createMuiTheme({
       main: '#1e6fd6',
       light: '#e7f2ff',
       medium: '#d2e2f7',
+      dark: '#194F93',
       lightGrey: '#f2f5f8'
     },
     error: {

@@ -364,6 +364,10 @@ ul.bulletList > li:last-child {
   text-decoration: none;
 }
 
+.highContrast .MuiTypography-root a:not(.MuiLink-root) {
+  color: #194F93
+}
+
 .mainContainer .MuiTypography-root a:not(.MuiLink-root):hover,
 #main .MuiTypography-root a:not(.MuiLink-root):hover {
   text-decoration: underline;
