@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
-import { Box, Card, CardMedia, Container, Link, Typography, useMediaQuery } from '@material-ui/core'
+import { Box, Button, Card, CardMedia, Container, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 // import { OpenInNew as OpenInNewIcon } from '@material-ui/icons'
 
@@ -25,9 +25,13 @@ const useStyles = makeStyles( theme => ({
     backgroundColor: "#d8d8d8",
     padding: theme.spacing(3)
   },
-  iconLink: {
-    display: 'block',
-    margin: theme.spacing(1,0),
+  linkList: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    '& a': {
+      margin: theme.spacing(.5,0),
+    }
   },
   mediaWrapper: {
     position: 'relative',
@@ -80,17 +84,17 @@ const Consent = () => {
           <Typography variant={isMobile ? "body1" : "body2"} component="div">
             <RenderContent source={t('intro_text')} />
           </Typography>
-          <Box mb={5}>
-            <Typography variant="h3" component="h3">{t('sample_title')}</Typography>
-            <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
+          <Box mb={5} className={classes.linkList}>
+            <Typography variant="h3" component="h3" paragraph={true}>{t('sample_title')}</Typography>
+            <Button href="https://www.youtube.com/watch?v=iSKqg50b5oc" color="primary" rel="noopener noreferrer" target="_blank">
               <RenderContent source={t('form_link_adult')} />
-            </Link>
-            <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
+            </Button>
+            <Button href="https://www.youtube.com/watch?v=iSKqg50b5oc" color="primary" rel="noopener noreferrer" target="_blank">
               <RenderContent source={t('form_link_parental')} />
-            </Link>
-            <Link className={classes.iconLink} href="https://www.youtube.com/watch?v=iSKqg50b5oc" variant="button" rel="noopener noreferrer" target="_blank">
+            </Button>
+            <Button href="https://www.youtube.com/watch?v=iSKqg50b5oc" color="primary" rel="noopener noreferrer" target="_blank">
               <RenderContent source={t('form_link_minors')} />
-            </Link>
+            </Button>
           </Box>
           <Box mb={4}>
             <figure>

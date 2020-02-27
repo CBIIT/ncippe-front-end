@@ -111,8 +111,13 @@ const useStyles = makeStyles( theme => ({
   linkList: {
     display: 'flex',
     flexDirection: 'column',
-    '& > a': {
-      margin: theme.spacing(1,0)
+    alignItems: 'flex-start',
+    '& a': {
+      display: 'inline-block',
+      margin: theme.spacing(.5,0),
+      '& svg': {
+        marginBottom: -6
+      }
     }
   }
 }))
@@ -281,9 +286,9 @@ const ActivatePage = () => {
                 <RenderContent source={t('sections.2.title')} />
               </Typography>
               <div className={classes.linkList}>
-                <Link href="https://login.gov/help/" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.links.0')} <OpenInNewIcon /></Link>
-                <Link href="https://login.gov/contact/" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.links.1')} <OpenInNewIcon /></Link>
-                <Link href="https://login.gov/help/creating-an-account/how-to-create-an-account/" variant="button" rel="noopener noreferrer" target="_blank">{t('sections.2.links.2')} <OpenInNewIcon /></Link>
+                <Button href="https://login.gov/help/" color="primary" rel="noopener noreferrer" target="_blank">{t('sections.2.links.0')} <OpenInNewIcon /></Button>
+                <Button href="https://login.gov/contact/" color="primary" rel="noopener noreferrer" target="_blank">{t('sections.2.links.1')} <OpenInNewIcon /></Button>
+                <Button href="https://login.gov/help/creating-an-account/how-to-create-an-account/" color="primary" rel="noopener noreferrer" target="_blank">{t('sections.2.links.2')} <OpenInNewIcon /></Button>
               </div>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">

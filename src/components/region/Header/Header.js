@@ -106,10 +106,13 @@ const useStyles = makeStyles(theme => ({
     textAlign: "right",
     backgroundImage: theme.gradients.lightBlue,
     margin: theme.spacing(0, -3, 0, -4),
-    paddingRight: theme.spacing(3),
+    padding: theme.spacing(.5, 3),
     '& a': {
       cursor: "pointer",
-      fontSize: "90%"
+      fontSize: 12,
+      fontFamily: theme.typography.body1.fontFamily,
+      fontWeight: 'normal',
+      lineHeight: 'normal'
     }
   }
 }))
@@ -291,7 +294,7 @@ const Header = () => {
       </Drawer>
       )}
       {!loc.includes('account') && <Box className={classes.languageToggle}>
-        <Link href="#" onClick={toggleLang}>{t('links.language_toggle')}</Link>
+        <Button href="#" color="primary" onClick={toggleLang}>{t('links.language_toggle')}</Button>
       </Box>
       }
     </Container>

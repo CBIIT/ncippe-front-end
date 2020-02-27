@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 
-import { useMediaQuery, Box, Container, Dialog, DialogContent, Grid, IconButton, Link, Paper, Typography } from '@material-ui/core'
+import { useMediaQuery, Box, Button, Container, Dialog, DialogContent, Grid, IconButton, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   Clear as ClearIcon,
@@ -143,11 +143,8 @@ const useStyles = makeStyles( theme => ({
       },
     },
   },
-  extraTopSpace: {
-    marginTop: theme.spacing(4)
-  },
   icon_link: {
-    display: 'inline-flex'
+    marginTop: theme.spacing(1)
   },
   howItWorksGrid: {
     '& > div': {
@@ -363,12 +360,10 @@ const HomePage = (props) => {
               <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}>
                 <RenderContent source={t('mission.body')} />
               </Typography>
-              <Typography variant="button" className={classes.extraTopSpace}>
-                <Link to="/expect/consent" className={classes.icon_link} component={RouterLink}>
-                  <RenderContent source={t('mission.link')} />
-                  <ArrowRightIcon />
-                </Link>
-              </Typography>
+              <Button to="/expect/consent" color="primary" className={classes.icon_link} component={RouterLink}>
+                <RenderContent source={t('mission.link')} />
+                <ArrowRightIcon />
+              </Button>
             </Box>
           </Paper>
         </Box>
