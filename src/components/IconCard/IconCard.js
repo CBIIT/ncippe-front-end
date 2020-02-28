@@ -30,12 +30,12 @@ const useStyles = makeStyles( theme => ({
     marginBottom: theme.spacing(1)
   },
   cardIcon: {
-    paddingRight: theme.spacing(3),
-    maxWidth: '100px',
+    maxWidth: 76,
     width: '100%'
   },
   cardTextContainer: {
     display: 'flex',
+    marginLeft: theme.spacing(3),
     flexGrow: 1,
     flexDirection: 'column',
     height: '100%',
