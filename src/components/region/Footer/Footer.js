@@ -18,12 +18,22 @@ const useStyles = makeStyles(theme => ({
     }
   },
   logo: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     padding: theme.spacing(2,0,3),
-    '& img': {
-      width: '320px',
-      maxWidth: '100%',
-      height: 'auto'
-    }
+  },
+  logoHeading: {
+    fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+    fontSize: 25,
+    fontWeight: 'bold',
+    letterSpacing: -.4
+  },
+  logoSubheading: {
+    fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+    fontSize: 16,
+    fontWeight: 'bold',
+    letterSpacing: -.25
   },
   footerLinks: {
     marginBottom: theme.spacing(4),
@@ -88,7 +98,10 @@ const Footer = () => {
 
   return (
     <Container className={classes.root} component="footer" id="appFooter">
-      <div className={classes.logo}><img src={`/${process.env.PUBLIC_URL}assets/images/nci-logo-text-white.svg`} alt={t('footer.logo.alt_text')} title={t('footer.logo.title')}  /></div>
+      <div className={classes.logo}>
+        <span className={classes.logoHeading}>{t('footer.logo.heading')}</span>
+        <span className={classes.logoSubheading}>{t('footer.logo.subheading')}</span>
+      </div>
       <Typography component="div">
         <Grid container className={classes.footerLinks} spacing={3} onClick={trackClick}>
           <Grid item xs={12} sm={4}>

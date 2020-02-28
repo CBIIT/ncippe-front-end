@@ -179,7 +179,7 @@ const HospitalMap = (props) => {
                   // console.log(refs[i])
                   return (
                     <React.Fragment key={i}>
-                      <Link className={classes.location} ref={refs[i]} data-location={hospital.gps_coordinates} onClick={updateMap} data-index={i}>
+                      <Link href="#" className={classes.location} ref={refs[i]} data-location={hospital.gps_coordinates} onClick={updateMap} data-index={i}>
                         <Box>
                           <Typography className={classes.title}>{hospital.title}</Typography>
                           <Typography>

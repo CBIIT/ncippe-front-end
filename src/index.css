@@ -110,7 +110,8 @@ sup {
 
 ul.bulletList, ul.bulletList ul {
   margin-left: 20px;
-  list-style-type: '•';
+  list-style-type: '\2022';
+  /* list-style-type: '•'; */
 }
 ul.bulletList--spreadOut {
   margin-top: 16px;

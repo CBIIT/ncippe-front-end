@@ -97,7 +97,7 @@ const Consent = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} md={6} lg={4} className={classes.gridItemImg} component="aside">
-            <ArticleImage src="reviewing-test-results.jpg" alt={t('sections.0.alt_text')} />
+            <ArticleImage src="reviewing-test-results.jpg" alt={t('alt_text.0')} />
           </Grid>
           <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>
             <Box mb={5} className={classes.linkList}>

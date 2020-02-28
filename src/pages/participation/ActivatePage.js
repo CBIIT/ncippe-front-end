@@ -97,14 +97,15 @@ const useStyles = makeStyles( theme => ({
     fontWeight: 'bold'
   },
   cardIcon: {
-    width: '50px',
-    height: '50px',
+    width: '100%',
+    maxWidth: 50,
+    height: 50,
   },
   cardText: {
     display: 'flex',
     // flexGrow: 1,
     flexDirection: 'column',
-    paddingLeft: theme.spacing(3),
+    marginLeft: theme.spacing(3),
     height: '100%',
     justifyContent: 'space-between'
   },
