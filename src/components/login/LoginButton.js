@@ -15,23 +15,25 @@ const LoginButton = () => {
   const { trackEvent } = useTracking()
 
   const handleClick = () => {
-    // return to account page from a public page
-    if(!loc.includes('account')) {
-      navigate('/account')
-    }
-    // log-out
-    else if(auth) {
-      trackEvent({
-        prop53: `BioBank_TopNav|Sign-Out`,
-        eVar53: `BioBank_TopNav|Sign-Out`,
-        events: 'event26'
-      })
-      // reset user data and log-out
-      signoutRedirectCallback()
-      dispatch({
-        type: 'reset'
-      })
-
+    
+    if(auth) {
+      // return to account page from a public page
+      if(!loc.includes('account')) {
+        navigate('/account')
+      }
+      else {
+        // log-out
+        trackEvent({
+          prop53: `BioBank_TopNav|Sign-Out`,
+          eVar53: `BioBank_TopNav|Sign-Out`,
+          events: 'event26'
+        })
+        // reset user data and log-out
+        signoutRedirectCallback()
+        dispatch({
+          type: 'reset'
+        })
+      }
     }
     // log-in
     else {
