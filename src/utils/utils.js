@@ -17,7 +17,8 @@ export const isValidUUID = (uuid) => {
 }
 
 export const isValidUserId = (id) => {
-  const userIdRegex = /[a-zA-Z0-9]{8}/;
+  // safe characters only, between 1 and 20 characters long
+  const userIdRegex = /[A-Za-z0-9._~()'!*:@,;+?-]{1,20}/;
   return userIdRegex.test(id)
 }
 
