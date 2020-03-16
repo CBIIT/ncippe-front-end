@@ -79,19 +79,20 @@ const useStyles = makeStyles(theme => ({
   },
   closeMobileMenu: {
     textAlign: 'right',
-    borderBottom: '1px solid #dbdada'
+    borderBottom: '2px solid #dbdada'
   },
   mobileLogin: {
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: theme.palette.grey.xlight,
+    // backgroundColor: theme.palette.grey.xlight,
     padding: theme.spacing(2,7),
+    boxShadow: "0px 5px 15px -5px rgba(0,0,0,0.2)"
   },
   mobileSearch: {
-    backgroundColor: theme.palette.grey.xlight,
+    // backgroundColor: theme.palette.grey.xlight,
     padding: theme.spacing(3,2),
     textAlign: 'right',
-    borderBottom: '1px solid #dbdada',
+    // borderBottom: '2px solid #dbdada',
     '& .MuiFormControl-root': {
       width: '100%',
     },

@@ -1,12 +1,20 @@
 import React, { useContext } from 'react'
 import { navigate } from "@reach/router"
 import { useTranslation } from 'react-i18next'
-import { Button } from '@material-ui/core';
+import { Button } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 import { LoginContext } from './Login.context'
 import { AuthContext } from './AuthContext'
 import { useTracking } from 'react-tracking'
 
+const useStyles = makeStyles(theme => ({
+  button: {
+    minWidth: 224
+  }
+}))
+
 const LoginButton = () => {
+  const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const { signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
   const { auth } = loginContext
@@ -48,11 +56,11 @@ const LoginButton = () => {
   }
   return auth ? 
     loc.includes('account') ?
-      <Button variant="outlined" color="primary" onClick={handleClick}>{t('buttons.sign_out')}</Button>
+      <Button className={classes.button} variant="outlined" color="primary" onClick={handleClick}>{t('buttons.sign_out')}</Button>
       :
-      <Button variant="outlined" color="primary" onClick={handleClick}>{t('buttons.your_account')}</Button>
+      <Button className={classes.button} variant="outlined" color="primary" onClick={handleClick}>{t('buttons.your_account')}</Button>
     :
-    <Button variant="contained" color="primary" onClick={handleClick}>{t('buttons.sign_in')}</Button>
+    <Button className={classes.button} variant="contained" color="primary" onClick={handleClick}>{t('buttons.sign_in')}</Button>
 }
 
 export default LoginButton
