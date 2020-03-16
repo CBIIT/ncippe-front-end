@@ -110,8 +110,15 @@ sup {
 
 ul.bulletList, ul.bulletList ul {
   margin-left: 20px;
-  list-style-type: '\2022';
-  /* list-style-type: '•'; */
+  /* transparent gif bullet */
+  list-style:decimal url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)
+}
+ul.bulletList li:before {
+  display:inline-block;
+  content:"\2022";
+  background-repeat:no-repeat;
+  background-size: 100% 100%;
+  margin-right:10px;
 }
 ul.bulletList--spreadOut {
   margin-top: 16px;
