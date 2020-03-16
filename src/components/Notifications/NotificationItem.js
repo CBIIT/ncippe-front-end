@@ -56,7 +56,7 @@ const NotificationItem = (props) => {
         wrapper={children => <Badge className={classes.badge} badgeContent="new" component="div">{children}</Badge>}
       >
         <CardContent className={classes.cardContent}>
-          <Typography variant="h3" component="h3">{subject[lang]}</Typography>
+          <Typography variant="h3" component="h3"><RenderContent source={subject[lang]} /></Typography>
           <Grid container>
             <Grid item xs={12} sm={4} md={2}>
               <Typography>{moment(dateGenerated).format("MMM DD, YYYY")}</Typography>
