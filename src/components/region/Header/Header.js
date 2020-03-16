@@ -105,8 +105,8 @@ const useStyles = makeStyles(theme => ({
   languageToggle: {
     textAlign: "right",
     backgroundImage: theme.gradients.lightBlue,
-    margin: theme.spacing(0, -3, 0, -4),
-    padding: theme.spacing(.5, 3),
+    margin: theme.spacing(0, -3),
+    padding: theme.spacing(.75, 3),
     '& a': {
       cursor: "pointer",
       fontSize: 12,
