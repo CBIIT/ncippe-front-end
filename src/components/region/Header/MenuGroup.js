@@ -159,6 +159,13 @@ const MenuGroup = (props) => {
       transition 
       placement="bottom-start" 
       container={containerNode}
+      modifiers={{
+        // keepTogether: { enabled: true}
+        preventOverflow: {
+          boundariesElement: 'viewport',
+          escapeWithReference: true,
+        },
+      }}
     >
       {({ TransitionProps }) => (
         <Grow
