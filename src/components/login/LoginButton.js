@@ -9,7 +9,9 @@ import { useTracking } from 'react-tracking'
 
 const useStyles = makeStyles(theme => ({
   button: {
-    minWidth: 224
+    [theme.breakpoints.down('xs')]: {
+      minWidth: 224
+    }
   }
 }))
 
