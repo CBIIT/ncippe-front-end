@@ -57,26 +57,25 @@ async function fetchToken({uuid, email, id_token}){
 /*=======================================================================*/
 /*======== Fetch User Data ==============================================*/
 
-async function fetchUser({uuid, patientId, email, token}){
-  let query = {}
-  if(typeof uuid === 'string'){
-    query.uuid = uuid
-  }
-  if(typeof patientId === 'string'){
-    query.patientId = patientId
-  }
-  if(typeof email === 'string'){
-    query.email = email
-  }
+async function fetchUser(){
+  // let query = {}
+  // if(typeof uuid === 'string'){
+  //   query.uuid = uuid
+  // }
+  // if(typeof patientId === 'string'){
+  //   query.patientId = patientId
+  // }
+  // if(typeof email === 'string'){
+  //   query.email = email
+  // }
 
-  return await fetch(`/api/v1/user?${queryString.stringify(query)}`,{
+  return await fetch(`/api/v1/user`,{
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': token
+      'Content-Type': 'application/json'
     }
   })
   .then(handleResponse)
-  .catch(handleErrorMsg(`Unable to fetch user data based on query: ${query}.`))
+  .catch(handleErrorMsg(`Unable to fetch user data.`))
 }
 
 /*=======================================================================*/
