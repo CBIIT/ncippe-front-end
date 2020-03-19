@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 
 import { LoginContext } from '../login/Login.context'
-import { AuthContext } from '../login/AuthContext'
+// import { AuthContext } from '../login/AuthContext'
 // import { api } from '../../data/api'
 import getAPI from '../../data'
 import { formatPhoneNumber } from '../../utils/utils'
@@ -46,7 +46,7 @@ const CloseAccount = (props) => {
   const { t } = useTranslation(['a_changeParticipation','a_common'])
   const { trackEvent } = useTracking()
   const [loginContext, dispatch] = useContext(LoginContext)
-  const { signoutRedirectCallback } = useContext(AuthContext)
+  // const { signoutRedirectCallback } = useContext(AuthContext)
   const [ closeError, setCloseError ] = useState(false)
   const { crc } = loginContext
 
@@ -63,9 +63,10 @@ const CloseAccount = (props) => {
           throw resp
         } else {
           // Save successful, also update the user context data
-          signoutRedirectCallback({
-            accountClosed: true
-          })
+          // signoutRedirectCallback({
+          //   accountClosed: true
+          // })
+          // TODO: navigate to homepage with data of accountClosed: true
           dispatch({
             type: 'reset'
           })

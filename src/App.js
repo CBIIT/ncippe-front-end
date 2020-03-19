@@ -6,7 +6,7 @@ import { HelmetProvider, Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 
 import Routes from './routers/routes'
-import { AuthProvider } from './components/login/AuthContext'
+// import { AuthProvider } from './components/login/AuthContext'
 import { LoginProvider } from './components/login/Login.context'
 import { theme } from './theme/theme'
 
@@ -33,7 +33,7 @@ const App = (props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AuthProvider>
+      {/* <AuthProvider> */}
         <LoginProvider>
           <HelmetProvider>
             <Helmet>
@@ -43,7 +43,7 @@ const App = (props) => {
             <Routes />
           </HelmetProvider>
         </LoginProvider>
-      </AuthProvider>
+      {/* </AuthProvider> */}
     </ThemeProvider>
   )
 }
