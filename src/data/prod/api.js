@@ -70,7 +70,7 @@ async function fetchUser(){
   //   query.email = email
   // }
 
-  return await fetch(`/api/v1/participant`,{
+  return await fetch(`/api/v1/user`,{
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
