@@ -106,7 +106,7 @@ async function updateUser({uuid, data, token}){
     preferredLanguage: lang
   }
   return await fetch(`/api/v1/user/${uuid}?${queryString.stringify(query)}`,{
-    method: 'POST',
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
