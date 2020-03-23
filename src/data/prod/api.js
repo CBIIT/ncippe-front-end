@@ -60,6 +60,7 @@ async function fetchToken({uuid, email, id_token}){
 
 async function loginUser(){
   return await fetch(`/api/v1/login`,{
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
