@@ -47,6 +47,7 @@ async function fetchToken({uuid, email, id_token}){
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
       'Authorization': id_token
     }
   })
@@ -69,9 +70,10 @@ async function fetchUser(){
   //   query.email = email
   // }
 
-  return await fetch(`/api/v1/user`,{
+  return await fetch(`/api/v1/participant`,{
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
     }
   })
   .then(handleResponse)
@@ -92,6 +94,7 @@ async function updateUser({uuid, data, token}){
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
       'Authorization': token
     }
   })
@@ -116,6 +119,7 @@ async function uploadPatientReport({patientId, uuid, reportFile, fileType, token
     // mode: 'no-cors',
     // credentials: 'omit',
     headers: {
+      'Access-Control-Allow-Origin': '*',
       'Authorization': token
     },
     body: formData
@@ -132,6 +136,7 @@ async function notificationsMarkAsRead({uuid, token}){
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
       'Authorization': token
     }
   })
@@ -146,6 +151,7 @@ async function fetchPatientReport({reportId, token}){
   return await fetch(`/api/patientReport/${reportId}`,{
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
       'Authorization': token
     }
   })
@@ -158,10 +164,11 @@ async function fetchPatientReport({reportId, token}){
 
 // flag report as read by user
 async function reportViewedBy({uuid, reportId, token}){
-  return await fetch(`/api/patientReport/${reportId}?viewedByUserId=${uuid}`,{
-    method: 'PUT',
+  return await fetch(`/api/patientReport/${reportId}/markAsRead`,{
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
       'Authorization': token
     }
   })
@@ -181,6 +188,7 @@ async function withdrawUser({uuid, patientId, qsAnsDTO, token}){
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
       'Authorization': token
     },
     body: JSON.stringify(qsAnsDTO)
@@ -197,6 +205,7 @@ async function closeAccount({uuid, token}){
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
       'Authorization': token
     }
   })
@@ -221,6 +230,7 @@ async function updateParticipantDetails({uuid, token, patient}){
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
       'Authorization': token
     }
   })
@@ -238,6 +248,7 @@ async function activateParticipant({uuid, token, patient}){
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
       'Authorization': token
     }
   })
@@ -249,7 +260,12 @@ async function activateParticipant({uuid, token, patient}){
 /*======== Get Hospital List =========================================*/
 
 async function getHospitalList(){
-  return await fetch(`/publicapi/v1/sites`)
+  return await fetch(`/publicapi/v1/sites`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    }
+  })
     .then(handleResponse)
     .catch(handleErrorMsg('Unable to fetch hospital list at this time.'))
 }
