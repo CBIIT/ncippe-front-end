@@ -81,9 +81,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
       console.log("params", params)
       
-      return api.fetchUser(params).then(data => {
+      return api.loginUser(params).then(data => {
 
-        console.log("fetchUser Data", data)
+        console.log("loginUser Data", data)
   
         if(data instanceof Error){
           throw new Error(data)

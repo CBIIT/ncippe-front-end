@@ -457,6 +457,7 @@ async function getHospitalList(){
 export const api = {
   fetchMockUsers,
   fetchToken,
+  loginUser: fetchUser,
   fetchUser,
   updateUser,
   fetchPatientTestResults: fetchUser,

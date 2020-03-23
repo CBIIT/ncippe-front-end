@@ -58,26 +58,40 @@ async function fetchToken({uuid, email, id_token}){
 /*=======================================================================*/
 /*======== Fetch User Data ==============================================*/
 
-async function fetchUser(){
-  // let query = {}
-  // if(typeof uuid === 'string'){
-  //   query.uuid = uuid
-  // }
-  // if(typeof patientId === 'string'){
-  //   query.patientId = patientId
-  // }
-  // if(typeof email === 'string'){
-  //   query.email = email
-  // }
-
-  return await fetch(`/api/v1/user`,{
+async function loginUser(){
+  return await fetch(`/api/v1/login`,{
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
     }
   })
   .then(handleResponse)
-  .catch(handleErrorMsg(`Unable to fetch user data.`))
+  .catch(handleErrorMsg(`Unable to login user.`))
+}
+
+/*=======================================================================*/
+/*======== Fetch User Data ==============================================*/
+
+async function fetchUser({uuid, patientId, email, token}){
+  let query = {}
+  if(typeof uuid === 'string'){
+    query.uuid = uuid
+  }
+  if(typeof patientId === 'string'){
+    query.patientId = patientId
+  }
+  if(typeof email === 'string'){
+    query.email = email
+  }
+
+  return await fetch(`/api/v1/user?${queryString.stringify(query)}`,{
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+  })
+  .then(handleResponse)
+  .catch(handleErrorMsg(`Unable to fetch user data based on query: ${query}.`))
 }
 
 /*=======================================================================*/
@@ -276,6 +290,7 @@ async function getHospitalList(){
 export const api = {
   fetchMockUsers,
   fetchToken,
+  loginUser,
   fetchUser,
   updateUser,
   fetchPatientTestResults: fetchUser,
