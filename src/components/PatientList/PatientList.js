@@ -32,6 +32,7 @@ const PatientList = (props) => {
   const classes = useStyles()
   const [patientList, setPatientList] = useState(patients)
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [hasSearched, setHasSearched] = useState(false)
   const [patientToActivate, setPatientToActivate] = useState()
   const { t } = useTranslation('a_common')
   const { trackEvent } = useTracking()
@@ -48,6 +49,16 @@ const PatientList = (props) => {
       return name.toLowerCase().search(event.target.value.toLowerCase()) !== -1;
     });
     setPatientList(filteredList)
+    // capture analytics on first keypress and then disconnect
+    // Goal is to see if search field is being used
+    if(hasSearched === false) {
+      trackEvent({
+        prop11: `BioBank Account Participant Name Search`,
+        eVar11: `BioBank Account Participant Name Search`,
+        events: 'event2'
+      })
+      setHasSearched(true)
+    }
   }
 
   const activateUser = (patient) => {
