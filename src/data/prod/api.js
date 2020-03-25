@@ -245,7 +245,6 @@ async function updateParticipantDetails({uuid, token, patient}){
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      'Authorization': token
     }
   })
   .then(handleResponse)
