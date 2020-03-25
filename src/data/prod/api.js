@@ -104,7 +104,7 @@ async function updateUser({uuid, data, token}){
   return await fetch(`/api/v1/user/${uuid}?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'text/plain'
     }
   })
   .then(handleResponse)
