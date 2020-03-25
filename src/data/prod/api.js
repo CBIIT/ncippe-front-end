@@ -110,7 +110,7 @@ async function updateUser({uuid, data, token}){
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      'Authorization': token
+      'access-control-allow-methods': 'GET, POST, PUT, OPTIONS, PATCH, DELETE'
     }
   })
   .then(handleResponse)
