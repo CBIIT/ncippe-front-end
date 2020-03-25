@@ -47,8 +47,7 @@ async function fetchToken({uuid, email, id_token}){
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Authorization': id_token
+      'Access-Control-Allow-Origin': '*'
     }
   })
   .then(handleResponse)
@@ -87,8 +86,7 @@ async function fetchUser({uuid, patientId, email, token}){
 
   return await fetch(`/api/v1/user?${queryString.stringify(query)}`,{
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': token
+      'Content-Type': 'application/json'
     }
   })
   .then(handleResponse)
@@ -133,8 +131,7 @@ async function uploadPatientReport({patientId, uuid, reportFile, fileType, token
     // mode: 'no-cors',
     // credentials: 'omit',
     headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Authorization': token
+      'Access-Control-Allow-Origin': '*'
     },
     body: formData
   })
@@ -150,8 +147,7 @@ async function notificationsMarkAsRead({uuid, token}){
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Authorization': token
+      'Access-Control-Allow-Origin': '*'
     }
   })
   .then(handleResponse)
@@ -165,8 +161,7 @@ async function fetchPatientReport({reportId, token}){
   return await fetch(`/api/patientReport/${reportId}`,{
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Authorization': token
+      'Access-Control-Allow-Origin': '*'
     }
   })
   .then(handleResponse)
@@ -182,8 +177,7 @@ async function reportViewedBy({uuid, reportId, token}){
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Authorization': token
+      'Access-Control-Allow-Origin': '*'
     }
   })
   .then(handleResponse)
@@ -202,8 +196,7 @@ async function withdrawUser({uuid, patientId, qsAnsDTO, token}){
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Authorization': token
+      'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify(qsAnsDTO)
   })
@@ -219,8 +212,7 @@ async function closeAccount({uuid, token}){
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Authorization': token
+      'Access-Control-Allow-Origin': '*'
     }
   })
   .then(handleResponse)
@@ -244,7 +236,7 @@ async function updateParticipantDetails({uuid, token, patient}){
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*'
     }
   })
   .then(handleResponse)
@@ -261,8 +253,7 @@ async function activateParticipant({uuid, token, patient}){
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Authorization': token
+      'Access-Control-Allow-Origin': '*'
     }
   })
   .then(handleResponse)
