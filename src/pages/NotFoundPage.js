@@ -34,7 +34,7 @@ const ErrorPage = () => {
     trackEvent({
       event:'pageview',
       prop6: "Error Page",
-      pageType: "errorpage",
+      pageType: "errorPage",
       prop10: t("metaData.title")
     })
   },[trackEvent])
