@@ -60,13 +60,13 @@ const IconCard = (props) => {
   const classes = useStyles()
 
   const handleClick = (e) => {
-    if (cardClick && e.target.tagName === "A") {
+    if (cardClick && e.currentTarget.tagName === "A") {
       return cardClick(e)
     }
   }
 
   return (
-    <Card className={`${classes.card} IconCard`} onClick={handleClick}>
+    <Card className={`${classes.card} IconCard`}>
       <ConditionalWrapper
         condition={count > 0}
         wrapper={children => <Badge className={classes.badge} badgeContent={badgeText} component="div">{children}</Badge>}>
@@ -80,7 +80,7 @@ const IconCard = (props) => {
             </div>
             {link && (
               <CardActions className={classes.cardActions}>
-                <Button color="primary" component={Link} to={link}>
+                <Button color="primary" component={Link} to={link} onClick={handleClick}>
                   {linkText} <KeyboardArrowRightIcon className={classes.linkIcon} />
                 </Button>
               </CardActions>

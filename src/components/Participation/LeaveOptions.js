@@ -29,7 +29,8 @@ const LeaveOptions = (props) => {
     trackEvent({
       prop42: `BioBank_ChangeParticipation|Leave:Understand`,
       eVar42: `BioBank_ChangeParticipation|Leave:Understand`,
-      events: 'event76'
+      events: 'event76',
+      eventName: 'ChangeParticipationLeave'
     })
   }
 

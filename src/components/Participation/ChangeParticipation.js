@@ -49,7 +49,8 @@ const ChangeParticipation = (props) => {
       trackEvent({
         prop42: `BioBank_ChangeParticipation|Next:${participationOption}`,
         eVar42: `BioBank_ChangeParticipation|Next:${participationOption}`,
-        events: 'event74'
+        events: 'event74',
+        eventName: 'ChangeParticipationNext'
       })
       nextStep(participationOption)
     }

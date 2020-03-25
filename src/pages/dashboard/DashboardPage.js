@@ -57,11 +57,14 @@ export default () => {
   },[])
 
   const trackCardClick = (e) => {
+    const card = e.currentTarget.closest(".IconCardContent")
     trackEvent({
-      prop53: `BioBank_AccountCard|${e.currentTarget.querySelector("h2").textContent}`,
-      eVar53: `BioBank_AccountCard|${e.currentTarget.querySelector("h2").textContent}`,
-      events: 'event27'
+      prop57: `BioBank_AccountCard|${card.querySelector("h2").textContent}`,
+      eVar37: `BioBank_AccountCard|${card.querySelector("h2").textContent}`,
+      events: 'event27',
+      eventName: 'CardLink'
     })
+    window.$defaultLinkTrack = false
   }
   return (
     <Box>

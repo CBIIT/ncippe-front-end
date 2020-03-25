@@ -29,8 +29,10 @@ const TabAppBar = (props) => {
     trackEvent({
       prop53: `BioBank_SectionTabNav|${event.currentTarget.textContent}`,
       eVar53: `BioBank_SectionTabNav|${event.currentTarget.textContent}`,
-      events: 'event33'
+      events: 'event33',
+      eventName: 'SectionTabNav'
     })
+    window.$defaultLinkTrack = false
   }
 
   return (

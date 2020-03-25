@@ -109,7 +109,8 @@ const FAQ = (props) => {
       const location = window.location.pathname.replace(/\//g,"-")
       trackEvent({
         prop41: `BioBank|AccordianExpand|FAQ${location}-${index + 1}`,
-        events: 'event72'
+        events: 'event72',
+        eventName: 'FAQ'
       })
     }
   }

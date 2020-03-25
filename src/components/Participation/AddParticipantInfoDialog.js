@@ -182,7 +182,8 @@ const AddParticipantInfoDialog = (props) => {
       trackEvent({
         prop42: `BioBank_NewParticipant|Next`,
         eVar42: `BioBank_NewParticipant|Next`,
-        events: 'event75'
+        events: 'event75',
+        eventName: 'NewParticipantNext'
       })
       // submit user update
       setActiveStep(2)
@@ -225,7 +226,8 @@ const AddParticipantInfoDialog = (props) => {
       trackEvent({
         prop42: `BioBank_NewParticipant|Submit`,
         eVar42: `BioBank_NewParticipant|Submit`,
-        events: 'event78'
+        events: 'event78',
+        eventName: 'NewParticipantSubmit'
       })
       // setTimeout(() => {
       getAPI.then(api => {
