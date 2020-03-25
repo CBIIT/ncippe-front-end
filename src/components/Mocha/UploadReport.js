@@ -131,6 +131,12 @@ const UploadReport = () => {
                 ...prevState,
                 notFound: true
               }))
+              trackEvent({
+                prop42: `BioBank_AdminUpload|Error: User not found in the system`,
+                eVar42: `BioBank_AdminUpload|Error: User not found in the system`,
+                events: 'event81',
+                eventName: 'PatientIDError'
+              })
             } else {
               // user found - progress
               const {firstName, lastName, patientId} = resp
@@ -200,8 +206,8 @@ const UploadReport = () => {
                 uploadError: true
               }))
               trackEvent({
-                prop42: `BioBank_AdminUpload|Error`,
-                eVar42: `BioBank_AdminUpload|Error`,
+                prop42: `BioBank_AdminUpload|Error: Failed to upload to server`,
+                eVar42: `BioBank_AdminUpload|Error: Failed to upload to server`,
                 events: 'event81',
                 eventName: 'AdminUploadError'
               })
