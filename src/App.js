@@ -10,6 +10,8 @@ import { AuthProvider } from './components/login/AuthContext'
 import { LoginProvider } from './components/login/Login.context'
 import { theme } from './theme/theme'
 
+window.$role = 'Public'
+
 const App = (props) => {
   const { t } = useTranslation('common')
   window.$defaultLinkTrack = true
@@ -87,7 +89,7 @@ export default track({
   // tracking options - {dispatch, dispatchOnMount, process} - see https://github.com/nytimes/react-tracking
   dispatch: (data) => {
     const local_s = window.s_gi(process.env.REACT_APP_ANALYTICS_ACCOUNT)
-    const isPrivate = window.location.pathname.match("account")
+    // const isPrivate = window.location.pathname.match("account")
 
     // set url specific data on every call
     let computedData = {
@@ -95,8 +97,12 @@ export default track({
       pageURL: window.location,
       prop1: window.location.href.substring(0,99),
       prop2: window.location.href.substring(100),
-      prop7: isPrivate ? "Private" : "Public",
-      eVar7: isPrivate ? "Private" : "Public",
+      // eVar7: isPrivate ? "Private" : "Public",
+      // prop7: isPrivate ? "Private" : "Public",
+      eVar7: window.$role,
+      prop7: window.$role,
+      pageType: null // from the docs: Do not set this variable on non-error pages. https://docs.adobe.com/content/help/en/analytics/implementation/vars/page-vars/pagetype.html
+      // language: sessionStorage.getItem('i18nextLng')
       // prop10: window.document.title
     }
 

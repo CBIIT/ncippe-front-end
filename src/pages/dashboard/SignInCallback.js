@@ -140,6 +140,7 @@ const SignInCallback = (props) => {
 
   useEffect(() => {
     const { roleName, uuid, auth } = loginContext
+    window.$role = roleName.slice(9)
     
     if(uuid && auth){
       if( roleName === 'ROLE_PPE_MOCHA_ADMIN') {

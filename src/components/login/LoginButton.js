@@ -40,6 +40,8 @@ const LoginButton = () => {
           eventName: 'Sign out'
         })
         // reset user data and log-out
+        sessionStorage.setItem('isDashboardTracked',false)
+        window.$role = "Public"
         signoutRedirectCallback()
         dispatch({
           type: 'reset'
