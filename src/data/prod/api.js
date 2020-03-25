@@ -155,7 +155,7 @@ async function notificationsMarkAsRead({uuid, token}){
 async function fetchPatientReport({reportId, token}){
   return await fetch(`/api/patientReport/${reportId}`,{
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'text/plain'
     }
   })
   .then(handleResponse)
@@ -170,7 +170,7 @@ async function reportViewedBy({uuid, reportId, token}){
   return await fetch(`/api/patientReport/${reportId}/markAsRead`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'text/plain'
     }
   })
   .then(handleResponse)
