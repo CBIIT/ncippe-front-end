@@ -107,7 +107,8 @@ const TestResults = (props) => {
       trackEvent({
         prop42: `BioBank_NewParticipant|Success`,
         eVar42: `BioBank_NewParticipant|Success`,
-        events: 'event80'
+        events: 'event80',
+        eventName: 'NewParticipantSuccess'
       })
       setIsNewParticipant(true)
     }
@@ -118,7 +119,8 @@ const TestResults = (props) => {
     trackEvent({
       prop42: `BioBank_AccountActions|Click:${buttonText}`,
       eVar42: `BioBank_AccountActions|Click:${buttonText}`,
-      events: 'event28'
+      events: 'event28',
+      eventName: 'AccountActionsUpload'
     })
     setDialogOpen(true)
     setMenuOpen(false)
@@ -135,7 +137,8 @@ const TestResults = (props) => {
     trackEvent({
       prop42: `BioBank_AccountActions|Click:${buttonText}`,
       eVar42: `BioBank_AccountActions|Click:${buttonText}`,
-      events: 'event28'
+      events: 'event28',
+      eventName: 'AccountActionsLeave'
     })
     navigate(`${window.location.pathname}/participation/leaveQuestions`,{state: {
       user
@@ -146,7 +149,8 @@ const TestResults = (props) => {
     trackEvent({
       prop42: `BioBank_AccountActions|Expand`,
       eVar42: `BioBank_AccountActions|Expand`,
-      events: 'event26'
+      events: 'event26',
+      eventName: 'AccountActionsExpand'
     })
     setMenuOpen(prevState => !prevState)
   }

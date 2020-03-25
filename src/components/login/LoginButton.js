@@ -36,7 +36,8 @@ const LoginButton = () => {
         trackEvent({
           prop53: `BioBank_TopNav|Sign-Out`,
           eVar53: `BioBank_TopNav|Sign-Out`,
-          events: 'event26'
+          events: 'event26',
+          eventName: 'Sign out'
         })
         // reset user data and log-out
         signoutRedirectCallback()
@@ -50,7 +51,8 @@ const LoginButton = () => {
       trackEvent({
         prop53: `BioBank_TopNav|Sign-In`,
         eVar53: `BioBank_TopNav|Sign-In`,
-        events: 'event26'
+        events: 'event26',
+        eventName: 'Sign in'
       })
       // Using openID to redirect to login.gov
       signinRedirect()

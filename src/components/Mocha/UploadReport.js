@@ -149,6 +149,7 @@ const UploadReport = () => {
                 prop42: `BioBank_AdminUpload|PatientIDEntered`,
                 eVar42: `BioBank_AdminUpload|PatientIDEntered`,
                 events: 'event73',
+                eventName: 'PatientIDEntered'
               })
             }
           })
@@ -172,6 +173,7 @@ const UploadReport = () => {
         prop42: `BioBank_AdminUpload|FilesUploaded`,
         eVar42: `BioBank_AdminUpload|FilesUploaded`,
         events: 'event78',
+        eventName: 'FilesUploaded'
       })
       // reset errors
       setFormData(prevState => ({
@@ -201,6 +203,7 @@ const UploadReport = () => {
                 prop42: `BioBank_AdminUpload|Error`,
                 eVar42: `BioBank_AdminUpload|Error`,
                 events: 'event81',
+                eventName: 'AdminUploadError'
               })
             } else {
               // Save successful
@@ -209,6 +212,7 @@ const UploadReport = () => {
                 prop42: `BioBank_AdminUpload|Completed`,
                 eVar42: `BioBank_AdminUpload|Completed`,
                 events: 'event80',
+                eventName: 'AdminUploadComplete'
               })
             }
           })
@@ -289,7 +293,7 @@ const UploadReport = () => {
           />
           {patientData.notFound && <Status state="error" title={t('upload.0.error.title')} message={t('upload.0.error.message')} />}
           <div className={classes.formButtons}>
-              <Button variant="contained" color="primary" onClick={handleFormSubmit}>{t('a_common:buttons.next')}</Button>
+              <Button variant="contained" color="primary" type="submit">{t('a_common:buttons.next')}</Button>
               <Button variant="text" className={classes.btnClear} onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
           </div>
           </>

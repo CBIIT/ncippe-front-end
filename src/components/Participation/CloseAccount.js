@@ -55,7 +55,8 @@ const CloseAccount = (props) => {
     trackEvent({
       prop42: `BioBank_ChangeParticipation|Close:CloseAccount`,
       eVar42: `BioBank_ChangeParticipation|Close:CloseAccount`,
-      events: 'event78'
+      events: 'event76',
+      eventName: 'ChangeParticipationClose'
     })
     getAPI.then(api => {
       api.closeAccount({uuid, token}).then(resp => {

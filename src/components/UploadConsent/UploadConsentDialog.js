@@ -118,7 +118,8 @@ const UploadConcentDialog = (props) => {
       trackEvent({
         prop42: `BioBank_ConsentUpload|Submit`,
         eVar42: `BioBank_ConsentUpload|Submit`,
-        events: 'event75'
+        events: 'event75',
+        eventName: 'ConsentUploadSubmit'
       })
       setActiveStep(1)
       // reset errors
@@ -141,7 +142,8 @@ const UploadConcentDialog = (props) => {
               trackEvent({
                 prop42: `BioBank_ConsentUpload|Error`,
                 eVar42: `BioBank_ConsentUpload|Error`,
-                events: 'event81'
+                events: 'event81',
+                eventName: 'ConsentUploadError'
               })
               // Save unsuccessful - go back a step
               setActiveStep(0)
@@ -153,7 +155,8 @@ const UploadConcentDialog = (props) => {
               trackEvent({
                 prop42: `BioBank_ConsentUpload|Success`,
                 eVar42: `BioBank_ConsentUpload|Success`,
-                events: 'event80'
+                events: 'event80',
+                eventName: 'ConsentUploadSuccess'
               })
               // Save successful - close modal
               handleClose(null, true)

@@ -143,7 +143,8 @@ const Header = () => {
     trackEvent({
       prop53: `BioBank_TopNav|${event.target.textContent}`,
       eVar53: `BioBank_TopNav|${event.target.textContent}`,
-      events: 'event26'
+      events: 'event26',
+      eventName: 'TopNavHamburger'
     })
   }
 
@@ -153,7 +154,8 @@ const Header = () => {
       trackEvent({
         prop53: `BioBank_TopNav|${event.target.closest("ul").dataset.panelgroup}|${event.target.textContent}`,
         eVar53: `BioBank_TopNav|${event.target.closest("ul").dataset.panelgroup}|${event.target.textContent}`,
-        events:'event28'
+        events:'event28',
+        eventName: 'TopNavHamburger'
       })
     }
   }
@@ -177,7 +179,8 @@ const Header = () => {
       eVar13: "+1",
       prop14: searchTerm,
       eVar14: searchTerm,
-      events: "event2"
+      events: "event2",
+      eventName: 'GlobalMobileSearch'
     })
     navigate('/search', {state: {
       term: searchTerm
@@ -188,7 +191,8 @@ const Header = () => {
     trackEvent({
       prop53: 'BioBank_TopNav|Logo',
       eVar53: 'BioBank_TopNav|Logo',
-      events: 'event26'
+      events: 'event26',
+      eventName: 'TopNavLogo'
     })
   }
 

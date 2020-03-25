@@ -55,7 +55,8 @@ const PatientList = (props) => {
       trackEvent({
         prop11: `BioBank Account Participant Name Search`,
         eVar11: `BioBank Account Participant Name Search`,
-        events: 'event2'
+        events: 'event2',
+        eventName: 'ParticipantNameSearch'
       })
       setHasSearched(true)
     }
@@ -65,7 +66,8 @@ const PatientList = (props) => {
     trackEvent({
       prop42: `BioBank_NewParticipant|Start`,
       eVar42: `BioBank_NewParticipant|Start`,
-      events: 'event73'
+      events: 'event73',
+      eventName: 'NewParticipantStart'
     })
     setDialogOpen(true)
     setPatientToActivate(patient)
