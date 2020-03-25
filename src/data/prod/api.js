@@ -106,11 +106,10 @@ async function updateUser({uuid, data, token}){
     preferredLanguage: lang
   }
   return await fetch(`/api/v1/user/${uuid}?${queryString.stringify(query)}`,{
-    method: 'PUT',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'access-control-allow-methods': 'GET, POST, PUT, OPTIONS, PATCH, DELETE'
+      'Access-Control-Allow-Origin': '*'
     }
   })
   .then(handleResponse)
@@ -148,7 +147,7 @@ async function uploadPatientReport({patientId, uuid, reportFile, fileType, token
 
 async function notificationsMarkAsRead({uuid, token}){
   return await fetch(`/api/v1/user/${uuid}/notifications/mark-as-read`,{
-    method: 'PUT',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
@@ -180,7 +179,7 @@ async function fetchPatientReport({reportId, token}){
 // flag report as read by user
 async function reportViewedBy({uuid, reportId, token}){
   return await fetch(`/api/patientReport/${reportId}/markAsRead`,{
-    method: 'PATCH',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
@@ -217,7 +216,7 @@ async function withdrawUser({uuid, patientId, qsAnsDTO, token}){
 
 async function closeAccount({uuid, token}){
   return await fetch(`/api/v1/deactivate-user/${uuid}`,{
-    method: 'PATCH',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
@@ -242,7 +241,7 @@ async function updateParticipantDetails({uuid, token, patient}){
   }
 
   return await fetch(`/api/v1/user/enter-new-participant-details?${queryString.stringify(query)}`,{
-    method: 'PATCH',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
@@ -260,7 +259,7 @@ async function activateParticipant({uuid, token, patient}){
   }
 
   return await fetch(`/api/v1/user/invite-participant-to-portal?${queryString.stringify(query)}`,{
-    method: 'PATCH',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
