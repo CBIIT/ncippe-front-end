@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { ThemeProvider } from '@material-ui/styles'
 import { CssBaseline } from '@material-ui/core'
 import track from 'react-tracking'
@@ -12,19 +12,41 @@ import { theme } from './theme/theme'
 
 const App = (props) => {
   const { t } = useTranslation('common')
-
+  window.$defaultLinkTrack = true
+  
   // generic event deligation for links and buttons in the body
-  document.addEventListener("click", (e) => {
+  const genericLinkTracking = (e) => {
+    // skip tracking this event if global variable has been flagged (is false)
+    if(window.$defaultLinkTrack){
+      
+      const target = e.target.closest('a, button')
+      const main = target ? target.closest("#main") : false
+      
+      // track generic event if it's from a link or button inside of #main OR it's the backButton outside of #main
+      // other header and footer links are not reported by this event
+      if (target && main || target && target.classList.contains('backButton')) {
+        console.log("tracking")
+        const linkType = target.tagName.toLowerCase() === 'button' || target.getAttribute('role') === 'button' ? 'button' : 'text'
+        props.tracking.trackEvent({
+          prop50: e.target.textContent,
+          prop66: `BioBank|${linkType}`,
+          eVar66: `BioBank|${linkType}`,
+          events: 'event71',
+        })
+      }
+    } else {
+      // tracking was skipped - toggle the flag back on
+      window.$defaultLinkTrack = true
+    }
+  }
 
-    const target = e.target.closest('#main a, #main button')
-
-    if (target) {
-      props.tracking.trackEvent({
-        prop50: e.target.textContent,
-        prop66: `BioBank|${target.tagName}`,
-        eVar66: `BioBank|${target.tagName}`,
-        events: 'event71',
-      })
+  useEffect(()=>{
+    // spawn new process - in the case of multiple tracking events, we want this generic one to be bound last so it can be consolidated/canceled by other events
+    // setTimeout(() => {
+      document.addEventListener("click", genericLinkTracking, false)
+    // }, 300)
+    return () => {
+      document.removeEventListener("click", genericLinkTracking, false)
     }
   })
 
@@ -111,15 +133,17 @@ export default track({
         ...computedData,
         prop67: computedData.pageName,
         eVar1: computedData.pageName,
-        linkTrackVars: 'prop11,eVar11,prop13,eVar13,prop14,eVar14,prop41,prop42,eVar42,prop50,prop53,eVar53,prop66,eVar66,prop67', // no spaces allowed
+        linkTrackVars: 'prop11,eVar11,prop13,eVar13,prop14,eVar14,eVar37,prop41,prop42,eVar42,prop50,prop53,eVar53,prop57,prop66,eVar66,prop67', // no spaces allowed
         linkTrackEvents: data.events ? data.events.concat(",") : null
       }
 
       Object.assign(local_s, data, computedData)
 
+      // required variables for tracking
       const linkType = data.linkType || "o"
+      const linkName = data.eventName || "generic"
 
-      local_s.tl(this,linkType)
+      local_s.tl(this,linkType,linkName)
 
       // clear variables when done
       local_s.clearVars()
