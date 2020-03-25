@@ -46,8 +46,7 @@ async function fetchToken({uuid, email, id_token}){
   return await fetch(`/api/v1/login?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Content-Type': 'application/json'
     }
   })
   .then(handleResponse)
@@ -61,8 +60,7 @@ async function loginUser(){
   return await fetch(`/api/v1/login`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json'
     }
   })
   .then(handleResponse)
@@ -106,8 +104,7 @@ async function updateUser({uuid, data, token}){
   return await fetch(`/api/v1/user/${uuid}?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Content-Type': 'application/json'
     }
   })
   .then(handleResponse)
@@ -131,7 +128,6 @@ async function uploadPatientReport({patientId, uuid, reportFile, fileType, token
     // mode: 'no-cors',
     // credentials: 'omit',
     headers: {
-      'Access-Control-Allow-Origin': '*'
     },
     body: formData
   })
@@ -146,8 +142,7 @@ async function notificationsMarkAsRead({uuid, token}){
   return await fetch(`/api/v1/user/${uuid}/notifications/mark-as-read`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Content-Type': 'application/json'
     }
   })
   .then(handleResponse)
@@ -160,8 +155,7 @@ async function notificationsMarkAsRead({uuid, token}){
 async function fetchPatientReport({reportId, token}){
   return await fetch(`/api/patientReport/${reportId}`,{
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Content-Type': 'application/json'
     }
   })
   .then(handleResponse)
@@ -176,8 +170,7 @@ async function reportViewedBy({uuid, reportId, token}){
   return await fetch(`/api/patientReport/${reportId}/markAsRead`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Content-Type': 'application/json'
     }
   })
   .then(handleResponse)
@@ -195,8 +188,7 @@ async function withdrawUser({uuid, patientId, qsAnsDTO, token}){
   return await fetch(`/api/v1/withdraw-user-participation?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(qsAnsDTO)
   })
@@ -211,8 +203,7 @@ async function closeAccount({uuid, token}){
   return await fetch(`/api/v1/deactivate-user/${uuid}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Content-Type': 'application/json'
     }
   })
   .then(handleResponse)
@@ -235,8 +226,7 @@ async function updateParticipantDetails({uuid, token, patient}){
   return await fetch(`/api/v1/user/enter-new-participant-details?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Content-Type': 'application/json'
     }
   })
   .then(handleResponse)
@@ -252,8 +242,7 @@ async function activateParticipant({uuid, token, patient}){
   return await fetch(`/api/v1/user/invite-participant-to-portal?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Content-Type': 'application/json'
     }
   })
   .then(handleResponse)
@@ -266,8 +255,7 @@ async function activateParticipant({uuid, token, patient}){
 async function getHospitalList(){
   return await fetch(`/publicapi/v1/sites`,{
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json'
     }
   })
     .then(handleResponse)
