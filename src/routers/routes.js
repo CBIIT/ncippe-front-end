@@ -206,7 +206,7 @@ export default () => (
           className="transitionGroup"
         >
           <Router location={location} primary={false}>
-            <Redirect from="/signout" to="/" noThrow />
+            {/* <Redirect from="/signout" to="/" noThrow /> */}
             <HomePage path='/' />
             <AboutPage path='/about' />
             <EligibilityPage path='/about/eligibility' />

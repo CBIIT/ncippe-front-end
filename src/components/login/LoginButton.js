@@ -43,7 +43,7 @@ const LoginButton = () => {
         sessionStorage.setItem('isDashboardTracked',false)
         window.$role = "Public"
         //TODO: use env variable for logout domain
-        window.location.assign('/siteminderagent/smlogout.asp')
+        window.location.assign('/signout')
       }
     }
     // log-in
