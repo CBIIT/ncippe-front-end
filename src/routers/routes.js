@@ -174,7 +174,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
                     ...userData
                   }
                 })
-                return <Component {...rest} />
+                // redirect mocha admins to their specific dashboard
+                if (userData.roleName === 'ROLE_PPE_MOCHA_ADMIN' && new RegExp(/\/account(?!-)/).test(rest.path)) {
+                  return navigate('/account-mocha')
+                }
+                else {
+                  return <Component {...rest} />
+                }
               }
               else {
                 throw new Error(t('no user data returned from server'))
