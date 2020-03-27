@@ -53,7 +53,8 @@ const Search = () => {
     trackEvent({
       prop53: 'BioBank_TopNav|Search',
       eVar53: 'BioBank_TopNav|Search',
-      events: 'event26'
+      events: 'event26',
+      eventName: 'TopNavSearch'
     })
   }
 
@@ -71,7 +72,8 @@ const Search = () => {
       eVar13: "+1",
       prop14: searchTerm,
       eVar14: searchTerm,
-      events: "event2"
+      events: "event2",
+      eventName: 'GlobalSearch'
     })
     navigate(`/search`,{state: {
       term: searchTerm

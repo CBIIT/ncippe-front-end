@@ -76,6 +76,18 @@ const useStyles = makeStyles(theme => ({
         }
       },
     },
+    '&::before': {
+      height: 2,
+      top: -2
+    },
+    '&.Mui-expanded': {
+      '&::before': {
+        opacity: 1
+      },
+      '& + .MuiExpansionPanel-root::before': {
+        display: 'block'
+      }
+    },
     '& .MuiList-root': {
       '& li': {
         padding: 0

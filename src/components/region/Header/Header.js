@@ -79,19 +79,20 @@ const useStyles = makeStyles(theme => ({
   },
   closeMobileMenu: {
     textAlign: 'right',
-    borderBottom: '1px solid #dbdada'
+    borderBottom: '2px solid #dbdada'
   },
   mobileLogin: {
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: theme.palette.grey.xlight,
+    // backgroundColor: theme.palette.grey.xlight,
     padding: theme.spacing(2,7),
+    boxShadow: "0px 5px 15px -5px rgba(0,0,0,0.2)"
   },
   mobileSearch: {
-    backgroundColor: theme.palette.grey.xlight,
+    // backgroundColor: theme.palette.grey.xlight,
     padding: theme.spacing(3,2),
     textAlign: 'right',
-    borderBottom: '1px solid #dbdada',
+    // borderBottom: '2px solid #dbdada',
     '& .MuiFormControl-root': {
       width: '100%',
     },
@@ -105,8 +106,8 @@ const useStyles = makeStyles(theme => ({
   languageToggle: {
     textAlign: "right",
     backgroundImage: theme.gradients.lightBlue,
-    margin: theme.spacing(0, -3, 0, -4),
-    padding: theme.spacing(.5, 3),
+    margin: theme.spacing(0, -3),
+    padding: theme.spacing(.75, 3),
     '& a': {
       cursor: "pointer",
       fontSize: 12,
@@ -142,7 +143,8 @@ const Header = () => {
     trackEvent({
       prop53: `BioBank_TopNav|${event.target.textContent}`,
       eVar53: `BioBank_TopNav|${event.target.textContent}`,
-      events: 'event26'
+      events: 'event26',
+      eventName: 'TopNavHamburger'
     })
   }
 
@@ -152,7 +154,8 @@ const Header = () => {
       trackEvent({
         prop53: `BioBank_TopNav|${event.target.closest("ul").dataset.panelgroup}|${event.target.textContent}`,
         eVar53: `BioBank_TopNav|${event.target.closest("ul").dataset.panelgroup}|${event.target.textContent}`,
-        events:'event28'
+        events:'event28',
+        eventName: 'TopNavHamburger'
       })
     }
   }
@@ -176,7 +179,8 @@ const Header = () => {
       eVar13: "+1",
       prop14: searchTerm,
       eVar14: searchTerm,
-      events: "event2"
+      events: "event2",
+      eventName: 'GlobalMobileSearch'
     })
     navigate('/search', {state: {
       term: searchTerm
@@ -187,7 +191,8 @@ const Header = () => {
     trackEvent({
       prop53: 'BioBank_TopNav|Logo',
       eVar53: 'BioBank_TopNav|Logo',
-      events: 'event26'
+      events: 'event26',
+      eventName: 'TopNavLogo'
     })
   }
 

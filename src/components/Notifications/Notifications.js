@@ -59,7 +59,7 @@ const Notifications = () => {
       <Typography variant="h2" component="h2">{t('components.notificationView.pageTitle', {count,s:count !== 1 ? t('a_common:pluralizer') : ''})}</Typography>
     </div>
     {count ? 
-      notifications.map((item, i) => <NotificationItem key={i} notification={item} />)
+      notifications.map((item, i) => <NotificationItem key={i} notification={item} lang={loginContext.lang} />)
       :
       <Typography variant="h6" className={classes.header}>{t('components.notificationView.no_results')}</Typography>
     }

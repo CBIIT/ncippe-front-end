@@ -85,7 +85,8 @@ const MenuGroup = (props) => {
     trackEvent({
       prop53: `BioBank_TopNav|${props.title}`,
       eVar53: `BioBank_TopNav|${props.title}`,
-      events:'event26'
+      events:'event26',
+      eventName: 'ToggleMenuReveal'
     })
   }
 
@@ -98,7 +99,8 @@ const MenuGroup = (props) => {
       trackEvent({
         prop53: `BioBank_TopNav|${props.title}|${event.target.textContent}`,
         eVar53: `BioBank_TopNav|${props.title}|${event.target.textContent}`,
-        events:'event28'
+        events:'event28',
+        eventName: 'ToggleMenuLink'
       })
     }
 
@@ -159,6 +161,13 @@ const MenuGroup = (props) => {
       transition 
       placement="bottom-start" 
       container={containerNode}
+      modifiers={{
+        // keepTogether: { enabled: true}
+        preventOverflow: {
+          boundariesElement: 'viewport',
+          escapeWithReference: true,
+        },
+      }}
     >
       {({ TransitionProps }) => (
         <Grow

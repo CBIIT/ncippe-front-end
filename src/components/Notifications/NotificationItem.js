@@ -47,7 +47,7 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const NotificationItem = (props) => {
-  const {notification: {subject, from, message, dateGenerated, viewedByUser}, handleClick} = props
+  const {notification: {subject, from, message, dateGenerated, viewedByUser}, lang, handleClick} = props
   const classes = useStyles()
   return (
     <Card onClick={handleClick} className={classes.card}>
@@ -56,7 +56,7 @@ const NotificationItem = (props) => {
         wrapper={children => <Badge className={classes.badge} badgeContent="new" component="div">{children}</Badge>}
       >
         <CardContent className={classes.cardContent}>
-          <Typography variant="h3" component="h3">{subject}</Typography>
+          <Typography variant="h3" component="h3"><RenderContent source={subject[lang]} /></Typography>
           <Grid container>
             <Grid item xs={12} sm={4} md={2}>
               <Typography>{moment(dateGenerated).format("MMM DD, YYYY")}</Typography>
@@ -64,7 +64,7 @@ const NotificationItem = (props) => {
           </Grid>
           <Divider className={classes.divider} />
           <Typography component="div">
-            <RenderContent source={message} />
+            <RenderContent source={message[lang]} />
           </Typography>
         </CardContent>
       </ConditionalWrapper>

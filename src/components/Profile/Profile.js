@@ -89,7 +89,8 @@ const Profile = () => {
             trackEvent({
               prop42: `BioBank_ProfileSettings|Save`,
               eVar42: `BioBank_ProfileSettings|Save`,
-              events: 'event78'
+              events: 'event78',
+              eventName: 'ProfileSettingsSave'
             })
             // Save successful, also update the user context data
             dispatch({
@@ -135,7 +136,8 @@ const Profile = () => {
       trackEvent({
         prop42: `BioBank_ProfileSettings|Edit`,
         eVar42: `BioBank_ProfileSettings|Edit`,
-        events: 'event73'
+        events: 'event73',
+        eventName: 'ProfileSettingsEdit'
       })
     }
     setEditMode(!editMode)

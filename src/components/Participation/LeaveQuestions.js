@@ -134,7 +134,8 @@ const LeaveQuestions = (props) => {
       trackEvent({
         prop42: `BioBank_ChangeParticipation|Leave:LeaveBioBank`,
         eVar42: `BioBank_ChangeParticipation|Leave:LeaveBioBank`,
-        events: 'event77'
+        events: 'event77',
+        eventName: 'ChangeParticipationLeave'
       })
       // open modal for final confirmation
       setIsModalOpen(true)
@@ -178,7 +179,8 @@ const LeaveQuestions = (props) => {
     trackEvent({
       prop42: `BioBank_ChangeParticipation|Leave:Confirm`,
       eVar42: `BioBank_ChangeParticipation|Leave:Confirm`,
-      events: 'event78'
+      events: 'event78',
+      eventName: 'ChangeParticipationLeave'
     })
 
     getAPI.then(api => {

@@ -37,7 +37,7 @@ const Breadcrumbs = (props) => {
   return (
     <Container className={classes.Breadcrumbs}>
       <Typography>
-        <Button className={classes.back} color="primary" variant="text" onClick={handleClick}><ArrowBack className={classes.backIcon} /> {t('buttons.back')}</Button>
+        <Button className={`${classes.back} backButton`} color="primary" variant="text" onClick={handleClick}><ArrowBack className={classes.backIcon} /> {t('buttons.back')}</Button>
       </Typography>
     </Container>
   )

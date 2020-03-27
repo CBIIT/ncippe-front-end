@@ -73,11 +73,12 @@ const TestResultsItem = (props) => {
     const reportId = e.currentTarget.dataset.reportid
     let filename
     let win
+    const linkText = e.target.textContent
 
     // set up new tab window before fetch call
     if(!download) {
       win = window.open("", "reportId")
-      win.document.title = "View Report"
+      win.document.title = "View Report" // TODO: translate this
       win.document.body.style.margin = 0
     }
     getAPI.then(api => {
@@ -103,14 +104,18 @@ const TestResultsItem = (props) => {
           // create url reference to blob buffer
           const fileData = window.URL.createObjectURL(blob);
 
+          console.log(linkText)
+
           // trigger download or render blob buffer to new window
           if(download) {
             trackEvent({
-              prop42: `BioBank_AccountDocuments|Download`,
-              eVar42: `BioBank_AccountDocuments|Download`,
-              events: 'event29',
+              prop50: linkText,
+              prop66: `BioBank_AccountDocuments|Download`,
+              eVar66: `BioBank_AccountDocuments|Download`,
+              events: 'event6',
               pe: 'lnk_e',
               pev1: `${fileName}`,
+              eventName: 'AccountDocumentsDownload'
             })
             const link = document.createElement('a');
             link.style.display = 'none';
@@ -121,12 +126,13 @@ const TestResultsItem = (props) => {
             document.body.removeChild(link);
           } else {
             trackEvent({
-              prop42: `BioBank_AccountDocuments|View in Browser`,
-              eVar42: `BioBank_AccountDocuments|View in Browser`,
-              events: 'event29',
+              prop50: linkText,
+              prop66: `BioBank_AccountDocuments|View in Browser`,
+              eVar66: `BioBank_AccountDocuments|View in Browser`,
+              events: 'event6',
               pe: 'lnk_e',
               pev1: `${fileName}`,
-
+              eventName: 'AccountDocumentsView'
             })
             win.document.body.innerHTML = `<embed src='${fileData}' type='application/pdf' width='100%' height='100%' />`
           }

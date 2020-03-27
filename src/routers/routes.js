@@ -33,6 +33,10 @@ import GetHelpPage        from '../pages/dashboard/GetHelpPage'
 import { LoginContext, LoginConsumer }  from '../components/login/Login.context'
 import { useTranslation } from 'react-i18next'
 
+// imports for time
+import moment from 'moment'
+import 'moment/locale/es'
+
 const SearchResults = lazy(() => import('../pages/SearchResultsPage'))
 
 const HomePage = pageWrapper(Home)
@@ -150,6 +154,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
           const lang = state.lang || "en"
           if(lang !== i18n.language) {
             i18n.changeLanguage(lang)
+            moment.locale(lang)
           }
           return <Component {...rest} />
         }

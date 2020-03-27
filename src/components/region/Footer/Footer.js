@@ -80,7 +80,8 @@ const Footer = () => {
       trackEvent({
         prop53: `BioBank_FooterNav|${e.target.textContent}`,
         eVar53: `BioBank_FooterNav|${e.target.textContent}`,
-        events: 'event16'
+        events: 'event16',
+        eventName: 'FooterLink'
       })
     }
   }
