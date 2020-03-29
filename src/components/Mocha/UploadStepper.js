@@ -2,7 +2,6 @@ import React from 'react';
 import { Stepper, Typography, Step, StepLabel, StepContent, useMediaQuery } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
-import { theme } from '../../theme/theme';
 
 const useStyles = makeStyles( theme => ({
   stepper: {
