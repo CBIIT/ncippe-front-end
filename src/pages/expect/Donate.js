@@ -41,6 +41,16 @@ const useStyles = makeStyles( theme => ({
   },
 }))
 
+const BodyContent = () => {
+  const classes = useStyles()
+  const { t } = useTranslation('donate')
+  return (
+    <Typography component="div" className={classes.extraSpacing}>
+      <RenderContent source={t('body')} />
+    </Typography>
+  )
+}
+
 const Donate = () => {
   const classes = useStyles()
   const { t, i18n } = useTranslation('donate')
@@ -48,6 +58,7 @@ const Donate = () => {
   const faqs = i18n.getResourceBundle(i18n.languages[0],'donate').faqs
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const singleColumn = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(() => {
     trackEvent({
@@ -79,13 +90,12 @@ const Donate = () => {
             <Typography className={classes.bottomSpacer} variant={isMobile ? "body1" : "body2"}>
               <RenderContent source={t('intro_text')} />
             </Typography>
-            <Typography component="div" className={classes.extraSpacing}>
-              <RenderContent source={t('body')} />
-            </Typography>
+            {!singleColumn && <BodyContent />}
           </Grid>
           <Grid item xs={12} md={6} lg={4} className={classes.gridItemImg} component="aside">
             <ArticleImage src="doctor-and-patient-1.jpg" alt={t('alt_text.0')} />
           </Grid>
+          {singleColumn && <Grid item xs={12} md={6} lg={8} className={classes.textColumn}><BodyContent /></Grid>}
         </Grid>
       </Container>
 
