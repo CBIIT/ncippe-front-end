@@ -12,6 +12,11 @@ const useStyles = makeStyles( theme => ({
       padding: theme.spacing(2,0)
     }
   },
+  step: {
+    [`@media (max-width: 799px)`]: {
+      marginBottom: 8
+    }
+  },
   label: {
     margin: "0 !important",
   }
@@ -37,9 +42,8 @@ const UploadStepper = (props) => {
       <Typography variant="h3" component="h3">{t('stepper_title')}</Typography>
       <Stepper className={classes.stepper} activeStep={activeStep} alternativeLabel={labelOrientation} orientation={orientation}>
         {stepText.map((text, i) => (
-          <Step key={i}>
+          <Step className={classes.step} key={i}>
             <StepLabel><Typography className={classes.label}>{text}</Typography></StepLabel>
-            <StepContent /> {/* StepContent item is needed for vertical spacing} */}
           </Step>
         ))}
       </Stepper>
