@@ -29,10 +29,20 @@ const useStyles = makeStyles(theme => ({
     borderTop: `2px solid ${theme.palette.grey[300]}`,
     margin: theme.spacing(0,2),
     padding: theme.spacing(2,0,0,0),
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      "& > :not(:first-child)": {
+        margin: 0
+      }
+    },
 
-    '& a:last-of-type': {
-      alignSelf: 'flex-end'
+    [theme.breakpoints.up('xs')]: {
+      '& a:last-of-type': {
+        alignSelf: 'flex-end',
+      }
     }
+
   },
   gridItem: {
     width: '33.333333%',
