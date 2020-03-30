@@ -81,6 +81,16 @@ const useStyles = makeStyles( theme => ({
   },
 }))
 
+const BodyContent = () => {
+  const classes = useStyles()
+  const { t } = useTranslation('testing')
+  return (
+    <Typography className={classes.extraSpacing} component="div">
+      <RenderContent source={t('sections.0.body')} />
+    </Typography>
+  )
+}
+
 const BiomarkerTest = () => {
   const classes = useStyles()
   const { t, i18n } = useTranslation('testing')
@@ -88,6 +98,7 @@ const BiomarkerTest = () => {
   const faqs = i18n.getResourceBundle(i18n.languages[0],'testing').faqs
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const singleColumn = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(() => {
     trackEvent({
@@ -120,14 +131,12 @@ const BiomarkerTest = () => {
             <Typography variant={isMobile ? "body1" : "body2"} component="div">
               <RenderContent source={t('intro_text')} />
             </Typography>
-
-            <Typography className={classes.extraSpacing} component="div">
-              <RenderContent source={t('sections.0.body')} />
-            </Typography>
+            {!singleColumn && <BodyContent />}
           </Grid>
           <Grid item xs={12} md={6} lg={4} className={classes.gridItemImg} component="aside">
             <ArticleImage src="researchers-3.jpg" alt={t('sections.0.alt_text')} />
           </Grid>
+          {singleColumn && <Grid item xs={12} md={6} lg={8} className={classes.textColumn}><BodyContent /></Grid>}
         </Grid>
 
         <Divider className={classes.divider} />
