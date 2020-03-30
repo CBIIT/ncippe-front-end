@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   appToolbarContainer: {
     display: 'flex',
     alignItems: 'center',
-    minHeight: 82,
+    minHeight: 68,
     // marginTop: theme.spacing(2),
     // marginBottom: theme.spacing(2),
     
@@ -44,17 +44,26 @@ const useStyles = makeStyles(theme => ({
     //   marginBottom: 0,
     // }
     // padding: 0
+    [theme.breakpoints.up('sm')]: {
+      minHeight: 76,
+    }
   },
   toolbarLogo: {
     flexGrow: 1,
-    maxHeight: 50,
+    maxHeight: 32,
     margin: 0,
     
     '& img': {
-      height: 50,
+      height: 32,
       width: 'auto',
       maxWidth: '100%',
     },
+    [theme.breakpoints.up('sm')]: {
+      maxHeight: 40,
+      '& img': {
+        height: 40,
+      }
+    }
   },
   headerLink: {
     color: theme.palette.grey[800],
