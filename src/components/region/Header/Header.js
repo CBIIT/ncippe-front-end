@@ -86,6 +86,11 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: 'transparent',
     },
   },
+  menuIcon: {
+    "& svg": {
+      fontSize: "2rem"
+    }
+  },
   closeMobileMenu: {
     textAlign: 'right',
     borderBottom: '2px solid #dbdada'
@@ -239,7 +244,7 @@ const Header = () => {
           </nav>
         )}
 
-        {isMobile ? <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer}><MenuIcon /></IconButton> : <LoginButton />}
+        {isMobile ? <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer} className={classes.menuIcon}><MenuIcon /></IconButton> : <LoginButton />}
         {/* {isMobile && <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer}><MenuIcon /></IconButton>} */}
         
       </Box>
