@@ -162,14 +162,14 @@ export const theme = createMuiTheme({
       },
       badge: {
         borderRadius: '0 0 6px 6px',
-        padding: "8px 16px",
+        padding: "8px 16px 6px",
         textTransform: 'uppercase',
         backgroundColor: "#ffb73d", // theme.palette.gold.main
         color: "#000",
         fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
         fontSize: '16px',
         fontWeight: 600,
-        lineHeight: '12px',
+        lineHeight: 1,
         height: 'auto',
       },
       anchorOriginTopRightRectangle: {
