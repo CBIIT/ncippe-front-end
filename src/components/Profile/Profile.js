@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 
-import { Divider, FormControl, Input, InputLabel, Paper, Typography, Button} from '@material-ui/core'
+import { Box, Divider, FormControl, Input, InputLabel, Paper, Typography, Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import EditIcon from '@material-ui/icons/Edit'
 import { useTranslation } from 'react-i18next'
@@ -22,17 +22,18 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column'
   },
+  boxTitle: {
+    display: 'flex',
+    "& :first-child": {
+      flex: 1
+    }
+  },
   formControl: {
     minWidth: '200px',
     
     '& .MuiInput-formControl': {
       marginTop: 20
     }
-  },
-  editButton: {
-    position: 'absolute',
-    top: 0,
-    right: 0
   },
   cta: {
     display: 'flex',
@@ -146,20 +147,19 @@ const Profile = () => {
   return (
     <Paper className={classes.root} elevation={4}>
       <form className={classes.form} onSubmit={handleSubmit}>
-        {/* todo: pencil icon and text button */}
-        {!editMode && (
-          <Button 
-            className={classes.editButton} 
-            variant="text" 
-            color="primary"
-            onClick={toggleEditMode}
-          >
-            <EditIcon/> {t('a_common:buttons.edit')}
-          </Button>
-        )}
-        <Typography variant="h3" component="h3" gutterBottom>
-        {t('profile.title')}
-        </Typography>
+        <Box className={classes.boxTitle}>
+          <Typography variant="h3" component="h3" gutterBottom>{t('profile.title')}</Typography>
+          {!editMode && (
+            <Button 
+              className={classes.editButton} 
+              variant="text" 
+              color="primary"
+              onClick={toggleEditMode}
+            >
+              <EditIcon/> {t('a_common:buttons.edit')}
+            </Button>
+          )}
+        </Box>
         <FormControl className={classes.formControl} margin="normal">
           <InputLabel 
             htmlFor="email-input" 
