@@ -139,6 +139,10 @@ ul.bulletList > li:last-child {
   margin-bottom: 0
 }
 
+.transitionGroup {
+  min-width: 320px;
+}
+
 .siteWrapper {
   display: flex;
   flex-direction: column;
@@ -382,7 +386,7 @@ ul.bulletList > li:last-child {
 }
 
 .popup .mainContainer {
-  padding: 40px;
+  padding-top: 40px;
   flex-grow: 1;
 }
 
@@ -399,6 +403,17 @@ ul.bulletList > li:last-child {
 @media (min-width: 600px) {
   .MuiTypography-body2 > p {
     margin-bottom: 24px;
+  }
+  .popup .mainContainer {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (min-width: 880px) {
+  .popup .mainContainer {
+    padding-left: 40px;
+    padding-right: 40px;
   }
 }
 
