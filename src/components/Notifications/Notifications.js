@@ -56,7 +56,7 @@ const Notifications = () => {
   return <>
     <div className={classes.titleWithIcon}>
       <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/notifications.svg`} alt={t('a_common:icons.notifications')} aria-hidden="true"></img>
-      <Typography variant="h2" component="h2">{t('components.notificationView.pageTitle', {count,s:count !== 1 ? t('a_common:pluralizer') : ''})}</Typography>
+      <Typography variant="h2" component="h2">{t('components.notificationView.pageTitle', {count})}</Typography>
     </div>
     {count ? 
       notifications.map((item, i) => <NotificationItem key={i} notification={item} lang={loginContext.lang} />)
