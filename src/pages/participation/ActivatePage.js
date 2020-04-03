@@ -179,7 +179,7 @@ const ActivatePage = () => {
         <Box className={classes.tintedBox} p={7} component="section">
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid className={classes.featureImage} item xs={12} md={6}>
-              <img className={classes.screenshot} src={`/${process.env.PUBLIC_URL}assets/images/login.gov.jpg`} alt="login.gov screenshot" width="300"
+              <img className={classes.screenshot} src={`/${process.env.PUBLIC_URL}assets/images/login.gov.jpg`} alt={t('sections.0.alt_text')} width="300"
                 srcSet={`
                   /${process.env.PUBLIC_URL}assets/images/misc/standard/login.gov.jpg 1x,
                   /${process.env.PUBLIC_URL}assets/images/misc/HD/login.gov.jpg 2x

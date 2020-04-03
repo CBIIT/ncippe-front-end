@@ -102,7 +102,7 @@ export default () => {
                 <IconCard
                   icon="notifications.svg"
                   title={t('cards.notifications.title')}
-                  desc={t('cards.notifications.description', {count,s:count !== 1 ? t('a_common:pluralizer') : ''})}
+                  desc={t('cards.notifications.description', {count})}
                   link="/account/notifications"
                   linkText={t('cards.notifications.link')}
                   count={count}
