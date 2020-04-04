@@ -89,3 +89,5 @@ createAll(){
   echo "processing hero images"
   hero
 }
+
+"$@"

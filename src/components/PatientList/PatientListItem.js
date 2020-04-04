@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     padding: theme.spacing(4),
     marginBottom: theme.spacing(2),
-    backgroundColor: theme.palette.primary.lightGrey
+    backgroundColor: theme.palette.common.white
   },
   Link: {
     textDecoration: 'none'
@@ -71,7 +71,7 @@ const PatientListItem = (props) => {
   return (
     <Link className={classes.Link} onClick={handleClick}
       to={`/account/participant/${patientId}`}>
-      <Paper className={`${classes.paper} ${portalAccountStatus === 'ACCT_NEW' && classes.new}`}>
+      <Paper className={`${classes.paper} ${portalAccountStatus === 'ACCT_NEW' && classes.new}`} elevation={4}>
         {(hasNewReports || isActiveBiobankParticipant === false || portalAccountStatus === 'ACCT_NEW') && 
         <div className={classes.badges}>
           {hasNewReports && <Badge className={classes.badge} badgeContent={t('badges.new_document')} />}
