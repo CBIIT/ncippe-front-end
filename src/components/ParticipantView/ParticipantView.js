@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { navigate } from '@reach/router'
-import { ClickAwayListener, Divider, Grid, MenuItem, Typography } from '@material-ui/core'
+import { ClickAwayListener, Divider, Grid, MenuItem, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
@@ -70,6 +70,9 @@ const useStyles = makeStyles(theme => ({
       height: '100%'
     }
   },
+  providerCard: {
+    padding: theme.spacing(4,3)
+  }
 
 }))
 
@@ -219,19 +222,37 @@ const TestResults = (props) => {
             <DeactivatedQuestions user={user} />
           )}
         </Grid>
-        <Grid item xs={12} md={6} id="eConsentForms">
-          <Typography className={classes.header} variant="h2" component="h2">{t('components.consentView.pageTitle')}</Typography>
-          {uploadSuccess && <Status state="success" 
-            title={t('components.participantView.status.uploaded.title')}
-            message={t('components.participantView.status.uploaded.message')} />
-          }
-          {files && files.length > 0 ? (
-            <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-              {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} patientId={user.patientId} noBadge /></Grid>)}
+        <Grid item xs={12} md={6}>
+          <Grid container spacing={3}>
+            <Grid xs={12} item id="providers">
+          <Typography className={classes.header} variant="h2" component="h2">{t('components.providerView.pageTitle')}</Typography>
+              {user.providers ? (
+                <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
+                  {user.providers.map((provider,i) => <Grid item xs={12} key={i}><Paper elevation={4} className={classes.providerCard}>
+                    <Typography><strong>Dr. {provider.firstName} {provider.lastName}</strong></Typography>
+                    <Typography><a href={`tel:${provider.phoneNumber}`}>{formatPhoneNumber(provider.phoneNumber)}</a></Typography>
+                    <Typography><a href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
+                  </Paper></Grid>)}
+                </Grid>
+              ) : (
+                <NoItems message={t('components.providerView.no_results')} />
+              )}
             </Grid>
-          ) : (
-            <NoItems message={t('components.consentView.no_results.admin')} />
-          )}
+            <Grid xs={12} item id="eConsentForms">
+              <Typography className={classes.header} variant="h2" component="h2">{t('components.consentView.pageTitle')}</Typography>
+              {uploadSuccess && <Status state="success" 
+                title={t('components.participantView.status.uploaded.title')}
+                message={t('components.participantView.status.uploaded.message')} />
+              }
+              {files && files.length > 0 ? (
+                <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
+                  {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} patientId={user.patientId} noBadge /></Grid>)}
+                </Grid>
+              ) : (
+                <NoItems message={t('components.consentView.no_results.admin')} />
+              )}
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
       <UploadConsentDialog open={dialogOpen} setParentState={closeUploadDialog} patientId={user.patientId} />
