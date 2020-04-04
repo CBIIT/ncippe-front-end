@@ -144,7 +144,7 @@ const Profile = () => {
   }
 
   return (
-    <Paper className={classes.root}>
+    <Paper className={classes.root} elevation={4}>
       <form className={classes.form} onSubmit={handleSubmit}>
         {/* todo: pencil icon and text button */}
         {!editMode && (
@@ -180,8 +180,8 @@ const Profile = () => {
         <Divider />
         <EmailOption value={userOptIn} editMode={editMode} onClick={updateEmailOption} />
         <Divider />
-        <LangOption label={t('profile.lang.title')} value={userLang} editMode={editMode} onChange={updateLang} />
-        <Divider />
+        {loginContext.roleName === "ROLE_PPE_PARTICIPANT" && <LangOption label={t('profile.lang.title')} value={userLang} editMode={editMode} onChange={updateLang} />}
+        {loginContext.roleName === "ROLE_PPE_PARTICIPANT" && <Divider />}
 
         {editMode && (
           <FormControl className={`${classes.formControl} ${classes.cta}`} >

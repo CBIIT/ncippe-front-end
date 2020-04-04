@@ -79,7 +79,20 @@ const useStyles = makeStyles( theme => ({
       margin: theme.spacing(.5,0),
     }
   },
+  h3: {
+    margin: theme.spacing(4,0,2)
+  }
 }))
+
+const BodyContent = () => {
+  const classes = useStyles()
+  const { t } = useTranslation('testing')
+  return (
+    <Typography className={classes.extraSpacing} component="div">
+      <RenderContent source={t('sections.0.body')} />
+    </Typography>
+  )
+}
 
 const BiomarkerTest = () => {
   const classes = useStyles()
@@ -88,6 +101,7 @@ const BiomarkerTest = () => {
   const faqs = i18n.getResourceBundle(i18n.languages[0],'testing').faqs
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const singleColumn = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(() => {
     trackEvent({
@@ -120,14 +134,12 @@ const BiomarkerTest = () => {
             <Typography variant={isMobile ? "body1" : "body2"} component="div">
               <RenderContent source={t('intro_text')} />
             </Typography>
-
-            <Typography className={classes.extraSpacing} component="div">
-              <RenderContent source={t('sections.0.body')} />
-            </Typography>
+            {!singleColumn && <BodyContent />}
           </Grid>
           <Grid item xs={12} md={6} lg={4} className={classes.gridItemImg} component="aside">
             <ArticleImage src="researchers-3.jpg" alt={t('sections.0.alt_text')} />
           </Grid>
+          {singleColumn && <Grid item xs={12} md={6} lg={8} className={classes.textColumn}><BodyContent /></Grid>}
         </Grid>
 
         <Divider className={classes.divider} />
@@ -160,12 +172,15 @@ const BiomarkerTest = () => {
 
         {/* Sample Report */}
         <Box component="section">
-          <Typography variant="h2" component="h2">
+          <Typography variant="h2" component="h2" paragraph={true}>
             <RenderContent source={t('sections.2.title')} />
+          </Typography>
+          <Typography variant="h3" component="h3" className={classes.h3}>
+            <RenderContent source={t('sections.2.subtitle.0')} />
           </Typography>
           <Grid container mt={2} spacing={2} className={classes.samples}>
             <Grid item xs={12} md={6}>
-              <Paper>
+              <Paper elevation={4}>
                 <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/solid-tumor-sample-test-report.jpg`} alt={t('sections.2.samples.0.alt_text')}
                   srcSet={`
                     /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/solid-tumor-sample-test-report.jpg 1x,
@@ -180,8 +195,29 @@ const BiomarkerTest = () => {
               </Paper>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Paper>
-                <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/blood-cancer-sample-test-report.jpg`} alt={t('sections.2.samples.1.alt_text')}
+              <Paper elevation={4}>
+                <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/biomarker-test-guide.jpg`} alt={t('sections.2.samples.1.alt_text')}
+                  srcSet={`
+                    /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/biomarker-test-guide.jpg 1x,
+                    /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/biomarker-test-guide.jpg 2x
+                  `}
+                />
+                <Divider />
+                <Box p={2}>
+                  <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.1.title')}</Typography>
+                  <Button href={`/${process.env.PUBLIC_URL}assets/documents/Biomarker-Test-Guide.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.1.aria_label')}>{t('sections.2.samples.1.link')}</Button>
+                </Box>
+              </Paper>
+            </Grid>
+          </Grid>
+
+          <Typography variant="h3" component="h3" className={classes.h3}>
+            <RenderContent source={t('sections.2.subtitle.1')} />
+          </Typography>
+          <Grid container mt={2} spacing={2} className={classes.samples}>
+            <Grid item xs={12} md={6}>
+              <Paper elevation={4}>
+                <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/blood-cancer-sample-test-report.jpg`} alt={t('sections.2.samples.2.alt_text')}
                   srcSet={`
                     /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/blood-cancer-sample-test-report.jpg 1x,
                     /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/blood-cancer-sample-test-report.jpg 2x
@@ -189,8 +225,8 @@ const BiomarkerTest = () => {
                 />
                 <Divider />
                 <Box p={2}>
-                  <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.1.title')}</Typography>
-                  <Button href={`/${process.env.PUBLIC_URL}assets/documents/Acute-Myeloid-Leukemia-Sample.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.1.aria_label')}>{t('sections.2.samples.1.link')}</Button>
+                  <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.2.title')}</Typography>
+                  <Button href={`/${process.env.PUBLIC_URL}assets/documents/Acute-Myeloid-Leukemia-Sample.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.2.aria_label')}>{t('sections.2.samples.2.link')}</Button>
                 </Box>
               </Paper>
             </Grid>

@@ -330,7 +330,7 @@ const HomePage = (props) => {
       <Container className={classes.hero}>
         <Box className={classes.heroText} component="section">
           {isMobile ? 
-          <Paper className={classes.heroPaper}>
+          <Paper className={classes.heroPaper} elevation={4}>
             <Typography className={classes.mainTitle} component="h1">
               <RenderContent source={t('hero.title')} />
             </Typography>
@@ -352,7 +352,7 @@ const HomePage = (props) => {
       </Container>
       <Container className={classes.blueGradientContainer}>
         <Box className={classes.infoBoxes} component="section">
-          <Paper className={classes.infoOffsetPaper}>
+          <Paper className={classes.infoOffsetPaper} elevation={4}>
             <Box className={classes.infoBox}>
               <Typography className={classes.infoBoxTitle} variant="h2" component="h2">
                 <RenderContent source={t('mission.title')} />

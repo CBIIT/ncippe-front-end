@@ -64,6 +64,14 @@ export const theme = createMuiTheme({
     blueReverse: 'linear-gradient(rgba(255,255,255,0), #f0f5fb)',
     primaryDiagonal: 'linear-gradient(315deg, #FFEBF1 0%, #F3EEF6 51%, #E8F0FA 100%)'
   },
+  shadows: [
+    "none",
+    "0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12)",
+    "0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)",
+    "0px 3px 3px -2px rgba(0,0,0,0.2),0px 3px 4px 0px rgba(0,0,0,0.14),0px 1px 8px 0px rgba(0,0,0,0.12)",
+    //custom shadow on index 4
+    "0 1px 18px 0 rgba(13,28,60,0.1)"
+  ],
   text: {
     primary: '#0d1c3c'
   },

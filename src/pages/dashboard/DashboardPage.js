@@ -102,7 +102,7 @@ export default () => {
                 <IconCard
                   icon="notifications.svg"
                   title={t('cards.notifications.title')}
-                  desc={t('cards.notifications.description', {count,s:count !== 1 ? t('a_common:pluralizer') : ''})}
+                  desc={t('cards.notifications.description', {count})}
                   link="/account/notifications"
                   linkText={t('cards.notifications.link')}
                   count={count}
@@ -154,10 +154,11 @@ export default () => {
           <LoginConsumer>
           {([{roleName}]) => {
             const icon = roleName === "ROLE_PPE_PARTICIPANT" ? "user-profile.svg" : "doctor.svg"
+            const description = roleName === "ROLE_PPE_PARTICIPANT" ? t('cards.settings.description.participant') : t('cards.settings.description.admin')
             return <IconCard
                 icon={icon}
                 title={t('cards.settings.title')}
-                desc={t('cards.settings.description')}
+                desc={description}
                 link="/account/profile"
                 linkText={t('cards.settings.link')}
                 cardClick={trackCardClick}
@@ -184,6 +185,25 @@ export default () => {
           }}
           </LoginConsumer>
           {/* END: Get Help */}
+          {/* Report Guide */}
+          <LoginConsumer>
+          {([{roleName,newReport: count}]) => {
+            return roleName === "ROLE_PPE_PROVIDER" && (
+              <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+                <IconCard
+                  icon="biomarker-tests.svg"
+                  title={t('cards.guide.title')}
+                  desc={t('cards.guide.description')}
+                  link={`/${process.env.PUBLIC_URL}assets/documents/Biomarker-Test-Guide.pdf`}
+                  download={true}
+                  linkText={t('cards.guide.link')}
+                  cardClick={trackCardClick}
+                />
+              </Grid>
+            )
+          }}
+          </LoginConsumer>
+          {/* END: Report Guide */}
         </Grid>
       </Container>
 

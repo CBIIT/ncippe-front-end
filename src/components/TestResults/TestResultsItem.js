@@ -201,7 +201,7 @@ const TestResultsItem = (props) => {
   }
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} elevation={4}>
       <ConditionalWrapper
         condition={noBadge ? false : isNewReport}
         wrapper={children => <Badge className={classes.badge} badgeContent={t('badges.new_document')} component="div">{children}</Badge>}>

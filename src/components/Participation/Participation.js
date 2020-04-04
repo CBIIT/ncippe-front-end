@@ -46,7 +46,7 @@ const Participation = (props) => {
   }
 
   return (
-    <Paper className={classes.root}>
+    <Paper className={classes.root} elevation={4}>
       <div className={classes.maxWidth}>
         <Router>
           <ChangeParticipation isMobile={isMobile} path="/" nextStep={handleNextStep} cancel={handleCancel} />

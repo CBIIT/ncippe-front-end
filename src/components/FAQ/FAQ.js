@@ -117,7 +117,7 @@ const FAQ = (props) => {
 
 
   return (
-    <ExpansionPanel square expanded={isExpanded} onChange={handleChange} className={classes.root}>
+    <ExpansionPanel square expanded={isExpanded} onChange={handleChange} className={classes.root} elevation={4}>
       <ExpansionPanelSummary expandIcon={isExpanded ? <RemoveRounded /> : <AddRounded />} onClick={trackClick} aria-controls={`faq-${index}-content`} id={`faq-${index}-header`}>
         <Typography variant="h4" component="h4">{title}</Typography>
       </ExpansionPanelSummary>

@@ -1,9 +1,9 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
-import { Box, Button, Container, Divider, Grid, Link, Stepper, Step, StepLabel, StepContent, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Button, Container, Divider, Grid, Link, Stepper, Step, StepLabel, StepContent, Typography, useMediaQuery } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { 
   OpenInNew as OpenInNewIcon
 } from '@material-ui/icons'
@@ -129,6 +129,8 @@ const ActivatePage = () => {
   const { trackEvent } = useTracking()
   // const { signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
   const faqs = i18n.getResourceBundle(i18n.languages[0],'activate').faqs
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
   useEffect(() => {
     trackEvent({
@@ -163,7 +165,7 @@ const ActivatePage = () => {
         <Box mt={5} mb={4} component="section">
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
-              <Typography paragraph={true} variant="body2" component="div">
+              <Typography variant={isMobile ? "body1" : "body2"} component="div">
                 <RenderContent source={t('intro_text')} />
               </Typography>
             </Grid>
@@ -177,7 +179,7 @@ const ActivatePage = () => {
         <Box className={classes.tintedBox} p={7} component="section">
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid className={classes.featureImage} item xs={12} md={6}>
-              <img className={classes.screenshot} src={`/${process.env.PUBLIC_URL}assets/images/login.gov.jpg`} alt="login.gov screenshot" width="300"
+              <img className={classes.screenshot} src={`/${process.env.PUBLIC_URL}assets/images/login.gov.jpg`} alt={t('sections.0.alt_text')} width="300"
                 srcSet={`
                   /${process.env.PUBLIC_URL}assets/images/misc/standard/login.gov.jpg 1x,
                   /${process.env.PUBLIC_URL}assets/images/misc/HD/login.gov.jpg 2x

@@ -42,7 +42,7 @@ const FileItem = (props) => {
   }
 
   return (
-    <Paper className={classes.fileToUpload} elevation={2}>
+    <Paper className={classes.fileToUpload} elevation={4}>
       <Grid container>
         <Grid item className={classes.fileToUpload_icon}>
           <PictureAsPdfIcon />
