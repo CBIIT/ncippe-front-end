@@ -154,10 +154,11 @@ export default () => {
           <LoginConsumer>
           {([{roleName}]) => {
             const icon = roleName === "ROLE_PPE_PARTICIPANT" ? "user-profile.svg" : "doctor.svg"
+            const description = roleName === "ROLE_PPE_PARTICIPANT" ? t('cards.settings.description.participant') : t('cards.settings.description.admin')
             return <IconCard
                 icon={icon}
                 title={t('cards.settings.title')}
-                desc={t('cards.settings.description')}
+                desc={description}
                 link="/account/profile"
                 linkText={t('cards.settings.link')}
                 cardClick={trackCardClick}
