@@ -184,6 +184,25 @@ export default () => {
           }}
           </LoginConsumer>
           {/* END: Get Help */}
+          {/* Report Guide */}
+          <LoginConsumer>
+          {([{roleName,newReport: count}]) => {
+            return roleName === "ROLE_PPE_PROVIDER" && (
+              <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+                <IconCard
+                  icon="biomarker-tests.svg"
+                  title={t('cards.guide.title')}
+                  desc={t('cards.guide.description')}
+                  link={`/${process.env.PUBLIC_URL}assets/documents/Biomarker-Test-Guide.pdf`}
+                  download={true}
+                  linkText={t('cards.guide.link')}
+                  cardClick={trackCardClick}
+                />
+              </Grid>
+            )
+          }}
+          </LoginConsumer>
+          {/* END: Report Guide */}
         </Grid>
       </Container>
 

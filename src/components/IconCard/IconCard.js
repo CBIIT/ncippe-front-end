@@ -56,7 +56,7 @@ const useStyles = makeStyles( theme => ({
 
 const IconCard = (props) => {
   const { t } = useTranslation('a_common')
-  const {icon, title, altText, desc, link, linkText, count = 0, badgeText = t('badges.new'), cardClick} = props
+  const {icon, title, altText, desc, link, linkText, count = 0, badgeText = t('badges.new'), download = false, cardClick} = props
   const classes = useStyles()
 
   const handleClick = (e) => {
@@ -66,7 +66,7 @@ const IconCard = (props) => {
   }
 
   return (
-    <Card className={`${classes.card} IconCard`}>
+    <Card className={`${classes.card} IconCard`} elevation={4}>
       <ConditionalWrapper
         condition={count > 0}
         wrapper={children => <Badge className={classes.badge} badgeContent={badgeText} component="div">{children}</Badge>}>
@@ -80,9 +80,19 @@ const IconCard = (props) => {
             </div>
             {link && (
               <CardActions className={classes.cardActions}>
-                <Button color="primary" component={Link} to={link} onClick={handleClick}>
-                  {linkText} <KeyboardArrowRightIcon className={classes.linkIcon} />
-                </Button>
+                {download ? 
+                  <Button 
+                    href={link} color="primary" 
+                    rel="noopener noreferrer" 
+                    target="_blank">
+                      {linkText} <KeyboardArrowRightIcon className={classes.linkIcon} />
+                  </Button>
+                  :
+                  <Button color="primary" component={Link} to={link} onClick={handleClick}>
+                    {linkText} <KeyboardArrowRightIcon className={classes.linkIcon} />
+                  </Button>
+                }
+
               </CardActions>
             )}
           </div>
