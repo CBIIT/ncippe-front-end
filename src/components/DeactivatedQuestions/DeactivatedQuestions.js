@@ -27,7 +27,7 @@ const DeactivatedQuestions = (props) => {
   const { t } = useTranslation('a_common')
 
   return (
-    <Paper className={classes.deactivationQuestions} elevation={1} id="deactivationQuestions">
+    <Paper className={classes.deactivationQuestions} elevation={4} id="deactivationQuestions">
       <Typography className={classes.cardTitle} variant="h3" component="h3">{user.firstName} {user.lastName} {t('components.deactivated_questions.left')} {moment(user.dateDeactivated).format("MMM DD, YYYY")}</Typography>
       {user.questionAnswers.map((q,i) => <div className={classes.questions} key={i}>
         <Typography className={classes.question}>{q.question}</Typography>

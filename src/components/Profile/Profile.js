@@ -144,7 +144,7 @@ const Profile = () => {
   }
 
   return (
-    <Paper className={classes.root}>
+    <Paper className={classes.root} elevation={4}>
       <form className={classes.form} onSubmit={handleSubmit}>
         {/* todo: pencil icon and text button */}
         {!editMode && (
