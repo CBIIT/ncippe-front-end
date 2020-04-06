@@ -66,7 +66,7 @@ const IconCard = (props) => {
   }
 
   return (
-    <Card className={`${classes.card} IconCard`} elevation={4}>
+    <Card className={`${classes.card} IconCard`} elevation={25}>
       <ConditionalWrapper
         condition={count > 0}
         wrapper={children => <Badge className={classes.badge} badgeContent={badgeText} component="div">{children}</Badge>}>

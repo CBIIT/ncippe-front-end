@@ -50,7 +50,7 @@ const NotificationItem = (props) => {
   const {notification: {subject, from, message, dateGenerated, viewedByUser}, lang, handleClick} = props
   const classes = useStyles()
   return (
-    <Card onClick={handleClick} className={classes.card} elevation={4}>
+    <Card onClick={handleClick} className={classes.card} elevation={25}>
       <ConditionalWrapper
         condition={!viewedByUser}
         wrapper={children => <Badge className={classes.badge} badgeContent="new" component="div">{children}</Badge>}

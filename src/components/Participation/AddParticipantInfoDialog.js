@@ -404,7 +404,7 @@ const AddParticipantInfoDialog = (props) => {
           <StepLabel><Typography>{t('stepper.1.label')}</Typography></StepLabel>
         </Step>
       </Stepper>
-      <Paper elevation={4} className={classes.paper}>
+      <Paper elevation={25} className={classes.paper}>
         {activeStep >= 1 && <Typography variant="h3">{formData.firstName} {formData.lastName}</Typography>}
         <Typography variant={activeStep === 0 ? "h3" : "body1"}>{t('a_common:participant.id')}: {patientId}</Typography>
         <Typography>{t('a_common:participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>

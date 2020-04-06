@@ -145,7 +145,7 @@ const Profile = () => {
   }
 
   return (
-    <Paper className={classes.root} elevation={4}>
+    <Paper className={classes.root} elevation={25}>
       <form className={classes.form} onSubmit={handleSubmit}>
         <Box className={classes.boxTitle}>
           <Typography variant="h3" component="h3" gutterBottom>{t('profile.title')}</Typography>

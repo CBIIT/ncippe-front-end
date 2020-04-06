@@ -61,7 +61,7 @@ export default ({userName}) => {
             <TestResults userName={userName} />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Paper elevation={4}>
+            <Paper elevation={25}>
               <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/biomarker-test-guide-short.jpg`} alt={t('components.biomarkerView.guide.alt_text')}
                 srcSet={`
                   /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/biomarker-test-guide-short.jpg 1x,

@@ -32,7 +32,7 @@ const Component = (props) => {
   const classes = useStyles()
 
   return (
-    <Card className={classes.root} elevation={4}>
+    <Card className={classes.root} elevation={25}>
       <div>
         <CardMedia
           className={classes.media}

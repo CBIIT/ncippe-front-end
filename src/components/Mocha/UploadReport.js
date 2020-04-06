@@ -273,7 +273,7 @@ const UploadReport = () => {
         <Typography variant="h2" component="h2">{t('pageTitle')}</Typography>
         <Typography>{t('description')}</Typography>
       </Box>
-      <Paper className={classes.paper} elevation={4}>
+      <Paper className={classes.paper} elevation={25}>
         <UploadStepper activeStep={activeStep} />
         <Divider className={classes.divider} />
         

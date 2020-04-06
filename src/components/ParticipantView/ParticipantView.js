@@ -228,7 +228,7 @@ const TestResults = (props) => {
           <Typography className={classes.header} variant="h2" component="h2">{t('components.providerView.pageTitle')}</Typography>
               {user.providers ? (
                 <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-                  {user.providers.map((provider,i) => <Grid item xs={12} key={i}><Paper elevation={4} className={classes.providerCard}>
+                  {user.providers.map((provider,i) => <Grid item xs={12} key={i}><Paper elevation={25} className={classes.providerCard}>
                     <Typography><strong>Dr. {provider.firstName} {provider.lastName}</strong></Typography>
                     <Typography><a href={`tel:${provider.phoneNumber}`}>{formatPhoneNumber(provider.phoneNumber)}</a></Typography>
                     <Typography><a href={`mailto:${provider.email}`}>{provider.email}</a></Typography>

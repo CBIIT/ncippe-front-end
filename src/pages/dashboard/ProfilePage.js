@@ -146,7 +146,7 @@ const ProfilePage = (props) => {
           <LoginConsumer>
           {([{roleName}]) => {
             return roleName === "ROLE_PPE_PARTICIPANT" && (
-              <Paper className={classes.biobankInfo} elevation={4}>
+              <Paper className={classes.biobankInfo} elevation={25}>
                 <Typography className={classes.header} variant="h3" component="h3" gutterBottom>{t('contacts.title')}</Typography>
 
                 {providers && <Typography className={classes.bold} gutterBottom>{t('contacts.doctor')}</Typography>}
