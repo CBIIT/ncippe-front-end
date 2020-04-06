@@ -76,7 +76,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
             i18n.changeLanguage(lang)
             moment.locale(lang)
           }
-          console.log("moment current language", moment.locale())
           return <Component {...rest} />
         } else {
           return <Redirect from="" to="/" noThrow />
