@@ -14,10 +14,15 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
   },
   back: {
-    marginLeft: theme.spacing(4),
     fontSize: theme.typography.h6.fontSize,
     lineHeight: 0,
     textTransform: 'none',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(2),
+    },
+    ['@media (min-width: 880px)']: {
+      marginLeft: theme.spacing(4),
+    }
   },
   backIcon: {
     marginRight: theme.spacing(1)

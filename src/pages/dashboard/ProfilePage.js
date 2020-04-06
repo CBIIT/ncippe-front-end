@@ -19,10 +19,18 @@ const useStyles = makeStyles(theme => ({
   header: {
     marginBottom: theme.spacing(2)
   },
+  profileTop: {
+    display: "flex",
+    flexDirection: "column",
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: "row"
+    }
+  },
   profile: {
-    position: 'relative',
     display: 'flex',
     alignItems: 'flex-start',
+    flexGrow: 1,
+    marginBottom: theme.spacing(2),
     '& a': {
       textDecoration: 'none'
     },
@@ -42,9 +50,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between'
   },
   menu: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
     backgroundColor: theme.palette.common.white
   },
   badge: {
@@ -59,7 +64,7 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'uppercase',
   },
   divider: {
-    margin: theme.spacing(4, 0)
+    margin: theme.spacing(2, 0, 4)
   },
   innerDivider: {
     margin: theme.spacing(3, 0),
@@ -74,6 +79,9 @@ const useStyles = makeStyles(theme => ({
   },
   bold: {
     fontWeight: theme.typography.fontWeightBold
+  },
+  breakWord: {
+    wordBreak: "break-all"
   }
 }))
 
@@ -108,17 +116,19 @@ const ProfilePage = (props) => {
       </Helmet>
       <Breadcrumbs pageName="Profile" link={props.location.state.forceNavigation} />
       <Container className="mainContainer">
-        <div className={classes.profile}>
-          <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt={t('a_common:icons.user_profile')} aria-hidden="true" />
-          <div className={classes.profileText}>
-            <Typography className={classes.profileHeader} variant="h2" component="h2">{firstName} {lastName}</Typography>
-            <Typography component="p" gutterBottom>{t('a_common:participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
-            {isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>{t('a_common:not_participating.badge')}</Typography></div>}
+        <div className={classes.profileTop}>
+          <div className={classes.profile}>
+            <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt={t('a_common:icons.user_profile')} aria-hidden="true" />
+            <div className={classes.profileText}>
+              <Typography className={classes.profileHeader} variant="h2" component="h2">{firstName} {lastName}</Typography>
+              <Typography component="p" gutterBottom>{t('a_common:participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
+              {isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>{t('a_common:not_participating.badge')}</Typography></div>}
+            </div>
           </div>
           <LoginConsumer>
           {([{roleName}]) => {
             return roleName === "ROLE_PPE_PARTICIPANT" && (
-            <Button className={classes.menu} variant="outlined" color="primary" component={RouterLink} to="participation" onClick={trackParticipationClick}>{t('a_common:buttons.change_participation')}</Button>
+              <div><Button className={classes.menu} variant="outlined" color="primary" component={RouterLink} to="participation" onClick={trackParticipationClick}>{t('a_common:buttons.change_participation')}</Button></div>
             )
           }}
           </LoginConsumer>
@@ -136,7 +146,7 @@ const ProfilePage = (props) => {
           <LoginConsumer>
           {([{roleName}]) => {
             return roleName === "ROLE_PPE_PARTICIPANT" && (
-              <Paper className={classes.biobankInfo} elevation={4}>
+              <Paper className={classes.biobankInfo} elevation={25}>
                 <Typography className={classes.header} variant="h3" component="h3" gutterBottom>{t('contacts.title')}</Typography>
 
                 {providers && <Typography className={classes.bold} gutterBottom>{t('contacts.doctor')}</Typography>}
@@ -144,14 +154,14 @@ const ProfilePage = (props) => {
                   <Box mb={2} key={i}>
                     <Typography>Dr. {provider.firstName} {provider.lastName}</Typography>
                     <Typography><a href={`tel:${provider.phoneNumber}`}>{formatPhoneNumber(provider.phoneNumber)}</a></Typography>
-                    <Typography><a href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
+                    <Typography><a className={classes.breakWord} href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
                   </Box>
                 ))}
                 <Divider className={classes.innerDivider} />
                 <Typography className={classes.bold} gutterBottom>{t('contacts.crc')}</Typography>
                 <Typography>{crc.firstName} {crc.lastName}</Typography>
                 <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
-                <Typography><a href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
+                <Typography><a className={classes.breakWord} href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
               </Paper>
             )
           }}
