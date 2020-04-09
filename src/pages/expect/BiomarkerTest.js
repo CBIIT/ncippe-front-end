@@ -180,7 +180,7 @@ const BiomarkerTest = () => {
           </Typography>
           <Grid container mt={2} spacing={2} className={classes.samples}>
             <Grid item xs={12} md={6}>
-              <Paper elevation={4}>
+              <Paper elevation={25}>
                 <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/solid-tumor-sample-test-report.jpg`} alt={t('sections.2.samples.0.alt_text')}
                   srcSet={`
                     /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/solid-tumor-sample-test-report.jpg 1x,
@@ -195,7 +195,7 @@ const BiomarkerTest = () => {
               </Paper>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Paper elevation={4}>
+              <Paper elevation={25}>
                 <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/biomarker-test-guide.jpg`} alt={t('sections.2.samples.1.alt_text')}
                   srcSet={`
                     /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/biomarker-test-guide.jpg 1x,
@@ -216,7 +216,7 @@ const BiomarkerTest = () => {
           </Typography>
           <Grid container mt={2} spacing={2} className={classes.samples}>
             <Grid item xs={12} md={6}>
-              <Paper elevation={4}>
+              <Paper elevation={25}>
                 <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/blood-cancer-sample-test-report.jpg`} alt={t('sections.2.samples.2.alt_text')}
                   srcSet={`
                     /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/blood-cancer-sample-test-report.jpg 1x,

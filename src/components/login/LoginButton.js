@@ -61,7 +61,7 @@ const LoginButton = () => {
     loc.includes('account') ?
       <Button className={classes.button} variant="outlined" color="primary" onClick={handleClick}>{t('buttons.sign_out')}</Button>
       :
-      <Button className={classes.button} variant="outlined" color="primary" onClick={handleClick}>{t('buttons.your_account')}</Button>
+      <Button className={classes.button} variant="contained" color="primary" onClick={handleClick}>{t('buttons.your_account')}</Button>
     :
     <Button className={classes.button} variant="contained" color="primary" onClick={handleClick}>{t('buttons.sign_in')}</Button>
 }

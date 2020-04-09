@@ -71,7 +71,7 @@ const PatientListItem = (props) => {
   return (
     <Link className={classes.Link} onClick={handleClick}
       to={`/account/participant/${patientId}`}>
-      <Paper className={`${classes.paper} ${portalAccountStatus === 'ACCT_NEW' && classes.new}`} elevation={4}>
+      <Paper className={`${classes.paper} ${portalAccountStatus === 'ACCT_NEW' && classes.new}`} elevation={25}>
         {(hasNewReports || isActiveBiobankParticipant === false || portalAccountStatus === 'ACCT_NEW') && 
         <div className={classes.badges}>
           {hasNewReports && <Badge className={classes.badge} badgeContent={t('badges.new_document')} />}

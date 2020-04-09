@@ -114,7 +114,7 @@ const Consent = () => {
             </Box>
             <Box mb={4}>
               <figure>
-                <Card className={classes.mediaWrapper} elevation={4}>
+                <Card className={classes.mediaWrapper} elevation={25}>
                   <CardMedia
                     component='iframe'
                     className={classes.media}

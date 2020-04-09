@@ -166,7 +166,7 @@ const HospitalMap = (props) => {
 
   return (
     <Box className={classes.mapPlaceholder} mt={6}>
-      <Paper elevation={4}>
+      <Paper elevation={25}>
         <Grid container>
           <Grid item xs={12} sm={7} md={8}>
             <div id="map" className={classes.map}></div>

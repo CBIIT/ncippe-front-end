@@ -84,7 +84,7 @@ const CloseAccount = (props) => {
     <Box>
       <Typography className={classes.header} variant="h1" component="h1">{t('close.pageTitle')}</Typography>
       <Typography paragraph={true} component="div"><RenderContent source={t('close.body')} /></Typography>
-      <Paper className={classes.crc_card} elevation={4}>
+      <Paper className={classes.crc_card} elevation={25}>
         <Typography variant="h3">{t('close.crc_card_title')}</Typography>
         <Typography>{crc.firstName} {crc.lastName}</Typography>
         <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>

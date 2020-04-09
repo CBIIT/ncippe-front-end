@@ -152,6 +152,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         if(state.auth) {
           // set default language in case it's not specified
           const lang = state.lang || "en"
+          // set date format based on language
+          moment.locale(state.lang)
           if(lang !== i18n.language) {
             i18n.changeLanguage(lang)
             moment.locale(lang)
