@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
     margin: 0,
     float: 'right',
     minWidth: '300px',
+    backgroundColor: theme.palette.common.white
   },
 
 }))
