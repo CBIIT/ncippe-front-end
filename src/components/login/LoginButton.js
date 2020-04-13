@@ -43,7 +43,7 @@ const LoginButton = () => {
         sessionStorage.setItem('isDashboardTracked',false)
         window.$role = "Public"
         //TODO: use env variable for logout domain
-        window.location.assign('/signout')
+        window.location.assign(process.env.LOGOUT_LINK)
       }
     }
     // log-in
@@ -54,7 +54,7 @@ const LoginButton = () => {
         events: 'event26',
         eventName: 'Sign in'
       })
-      window.location.assign('/account')
+      window.location.assign(process.env.LOGIN_LINK)
     }
   }
   return auth ? 
