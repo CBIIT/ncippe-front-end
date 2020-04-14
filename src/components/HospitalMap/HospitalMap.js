@@ -79,14 +79,20 @@ const HospitalMap = (props) => {
   useEffect(()=>{
     if(mapScriptLoaded) {
       if(!map){
-        const bssMap = window.L.map('map')
-          .locate({setView: true, maxZoom:7}) //local view based on user's geolocation
-          // .setView([38.5561, -90.2496], 5) //wide view from central USA
+        const bssMap = window.L.map('map').setView([38.5561, -90.2496], 5)
 
         // fallback map view if location is not available
         bssMap.on('locationerror',(e) => {
+          console.error(e)
           bssMap.setView([38.5561, -90.2496], 5)
         })
+
+        // use user's geolocation if it's available
+        bssMap.locate({setView: true, maxZoom:7}) 
+
+
+
+        // .setView([38.5561, -90.2496], 5) //wide view from central USA
           
         const mapTiles = window.L.tileLayer('https://{s}.tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png?apikey=401fa637f2f647f298b4176b24ca7ef5', {
                 maxZoom: 17,
