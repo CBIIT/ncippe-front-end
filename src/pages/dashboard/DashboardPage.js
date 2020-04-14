@@ -36,6 +36,13 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     textTransform: 'uppercase',
   },
+  patientList: {
+    padding: theme.spacing(6,2),
+    backgroundColor: theme.palette.grey.xlight,
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(6,3)
+    }
+  }
 }));
 
 export default () => {
@@ -210,12 +217,9 @@ export default () => {
       <LoginConsumer>
       {([{roleName, patients, patientsUpdated}]) => {
         return (roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && patients && (
-        <Container>
+        <Container className={classes.patientList}>
           {/* Provider's Patient List */}
-            {/* Secondary row */}
-              <Box my={6}>
-                <PatientList patients={patients} patientsUpdated={patientsUpdated} />
-              </Box>
+          <PatientList patients={patients} patientsUpdated={patientsUpdated} />
           {/* End: Provider's Patient List */}
         </Container>
         )
