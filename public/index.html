@@ -47,7 +47,7 @@
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap"> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:400,500,600,700&display=swap">
 
-    <script defer src="https://polyfill.io/v3/polyfill.min.js?features=Element.prototype.closest"></script>
+    <script defer src="https://polyfill.io/v3/polyfill.min.js?features=Element.prototype.closest%2CscrollIntoView"></script>
     <script defer type="text/javascript">
       // analytics configs
       var s_account="%REACT_APP_ANALYTICS_ACCOUNT%"
@@ -58,7 +58,7 @@
     <noscript>You need to enable JavaScript to run this website.</noscript>
     <div id="root">
       <div style="display:flex; flex-direction:row; justify-content:center; width: 100vw; height: 50vh">
-        <img src="%PUBLIC_URL%/assets/images/spinner-dna.svg" alt="loading indicator" width="250px" style="width:250px" />
+        <img srcset="%PUBLIC_URL%/assets/images/spinner-dna.svg" src="%PUBLIC_URL%/assets/images/spinner-dna.gif" alt="loading indicator" width="250px" style="width:250px;height:250px;margin:auto 0" />
       </div>
     </div>
 
