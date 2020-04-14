@@ -50,7 +50,8 @@ const useStyles = makeStyles( theme => ({
   },
   cardActions: {
     borderTop: `2px solid ${theme.palette.grey[300]}`,
-    padding: theme.spacing(1,0,0,0)
+    padding: theme.spacing(1,0,0,0),
+    marginTop: theme.spacing(1)
   }
 }))
 
