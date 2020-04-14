@@ -209,33 +209,19 @@ const TestResults = (props) => {
 
       <Divider className={classes.divider} />
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6} id="reports">
-          <Typography className={classes.header} variant="h2" component="h2">{t('components.biomarkerView.pageTitle')} </Typography>
-          {reports && reports.length > 0 ? (
-            <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-              {reports && reports.map((report,i) => <Grid item xs={12} key={i}><TestResultsItem report={report} patientId={user.patientId} /></Grid>)}
-            </Grid>
-          ) : (
-            <NoItems message={t('components.biomarkerView.no_results.admin')} />
-          )}
-          {user && user.isActiveBiobankParticipant === false && user.questionAnswers && (
-            <DeactivatedQuestions user={user} />
-          )}
-        </Grid>
         <Grid item xs={12} md={6}>
           <Grid container spacing={3}>
-            <Grid xs={12} item id="providers">
-          <Typography className={classes.header} variant="h2" component="h2">{t('components.providerView.pageTitle')}</Typography>
-              {user.providers ? (
+            <Grid item xs={12} id="reports">
+              <Typography className={classes.header} variant="h2" component="h2">{t('components.biomarkerView.pageTitle')} </Typography>
+              {reports && reports.length > 0 ? (
                 <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-                  {user.providers.map((provider,i) => <Grid item xs={12} key={i}><Paper elevation={25} className={classes.providerCard}>
-                    <Typography><strong>Dr. {provider.firstName} {provider.lastName}</strong></Typography>
-                    <Typography><a href={`tel:${provider.phoneNumber}`}>{formatPhoneNumber(provider.phoneNumber)}</a></Typography>
-                    <Typography><a href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
-                  </Paper></Grid>)}
+                  {reports && reports.map((report,i) => <Grid item xs={12} key={i}><TestResultsItem report={report} patientId={user.patientId} /></Grid>)}
                 </Grid>
               ) : (
-                <NoItems message={t('components.providerView.no_results')} />
+                <NoItems message={t('components.biomarkerView.no_results.admin')} />
+              )}
+              {user && user.isActiveBiobankParticipant === false && user.questionAnswers && (
+                <DeactivatedQuestions user={user} />
               )}
             </Grid>
             <Grid xs={12} item id="eConsentForms">
@@ -253,6 +239,20 @@ const TestResults = (props) => {
               )}
             </Grid>
           </Grid>
+        </Grid>
+        <Grid item xs={12} md={6} id="providers">
+          <Typography className={classes.header} variant="h2" component="h2">{t('components.providerView.pageTitle')}</Typography>
+          {user.providers ? (
+            <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
+              {user.providers.map((provider,i) => <Grid item xs={12} key={i}><Paper elevation={25} className={classes.providerCard}>
+                <Typography><strong>Dr. {provider.firstName} {provider.lastName}</strong></Typography>
+                <Typography><a href={`tel:${provider.phoneNumber}`}>{formatPhoneNumber(provider.phoneNumber)}</a></Typography>
+                <Typography><a href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
+              </Paper></Grid>)}
+            </Grid>
+          ) : (
+            <NoItems message={t('components.providerView.no_results')} />
+          )}
         </Grid>
       </Grid>
       <UploadConsentDialog open={dialogOpen} setParentState={closeUploadDialog} patientId={user.patientId} />

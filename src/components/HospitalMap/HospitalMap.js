@@ -6,6 +6,12 @@ import { useTranslation } from 'react-i18next'
 
 import getAPI from '../../data'
 import {formatPhoneNumber} from '../../utils/utils'
+import { 
+  Person as PersonIcon,
+  Phone as PhoneIcon,
+  MailOutline as EmailIcon,
+  Language as WebsiteIcon
+} from '@material-ui/icons'
 
 const useStyles = makeStyles( theme => ({
   title: {
@@ -44,6 +50,15 @@ const useStyles = makeStyles( theme => ({
     '&:hover > div,&.active > div': {
       backgroundColor: 'rgba(30, 111, 214, 0.08)',
     },
+  },
+  details: {
+    wordBreak: "break-all"
+  },
+  icon: {
+    position: "relative",
+    top: 7,
+    marginRight: theme.spacing(2),
+    color: theme.palette.grey.medium
   },
   divider: {
     margin: theme.spacing(0,3)
@@ -168,10 +183,10 @@ const HospitalMap = (props) => {
     <Box className={classes.mapPlaceholder} mt={6}>
       <Paper elevation={25}>
         <Grid container>
-          <Grid item xs={12} sm={7} md={8}>
+          <Grid item xs={12} sm={6}>
             <div id="map" className={classes.map}></div>
           </Grid>
-          <Grid item xs={12} sm={5} md={4}>
+          <Grid item xs={12} sm={6}>
             <Box className={classes.locations}>
               {
                 hospitalData && Object.keys(hospitalData).map((item, i) => {
@@ -183,13 +198,15 @@ const HospitalMap = (props) => {
                         <Box>
                           <Typography className={classes.title}>{hospital.title}</Typography>
                           <Typography>
-                            {hospital.address_1}<br />
-                            {hospital.address_2 && <>{hospital.address_2} <br /></>}
-                            {hospital.city}, {hospital.state} {hospital.zip}<br />
-                            {hospital.poc && <>{hospital.poc} <br /></>}
-                            {hospital.poc_email && <>{hospital.poc_email} <br /></>}
-                            {hospital.website && <>{hospital.website} <br /></>}
-                            {formatPhoneNumber(hospital.telephone)} {hospital.extension && <>x{hospital.extension}</>}
+                            {hospital.address_1}
+                            {hospital.address_2 && <>, {hospital.address_2}</>}
+                            , {hospital.city}, {hospital.state} {hospital.zip}<br />
+                          </Typography>
+                          <Typography className={classes.details}>
+                            {hospital.poc && <><PersonIcon className={classes.icon} /> {hospital.poc} <br /></>}
+                            {hospital.poc_email && <><EmailIcon className={classes.icon} /> {hospital.poc_email} <br /></>}
+                            <PhoneIcon className={classes.icon} /> {formatPhoneNumber(hospital.telephone)} {hospital.extension && <>x{hospital.extension}</>}
+                            {hospital.website && <><br /><WebsiteIcon className={classes.icon} /> {hospital.website}</>}
                           </Typography>
                         </Box>
                       </Link>
