@@ -237,6 +237,15 @@ export const theme = createMuiTheme({
         backgroundColor: 'transparent'
       }
     },
+    MuiStepLabel: {
+      vertical: {
+        alignItems: "flex-start",
+        '& .MuiStepLabel-iconContainer': {
+          position: 'relative',
+          top: 7
+        }
+      },
+    },
     MuiDivider: {
       root: {
         height: '2px'

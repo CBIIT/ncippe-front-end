@@ -20,6 +20,7 @@ const useStyles = makeStyles( theme => ({
       position: 'relative',
       backgroundImage: theme.gradients.primaryDiagonal,
       padding: '0 12px',
+      alignItems: 'flex-start',
 
       '&.Mui-expanded': {
         margin: 0,
@@ -33,7 +34,7 @@ const useStyles = makeStyles( theme => ({
         }
       },
       '& .MuiExpansionPanelSummary-expandIcon': {
-        margin: 0,
+        margin: "12px 0 0",
         zIndex: 1,
         padding: '0 6px 0 0',
         '&.Mui-expanded': {
