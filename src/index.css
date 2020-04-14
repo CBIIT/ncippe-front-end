@@ -400,6 +400,15 @@ ul.bulletList > li:last-child {
   margin-bottom: 0
 }
 
+.Stepper--small-labels .MuiStepLabel-label {
+  font-size: 16px;
+  line-height: 30px;
+}
+
+.Stepper--small-labels .MuiStepLabel-vertical .MuiStepLabel-iconContainer {
+  top: 3px;
+}
+
 @media (min-width: 600px) {
   .MuiTypography-body2 > p {
     margin-bottom: 24px;

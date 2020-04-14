@@ -396,7 +396,7 @@ const AddParticipantInfoDialog = (props) => {
       <DialogTitle id="responsive-dialog-title" disableTypography><Typography variant="h3" component="h3">{t('title')}</Typography></DialogTitle>
       <DialogContent>
         <Typography>{t('subtitle')}</Typography>
-      <Stepper activeStep={activeStep} alternativeLabel>
+      <Stepper className="Stepper--small-labels" activeStep={activeStep} alternativeLabel>
         <Step>
           <StepLabel><Typography>{t('stepper.0.label')}</Typography></StepLabel>
         </Step>

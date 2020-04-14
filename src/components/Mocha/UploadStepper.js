@@ -16,9 +16,6 @@ const useStyles = makeStyles( theme => ({
     [`@media (max-width: 799px)`]: {
       marginBottom: 8
     }
-  },
-  label: {
-    margin: "0 !important",
   }
 }))
 
@@ -40,10 +37,10 @@ const UploadStepper = (props) => {
   return (
     <div className={classes.root}>
       <Typography variant="h3" component="h3">{t('stepper_title')}</Typography>
-      <Stepper className={classes.stepper} activeStep={activeStep} alternativeLabel={labelOrientation} orientation={orientation}>
+      <Stepper className={`${classes.stepper} Stepper--small-labels`} activeStep={activeStep} alternativeLabel={labelOrientation} orientation={orientation}>
         {stepText.map((text, i) => (
           <Step className={classes.step} key={i}>
-            <StepLabel><Typography className={classes.label}>{text}</Typography></StepLabel>
+            <StepLabel>{text}</StepLabel>
           </Step>
         ))}
       </Stepper>
