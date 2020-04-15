@@ -84,7 +84,7 @@ async function fetchUser({uuid, patientId, email, token}){
 
   return await fetch(`/api/v1/user?${queryString.stringify(query)}`,{
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'text/plain'
     }
   })
   .then(handleResponse)
@@ -142,7 +142,7 @@ async function notificationsMarkAsRead({uuid, token}){
   return await fetch(`/api/v1/user/${uuid}/notifications/mark-as-read`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'text/plain'
     }
   })
   .then(handleResponse)
@@ -188,7 +188,7 @@ async function withdrawUser({uuid, patientId, qsAnsDTO, token}){
   return await fetch(`/api/v1/withdraw-user-participation?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'text/plain'
     },
     body: JSON.stringify(qsAnsDTO)
   })
@@ -203,7 +203,7 @@ async function closeAccount({uuid, token}){
   return await fetch(`/api/v1/deactivate-user/${uuid}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'text/plain'
     }
   })
   .then(handleResponse)
@@ -226,7 +226,7 @@ async function updateParticipantDetails({uuid, token, patient}){
   return await fetch(`/api/v1/user/enter-new-participant-details?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'text/plain'
     }
   })
   .then(handleResponse)
@@ -242,7 +242,7 @@ async function activateParticipant({uuid, token, patient}){
   return await fetch(`/api/v1/user/invite-participant-to-portal?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'text/plain'
     }
   })
   .then(handleResponse)
@@ -255,7 +255,7 @@ async function activateParticipant({uuid, token, patient}){
 async function getHospitalList(){
   return await fetch(`/publicapi/v1/sites`,{
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'text/plain'
     }
   })
     .then(handleResponse)
