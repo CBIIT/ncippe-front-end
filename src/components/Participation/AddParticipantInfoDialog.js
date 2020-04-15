@@ -341,6 +341,11 @@ const AddParticipantInfoDialog = (props) => {
     })
   }
 
+  // ie11 does not support the `form` attribute connecting a submit button outside a form to the form's submit event
+  const submitForm = (e) => {
+    handleFormSubmit(e)
+  }
+
   const handleFormSubmit = (e) => {
     e.preventDefault()
     if(activeStep === 0) {
@@ -489,7 +494,7 @@ const AddParticipantInfoDialog = (props) => {
       )}
       </DialogContent>
       <DialogActions>
-        <Button color="primary" variant="contained" type="submit" form="activatePatient">{submitText}</Button>
+        <Button color="primary" variant="contained" type="submit" data-form="activatePatient" onClick={submitForm}>{submitText}</Button>
         <Button variant="text" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>
