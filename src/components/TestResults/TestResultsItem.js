@@ -73,6 +73,7 @@ const TestResultsItem = (props) => {
   const [isNewReport, setIsNewReport] = useState(report.viewedBy ? !report.viewedBy.includes(uuid) : true)
   const { t } = useTranslation('a_common')
   const { trackEvent } = useTracking()
+  const isIE = /*@cc_on!@*/false || !!document.documentMode
 
   // response header example to parse
   //Content-Disposition: attachment; filename=dummy_PatientReport - Copy8322721829336469280.pdf
@@ -89,7 +90,7 @@ const TestResultsItem = (props) => {
     setTimeout(() => {
       // set up new tab window before fetch call
       if(!download) {
-        win = window.open()
+        win = window.open("",`report-${reportId}`)
         win.document.title = "View Report" // TODO: translate this
         win.document.body.style.margin = 0
       }
@@ -228,7 +229,7 @@ const TestResultsItem = (props) => {
           <Typography>{t('components.testResultItem.uploaded')} {moment(dateUploaded).format("MMM DD, YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
-          <Button color="primary" variant="text" data-reportid={fileGUID} onClick={handleViewReport}><LaunchIcon className={classes.icon} /> {t('buttons.view')}</Button>
+          {isIE ? <Typography component="div" /> :  <Button color="primary" variant="text" data-reportid={fileGUID} onClick={handleViewReport}><LaunchIcon className={classes.icon} /> {t('buttons.view')}</Button>}
           <Button color="primary" variant="text" data-download data-reportid={fileGUID} onClick={handleViewReport}><GetAppIcon className={classes.icon}  /> {t('buttons.download')}</Button>
         </CardActions>
       </ConditionalWrapper>
