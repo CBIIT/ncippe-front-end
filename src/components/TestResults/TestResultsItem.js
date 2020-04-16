@@ -87,7 +87,7 @@ const TestResultsItem = (props) => {
 
     // set up new tab window before fetch call
     if(!download) {
-      win = window.open("", "reportId")
+      win = window.open()
       win.document.title = "View Report" // TODO: translate this
       win.document.body.style.margin = 0
     }
@@ -114,7 +114,7 @@ const TestResultsItem = (props) => {
           // create url reference to blob buffer
           const fileData = window.URL.createObjectURL(blob);
 
-          console.log(linkText)
+          // console.log(linkText)
 
           // trigger download or render blob buffer to new window
           if(download) {
