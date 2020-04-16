@@ -58,6 +58,7 @@ const SearchResults = (props) => {
   const [docData, setDocData] = useState({})
 
   useEffect(() => {
+    console.log("running setSearchIndex Effect")
     // create search index
     const data = i18n.getDataByLanguage(i18n.languages[0])
     let textData = [] // lunr needs an array of docs
@@ -100,6 +101,9 @@ const SearchResults = (props) => {
   }, [i18n,i18n.language])
   
   useEffect(() => {
+    console.log("running results effect")
+    console.log('term',term)
+    console.log('searchTerm',searchTerm)
     if(term === "" || searchTerm !== term) {
       setSearchTermInput(term)
       setSearchTerm(term)
@@ -164,7 +168,7 @@ const SearchResults = (props) => {
       })
     }
 
-  }, [searchTerm, trackEvent, searchIndex, docData, window.history.state])
+  }, [searchTerm, searchIndex, docData])
 
   const handleSubmit = (e) => {
     e.preventDefault()
