@@ -27,7 +27,7 @@ const App = (props) => {
       // track generic event if it's from a link or button inside of #main OR it's the backButton outside of #main
       // other header and footer links are not reported by this event
       if (target && main || target && target.classList.contains('backButton')) {
-        console.log("tracking")
+        // console.log("tracking")
         const linkType = target.tagName.toLowerCase() === 'button' || target.getAttribute('role') === 'button' ? 'button' : 'text'
         props.tracking.trackEvent({
           prop50: e.target.textContent,

@@ -164,7 +164,7 @@ const SearchResults = (props) => {
       })
     }
 
-  }, [searchTerm, trackEvent, searchIndex, docData, window.history.state])
+  }, [searchTerm, searchIndex, docData])
 
   const handleSubmit = (e) => {
     e.preventDefault()
