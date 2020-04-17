@@ -60,7 +60,8 @@ async function loginUser(){
   return await fetch(`/api/v1/login`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'access-control-allow-origin': '*'
     }
   })
   .then(handleResponse)
@@ -84,7 +85,8 @@ async function fetchUser({uuid, patientId, email, token}){
 
   return await fetch(`/api/v1/user?${queryString.stringify(query)}`,{
     headers: {
-      'Content-Type': 'text/plain'
+      'Content-Type': 'text/plain',
+      'access-control-allow-origin': '*'
     }
   })
   .then(handleResponse)
@@ -104,7 +106,8 @@ async function updateUser({uuid, data, token}){
   return await fetch(`/api/v1/user/${uuid}?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'text/plain'
+      'Content-Type': 'text/plain',
+      'access-control-allow-origin': '*'
     }
   })
   .then(handleResponse)
@@ -142,7 +145,8 @@ async function notificationsMarkAsRead({uuid, token}){
   return await fetch(`/api/v1/user/${uuid}/notifications/mark-as-read`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'text/plain'
+      'Content-Type': 'text/plain',
+      'access-control-allow-origin': '*'
     }
   })
   .then(handleResponse)
@@ -155,7 +159,8 @@ async function notificationsMarkAsRead({uuid, token}){
 async function fetchPatientReport({reportId, token}){
   return await fetch(`/api/patientReport/${reportId}`,{
     headers: {
-      'Content-Type': 'text/plain'
+      'Content-Type': 'text/plain',
+      'access-control-allow-origin': '*'
     }
   })
   .then(handleResponse)
@@ -170,7 +175,8 @@ async function reportViewedBy({uuid, reportId, token}){
   return await fetch(`/api/patientReport/${reportId}/markAsRead`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'text/plain'
+      'Content-Type': 'text/plain',
+      'access-control-allow-origin': '*'
     }
   })
   .then(handleResponse)
@@ -188,7 +194,8 @@ async function withdrawUser({uuid, patientId, qsAnsDTO, token}){
   return await fetch(`/api/v1/withdraw-user-participation?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'text/plain'
+      'Content-Type': 'text/plain',
+      'access-control-allow-origin': '*'
     },
     body: JSON.stringify(qsAnsDTO)
   })
@@ -203,7 +210,8 @@ async function closeAccount({uuid, token}){
   return await fetch(`/api/v1/deactivate-user/${uuid}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'text/plain'
+      'Content-Type': 'text/plain',
+      'access-control-allow-origin': '*'
     }
   })
   .then(handleResponse)
@@ -226,7 +234,8 @@ async function updateParticipantDetails({uuid, token, patient}){
   return await fetch(`/api/v1/user/enter-new-participant-details?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'text/plain'
+      'Content-Type': 'text/plain',
+      'access-control-allow-origin': '*'
     }
   })
   .then(handleResponse)
@@ -242,7 +251,8 @@ async function activateParticipant({uuid, token, patient}){
   return await fetch(`/api/v1/user/invite-participant-to-portal?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'text/plain'
+      'Content-Type': 'text/plain',
+      'access-control-allow-origin': '*'
     }
   })
   .then(handleResponse)
@@ -255,7 +265,8 @@ async function activateParticipant({uuid, token, patient}){
 async function getHospitalList(){
   return await fetch(`/publicapi/v1/sites`,{
     headers: {
-      'Content-Type': 'text/plain'
+      'Content-Type': 'text/plain',
+      'access-control-allow-origin': '*'
     }
   })
     .then(handleResponse)
