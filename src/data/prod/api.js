@@ -131,6 +131,7 @@ async function uploadPatientReport({patientId, uuid, reportFile, fileType, token
     // mode: 'no-cors',
     // credentials: 'omit',
     headers: {
+      'access-control-allow-origin': '*'
     },
     body: formData
   })
