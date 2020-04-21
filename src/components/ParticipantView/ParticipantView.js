@@ -126,6 +126,7 @@ const TestResults = (props) => {
       eventName: 'AccountActionsUpload'
     })
     setDialogOpen(true)
+    setUploadSuccess(false)
     setMenuOpen(false)
   }
   const closeUploadDialog = (success) => {

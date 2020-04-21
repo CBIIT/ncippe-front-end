@@ -17,8 +17,9 @@ const useStyles = makeStyles( theme => ({
   },
   container: {
     textAlign: 'center',
-    paddingTop: theme.spacing(10)
-  }
+    paddingTop: theme.spacing(10),
+    marginBottom: theme.spacing(4)
+  },
 }))
 
 const SignInCallback = (props) => {

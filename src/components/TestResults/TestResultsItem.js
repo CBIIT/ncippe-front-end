@@ -73,6 +73,7 @@ const TestResultsItem = (props) => {
   const [isNewReport, setIsNewReport] = useState(report.viewedBy ? !report.viewedBy.includes(uuid) : true)
   const { t } = useTranslation('a_common')
   const { trackEvent } = useTracking()
+  const isIE = /*@cc_on!@*/false || !!document.documentMode
 
   // response header example to parse
   //Content-Disposition: attachment; filename=dummy_PatientReport - Copy8322721829336469280.pdf
@@ -85,129 +86,137 @@ const TestResultsItem = (props) => {
     let win
     const linkText = e.target.textContent
 
-    // set up new tab window before fetch call
-    if(!download) {
-      win = window.open("", "reportId")
-      win.document.title = "View Report" // TODO: translate this
-      win.document.body.style.margin = 0
-    }
-    getAPI.then(api => {
-      api.fetchPatientReport({reportId, token})
-        .then(resp => {
-          try{
-            const disposition = resp.headers.get('Content-Disposition')
-            filename = disposition ? disposition.replace(/.*filename=(.*\.pdf$)/,'$1') : 'report.pdf'
-            return resp.blob()
-          } catch(error) {
-            throw new Error(error)
-          }
-        })
-        .then(blob => {
-          // const file = new Blob([resp], {type: "application/pdf"})
+    // defer opening new window for 100ms so we can return false on a "open in a new tab" click
+    setTimeout(() => {
+      // set up new tab window before fetch call
+      if(!download) {
+        win = window.open("",`report-${reportId}`)
+        win.document.title = "View Report" // TODO: translate this
+        win.document.body.style.margin = 0
+      }
 
-          // you can only trigger save in IE - viewing blob data not supported
-          // TODO: conditionally show "View" for IE browser
-          if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-            window.navigator.msSaveOrOpenBlob(blob);
-            return;
-          } 
-          // create url reference to blob buffer
-          const fileData = window.URL.createObjectURL(blob);
+      getAPI.then(api => {
+        api.fetchPatientReport({reportId, token})
+          .then(resp => {
+            try{
+              const disposition = resp.headers.get('Content-Disposition')
+              filename = disposition ? disposition.replace(/.*filename=(.*\.pdf$)/,'$1') : 'report.pdf'
+              return resp.blob()
+            } catch(error) {
+              throw new Error(error)
+            }
+          })
+          .then(blob => {
+            // const file = new Blob([resp], {type: "application/pdf"})
 
-          console.log(linkText)
+            // you can only trigger save in IE - viewing blob data not supported
+            // TODO: conditionally show "View" for IE browser
+            if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+              window.navigator.msSaveOrOpenBlob(blob);
+              return;
+            } 
+            // create url reference to blob buffer
+            const fileData = window.URL.createObjectURL(blob);
 
-          // trigger download or render blob buffer to new window
-          if(download) {
-            trackEvent({
-              prop50: linkText,
-              prop66: `BioBank_AccountDocuments|Download`,
-              eVar66: `BioBank_AccountDocuments|Download`,
-              events: 'event6',
-              pe: 'lnk_e',
-              pev1: `${fileName}`,
-              eventName: 'AccountDocumentsDownload'
-            })
-            const link = document.createElement('a');
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.download = filename
-            link.href = fileData
-            link.click();
-            document.body.removeChild(link);
-          } else {
-            trackEvent({
-              prop50: linkText,
-              prop66: `BioBank_AccountDocuments|View in Browser`,
-              eVar66: `BioBank_AccountDocuments|View in Browser`,
-              events: 'event6',
-              pe: 'lnk_e',
-              pev1: `${fileName}`,
-              eventName: 'AccountDocumentsView'
-            })
-            win.document.body.innerHTML = `<embed src='${fileData}' type='application/pdf' width='100%' height='100%' />`
-          }
+            // console.log(linkText)
 
-          // ensure blob buffer is cleared for garbage collection
-          setTimeout(function(){
-            // For Firefox it is necessary to delay revoking the ObjectURL
-            window.URL.revokeObjectURL(fileData);
-          }, 100);
-        })
-        .then(() => {
-          // mark this report as viewed in database
-          getAPI.then(api => {
-            api.reportViewedBy({patientId, uuid, reportId, token}).then(resp => {
-              if(resp instanceof Error) {
-                console.error(resp.message)
-              } else {
-                // mark as viewed in front-end state
-                setIsNewReport(false)
+            // trigger download or render blob buffer to new window
+            if(download) {
+              trackEvent({
+                prop50: linkText,
+                prop66: `BioBank_AccountDocuments|Download`,
+                eVar66: `BioBank_AccountDocuments|Download`,
+                events: 'event6',
+                pe: 'lnk_e',
+                pev1: `${fileName}`,
+                eventName: 'AccountDocumentsDownload'
+              })
+              const link = document.createElement('a');
+              link.style.display = 'none';
+              document.body.appendChild(link);
+              link.download = filename
+              link.href = fileData
+              link.click();
+              document.body.removeChild(link);
+            } else {
+              trackEvent({
+                prop50: linkText,
+                prop66: `BioBank_AccountDocuments|View in Browser`,
+                eVar66: `BioBank_AccountDocuments|View in Browser`,
+                events: 'event6',
+                pe: 'lnk_e',
+                pev1: `${fileName}`,
+                eventName: 'AccountDocumentsView'
+              })
+              win.document.body.innerHTML = `<embed src='${fileData}' type='application/pdf' width='100%' height='100%' />`
+            }
 
-                // update participant state
-                if(!patientId) {
-                  const updatedReports = loginContext.reports.map((report,i) => {
-                    if(report.fileGUID === reportId) {
-                      const viewedBy = report.viewedBy || []
-                      return {
-                        ...report,
-                        viewedBy: [...new Set([...viewedBy, uuid])]
+            // ensure blob buffer is cleared for garbage collection
+            setTimeout(function(){
+              // For Firefox it is necessary to delay revoking the ObjectURL
+              window.URL.revokeObjectURL(fileData);
+            }, 100);
+          })
+          .then(() => {
+            // mark this report as viewed in database
+            getAPI.then(api => {
+              api.reportViewedBy({patientId, uuid, reportId, token}).then(resp => {
+                if(resp instanceof Error) {
+                  console.error(resp.message)
+                } else {
+                  // mark as viewed in front-end state
+                  setIsNewReport(false)
+
+                  // update participant state
+                  if(!patientId) {
+                    const updatedReports = loginContext.reports.map((report,i) => {
+                      if(report.fileGUID === reportId) {
+                        const viewedBy = report.viewedBy || []
+                        return {
+                          ...report,
+                          viewedBy: [...new Set([...viewedBy, uuid])]
+                        }
                       }
-                    }
-                    return report
-                  })
+                      return report
+                    })
 
-                  dispatch({
-                    type: 'reportViewedByPatient',
-                    reports: updatedReports,
-                    uuid
-                  })
-                }
-                // update user roles that can view this patient's reports
-                else {
-                  const updatedPatients = loginContext.patients.map((patient,i) => {
-                    const badgesOnPage = document.querySelectorAll('#reports .MuiBadge-root')
-                    if(patient.patientId === patientId) {
-                      return {
-                        ...patient,
-                        hasNewReports: getBool(badgesOnPage.length)
+                    dispatch({
+                      type: 'reportViewedByPatient',
+                      reports: updatedReports,
+                      uuid
+                    })
+                  }
+                  // update user roles that can view this patient's reports
+                  else {
+                    const updatedPatients = loginContext.patients.map((patient,i) => {
+                      const badgesOnPage = document.querySelectorAll('#reports .MuiBadge-root')
+                      if(patient.patientId === patientId) {
+                        return {
+                          ...patient,
+                          hasNewReports: getBool(badgesOnPage.length)
+                        }
                       }
-                    }
-                    return patient
-                  })
-                  
-                  dispatch({
-                    type: 'reportViewedByOther',
-                    patients: updatedPatients
-                  })
+                      return patient
+                    })
+                    
+                    dispatch({
+                      type: 'reportViewedByOther',
+                      patients: updatedPatients
+                    })
+                  }
                 }
-              }
+              })
             })
           })
-        })
-        .catch(error => {
-          console.error(error)
-        })
-    })
+          .catch(error => {
+            console.error(error)
+          })
+      })
+    }, 100)
+
+    if (e.ctrlKey || e.metaKey) {
+      return false;
+    }
   }
 
   return (
@@ -220,7 +229,7 @@ const TestResultsItem = (props) => {
           <Typography>{t('components.testResultItem.uploaded')} {moment(dateUploaded).format("MMM DD, YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
-          <Button color="primary" variant="text" data-reportid={fileGUID} onClick={handleViewReport}><LaunchIcon className={classes.icon} /> {t('buttons.view')}</Button>
+          {isIE ? <Typography component="div" /> :  <Button color="primary" variant="text" data-reportid={fileGUID} onClick={handleViewReport}><LaunchIcon className={classes.icon} /> {t('buttons.view')}</Button>}
           <Button color="primary" variant="text" data-download data-reportid={fileGUID} onClick={handleViewReport}><GetAppIcon className={classes.icon}  /> {t('buttons.download')}</Button>
         </CardActions>
       </ConditionalWrapper>

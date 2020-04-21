@@ -36,6 +36,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     minHeight: 68,
+    height: 68,
     // marginTop: theme.spacing(2),
     // marginBottom: theme.spacing(2),
     
@@ -46,6 +47,7 @@ const useStyles = makeStyles(theme => ({
     // padding: 0
     [theme.breakpoints.up('sm')]: {
       minHeight: 76,
+      height: 76,
     }
   },
   toolbarLogo: {
