@@ -91,7 +91,7 @@ const MenuGroup = (props) => {
   }
 
   const handleClose = event => {
-    if (event.target.classList.contains("Mui-selected") || anchorRef.current && anchorRef.current.contains(event.target)) {
+    if (event.target.classList.contains("Mui-selected") || (anchorRef.current && anchorRef.current.contains(event.target))) {
       return
     }
 

@@ -26,7 +26,7 @@ const App = (props) => {
       
       // track generic event if it's from a link or button inside of #main OR it's the backButton outside of #main
       // other header and footer links are not reported by this event
-      if (target && main || target && target.classList.contains('backButton')) {
+      if ((target && main) || (target && target.classList.contains('backButton'))) {
         // console.log("tracking")
         const linkType = target.tagName.toLowerCase() === 'button' || target.getAttribute('role') === 'button' ? 'button' : 'text'
         props.tracking.trackEvent({
@@ -109,7 +109,7 @@ export default track({
     if(data.event === 'pageview') {
       // console.log("data", data)
       const pageName = `msbiobank.c.gov${window.location.pathname}` // needed for homepage
-      local_s.getPercentPageViewed(pageName,false,".siteWrapper")
+      local_s.getPercentPageViewed(pageName,false,".siteWrapper,.zoom-enter-done")
 
       // for capturing percent page view on dashboard popups - not currently in scope
       // let targetElement = ".siteWrapper";

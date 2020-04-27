@@ -7,19 +7,19 @@ import NoItems from '../NoItems/NoItems'
 
 const TestResults = () => {
   const [loginContext] = useContext(LoginContext)
-  const [reports, setReports] = useState(false)
+  const [testReports, setTestReports] = useState(false)
   const { t } = useTranslation('a_common')
+  const {reports} = loginContext
 
   useEffect(() => {
-    const {reports} = loginContext
     if(reports && reports.length > 0) {
-      setReports(reports)
+      setTestReports(reports)
     }
-  }, [])
+  }, [reports])
 
   return (
-    reports && reports.length > 0 ? 
-      reports.map((report,i) => <TestResultsItem key={i} report={report} />)
+    testReports && testReports.length > 0 ? 
+      testReports.map((testReport,i) => <TestResultsItem key={i} report={testReport} />)
       :
       <NoItems message={t('components.biomarkerView.no_results.participant')} />
   )

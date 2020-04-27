@@ -134,7 +134,7 @@ s.handlePPVevents = function(targetSelector) {
       }
     }
     if (a && a.ppvID) {
-      var targetEl = document.querySelector(targetSelector)
+      var targetEl = document.querySelectorAll(targetSelector)[0]
       var f = Math.max(targetEl.scrollHeight, Math.max(document.body.scrollHeight, document.documentElement.scrollHeight), Math.max(document.body.offsetHeight, document.documentElement.offsetHeight), Math.max(document.body.clientHeight, document.documentElement.clientHeight));
       c = (targetEl.scrollTop || window.pageYOffset || window.document.documentElement.scrollTop || window.document.body.scrollTop) + (window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight);
       d = Math.min(Math.round(c / f * 100), 100);

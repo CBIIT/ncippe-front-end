@@ -47,7 +47,7 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const NotificationItem = (props) => {
-  const {notification: {subject, from, message, dateGenerated, viewedByUser}, lang, handleClick} = props
+  const {notification: {subject, message, dateGenerated, viewedByUser}, lang, handleClick} = props
   const classes = useStyles()
   return (
     <Card onClick={handleClick} className={classes.card} elevation={25}>

@@ -80,16 +80,9 @@ const formDataDefaults = {
   email_error: false,
   lang_error: false,
   file: null,
-  updateUserError: false,
-  uploadError: false
-}
-
-const formValidationDefaults = {
-  firstName: false,
-  lastName: false,
-  email: false,
-  lang: false,
-  hasFile: false
+  file_error: false,
+  updateUser_error: false,
+  upload_error: false
 }
 
 const AddParticipantInfoDialog = (props) => {
@@ -98,7 +91,6 @@ const AddParticipantInfoDialog = (props) => {
   const [loginContext, dispatch] = useContext(LoginContext)
   const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState(formDataDefaults)
-  const [formDataValidation, setFormDataValidation] = useState(formValidationDefaults)
   const [activeStep, setActiveStep] = useState(0)
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
@@ -106,8 +98,8 @@ const AddParticipantInfoDialog = (props) => {
   const { trackEvent } = useTracking()
   const [submitText, setSubmitText] = useState(t('form.save'))
   const stringRegex = /^[a-zA-Z\s]{1,}/
-  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  // const {patients} = loginContext
+  const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ //from https://emailregex.com/
+  const {token, uuid, patients} = loginContext
 
   useEffect(() => {
     setIsOpen(open)
@@ -119,170 +111,49 @@ const AddParticipantInfoDialog = (props) => {
       email,
       lang
     }))
-    //clean up
-    return () => {}
-  },[open])
+  },[open, firstName, lastName, email, lang, t])
 
-  useEffect(() => {
-    const {token, uuid} = loginContext
-    const { patients } = loginContext
-    const updatePatient = () => {
-      const updatedPatients = patients.map(patient => {
-        if (patient.patientId === patientId) {
-          return {
+  const updatePatient = (activate = false) => {
+    const updatedPatients = patients.map(patient => {
+      if (patient.patientId === patientId) {
+        let returnObj
+        if(activate){
+          returnObj = {
+            ...patient,
+            portalAccountStatus: null,
+          }
+        } else {
+          returnObj = {
             ...patient,
             firstName: formData.firstName,
             lastName: formData.lastName,
             email: formData.email,
             lang: formData.lang,
           }
-        } else {
-          return patient
         }
-      })
-      // sort alphabetically
-      .sort((a, b) => a.lastName.localeCompare(b.lastName))
-      // bring new accounts to the top
-      .sort((a,b) => {
-        if(a.portalAccountStatus === "ACCT_NEW" && b.portalAccountStatus !== "ACCT_NEW") {
-          return -1
-        }
-        if(b.portalAccountStatus === "ACCT_NEW" && a.portalAccountStatus !== "ACCT_NEW") {
-          return 1
-        }
-        return 0
-      })
-      
-
-      dispatch({
-        type: 'accountActivated',
-        patients: updatedPatients
-      })
-    }
+        return returnObj
+      } else {
+        return patient
+      }
+    })
+    // sort alphabetically
+    .sort((a, b) => a.lastName.localeCompare(b.lastName))
+    // bring new accounts to the top
+    .sort((a,b) => {
+      if(a.portalAccountStatus === "ACCT_NEW" && b.portalAccountStatus !== "ACCT_NEW") {
+        return -1
+      }
+      if(b.portalAccountStatus === "ACCT_NEW" && a.portalAccountStatus !== "ACCT_NEW") {
+        return 1
+      }
+      return 0
+    })
     
-    const activatePatient = () => {
-      const updatedPatients = patients.map(patient => {
-        if (patient.patientId === patientId) {
-          return {
-            ...patient,
-            portalAccountStatus: null,
-          }
-        } else {
-          return patient
-        }
-      })
-
-      dispatch({
-        type: 'accountActivated',
-        patients: updatedPatients
-      })
-    }
-    // if we're validating then we're attempting to submit the form
-    if (activeStep === 0 && formDataValidation.firstName && formDataValidation.lastName && formDataValidation.email && formDataValidation.lang) {
-      trackEvent({
-        prop42: `BioBank_NewParticipant|Next`,
-        eVar42: `BioBank_NewParticipant|Next`,
-        events: 'event75',
-        eventName: 'NewParticipantNext'
-      })
-      // submit user update
-      setActiveStep(2)
-      getAPI.then(api => {
-        api.updateParticipantDetails({
-          uuid,
-          token,
-          patient: {
-            patientId,
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.email,
-            lang: formData.lang
-          }
-        }).then(resp => {
-          if(resp instanceof Error) {
-            //TODO: perhaps another status message?
-            throw resp
-          } else {
-            // save successful, move to the next step - upload consent form
-            updatePatient()
-            setActiveStep(1)
-            setSubmitText(t('form.submit'))
-          }
-        })
-        .catch(error => {
-          console.error(error)
-          setActiveStep(0)
-          setFormData(prevState => ({
-            ...prevState,
-            updateUserError: true
-          }))
-
-        })
-      })
-    }
-    if( activeStep === 1 && formDataValidation.hasFile) {
-      // submit consent form
-      setActiveStep(2)
-      trackEvent({
-        prop42: `BioBank_NewParticipant|Submit`,
-        eVar42: `BioBank_NewParticipant|Submit`,
-        events: 'event78',
-        eventName: 'NewParticipantSubmit'
-      })
-      // setTimeout(() => {
-      getAPI.then(api => {
-        api.uploadPatientReport({
-          patientId,
-          uuid,
-          reportFile: formData.file,
-          fileType: 'PPE_FILETYPE_ECONSENT_FORM',
-          token
-        }).then(resp => {
-          if(resp instanceof Error) {
-            // Save unsuccessful - display status error
-            throw resp
-          } else {
-            // return API so user can be activated
-            return getAPI
-          }
-        })
-        .then(api => {
-          api.activateParticipant({
-            uuid,
-            token,
-            patient: {
-              patientId
-            }
-          })
-        })
-        .then(resp => {
-          if(resp instanceof Error) {
-            // Save unsuccessful - display status error
-            throw resp
-          } else {
-            // update patient data front-end state
-            activatePatient()
-
-            // save successful, close modal and redirect to Participant View
-            navigate(`/account/participant/${patientId}`, {
-              state: {
-                newParticipantActivated: true
-              }
-            })
-          }
-        })
-        .catch(error => {
-          console.error(error)
-          setActiveStep(1)
-          setFormData(prevState => ({
-            ...prevState,
-            uploadError: true
-          }))
-        })
-      })
-    // }, 5000)
-    }
-  }, [formDataValidation])
+    dispatch({
+      type: 'accountActivated',
+      patients: updatedPatients
+    })
+  } // end: updatePatient
 
   const handleClose = (e, success = false) => {
     if(setParentState){
@@ -297,7 +168,6 @@ const AddParticipantInfoDialog = (props) => {
     // reset the form
     setTimeout(() => {
       setFormData(formDataDefaults)
-      setFormDataValidation(formValidationDefaults)
       setActiveStep(0)
     }, 200)
   }
@@ -337,7 +207,7 @@ const AddParticipantInfoDialog = (props) => {
     setFormData({
       ...formData,
       file: null,
-      uploadError: false
+      upload_error: false
     })
   }
 
@@ -349,44 +219,136 @@ const AddParticipantInfoDialog = (props) => {
   const handleFormSubmit = (e) => {
     e.preventDefault()
     if(activeStep === 0) {
-      // reverse error booleans. If test fails then error is true
+      // validate fields
+      const firstName_error = !stringRegex.test(formData.firstName)
+      const lastName_error = !stringRegex.test(formData.lastName)
+      const email_error = !emailRegex.test(formData.email)
+      const lang_error = typeof formData.lang === 'string' ? false : true
+
+      // set validations
       setFormData(prev => ({
         ...prev,
-        firstName_error: !stringRegex.test(formData.firstName),
-        lastName_error: !stringRegex.test(formData.lastName),
-        email_error: !emailRegex.test(formData.email),
-        lang_error: typeof formData.lang === 'string' ? false : true
+        firstName_error,
+        lastName_error,
+        email_error,
+        lang_error
       }))
-      // if test fails then validation is false
-      setFormDataValidation(prev => ({
-        ...prev,
-        firstName: stringRegex.test(formData.firstName),
-        lastName: stringRegex.test(formData.lastName),
-        email: emailRegex.test(formData.email),
-        lang: typeof formData.lang === 'string' ? true : false
-      }))
+
+      // if there are no errors...
+      if (!firstName_error && !lastName_error && !email_error && !lang_error) {
+        trackEvent({
+          prop42: `BioBank_NewParticipant|Next`,
+          eVar42: `BioBank_NewParticipant|Next`,
+          events: 'event75',
+          eventName: 'NewParticipantNext'
+        })
+        // submit user update
+        setActiveStep(2) // show spinning loader while fetch is running
+        getAPI.then(api => {
+          api.updateParticipantDetails({
+            uuid,
+            token,
+            patient: {
+              patientId,
+              firstName: formData.firstName,
+              lastName: formData.lastName,
+              email: formData.email,
+              lang: formData.lang
+            }
+          }).then(resp => {
+            if(resp instanceof Error) {
+              //TODO: perhaps another status message?
+              throw resp
+            } else {
+              // save successful, move to the next step - upload consent form
+              updatePatient()
+              setActiveStep(1)
+              setSubmitText(t('form.submit'))
+            }
+          })
+          .catch(error => {
+            console.error(error)
+            setActiveStep(0)
+            setFormData(prevState => ({
+              ...prevState,
+              updateUser_error: true
+            }))
+  
+          })
+        })
+      }
     }
 
     if(activeStep === 1) {
-      // validate consent form added
-      if(!!formData.file) {
-        setFormDataValidation(prev => ({
-          ...prev,
-          hasFile: true
-        }))
-        setFormData(prev => ({
-          ...prev,
-          noFileError: false
-        }))
-      } else {
-        setFormDataValidation(prev => ({
-          ...prev,
-          hasFile: false
-        }))
-        setFormData(prev => ({
-          ...prev,
-          noFileError: true
-        }))
+      const file_error = !formData.file
+
+      // set validations
+      setFormData(prev => ({
+        ...prev,
+        file_error
+      }))
+
+      // if there are no errors...
+      if( !file_error ) {
+        // submit consent form
+        setActiveStep(2) // show spinning loader while fetch is running
+        trackEvent({
+          prop42: `BioBank_NewParticipant|Submit`,
+          eVar42: `BioBank_NewParticipant|Submit`,
+          events: 'event78',
+          eventName: 'NewParticipantSubmit'
+        })
+
+        getAPI.then(api => {
+          api.uploadPatientReport({
+            patientId,
+            uuid,
+            reportFile: formData.file,
+            fileType: 'PPE_FILETYPE_ECONSENT_FORM',
+            token
+          }).then(resp => {
+            if(resp instanceof Error) {
+              // Save unsuccessful - display status error
+              throw resp
+            } else {
+              // return API so user can be activated
+              return getAPI
+            }
+          })
+          .then(api => {
+            api.activateParticipant({
+              uuid,
+              token,
+              patient: {
+                patientId
+              }
+            })
+          })
+          .then(resp => {
+            if(resp instanceof Error) {
+              // Save unsuccessful - display status error
+              throw resp
+            } else {
+              // update patient data front-end state
+              updatePatient(true)
+  
+              // save successful, close modal and redirect to Participant View
+              navigate(`/account/participant/${patientId}`, {
+                state: {
+                  newParticipantActivated: true
+                }
+              })
+            }
+          })
+          .catch(error => {
+            console.error(error)
+            setActiveStep(1)
+            setFormData(prevState => ({
+              ...prevState,
+              upload_error: true
+            }))
+          })
+        })
       }
     }
   }
@@ -414,84 +376,86 @@ const AddParticipantInfoDialog = (props) => {
         <Typography variant={activeStep === 0 ? "h3" : "body1"}>{t('a_common:participant.id')}: {patientId}</Typography>
         <Typography>{t('a_common:participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
       </Paper>
-      {activeStep === 0 && (
-        <form id="activatePatient" className={classes.form} autoComplete="off" onSubmit={handleFormSubmit}>
-          <TextField
-            error={formData.firstName_error}
-            required
-            id="firstName"
-            label={t('form.firstName')}
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-            onChange={handleOnChange}
-            value={formData.firstName}
-            helperText={formData.firstName_error && t('form.error.firstName')}
-          />
-          <TextField
-            error={formData.lastName_error}
-            required
-            id="lastName"
-            label={t('form.lastName')}
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-            onChange={handleOnChange}
-            value={formData.lastName}
-            helperText={formData.lastName_error && t('form.error.lastName')}
-          />
-          <TextField
-            error={formData.email_error}
-            required
-            id="email"
-            label={t('form.email')}
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-            onChange={handleOnChange}
-            value={formData.email}
-            helperText={formData.email_error && t('form.error.email')}
-          />
-          <InputGroupError error={formData.lang_error} errorMessage={t('form.lang.error')}>
-            <LangOption 
-              id="lang"
-              label={t('form.lang.label')}
-              helperText={t('form.lang.helper_text')}
-              editMode={true}
-              value={formData.lang}
-              onChange={updateLang}
+      <form id="activatePatient" className={classes.form} autoComplete="off" onSubmit={handleFormSubmit}>
+        {activeStep === 0 && (
+          <div id="activatePatient--step-0">
+            <TextField
+              error={formData.firstName_error}
+              required
+              id="firstName"
+              label={t('form.firstName')}
+              className={classes.textField}
+              margin="normal"
+              variant="outlined"
+              onChange={handleOnChange}
+              value={formData.firstName}
+              helperText={formData.firstName_error && t('form.error.firstName')}
             />
-          </InputGroupError>
-          {formData.updateUserError && <Status state="error" title={t('form.error.updateUser.title')} message={t('form.error.updateUser.message')} />}
-        </form>
-      )}
-      {activeStep === 1 && (
-        <form id="activatePatient" className={classes.form} autoComplete="off" onSubmit={handleFormSubmit}>
-          {formData.file && formData.file.name && (
-            <FileItem file={formData.file} onRemove={handleRemoveFile} />
-          )}
-          <input
-            accept=".pdf"
-            className={classes.input}
-            id="report-upload-file"
-            type="file"
-            onChange={handleFileChange}
-          />
-          {!formData.file && (
-            <label htmlFor="report-upload-file">
-              <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">{t('form.consentFile')}</Button>
-            </label>
-          )}
-          {formData.noFileError && <Status state="error" title={t('form.error.noFile.title')} message={t('form.error.noFile.message')} />}
-          {formData.uploadError && <Status state="error" title={t('form.error.uploadFile.title')} message={t('form.error.uploadFile.message')} />}
-        </form>
-      )}
-      {activeStep === 2 && (
-        <>
-        <CircularProgress className={classes.progress} size={70} />
-        <Typography className={classes.titleUploading} variant="h6">{t('progress')}</Typography>
-        </>
-      )}
+            <TextField
+              error={formData.lastName_error}
+              required
+              id="lastName"
+              label={t('form.lastName')}
+              className={classes.textField}
+              margin="normal"
+              variant="outlined"
+              onChange={handleOnChange}
+              value={formData.lastName}
+              helperText={formData.lastName_error && t('form.error.lastName')}
+            />
+            <TextField
+              error={formData.email_error}
+              required
+              id="email"
+              label={t('form.email')}
+              className={classes.textField}
+              margin="normal"
+              variant="outlined"
+              onChange={handleOnChange}
+              value={formData.email}
+              helperText={formData.email_error && t('form.error.email')}
+            />
+            <InputGroupError error={formData.lang_error} errorMessage={t('form.lang.error')}>
+              <LangOption 
+                id="lang"
+                label={t('form.lang.label')}
+                helperText={t('form.lang.helper_text')}
+                editMode={true}
+                value={formData.lang}
+                onChange={updateLang}
+              />
+            </InputGroupError>
+            {formData.updateUser_error && <Status state="error" title={t('form.error.updateUser.title')} message={t('form.error.updateUser.message')} />}
+          </div>
+        )}
+        {activeStep === 1 && (
+          <div id="activatePatient--step-1">
+            {formData.file && formData.file.name && (
+              <FileItem file={formData.file} onRemove={handleRemoveFile} />
+            )}
+            <input
+              accept=".pdf"
+              className={classes.input}
+              id="report-upload-file"
+              type="file"
+              onChange={handleFileChange}
+            />
+            {!formData.file && (
+              <label htmlFor="report-upload-file">
+                <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">{t('form.consentFile')}</Button>
+              </label>
+            )}
+            {formData.file_error && <Status state="error" title={t('form.error.noFile.title')} message={t('form.error.noFile.message')} />}
+            {formData.upload_error && <Status state="error" title={t('form.error.uploadFile.title')} message={t('form.error.uploadFile.message')} />}
+          </div>
+        )}
+        {activeStep === 2 && (
+          <div id="activatePatient--loading">
+            <CircularProgress className={classes.progress} size={70} />
+            <Typography className={classes.titleUploading} variant="h6">{t('progress')}</Typography>
+          </div>
+        )}
+      </form>
       </DialogContent>
       <DialogActions>
         <Button color="primary" variant="contained" type="submit" data-form="activatePatient" onClick={submitForm}>{submitText}</Button>

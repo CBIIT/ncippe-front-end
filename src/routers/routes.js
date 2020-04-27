@@ -63,7 +63,7 @@ document.addEventListener('click', function(event) {
 })
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { t, i18n } = useTranslation()
+  const { i18n } = useTranslation()
   return (
     <LoginConsumer>
       {([state]) => {
@@ -71,8 +71,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
           // set default language in case it's not specified
           const lang = state.lang || "en"
           // set date format based on language
-          moment.locale(state.lang)
+          moment.locale(lang)
           if(lang !== i18n.language) {
+            // Helmet doesn't like that changing languages here. Should probably be a function callback from App.js
             i18n.changeLanguage(lang)
             moment.locale(lang)
           }

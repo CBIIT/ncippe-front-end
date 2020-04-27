@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Router, navigate } from '@reach/router'
 import { Paper} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -20,7 +20,16 @@ const useStyles = makeStyles( theme => ({
 
 const Participation = (props) => {
   const classes = useStyles()
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600) // TODO: add resize, orientation change event listener
+
+  useEffect(() => {
+    const resizeEvt = () => {
+      setIsMobile(window.innerWidth < 600)
+    }
+    window.addEventListener('resize', resizeEvt, {passive: true})
+    //clean up
+    return () => window.removeEventListener('resize', resizeEvt, {passive: true})
+  },[isMobile])
 
   const handleNextStep = (data) => {
     if(data === 'leave') {

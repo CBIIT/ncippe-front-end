@@ -120,18 +120,16 @@ const ExpansionMenu = (props) => {
     expanded = false,
     active = false,
     handleClick,
-    style = 'stacked'
+    variant = 'stacked'
   } = props
   
   const [isExpanded, setIsExpanded] = useState(expanded)
-  const ExpandIcon = style !== 'stacked' ? ExpandMore : AddRounded
-  const CollapseIcon = style !== 'stacked' ? ExpandMore : RemoveRounded
+  const ExpandIcon = variant !== 'stacked' ? ExpandMore : AddRounded
+  const CollapseIcon = variant !== 'stacked' ? ExpandMore : RemoveRounded
   const loc = window.location.pathname
 
   useEffect(() => {
     setIsExpanded(expanded)
-    //clean up
-    return () => {}
   },[expanded])
 
   const handleChange = (event, newExpanded) => {
@@ -157,7 +155,7 @@ const ExpansionMenu = (props) => {
       square 
       expanded={isExpanded}
       onChange={handleChange} 
-      className={`${classes.root} ${style !== 'stacked' ? classes.floating : classes.stacked} ${className}`}
+      className={`${classes.root} ${variant !== 'stacked' ? classes.floating : classes.stacked} ${className}`}
     >
       <ExpansionPanelSummary 
         className={`${classes.expansionPanelSummary} ${active ? "active" : ""}`}

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { Box, Divider, Grid, Link, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useScript } from '../../components/utils/useScript'
-import { useTranslation } from 'react-i18next'
 
 import getAPI from '../../data'
 import {formatPhoneNumber} from '../../utils/utils'
@@ -67,8 +66,10 @@ const useStyles = makeStyles( theme => ({
 
 const HospitalMap = (props) => {
   const classes = useStyles()
-  const [mapStylesLoaded, mapStylesError] = useScript('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css')
-  const [mapScriptLoaded, mapScriptError] = useScript('https://unpkg.com/leaflet@1.6.0/dist/leaflet.js')
+  // const [mapStylesLoaded, mapStylesError] = useScript('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css')
+  // const [mapScriptLoaded, mapScriptError] = useScript('https://unpkg.com/leaflet@1.6.0/dist/leaflet.js')
+  useScript('https://unpkg.com/leaflet@1.6.0/dist/leaflet.css')
+  const [mapScriptLoaded] = useScript('https://unpkg.com/leaflet@1.6.0/dist/leaflet.js')
   // const { t, i18n } = useTranslation(['eligibility','hospitalList'])
   // const hospitalData = i18n.getResourceBundle(i18n.languages[0],'hospitalList').hospitals
   const [hospitalData, setHospitalData] = useState([])
@@ -105,7 +106,7 @@ const HospitalMap = (props) => {
         setMap(bssMap)
       }
     }
-  },[mapScriptLoaded])
+  },[mapScriptLoaded, map])
 
   useEffect(() => {
     // const clickZoom = (e) => {
@@ -114,7 +115,7 @@ const HospitalMap = (props) => {
 
     if(map && hospitalData.length > 0) {
       let pins = []
-      Object.keys(hospitalData).map((item, i) => {
+      Object.keys(hospitalData).forEach((item, i) => {
         const hospital = hospitalData[item]
         const gpsMarker = hospital.gps_coordinates.split(",")
         const thisMarker = window.L.marker(gpsMarker,{
@@ -128,7 +129,7 @@ const HospitalMap = (props) => {
       })
 
       const updateList = (index) => {
-        refs.map((ref) => {
+        refs.forEach((ref) => {
           ref.current.classList.remove('active')
         })
         if(index !== undefined){
@@ -158,7 +159,7 @@ const HospitalMap = (props) => {
       //   }, {})
       // )
     }
-  }, [map, hospitalData])
+  }, [map, hospitalData, refs])
 
   useEffect(() => {
     getAPI.then(api => {
@@ -166,7 +167,7 @@ const HospitalMap = (props) => {
         if(resp instanceof Error) {
           throw resp
         }
-        Object.keys(resp).map((item, i) => {
+        Object.keys(resp).forEach((item, i) => {
           setRefs(prev => [...prev,React.createRef()])
         })
         setHospitalData(resp)

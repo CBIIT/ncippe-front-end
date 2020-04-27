@@ -14,7 +14,6 @@ const useStyles = makeStyles( theme => ({
     
     [theme.breakpoints.up('sm')]: {
       display: 'flex',
-      alignItems: 'flex-start',
       flexDirection: 'row',
       alignItems: 'center',
     },
@@ -52,12 +51,11 @@ const FAQs = (props) => {
   useEffect(() => {
     // get unique values from array
     const shouldToggle = [...new Set(toggleState)]
-    // if there is only one unique value and it's opposite of the `isExpanded` state, then flip the state
-    if(shouldToggle.length === 1 && shouldToggle[0] !== isExpanded ) {
-      setIsExpanded(prev => !prev)
+
+    // if there is only one unique value then set the `isExpanded` state to the shouldToggle value
+    if(shouldToggle.length === 1 ) {
+      setIsExpanded(shouldToggle[0])
     }
-    //clean up
-    return () => {}
   }, [toggleState])
 
   // track which faqs are open or closed
@@ -67,7 +65,6 @@ const FAQs = (props) => {
       newState[index] = state;
       return newState
     })
-
   }
 
   return (

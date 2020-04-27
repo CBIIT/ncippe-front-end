@@ -46,7 +46,7 @@ const EligibilityPage = () => {
       prop6: "Eligibility and locations",
       prop10: t("metaData.title")
     })
-  },[trackEvent])
+  },[trackEvent, t])
 
   return (
     <Box component="article">

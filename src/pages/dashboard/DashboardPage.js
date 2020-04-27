@@ -61,7 +61,7 @@ export default () => {
       })
       sessionStorage.setItem('isDashboardTracked',true)
     }
-  },[])
+  },[trackEvent, t])
 
   const trackCardClick = (e) => {
     const card = e.currentTarget.closest(".IconCardContent")
