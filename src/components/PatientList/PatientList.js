@@ -54,7 +54,7 @@ const PatientList = (props) => {
   useEffect(() => {
     // use patientsUpdated flag to trigger re-renders of deep patient data
     setPatientList(patients)
-  }, [patientsUpdated])
+  }, [patientsUpdated, patients])
 
   const filterPatients = (event) => {
     const filteredList = allPatients.filter(item => {

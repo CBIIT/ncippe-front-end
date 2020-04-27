@@ -71,7 +71,7 @@ const Consent = () => {
       prop6: "Give your consent",
       prop10: t("metaData.title")
     })
-  },[trackEvent])
+  },[trackEvent, t])
 
   return (
     <Box component="article">

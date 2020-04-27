@@ -87,7 +87,7 @@ const useStyles = makeStyles( theme => ({
     width: '100%',
     alignItems: 'flex-start',
     padding: theme.spacing(3,3,2,3),
-    ['@media (-ms-high-contrast:none)']: {
+    '@media (-ms-high-contrast:none)': {
       '& div': {
         width: 'calc(100% - 50px)'
       }
@@ -138,7 +138,7 @@ const ActivatePage = () => {
       prop6: "Activate your online Biobank account",
       prop10: t("metaData.title")
     })
-  },[trackEvent])
+  },[trackEvent, t])
 
   // const handleLogin = () => {
   //   // Using openID to redirect to login.gov

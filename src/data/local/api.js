@@ -19,7 +19,7 @@ const handlePromiseAllResponse = resps => {
   let data = []
   let errorMessage
 
-  resps.map(resp => {
+  resps.forEach(resp => {
     if(resp instanceof Error) {
       // add to the error message only if this message is new. DRY
       if(!errorMessage) {
@@ -55,6 +55,7 @@ const handleError = error => {
 }
 
 // fake server side response delay. use as .then(sleeper(5000))
+//eslint-disable-next-line
 function sleeper(ms) {
   return function(x) {
     return new Promise(resolve => setTimeout(() => resolve(x), ms));

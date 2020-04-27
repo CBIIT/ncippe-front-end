@@ -19,7 +19,7 @@ import Privacy            from '../pages/participation/PrivacyPage'
 import Activate           from '../pages/participation/ActivatePage'
 
 // imports for dashboard pages
-import MockUsersPage      from '../pages/MockUsersPage'
+// import MockUsersPage      from '../pages/MockUsersPage'
 import Dashboard          from '../pages/dashboard/DashboardPage'
 // import SignInCallback     from '../pages/dashboard/SignInCallback'
 import DashboardMocha     from '../pages/dashboard/DashboardMochaPage'
@@ -153,8 +153,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
           // set default language in case it's not specified
           const lang = state.lang || "en"
           // set date format based on language
-          moment.locale(state.lang)
+          moment.locale(lang)
           if(lang !== i18n.language) {
+            // Helmet doesn't like that changing languages here. Should probably be a function callback from App.js
             i18n.changeLanguage(lang)
             moment.locale(lang)
           }
@@ -229,7 +230,7 @@ export default () => (
 
             {/* <SignInCallbackPage path='/signin' /> */}
             <PrivateRoute path='/account' component={DashboardPage} />
-            <MockUsersPage path='/mock-users' />
+            {/* <MockUsersPage path='/mock-users' /> */}
             <PrivateRoute path='/account-mocha' component={DashboardMochaPage} />
             <PrivateRoute path='/account/notifications' component={NotificationsPage} />
             <PrivateRoute path='/account/consent' component={ConsentPage} />

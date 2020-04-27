@@ -39,7 +39,7 @@ const MockRoles = () => {
   const classes = useStyles()
   const [users, setUsers] = useState()
   const [error, setError] = useState(false)
-  const [loginContext, dispatch] = useContext(LoginContext)
+  const [ , dispatch] = useContext(LoginContext) // don't need loginContext at index 0, just destructuring dispatch
 
 
   // Fetch mock users on ComponentDidMount
@@ -49,7 +49,7 @@ const MockRoles = () => {
         Array.isArray(resp) ? setUsers(resp) : setError(resp)
       })
     })
-  }, [getAPI])
+  }, [])
 
   const mockLogin = user => event => {
     const {email, uuid} = user;

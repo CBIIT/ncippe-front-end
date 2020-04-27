@@ -42,7 +42,7 @@ const useStyles = makeStyles( theme => ({
       alignItems: 'center',
     },
     // mobile HD background
-    ['@media (min-resolution: 192dpi)']: {
+    '@media (min-resolution: 192dpi)': {
       backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobileHD/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`
     },
     // desktop background
@@ -174,15 +174,15 @@ const useStyles = makeStyles( theme => ({
     height: "40vw",
     maxHeight: 450,
     // mobile
-    [`@media (min-width: 380px)`]: {
+    '@media (min-width: 380px)': {
       backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/mobile/woman-with-head-scarf.jpg)`,
     },
     // micro HD
-    ['@media (min-resolution: 192dpi)']: {
+    '@media (min-resolution: 192dpi)': {
       backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/tablet/woman-with-head-scarf.jpg), ${theme.gradients.primaryDiagonal}`
     },
     // mobile HD
-    [`@media (min-width: 380px) and (min-resolution: 192dpi)`]: {
+    '@media (min-width: 380px) and (min-resolution: 192dpi)': {
       backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
     },
     // tablet
@@ -272,7 +272,7 @@ const HomePage = (props) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [mediaCardPath, setMediaCardPath] = useState(`/${process.env.PUBLIC_URL}assets/images/mediaCard/standard/`)
-  const { t, i18n } = useTranslation('homePage')
+  const { t } = useTranslation('homePage')
   const { trackEvent } = useTracking()
   const isHighResolution = useMediaQuery('@media (min-resolution: 192dpi)')
 
@@ -309,7 +309,7 @@ const HomePage = (props) => {
       prop10: t("metaData.title")
     })
     //trackEvent({linkName:'somewhere', eVar8:"Frank Ali", event:'custom'})
-  },[trackEvent])
+  },[trackEvent, t])
 
   const handleClose = () => {
     setIsModalOpen(false)

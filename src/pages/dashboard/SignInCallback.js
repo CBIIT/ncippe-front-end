@@ -26,9 +26,9 @@ const SignInCallback = (props) => {
   const {location: {state: routerState}} = props
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
+  const { roleName, uuid, auth, mockState } = loginContext
   const authContext = useContext(AuthContext)
   const { signinRedirectCallback } = authContext
-  const {mockState} = loginContext
   const { t } = useTranslation('a_common')
 
   useEffect(() => {
@@ -137,10 +137,10 @@ const SignInCallback = (props) => {
         }
       })
     })
-  }, [])
+  }, [dispatch, mockState, routerState, signinRedirectCallback, t])
 
   useEffect(() => {
-    const { roleName, uuid, auth } = loginContext
+    
     window.$role = roleName.slice(9)
     
     if(uuid && auth){
@@ -150,7 +150,7 @@ const SignInCallback = (props) => {
         navigate('/account')
       }
     }
-  }, [loginContext])
+  }, [roleName, uuid, auth])
 
   return (
     <Container className={classes.container}>

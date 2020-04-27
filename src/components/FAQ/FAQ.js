@@ -85,8 +85,6 @@ const FAQ = (props) => {
   // externally control the expansion of this component
   useEffect(() => {
     setIsExpanded(expanded)
-    //clean up
-    return () => {}
   },[expanded])
 
   // alert parent component that this faq's expanded state has changed
@@ -94,9 +92,7 @@ const FAQ = (props) => {
     if(clickHandler){
       clickHandler(index,isExpanded)
     }
-    //clean up
-    return () => {}
-  },[isExpanded])
+  },[isExpanded, clickHandler, index])
 
   // toggle this faq
   const handleChange = () => {

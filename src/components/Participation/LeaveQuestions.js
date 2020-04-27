@@ -94,6 +94,8 @@ const LeaveQuestions = (props) => {
       case "q3":
         setQ3Error(false)
         break;
+      default:
+        console.error("question id not found")
     }
 
     setQuestionData(prevState => ({

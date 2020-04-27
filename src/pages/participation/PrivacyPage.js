@@ -44,7 +44,7 @@ const PrivacyPage = () => {
       prop6: "Protecting your privacy",
       prop10: t("metaData.title")
     })
-  },[trackEvent])
+  },[trackEvent, t])
 
   return (
     <Container className="mainContainer" component="article">
