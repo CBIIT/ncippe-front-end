@@ -55,7 +55,7 @@ const formDataDefaults = {
 const UploadConcentDialog = (props) => {
   const {open, setParentState, patientId} = props
   const classes = useStyles()
-  const [loginContext, dispatch] = useContext(LoginContext)
+  const [loginContext] = useContext(LoginContext)
   const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState(formDataDefaults)
   const [activeStep, setActiveStep] = useState(0)
@@ -66,8 +66,6 @@ const UploadConcentDialog = (props) => {
 
   useEffect(() => {
     setIsOpen(open)
-    //clean up
-    return () => {}
   },[open])
 
   const handleClose = (e, success = false) => {
