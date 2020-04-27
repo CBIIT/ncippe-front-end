@@ -21,23 +21,30 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
+let isNewSeen = false
+
 const Notifications = () => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const { notifications } = loginContext
   const count = notifications ? notifications.length : 0
   const { t } = useTranslation('a_common')
+  const {token, uuid, newNotificationCount} = loginContext
 
   useEffect(() => {
-    //mark notifications as read on unmount
-    const {token, uuid, newNotificationCount} = loginContext
+    //mark notifications as read when screen loads
     if(newNotificationCount){
+      isNewSeen = true
       dispatch({
         type: 'clearNewNotifications'
       })
     }
+  },[newNotificationCount, dispatch])
+
+  useEffect(() => {
+    //mark notifications as read in the backend on unmount
     return () => {
-      if(newNotificationCount){
+      if(isNewSeen){
         getAPI.then(api => {
           api.notificationsMarkAsRead({uuid, token}).then((resp)=>{
             if(resp instanceof Error) {
@@ -51,7 +58,7 @@ const Notifications = () => {
         })
       }
     }
-  },[])
+  },[token, uuid, dispatch])
 
   return <>
     <div className={classes.titleWithIcon}>
