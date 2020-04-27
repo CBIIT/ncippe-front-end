@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link as RouterLink } from "@reach/router"
-import { 
-  Button,
-  Container,
-  Link,
-} from '@material-ui/core';
+// import { Link as RouterLink } from "@reach/router"
+// import { 
+//   Button,
+//   Container,
+//   Link,
+// } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 
 import Header from '../components/region/Header/Header'
@@ -36,11 +36,11 @@ const pageWrapper = (Component) => ({children, ...props}) => {
     <div className="siteWrapper"> {/* returning a fragment here does not work in ie11 */}
       <Header />
       <div id="main" className={classes.main} role="main">
-        <Container style={{position:"relative"}}>
+        {/* <Container style={{position:"relative"}}>
           <Link component={RouterLink} to='/mock-users' className={classes.mockUsers}>
             <Button variant="outlined" color="primary">Mock User</Button>
           </Link>
-        </Container>
+        </Container> */}
         <Component {...props} />
       </div>
       <Footer />

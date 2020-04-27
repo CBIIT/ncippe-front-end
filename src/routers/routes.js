@@ -17,7 +17,7 @@ import Privacy            from '../pages/participation/PrivacyPage'
 import Activate           from '../pages/participation/ActivatePage'
 
 // imports for dashboard pages
-import MockUsersPage      from '../pages/MockUsersPage'
+// import MockUsersPage      from '../pages/MockUsersPage'
 import Dashboard          from '../pages/dashboard/DashboardPage'
 import SignInCallback     from '../pages/dashboard/SignInCallback'
 import DashboardMocha     from '../pages/dashboard/DashboardMochaPage'
@@ -111,7 +111,7 @@ export default () => (
 
             <SignInCallbackPage path='/signin' />
             <PrivateRoute path='/account' component={DashboardPage} />
-            <MockUsersPage path='/mock-users' />
+            {/* <MockUsersPage path='/mock-users' /> */}
             <PrivateRoute path='/account-mocha' component={DashboardMochaPage} />
             <PrivateRoute path='/account/notifications' component={NotificationsPage} />
             <PrivateRoute path='/account/consent' component={ConsentPage} />
