@@ -80,7 +80,7 @@ const TestResults = (props) => {
 
   const classes = useStyles()
   const {patientId} = props
-  const [loginContext, dispatch] = useContext(LoginContext)
+  const [loginContext] = useContext(LoginContext)
   const [reports, setReports] = useState(false)
   const [files, setFiles] = useState(false)
   const [user, setUser] = useState(false)
@@ -90,10 +90,9 @@ const TestResults = (props) => {
   const [isNewParticipant, setIsNewParticipant] = useState(false)
   const { t } = useTranslation('a_common')
   const { trackEvent } = useTracking()
+  const {token} = loginContext
 
   useEffect(() => {
-    //fetch participant data
-    const {token} = loginContext
     // const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).uuid
     getAPI.then(api => {
       api.fetchPatientTestResults({patientId, token}).then(resp => {
@@ -103,7 +102,7 @@ const TestResults = (props) => {
       })
     })
     return () => {}
-  }, [uploadSuccess,getAPI])
+  }, [uploadSuccess, token, patientId])
 
   useEffect(() => {
     if(props.location && props.location.state && props.location.state.newParticipantActivated) {
@@ -115,7 +114,7 @@ const TestResults = (props) => {
       })
       setIsNewParticipant(true)
     }
-  }, [props.location.state])
+  }, [trackEvent, props.location])
 
   const openUploadDialog = (e) => {
     const buttonText = e.target.textContent
@@ -169,7 +168,7 @@ const TestResults = (props) => {
       {user && (
         <div className={classes.profile}>
           <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt={t('icons.user_profile')} aria-hidden="true" />
-          <div className={classes.profileText} className="highContrast">
+          <div className={`${classes.profileText} highContrast`}>
             <Typography className={classes.profileHeader} variant="h2" component="h2">{user.firstName} {user.lastName}</Typography>
             {user.isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>{t('badges.not_participating')}</Typography></div>}
             <Typography><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
@@ -186,7 +185,7 @@ const TestResults = (props) => {
                       className={classes.menu}
                       expanded={menuOpen}
                       handleClick={handleMenuState}
-                      style="floating"
+                      variant="floating"
                       >
                         <MenuItem onClick={openUploadDialog}>{t('menu.account_actions.upload_consent')}</MenuItem>
                         {user.isActiveBiobankParticipant !== false && <MenuItem onClick={openLeaveQuestions}>{t('menu.account_actions.leave_biobank')}</MenuItem>}
