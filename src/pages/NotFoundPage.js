@@ -37,7 +37,7 @@ const ErrorPage = () => {
       pageType: "errorPage",
       prop10: t("metaData.title")
     })
-  },[trackEvent])
+  },[trackEvent, t])
 
   return (
     <Box mt={5}>

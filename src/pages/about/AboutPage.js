@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
@@ -41,7 +41,7 @@ const AboutPage = () => {
       prop6: "About the Boibank",
       prop10: t("metaData.title")
     })
-  },[trackEvent])
+  },[trackEvent, t])
 
   return (
     <Box component="article">

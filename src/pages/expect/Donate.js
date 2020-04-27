@@ -66,7 +66,7 @@ const Donate = () => {
       prop6: "Donate samples",
       prop10: t("metaData.title")
     })
-  },[trackEvent])
+  },[trackEvent, t])
 
   return (
     <Box component="article">

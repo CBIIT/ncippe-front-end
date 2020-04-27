@@ -18,7 +18,7 @@ const ErrorPage = (props) => {
       pageType: "errorPage",
       prop10: t("metaData.title")
     })
-  },[trackEvent])
+  },[trackEvent, t])
 
   const errorDefaults = {
     status: "error",

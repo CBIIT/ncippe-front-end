@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link as RouterLink, navigate } from '@reach/router'
+import { Link as RouterLink } from '@reach/router'
 import { Box, Button, Container, InputAdornment, Link, TextField, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Helmet } from 'react-helmet-async'
@@ -43,13 +43,14 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
+const term = window.history.state ? window.history.state.term : ""
+
 const SearchResults = (props) => {
   // const {location} = props
   const classes = useStyles()
   const { t, i18n } = useTranslation(['common','homePage','about','eligibility','research','consent','donate','testing','activate','privacy','hospitalList','searchResults'])
   const { trackEvent } = useTracking()
   // const term = location ? location.state ? location.state.term : '' : ''
-  const term = window.history.state ? window.history.state.term : ""
   const [searchTerm, setSearchTerm] = useState(term)
   const [searchTermInput, setSearchTermInput] = useState(term)
   const [searchResults, setSearchResults] = useState(false)
@@ -164,7 +165,7 @@ const SearchResults = (props) => {
       })
     }
 
-  }, [searchTerm, searchIndex, docData])
+  }, [searchTerm, searchIndex, docData, trackEvent, t])
 
   const handleSubmit = (e) => {
     e.preventDefault()

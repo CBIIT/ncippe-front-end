@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Link } from '@reach/router' 
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
-import ConditionalWrapper from '../utils/ConditionalWrapper'
 
 
 const useStyles = makeStyles(theme => ({

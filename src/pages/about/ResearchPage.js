@@ -41,7 +41,7 @@ const ResearchPage = () => {
       prop6: "Biobanks are important for research",
       prop10: t("metaData.title")
     })
-  },[trackEvent])
+  },[trackEvent, t])
 
   return (
     <Box component="article">

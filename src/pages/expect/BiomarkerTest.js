@@ -109,7 +109,7 @@ const BiomarkerTest = () => {
       prop6: "Get your biomarker test",
       prop10: t("metaData.title")
     })
-  },[trackEvent])
+  },[trackEvent, t])
   
   return (
     <Box component="article">

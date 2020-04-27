@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Link as RouterLink } from '@reach/router'
-import { Button, Box, FormControl, FormControlLabel, Link, RadioGroup, Radio, Typography } from '@material-ui/core'
+import { Button, Box, FormControl, FormControlLabel, RadioGroup, Radio, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
@@ -28,7 +27,7 @@ const useStyles = makeStyles( theme => ({
 
 const ChangeParticipation = (props) => {
   const {nextStep, cancel} = props
-  const [loginContext, dispatch] = useContext(LoginContext)
+  const [loginContext] = useContext(LoginContext)
   const { isActiveBiobankParticipant } = loginContext
   const [participationOption, setParticipationOption] = useState(false);
   const [participationOptionError, setParticipationOptionError] = useState(false);

@@ -21,7 +21,7 @@ export default () => {
       })
       sessionStorage.setItem('isDashboardTracked',true)
     }
-  },[])
+  },[trackEvent, t])
   return (
     <Box>
       <Helmet>

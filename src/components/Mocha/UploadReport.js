@@ -170,7 +170,7 @@ const UploadReport = () => {
   }
 
   const uploadFile = () => {
-    const {token, env, uuid} = loginContext
+    const {token, uuid} = loginContext
 
     // verify that report data exists before fetch call
     if(!!formData.reportFile) {
