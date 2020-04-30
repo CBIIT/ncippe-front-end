@@ -195,7 +195,7 @@ async function withdrawUser({uuid, patientId, qsAnsDTO, token}){
   return await fetch(`/api/v1/withdraw-user-participation?${queryString.stringify(query)}`,{
     method: 'POST',
     headers: {
-      'Content-Type': 'text/plain',
+      'Content-Type': 'application/json',
       'access-control-allow-origin': '*'
     },
     body: JSON.stringify(qsAnsDTO)
