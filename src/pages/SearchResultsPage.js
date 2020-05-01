@@ -43,7 +43,7 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
-const term = window.history.state ? window.history.state.term : ""
+
 
 const SearchResults = (props) => {
   // const {location} = props
@@ -51,6 +51,7 @@ const SearchResults = (props) => {
   const { t, i18n } = useTranslation(['common','homePage','about','eligibility','research','consent','donate','testing','activate','privacy','hospitalList','searchResults'])
   const { trackEvent } = useTracking()
   // const term = location ? location.state ? location.state.term : '' : ''
+  const term = window.history.state ? window.history.state.term : ""
   const [searchTerm, setSearchTerm] = useState(term)
   const [searchTermInput, setSearchTermInput] = useState(term)
   const [searchResults, setSearchResults] = useState(false)
@@ -165,7 +166,7 @@ const SearchResults = (props) => {
       })
     }
 
-  }, [searchTerm, searchIndex, docData, trackEvent, t])
+  }, [term, searchTerm, searchIndex, docData, trackEvent, t])
 
   const handleSubmit = (e) => {
     e.preventDefault()
