@@ -71,7 +71,12 @@ const useStyles = makeStyles(theme => ({
     }
   },
   providerCard: {
-    padding: theme.spacing(4,3)
+    padding: theme.spacing(4,3),
+    '& > :not(:first-child)': {
+      marginTop: theme.spacing(2),
+      borderTop: '2px solid rgba(0, 0, 0, 0.12)',
+      paddingTop: theme.spacing(2)
+    }
   }
 
 }))
@@ -244,11 +249,16 @@ const TestResults = (props) => {
           <Typography className={classes.header} variant="h2" component="h2">{t('components.providerView.pageTitle')}</Typography>
           {user.providers ? (
             <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-              {user.providers.map((provider,i) => <Grid item xs={12} key={i}><Paper elevation={25} className={classes.providerCard}>
-                <Typography><strong>Dr. {provider.firstName} {provider.lastName}</strong></Typography>
-                <Typography><a href={`tel:${provider.phoneNumber}`}>{formatPhoneNumber(provider.phoneNumber)}</a></Typography>
-                <Typography><a href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
-              </Paper></Grid>)}
+              <Grid item xs={12}>
+                <Paper elevation={25} className={classes.providerCard}>
+                  {user.providers.map((provider,i) => <div key={i} className={classes.providerCard_details}>
+                      <Typography><strong>Dr. {provider.firstName} {provider.lastName}</strong></Typography>
+                      <Typography><a href={`tel:${provider.phoneNumber}`}>{formatPhoneNumber(provider.phoneNumber)}</a></Typography>
+                      <Typography><a href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
+                    </div>
+                  )}
+                </Paper>
+              </Grid>
             </Grid>
           ) : (
             <NoItems message={t('components.providerView.no_results')} />
