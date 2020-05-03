@@ -84,20 +84,24 @@ const FAQ = (props) => {
 
   // externally control the expansion of this component
   useEffect(() => {
-    setIsExpanded(expanded)
-  },[expanded])
-
-  // alert parent component that this faq's expanded state has changed
-  useEffect(() => {
-    if(clickHandler){
-      clickHandler(index,isExpanded)
-    }
-  },[isExpanded, clickHandler, index])
+    setIsExpanded(prev => {
+      if(clickHandler){
+        clickHandler(index,expanded)
+      }
+      return expanded
+    })
+  },[expanded, clickHandler, index])
 
   // toggle this faq
   const handleChange = () => {
-    // console.log("isExpanded",isExpanded)
-    setIsExpanded(prev => !prev)
+    setIsExpanded(prev => {
+      // alert parent component that this faq's expanded state has changed
+      if(clickHandler){
+        clickHandler(index,!prev)
+      }
+      // toggle state value
+      return !prev
+    })
   }
 
   const trackClick = (e) => {

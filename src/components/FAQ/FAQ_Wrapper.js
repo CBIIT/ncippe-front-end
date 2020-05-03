@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Box, Button, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
@@ -52,20 +52,20 @@ const FAQs = (props) => {
     // get unique values from array
     const shouldToggle = [...new Set(toggleState)]
 
-    // if there is only one unique value then set the `isExpanded` state to the shouldToggle value
-    if(shouldToggle.length === 1 ) {
-      setIsExpanded(shouldToggle[0])
-    }
+    // if there is only one unique value then set the `isExpanded` state
+    setIsExpanded(prev => {
+      return shouldToggle.length === 1 && shouldToggle[0] !== prev ? !prev : prev
+    })
   }, [toggleState])
 
   // track which faqs are open or closed
-  const trackToggle = (index,state) => {
-    setToggleState(prev => {
-      const newState = [...prev]
-      newState[index] = state;
-      return newState
-    })
-  }
+  const trackToggle = useCallback((index,state) => {
+      setToggleState(prev => {
+        const newState = [...prev]
+        newState[index] = state;
+        return newState
+      })
+    },[])
 
   return (
     <Container className={`innerContainer ${className}`} {...other} component="section">
