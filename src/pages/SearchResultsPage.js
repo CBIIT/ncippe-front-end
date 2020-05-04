@@ -205,7 +205,7 @@ const SearchResults = (props) => {
   return (
     <Box>
       <Helmet>
-      <title>{t("searchResults:metaData.title")} | NCI</title>
+      <title>{t("searchResults:metaData.title")}</title>
         <meta name="title" content={t("searchResults:metaData.title")} />
         <meta property="og:title" content={t("searchResults:metaData.OG_title")} />
         <meta name="description" content={t("searchResults:metaData.description")} />
