@@ -51,7 +51,7 @@ const EligibilityPage = () => {
   return (
     <Box component="article">
       <Helmet>
-        <title>{t("metaData.title")} | NCI</title>
+        <title>{t("metaData.title")}</title>
         <meta name="title" content={t("metaData.title")} />
         <meta property="og:title" content={t("metaData.OG_title")} />
         <meta name="description" content={t("metaData.description")} />
