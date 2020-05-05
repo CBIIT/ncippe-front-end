@@ -71,7 +71,12 @@ const useStyles = makeStyles(theme => ({
     }
   },
   providerCard: {
-    padding: theme.spacing(4,3)
+    padding: theme.spacing(4,3),
+    '& > :not(:first-child)': {
+      marginTop: theme.spacing(2),
+      borderTop: '2px solid rgba(0, 0, 0, 0.12)',
+      paddingTop: theme.spacing(2)
+    }
   }
 
 }))
@@ -220,40 +225,91 @@ const TestResults = (props) => {
               ) : (
                 <NoItems message={t('components.biomarkerView.no_results.admin')} />
               )}
-              {user && user.isActiveBiobankParticipant === false && user.questionAnswers && (
-                <DeactivatedQuestions user={user} />
-              )}
             </Grid>
-            <Grid xs={12} item id="eConsentForms">
-              <Typography className={classes.header} variant="h2" component="h2">{t('components.consentView.pageTitle')}</Typography>
-              {uploadSuccess && <Status state="success" 
-                title={t('components.participantView.status.uploaded.title')}
-                message={t('components.participantView.status.uploaded.message')} />
-              }
-              {files && files.length > 0 ? (
-                <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-                  {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} patientId={user.patientId} noBadge /></Grid>)}
-                </Grid>
-              ) : (
-                <NoItems message={t('components.consentView.no_results.admin')} />
-              )}
-            </Grid>
+
+            {/* Consent Form for CRC and above */}
+            <LoginConsumer>
+              {([{roleName}]) => {
+                return (roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && (
+                  <Grid xs={12} item id="eConsentForms">
+                    <Typography className={classes.header} variant="h2" component="h2">{t('components.consentView.pageTitle')}</Typography>
+                    {uploadSuccess && <Status state="success" 
+                      title={t('components.participantView.status.uploaded.title')}
+                      message={t('components.participantView.status.uploaded.message')} />
+                    }
+                    {files && files.length > 0 ? (
+                      <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
+                        {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} patientId={user.patientId} noBadge /></Grid>)}
+                      </Grid>
+                    ) : (
+                      <NoItems message={t('components.consentView.no_results.admin')} />
+                    )}
+                  </Grid>
+                )
+              }}
+            </LoginConsumer>
+
+            {user && user.isActiveBiobankParticipant === false && user.questionAnswers && (
+              <Grid item xs={12} id="withdrawal">
+                <Typography className={classes.header} variant="h2" component="h2">{t('components.withdrawalView.pageTitle')} </Typography>
+                  <DeactivatedQuestions user={user} />
+              </Grid>
+            )}
           </Grid>
         </Grid>
-        <Grid item xs={12} md={6} id="providers">
-          <Typography className={classes.header} variant="h2" component="h2">{t('components.providerView.pageTitle')}</Typography>
-          {user.providers ? (
-            <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-              {user.providers.map((provider,i) => <Grid item xs={12} key={i}><Paper elevation={25} className={classes.providerCard}>
-                <Typography><strong>Dr. {provider.firstName} {provider.lastName}</strong></Typography>
-                <Typography><a href={`tel:${provider.phoneNumber}`}>{formatPhoneNumber(provider.phoneNumber)}</a></Typography>
-                <Typography><a href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
-              </Paper></Grid>)}
-            </Grid>
-          ) : (
-            <NoItems message={t('components.providerView.no_results')} />
-          )}
-        </Grid>
+
+        {/* Consent Form for Provider */}
+        <LoginConsumer>
+          {([{roleName}]) => {
+            return (roleName === "ROLE_PPE_PROVIDER") && (
+              <Grid item xs={12} md={6} id="eConsentForms">
+                <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
+                  <Grid xs={12} item>
+                    <Typography className={classes.header} variant="h2" component="h2">{t('components.consentView.pageTitle')}</Typography>
+                    {uploadSuccess && <Status state="success" 
+                      title={t('components.participantView.status.uploaded.title')}
+                      message={t('components.participantView.status.uploaded.message')} />
+                    }
+                    {files && files.length > 0 ? (
+                      <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
+                        {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} patientId={user.patientId} noBadge /></Grid>)}
+                      </Grid>
+                    ) : (
+                      <NoItems message={t('components.consentView.no_results.admin')} />
+                    )}
+                  </Grid>
+                </Grid>
+              </Grid>
+            )
+          }}
+        </LoginConsumer>
+
+        {/* Show Providers assigned to this participant */}
+        <LoginConsumer>
+          {([{roleName}]) => {
+            return (roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && (
+              <Grid item xs={12} md={6} id="providers">
+                <Typography className={classes.header} variant="h2" component="h2">{t('components.providerView.pageTitle')}</Typography>
+                {user.providers ? (
+                  <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
+                    <Grid item xs={12}>
+                      <Paper elevation={25} className={classes.providerCard}>
+                        {user.providers.map((provider,i) => <div key={i} className={classes.providerCard_details}>
+                            <Typography><strong>Dr. {provider.firstName} {provider.lastName}</strong></Typography>
+                            <Typography><a href={`tel:${provider.phoneNumber}`}>{formatPhoneNumber(provider.phoneNumber)}</a></Typography>
+                            <Typography><a href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
+                          </div>
+                        )}
+                      </Paper>
+                    </Grid>
+                  </Grid>
+                ) : (
+                  <NoItems message={t('components.providerView.no_results')} />
+                )}
+              </Grid>
+            )
+          }}
+        </LoginConsumer>
       </Grid>
       <UploadConsentDialog open={dialogOpen} setParentState={closeUploadDialog} patientId={user.patientId} />
     </>
