@@ -171,12 +171,12 @@ const ExpansionMenu = (props) => {
             React.Children.map(props.children, child => {
               if(child && child.type === "a") {
                 return (
-                  <MenuItem onClick={child.props.onClick} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={loc === child.props.href}>
+                  <MenuItem onClick={child.props.onClick} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={loc === child.props.href}  className={child.props.className}>
                     <ConditionalWrapper
                       condition={loc !== child.props.href}
                       wrapper={children => <Link to={child.props.href}>{children}</Link>}
                     >
-                      {child.props.children}
+                      <span>{child.props.children}</span>
                     </ConditionalWrapper>
                   </MenuItem>
                 )
