@@ -88,6 +88,11 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: 'transparent',
     },
   },
+  subNav: {
+    "& span": {
+      paddingLeft: theme.spacing(2),
+    }
+  },
   menuIcon: {
     "& svg": {
       fontSize: "2rem"
@@ -122,8 +127,8 @@ const useStyles = makeStyles(theme => ({
   languageToggle: {
     textAlign: "right",
     backgroundImage: theme.gradients.lightBlue,
-    margin: theme.spacing(0, -3),
-    padding: theme.spacing(.75, 3),
+    margin: theme.spacing(0, -1, 0, -3),
+    padding: theme.spacing(.75, 0),
     '& a': {
       cursor: "pointer",
       fontSize: 12,
@@ -228,19 +233,26 @@ const Header = () => {
         </figure>
         {!isMobile && !loc.includes('account') && (
           <nav className={classes.publicNavDesktop} id="mainNav">
-            <MenuGroup title={t('nav.topLevel.about')} active={loc.includes('about')} id="about">
-              <a href="/about">{t('nav.about')}</a>
-              <a href="/about/eligibility">{t('nav.eligibility')}</a>
-              <a href="/about/research">{t('nav.research')}</a>
+            {/* TODO: loop through nav object and dynamically render menu items */}
+            {/* TODO: routes need to be added to translations in order to perform loop logic - or generated from translation key */}
+            <MenuGroup title={t('nav.about')} active={loc.includes('about')} id="about">
+              <a href="/about">{t('nav.about_subNav.about')}</a>
+              <a href="/about/eligibility">{t('nav.about_subNav.eligibility')}</a>
             </MenuGroup>
-            <MenuGroup title={t('nav.topLevel.expect')} active={loc.includes('expect')} id="expect">
-              <a href="/expect/consent">{t('nav.consent')}</a>
-              <a href="/expect/donate">{t('nav.donate')}</a>
-              <a href="/expect/testing">{t('nav.testing')}</a>
+            <MenuGroup title={t('nav.expect')} active={loc.includes('expect')} id="expect">
+              <a href="/expect/consent">{t('nav.expect_subNav.consent')}</a>
+              <a href="/expect/donate">{t('nav.expect_subNav.donate')}</a>
+              <a href="/expect/testing">{t('nav.expect_subNav.testing')}</a>
             </MenuGroup>
-            <MenuGroup title={t('nav.topLevel.participation')} active={loc.includes('participation')} id="participation">
-              <a href="/participation/activate">{t('nav.activate')}</a>
-              <a href="/participation/privacy">{t('nav.privacy')}</a>
+            <MenuGroup title={t('nav.participation')} active={loc.includes('participation')} id="participation">
+              <a href="/participation/activate">{t('nav.participation_subNav.activate')}</a>
+              <a href="/participation/privacy">{t('nav.participation_subNav.privacy')}</a>
+            </MenuGroup>
+            <MenuGroup title={t('nav.research')} active={loc.includes('research')} id="research">
+              <a href="/research">{t('nav.research_subNav.0')}</a>
+              <a className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.0')}</a>
+              <a className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.1')}</a>
+              <a className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.2')}</a>
             </MenuGroup>
             <Search />
           </nav>
@@ -259,41 +271,55 @@ const Header = () => {
           <Box className={classes.mobileLogin}>
             <LoginButton />
           </Box>
+          {/* TODO: loop through nav object and dynamically render menu items */}
           {!loc.includes('account') && <>
             <ExpansionMenu
               handleClick={expandPanel}
               expanded={expanded.includes("about")}
               active={loc.includes('about')}
-              name={t('nav.topLevel.about')}
+              name={t('nav.about')}
               id="about"
             >
-              <a onClick={closeMenu} href="/about">{t('nav.about')}</a>
-              <a onClick={closeMenu} href="/about/eligibility">{t('nav.eligibility')}</a>
-              <a onClick={closeMenu} href="/about/research">{t('nav.research')}</a>
+              <a onClick={closeMenu} href="/about">{t('nav.about_subNav.about')}</a>
+              <a onClick={closeMenu} href="/about/eligibility">{t('nav.about_subNav.eligibility')}</a>
             </ExpansionMenu>
 
             <ExpansionMenu
               handleClick={expandPanel}
               expanded={expanded.includes("expect")}
               active={loc.includes('expect')}
-              name={t('nav.topLevel.expect')}
+              name={t('nav.expect')}
               id="expect"
             >
-              <a onClick={closeMenu} href="/expect/consent">{t('nav.consent')}</a>
-              <a onClick={closeMenu} href="/expect/donate">{t('nav.donate')}</a>
-              <a onClick={closeMenu} href="/expect/testing">{t('nav.testing')}</a>
+              <a onClick={closeMenu} href="/expect/consent">{t('nav.expect_subNav.consent')}</a>
+              <a onClick={closeMenu} href="/expect/donate">{t('nav.expect_subNav.donate')}</a>
+              <a onClick={closeMenu} href="/expect/testing">{t('nav.expect_subNav.testing')}</a>
             </ExpansionMenu>
 
             <ExpansionMenu
               handleClick={expandPanel}
               expanded={expanded.includes("participation")}
               active={loc.includes('participation')}
-              name={t('nav.topLevel.participation')}
+              name={t('nav.participation')}
               id="participation"
             >
-              <a onClick={closeMenu} href="/participation/activate">{t('nav.activate')}</a>
-              <a onClick={closeMenu} href="/participation/privacy">{t('nav.privacy')}</a>
+              <a onClick={closeMenu} href="/participation/activate">{t('nav.participation_subNav.activate')}</a>
+              <a onClick={closeMenu} href="/participation/privacy">{t('nav.participation_subNav.privacy')}</a>
             </ExpansionMenu>
+
+            <ExpansionMenu
+              handleClick={expandPanel}
+              expanded={expanded.includes("research")}
+              active={loc.includes('research')}
+              name={t('nav.research')}
+              id="research"
+            >
+              <a onClick={closeMenu} href="/research">{t('nav.research_subNav.0')}</a>
+              <a onClick={closeMenu} className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.0')}</a>
+              <a onClick={closeMenu} className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.1')}</a>
+              <a onClick={closeMenu} className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.2')}</a>
+            </ExpansionMenu>
+
             <Box className={classes.mobileSearch} component="form" onSubmit={handleSearchSubmit}>
               <TextField
                 placeholder={t('search.input_placeholder')}

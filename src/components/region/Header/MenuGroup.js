@@ -179,12 +179,12 @@ const MenuGroup = (props) => {
               <MenuList className={classes.menuList} autoFocusItem={open} onKeyDown={handleListKeyDown}>
                 {
                   React.Children.map(props.children, child => (
-                    <StyledMenuItem onClick={handleClose} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={loc === child.props.href}>
+                    <StyledMenuItem onClick={handleClose} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={loc === child.props.href} className={child.props.className}>
                       <ConditionalWrapper
                         condition={loc !== child.props.href}
                         wrapper={children => <Link to={child.props.href}>{children}</Link>}
                       >
-                        {child.props.children}
+                        <span>{child.props.children}</span>
                       </ConditionalWrapper>
                     </StyledMenuItem>
                   ))
