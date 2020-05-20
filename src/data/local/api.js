@@ -313,7 +313,7 @@ async function reportViewedBy({uuid, reportId}){
     body: JSON.stringify(updatedReport)
   })
     .then(handleResponse)
-    .catch(handleErrorMsg('Unable to mark notifications as read.'))
+    .catch(handleErrorMsg('Unable to mark report as read.'))
 }
 
 /*=======================================================================*/
