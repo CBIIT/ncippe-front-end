@@ -1,7 +1,9 @@
-import React, { lazy } from 'react'
+import React, { lazy, useContext } from 'react'
 import { Location, Router, Redirect, navigate } from '@reach/router'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import pageWrapper from '../pages/pageWrapper'
+import getAPI from '../data'
+import { formatPhoneNumber } from '../utils/utils'
 
 // imports for public pages
 import NotFound           from '../pages/NotFoundPage'
@@ -18,9 +20,9 @@ import Research           from '../pages/research/ResearchPage'
 import Article            from '../pages/research/ArticlePage'
 
 // imports for dashboard pages
-import MockUsersPage      from '../pages/MockUsersPage'
+// import MockUsersPage      from '../pages/MockUsersPage'
 import Dashboard          from '../pages/dashboard/DashboardPage'
-import SignInCallback     from '../pages/dashboard/SignInCallback'
+// import SignInCallback     from '../pages/dashboard/SignInCallback'
 import DashboardMocha     from '../pages/dashboard/DashboardMochaPage'
 import NotificationsPage  from '../pages/dashboard/NotificationsPage'
 import TestResultsPage    from '../pages/dashboard/TestResultsPage'
@@ -51,10 +53,12 @@ const TestingPage = pageWrapper(BiomarkerTest)
 const ActivatePage = pageWrapper(Activate)
 const PrivacyPage = pageWrapper(Privacy)
 const SearchResultsPage = pageWrapper(SearchResults)
-const SignInCallbackPage = pageWrapper(SignInCallback)
+// const SignInCallbackPage = pageWrapper(SignInCallback)
 const ErrorPage = pageWrapper(Errors)
 
 const NotFoundPage = pageWrapper(NotFound)
+
+
 
 // catch relative links in the app that could not be made using @reach/router Link components
 document.addEventListener('click', function(event) {
@@ -64,12 +68,89 @@ document.addEventListener('click', function(event) {
   }
 })
 
+
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const [loginContext, dispatch] = useContext(LoginContext)
+
+  const getUserData = () => {
+
+    let params = null
+
+    if(rest.location.state) {
+      if(rest.location.state.uuid) {
+        params = {uuid:rest.location.state.uuid}
+      }
+    }
+  
+    const data = getAPI.then(api => {
+
+      console.log("params", params)
+      
+      return api.loginUser(params).then(data => {
+
+        console.log("loginUser Data", data)
+  
+        if(data instanceof Error){
+          throw new Error(data)
+        } else {
+          const hasUnviewedReports = (reports, uuid) => {
+            //TODO: only for Participants
+            if(reports){
+              return reports.some(report => {
+                if (!report.viewedBy) {
+                  return true
+                } else {
+                  return !report.viewedBy.includes(uuid)
+                }
+              })          
+            } else {
+              return null
+            }
+          }
+          
+          const userData = {
+            ...data,
+            phoneNumber: formatPhoneNumber(data.phoneNumber), //format "phoneNumber" field
+            newNotificationCount: data.notifications ? data.notifications.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0,
+            newReport: hasUnviewedReports(data.reports, data.uuid)
+          }
+    
+          // sort patient list alphabetically by last name
+          if(userData.patients && userData.patients.length > 1){
+            const sortedPatients = userData.patients
+              // sort alphabetically
+              .sort((a, b) => a.lastName.localeCompare(b.lastName))
+              // bring new accounts to the top
+              .sort((a,b) => {
+                if(a.portalAccountStatus === "ACCT_NEW" && b.portalAccountStatus !== "ACCT_NEW") {
+                  return -1
+                }
+                if(b.portalAccountStatus === "ACCT_NEW" && a.portalAccountStatus !== "ACCT_NEW") {
+                  return 1
+                }
+                return 0
+              })
+            userData.patients = sortedPatients
+          }
+    
+          return userData
+    
+        }
+      })
+      .catch(error => {
+        console.log("Error on fetchUser:", error.message)
+      })
+    })
+    .catch(error => {
+      console.log("getAPI error", error)
+    })
+    return data
+  }
+
   return (
     <LoginConsumer>
       {([state]) => {
-        console.log(state)
         if(state.auth) {
           // set default language in case it's not specified
           const lang = state.lang || "en"
@@ -81,9 +162,45 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
             moment.locale(lang)
           }
           return <Component {...rest} />
-        } else {
-          return <Redirect from="" to="/" noThrow />
         }
+        else {
+          console.log("rest",rest)
+          // if(!state.uuid){
+            const userDataPromise = getUserData()
+            console.log("userDataPromise", userDataPromise)
+
+            userDataPromise.then(userData => {
+              console.log("userData",userData)
+              if(userData) {
+                dispatch({
+                  type: 'update',
+                  userData: {
+                    auth: true,
+                    ...userData
+                  }
+                })
+                // redirect mocha admins to their specific dashboard
+                if (userData.roleName === 'ROLE_PPE_MOCHA_ADMIN' && new RegExp(/\/account(?!-)/).test(rest.path)) {
+                  return navigate('/account-mocha')
+                }
+                else {
+                  return <Component {...rest} />
+                }
+              }
+              else {
+                throw new Error(t('no user data returned from server'))
+              }
+            }).catch(error => {
+              console.log("userDataPromise", error)
+              navigate('/error')
+            })
+          // } else {
+          //   return <Redirect from="" to="/" noThrow />
+          // }
+        }
+        // console.log("userData",userData)
+
+
       }}
     </LoginConsumer>
   )
@@ -100,6 +217,7 @@ export default () => (
           className="transitionGroup"
         >
           <Router location={location} primary={false}>
+            {/* <Redirect from="/signout" to="/" noThrow /> */}
             <HomePage path='/' />
             <AboutPage path='/about' />
             <EligibilityPage path='/about/eligibility' />
@@ -114,11 +232,9 @@ export default () => (
             <SearchResultsPage path='/search' />
             <ErrorPage path='/error' />
 
-            <MockUsersPage path='/mock-users' />
-            <SignInCallbackPage path='/signin' />
-            <Redirect from="/signout" to="/" noThrow />
-            
+            {/* <SignInCallbackPage path='/signin' /> */}
             <PrivateRoute path='/account' component={DashboardPage} />
+            {/* <MockUsersPage path='/mock-users' /> */}
             <PrivateRoute path='/account-mocha' component={DashboardMochaPage} />
             <PrivateRoute path='/account/notifications' component={NotificationsPage} />
             <PrivateRoute path='/account/consent' component={ConsentPage} />
