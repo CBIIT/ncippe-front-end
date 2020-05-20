@@ -158,6 +158,7 @@ const TestResultsItem = (props) => {
           .then(() => {
             // mark this report as viewed in database
             getAPI.then(api => {
+              // Note: for local dev, this method will fail for marking consent forms as viewed because they reside inside "otherDocuments" in the mockData.js file. However, for PROD, reports and consent forms use the same api call. 
               api.reportViewedBy({patientId, uuid, reportId, token}).then(resp => {
                 if(resp instanceof Error) {
                   console.error(resp.message)
