@@ -51,9 +51,6 @@ const useStyles = makeStyles(theme => ({
       height: '100%'
     }
   },
-  fileTitle: {
-    wordBreak: 'break-all'
-  },
   icon: {
     marginRight: '4px'
   },
@@ -225,7 +222,7 @@ const TestResultsItem = (props) => {
         condition={noBadge ? false : isNewReport}
         wrapper={children => <Badge className={classes.badge} badgeContent={t('badges.new_document')} component="div">{children}</Badge>}>
         <CardContent>
-          <Typography className={classes.fileTitle} variant="h3" component="h3">{fileName}</Typography>
+          <Typography className="breakAll" variant="h3" component="h3">{fileName}</Typography>
           <Typography>{t('components.testResultItem.uploaded')} {moment(dateUploaded).format("MMM DD, YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
