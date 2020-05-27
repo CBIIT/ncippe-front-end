@@ -45,8 +45,8 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.primary,
     transform: "none"
   },
-  btnCancel: {
-    marginLeft: theme.spacing(1)
+  btnSubmit: {
+    marginRight: theme.spacing(1)
   }
 }))
 
@@ -185,8 +185,8 @@ const Profile = () => {
 
         {editMode && (
           <FormControl className={`${classes.formControl} ${classes.cta}`} >
-            <Button type="submit" variant="contained" color="primary">{t('a_common:buttons.save')}</Button>
-            <Button className={classes.btnCancel} variant="text" onClick={cancelEdit} color="primary">{t('a_common:buttons.cancel')}</Button>
+            <Button className={classes.btnSubmit} type="submit" variant="contained" color="primary">{t('a_common:buttons.save')}</Button>
+            <Button variant="text" onClick={cancelEdit} color="primary">{t('a_common:buttons.cancel')}</Button>
           </FormControl>
         )}
       </form>

@@ -20,13 +20,13 @@ const useStyles = makeStyles( theme => ({
   formButtons: {
     marginBottom: theme.spacing(2)
   },
-  btnCancel: {
-    marginLeft: theme.spacing(1)
+  btnSubmit: {
+    marginRight: theme.spacing(1)
   }
 }))
 
 const ChangeParticipation = (props) => {
-  const {nextStep, cancel} = props
+  const {nextStep, cancel, isMobile} = props
   const [loginContext] = useContext(LoginContext)
   const { isActiveBiobankParticipant } = loginContext
   const [participationOption, setParticipationOption] = useState(false);
@@ -57,11 +57,11 @@ const ChangeParticipation = (props) => {
 
   return (
     <Box>
-      <Typography className={classes.header} variant="h1" component="h1">{t('landing.pageTitle')}</Typography>
+      <Typography className={classes.header} variant={isMobile ? "h2" : "h1"} component="h1">{t('landing.pageTitle')}</Typography>
       <Typography component="div"><RenderContent source={t('landing.body')} /></Typography>
 
       <FormControl component="fieldset" className={classes.formControl}>
-        <legend><Typography variant="h3">{t('landing.form.title')}</Typography></legend>
+        <legend><Typography variant={isMobile ? "h4" : "h3"}>{t('landing.form.title')}</Typography></legend>
         <InputGroupError error={participationOptionError} errorMessage={t('landing.form.error')}>
           <RadioGroup name="changeOption" value={participationOption} onChange={changeParticipationOption}>
             <FormControlLabel value="close" control={<Radio color="primary" />} label={t('landing.form.close')} />
@@ -70,8 +70,8 @@ const ChangeParticipation = (props) => {
         </InputGroupError>
       </FormControl>
       <div className={classes.formButtons}>
-        <Button variant="contained" color="primary" onClick={handleNextStep} disabled={participationOptionError}>{t('a_common:buttons.next')}</Button>
-        <Button className={classes.btnCancel} variant="text" onClick={cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+        <Button className={classes.btnSubmit} variant="contained" color="primary" onClick={handleNextStep} disabled={participationOptionError}>{t('a_common:buttons.next')}</Button>
+        <Button variant="text" onClick={cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </div>
     </Box>
   )

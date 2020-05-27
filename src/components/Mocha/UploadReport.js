@@ -32,8 +32,8 @@ const useStyles = makeStyles( theme => ({
   btnSelectReport: {
     margin: theme.spacing(2,0,4)
   },
-  btnClear: {
-    marginLeft: theme.spacing(2)
+  btnSubmit: {
+    marginRight: theme.spacing(1)
   },
   input: {
     display: 'none'
@@ -299,8 +299,8 @@ const UploadReport = () => {
           />
           {patientData.notFound && <Status state="error" title={t('upload.0.error.title')} message={t('upload.0.error.message')} />}
           <div className={classes.formButtons}>
-              <Button variant="contained" color="primary" type="submit">{t('a_common:buttons.next')}</Button>
-              <Button variant="text" className={classes.btnClear} onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+              <Button className={classes.btnSubmit} variant="contained" color="primary" type="submit">{t('a_common:buttons.next')}</Button>
+              <Button variant="text" onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
           </div>
           </>
         )}
@@ -329,8 +329,8 @@ const UploadReport = () => {
           {formData.uploadError && <Status state="error" title={t('upload.1.error.title')} message={t('upload.1.error.message')} />}
 
           <div className={classes.formButtons}>
-            <Button variant="contained" color="primary" onClick={handleFormSubmit} disabled={!formData.reportFile}>{t('a_common:buttons.submit')}</Button>
-            <Button variant="text" className={classes.buttonClear} onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+            <Button className={classes.btnSubmit} variant="contained" color="primary" onClick={handleFormSubmit} disabled={!formData.reportFile}>{t('a_common:buttons.submit')}</Button>
+            <Button variant="text" onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
           </div>
           </>
         )}

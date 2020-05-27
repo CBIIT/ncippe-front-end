@@ -1,6 +1,6 @@
 /* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
+  v2.0 | 20110126
+  License: none (public domain)
 */
 
 html, body, div, span, applet, object, iframe,
@@ -103,7 +103,6 @@ sup {
   font-size: 60%
 }
 
-
 .active-popper {
   z-index: 10 !important;
 }
@@ -139,8 +138,17 @@ ul.bulletList > li:last-child {
   margin-bottom: 0
 }
 
-.transitionGroup {
+.breakAll {
+  word-break: break-all;
+}
+
+html, .transitionGroup {
   min-width: 320px;
+  overflow: hidden;
+}
+
+html {
+  overflow-x: auto;
 }
 
 .siteWrapper {
@@ -148,6 +156,7 @@ ul.bulletList > li:last-child {
   flex-direction: column;
   position: relative;
   width: 100vw;
+  min-width: 320px;
   height: 100vh;
   overflow: auto;
 }
@@ -187,6 +196,9 @@ ul.bulletList > li:last-child {
   left: 0;
   height: 100vh;
   overflow: auto;
+}
+.zoom-enter-done {
+  position: relative;
 }
 
 .zoom-exit {

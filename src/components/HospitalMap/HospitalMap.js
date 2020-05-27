@@ -50,9 +50,6 @@ const useStyles = makeStyles( theme => ({
       backgroundColor: 'rgba(30, 111, 214, 0.08)',
     },
   },
-  details: {
-    wordBreak: "break-all"
-  },
   icon: {
     position: "relative",
     top: 7,
@@ -209,7 +206,7 @@ const HospitalMap = (props) => {
                             {hospital.address_2 && <>, {hospital.address_2}</>}
                             , {hospital.city}, {hospital.state} {hospital.zip}<br />
                           </Typography>
-                          <Typography className={classes.details}>
+                          <Typography className="breakAll">
                             {hospital.poc && <><PersonIcon className={classes.icon} /> {hospital.poc} <br /></>}
                             {hospital.poc_email && <><EmailIcon className={classes.icon} /> {hospital.poc_email} <br /></>}
                             <PhoneIcon className={classes.icon} /> {formatPhoneNumber(hospital.telephone)} {hospital.extension && <>x{hospital.extension}</>}

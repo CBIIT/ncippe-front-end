@@ -80,9 +80,6 @@ const useStyles = makeStyles(theme => ({
   bold: {
     fontWeight: theme.typography.fontWeightBold
   },
-  breakWord: {
-    wordBreak: "break-all"
-  }
 }))
 
 
@@ -154,14 +151,14 @@ const ProfilePage = (props) => {
                   <Box mb={2} key={i}>
                     <Typography>Dr. {provider.firstName} {provider.lastName}</Typography>
                     <Typography><a href={`tel:${provider.phoneNumber}`}>{formatPhoneNumber(provider.phoneNumber)}</a></Typography>
-                    <Typography><a className={classes.breakWord} href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
+                    <Typography><a className="email" href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
                   </Box>
                 ))}
                 <Divider className={classes.innerDivider} />
                 <Typography className={classes.bold} gutterBottom>{t('contacts.crc')}</Typography>
                 <Typography>{crc.firstName} {crc.lastName}</Typography>
                 <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
-                <Typography><a className={classes.breakWord} href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
+                <Typography><a className="email" href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
               </Paper>
             )
           }}
