@@ -11,12 +11,13 @@ import Home               from '../pages/HomePage'
 import Errors             from '../pages/ErrorPage' // 'Error' is reserved keyword
 import About              from '../pages/about/AboutPage'
 import Eligibility        from '../pages/about/EligibilityPage'
-import Research           from '../pages/about/ResearchPage'
 import AboutConsent       from '../pages/expect/Consent'
 import Donate             from '../pages/expect/Donate'
 import BiomarkerTest      from '../pages/expect/BiomarkerTest'
 import Privacy            from '../pages/participation/PrivacyPage'
 import Activate           from '../pages/participation/ActivatePage'
+import Research           from '../pages/research/ResearchPage'
+import Article            from '../pages/research/ArticlePage'
 
 // imports for dashboard pages
 // import MockUsersPage      from '../pages/MockUsersPage'
@@ -43,6 +44,7 @@ const HomePage = pageWrapper(Home)
 const AboutPage = pageWrapper(About)
 const EligibilityPage = pageWrapper(Eligibility)
 const ResearchPage = pageWrapper(Research)
+const ArticlePage = pageWrapper(Article)
 const DashboardPage = pageWrapper(Dashboard)
 const DashboardMochaPage = pageWrapper(DashboardMocha)
 const AboutConsentPage = pageWrapper(AboutConsent)
@@ -219,12 +221,14 @@ export default () => (
             <HomePage path='/' />
             <AboutPage path='/about' />
             <EligibilityPage path='/about/eligibility' />
-            <ResearchPage path='/about/research' />
             <AboutConsentPage path='/expect/consent' /> 
             <DonatePage path='/expect/donate' /> 
             <TestingPage path='/expect/testing' /> 
             <ActivatePage path='/participation/activate' />
             <PrivacyPage path='/participation/privacy' />
+            <ResearchPage path='/research' />
+            <ArticlePage path='/research/:article' />
+            
             <SearchResultsPage path='/search' />
             <ErrorPage path='/error' />
 
