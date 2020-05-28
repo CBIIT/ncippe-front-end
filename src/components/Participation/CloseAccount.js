@@ -69,10 +69,15 @@ const CloseAccount = (props) => {
           // signoutRedirectCallback({
           //   accountClosed: true
           // })
-          // TODO: navigate to homepage with data of accountClosed: true
-          dispatch({
-            type: 'reset'
-          })
+          // clear user data
+          // dispatch({
+          //   type: 'reset'
+          // })
+          // redirect to signout, set localstorage variable for accountClosed
+          // on HomePage, check for accountClosed flag
+          localStorage.setItem("accountClosed", true)
+          // log user out - redirect will reload the app and clear user data
+          window.location.assign(process.env.REACT_APP_LOGOUT_LINK)
         }
       })
       .catch(error => {

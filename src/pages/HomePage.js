@@ -275,6 +275,7 @@ const HomePage = (props) => {
   const { t } = useTranslation('homePage')
   const { trackEvent } = useTracking()
   const isHighResolution = useMediaQuery('@media (min-resolution: 192dpi)')
+  const [accountClosed, setAccountClosed] = useState(localStorage.getItem('accountClosed'))
 
   useEffect(() => {
     const resizeEvt = () => {
@@ -292,14 +293,21 @@ const HomePage = (props) => {
     }
   }, [isHighResolution])
 
+  // useEffect(() => {
+  //   if(props.location && props.location.state) {
+  //     const {accountClosed} = props.location.state
+  //     if(accountClosed) {
+  //       setIsModalOpen(true)
+  //     }
+  //   }
+  // }, [props.location])
   useEffect(() => {
-    if(props.location && props.location.state) {
-      const {accountClosed} = props.location.state
-      if(accountClosed) {
-        setIsModalOpen(true)
-      }
+    if(localStorage.getItem('accountClosed')){
+      localStorage.clear('accountClosed')
+      setAccountClosed(false)
+      setIsModalOpen(true)
     }
-  }, [props.location])
+  }, [accountClosed])
 
   useEffect(() => {
     trackEvent({
