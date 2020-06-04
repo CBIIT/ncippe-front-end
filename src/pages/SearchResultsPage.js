@@ -48,7 +48,23 @@ const useStyles = makeStyles( theme => ({
 const SearchResults = (props) => {
   // const {location} = props
   const classes = useStyles()
-  const { t, i18n } = useTranslation(['common','homePage','about','eligibility','research','consent','donate','testing','activate','privacy','hospitalList','searchResults'])
+  const { t, i18n } = useTranslation([
+    'about',
+    'activate',
+    'common',
+    'consent',
+    'donate',
+    'eligibility',
+    'homePage',
+    'hospitalList',
+    'privacy',
+    'r_blakelyImprovingResponses',
+    'r_kuoInteractionsEnvironment',
+    'r_tynerAcuteMyeloid',
+    'research',
+    'searchResults',
+    'testing'
+  ])
   const { trackEvent } = useTracking()
   // const term = location ? location.state ? location.state.term : '' : ''
   const term = window.history.state ? window.history.state.term : ""
