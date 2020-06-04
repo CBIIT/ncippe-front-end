@@ -49,9 +49,9 @@ const SearchResults = (props) => {
   // const {location} = props
   const classes = useStyles()
   const { t, i18n } = useTranslation([
+    'common', // common sould always come first as the default namespace
     'about',
     'activate',
-    'common',
     'consent',
     'donate',
     'eligibility',
