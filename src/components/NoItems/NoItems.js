@@ -9,14 +9,23 @@ const useStyles = makeStyles( theme => ({
     marginTop: theme.spacing(4),
     '& > div:last-of-type': {
       maxWidth: '300px'
+    },
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+      alignItems: 'center'
     }
   },
   statusIcon: {
-    marginRight: theme.spacing(3),
     width: '140px',
+    [theme.breakpoints.up('xs')]: {
+      marginRight: theme.spacing(3)
+    }
   },
   statusText: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    [theme.breakpoints.down('xs')]: {
+      textAlign: 'center'
+    }
   },
 }))
 
