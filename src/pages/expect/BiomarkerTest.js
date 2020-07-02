@@ -175,6 +175,8 @@ const BiomarkerTest = () => {
           <Typography variant="h2" component="h2" paragraph={true}>
             <RenderContent source={t('sections.2.title')} />
           </Typography>
+
+          {/* Solid tumor sample report and guide  */}
           <Typography variant="h3" component="h3" className={classes.h3}>
             <RenderContent source={t('sections.2.subtitle.0')} />
           </Typography>
@@ -211,7 +213,8 @@ const BiomarkerTest = () => {
             </Grid>
           </Grid>
 
-          <Typography variant="h3" component="h3" className={classes.h3}>
+          {/* Blood cancer sample report - pending from NCI  */}
+          {/* <Typography variant="h3" component="h3" className={classes.h3}>
             <RenderContent source={t('sections.2.subtitle.1')} />
           </Typography>
           <Grid container mt={2} spacing={2} className={classes.samples}>
@@ -230,7 +233,7 @@ const BiomarkerTest = () => {
                 </Box>
               </Paper>
             </Grid>
-          </Grid>
+          </Grid> */}
         </Box>
 
         <Divider className={classes.divider} />
