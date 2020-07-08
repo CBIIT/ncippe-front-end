@@ -60,6 +60,7 @@ async function loginUser(){
   return await fetch(`/api/v1/login`,{
     method: 'POST',
     headers: {
+      'Content-Type': 'text/html',
       'access-control-allow-origin': '*'
     }
   })
