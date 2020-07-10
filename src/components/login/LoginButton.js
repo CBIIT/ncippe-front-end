@@ -54,7 +54,8 @@ const LoginButton = () => {
         events: 'event26',
         eventName: 'Sign in'
       })
-      window.location.assign(process.env.REACT_APP_LOGIN_LINK)
+      // window.location.assign(process.env.REACT_APP_LOGIN_LINK)
+      window.location.assign(`${process.env.REACT_APP_LOGIN_LINK}?date=${Date.now()}`)
     }
   }
   return auth ? 
