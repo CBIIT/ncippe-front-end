@@ -191,7 +191,7 @@ const ActivatePage = () => {
                 <RenderContent source={t('sections.0.title')} />
               </Typography>
               <Box className={classes.featureLinks}>
-                <Link href={`https://${process.env.REACT_APP_LOGIN_LINK}/${i18n.language === 'es' ? 'es/':''}sign_up/enter_email?request_id=${process.env.REACT_APP_REQUEST_ID}`}><Button className={classes.createAccountBtn} variant="contained" color="primary">{t('sections.0.links.0')}</Button></Link>
+                <Link href={`https://secure.login.gov/${i18n.language === 'es' ? 'es/':''}sign_up/enter_email?request_id=${process.env.REACT_APP_REQUEST_ID}`}><Button className={classes.createAccountBtn} variant="contained" color="primary">{t('sections.0.links.0')}</Button></Link>
                 <br />
                 {/* <Button className={classes.haveAccountBtn} variant="outlined" color="primary" onClick={handleLogin}>{t('sections.0.links.1')}</Button> */}
                 <Button className={classes.haveAccountBtn} variant="outlined" color="primary" disabled>{t('sections.0.links.1')}</Button>
