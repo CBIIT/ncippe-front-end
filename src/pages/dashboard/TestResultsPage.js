@@ -62,10 +62,10 @@ export default ({userName}) => {
           </Grid>
           <Grid item xs={12} md={6}>
             <Paper elevation={25}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/biomarker-test-guide-short.jpg`} alt={t('components.biomarkerView.guide.alt_text')}
+              <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/test-guide--solid-tumor.jpg.jpg`} alt={t('components.biomarkerView.guide.alt_text')}
                 srcSet={`
-                  /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/biomarker-test-guide-short.jpg 1x,
-                  /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/biomarker-test-guide-short.jpg 2x
+                  /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/test-guide--solid-tumor.jpg.jpg 1x,
+                  /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/test-guide--solid-tumor.jpg.jpg 2x
                 `}
               />
               <Divider />
