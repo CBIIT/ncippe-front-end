@@ -29,6 +29,7 @@ import ConsentPage        from '../pages/dashboard/ConsentPage'
 import ProfilePage        from '../pages/dashboard/ProfilePage'
 import ParticipationPage  from '../pages/dashboard/ParticipationPage'
 import GetHelpPage        from '../pages/dashboard/GetHelpPage'
+import ResourcesPage      from '../pages/dashboard/ResourcesPage'
 import { LoginConsumer }  from '../components/login/Login.context'
 import { useTranslation } from 'react-i18next'
 
@@ -127,6 +128,7 @@ export default () => (
             <PrivateRoute path='/account/profile' component={ProfilePage} />
             <PrivateRoute path='/account/profile/participation/*' component={ParticipationPage} />
             <PrivateRoute path='/account/help' component={GetHelpPage} />
+            <PrivateRoute path='/account/resources' component={ResourcesPage} />
             <NotFoundPage default />
           </Router>
         </CSSTransition>
