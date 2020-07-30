@@ -8,7 +8,7 @@ import { LoginConsumer, LoginContext } from '../components/login/Login.context'
 import getAPI from '../data'
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
 import Status from '../components/Status/Status'
-// import { randomString } from '../utils/utils'
+import { randomString } from '../utils/utils'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -52,20 +52,29 @@ const MockRoles = () => {
   }, [])
 
   const mockLogin = user => event => {
+    // get token
     const {email, uuid} = user;
+    // token fetch was successful, update context with user information
+    const identifier = randomString(32)
 
-    // dispatch({
-    //   type: 'update',
-    //   userData: {
-    //     uuid,
-    //     email
-    //   }
-    // })
-
-    navigate(`/account`,{
-      state: {
+    dispatch({
+      type: 'update',
+      userData: {
         uuid,
-        email
+        email,
+        mockState: identifier
+      }
+    })
+
+    navigate(`/signin?code=${uuid}&state=${identifier}`,{
+      state: {
+        mockUserLogin: true,
+        state: identifier,
+        profile: {
+          sub: uuid,
+          email,
+          jti: randomString(22)
+        }
       }
     })
   }
