@@ -63,7 +63,8 @@ const SearchResults = (props) => {
     'r_tynerAcuteMyeloid',
     'research',
     'searchResults',
-    'testing'
+    'testing',
+    'policy'
   ])
   const { trackEvent } = useTracking()
   // const term = location ? location.state ? location.state.term : '' : ''
@@ -83,7 +84,7 @@ const SearchResults = (props) => {
   
     Object.keys(data).forEach(resource => {
       if(resource !== 'common' && resource !== 'searchResults'){
-        const ignoreKeys = ['pageTitle', 'pageRoute', 'alt_text', 'metaData']
+        const ignoreKeys = ['pageTitle', 'pageRoute', 'alt_text', 'metaData', 'video_title']
         const value = objectValuesToString(data[resource], ignoreKeys)
         const entry = {
           id: resource,
