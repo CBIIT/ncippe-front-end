@@ -16,7 +16,6 @@ import Privacy            from '../pages/participation/PrivacyPage'
 import Activate           from '../pages/participation/ActivatePage'
 import Research           from '../pages/research/ResearchPage'
 import Article            from '../pages/research/ArticlePage'
-import Policy            from '../pages/PolicyPage'
 
 // imports for dashboard pages
 import MockUsersPage      from '../pages/MockUsersPage'
@@ -54,7 +53,6 @@ const PrivacyPage = pageWrapper(Privacy)
 const SearchResultsPage = pageWrapper(SearchResults)
 const SignInCallbackPage = pageWrapper(SignInCallback)
 const ErrorPage = pageWrapper(Errors)
-const PolicyPage = pageWrapper(Policy)
 
 const NotFoundPage = pageWrapper(NotFound)
 
@@ -111,7 +109,6 @@ export default () => (
             <PrivacyPage path='/participation/privacy' />
             <ResearchPage path='/research' />
             <ArticlePage path='/research/:article' />
-            <PolicyPage path='/policies/privacy-security' />
             
             <SearchResultsPage path='/search' />
             <ErrorPage path='/error' />
