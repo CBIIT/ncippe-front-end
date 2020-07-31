@@ -129,6 +129,7 @@ const Footer = () => {
         </Grid>
         <div className={classes.tagline}>{t('footer.tagline')}</div>
       </Typography>
+      <div id="external" className="visually-hidden">{t('aria.external')}</div>
     </Container>
   )
 }
