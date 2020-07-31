@@ -62,6 +62,17 @@ const PolicyPage = () => {
     })
   },[trackEvent, t])
 
+  // navigate to anchor tags on page load
+  useEffect(() => {
+    if (document.location.hash) {
+      document.querySelector(document.location.hash).scrollIntoView({
+          // optional params
+          behaviour: 'smooth',
+          block: 'start',
+      });
+    }
+  })
+
   return (
     <Box>
       <Helmet>
