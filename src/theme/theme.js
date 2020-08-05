@@ -131,6 +131,11 @@ export const theme = createMuiTheme({
     },
     h5: {
       fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+      fontWeight: 500,
+      fontSize: '16px',
+      lineHeight: '26px',
+      paragraphHeight: '20px',
+      letterSpacing: '.2',
     },
     h6: {
       fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
