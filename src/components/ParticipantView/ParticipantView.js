@@ -21,11 +21,24 @@ const useStyles = makeStyles(theme => ({
   header: {
     marginBottom: theme.spacing(2)
   },
-  profile: {
+  profileTop: {
     position: 'relative',
+    display: "flex",
+    flexDirection: "column",
+    paddingBottom: theme.spacing(4),
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: "row",
+      paddingBottom: 0
+    },
+    '& > div:first-child': {
+      flexGrow: 1
+    }
+  },
+  profile: {
     display: 'flex',
     alignItems: 'flex-start',
-    flexDirection: 'column',
+    flexGrow: 1,
+    marginBottom: theme.spacing(2),
     '& a': {
       textDecoration: 'none'
     },
@@ -57,9 +70,10 @@ const useStyles = makeStyles(theme => ({
   },
   menu: {
     position: 'absolute',
-    top: 0,
-    right: 0,
-    zIndex: 2,
+    [theme.breakpoints.up('sm')]: {
+      top: 0,
+      right: 0
+    }
   },
   divider: {
     margin: theme.spacing(4, 0)
@@ -171,40 +185,44 @@ const TestResults = (props) => {
   return (
     <>
       {user && (
-        <div className={classes.profile}>
-          <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt={t('icons.user_profile')} aria-hidden="true" />
-          <div className={`${classes.profileText} highContrast`}>
-            <Typography className={classes.profileHeader} variant="h2" component="h2">{user.firstName} {user.lastName}</Typography>
-            {user.isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>{t('badges.not_participating')}</Typography></div>}
-            <Typography><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
-            <Typography><a href={`tel:${user.phoneNumber}`}>{formatPhoneNumber(user.phoneNumber)}</a></Typography>
+        <div className={classes.profileTop}>
+          <div>
+            <div className={classes.profile}>
+              <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt={t('icons.user_profile')} aria-hidden="true" />
+              <div className={`${classes.profileText} highContrast`}>
+                <Typography className={classes.profileHeader} variant="h2" component="h2">{user.firstName} {user.lastName}</Typography>
+                {user.isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>{t('badges.not_participating')}</Typography></div>}
+                <Typography><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
+                <Typography><a href={`tel:${user.phoneNumber}`}>{formatPhoneNumber(user.phoneNumber)}</a></Typography>
+              </div>
+            </div>
+            {isNewParticipant &&
+              <Status state="success" 
+                title={t('components.participantView.status.added.title')} 
+                message={t('components.participantView.status.added.message')} />
+            }
           </div>
           <LoginConsumer>
-            {([{roleName}]) => {
-              return (roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && (
-                <ClickAwayListener onClickAway={handleClickAway}>
-                  <div className={classes.menuContainer}>
-                    <ExpansionMenu
-                      id="panel1"
-                      name={t('menu.account_actions.name')}
-                      className={classes.menu}
-                      expanded={menuOpen}
-                      handleClick={handleMenuState}
-                      variant="floating"
-                      >
-                        <MenuItem onClick={openUploadDialog}>{t('menu.account_actions.upload_consent')}</MenuItem>
-                        {user.isActiveBiobankParticipant !== false && <MenuItem onClick={openLeaveQuestions}>{t('menu.account_actions.leave_biobank')}</MenuItem>}
-                    </ExpansionMenu>
-                  </div>
-                </ClickAwayListener>
-              )
-            }}
-          </LoginConsumer>
-          {isNewParticipant &&
-            <Status state="success" 
-              title={t('components.participantView.status.added.title')} 
-              message={t('components.participantView.status.added.message')} />
-          }
+              {([{roleName}]) => {
+                return (roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && (
+                  <ClickAwayListener onClickAway={handleClickAway}>
+                    <div className={classes.menuContainer}>
+                      <ExpansionMenu
+                        id="panel1"
+                        name={t('menu.account_actions.name')}
+                        className={classes.menu}
+                        expanded={menuOpen}
+                        handleClick={handleMenuState}
+                        variant="floating"
+                        >
+                          <MenuItem onClick={openUploadDialog}>{t('menu.account_actions.upload_consent')}</MenuItem>
+                          {user.isActiveBiobankParticipant !== false && <MenuItem onClick={openLeaveQuestions}>{t('menu.account_actions.leave_biobank')}</MenuItem>}
+                      </ExpansionMenu>
+                    </div>
+                  </ClickAwayListener>
+                )
+              }}
+            </LoginConsumer>
         </div>
       )}
       {user && user.isActiveBiobankParticipant === false && <Status state="info" fullWidth 

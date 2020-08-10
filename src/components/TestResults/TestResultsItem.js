@@ -51,9 +51,6 @@ const useStyles = makeStyles(theme => ({
       height: '100%'
     }
   },
-  fileTitle: {
-    wordBreak: 'break-all'
-  },
   icon: {
     marginRight: '4px'
   },
@@ -83,6 +80,7 @@ const TestResultsItem = (props) => {
     const download = e.currentTarget.dataset.download
     const reportId = e.currentTarget.dataset.reportid
     let filename
+    let fileData
     let win
     const linkText = e.target.textContent
 
@@ -93,6 +91,9 @@ const TestResultsItem = (props) => {
         win = window.open("",`report-${reportId}`)
         win.document.title = "View Report" // TODO: translate this
         win.document.body.style.margin = 0
+        win.onunload = function() {
+          window.URL.revokeObjectURL(fileData)
+        }
       }
 
       getAPI.then(api => {
@@ -115,10 +116,9 @@ const TestResultsItem = (props) => {
               window.navigator.msSaveOrOpenBlob(blob);
               return;
             } 
-            // create url reference to blob buffer
-            const fileData = window.URL.createObjectURL(blob);
 
-            // console.log(linkText)
+            // create url reference to blob buffer
+            fileData = window.URL.createObjectURL(blob)
 
             // trigger download or render blob buffer to new window
             if(download) {
@@ -149,17 +149,13 @@ const TestResultsItem = (props) => {
                 eventName: 'AccountDocumentsView'
               })
               win.document.body.innerHTML = `<embed src='${fileData}' type='application/pdf' width='100%' height='100%' />`
+              
             }
-
-            // ensure blob buffer is cleared for garbage collection
-            setTimeout(function(){
-              // For Firefox it is necessary to delay revoking the ObjectURL
-              window.URL.revokeObjectURL(fileData);
-            }, 100);
           })
           .then(() => {
             // mark this report as viewed in database
             getAPI.then(api => {
+              // Note: for local dev, this method will fail for marking consent forms as viewed because they reside inside "otherDocuments" in the mockData.js file. However, for PROD, reports and consent forms use the same api call. 
               api.reportViewedBy({patientId, uuid, reportId, token}).then(resp => {
                 if(resp instanceof Error) {
                   console.error(resp.message)
@@ -225,7 +221,7 @@ const TestResultsItem = (props) => {
         condition={noBadge ? false : isNewReport}
         wrapper={children => <Badge className={classes.badge} badgeContent={t('badges.new_document')} component="div">{children}</Badge>}>
         <CardContent>
-          <Typography className={classes.fileTitle} variant="h3" component="h3">{fileName}</Typography>
+          <Typography className="breakAll" variant="h3" component="h3">{fileName}</Typography>
           <Typography>{t('components.testResultItem.uploaded')} {moment(dateUploaded).format("MMM DD, YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>

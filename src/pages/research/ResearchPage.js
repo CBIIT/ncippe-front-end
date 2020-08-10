@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
+import { Link as RouterLink } from '@reach/router'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
-import { Box, Container, Divider, Grid, Typography } from '@material-ui/core';
+import { Box, Container, Divider, Grid, Link, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
 
 import RenderContent from '../../components/utils/RenderContent'
@@ -51,8 +52,8 @@ const ResearchPage = () => {
         <meta property="og:title" content={t("metaData.OG_title")} />
         <meta name="description" content={t("metaData.description")} />
         <meta property="og:description" content={t("metaData.OG_description")} />
-        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/about/research`} />
-        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/about/research`} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/research`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/research`} />
       </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">
@@ -86,6 +87,22 @@ const ResearchPage = () => {
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
               <ArticleImage src="researchers-1.jpg" alt={t('sections.1.alt_text')} />
+            </Grid>
+
+            <Divider className={classes.divider} />
+
+            <Grid item xs={12} md={6} component="section">
+              <Typography paragraph={true} variant="h2" component="h2">
+                <RenderContent source={t('sections.2.title')} />
+              </Typography>
+              <div>
+                {Object.keys(t('sections.2.links', { returnObjects: true })).map((link, i) => 
+                  <Typography component="div" paragraph={true} key={i}>
+                    <Link component={RouterLink} to={t(`sections.2.links.${i}.route`)}>{t(`sections.2.links.${i}.text`)}</Link>
+                    <Typography><RenderContent source={t(`sections.2.links.${i}.author`)} /></Typography>
+                  </Typography>
+                )}
+              </div>
             </Grid>
           </Grid>
         </Box>

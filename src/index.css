@@ -1,6 +1,6 @@
 /* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
+  v2.0 | 20110126
+  License: none (public domain)
 */
 
 html, body, div, span, applet, object, iframe,
@@ -98,11 +98,28 @@ figcaption {
   font-weight: bold;
 }
 
+.external {
+  display: inline-block;
+  background-image: url('data:image/svg+xml;utf8,<svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z" style="fill: rgb(30, 111, 214)"></path></svg>');
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 28px;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 sup {
   vertical-align: super;
   font-size: 60%
 }
-
 
 .active-popper {
   z-index: 10 !important;
@@ -119,6 +136,7 @@ ul.bulletList li:before {
   background-repeat:no-repeat;
   background-size: 100% 100%;
   margin-right:10px;
+  margin-left:-16px;
 }
 ul.bulletList--spreadOut {
   margin-top: 16px;
@@ -131,7 +149,7 @@ ul.bulletList--spreadOut ul {
   margin-top: 16px;
 }
 ul.bulletList--spreadOut li {
-  padding-left: 15px;
+  padding-left: 16px;
   margin-bottom: 16px;
 }
 
@@ -139,8 +157,47 @@ ul.bulletList > li:last-child {
   margin-bottom: 0
 }
 
-.transitionGroup {
+.breakAll {
+  word-break: break-all;
+}
+
+blockquote {
+  margin: 24px 0;
+  border-left: 4px solid #979797;
+  padding-left: 54px;
+  color: #194F93;
+}
+
+blockquote p {
+  font-size: 20px !important;
+}
+
+blockquote p::before {
+  content: '\201C';
+}
+
+blockquote p::after {
+  content: '\201D';
+}
+
+cite {
+  display: block;
+  color: #707070;
+  margin-top: 24px;
+}
+
+cite::before {
+  content: '\2014';
+  padding-right: 8px;
+}
+
+html, .transitionGroup {
   min-width: 320px;
+  overflow: hidden;
+}
+
+html {
+  overflow-x: auto;
 }
 
 .siteWrapper {
@@ -148,6 +205,7 @@ ul.bulletList > li:last-child {
   flex-direction: column;
   position: relative;
   width: 100vw;
+  min-width: 320px;
   height: 100vh;
   overflow: auto;
 }
@@ -187,6 +245,9 @@ ul.bulletList > li:last-child {
   left: 0;
   height: 100vh;
   overflow: auto;
+}
+.zoom-enter-done {
+  position: relative;
 }
 
 .zoom-exit {

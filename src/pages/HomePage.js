@@ -29,6 +29,15 @@ check_webp_feature('alpha', (feature, isSupported) => {
 })
 
 const useStyles = makeStyles( theme => ({
+  banner: {
+    backgroundColor: '#FCECF1',
+    border: '1px solid #F9DEE7',
+    padding: theme.spacing(1,0),
+    textAlign: 'center',
+  },
+  bannerText: {
+    fontFamily: 'Montserrat, Helvetica, Arial, sans-serif'
+  },
   hero: {
     // backgroundColor: theme.palette.primary.lightGrey,
     backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobile/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`,
@@ -275,6 +284,7 @@ const HomePage = (props) => {
   const { t } = useTranslation('homePage')
   const { trackEvent } = useTracking()
   const isHighResolution = useMediaQuery('@media (min-resolution: 192dpi)')
+  const [accountClosed, setAccountClosed] = useState(localStorage.getItem('accountClosed'))
 
   useEffect(() => {
     const resizeEvt = () => {
@@ -292,14 +302,21 @@ const HomePage = (props) => {
     }
   }, [isHighResolution])
 
+  // useEffect(() => {
+  //   if(props.location && props.location.state) {
+  //     const {accountClosed} = props.location.state
+  //     if(accountClosed) {
+  //       setIsModalOpen(true)
+  //     }
+  //   }
+  // }, [props.location])
   useEffect(() => {
-    if(props.location && props.location.state) {
-      const {accountClosed} = props.location.state
-      if(accountClosed) {
-        setIsModalOpen(true)
-      }
+    if(localStorage.getItem('accountClosed')){
+      localStorage.clear('accountClosed')
+      setAccountClosed(false)
+      setIsModalOpen(true)
     }
-  }, [props.location])
+  }, [accountClosed])
 
   useEffect(() => {
     trackEvent({
@@ -327,6 +344,11 @@ const HomePage = (props) => {
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}`} />
       </Helmet>
+      <Container className={classes.banner}>
+        <Typography className={classes.bannerText} component="div">
+          <strong><RenderContent source={t('hero.banner')} /></strong>
+        </Typography>
+      </Container>
       <Container className={classes.hero}>
         <Box className={classes.heroText} component="section">
           {isMobile ? 

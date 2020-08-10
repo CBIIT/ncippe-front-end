@@ -54,9 +54,17 @@ const useStyles = makeStyles( theme => ({
     marginBottom: theme.spacing(2)
   },
   btnCancel: {
-    marginLeft: theme.spacing(1)
+    marginBottom: theme.spacing(1)
   },
-  confirm: {
+  btnSubmit: {
+    backgroundColor: theme.palette.error.main,
+    color: theme.palette.common.white,
+    margin: theme.spacing(0, 1, 1, 0),
+    '&:hover': {
+      backgroundColor: theme.palette.error.dark,
+    }
+  },
+  dialogBtnSubmit: {
     backgroundColor: theme.palette.error.main,
     color: theme.palette.common.white,
     '&:hover': {
@@ -66,7 +74,7 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const LeaveQuestions = (props) => {
-  const {location: {state: {user}},cancel} = props
+  const {location: {state: {user}},cancel,isMobile} = props
   const classes = useStyles()
   const { t } = useTranslation(['a_changeParticipation','a_common'])
   const { trackEvent } = useTracking()
@@ -77,7 +85,7 @@ const LeaveQuestions = (props) => {
   const [q3Error, setQ3Error] = useState(false)
 
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xs'))
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [saveError, setSaveError] = useState(false)
 
@@ -238,10 +246,10 @@ const LeaveQuestions = (props) => {
 
   return (
     <Box>
-      <Typography className={classes.header} variant="h1" component="h1">{t('leave.1.pageTitle')}</Typography>
+      <Typography className={classes.header} variant={isMobile ? "h2" : "h1"} component="h1">{t('leave.1.pageTitle')}</Typography>
       {user ? 
       <>
-      <Typography variant="h2" component="h2">{t('leave.1.subtitle.admin',{firstName:user.firstName,lastName:user.lastName})}</Typography>
+      <Typography variant={isMobile ? "h3" : "h2"} component="h2">{t('leave.1.subtitle.admin',{firstName:user.firstName,lastName:user.lastName})}</Typography>
       <Typography className={classes.gutterBottom_2}>{t('leave.1.description.admin')}</Typography>
       </>
       :
@@ -249,7 +257,7 @@ const LeaveQuestions = (props) => {
       }
       
 
-      <Typography id="q1-text" variant="h3" gutterBottom>{ user ? 
+      <Typography id="q1-text" variant={isMobile ? "h4" : "h3"} gutterBottom>{ user ? 
         t('leave.1.form.questions.0.question.admin'):t('leave.1.form.questions.0.question.participant')
       }</Typography>
       <Typography className={classes.dim}>{ user ? 
@@ -270,7 +278,7 @@ const LeaveQuestions = (props) => {
         </InputGroupError>
       </FormControl>
 
-      <Typography id="q2-text" variant="h3">{user ?
+      <Typography id="q2-text" variant={isMobile ? "h4" : "h3"}>{user ?
         t('leave.1.form.questions.1.question.admin'):t('leave.1.form.questions.1.question.participant')
       }</Typography>
       <Typography className={classes.dim}>{user ?
@@ -291,7 +299,7 @@ const LeaveQuestions = (props) => {
         </InputGroupError>
       </FormControl>
       
-      <Typography id="q3-text" variant="h3">{user ?
+      <Typography id="q3-text" variant={isMobile ? "h4" : "h3"}>{user ?
         t('leave.1.form.questions.2.question.admin'):t('leave.1.form.questions.2.question.participant')
       }</Typography>
       <Typography className={classes.dim}>{user ? 
@@ -312,7 +320,7 @@ const LeaveQuestions = (props) => {
         </InputGroupError>
       </FormControl>
 
-      <Typography id="q4-text" variant="h3">{user ?
+      <Typography id="q4-text" variant={isMobile ? "h4" : "h3"}>{user ?
         t('leave.1.form.questions.3.question.admin'):t('leave.1.form.questions.3.question.participant')
       }</Typography>
       <Typography className={classes.dim}>{user ? 
@@ -336,7 +344,7 @@ const LeaveQuestions = (props) => {
       </FormControl>
 
       <div className={classes.formButtons}>
-        <Button variant="contained" color="primary" onClick={handleNextStep}>{t('leave.1.submit')}</Button>
+        <Button className={classes.btnSubmit} variant="contained" color="primary" onClick={handleNextStep}>{t('leave.1.submit')}</Button>
         <Button className={classes.btnCancel} variant="text" onClick={cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </div>
 
@@ -348,10 +356,10 @@ const LeaveQuestions = (props) => {
       >
         <DialogContent>
           { user ? <>
-            <Typography variant="h3" component="h3">{t('leave.2.modalTitle.admin',{user:`${user.firstName} ${user.lastName}`})}</Typography>
+            <Typography variant={isMobile ? "h4" : "h3"} component="h3">{t('leave.2.modalTitle.admin',{user:`${user.firstName} ${user.lastName}`})}</Typography>
             <Typography>{t('leave.2.body.admin')}</Typography>
           </>:<>
-            <Typography variant="h3" component="h3"><RenderContent source={t('leave.2.modalTitle.participant')} /></Typography>
+            <Typography variant={isMobile ? "h4" : "h3"} component="h3"><RenderContent source={t('leave.2.modalTitle.participant')} /></Typography>
             <Typography>{t('leave.2.body.participant')}</Typography>
           </>}
 
@@ -359,8 +367,8 @@ const LeaveQuestions = (props) => {
 
         </DialogContent>
         <DialogActions>
-          <Button className={classes.confirm} onClick={handleSubmit} variant="contained">{t('leave.2.submit')}</Button>
-          <Button variant="text" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+          <Button className={classes.dialogBtnSubmit} onClick={handleSubmit} variant="contained">{t('leave.2.submit')}</Button>
+          <Button variant="text" onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
         </DialogActions>
       </Dialog>
     </Box>

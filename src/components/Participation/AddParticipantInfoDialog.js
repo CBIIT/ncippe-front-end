@@ -54,9 +54,6 @@ const useStyles = makeStyles(theme => ({
   btnSelectReport: {
     margin: theme.spacing(3,0,3)
   },
-  btnCancel: {
-    marginLeft: theme.spacing(2)
-  },
   input: {
     display: 'none'
   },
@@ -93,7 +90,7 @@ const AddParticipantInfoDialog = (props) => {
   const [formData, setFormData] = useState(formDataDefaults)
   const [activeStep, setActiveStep] = useState(0)
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xs'))
   const { t } = useTranslation(['a_addParticipant','a_common'])
   const { trackEvent } = useTracking()
   const [submitText, setSubmitText] = useState(t('form.save'))

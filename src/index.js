@@ -11,7 +11,7 @@ import logo from './utils/ascii-logo'
 // import i18n (needs to be bundled ;)) 
 import './i18n'
 
-const App = lazy(() => import('./App')) // code splitting out the main app
+const App = lazy(() => import(`./App${process.env.REACT_APP_API_PATH === 'local' ? '_dev' : ''}`)) // code splitting out the main app
 
 ReactDOM.render(
   <Suspense fallback={<div style={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}><Loading /></div>}>

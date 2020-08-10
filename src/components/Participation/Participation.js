@@ -11,7 +11,10 @@ import CloseAccount from './CloseAccount'
 
 const useStyles = makeStyles( theme => ({
   root: {
-    padding: theme.spacing(5)
+    padding: theme.spacing(2, 3),
+    [theme.breakpoints.up('sm')]: {
+      padding: theme.spacing(5)
+    }
   },
   maxWidth: {
     maxWidth: 600

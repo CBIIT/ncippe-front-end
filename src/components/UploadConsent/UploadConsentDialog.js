@@ -30,9 +30,6 @@ const useStyles = makeStyles(theme => ({
   btnSelectReport: {
     margin: theme.spacing(3,0,3)
   },
-  btnCancel: {
-    marginLeft: theme.spacing(2)
-  },
   input: {
     display: 'none'
   },
@@ -62,7 +59,7 @@ const UploadConcentDialog = (props) => {
   const { t } = useTranslation(['a_uploadConsent','a_common'])
   const { trackEvent } = useTracking()
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xs'))
 
   useEffect(() => {
     setIsOpen(open)
@@ -215,7 +212,7 @@ const UploadConcentDialog = (props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleSubmit} color="primary" variant="contained">{t('a_common:buttons.submit')}</Button>
-        <Button variant="text" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+        <Button variant="text" onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>
   )

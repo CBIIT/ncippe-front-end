@@ -1,8 +1,9 @@
 import React from 'react'
+import { Link as RouterLink, navigate } from "@reach/router"
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import { makeStyles } from '@material-ui/core/styles'
-import { Container, Grid, Typography } from '@material-ui/core'
+import { Container, Grid, Link, Typography } from '@material-ui/core'
 
 // import { newWindow } from '../../../utils/utils'
 
@@ -54,9 +55,6 @@ const useStyles = makeStyles(theme => ({
       textDecoration: 'underline'
     },
   },
-  breakAll: {
-    wordBreak: 'break-all'
-  },
   columnTitle: {
     color: theme.palette.pink.main,
     fontWeight: 'bold',
@@ -106,9 +104,9 @@ const Footer = () => {
       <Typography component="div">
         <Grid container className={classes.footerLinks} spacing={3} onClick={trackClick}>
           <Grid item xs={12} sm={4}>
-            <a className={classes.breakAll} href={`mailto:${t('footer.links.email')}`}>{t('footer.links.email')}</a>
+            <a className="breakAll" href={`mailto:${t('footer.links.email')}`}>{t('footer.links.email')}</a>
             <a href={`tel:${t('footer.links.phone')}`}>{t('footer.links.phone')}</a>
-            <a href="https://www.cancer.gov/contact">{t('footer.links.CIS')}</a>
+            <a href={t('footer.links.cis.link')}>{t('footer.links.cis.text')}</a>
             {/* <div className={classes.social}>
               <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnFacebook}><img src={`/${process.env.PUBLIC_URL}assets/icons/facebook.svg`} alt="facebook icon" title="Share this page on Facebook" /></IconButton>
               <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnTwitter}><img src={`/${process.env.PUBLIC_URL}assets/icons/twitter.svg`} alt="twitter icon" title="Share this page on Twitter" /></IconButton>
@@ -116,22 +114,23 @@ const Footer = () => {
           </Grid>
           <Grid item xs={12} sm={4}>
             <div className={classes.columnTitle}>{t('footer.links.policy_title')}</div>
-            <a href="https://www.cancer.gov/policies/disclaimer">{t('footer.links.disclaimer')}</a>
-            <a href="https://www.cancer.gov/policies/privacy-security">{t('footer.links.privacy')}</a>
-            <a href="https://www.cancer.gov/policies/accessibility">{t('footer.links.accessibility')}</a>
-            <a href="https://www.cancer.gov/policies/foia">{t('footer.links.foia')}</a>
+            <a href={t('footer.links.disclaimer.link')}>{t('footer.links.disclaimer.text')}</a>
+            <Link component={RouterLink} to={t('footer.links.privacy.link')}>{t('footer.links.privacy.text')}</Link>
+            <a href={t('footer.links.accessibility.link')}>{t('footer.links.accessibility.text')}</a>
+            <a href={t('footer.links.foia.link')}>{t('footer.links.foia.text')}</a>
           </Grid>
           <Grid item xs={12} sm={4}>
             <div className={classes.columnTitle}>{t('footer.links.resources_title')}</div>
-            <a href="https://biospecimens.cancer.gov">{t('footer.links.bio')}</a>
-            <a href="https://www.cancer.gov/">{t('footer.links.nci')}</a>
-            <a href="https://www.nih.gov/">{t('footer.links.nih')}</a>
-            <a href="https://www.hhs.gov/">{t('footer.links.hhs')}</a>
-            <a href="https://usa.gov/">{t('footer.links.usa')}</a>
+            <a href={t('footer.links.bio.link')}>{t('footer.links.bio.text')}</a>
+            <a href={t('footer.links.nci.link')}>{t('footer.links.nci.text')}</a>
+            <a href={t('footer.links.nih.link')}>{t('footer.links.nih.text')}</a>
+            <a href={t('footer.links.hhs.link')}>{t('footer.links.hhs.text')}</a>
+            <a href={t('footer.links.usa.link')}>{t('footer.links.usa.text')}</a>
           </Grid>
         </Grid>
         <div className={classes.tagline}>{t('footer.tagline')}</div>
       </Typography>
+      <div id="external" className="visually-hidden">{t('aria.external')}</div>
     </Container>
   )
 }

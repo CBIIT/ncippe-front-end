@@ -30,11 +30,12 @@ const useStyles = makeStyles( theme => ({
     margin: theme.spacing(2, 0, 5),
   },
   btnCancel: {
-    marginLeft: theme.spacing(1)
+    marginBottom: theme.spacing(1)
   },
-  confirm: {
+  btnSubmit: {
     backgroundColor: theme.palette.error.main,
     color: theme.palette.common.white,
+    margin: theme.spacing(0, 1, 1, 0),
     '&:hover': {
       backgroundColor: theme.palette.error.dark,
     }
@@ -42,6 +43,7 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const CloseAccount = (props) => {
+  const {isMobile} = props
   const classes = useStyles()
   const { t } = useTranslation(['a_changeParticipation','a_common'])
   const { trackEvent } = useTracking()
@@ -67,10 +69,15 @@ const CloseAccount = (props) => {
           // signoutRedirectCallback({
           //   accountClosed: true
           // })
-          // TODO: navigate to homepage with data of accountClosed: true
-          dispatch({
-            type: 'reset'
-          })
+          // clear user data
+          // dispatch({
+          //   type: 'reset'
+          // })
+          // redirect to signout, set localstorage variable for accountClosed
+          // on HomePage, check for accountClosed flag
+          localStorage.setItem("accountClosed", true)
+          // log user out - redirect will reload the app and clear user data
+          window.location.assign(process.env.REACT_APP_LOGOUT_LINK)
         }
       })
       .catch(error => {
@@ -82,17 +89,17 @@ const CloseAccount = (props) => {
 
   return (
     <Box>
-      <Typography className={classes.header} variant="h1" component="h1">{t('close.pageTitle')}</Typography>
+      <Typography className={classes.header} variant={isMobile ? "h2" : "h1"} component="h1">{t('close.pageTitle')}</Typography>
       <Typography paragraph={true} component="div"><RenderContent source={t('close.body')} /></Typography>
       <Paper className={classes.crc_card} elevation={25}>
         <Typography variant="h3">{t('close.crc_card_title')}</Typography>
         <Typography>{crc.firstName} {crc.lastName}</Typography>
         <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
-        <Typography><a href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
+        <Typography><a className="breakAll" href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
       </Paper>
       {closeError && <Status state="error" title={t('close.error.title')} message={t('close.error.message')} />}
       <div className={classes.formButtons}>
-        <Button className={classes.confirm} variant="contained" onClick={handleSubmit}>{t('close.submit')}</Button>
+        <Button className={classes.btnSubmit} variant="contained" onClick={handleSubmit}>{t('close.submit')}</Button>
         <Button className={classes.btnCancel} variant="text" onClick={props.cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </div>
     </Box>

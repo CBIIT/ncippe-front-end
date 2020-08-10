@@ -48,7 +48,24 @@ const useStyles = makeStyles( theme => ({
 const SearchResults = (props) => {
   // const {location} = props
   const classes = useStyles()
-  const { t, i18n } = useTranslation(['common','homePage','about','eligibility','research','consent','donate','testing','activate','privacy','hospitalList','searchResults'])
+  const { t, i18n } = useTranslation([
+    'common', // common sould always come first as the default namespace
+    'about',
+    'activate',
+    'consent',
+    'donate',
+    'eligibility',
+    'homePage',
+    'hospitalList',
+    'privacy',
+    // 'r_blakelyImprovingResponses',
+    // 'r_kuoInteractionsEnvironment',
+    // 'r_tynerAcuteMyeloid',
+    // 'research',
+    'searchResults',
+    'testing',
+    'policy'
+  ])
   const { trackEvent } = useTracking()
   // const term = location ? location.state ? location.state.term : '' : ''
   const term = window.history.state ? window.history.state.term : ""
@@ -67,7 +84,7 @@ const SearchResults = (props) => {
   
     Object.keys(data).forEach(resource => {
       if(resource !== 'common' && resource !== 'searchResults'){
-        const ignoreKeys = ['pageTitle', 'pageRoute', 'alt_text', 'metaData']
+        const ignoreKeys = ['pageTitle', 'pageRoute', 'alt_text', 'metaData', 'video_title']
         const value = objectValuesToString(data[resource], ignoreKeys)
         const entry = {
           id: resource,
