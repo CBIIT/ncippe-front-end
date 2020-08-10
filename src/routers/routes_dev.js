@@ -14,8 +14,8 @@ import Donate             from '../pages/expect/Donate'
 import BiomarkerTest      from '../pages/expect/BiomarkerTest'
 import Privacy            from '../pages/participation/PrivacyPage'
 import Activate           from '../pages/participation/ActivatePage'
-import Research           from '../pages/research/ResearchPage'
-import Article            from '../pages/research/ArticlePage'
+// import Research           from '../pages/research/ResearchPage'
+// import Article            from '../pages/research/ArticlePage'
 
 // imports for dashboard pages
 import MockUsersPage      from '../pages/MockUsersPage'
@@ -42,8 +42,8 @@ const SearchResults = lazy(() => import('../pages/SearchResultsPage'))
 const HomePage = pageWrapper(Home)
 const AboutPage = pageWrapper(About)
 const EligibilityPage = pageWrapper(Eligibility)
-const ResearchPage = pageWrapper(Research)
-const ArticlePage = pageWrapper(Article)
+// const ResearchPage = pageWrapper(Research)
+// const ArticlePage = pageWrapper(Article)
 const DashboardPage = pageWrapper(Dashboard)
 const DashboardMochaPage = pageWrapper(DashboardMocha)
 const AboutConsentPage = pageWrapper(AboutConsent)
@@ -108,8 +108,8 @@ export default () => (
             <TestingPage path='/expect/testing' /> 
             <ActivatePage path='/participation/activate' />
             <PrivacyPage path='/participation/privacy' />
-            <ResearchPage path='/research' />
-            <ArticlePage path='/research/:article' />
+            {/* <ResearchPage path='/research' />
+            <ArticlePage path='/research/:article' /> */}
             
             <SearchResultsPage path='/search' />
             <ErrorPage path='/error' />
