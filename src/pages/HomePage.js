@@ -29,6 +29,15 @@ check_webp_feature('alpha', (feature, isSupported) => {
 })
 
 const useStyles = makeStyles( theme => ({
+  banner: {
+    backgroundColor: '#FCECF1',
+    border: '1px solid #F9DEE7',
+    padding: theme.spacing(1,0),
+    textAlign: 'center',
+  },
+  bannerText: {
+    fontFamily: 'Montserrat, Helvetica, Arial, sans-serif'
+  },
   hero: {
     // backgroundColor: theme.palette.primary.lightGrey,
     backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobile/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`,
@@ -335,6 +344,11 @@ const HomePage = (props) => {
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}`} />
       </Helmet>
+      <Container className={classes.banner}>
+        <Typography className={classes.bannerText} component="div">
+          <strong><RenderContent source={t('hero.banner')} /></strong>
+        </Typography>
+      </Container>
       <Container className={classes.hero}>
         <Box className={classes.heroText} component="section">
           {isMobile ? 
