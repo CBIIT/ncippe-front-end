@@ -176,7 +176,7 @@ const BiomarkerTest = () => {
             <RenderContent source={t('sections.2.title')} />
           </Typography>
 
-          {/* Solid tumor report and guide */}
+          {/* Solid tumor sample report and guide  */}
           <Typography variant="h3" component="h3" className={classes.h3}>
             <RenderContent source={t('sections.2.subtitle.0')} />
           </Typography>
@@ -233,6 +233,7 @@ const BiomarkerTest = () => {
                 </Box>
               </Paper>
             </Grid>
+
             <Grid item xs={12} md={6}>
               <Paper elevation={25}>
                 <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/test-guide--blood-cancer.jpg`} alt={t('sections.2.samples.3.alt_text')}
