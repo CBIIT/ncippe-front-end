@@ -94,12 +94,6 @@ const PolicyPage = () => {
           <Typography component="div">
             <RenderContent source={t(`description`)} />
           </Typography>
-          <Typography className={classes.nav} component="nav">
-            <Typography component="h2">
-              <RenderContent source={t(`nav.title`)} />
-            </Typography>
-            <RenderContent source={t(`nav.body`)} />
-          </Typography>
           <section>
             <Typography variant="h2" component="h2">{t('PII.title')}</Typography>
             <Typography component="div"><RenderContent source={t(`PII.body`)} /></Typography>
@@ -108,6 +102,12 @@ const PolicyPage = () => {
             <Typography variant="h2" component="h2">{t('disclosure.title')}</Typography>
             <Typography component="div"><RenderContent source={t(`disclosure.body`)} /></Typography>
           </section>
+          <Typography className={classes.nav} component="nav">
+            <Typography component="h2">
+              <RenderContent source={t(`nav.title`)} />
+            </Typography>
+            <RenderContent source={t(`nav.body`)} />
+          </Typography>
           <section>
             <Typography id="public" variant="h2" component="h2">{t('public.title')}</Typography>
             <Typography component="div"><RenderContent source={t(`public.body`)} /></Typography>
