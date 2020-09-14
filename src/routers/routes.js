@@ -231,7 +231,7 @@ export default () => (
             <PrivacyPage path='/participation/privacy' />
             {/* <ResearchPage path='/research' /> */}
             {/* <ArticlePage path='/research/:article' /> */}
-            <PolicyPage path='/policies/privacy-security' />
+            <PolicyPage path='/website-privacy-security' />
             
             <SearchResultsPage path='/search' />
             <ErrorPage path='/error' />
