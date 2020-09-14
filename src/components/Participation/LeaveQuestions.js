@@ -207,6 +207,10 @@ const LeaveQuestions = (props) => {
           setSaveError(resp)
         } else {
           // Save successful, also update the user context data
+          // Siteminder doesn't want to send us JSON in this instance. Ensure the response is in JSON format.
+          if (typeof resp === 'string') {
+            resp = JSON.parse(resp)
+          }
           if(user) {
             // mark this one patient as withdrawn in the user's patients array
             const updatedPatientList = patients.map(patient => {
