@@ -88,11 +88,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   
     const data = getAPI.then(api => {
 
-      console.log("params", params)
+      // console.log("params", params)
       
       return api.loginUser(params).then(data => {
 
-        console.log("loginUser Data", data)
+        // console.log("loginUser Data", data)
   
         if(data instanceof Error){
           throw new Error(data)
@@ -167,13 +167,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
           return <Component {...rest} />
         }
         else {
-          console.log("rest",rest)
+          // console.log("rest",rest)
           // if(!state.uuid){
             const userDataPromise = getUserData()
-            console.log("userDataPromise", userDataPromise)
+            // console.log("userDataPromise", userDataPromise)
 
             userDataPromise.then(userData => {
-              console.log("userData",userData)
+              // console.log("userData",userData)
               if(userData) {
                 dispatch({
                   type: 'update',
@@ -231,7 +231,7 @@ export default () => (
             <PrivacyPage path='/participation/privacy' />
             {/* <ResearchPage path='/research' /> */}
             {/* <ArticlePage path='/research/:article' /> */}
-            <PolicyPage path='/policies/privacy-security' />
+            <PolicyPage path='/website-privacy-security' />
             
             <SearchResultsPage path='/search' />
             <ErrorPage path='/error' />
