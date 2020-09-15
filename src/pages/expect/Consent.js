@@ -118,7 +118,7 @@ const Consent = () => {
                   <CardMedia
                     component='iframe'
                     className={classes.media}
-                    src='https://www.youtube.com/embed/OyCFbZYgL3U'
+                    src='https://www.youtube.com/embed/KCMvPPRUcZU'
                     title={t('video_title')}
                     allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
                     allowFullScreen
