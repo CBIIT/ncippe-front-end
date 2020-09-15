@@ -340,10 +340,11 @@ const Header = () => {
         </nav>
       </Drawer>
       )}
-      {!loc.includes('account') && <Box className={classes.languageToggle}>
+      {/* Spanish language toggle */}
+      {/* {!loc.includes('account') && <Box className={classes.languageToggle}>
         <Button href="#" color="primary" onClick={toggleLang}>{t('links.language_toggle')}</Button>
       </Box>
-      }
+      } */}
     </Container>
   )
 }
