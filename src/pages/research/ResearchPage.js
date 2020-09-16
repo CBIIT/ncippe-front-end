@@ -89,7 +89,7 @@ const ResearchPage = () => {
               <ArticleImage src="researchers-1.jpg" alt={t('sections.1.alt_text')} />
             </Grid>
 
-            <Divider className={classes.divider} />
+            {/* <Divider className={classes.divider} />
 
             <Grid item xs={12} md={6} component="section">
               <Typography paragraph={true} variant="h2" component="h2">
@@ -103,7 +103,7 @@ const ResearchPage = () => {
                   </Typography>
                 )}
               </div>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Box>
       </Container>
