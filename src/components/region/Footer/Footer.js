@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link as RouterLink, navigate } from "@reach/router"
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import { makeStyles } from '@material-ui/core/styles'
@@ -115,7 +114,7 @@ const Footer = () => {
           <Grid item xs={12} sm={4}>
             <div className={classes.columnTitle}>{t('footer.links.policy_title')}</div>
             <a href={t('footer.links.disclaimer.link')}>{t('footer.links.disclaimer.text')}</a>
-            <Link component={RouterLink} to={t('footer.links.privacy.link')}>{t('footer.links.privacy.text')}</Link>
+            <a href={t('footer.links.privacy.link')}>{t('footer.links.privacy.text')}</a>
             <a href={t('footer.links.accessibility.link')}>{t('footer.links.accessibility.text')}</a>
             <a href={t('footer.links.foia.link')}>{t('footer.links.foia.text')}</a>
           </Grid>
