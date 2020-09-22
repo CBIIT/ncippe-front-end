@@ -212,7 +212,7 @@ const UploadConcentDialog = (props) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleSubmit} color="primary" variant="contained">{t('a_common:buttons.submit')}</Button>
-        <Button variant="text" onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+        <Button variant="text" color="primary" onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>
   )

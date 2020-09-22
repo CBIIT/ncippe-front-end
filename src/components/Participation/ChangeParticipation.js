@@ -71,7 +71,7 @@ const ChangeParticipation = (props) => {
       </FormControl>
       <div className={classes.formButtons}>
         <Button className={classes.btnSubmit} variant="contained" color="primary" onClick={handleNextStep} disabled={participationOptionError}>{t('a_common:buttons.next')}</Button>
-        <Button variant="text" onClick={cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+        <Button variant="text" color="primary" onClick={cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </div>
     </Box>
   )

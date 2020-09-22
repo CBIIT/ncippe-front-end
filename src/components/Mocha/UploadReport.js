@@ -300,7 +300,7 @@ const UploadReport = () => {
           {patientData.notFound && <Status state="error" title={t('upload.0.error.title')} message={t('upload.0.error.message')} />}
           <div className={classes.formButtons}>
               <Button className={classes.btnSubmit} variant="contained" color="primary" type="submit">{t('a_common:buttons.next')}</Button>
-              <Button variant="text" onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+              <Button variant="text" color="primary" onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
           </div>
           </>
         )}
@@ -330,7 +330,7 @@ const UploadReport = () => {
 
           <div className={classes.formButtons}>
             <Button className={classes.btnSubmit} variant="contained" color="primary" onClick={handleFormSubmit} disabled={!formData.reportFile}>{t('a_common:buttons.submit')}</Button>
-            <Button variant="text" onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+            <Button variant="text" color="primary" onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
           </div>
           </>
         )}
