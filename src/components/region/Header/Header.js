@@ -248,12 +248,12 @@ const Header = () => {
               <a href="/participation/activate">{t('nav.participation_subNav.activate')}</a>
               <a href="/participation/privacy">{t('nav.participation_subNav.privacy')}</a>
             </MenuGroup>
-            {/* <MenuGroup title={t('nav.research')} active={loc.includes('research')} id="research">
+            <MenuGroup title={t('nav.research')} active={loc.includes('research')} id="research">
               <a href="/research">{t('nav.research_subNav.0')}</a>
-              <a className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.0')}</a>
+              {/* <a className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.0')}</a>
               <a className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.1')}</a>
-              <a className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.2')}</a>
-            </MenuGroup> */}
+              <a className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.2')}</a> */}
+            </MenuGroup>
             <Search />
           </nav>
         )}
@@ -307,7 +307,7 @@ const Header = () => {
               <a onClick={closeMenu} href="/participation/privacy">{t('nav.participation_subNav.privacy')}</a>
             </ExpansionMenu>
 
-            {/* <ExpansionMenu
+            <ExpansionMenu
               handleClick={expandPanel}
               expanded={expanded.includes("research")}
               active={loc.includes('research')}
@@ -315,10 +315,10 @@ const Header = () => {
               id="research"
             >
               <a onClick={closeMenu} href="/research">{t('nav.research_subNav.0')}</a>
-              <a onClick={closeMenu} className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.0')}</a>
+              {/* <a onClick={closeMenu} className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.0')}</a>
               <a onClick={closeMenu} className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.1')}</a>
-              <a onClick={closeMenu} className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.2')}</a>
-            </ExpansionMenu> */}
+              <a onClick={closeMenu} className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.2')}</a> */}
+            </ExpansionMenu>
 
             <Box className={classes.mobileSearch} component="form" onSubmit={handleSearchSubmit}>
               <TextField
