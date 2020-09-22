@@ -349,7 +349,7 @@ const LeaveQuestions = (props) => {
 
       <div className={classes.formButtons}>
         <Button className={classes.btnSubmit} variant="contained" color="primary" onClick={handleNextStep}>{t('leave.1.submit')}</Button>
-        <Button className={classes.btnCancel} variant="text" onClick={cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+        <Button className={classes.btnCancel} variant="text" color="primary" onClick={cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </div>
 
       <Dialog
@@ -372,7 +372,7 @@ const LeaveQuestions = (props) => {
         </DialogContent>
         <DialogActions>
           <Button className={classes.dialogBtnSubmit} onClick={handleSubmit} variant="contained">{t('leave.2.submit')}</Button>
-          <Button variant="text" onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+          <Button variant="text" color="primary" onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
         </DialogActions>
       </Dialog>
     </Box>

@@ -456,7 +456,7 @@ const AddParticipantInfoDialog = (props) => {
       </DialogContent>
       <DialogActions>
         <Button color="primary" variant="contained" type="submit" data-form="activatePatient" onClick={submitForm}>{submitText}</Button>
-        <Button variant="text" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+        <Button variant="text" color="primary" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>
   )

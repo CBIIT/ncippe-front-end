@@ -100,7 +100,7 @@ const CloseAccount = (props) => {
       {closeError && <Status state="error" title={t('close.error.title')} message={t('close.error.message')} />}
       <div className={classes.formButtons}>
         <Button className={classes.btnSubmit} variant="contained" onClick={handleSubmit}>{t('close.submit')}</Button>
-        <Button className={classes.btnCancel} variant="text" onClick={props.cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+        <Button className={classes.btnCancel} variant="text" color="primary" onClick={props.cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </div>
     </Box>
   )

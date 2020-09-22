@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 
 import { Box, Divider, FormControl, Input, InputLabel, Paper, Typography, Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import EditIcon from '@material-ui/icons/Edit'
+import { Edit as EditIcon, Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 
@@ -186,7 +186,7 @@ const Profile = () => {
         {editMode && (
           <FormControl className={`${classes.formControl} ${classes.cta}`} >
             <Button className={classes.btnSubmit} type="submit" variant="contained" color="primary">{t('a_common:buttons.save')}</Button>
-            <Button variant="text" onClick={cancelEdit} color="primary">{t('a_common:buttons.cancel')}</Button>
+            <Button variant="text" onClick={cancelEdit} color="primary"><ClearIcon />{t('a_common:buttons.cancel')}</Button>
           </FormControl>
         )}
       </form>
