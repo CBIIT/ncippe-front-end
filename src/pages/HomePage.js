@@ -281,7 +281,7 @@ const HomePage = (props) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [mediaCardPath, setMediaCardPath] = useState(`/${process.env.PUBLIC_URL}assets/images/mediaCard/standard/`)
-  const { t } = useTranslation('homePage')
+  const { t, i18n } = useTranslation('homePage')
   const { trackEvent } = useTracking()
   const isHighResolution = useMediaQuery('@media (min-resolution: 192dpi)')
   const [accountClosed, setAccountClosed] = useState(localStorage.getItem('accountClosed'))
@@ -344,11 +344,17 @@ const HomePage = (props) => {
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}`} />
       </Helmet>
+
+
+      {/* Render the banner if it exists and the value is not an empty string */
+      i18n.exists('homePage:hero.banner') && t('hero.banner').trim().length > 0 &&
       <Container className={classes.banner}>
         <Typography className={classes.bannerText} component="div">
           <strong><RenderContent source={t('hero.banner')} /></strong>
         </Typography>
       </Container>
+      }
+
       <Container className={classes.hero}>
         <Box className={classes.heroText} component="section">
           {isMobile ? 
