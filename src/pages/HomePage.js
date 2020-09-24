@@ -456,7 +456,7 @@ const HomePage = (props) => {
               <IconCardMedia
                 title={t('participate.cards.2.title')}
                 desc={t('participate.cards.2.body')}
-                link="/research"
+                link="/about/research"
                 linkText={t('participate.cards.2.link')}
                 image={`${mediaCardPath}researcher-examines-slide.jpg`}
                 imageTitle={t('participate.cards.2.alt_text')}
