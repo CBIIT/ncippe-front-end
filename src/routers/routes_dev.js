@@ -110,7 +110,7 @@ export default () => (
             <TestingPage path='/expect/testing' /> 
             <ActivatePage path='/participation/activate' />
             <PrivacyPage path='/participation/privacy' />
-            <ResearchPage path='/research' />
+            <ResearchPage path='/about/research' />
             {/* <ArticlePage path='/research/:article' /> */}
             <PolicyPage path='/website-privacy-security' />
             
