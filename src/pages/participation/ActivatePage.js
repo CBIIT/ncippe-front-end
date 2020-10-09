@@ -281,7 +281,7 @@ const ActivatePage = () => {
               <StepContent>{t('sections.1.stepper.4.description')}</StepContent>
             </Step>
           </Stepper>
-          <Link href={`https://${process.env.REACT_APP_LOGIN_LINK}/sign_up/enter_email?request_id=${process.env.REACT_APP_REQUEST_ID}`}><Button className={classes.createAccountBtn} variant="contained" color="primary">{t('sections.1.link')}</Button></Link>
+          <Link href={`https://secure.login.gov/${i18n.language === 'es' ? 'es/':''}sign_up/enter_email?request_id=${process.env.REACT_APP_REQUEST_ID}`}><Button className={classes.createAccountBtn} variant="contained" color="primary">{t('sections.1.link')}</Button></Link>
         </Box>
 
         <Divider className={classes.divider} />
