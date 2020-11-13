@@ -377,6 +377,7 @@ html {
 .mainContainer,
 .mainContainer--dashboard,
 .innerContainer {
+  background-image: url(./assets/images/soft-diamond-background-short.svg);
   background-color: #f2f5f8;
   background-position: bottom right;
   background-repeat: no-repeat;
@@ -385,16 +386,13 @@ html {
 }
 
 .mainContainer {
-  background-image: url(/assets/images/soft-diamond-background-short.svg);
   /* border-top: 1px solid #e0e0e0; */
   min-height: calc(100vh - 84px);
 }
 .mainContainer--dashboard {
-  background-image: url(/assets/images/soft-diamond-background-short.svg);
   border-top: 1px solid #e0e0e0;
 }
 .innerContainer {
-  background-image: url(/assets/images/soft-diamond-background-short.svg);
   margin-top: 40px;
   padding-top: 36px;
 }
