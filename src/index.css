@@ -451,11 +451,11 @@ html {
 
 .MuiTypography-body1 > p,
 .MuiTypography-body2 > p,
-.MuiExpansionPanelDetails-root > p {
+.MuiAccordionDetails-root > p {
   margin-bottom: 16px;
 }
 
-.MuiExpansionPanelDetails-root > p:last-child {
+.MuiAccordionDetails-root > p:last-child {
   margin-bottom: 0
 }
 
@@ -499,7 +499,7 @@ html {
   #mainNav > * {
     height: 82px;
   }
-  #mainNav--mobile > div > .MuiExpansionPanelSummary-root {
+  #mainNav--mobile > div > .MuiAccordionSummary-root {
     height: 48px;
   }
 
