@@ -80,7 +80,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     position: 'relative',
     margin: theme.spacing(0,2),
-    minHeight: 82,
+    minHeight: 76,
     '& button': {
       fontFamily: '"Open Sans", Montserrat, Helvetica, Arial, sans-serif',
     },
