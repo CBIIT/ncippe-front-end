@@ -1,5 +1,5 @@
 import React from 'react'
-import { Badge, Paper, Typography } from '@material-ui/core'
+import { Badge, Chip, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from '@reach/router' 
 import moment from 'moment'
@@ -18,6 +18,10 @@ const useStyles = makeStyles(theme => ({
   },
   name: {
     marginBottom: theme.spacing(1)
+  },
+  chip: {
+    marginLeft: theme.spacing(1),
+    fontWeight: "normal",
   },
   new: {
     backgroundColor: theme.palette.success.light
@@ -79,7 +83,8 @@ const PatientListItem = (props) => {
         </div>
         }
         <Typography className={classes.name} variant="h3" component="h3">{
-          firstName ? `${firstName} ${lastName}` : `${t('participant.id')}: ${patientId}`
+          // firstName ? <>{firstName} {lastName} <Typography className={classes.patientId} component="span">({patientId})</Typography></> : `${t('participant.id')}: ${patientId}`
+        firstName ? <>{firstName} {lastName} <Chip className={classes.chip} size="small" label={patientId} /></> : `${t('participant.id')}: ${patientId}`
         }</Typography>
         <Typography>{t('participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
       </Paper>

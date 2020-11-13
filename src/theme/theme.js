@@ -255,6 +255,11 @@ export const theme = createMuiTheme({
       root: {
         height: '2px'
       }
+    },
+    MuiChip: {
+      root: {
+        letterSpacing: ".03rem"
+      }
     }
   }
 });
