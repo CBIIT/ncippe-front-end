@@ -14,4 +14,6 @@ const root = props => {
   }
 }
 
-export default props => <ReactMarkdown {...props} escapeHtml={false} renderers={{ root }} />
+const RenderContent =  (props) => <ReactMarkdown {...props} escapeHtml={false} renderers={{ root }} />
+
+export default RenderContent

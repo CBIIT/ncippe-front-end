@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet-async'
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
 import ParticipantView from '../../components/ParticipantView/ParticipantView'
 
-export default (props) => {
+const Page = (props) => {
   const {patientId, location} = props
   const { t } = useTranslation(['a_common'])
   return (
@@ -22,3 +22,5 @@ export default (props) => {
     </Box>
   )
 }
+
+export default Page

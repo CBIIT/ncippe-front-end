@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react'
-import { Link as RouterLink } from '@reach/router'
-import { Box, Button, Container, Typography } from '@material-ui/core'
+import { Box, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
 
 import RenderContent from '../components/utils/RenderContent'
-import { theme } from '../theme/theme'
 
 const useStyles = makeStyles( theme => ({
   // root: {

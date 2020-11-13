@@ -7,8 +7,7 @@ import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
 import ChangeParticipation from '../../components/Participation/Participation'
 
 
-
-export default (props) => {
+const Page = () => {
   const { t } = useTranslation(['a_changeParticipation'])
   return (
     <Box className="popup">
@@ -23,3 +22,5 @@ export default (props) => {
     </Box>
   )
 }
+
+export default Page

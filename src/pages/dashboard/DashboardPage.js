@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default () => {
+const Page = () => {
   const classes = useStyles()
   const { t } = useTranslation(['a_landing','a_common'])
   const { trackEvent } = useTracking()
@@ -246,3 +246,5 @@ export default () => {
     </Box>
   )
 }
+
+export default Page

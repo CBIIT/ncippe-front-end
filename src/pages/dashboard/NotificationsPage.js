@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet-async'
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
 import Notifications from '../../components/Notifications/Notifications'
 
-export default () => {
+const Page = () => {
   const { t } = useTranslation(['a_common'])
   return (
     <Box className="popup">
@@ -21,3 +21,5 @@ export default () => {
     </Box>
   )
 }
+
+export default Page
