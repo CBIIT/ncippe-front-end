@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from '@reach/router'
-import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, MenuList, MenuItem, Typography } from '@material-ui/core'
+import { Accordion, AccordionDetails, AccordionSummary, MenuList, MenuItem, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   ExpandMore,
@@ -16,15 +16,15 @@ const useStyles = makeStyles(theme => ({
       margin: 'auto',
     }
   },
-  expansionPanelSummary: {
-    '& .MuiExpansionPanelSummary-content': {
+  accordionSummary: {
+    '& .MuiAccordionSummary-content': {
       margin: 0,
       '&.Mui-expanded': {
         margin: 0,
       },
     },
   },
-  expansionPanelDetails: {
+  accordionDetails: {
     padding: 0,
   },
   menuList: {
@@ -46,29 +46,29 @@ const useStyles = makeStyles(theme => ({
     '&.Mui-expanded': {
       boxShadow: theme.shadows[4],
     },
-    '& .MuiExpansionPanelSummary-root': {
+    '& .MuiAccordionSummary-root': {
       '&.Mui-expanded': {
         borderBottom: `1px solid ${theme.palette.primary.main}`,
         minHeight: '0 !important',
       },
-      '& .MuiExpansionPanelSummary-expandIcon': {
+      '& .MuiAccordionSummary-expandIcon': {
         color: theme.palette.primary.main
       }
     }
   },
 
   stacked: {
-    '& .MuiExpansionPanelSummary-root': {
+    '& .MuiAccordionSummary-root': {
       padding: '0 12px',
 
       '&.Mui-expanded': {
         minHeight: '48px',
         backgroundColor: theme.palette.primary.light
       },
-      '& .MuiExpansionPanelSummary-content': {
+      '& .MuiAccordionSummary-content': {
         order: 1
       },
-      '& .MuiExpansionPanelSummary-expandIcon': {
+      '& .MuiAccordionSummary-expandIcon': {
         margin: 0,
         padding: '0 6px 0 0',
         '&.Mui-expanded': {
@@ -84,7 +84,7 @@ const useStyles = makeStyles(theme => ({
       '&::before': {
         opacity: 1
       },
-      '& + .MuiExpansionPanel-root::before': {
+      '& + .MuiAccordion-root::before': {
         display: 'block'
       }
     },
@@ -151,21 +151,21 @@ const ExpansionMenu = (props) => {
   }
 
   return (
-    <ExpansionPanel 
+    <Accordion 
       square 
       expanded={isExpanded}
       onChange={handleChange} 
       className={`${classes.root} ${variant !== 'stacked' ? classes.floating : classes.stacked} ${className}`}
     >
-      <ExpansionPanelSummary 
-        className={`${classes.expansionPanelSummary} ${active ? "active" : ""}`}
+      <AccordionSummary 
+        className={`${classes.accordionSummary} ${active ? "active" : ""}`}
         expandIcon={isExpanded ? <CollapseIcon /> : <ExpandIcon />}
         aria-controls={`${id}Menu--content`}
         id={`${id}Menu--header`}
       >
         <Typography variant="h4">{name}</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails className={classes.expansionPanelDetails}>
+      </AccordionSummary>
+      <AccordionDetails className={classes.accordionDetails}>
         <MenuList className={classes.menuList} autoFocusItem={isExpanded} data-panelgroup={name}>
           {
             React.Children.map(props.children, child => {
@@ -185,8 +185,8 @@ const ExpansionMenu = (props) => {
             })
           }
         </MenuList>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   )
 }
 

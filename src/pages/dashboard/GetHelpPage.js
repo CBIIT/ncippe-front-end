@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default () => {
+const Page = () => {
   const classes = useStyles()
   const { t } = useTranslation(['a_help','a_common'])
   return (
@@ -81,3 +81,5 @@ export default () => {
     </Box>
   )
 }
+
+export default Page

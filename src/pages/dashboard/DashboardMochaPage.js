@@ -7,7 +7,7 @@ import { useTracking } from 'react-tracking'
 import { LoginConsumer } from '../../components/login/Login.context'
 import UploadReport from '../../components/Mocha/UploadReport'
 
-export default () => {
+const Page = () => {
   const { t } = useTranslation(['a_landingMocha','a_common'])
   const { trackEvent } = useTracking()
   useEffect(() => {
@@ -37,3 +37,5 @@ export default () => {
     </Box>
   )
 }
+
+export default Page

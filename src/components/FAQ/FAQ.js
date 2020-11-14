@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Typography } from '@material-ui/core'
+import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   AddRounded,
@@ -16,7 +16,7 @@ const useStyles = makeStyles( theme => ({
       margin: theme.spacing(3,0),
     },
 
-    '& .MuiExpansionPanelSummary-root': {
+    '& .MuiAccordionSummary-root': {
       position: 'relative',
       backgroundImage: theme.gradients.primaryDiagonal,
       padding: '0 12px',
@@ -26,14 +26,14 @@ const useStyles = makeStyles( theme => ({
         margin: 0,
         minHeight: '0 !important',
       },
-      '& .MuiExpansionPanelSummary-content': {
+      '& .MuiAccordionSummary-content': {
         order: 1,
         zIndex: 1,
         '&.Mui-expanded': {
           margin: '12px 0',
         }
       },
-      '& .MuiExpansionPanelSummary-expandIcon': {
+      '& .MuiAccordionSummary-expandIcon': {
         margin: "12px 0 0",
         zIndex: 1,
         padding: '0 6px 0 0',
@@ -46,7 +46,7 @@ const useStyles = makeStyles( theme => ({
         }
       },
     },
-    '& .MuiExpansionPanelSummary-root::before': {
+    '& .MuiAccordionSummary-root::before': {
       content: '""',
       display: 'block',
       position: 'absolute',
@@ -65,7 +65,7 @@ const useStyles = makeStyles( theme => ({
     '& .Mui-expanded::before': {
       animation: 'whiteToTransparent 300ms both',
     },
-    '& .MuiExpansionPanelDetails-root': {
+    '& .MuiAccordionDetails-root': {
       display: 'block'
     }
   },
@@ -118,16 +118,16 @@ const FAQ = (props) => {
 
 
   return (
-    <ExpansionPanel square expanded={isExpanded} onChange={handleChange} className={classes.root} elevation={25}>
-      <ExpansionPanelSummary expandIcon={isExpanded ? <RemoveRounded /> : <AddRounded />} onClick={trackClick} aria-controls={`faq-${index}-content`} id={`faq-${index}-header`}>
+    <Accordion square expanded={isExpanded} onChange={handleChange} className={classes.root} elevation={25}>
+      <AccordionSummary expandIcon={isExpanded ? <RemoveRounded /> : <AddRounded />} onClick={trackClick} aria-controls={`faq-${index}-content`} id={`faq-${index}-header`}>
         <Typography variant="h4" component="h4">{title}</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      </AccordionSummary>
+      <AccordionDetails>
         <Typography className={classes.panelDetails} component="div">
           <RenderContent source={desc} />
         </Typography>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   )
 }
 

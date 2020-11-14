@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default (props) => <img 
+const ArticleImage = (props) => <img 
   src={process.env.PUBLIC_URL + '/assets/images/article/desktop/' + props.src} 
   alt={props.alt}
   srcSet={`
@@ -15,3 +15,5 @@ export default (props) => <img
     380px
   `}
 />
+
+export default ArticleImage

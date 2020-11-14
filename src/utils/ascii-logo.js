@@ -20,4 +20,5 @@ const nciLogo = `
 %c'uKMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM? %c'DMMAc'        
 `
 
-export default () => console.log(nciLogo,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r)
+const Logo = () => console.log(nciLogo,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r,g,r)
+export default Logo

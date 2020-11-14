@@ -91,7 +91,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   )
 }
 
-export default () => (
+const Routes = () => (
   <Location>
     {({ location }) => (
       <TransitionGroup className="transitionGroup" component={null}>
@@ -139,3 +139,5 @@ export default () => (
     )}
   </Location>
 )
+
+export default Routes

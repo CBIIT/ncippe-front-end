@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default () => {
+const Page = () => {
   const classes = useStyles()
   const [loginContext] = useContext(LoginContext)
   const {otherDocuments: files} = loginContext
@@ -68,3 +68,5 @@ export default () => {
     </Box>
   )
 }
+
+export default Page
