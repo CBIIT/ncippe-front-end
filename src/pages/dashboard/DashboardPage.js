@@ -214,7 +214,7 @@ const Page = () => {
           {/* Report Guide */}
           <LoginConsumer>
           {([{roleName,newReport: count}]) => {
-            return (roleName === "ROLE_PPE_PARTICIPANT" || roleName === "ROLE_PPE_PROVIDER") && (
+            return (roleName === "ROLE_PPE_PARTICIPANT" || roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC") && (
               <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
                 <IconCard
                   icon="one-idea-v2.svg"
