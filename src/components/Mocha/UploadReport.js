@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Box, Button, Divider, Paper, Typography, TextField, CircularProgress } from '@material-ui/core'
+import { Box, Button, Chip, Divider, Paper, Typography, TextField, CircularProgress } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   Clear as ClearIcon
@@ -40,6 +40,9 @@ const useStyles = makeStyles( theme => ({
   },
   confirmPatient_details: {
     margin: theme.spacing(3, 0)
+  },
+  chip: {
+    marginLeft: theme.spacing(1),
   },
   titleUploading: {
     marginLeft: theme.spacing(3),
@@ -308,7 +311,7 @@ const UploadReport = () => {
 
         {activeStep === 1 && (
           <>
-          <Typography variant="h2" component="h2">{t('upload.1.form_title')}: {patientData.firstName} {patientData.lastName}</Typography>
+          <Typography variant="h2" component="h2">{t('upload.1.form_title')}: {patientData.firstName} {patientData.lastName} <Chip className={classes.chip} size="small" label={patientData.patientId} /></Typography>
           <Typography variant="h3">{t('upload.1.form_subtitle')}</Typography>
           {formData.reportFile && formData.reportFile.name && (
             <FileItem file={formData.reportFile} onRemove={handleRemoveFile} />
