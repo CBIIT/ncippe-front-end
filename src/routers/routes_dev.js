@@ -15,7 +15,6 @@ import BiomarkerTest      from '../pages/expect/BiomarkerTest'
 import Privacy            from '../pages/participation/PrivacyPage'
 import Activate           from '../pages/participation/ActivatePage'
 import Research           from '../pages/research/ResearchPage'
-// import Article            from '../pages/research/ArticlePage'
 import Policy             from '../pages/PolicyPage'
 
 // imports for dashboard pages
@@ -44,7 +43,6 @@ const HomePage = pageWrapper(Home)
 const AboutPage = pageWrapper(About)
 const EligibilityPage = pageWrapper(Eligibility)
 const ResearchPage = pageWrapper(Research)
-// const ArticlePage = pageWrapper(Article)
 const DashboardPage = pageWrapper(Dashboard)
 const DashboardMochaPage = pageWrapper(DashboardMocha)
 const AboutConsentPage = pageWrapper(AboutConsent)
@@ -105,13 +103,12 @@ const Routes = () => (
             <HomePage path='/' />
             <AboutPage path='/about' />
             <EligibilityPage path='/about/eligibility' />
+            <ResearchPage path='/about/research' />
             <AboutConsentPage path='/expect/consent' /> 
             <DonatePage path='/expect/donate' /> 
             <TestingPage path='/expect/testing' /> 
             <ActivatePage path='/participation/activate' />
             <PrivacyPage path='/participation/privacy' />
-            <ResearchPage path='/research' />
-            {/* <ArticlePage path='/research/:article' /> */}
             <PolicyPage path='/website-privacy-security' />
             
             <SearchResultsPage path='/search' />
