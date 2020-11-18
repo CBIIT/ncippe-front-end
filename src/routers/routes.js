@@ -17,13 +17,10 @@ import BiomarkerTest      from '../pages/expect/BiomarkerTest'
 import Privacy            from '../pages/participation/PrivacyPage'
 import Activate           from '../pages/participation/ActivatePage'
 import Research           from '../pages/research/ResearchPage'
-// import Article            from '../pages/research/ArticlePage'
 import Policy             from '../pages/PolicyPage'
 
 // imports for dashboard pages
-// import MockUsersPage      from '../pages/MockUsersPage'
 import Dashboard          from '../pages/dashboard/DashboardPage'
-// import SignInCallback     from '../pages/dashboard/SignInCallback'
 import DashboardMocha     from '../pages/dashboard/DashboardMochaPage'
 import NotificationsPage  from '../pages/dashboard/NotificationsPage'
 import TestResultsPage    from '../pages/dashboard/TestResultsPage'
@@ -46,7 +43,6 @@ const HomePage = pageWrapper(Home)
 const AboutPage = pageWrapper(About)
 const EligibilityPage = pageWrapper(Eligibility)
 const ResearchPage = pageWrapper(Research)
-// const ArticlePage = pageWrapper(Article)
 const DashboardPage = pageWrapper(Dashboard)
 const DashboardMochaPage = pageWrapper(DashboardMocha)
 const AboutConsentPage = pageWrapper(AboutConsent)
@@ -55,7 +51,6 @@ const TestingPage = pageWrapper(BiomarkerTest)
 const ActivatePage = pageWrapper(Activate)
 const PrivacyPage = pageWrapper(Privacy)
 const SearchResultsPage = pageWrapper(SearchResults)
-// const SignInCallbackPage = pageWrapper(SignInCallback)
 const ErrorPage = pageWrapper(Errors)
 const PolicyPage = pageWrapper(Policy)
 
@@ -224,21 +219,18 @@ export default () => (
             <HomePage path='/' />
             <AboutPage path='/about' />
             <EligibilityPage path='/about/eligibility' />
+            <ResearchPage path='/about/research' />
             <AboutConsentPage path='/expect/consent' /> 
             <DonatePage path='/expect/donate' /> 
             <TestingPage path='/expect/testing' /> 
             <ActivatePage path='/participation/activate' />
             <PrivacyPage path='/participation/privacy' />
-            <ResearchPage path='/research' />
-            {/* <ArticlePage path='/research/:article' /> */}
             <PolicyPage path='/website-privacy-security' />
             
             <SearchResultsPage path='/search' />
             <ErrorPage path='/error' />
 
-            {/* <SignInCallbackPage path='/signin' /> */}
             <PrivateRoute path='/account' component={DashboardPage} />
-            {/* <MockUsersPage path='/mock-users' /> */}
             <PrivateRoute path='/account-mocha' component={DashboardMochaPage} />
             <PrivateRoute path='/account/notifications' component={NotificationsPage} />
             <PrivateRoute path='/account/consent' component={ConsentPage} />
