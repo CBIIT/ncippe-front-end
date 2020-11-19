@@ -12,6 +12,7 @@ import getAPI from '../../data'
 import { LoginContext } from '../login/Login.context'
 import UploadStepper from './UploadStepper'
 import FileItem from './FileItem'
+import ReportList from './ReportList'
 import { isValidUserId } from '../../utils/utils'
 import Status from '../Status/Status'
 
@@ -50,6 +51,27 @@ const useStyles = makeStyles( theme => ({
   },
   divider: {
     marginBottom: theme.spacing(3)
+  },
+  participantReport: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    [theme.breakpoints.up('md')]: {
+      flexDirection: 'row',
+    }
+  },
+  uploadReport: {
+    marginBottom: theme.spacing(4),
+    [theme.breakpoints.up('md')]: {
+      marginBottom: 0,
+      width: '49%',
+    }
+  },
+  reportList: {
+    [theme.breakpoints.up('md')]: {
+      width: '49%',
+      marginTop: 42
+    }
   }
 }))
 
@@ -142,12 +164,13 @@ const UploadReport = () => {
               })
             } else {
               // user found - progress
-              const {firstName, lastName, patientId} = resp
+              const {firstName, lastName, patientId, reports} = resp
               setPatientData(prevState => ({
                 ...prevState,
                 firstName,
                 lastName,
-                notFound: false
+                notFound: false,
+                reports
               }))
               setFormData(prevState => ({
                 ...prevState,
@@ -283,59 +306,64 @@ const UploadReport = () => {
         <form id="uploadPatientReport" className={classes.formUpload} autoComplete="off" onSubmit={handleFormSubmit}>
 
         {activeStep === 0 && (
-          <>
-          <Typography variant="h6">{t('upload.0.form_title')}</Typography>
-          <TextField
-            error={patientData.error}
-            required
-            id="patientId-required"
-            label={t('upload.0.input_label')}
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-            helperText={patientData.error ? t('upload.0.input_error') : t('upload.0.input_helper_text')}
-            onChange={handlePatientId}
-            value={patientData.patientId}
-            inputProps={{
-              maxLength: 20,
-            }}
-          />
-          {patientData.notFound && <Status state="error" title={t('upload.0.error.title')} message={t('upload.0.error.message')} />}
-          <div className={classes.formButtons}>
-              <Button className={classes.btnSubmit} variant="contained" color="primary" type="submit">{t('a_common:buttons.next')}</Button>
-              <Button variant="text" color="primary" onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+          <div className={classes.participantId}>
+            <Typography variant="h6">{t('upload.0.form_title')}</Typography>
+            <TextField
+              error={patientData.error}
+              required
+              id="patientId-required"
+              label={t('upload.0.input_label')}
+              className={classes.textField}
+              margin="normal"
+              variant="outlined"
+              helperText={patientData.error ? t('upload.0.input_error') : t('upload.0.input_helper_text')}
+              onChange={handlePatientId}
+              value={patientData.patientId}
+              inputProps={{
+                maxLength: 20,
+              }}
+            />
+            {patientData.notFound && <Status state="error" title={t('upload.0.error.title')} message={t('upload.0.error.message')} />}
+            <div className={classes.formButtons}>
+                <Button className={classes.btnSubmit} variant="contained" color="primary" type="submit">{t('a_common:buttons.next')}</Button>
+                <Button variant="text" color="primary" onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+            </div>
           </div>
-          </>
         )}
 
 
         {activeStep === 1 && (
-          <>
-          <Typography variant="h2" component="h2">{t('upload.1.form_title')}: {patientData.firstName} {patientData.lastName} <Chip className={classes.chip} size="small" label={patientData.patientId} /></Typography>
-          <Typography variant="h3">{t('upload.1.form_subtitle')}</Typography>
-          {formData.reportFile && formData.reportFile.name && (
-            <FileItem file={formData.reportFile} onRemove={handleRemoveFile} />
-          )}
+          <div className={classes.participantReport}>
+            <div className={classes.uploadReport}>
+              <Typography variant="h2" component="h2">{t('upload.1.form_title')}: {patientData.firstName} {patientData.lastName} <Chip className={classes.chip} size="small" label={patientData.patientId} /></Typography>
+              <Typography variant="h3">{t('upload.1.form_subtitle')}</Typography>
+              {formData.reportFile && formData.reportFile.name && (
+                <FileItem file={formData.reportFile} onRemove={handleRemoveFile} />
+              )}
 
-          <input
-            accept=".pdf"
-            className={classes.input}
-            id="report-upload-file"
-            type="file"
-            onChange={handleFileChange}
-          />
-          {!formData.reportFile && (
-            <label htmlFor="report-upload-file">
-              <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">{t('upload.1.button_select')}</Button>
-            </label>
-          )}
-          {formData.uploadError && <Status state="error" title={t('upload.1.error.title')} message={t('upload.1.error.message')} />}
+              <input
+                accept=".pdf"
+                className={classes.input}
+                id="report-upload-file"
+                type="file"
+                onChange={handleFileChange}
+              />
+              {!formData.reportFile && (
+                <label htmlFor="report-upload-file">
+                  <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">{t('upload.1.button_select')}</Button>
+                </label>
+              )}
+              {formData.uploadError && <Status state="error" title={t('upload.1.error.title')} message={t('upload.1.error.message')} />}
 
-          <div className={classes.formButtons}>
-            <Button className={classes.btnSubmit} variant="contained" color="primary" onClick={handleFormSubmit} disabled={!formData.reportFile}>{t('a_common:buttons.submit')}</Button>
-            <Button variant="text" color="primary" onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+              <div className={classes.formButtons}>
+                <Button className={classes.btnSubmit} variant="contained" color="primary" onClick={handleFormSubmit} disabled={!formData.reportFile}>{t('a_common:buttons.submit')}</Button>
+                <Button variant="text" color="primary" onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+              </div>
+            </div>
+            <div className={classes.reportList}>
+              <ReportList reports={patientData.reports} />
+            </div>
           </div>
-          </>
         )}
 
         {activeStep === 2 && (
