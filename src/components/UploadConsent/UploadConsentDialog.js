@@ -46,7 +46,9 @@ const useStyles = makeStyles(theme => ({
 const formDataDefaults = {
   file: null,
   patientId: '',
-  uploadError: false
+  uploadError: false,
+  errorTitle: '',
+  errorMessage: ''
 }
 
 const UploadConcentDialog = (props) => {
@@ -110,6 +112,19 @@ const UploadConcentDialog = (props) => {
 
     // verify that report data exists before fetch call
     if(!!formData.file) {
+
+      // validate file type
+      if(formData.file.type !== 'application/pdf') {
+        setFormData(prevState => ({
+          ...prevState,
+          uploadError: true,
+          errorTitle:t('upload.0.error.fileType.title'),
+          errorMessage:t('upload.0.error.fileType.message'),
+        }))
+
+        return
+      }
+
       trackEvent({
         prop42: `BioBank_ConsentUpload|Submit`,
         eVar42: `BioBank_ConsentUpload|Submit`,
@@ -144,7 +159,9 @@ const UploadConcentDialog = (props) => {
               setActiveStep(0)
               setFormData(prevState => ({
                 ...prevState,
-                uploadError: true
+                uploadError: true,
+                errorTitle:t('upload.0.error.onServer.title'),
+                errorMessage:t('upload.0.error.onServer.message'),
               }))
             } else {
               trackEvent({
@@ -199,7 +216,7 @@ const UploadConcentDialog = (props) => {
             <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">{t('upload.0.button_select')}</Button>
           </label>
         )}
-        {formData.uploadError && <Status state="error" title={t('upload.0.error.title')} message={t('upload.0.error.message')} />}
+        {formData.uploadError && <Status state="error" title={formData.errorTitle} message={formData.errorMessage} />}
         </>
       )}
       {activeStep === 1 && (
@@ -211,7 +228,7 @@ const UploadConcentDialog = (props) => {
       )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSubmit} color="primary" variant="contained">{t('a_common:buttons.submit')}</Button>
+        <Button disabled={!formData.file || formData.uploadError} onClick={handleSubmit} color="primary" variant="contained">{t('a_common:buttons.submit')}</Button>
         <Button variant="text" color="primary" onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>
