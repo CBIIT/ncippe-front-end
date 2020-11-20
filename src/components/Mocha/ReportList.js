@@ -20,12 +20,12 @@ const ReportList = (props) => {
   const { reports } = props
   const { t } = useTranslation('a_common')
 
-  console.log("reports", reports)
+  // console.log("reports", reports)
 
   return (
     reports && reports.length > 0 ? 
       <>
-        <Typography variant="h3" className={classes.title}>{t('components.testResultItem.uploaded')}</Typography>
+        <Typography variant="h3" className={classes.title}>{t('components.reportList.prev_uploaded')}</Typography>
         {reports.map((report,i) =>
           <Card key={i} className={classes.card} elevation={25}>
             <CardContent>

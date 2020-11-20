@@ -78,8 +78,9 @@ const formDataDefaults = {
   lang_error: false,
   file: null,
   file_error: false,
-  updateUser_error: false,
-  upload_error: false
+  file_errorTitle: '',
+  file_errorMessage: '',
+  updateUser_error: false
 }
 
 const AddParticipantInfoDialog = (props) => {
@@ -204,7 +205,7 @@ const AddParticipantInfoDialog = (props) => {
     setFormData({
       ...formData,
       file: null,
-      upload_error: false
+      file_error: false
     })
   }
 
@@ -285,8 +286,21 @@ const AddParticipantInfoDialog = (props) => {
         file_error
       }))
 
-      // if there are no errors...
-      if( !file_error ) {
+      // verify that report data exists before fetch call
+      if(!!formData.file) {
+
+        // validate file type
+        if(formData.file.type !== 'application/pdf') {
+          setFormData(prevState => ({
+            ...prevState,
+            file_error: true,
+            file_errorTitle:t('form.error.fileType.title'),
+            file_errorMessage:t('form.error.fileType.message'),
+          }))
+
+          return
+        }
+
         // submit consent form
         setActiveStep(2) // show spinning loader while fetch is running
         trackEvent({
@@ -342,7 +356,9 @@ const AddParticipantInfoDialog = (props) => {
             setActiveStep(1)
             setFormData(prevState => ({
               ...prevState,
-              upload_error: true
+              file_error: true,
+              file_errorTitle:t('form.error.uploadFile.title'),
+              file_errorMessage:t('form.error.uploadFile.message'),
             }))
           })
         })
@@ -442,8 +458,7 @@ const AddParticipantInfoDialog = (props) => {
                 <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">{t('form.consentFile')}</Button>
               </label>
             )}
-            {formData.file_error && <Status state="error" title={t('form.error.noFile.title')} message={t('form.error.noFile.message')} />}
-            {formData.upload_error && <Status state="error" title={t('form.error.uploadFile.title')} message={t('form.error.uploadFile.message')} />}
+            {formData.file_error && <Status state="error" title={formData.file_errorTitle} message={formData.file_errorMessage} />}
           </div>
         )}
         {activeStep === 2 && (
@@ -455,7 +470,7 @@ const AddParticipantInfoDialog = (props) => {
       </form>
       </DialogContent>
       <DialogActions>
-        <Button color="primary" variant="contained" type="submit" data-form="activatePatient" onClick={submitForm}>{submitText}</Button>
+        <Button disabled={activeStep === 1 && !formData.file || activeStep === 1 && formData.file_error} color="primary" variant="contained" type="submit" data-form="activatePatient" onClick={submitForm}>{submitText}</Button>
         <Button variant="text" color="primary" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>

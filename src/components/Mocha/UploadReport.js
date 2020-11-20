@@ -78,7 +78,9 @@ const useStyles = makeStyles( theme => ({
 const formDataDefaults = {
   reportFile: null,
   patientId: '',
-  uploadError: false
+  uploadError: false,
+  errorTitle: '',
+  errorMessage: ''
 }
 
 const patientDataDefaults = {
@@ -200,6 +202,19 @@ const UploadReport = () => {
 
     // verify that report data exists before fetch call
     if(!!formData.reportFile) {
+
+      // validate file type
+      if(formData.reportFile.type !== 'application/pdf') {
+        setFormData(prevState => ({
+          ...prevState,
+          uploadError: true,
+          errorTitle:t('upload.1.error.fileType.title'),
+          errorMessage:t('upload.1.error.fileType.message'),
+        }))
+
+        return
+      }
+
       setActiveStep(2)
       trackEvent({
         prop42: `BioBank_AdminUpload|FilesUploaded`,
@@ -229,7 +244,9 @@ const UploadReport = () => {
               setActiveStep(1)
               setFormData(prevState => ({
                 ...prevState,
-                uploadError: true
+                uploadError: true,
+                errorTitle: t('upload.1.error.onServer.title'),
+                errorMessage: t('upload.1.error.onServer.message')
               }))
               trackEvent({
                 prop42: `BioBank_AdminUpload|Error: Failed to upload to server`,
@@ -340,7 +357,6 @@ const UploadReport = () => {
               {formData.reportFile && formData.reportFile.name && (
                 <FileItem file={formData.reportFile} onRemove={handleRemoveFile} />
               )}
-
               <input
                 accept=".pdf"
                 className={classes.input}
@@ -353,10 +369,10 @@ const UploadReport = () => {
                   <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">{t('upload.1.button_select')}</Button>
                 </label>
               )}
-              {formData.uploadError && <Status state="error" title={t('upload.1.error.title')} message={t('upload.1.error.message')} />}
+              {formData.uploadError && <Status state="error" title={formData.errorTitle} message={formData.errorMessage} />}
 
               <div className={classes.formButtons}>
-                <Button className={classes.btnSubmit} variant="contained" color="primary" onClick={handleFormSubmit} disabled={!formData.reportFile}>{t('a_common:buttons.submit')}</Button>
+                <Button className={classes.btnSubmit} variant="contained" color="primary" onClick={handleFormSubmit} disabled={!formData.reportFile || formData.uploadError}>{t('a_common:buttons.submit')}</Button>
                 <Button variant="text" color="primary" onClick={goBack}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
               </div>
             </div>
