@@ -23,21 +23,21 @@ const ReportList = (props) => {
   // console.log("reports", reports)
 
   return (
-    reports && reports.length > 0 ? 
-      <>
-        <Typography variant="h3" className={classes.title}>{t('components.reportList.prev_uploaded')}</Typography>
-        {reports.map((report,i) =>
+    <>
+      <Typography variant="h3" className={classes.title}>{t('components.reportList.prev_uploaded')}</Typography>
+      {reports && reports.length > 0 ? 
+        reports.map((report,i) =>
           <Card key={i} className={classes.card} elevation={25}>
             <CardContent>
               <Typography className="breakAll" variant="h3" component="h3">{report.fileName}</Typography>
               <Typography>{t('components.testResultItem.uploaded')} {moment(report.dateUploaded).format("MMM DD, YYYY")}</Typography>
             </CardContent>
           </Card>
-        )}
-      </>
-      :
-      <NoItems message={t('components.biomarkerView.no_results.participant')} />
-    
+        )
+        :
+        <NoItems message={t('components.biomarkerView.no_results.participant')} />
+      }
+    </>
   )
 }
 
