@@ -12,7 +12,7 @@ import {
   Link,
   TextField,
   useMediaQuery
-} from '@material-ui/core';
+} from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { 
   MenuRounded as MenuIcon,
@@ -21,7 +21,7 @@ import {
 } from '@material-ui/icons'
 
 import LoginButton from '../../login/LoginButton'
-import MenuGroup from './MenuGroup';
+import MenuGroup from './MenuGroup'
 import ExpansionMenu from '../../ExpansionMenu/ExpansionMenu'
 import Search from '../../Search/Search'
 
@@ -139,6 +139,14 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+/**
+ * Common site header component
+ * 
+ * conditionally renders desktop or mobile menu with site search and language toggle bar
+ * note: articles have been hidden until approved for release
+ * note: language bar has been disabled until Spanish translations are approved
+ * 
+ */
 const Header = () => {
   const classes = useStyles()
   const loc = window.location.pathname
