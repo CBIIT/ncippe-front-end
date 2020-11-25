@@ -25,3 +25,6 @@ yarn-error.log*
 
 # translations
 /public/locales
+
+# dev junk
+src/**/scratch.*
