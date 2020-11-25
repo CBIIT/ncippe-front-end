@@ -6,14 +6,21 @@ import { HelmetProvider, Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 
 import Routes from './routers/routes'
-// import { AuthProvider } from './components/login/AuthContext'
 import { LoginProvider } from './components/login/Login.context'
 import { theme } from './theme/theme'
 
+// global variable for determining if a user has logged in or not. Will be toggled by SignInCallback
 window.$role = 'Public'
 
+
+/**
+ * The main app wrapper. This is littered with code for analytics tracking
+ * 
+ */
 const App = (props) => {
   const { t } = useTranslation('common')
+
+  // global variable for tracking generic links and buttons. It may be desirable to skip this tracking method if the link triggers something more specific
   window.$defaultLinkTrack = true
   
   // generic event deligation for links and buttons in the body
@@ -44,7 +51,9 @@ const App = (props) => {
 
   useEffect(()=>{
     // spawn new process - in the case of multiple tracking events, we want this generic one to be bound last so it can be consolidated/canceled by other events
-    // setTimeout(() => {
+    
+    // I guess the timeout was not working?
+    // setTimeout(() => { 
       document.addEventListener("click", genericLinkTracking, false)
     // }, 300)
     return () => {
@@ -52,22 +61,21 @@ const App = (props) => {
     }
   })
 
-  // clear tracking on app reload
+  // clear tracking specific data on app reload
   sessionStorage.setItem('isDashboardTracked',false)
 
   return (
     <ThemeProvider theme={theme}>
-      {/* <AuthProvider> */}
-        <LoginProvider>
-          <HelmetProvider>
-            <Helmet>
-              <meta name="twitter:image:alt" content={t('metaData.twitter_image_alt')} />
-            </Helmet>
-            <CssBaseline />
-            <Routes />
-          </HelmetProvider>
-        </LoginProvider>
-      {/* </AuthProvider> */}
+      <LoginProvider>
+        <HelmetProvider>
+          <Helmet>
+            {/* Common meta data used by all pages */}
+            <meta name="twitter:image:alt" content={t('metaData.twitter_image_alt')} />
+          </Helmet>
+          <CssBaseline />
+          <Routes />
+        </HelmetProvider>
+      </LoginProvider>
     </ThemeProvider>
   )
 }
@@ -128,6 +136,8 @@ export default track({
       }
 
       Object.assign(local_s, data, computedData)
+
+      // report to analytics
       local_s.t()
 
       // clear variables when done
@@ -139,6 +149,7 @@ export default track({
         ...computedData,
         prop67: computedData.pageName,
         eVar1: computedData.pageName,
+        // linkTrackVars contains all possible eVars and props used throughout the app
         linkTrackVars: 'prop11,eVar11,prop13,eVar13,prop14,eVar14,eVar37,prop41,prop42,eVar42,prop50,prop53,eVar53,prop57,prop66,eVar66,prop67', // no spaces allowed
         linkTrackEvents: data.events ? data.events.concat(",") : null
       }
@@ -149,6 +160,7 @@ export default track({
       const linkType = data.linkType || "o"
       const linkName = data.eventName || "generic"
 
+      // report to analytics
       local_s.tl(this,linkType,linkName)
 
       // clear variables when done
