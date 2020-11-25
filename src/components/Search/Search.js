@@ -41,6 +41,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+/**
+ * Site Search component seen in the common header nav
+ * 
+ * This component presents the search icon and the input field, but does not perform the site search business logic. That is handled in the SearchResultsPage.js
+ */
 const Search = () => {
   const classes = useStyles()
   const { t } = useTranslation('common')
