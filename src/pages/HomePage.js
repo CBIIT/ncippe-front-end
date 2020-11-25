@@ -3,7 +3,6 @@ import { navigate, Link as RouterLink } from '@reach/router'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
-
 import { useMediaQuery, Box, Button, Container, Dialog, DialogContent, Grid, IconButton, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
@@ -21,6 +20,7 @@ const isIE = /*@cc_on!@*/false || !!document.documentMode;
 
 let extension = 'png'
 
+// only using webp for the homepage hero since it's extra large and requires alpha transparency. webp is 80% smaller than png
 check_webp_feature('alpha', (feature, isSupported) => {
   if (isSupported) {
     // webp is supported, 
@@ -275,9 +275,13 @@ const useStyles = makeStyles( theme => ({
     fill: theme.palette.success.main
   }
 }))
-
-const HomePage = (props) => {
+/**
+ * Home Page for the app.
+ * 
+ */
+const HomePage = () => {
   const classes = useStyles()
+  // isMobile is used to toggle multiple responsive styles and component attributes. Easier than using mediaqueries for everything
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [mediaCardPath, setMediaCardPath] = useState(`/${process.env.PUBLIC_URL}assets/images/mediaCard/standard/`)
@@ -302,22 +306,6 @@ const HomePage = (props) => {
     }
   }, [isHighResolution])
 
-  // useEffect(() => {
-  //   if(props.location && props.location.state) {
-  //     const {accountClosed} = props.location.state
-  //     if(accountClosed) {
-  //       setIsModalOpen(true)
-  //     }
-  //   }
-  // }, [props.location])
-  useEffect(() => {
-    if(localStorage.getItem('accountClosed')){
-      localStorage.clear('accountClosed')
-      setAccountClosed(false)
-      setIsModalOpen(true)
-    }
-  }, [accountClosed])
-
   useEffect(() => {
     trackEvent({
       event:'pageview',
@@ -325,8 +313,19 @@ const HomePage = (props) => {
       prop6: "Home Page",
       prop10: t("metaData.title")
     })
-    //trackEvent({linkName:'somewhere', eVar8:"Frank Ali", event:'custom'})
   },[trackEvent, t])
+
+  /* 
+    If a user has just closed their account then a modal will be triggered to confirm their account was closed. 
+    This occurs after a forced logout and redirection to HomePage
+  */
+  useEffect(() => {
+    if(localStorage.getItem('accountClosed')){
+      localStorage.clear('accountClosed')
+      setAccountClosed(false)
+      setIsModalOpen(true)
+    }
+  }, [accountClosed])
 
   const handleClose = () => {
     setIsModalOpen(false)
@@ -425,6 +424,7 @@ const HomePage = (props) => {
         <Box>{/* empty box because Container must have children */}</Box>
       </Container>
       <Container className={`${classes.volunteer} accentImage`}>
+        {/* IE11 doesn't like svg background images, so drop it in as an accent image here */}
         {isIE && <img className="accentImage--img" src={`/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-long.svg`} alt="accent image" aria-hidden="true" />}
         <Box component="section">
           <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}>
