@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Link } from '@reach/router'
-import { useTracking } from 'react-tracking'
+import { Link, useLocation } from '@reach/router'
+// import { useTracking } from 'react-tracking'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { 
   Button,
@@ -12,7 +12,7 @@ import {
   Popper,
 } from '@material-ui/core';
 
-import ConditionalWrapper from '../../utils/ConditionalWrapper'
+import ConditionalWrapper from '../../../utils/ConditionalWrapper'
 
 const useStyles = makeStyles(theme => ({
   popper: {
@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const StyledMenuItem = withStyles(theme => ({
+export const StyledMenuItem = withStyles(theme => ({
   root: {
     borderBottom: `1px solid #ccc`,
     padding: 0,
@@ -71,36 +71,29 @@ const StyledMenuItem = withStyles(theme => ({
 
 const MenuGroup = (props) => {
   const randomNum = Math.floor(Math.random() * 1000) + 1
-  const { id = randomNum} = props
+  const { id = randomNum, trackEvent = (e) => console.log('track event', e)} = props
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const [popperClass, setPopperClass] = useState(false)
   const anchorRef = useRef(null)
   const containerNode = document.querySelector("#root .transitionGroup")
-  const { trackEvent } = useTracking()
+  // const { trackEvent } = useTracking()
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
     setPopperClass(prev => !prev ? 'active-popper' : false)
-    trackEvent({
-      prop53: `BioBank_TopNav|${props.title}`,
-      eVar53: `BioBank_TopNav|${props.title}`,
-      events:'event26',
-      eventName: 'ToggleMenuReveal'
-    })
+    trackEvent("toggle menu reveal",{title: props.title})
   }
 
-  const handleClose = event => {
+  const handleClose = (event) => {
     if (event.target.classList.contains("Mui-selected") || (anchorRef.current && anchorRef.current.contains(event.target))) {
       return
     }
 
     if(event.currentTarget !== window.document) {
-      trackEvent({
-        prop53: `BioBank_TopNav|${props.title}|${event.target.textContent}`,
-        eVar53: `BioBank_TopNav|${props.title}|${event.target.textContent}`,
-        events:'event28',
-        eventName: 'ToggleMenuLink'
+      trackEvent("toggle menu link", {
+        title: props.title,
+        textContent: event.target.textContent
       })
     }
 
@@ -126,7 +119,8 @@ const MenuGroup = (props) => {
     event.currentTarget.focus()
   }
 
-  const loc = window.location.pathname
+  // const loc = window.location.pathname
+  const location = useLocation().pathname
 
   // return focus to the button when we transitioned from !open -> open
   // this does not work when clicking from one menu item to the next
@@ -179,9 +173,9 @@ const MenuGroup = (props) => {
               <MenuList className={classes.menuList} autoFocusItem={open} onKeyDown={handleListKeyDown}>
                 {
                   React.Children.map(props.children, child => (
-                    <StyledMenuItem onClick={handleClose} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={loc === child.props.href} className={child.props.className}>
+                    <StyledMenuItem onClick={handleClose} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={location === child.props.href} className={child.props.className}>
                       <ConditionalWrapper
-                        condition={loc !== child.props.href}
+                        condition={location !== child.props.href}
                         wrapper={children => <Link to={child.props.href}>{children}</Link>}
                       >
                         <span>{child.props.children}</span>
