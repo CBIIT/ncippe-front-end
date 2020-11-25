@@ -1,7 +1,17 @@
+/**
+ * Checks if a string is literally 'true' or 'false' and returns the proper boolean value
+ * @param {string} val
+ * @return {boolean}
+ */
 export const getBool = (val) => {
   return !!JSON.parse(String(val).toLowerCase());
 }
 
+/**
+ * Attempts to clean up and format phone numbers in a standard way
+ * @param {string|number} number
+ * @return {string} formatted (###) ###-####
+ */
 export const formatPhoneNumber = (number) => {
   const cleaned = ('' + number).replace(/\D/g, '')
   const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
@@ -11,17 +21,30 @@ export const formatPhoneNumber = (number) => {
   return null
 }
 
+/**
+ * Validate UUID format
+ * @param {string} uuid - example is '8b36b0c8-69d0-4042-ae02-03e795b2f0f8'
+ * @return {boolean}
+ */
 export const isValidUUID = (uuid) => {
   const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   return uuidRegex.test(uuid)
 }
 
+/**
+ * Validate UserId
+ * @param {string} id - safe characters only, between 1 and 20 characters long
+ * @return {boolean}
+ */
 export const isValidUserId = (id) => {
-  // safe characters only, between 1 and 20 characters long
   const userIdRegex = /[A-Za-z0-9._~()'!*:@,;+?-]{1,20}/;
   return userIdRegex.test(id)
 }
 
+/**
+ * Create UUIDs 
+ * @return {string} Unique UUID
+ */
 export const createUUID = () => {
   return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => {
     const crypto = window.crypto || window.msCrypto
@@ -30,8 +53,28 @@ export const createUUID = () => {
   })
 }
 
+/**
+ * Create a random string of text
+ * @param {number} length 
+ * @return {string} a string of random text (no spaces)
+ */
 export const randomString = (length) => [...Array(length)].map(i=>(~~(Math.random()*36)).toString(36)).join('')
 
+/**
+ * Create a random number
+ * @param {number} digits - Maximum number of place values
+ * @return {number}
+ */
+const randomNum = (digits = 1) => Math.floor(Math.random() * (Math.pow(10,Math.abs(digits)))) + 1
+
+/**
+ * Consolidates arrays within an object
+ * @example
+ * // returns [24,35,46,26,4,15]
+ * flatArray({open:[24,35],pending:[46,26],closed:[4,15]})
+ * @param {Object} object - Object to find arrays within
+ * @return {Array}
+ */
 export const flatArray = (object) => Object.keys(object).reduce((arr,key) => {
   if(Array.isArray(object[key])) {
     return arr.concat(...object[key])
@@ -39,6 +82,12 @@ export const flatArray = (object) => Object.keys(object).reduce((arr,key) => {
   return arr
 },[])
 
+/**
+ * Matches a user's role to a database table or database query. Only used for JSON Server api calls on dev environment.
+ * @param {string} role - User role to match to database name
+ * @param {boolean} [list] - group ends in 's' or 'Id'
+ * @returns {string}
+ */
 export const getUserGroup = (role, list = true) => {
   const suffix = list ? 's' : 'Id'
   switch(role) {
@@ -59,6 +108,21 @@ export const getUserGroup = (role, list = true) => {
   }
 }
 
+/**
+ * Flatten a multidimensional/deep object 
+ * @example
+ * // returns {red.0: "apple", red.1: "button", orange.food.0: "juice", orange.food.1: "orange"}
+ * flattenObject({
+ *  red:['apple','button'],
+ *  orange:{
+ *    food:['juice','orange']
+ *  }
+ * })
+ * @param {Object} obj - The deep object to be flattened
+ * @param {string} parent - The parent name prepended to key names (used recursively)
+ * @param {string} [delimiter] - defaults to '.' | The text used to seperate parent and child keys
+ * @returns {Object}
+ */
 export const flattenObject = (obj,parent,delimiter = '.') => {
   const flattened = {}
   Object.keys(obj).forEach((key) => {
@@ -73,7 +137,17 @@ export const flattenObject = (obj,parent,delimiter = '.') => {
   return flattened
 }
 
-export const objectValuesToString = (obj, ignore, divider = ' | ') => {
+/**
+ * Convert all values in an object into a single string. Works recursively
+ * @example
+ * // return "Jim | Joe | Jane | Jack | Jill | "
+ * objectValuesToString({boss:'Jim',manager:'Joe',coworkers:['Jane','Jack','Jill']})
+ * @param {Object} obj - The object to convert
+ * @param {Array} [ignore] - Keys to ignore
+ * @param {*} [divider] - Join object values. Default values is ' | '
+ * @returns {string} 
+ */
+export const objectValuesToString = (obj, ignore = [], divider = ' | ') => {
 
   let out = ''
   Object.keys(obj).map((key) => {
@@ -160,9 +234,17 @@ export const newWindow = (url, customOptions = {}) => {
   return openWindow;
 }
 
-// check_webp_feature:
-//   'feature' can be one of 'lossy', 'lossless', 'alpha' or 'animation'.
-//   'callback(feature, isSupported)' will be passed back the detection result (in an asynchronous way!)
+/**
+ * Callback for check_webp_feature
+ * @callback webp_cb
+ * @param {string} feature - forwards the feature argument
+ * @param {string} result - will be passed back the detection result (in an asynchronous way!)
+ */
+/**
+ * Check which webp image features are supported by the browser
+ * @param {string} feature - Can be one of 'lossy', 'lossless', 'alpha' or 'animation'
+ * @param {webp_cb} callback - callback with requested feature and the result
+ */
 export const check_webp_feature = (feature, callback) => {
   const kTestImages = {
       lossy: "UklGRiIAAABXRUJQVlA4IBYAAAAwAQCdASoBAAEADsD+JaQAA3AAAAAA",
