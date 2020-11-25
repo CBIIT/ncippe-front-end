@@ -84,6 +84,10 @@ const Footer = () => {
     }
   }
 
+/*
+  Social media integrations on hold until we get Server Side Rendering (SSR) or https://prerender.io/ working, which will respond to search engines and crawlers with correct metadata
+*/
+
   // const handleShareOnFacebook = (e) => {
   //   const url = `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`
   //   newWindow(url)
