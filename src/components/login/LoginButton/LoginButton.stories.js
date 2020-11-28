@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { createMemorySource, createHistory, LocationProvider } from '@reach/router'
 import LoginButton from './'
 import { LoginContext } from '../Login.context'
@@ -26,17 +26,12 @@ export default {
       }
     }
   }
-};
-
-// const stopEvent = (event) => {
-//   event.stopPropagation()
-//   console.log("Event Captured")
-// }
+}
 
 export const Button = (args) => {
   const path = args.isAccount ? "/account" : "/"
-  let source = createMemorySource(path)
-  let history = createHistory(source)
+  const source = createMemorySource(path)
+  const history = createHistory(source)
 
   return (
     <LoginContext.Provider value={[{auth: args.authenticated}]}>
