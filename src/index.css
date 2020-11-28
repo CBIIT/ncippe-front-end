@@ -121,10 +121,6 @@ sup {
   font-size: 60%
 }
 
-.active-popper {
-  z-index: 10 !important;
-}
-
 ul.bulletList, ul.bulletList ul {
   margin-left: 20px;
   /* transparent gif bullet */

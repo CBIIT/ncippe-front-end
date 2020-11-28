@@ -10,7 +10,7 @@ import {
   MenuList,
   Paper,
   Popper,
-} from '@material-ui/core';
+} from '@material-ui/core'
 
 import ConditionalWrapper from '../../../utils/ConditionalWrapper'
 
@@ -28,6 +28,9 @@ const useStyles = makeStyles(theme => ({
     borderRadius: 0,
     marginTop: 5,
     fontWeight: 'bold',
+  },
+  activePopper: {
+    zIndex: '10 !important'
   },
   menuList: {
     padding: 0,
@@ -81,7 +84,7 @@ const MenuGroup = (props) => {
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
-    setPopperClass(prev => !prev ? 'active-popper' : false)
+    setPopperClass(prev => !prev ? classes.activePopper : false)
     trackEvent("toggle menu reveal",{title: props.title})
   }
 
@@ -127,7 +130,7 @@ const MenuGroup = (props) => {
   const prevOpen = useRef(open)
   useEffect(() => {
     // check if another MenuGroup was clicked on
-    const activePoppers = document.querySelectorAll(".active-popper")
+    const activePoppers = document.querySelectorAll('[class*="active-popper"]')
 
     if (prevOpen.current === true && open === false && activePoppers.length < 2) {
       anchorRef.current.focus()
