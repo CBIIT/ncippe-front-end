@@ -114,7 +114,7 @@ const useStyles = makeStyles(theme => ({
 const ExpansionMenu = (props) => {
   const classes = useStyles()
   const {
-    id = "panel1", 
+    index = "panel1", 
     name,
     className = "", 
     expanded = false,
@@ -160,8 +160,8 @@ const ExpansionMenu = (props) => {
       <AccordionSummary 
         className={`${classes.accordionSummary} ${active ? "active" : ""}`}
         expandIcon={isExpanded ? <CollapseIcon /> : <ExpandIcon />}
-        aria-controls={`${id}Menu--content`}
-        id={`${id}Menu--header`}
+        aria-controls={`${index}Menu--content`}
+        id={`${index}Menu--header`}
       >
         <Typography variant="h4">{name}</Typography>
       </AccordionSummary>
