@@ -18,7 +18,4 @@ export default {
 const Template = (args) => <Breadcrumb {...args} />
 
 export const DemoBreadcrumb = Template.bind({})
-DemoBreadcrumb.storyName = "Demo Breadcrumb"
-DemoBreadcrumb.args = {
-
-}
+DemoBreadcrumb.storyName = "Breadcrumb"
