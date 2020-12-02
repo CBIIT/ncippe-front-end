@@ -19,7 +19,7 @@ const useStyles = makeStyles( theme => ({
   question: {
     fontWeight: theme.typography.fontWeightBold
   }
-}))
+}),{name: 'DeactivatedQuestions'})
 
 const DeactivatedQuestions = (props) => {
   const {user} = props

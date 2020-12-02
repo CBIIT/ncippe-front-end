@@ -73,7 +73,7 @@ const useStyles = makeStyles( theme => ({
       marginTop: 42
     }
   }
-}))
+}),{name: 'UploadReport'})
 
 const formDataDefaults = {
   reportFile: null,

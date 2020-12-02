@@ -51,7 +51,7 @@ const useStyles = makeStyles( theme => ({
   title: {
     fontWeight: theme.typography.fontWeightBold
   }
-}))
+}),{name: 'Status'})
 
 const Status = (props) => {
   const {state = 'info', title, message} = props

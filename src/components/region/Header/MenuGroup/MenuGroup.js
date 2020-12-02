@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
       }
     },
   }
-}))
+}),{name: 'MenuGroup'})
 
 export const StyledMenuItem = withStyles(theme => ({
   root: {
@@ -65,7 +65,7 @@ export const StyledMenuItem = withStyles(theme => ({
       backgroundColor: 'rgba(0,0,0,.08)',
     },
   },
-}))(props => <MenuItem {...props}/>)
+}),{name: 'StyledMenuItem'})(props => <MenuItem {...props}/>)
 
 /**
  * Dropdown navigation menu component used in the top level global navigation on desktop

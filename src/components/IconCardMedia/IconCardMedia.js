@@ -25,9 +25,9 @@ const useStyles = makeStyles( theme => ({
     padding: theme.spacing(2,0),
     margin: theme.spacing(0,2)
   }
-}))
+}),{name: 'IconCardMedia'})
 
-const Component = (props) => {
+const IconCardMedia = (props) => {
   const {title, desc, image, imageTitle, link, linkText} = props
   const classes = useStyles()
 
@@ -59,4 +59,4 @@ const Component = (props) => {
   )
 }
 
-export default Component
+export default IconCardMedia

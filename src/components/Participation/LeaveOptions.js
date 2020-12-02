@@ -18,7 +18,7 @@ const useStyles = makeStyles( theme => ({
   btnSubmit: {
     marginRight: theme.spacing(1)
   }
-}))
+}),{name: 'LeaveOptions'})
 
 const LeaveOptions = (props) => {
   const {isMobile} = props

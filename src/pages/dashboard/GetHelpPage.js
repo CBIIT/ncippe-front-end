@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(7,0)
     }
   },
-}))
+}),{name: 'GetHelpPage'})
 
 const Page = () => {
   const classes = useStyles()

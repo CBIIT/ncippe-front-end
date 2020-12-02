@@ -12,7 +12,7 @@ const useStyles = makeStyles( theme => ({
     color: theme.palette.error.text,
     fontWeight: 'bold'
   }
-}))
+}),{name: 'InputGroupError'})
 
 const InputGroupError = (props) => {
   const classes = useStyles()

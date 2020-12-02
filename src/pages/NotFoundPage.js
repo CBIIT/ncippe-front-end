@@ -23,7 +23,7 @@ const useStyles = makeStyles( theme => ({
       fontSize: "5.8rem",
     }
   }
-}))
+}),{name: 'NotFoundPage'})
 
 const ErrorPage = () => {
   const classes = useStyles()

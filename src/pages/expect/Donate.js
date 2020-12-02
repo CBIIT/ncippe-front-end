@@ -39,7 +39,7 @@ const useStyles = makeStyles( theme => ({
       }
     }
   },
-}))
+}),{name: 'DonatePage'})
 
 const BodyContent = () => {
   const classes = useStyles()

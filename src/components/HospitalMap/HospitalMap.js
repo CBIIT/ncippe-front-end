@@ -59,7 +59,7 @@ const useStyles = makeStyles( theme => ({
   divider: {
     margin: theme.spacing(0,3)
   }
-}))
+}),{name: 'HospitalMap'})
 
 const HospitalMap = (props) => {
   const classes = useStyles()

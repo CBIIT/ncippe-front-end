@@ -17,7 +17,7 @@ const useStyles = makeStyles( theme => ({
       marginBottom: 8
     }
   }
-}))
+}),{name: 'UploadStepper'})
 
 
 

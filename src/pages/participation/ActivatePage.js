@@ -121,7 +121,7 @@ const useStyles = makeStyles( theme => ({
       }
     }
   }
-}))
+}),{name: 'ActivatePage'})
 
 const ActivatePage = () => {
   const classes = useStyles()

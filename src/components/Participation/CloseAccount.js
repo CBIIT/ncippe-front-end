@@ -40,7 +40,7 @@ const useStyles = makeStyles( theme => ({
       backgroundColor: theme.palette.error.dark,
     }
   }
-}))
+}),{name: 'CloseAccount'})
 
 const CloseAccount = (props) => {
   const {isMobile} = props

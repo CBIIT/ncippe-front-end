@@ -71,7 +71,7 @@ const useStyles = makeStyles( theme => ({
       backgroundColor: theme.palette.error.dark,
     }
   }
-}))
+}),{name: 'LeaveQuestions'})
 
 const LeaveQuestions = (props) => {
   const {location: {state: {user}},cancel,isMobile} = props

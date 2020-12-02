@@ -53,7 +53,7 @@ const useStyles = makeStyles( theme => ({
     padding: theme.spacing(1,0,0,0),
     marginTop: theme.spacing(1)
   }
-}))
+}),{name: 'IconCard'})
 
 const IconCard = (props) => {
   const { t } = useTranslation('a_common')

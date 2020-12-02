@@ -137,7 +137,7 @@ const useStyles = makeStyles(theme => ({
       lineHeight: 'normal'
     }
   }
-}))
+}),{name: 'Header'})
 
 /**
  * Common site header component

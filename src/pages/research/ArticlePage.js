@@ -30,7 +30,7 @@ const useStyles = makeStyles( theme => ({
       }
     }
   }
-}))
+}),{name: 'ArticlePage'})
 
 // This component is for a reusable research article page, but it's limiting in it's layout. Opting for individual article pages that have more flexibility.
 

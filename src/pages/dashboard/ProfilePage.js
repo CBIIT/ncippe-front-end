@@ -80,7 +80,7 @@ const useStyles = makeStyles(theme => ({
   bold: {
     fontWeight: theme.typography.fontWeightBold
   },
-}))
+}),{name: 'ProfilePage'})
 
 
 const ProfilePage = (props) => {

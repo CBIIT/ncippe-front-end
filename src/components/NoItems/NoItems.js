@@ -27,7 +27,7 @@ const useStyles = makeStyles( theme => ({
       textAlign: 'center'
     }
   },
-}))
+}),{name: 'NoItems'})
 
 const NoItems = (props) => {
   const {message} = props

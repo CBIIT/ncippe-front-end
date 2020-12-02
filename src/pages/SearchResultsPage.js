@@ -41,7 +41,7 @@ const useStyles = makeStyles( theme => ({
     color: theme.palette.grey.medium,
     wordBreak: 'break-all'
   }
-}))
+}),{name: 'SearchResultsPage'})
 
 
 

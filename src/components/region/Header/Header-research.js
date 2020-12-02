@@ -137,7 +137,7 @@ const useStyles = makeStyles(theme => ({
       lineHeight: 'normal'
     }
   }
-}))
+}),{name: 'Header'})
 
 const Header = () => {
   const classes = useStyles()

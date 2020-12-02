@@ -82,7 +82,7 @@ const useStyles = makeStyles( theme => ({
   h3: {
     margin: theme.spacing(4,0,2)
   }
-}))
+}),{name: 'BiomarkerTestPage'})
 
 const BodyContent = () => {
   const classes = useStyles()

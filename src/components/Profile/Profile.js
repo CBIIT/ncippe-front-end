@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   btnSubmit: {
     marginRight: theme.spacing(1)
   }
-}))
+}),{name: 'Profile'})
 
 const Profile = () => {
   const classes = useStyles()

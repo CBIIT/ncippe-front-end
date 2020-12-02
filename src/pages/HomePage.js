@@ -274,7 +274,7 @@ const useStyles = makeStyles( theme => ({
     marginRight: theme.spacing(3),
     fill: theme.palette.success.main
   }
-}))
+}),{name: 'HomePage'})
 /**
  * Home Page for the app.
  * 

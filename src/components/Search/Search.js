@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   input: {
     flexGrow: 1
   }
-}));
+}),{name: 'Search'});
 
 /**
  * Site Search component seen in the common header nav

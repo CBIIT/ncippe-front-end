@@ -23,7 +23,7 @@ const useStyles = makeStyles( theme => ({
   btnSubmit: {
     marginRight: theme.spacing(1)
   }
-}))
+}),{name: 'ChangeParticipation'})
 
 const ChangeParticipation = (props) => {
   const {nextStep, cancel, isMobile} = props

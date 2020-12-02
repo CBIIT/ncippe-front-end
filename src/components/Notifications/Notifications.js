@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(3),
     width: '49px',
   },
-}))
+}),{name: 'Notifications'})
 
 let isNewSeen = false
 

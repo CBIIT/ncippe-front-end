@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between'
   }
-}))
+}),{name: 'TestResultsItem'})
 
 const TestResultsItem = (props) => {
   const {report, noBadge, patientId} = props

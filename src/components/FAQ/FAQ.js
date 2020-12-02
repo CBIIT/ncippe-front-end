@@ -82,7 +82,7 @@ const useStyles = makeStyles( theme => ({
       marginBottom: 0
     }
   }
-}))
+}),{name: 'FAQ'})
 
 /**
  * Create frequent asked question accordions

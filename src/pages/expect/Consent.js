@@ -56,7 +56,7 @@ const useStyles = makeStyles( theme => ({
       height: '100%',
     },
   },
-}))
+}),{name: 'ConsentPage'})
 
 const Consent = () => {
   const classes = useStyles()

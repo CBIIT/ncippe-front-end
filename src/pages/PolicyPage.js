@@ -45,7 +45,7 @@ const useStyles = makeStyles( theme => ({
     }
 
   },
-}))
+}),{name: 'PolicyPage'})
 
 const PolicyPage = () => {
   const classes = useStyles()

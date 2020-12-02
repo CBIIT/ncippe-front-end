@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
 
-}))
+}),{name: 'PatientList'})
 
 const PatientList = (props) => {
   const {patients, patientsUpdated} = props

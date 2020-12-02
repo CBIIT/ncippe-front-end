@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: theme.palette.success.main
     }
   }
-}))
+}),{name: 'PatientListItem'})
 
 const PatientListItem = (props) => {
   const {

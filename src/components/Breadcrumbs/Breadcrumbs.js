@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   backIcon: {
     marginRight: theme.spacing(1)
   }
-}))
+}),{name: 'Breadcrumbs'})
 /**
  * This component has been stripped down since it's inception to be just a simple Back button
  */

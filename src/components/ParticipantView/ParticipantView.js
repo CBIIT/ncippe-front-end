@@ -96,9 +96,9 @@ const useStyles = makeStyles(theme => ({
     }
   }
 
-}))
+}),{name: 'ParticipantView'})
 
-const TestResults = (props) => {
+const ParticipantView = (props) => {
 
   const classes = useStyles()
   const {patientId} = props
@@ -337,4 +337,4 @@ const TestResults = (props) => {
   )
 }
 
-export default TestResults
+export default ParticipantView

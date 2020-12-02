@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
       padding: theme.spacing(6,3)
     }
   }
-}));
+}),{name: 'DashboardPage'})
 
 const Page = () => {
   const classes = useStyles()

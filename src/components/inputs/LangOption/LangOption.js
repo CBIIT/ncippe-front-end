@@ -34,7 +34,7 @@ const useStyles = makeStyles( theme => ({
       backgroundColor: theme.palette.primary.main
     }
   }
-}))
+}),{name: 'LanguagePreferences'})
 
 const LanguagePreferences = (props) => {
   const { t } = useTranslation(['a_accountSettings','a_common'])

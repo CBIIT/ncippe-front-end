@@ -31,7 +31,7 @@ const useStyles = makeStyles( theme => ({
       }
     }
   }
-}))
+}),{name: 'EligibilityPage'})
 
 const EligibilityPage = () => {
   const classes = useStyles()

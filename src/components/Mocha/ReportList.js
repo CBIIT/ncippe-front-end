@@ -13,7 +13,7 @@ const useStyles = makeStyles( theme => ({
   card: {
     marginBottom: theme.spacing(2),
   },
-}))
+}),{name: 'ReportList'})
 
 const ReportList = (props) => {
   const classes = useStyles()

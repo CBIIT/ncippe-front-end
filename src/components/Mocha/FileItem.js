@@ -30,7 +30,7 @@ const useStyles = makeStyles( theme => ({
     alignSelf: 'center',
     marginRight: theme.spacing(1)
   }
-}))
+}),{name: 'FileItem'})
 
 const FileItem = (props) => {
   const {file,onRemove} = props

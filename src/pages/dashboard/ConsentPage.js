@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
       marginTop: 0
     }
   }
-}))
+}),{name: 'ConsentPage'})
 
 const Page = () => {
   const classes = useStyles()

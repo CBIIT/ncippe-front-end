@@ -67,7 +67,7 @@ const useStyles = makeStyles( theme => ({
       display: 'none'
     }
   }
-}))
+}),{name: 'StyledTabs'})
 
 const StyledTabs = (props) => {
   const classes = useStyles()

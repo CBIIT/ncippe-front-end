@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(3),
     display: 'inline'
   },
-}))
+}),{name: 'AddParticipantInfoDialog'})
 
 const formDataDefaults = {
   firstName: '',

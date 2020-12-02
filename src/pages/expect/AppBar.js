@@ -16,7 +16,7 @@ const useStyles = makeStyles( theme => ({
     backgroundColor: theme.palette.primary.medium,
     zIndex: 5
   },
-}))
+}),{name: 'TabAppBar'})
 
 const TabAppBar = (props) => {
   const classes = useStyles()

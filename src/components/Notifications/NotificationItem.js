@@ -44,7 +44,7 @@ const useStyles = makeStyles( theme => ({
   divider: {
     margin: theme.spacing(2,0)
   }
-}))
+}),{name: 'NotificationItem'})
 
 const NotificationItem = (props) => {
   const {notification: {subject, message, dateGenerated, viewedByUser}, lang, handleClick} = props

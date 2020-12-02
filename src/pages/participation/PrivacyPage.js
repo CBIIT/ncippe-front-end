@@ -31,7 +31,7 @@ const useStyles = makeStyles( theme => ({
       width: '64%'
     }
   }
-}))
+}),{name: 'PrivacyPage'})
 
 const PrivacyPage = () => {
   const classes = useStyles()

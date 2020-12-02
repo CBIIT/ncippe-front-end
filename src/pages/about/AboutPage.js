@@ -26,7 +26,7 @@ const useStyles = makeStyles( theme => ({
       }
     }
   }
-}))
+}),{name: 'AboutPage'})
 
 const AboutPage = () => {
   const classes = useStyles()

@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
   //   width: 60,
   //   paddingLeft: 5
   // }
-}))
+}),{name: 'Footer'})
 
 
 const Footer = () => {

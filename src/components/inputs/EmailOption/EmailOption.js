@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     transform: "none",
     marginBottom: theme.spacing(1)
   }
-}));
+}),{name: 'EmailOption'});
 
 const EmailOption = (props) => {
   const {value, editMode, onClick} = props

@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   helperText: {
     marginBottom: theme.spacing(2)
   }
-}));
+}),{name: 'PhoneNumber'});
 
 // move input cursor to first available placeholder character
 const selectAfterUserInput = (event) => {

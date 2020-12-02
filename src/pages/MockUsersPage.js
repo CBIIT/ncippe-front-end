@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   mainContainer: {
     textAlign: 'center'
   }
-}))
+}),{name: 'MockRoles'})
 
 const MockRoles = () => {
   const classes = useStyles()

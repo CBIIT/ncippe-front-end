@@ -29,7 +29,7 @@ const useStyles = makeStyles( theme => ({
       }
     }
   }
-}))
+}),{name: 'ResearchPage'})
 
 const ResearchPage = () => {
   const classes = useStyles()

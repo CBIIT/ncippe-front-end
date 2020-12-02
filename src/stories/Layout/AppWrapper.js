@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     flex: '1 0 auto',
     margin: '0',
   },
-}))
+}),{name: 'App'})
 
 /**
  * The main app wrapper with analytics tracking removed

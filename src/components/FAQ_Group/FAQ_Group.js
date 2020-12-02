@@ -36,7 +36,7 @@ const useStyles = makeStyles( theme => ({
       margin: theme.spacing(0, 0, 0, 2),
     }
   }
-}))
+}),{name: 'FAQ_Group'})
 
 /**
  * Create a group of frequent asked question accordions that can all be toggled together

@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
     marginBottom: theme.spacing(1),
   },
-}))
+}),{name: 'TestResultsPage'})
 
 const Page = (props) => {
   const { userName } = props 

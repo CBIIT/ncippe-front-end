@@ -31,7 +31,7 @@ const useStyles = makeStyles( theme => ({
     backgroundColor: theme.palette.primary.medium,
     zIndex: 1
   }
-}))
+}),{name: 'WhatToExpectPage'})
 
 const a11yProps = (index) => {
   return {

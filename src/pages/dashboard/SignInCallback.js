@@ -20,7 +20,7 @@ const useStyles = makeStyles( theme => ({
     paddingTop: theme.spacing(10),
     marginBottom: theme.spacing(4)
   },
-}))
+}),{name: 'SignInCallbackPage'})
 
 const SignInCallback = (props) => {
   const {location: {state: routerState}} = props

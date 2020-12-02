@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: theme.spacing(3),
     display: 'inline'
   },
-}))
+}),{name: 'UploadConcentDialog'})
 
 const formDataDefaults = {
   file: null,
