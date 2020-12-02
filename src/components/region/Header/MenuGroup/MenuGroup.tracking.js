@@ -24,7 +24,7 @@ export default (props) => {
           eventName: 'ToggleMenuLink'
         })
       default:
-        break;
+        console.warn(`unexpected tracking event "${event}"`)
     }
   }
   return <MenuGroup trackEvent={handleTrackEvent} {...props} />

@@ -1,17 +1,12 @@
-// StyledMenuItem
-// use dummy menu items for DRYness
-// MenuGroup - with active and non-active items using LocationProvider
 import React from 'react'
 import { createMemorySource, createHistory, LocationProvider } from '@reach/router'
-import MenuGroup from './'
+import MenuGroup from './MenuGroup'
 
 export default {
   title: 'UI/Menu Group',
   component: MenuGroup,
   argTypes: {
-    id: {
-      type: 'string',
-      description: 'id of this menu',
+    index: {
       table: {
         defaultValue: {
           summary: 'random 4 digit number'
@@ -19,20 +14,33 @@ export default {
       }
     },
     title: {
-      type: 'string',
-      description: 'the text for this menu group',
       table: {
         defaultValue: {
-          summary: ''
+          summary: 'undefined'
         }
       }
     },
     active: {
-      type: 'boolean',
-      description: 'is the menu active',
       table: {
         defaultValue: {
           summary: false
+        }
+      }
+    },
+    children: {
+      table: {
+        defaultValue: {
+          summary: 'ReactNode'
+        }
+      },
+      control: {
+        type: null
+      }
+    },
+    trackEvent: {
+      table: {
+        defaultValue: {
+          summary: 'undefined'
         }
       }
     }
@@ -45,16 +53,17 @@ const Template = (args) => {
 
   return (
     <LocationProvider history={history}>
-        <MenuGroup {...args}>
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-          <a href="/contact">Contact</a>
-        </MenuGroup>
+      <MenuGroup {...args}>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+      </MenuGroup>
     </LocationProvider>
   )
 }
 
 export const Menu = Template.bind({})
+Menu.storyName = "Menu Group"
 Menu.args = {
   title: "Menu Group Button",
   active: false

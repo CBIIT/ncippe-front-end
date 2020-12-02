@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
+import PropTypes from 'prop-types'
 import { Link, useLocation } from '@reach/router'
-// import { useTracking } from 'react-tracking'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { 
   Button,
@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core'
 
 import ConditionalWrapper from '../../../utils/ConditionalWrapper'
+import { trackFallback } from '../../../../utils/utils'
 
 const useStyles = makeStyles(theme => ({
   popper: {
@@ -59,33 +60,28 @@ export const StyledMenuItem = withStyles(theme => ({
       color: theme.palette.common.black,
       textDecoration: 'none',
       padding: '6px 16px',
-      // fontWeight: 600
     },
     '&:focus': {
-      // backgroundColor: theme.palette.primary.main,
       backgroundColor: 'rgba(0,0,0,.08)',
-      // '& a': {
-      //   // color: theme.palette.common.white,
-      //   fontWeight: 600
-      // },
     },
   },
 }))(props => <MenuItem {...props}/>)
 
 const MenuGroup = (props) => {
-  const randomNum = Math.floor(Math.random() * 1000) + 1
-  const { id = randomNum, trackEvent = (e) => console.log('track event', e)} = props
   const classes = useStyles()
+  const randomNum = Math.floor(Math.random() * 1000) + 1
+  // destructure props
+  const { index = randomNum, title, active, trackEvent = trackFallback} = props
+  
   const [open, setOpen] = useState(false)
   const [popperClass, setPopperClass] = useState(false)
   const anchorRef = useRef(null)
   const containerNode = document.querySelector("#root .transitionGroup")
-  // const { trackEvent } = useTracking()
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
     setPopperClass(prev => !prev ? classes.activePopper : false)
-    trackEvent("toggle menu reveal",{title: props.title})
+    trackEvent("toggle menu reveal",{title})
   }
 
   const handleClose = (event) => {
@@ -95,7 +91,7 @@ const MenuGroup = (props) => {
 
     if(event.currentTarget !== window.document) {
       trackEvent("toggle menu link", {
-        title: props.title,
+        title,
         textContent: event.target.textContent
       })
     }
@@ -122,7 +118,6 @@ const MenuGroup = (props) => {
     event.currentTarget.focus()
   }
 
-  // const loc = window.location.pathname
   const location = useLocation().pathname
 
   // return focus to the button when we transitioned from !open -> open
@@ -143,12 +138,12 @@ const MenuGroup = (props) => {
     <>
     <Button
       ref={anchorRef}
-      aria-controls={`menu-list-grow-${id}`}
+      aria-controls={`menu-list-grow-${index}`}
       aria-haspopup="true"
       onClick={handleToggle}
-      className={props.active ? `${classes.active} active` : classes.button}
+      className={active ? `${classes.active} active` : classes.button}
     >
-      {props.title}
+      {title}
     </Button>
     <Popper 
       className={`${classes.popper} ${popperClass}`} 
@@ -171,7 +166,7 @@ const MenuGroup = (props) => {
           {...TransitionProps}
           style={{ transformOrigin: 'left top' }}
         >
-          <Paper id={`menu-list-grow-${id}`} elevation={1} square={true}>
+          <Paper id={`menu-list-grow-${index}`} elevation={1} square={true}>
             <ClickAwayListener onClickAway={handleClose}>
               <MenuList className={classes.menuList} autoFocusItem={open} onKeyDown={handleListKeyDown}>
                 {
@@ -194,6 +189,33 @@ const MenuGroup = (props) => {
     </Popper>
     </>
   )
+}
+
+MenuGroup.displayName = 'MenuGroup'
+MenuGroup.propTypes = {
+  /**
+   * unique index of this menu group
+   */
+  index: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  /**
+   * the text for the top level menu button
+   */
+  title: PropTypes.string.isRequired,
+  /**
+   * sets the active state for this menu
+   */
+  active: PropTypes.bool,
+  /**
+   * menu items that are anchor elements
+   */
+  children: PropTypes.node.isRequired,
+  /**
+   * callback event for analytics tracking
+   */
+  trackEvent: PropTypes.func
 }
 
 export default MenuGroup
