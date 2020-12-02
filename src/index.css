@@ -321,31 +321,6 @@ html {
   }
 }
 
-@keyframes whiteToTransparent {
-  0% {
-    background-color: white;
-  }
-  100% {
-    background-color: transparent;
-  }
-}
-@keyframes transparentToWhite {
-  0% {
-    background-color: transparent;
-  }
-  100% {
-    background-color: white;
-  }
-}
-@keyframes whiteToPink {
-  0% {
-    background: white;
-  }
-  100% {
-    background: #ffebf1;
-  }
-}
-
 /* .popup { */
   /* min-height: 100%;
   display: flex;
@@ -446,13 +421,8 @@ html {
 }
 
 .MuiTypography-body1 > p,
-.MuiTypography-body2 > p,
-.MuiAccordionDetails-root > p {
+.MuiTypography-body2 > p {
   margin-bottom: 16px;
-}
-
-.MuiAccordionDetails-root > p:last-child {
-  margin-bottom: 0
 }
 
 .Stepper--small-labels .MuiStepLabel-label {
@@ -494,9 +464,6 @@ html {
   /* Header nav */
   #mainNav > * {
     height: 82px;
-  }
-  #mainNav--mobile > div > .MuiAccordionSummary-root {
-    height: 48px;
   }
 
   #mainNav .active {

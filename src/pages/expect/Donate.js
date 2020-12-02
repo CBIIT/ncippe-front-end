@@ -7,7 +7,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
-import FAQs from '../../components/FAQ/FAQ_Wrapper'
+import FAQs from '../../components/FAQ_Group'
 import TabAppBar from './AppBar'
 
 const useStyles = makeStyles( theme => ({

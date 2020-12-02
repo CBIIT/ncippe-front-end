@@ -11,7 +11,7 @@ import {
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 // import { AuthContext } from '../../components/login/AuthContext'
-import FAQs from '../../components/FAQ/FAQ_Wrapper'
+import FAQs from '../../components/FAQ_Group'
 
 const useStyles = makeStyles( theme => ({
   grid: {

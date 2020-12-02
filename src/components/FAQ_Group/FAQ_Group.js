@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import PropTypes from 'prop-types'
 import { Box, Button, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
@@ -7,7 +8,7 @@ import {
 } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
 
-import FAQ from './FAQ'
+import FAQ from '../FAQ'
 
 const useStyles = makeStyles( theme => ({
   faq_title: {
@@ -86,11 +87,27 @@ const FAQs = (props) => {
           title={faqs[faq].question}
           desc={faqs[faq].answer}
           expanded={isExpanded}
-          clickHandler={trackToggle}
+          onClick={trackToggle}
         />)}
       </Box>
     </Container>
   )
+}
+
+FAQs.displayName = 'FAQ_Group'
+FAQs.propTypes = {
+  /**
+   * the text that appears in the FAQ header
+   */
+  title: PropTypes.string, 
+  /**
+   * the faq data to be rendered
+   */
+  faqs: PropTypes.object.isRequired,
+  /**
+   * the className for this component for additional styles
+   */
+  className: PropTypes.string,
 }
 
 export default FAQs

@@ -304,4 +304,11 @@ export const caseConverter = (string, pascal = false) => {
   } else {
     return string;
   }
-} 
+}
+
+/**
+ * A default tracking function
+ * 
+ * @param {object} e - event object
+ */
+export const trackFallback = (e) => console.log('track event', e)

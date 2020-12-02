@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   AddRounded,
   RemoveRounded
 } from '@material-ui/icons'
-import { useTracking } from 'react-tracking'
 import RenderContent from '../../components/utils/RenderContent'
+import { trackFallback } from '../../utils/utils'
+import './FAQ.css'
 
 const useStyles = makeStyles( theme => ({
   root: {
@@ -66,7 +68,13 @@ const useStyles = makeStyles( theme => ({
       animation: 'whiteToTransparent 300ms both',
     },
     '& .MuiAccordionDetails-root': {
-      display: 'block'
+      display: 'block',
+      '& > p': {
+        marginBottom: 16
+      },
+      '& > p:last-child': {
+        marginBottom: 0
+      }
     }
   },
   panelDetails: {
@@ -77,45 +85,41 @@ const useStyles = makeStyles( theme => ({
 }))
 
 const FAQ = (props) => {
-  const { index, title, desc, expanded = true, clickHandler } = props
   const classes = useStyles()
+  const randomNum = Math.floor(Math.random() * 1000) + 1
+  const { index = randomNum, title, desc, expanded = false, onClick, trackEvent = trackFallback } = props
   const [isExpanded, setIsExpanded] = useState(false)
-  const { trackEvent } = useTracking()
 
   // externally control the expansion of this component
   useEffect(() => {
-    setIsExpanded(prev => {
-      if(clickHandler){
-        clickHandler(index,expanded)
+    setIsExpanded(() => {
+      if(onClick){
+        onClick(index,expanded)
       }
       return expanded
     })
-  },[expanded, clickHandler, index])
+  },[expanded, onClick, index])
 
   // toggle this faq
   const handleChange = () => {
     setIsExpanded(prev => {
       // alert parent component that this faq's expanded state has changed
-      if(clickHandler){
-        clickHandler(index,!prev)
+      if(onClick){
+        onClick(index,!prev)
       }
       // toggle state value
       return !prev
     })
   }
 
-  const trackClick = (e) => {
+  const trackClick = () => {
     // about to be expanded
     if(!isExpanded){
-      const location = window.location.pathname.replace(/\//g,"-")
-      trackEvent({
-        prop41: `BioBank|AccordianExpand|FAQ${location}-${index + 1}`,
-        events: 'event72',
-        eventName: 'FAQ'
+      trackEvent('expand', {
+        index
       })
     }
   }
-
 
   return (
     <Accordion square expanded={isExpanded} onChange={handleChange} className={classes.root} elevation={25}>
@@ -129,6 +133,37 @@ const FAQ = (props) => {
       </AccordionDetails>
     </Accordion>
   )
+}
+
+FAQ.displayName = 'FAQ'
+FAQ.propTypes = {
+  /**
+   * unique index of this FAQ item
+   */
+  index: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  /**
+   * the text that appears in the FAQ header
+   */
+  title: PropTypes.string.isRequired,
+  /**
+   * the expanded content of this FAQ item as text, html or markdown
+   */
+  desc: PropTypes.string.isRequired,
+  /**
+   * sets the expanded state of the accordion
+   */
+  expanded: PropTypes.bool,
+  /**
+   * callback event on click of the FAQ header
+   */
+  onClick: PropTypes.func,
+  /**
+   * callback event for analytics tracking
+   */
+  trackEvent: PropTypes.func
 }
 
 export default FAQ
