@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { navigate } from '@reach/router'
 import { Container, Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -28,7 +29,9 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1)
   }
 }))
-
+/**
+ * This component has been stripped down since it's inception to be just a simple Back button
+ */
 const Breadcrumbs = (props) => {
   const classes = useStyles()
   const { t } = useTranslation('a_common')
@@ -36,7 +39,7 @@ const Breadcrumbs = (props) => {
     if(props.link) {
       navigate(props.link)
     } else {
-      window.history.back()
+      navigate(-1)
     }
   }
   return (
@@ -49,3 +52,9 @@ const Breadcrumbs = (props) => {
 }
 
 export default Breadcrumbs
+Breadcrumbs.propTypes = {
+  /**
+   * a link for the back button if it's not a simple history back request
+   */
+  link: PropTypes.string
+}
