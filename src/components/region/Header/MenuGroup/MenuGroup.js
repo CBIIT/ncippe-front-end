@@ -67,6 +67,11 @@ export const StyledMenuItem = withStyles(theme => ({
   },
 }))(props => <MenuItem {...props}/>)
 
+/**
+ * Dropdown navigation menu component used in the top level global navigation on desktop
+ * 
+ * The active menu item is dynamically selected based on the app's location matching a child's `href`
+ */
 const MenuGroup = (props) => {
   const classes = useStyles()
   const randomNum = Math.floor(Math.random() * 1000) + 1
@@ -201,7 +206,7 @@ MenuGroup.propTypes = {
     PropTypes.number
   ]),
   /**
-   * the text for the top level menu button
+   * text for the top level menu button
    */
   title: PropTypes.string.isRequired,
   /**

@@ -6,6 +6,9 @@ import { Button } from '@material-ui/core'
 import { LoginContext } from '../Login.context'
 import { trackFallback } from '../../../utils/utils'
 
+/**
+ * The login button will change state according to the user's login state
+ */
 const LoginButton = (props) => {
   const [loginContext, dispatch] = useContext(LoginContext)
   const { auth } = loginContext

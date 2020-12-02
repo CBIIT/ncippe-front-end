@@ -84,6 +84,9 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
+/**
+ * Create frequent asked question accordions
+ */
 const FAQ = (props) => {
   const classes = useStyles()
   const randomNum = Math.floor(Math.random() * 1000) + 1
@@ -145,11 +148,11 @@ FAQ.propTypes = {
     PropTypes.number
   ]),
   /**
-   * the text that appears in the FAQ header
+   * text that appears in the FAQ header
    */
   title: PropTypes.string.isRequired,
   /**
-   * the expanded content of this FAQ item as text, html or markdown
+   * expanded content of this FAQ item as text, html or markdown
    */
   desc: PropTypes.string.isRequired,
   /**

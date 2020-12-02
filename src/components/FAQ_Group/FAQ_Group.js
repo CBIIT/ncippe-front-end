@@ -38,6 +38,9 @@ const useStyles = makeStyles( theme => ({
   }
 }))
 
+/**
+ * Create a group of frequent asked question accordions that can all be toggled together
+ */
 const FAQs = (props) => {
   const { title, faqs, className, ...other } = props
   const classes = useStyles()
@@ -97,15 +100,15 @@ const FAQs = (props) => {
 FAQs.displayName = 'FAQ_Group'
 FAQs.propTypes = {
   /**
-   * the text that appears in the FAQ header
+   * text that appears in the FAQ header
    */
   title: PropTypes.string, 
   /**
-   * the faq data to be rendered
+   * faq data to be rendered
    */
   faqs: PropTypes.object.isRequired,
   /**
-   * the className for this component for additional styles
+   * assign a class name to this component for additional styles
    */
   className: PropTypes.string,
 }
