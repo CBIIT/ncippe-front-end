@@ -24,7 +24,7 @@ export default (props) => {
           eventName: 'Sign in'
         })
       default:
-        break;
+        console.warn(`unexpected tracking event "${event}"`)
     }
   }
   return <LoginButton trackEvent={handleTrackEvent} {...props} />
