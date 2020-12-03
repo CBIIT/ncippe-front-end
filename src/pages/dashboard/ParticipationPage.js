@@ -6,7 +6,6 @@ import { Helmet } from 'react-helmet-async'
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
 import ChangeParticipation from '../../components/Participation/Participation'
 
-
 const Page = () => {
   const { t } = useTranslation(['a_changeParticipation'])
   return (

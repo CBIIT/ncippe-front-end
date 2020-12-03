@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react'
 import { navigate } from '@reach/router'
-import { Typography, CircularProgress, Container } from '@material-ui/core';
+import { Typography, CircularProgress, Container } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, Container, Divider, Grid, Paper, Typography } from '@material-ui/core';
+import { Box, Button, Container, Divider, Grid, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
