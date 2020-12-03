@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
-import { Container, Box, Grid, Typography } from '@material-ui/core';
+import { Container, Box, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
+import { trackFallback } from '../../utils/utils'
 import RenderContent from '../../components/utils/RenderContent'
 import IconCard from '../../components/IconCard/IconCard'
 
@@ -15,12 +15,6 @@ const useStyles = makeStyles( theme => ({
   },
   gridItem: {
     width: '33.333333%',
-
-    // '& $card': {
-    //   [theme.breakpoints.up('md')]: {
-    //     margin: 0
-    //   }
-    // }
   },
   disclaimer: {
     width: '100%',
@@ -33,16 +27,15 @@ const useStyles = makeStyles( theme => ({
   }
 }),{name: 'PrivacyPage'})
 
-const PrivacyPage = () => {
+const PrivacyPage = (props) => {
   const classes = useStyles()
+  const { trackEvent = trackFallback } = props
   const { t } = useTranslation('privacy')
-  const { trackEvent } = useTracking()
 
   useEffect(() => {
-    trackEvent({
-      event:'pageview',
-      prop6: "Protecting your privacy",
-      prop10: t("metaData.title")
+    trackEvent("page view", {
+      pageTitle: "Protecting your privacy",
+      metaTitle: t("metaData.title")
     })
   },[trackEvent, t])
 

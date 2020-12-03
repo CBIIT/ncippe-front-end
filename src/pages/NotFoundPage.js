@@ -4,8 +4,9 @@ import { Box, Button, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
+
+import { trackFallback } from '../utils/utils'
 
 const useStyles = makeStyles( theme => ({
   container: {
@@ -25,17 +26,16 @@ const useStyles = makeStyles( theme => ({
   }
 }),{name: 'NotFoundPage'})
 
-const ErrorPage = () => {
+const ErrorPage = (props) => {
   const classes = useStyles()
+  const { trackEvent = trackFallback } = props
   const { t } = useTranslation('notFoundPage')
-  const { trackEvent } = useTracking()
 
   useEffect(() => {
-    trackEvent({
-      event:'pageview',
-      prop6: "Error Page",
+    trackEvent("page view", {
+      pageTitle: "Error Page",
+      metaTitle: t("metaData.title"),
       pageType: "errorPage",
-      prop10: t("metaData.title")
     })
   },[trackEvent, t])
 

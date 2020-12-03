@@ -1,7 +1,7 @@
 import React, { lazy } from 'react'
 import { Location, Router, Redirect, navigate } from '@reach/router'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import pageWrapper from '../pages/pageWrapper_dev'
+import pageWrapper from '../pages/pageWrapper'
 
 // imports for public pages
 import NotFound           from '../pages/NotFoundPage'

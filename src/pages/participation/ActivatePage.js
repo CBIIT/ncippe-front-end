@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
-import { Box, Button, Container, Divider, Grid, Link, Stepper, Step, StepLabel, StepContent, Typography, useMediaQuery } from '@material-ui/core';
+import { Box, Button, Container, Divider, Grid, Link, Stepper, Step, StepLabel, StepContent, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { 
   OpenInNew as OpenInNewIcon
 } from '@material-ui/icons'
 
+import { trackFallback } from '../../utils/utils'
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 // import { AuthContext } from '../../components/login/AuthContext'
@@ -123,30 +123,24 @@ const useStyles = makeStyles( theme => ({
   }
 }),{name: 'ActivatePage'})
 
-const ActivatePage = () => {
+const ActivatePage = (props) => {
   const classes = useStyles()
+  const { trackEvent = trackFallback } = props
   const { t, i18n } = useTranslation('activate')
-  const { trackEvent } = useTracking()
   // const { signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
   const faqs = i18n.getResourceBundle(i18n.languages[0],'activate').faqs
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
   useEffect(() => {
-    trackEvent({
-      event:'pageview',
-      prop6: "Activate your online Biobank account",
-      prop10: t("metaData.title")
+    trackEvent("page view", {
+      pageTitle: "Activate your online Biobank account",
+      metaTitle: t("metaData.title")
     })
   },[trackEvent, t])
 
   const handleLogin = () => {
-    trackEvent({
-      prop53: `BioBank_Activate|Sign-In`,
-      eVar53: `BioBank_Activate|Sign-In`,
-      events: 'event26',
-      eventName: 'Sign in'
-    })
+    trackEvent("sign in")
     window.location.assign(process.env.REACT_APP_LOGIN_LINK)
   }
 

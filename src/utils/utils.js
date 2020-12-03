@@ -311,4 +311,4 @@ export const caseConverter = (string, pascal = false) => {
  * 
  * @param {object} e - event object
  */
-export const trackFallback = (e) => console.log('track event', e)
+export const trackFallback = (eventName) => console.warn('Fallback event tracking for:', eventName, '\nThis event was not sent to analytics. Verify that it is correctly connected.')

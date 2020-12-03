@@ -6,11 +6,10 @@ import { Helmet } from 'react-helmet-async'
 import { 
   Search as SearchIcon
 } from '@material-ui/icons'
-// import { searchIndex } from '../i18n'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import lunr from 'lunr'
-import { objectValuesToString } from '../utils/utils'
+
+import { trackFallback, objectValuesToString } from '../utils/utils'
 import RenderContent from '../components/utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
@@ -44,10 +43,10 @@ const useStyles = makeStyles( theme => ({
 }),{name: 'SearchResultsPage'})
 
 
-
 const SearchResults = (props) => {
   // const {location} = props
   const classes = useStyles()
+  const { trackEvent = trackFallback } = props
   const { t, i18n } = useTranslation([
     'common', // common sould always come first as the default namespace
     'about',
@@ -66,7 +65,7 @@ const SearchResults = (props) => {
     'testing',
     'policy'
   ])
-  const { trackEvent } = useTracking()
+
   // const term = location ? location.state ? location.state.term : '' : ''
   const term = window.history.state ? window.history.state.term : ""
   const [searchTerm, setSearchTerm] = useState(term)
@@ -173,13 +172,12 @@ const SearchResults = (props) => {
       const results = processSearch(searchIndex.search(`*${searchTerm}*~1 ${searchTerm}* *${searchTerm}`))
       setSearchResults(results)
 
-      trackEvent({
-        event:'pageview',
-        prop6: "Search results",
-        eVar10: results.length.toString(),
+      trackEvent("page view", {
+        pageTitle: "Search results",
+        metaTitle: t("searchResults:metaData.title"),
         prop14: searchTerm,
+        eVar10: results.length.toString(),
         eVar14: searchTerm,
-        prop10: t("searchResults:metaData.title")
       })
     }
 
@@ -192,13 +190,8 @@ const SearchResults = (props) => {
     // update the history to store the search term
     window.history.pushState({term}, "", "/search")
 
-    trackEvent({
-      prop11: "BioBank Global Search - Results New Search",
-      eVar11: "BioBank Global Search - Results New Search",
-      eVar13: "+1",
-      prop14: term,
-      eVar14: term,
-      events: "event2"
+    trackEvent("submit search", {
+      term
     })
   }
 
@@ -213,9 +206,9 @@ const SearchResults = (props) => {
   }
 
   const trackClick = (e) => {
-    trackEvent({
-      prop50: e.target.textContent,
-      prop13: e.target.dataset.rank
+    trackEvent("search result link", {
+      textContent: e.target.textContent,
+      rank: e.target.dataset.rank
     })
   }
 

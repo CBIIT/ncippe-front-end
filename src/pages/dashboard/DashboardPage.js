@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { Box, Container, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
 
+import { trackFallback } from '../../utils/utils'
 import { LoginConsumer } from '../../components/login/Login.context'
 import PatientList from '../../components/PatientList/PatientList'
 import IconCard from '../../components/IconCard/IconCard'
@@ -45,19 +45,18 @@ const useStyles = makeStyles(theme => ({
   }
 }),{name: 'DashboardPage'})
 
-const Page = () => {
+const Page = (props) => {
   const classes = useStyles()
+  const { trackEvent = trackFallback } = props
   const { t } = useTranslation(['a_landing','a_common'])
-  const { trackEvent } = useTracking()
 
   useEffect(() => {
     // only want to track the dashboard landing page load event once, saving state to session variable
     const tracked = sessionStorage.getItem('isDashboardTracked')
     if(tracked === 'false' || !tracked) {
-      trackEvent({
-        event:'pageview',
-        prop6: "Account Page",
-        prop10: t('metaData.title')
+      trackEvent("page view", {
+        pageTitle: "Account Page",
+        metaTitle: t('metaData.title')
       })
       sessionStorage.setItem('isDashboardTracked',true)
     }
@@ -65,11 +64,8 @@ const Page = () => {
 
   const trackCardClick = (e) => {
     const card = e.currentTarget.closest(".IconCardContent")
-    trackEvent({
-      prop57: `BioBank_AccountCard|${card.querySelector("h2").textContent}`,
-      eVar37: `BioBank_AccountCard|${card.querySelector("h2").textContent}`,
-      events: 'event27',
-      eventName: 'CardLink'
+    trackEvent("card link", {
+      textContent: card.querySelector("h2").textContent
     })
     window.$defaultLinkTrack = false
   }

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { navigate, Link as RouterLink } from '@reach/router'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { useMediaQuery, Box, Button, Container, Dialog, DialogContent, Grid, IconButton, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
@@ -11,7 +10,7 @@ import {
   KeyboardArrowRight as ArrowRightIcon
 } from '@material-ui/icons'
 
-import { check_webp_feature } from '../utils/utils'
+import { check_webp_feature, trackFallback } from '../utils/utils'
 import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
 
@@ -279,14 +278,14 @@ const useStyles = makeStyles( theme => ({
  * Home Page for the app.
  * 
  */
-const HomePage = () => {
+const HomePage = (props) => {
   const classes = useStyles()
+  const { trackEvent = trackFallback } = props
   // isMobile is used to toggle multiple responsive styles and component attributes. Easier than using mediaqueries for everything
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [mediaCardPath, setMediaCardPath] = useState(`/${process.env.PUBLIC_URL}assets/images/mediaCard/standard/`)
   const { t, i18n } = useTranslation('homePage')
-  const { trackEvent } = useTracking()
   const isHighResolution = useMediaQuery('@media (min-resolution: 192dpi)')
   const [accountClosed, setAccountClosed] = useState(localStorage.getItem('accountClosed'))
 
@@ -307,11 +306,10 @@ const HomePage = () => {
   }, [isHighResolution])
 
   useEffect(() => {
-    trackEvent({
-      event:'pageview',
+    trackEvent("page view", {
+      pageTitle: "Home Page",
+      metaTitle: t("metaData.title"),
       pageName:'msbiobank.c.gov/',
-      prop6: "Home Page",
-      prop10: t("metaData.title")
     })
   },[trackEvent, t])
 

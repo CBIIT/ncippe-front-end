@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
 import { Box, Container, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
-import { caseConverter } from '../../utils/utils'
+import { caseConverter, trackFallback } from '../../utils/utils'
 import NotFound from '../NotFoundPage'
 
 const useStyles = makeStyles( theme => ({
@@ -36,10 +35,17 @@ const useStyles = makeStyles( theme => ({
 
 const Article = (props) => {
   const classes = useStyles()
+  const { trackEvent = trackFallback } = props
   const { t, i18n } = useTranslation(`r_${caseConverter(props.article)}`)
-  const { trackEvent } = useTracking()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+
+  useEffect(() => {
+    trackEvent("page view", {
+      pageTitle: t("metaData.title"),
+      metaTitle: t("metaData.title")
+    })
+  },[trackEvent, t])
 
   // dynamic path does not exist
   if(!i18n.hasResourceBundle(i18n.languages[0],`r_${caseConverter(props.article)}`)) {

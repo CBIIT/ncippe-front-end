@@ -3,20 +3,20 @@ import { Link as RouterLink } from "@reach/router"
 import { Box, Container, Button } from '@material-ui/core'
 import Status from '../components/Status/Status'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
+
+import { trackFallback } from '../utils/utils'
 
 
 const ErrorPage = (props) => {
+  const { trackEvent = trackFallback } = props
   const { t } = useTranslation('notFoundPage')
-  const { trackEvent } = useTracking()
 
   useEffect(() => {
-    trackEvent({
-      event:'pageview',
-      prop6: "Error Page",
-      pageType: "errorPage",
-      prop10: t("metaData.title")
+    trackEvent("page view", {
+      pageTitle: "Error Page",
+      metaTitle: t("metaData.title"),
+      pageType: "errorPage"
     })
   },[trackEvent, t])
 

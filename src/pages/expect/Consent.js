@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
 import { Box, Button, Card, CardMedia, Container, Grid, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 // import { OpenInNew as OpenInNewIcon } from '@material-ui/icons'
 
+import { trackFallback } from '../../utils/utils'
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 import TabAppBar from './AppBar'
@@ -58,18 +58,17 @@ const useStyles = makeStyles( theme => ({
   },
 }),{name: 'ConsentPage'})
 
-const Consent = () => {
+const Consent = (props) => {
   const classes = useStyles()
+  const { trackEvent = trackFallback } = props
   const { t } = useTranslation('consent')
-  const { trackEvent } = useTracking()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
   useEffect(() => {
-    trackEvent({
-      event:'pageview',
-      prop6: "Give your consent",
-      prop10: t("metaData.title")
+    trackEvent("page view", {
+      pageTitle: "Give your consent",
+      metaTitle: t("metaData.title")
     })
   },[trackEvent, t])
 

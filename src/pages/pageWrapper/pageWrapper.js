@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Header from '../../components/region/Header/Header'
@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
   }
 }),{name: 'PageWrapper'})
 
-const pageWrapper = (Component) => ({children, ...props}) => {
+const PageWrapper = (Component) => ({children, ...props}) => {
   const classes = useStyles()
   return (
     <div className="siteWrapper"> {/* returning a fragment here does not work in ie11 */}
@@ -24,4 +24,4 @@ const pageWrapper = (Component) => ({children, ...props}) => {
   )
 }
 
-export default pageWrapper
+export default PageWrapper

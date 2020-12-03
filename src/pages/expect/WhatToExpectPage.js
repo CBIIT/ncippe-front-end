@@ -3,8 +3,8 @@ import { Router, Link as RouterLink } from '@reach/router'
 import { AppBar, Box, Container, Tab, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 
+import { trackFallback } from '../../utils/utils'
 import StyledTabs from '../../components/Tabs/StyledTabs'
 import Consent from './Consent'
 import Donate from './Donate'
@@ -40,10 +40,10 @@ const a11yProps = (index) => {
   };
 }
 
-const WhatToExpectPage = () => {
+const WhatToExpectPage = (props) => {
   const classes = useStyles()
+  const { trackEvent = trackFallback } = props
   const { t } = useTranslation(['consent','donate','testing'])
-  const { trackEvent } = useTracking()
   const [value, setValue] = useState(()=>{
     switch(window.location.pathname){
       case '/expect':
@@ -69,10 +69,8 @@ const WhatToExpectPage = () => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
-    trackEvent({
-      prop53: `BioBank_SectionTabNav|${event.currentTarget.textContent}`,
-      eVar53: `BioBank_SectionTabNav|${event.currentTarget.textContent}`,
-      events: 'event33'
+    trackEvent("tab click", {
+      textContent: event.currentTarget.textContent
     })
   }
 
@@ -104,9 +102,9 @@ const WhatToExpectPage = () => {
       </Container>
       <Container className={classes.tabsContainer}>
         <Router primary={false}>
-          <Consent index={2} isMobile={isMobile} path="/*" component="h2" />
-          <Donate index={1} isMobile={isMobile} path="donate" component="h2" />
-          <BiomarkerTest index={0} isMobile={isMobile} path="testing" component="h2" />
+          <Consent index={2} isMobile={isMobile} path="/*" component="h2" trackEvent={trackEvent} />
+          <Donate index={1} isMobile={isMobile} path="donate" component="h2" trackEvent={trackEvent} />
+          <BiomarkerTest index={0} isMobile={isMobile} path="testing" component="h2" trackEvent={trackEvent} />
         </Router>
       </Container>
     </Box>
