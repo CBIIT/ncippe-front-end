@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import { Box, Container, Divider, Grid, Link, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import PubSub from 'pubsub-js'
 
-import { trackFallback } from '../../utils/utils'
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 
@@ -31,17 +31,17 @@ const useStyles = makeStyles( theme => ({
   }
 }),{name: 'ResearchPage'})
 
-const ResearchPage = (props) => {
+const ResearchPage = () => {
   const classes = useStyles()
-  const { trackEvent = trackFallback } = props
   const { t } = useTranslation('research')
 
   useEffect(() => {
-    trackEvent("page view", {
-      pageTitle: "Biobanks are important for research",
-      metaTitle: t("metaData.title")
+    PubSub.publish('ANALYTICS', {
+      event:'pageview',
+      prop6: 'Biobanks are important for research',
+      prop10: t('metaData.title'),
     })
-  },[trackEvent, t])
+  },[t])
 
   return (
     <Box component="article">

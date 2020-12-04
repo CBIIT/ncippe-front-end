@@ -1,9 +1,9 @@
 import React from 'react'
-import FAQ from './FAQ'
+import Component from './Component'
 
 export default {
-  title: 'UI/FAQ/Single FAQ',
-  component: FAQ,
+  title: 'UI/Component',
+  component: Component,
   argTypes: {
     index: {
       table: {
@@ -19,34 +19,28 @@ export default {
         }
       }
     },
-    title: {
+    ['...other']: {
+      type: {
+        summary: 'mixed'
+      },
+      description: 'this component also accepts props to be passed along to the <a href="https://material-ui.com/api/container/" rel="noopener noreferrer" target="_blank">MuiContainer</a> that wrapps all the FAQs',
       table: {
         defaultValue: {
-          summary: 'undefined',
+          summary: 'undefined'
         }
       },
-    },
-    desc: {
-      table: {
-        defaultValue: {
-          summary: 'undefined'
-        }
+      control: {
+        type: null
       }
     },
-    onClick: {
-      table: {
-        defaultValue: {
-          summary: 'undefined'
-        }
-      }
-    }
   }
 }
 
-const Template = (args) => <FAQ {...args} />
+const Template = (args) => <Component {...args} />
 
-export const SingleFAQ = Template.bind({})
-SingleFAQ.args = {
+export const DemoComponent = Template.bind({})
+DemoComponent.storyName = "Demo Component"
+DemoComponent.args = {
   index: 'example',
   title: 'Would you like to know more?',
   desc: `Here is some <a href="https://hipsum.co/?paras=2&type=hipster-centric&start-with-lorem=1" rel='noopener noreferrer' target="_blank">Hipster Ipsum</a><p>I'm baby thundercats portland put a bird on it, flannel actually unicorn next level fixie yuccie. Jianbing roof party fam pinterest pitchfork jean shorts. Hashtag bushwick sriracha stumptown pork belly waistcoat food truck mlkshk messenger bag tilde. Vape williamsburg pinterest typewriter iPhone, blog 3 wolf moon photo booth lyft sartorial everyday carry.</p>`,

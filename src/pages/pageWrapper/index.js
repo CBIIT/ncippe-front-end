@@ -1,1 +1,1 @@
-export { default } from './pageWrapper.tracking'
+export { default } from './pageWrapper'

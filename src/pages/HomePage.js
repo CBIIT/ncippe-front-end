@@ -9,8 +9,9 @@ import {
   CheckCircle as CheckCircleIcon,
   KeyboardArrowRight as ArrowRightIcon
 } from '@material-ui/icons'
+import PubSub from 'pubsub-js'
 
-import { check_webp_feature, trackFallback } from '../utils/utils'
+import { check_webp_feature } from '../utils/utils'
 import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
 
@@ -278,9 +279,8 @@ const useStyles = makeStyles( theme => ({
  * Home Page for the app.
  * 
  */
-const HomePage = (props) => {
+const HomePage = () => {
   const classes = useStyles()
-  const { trackEvent = trackFallback } = props
   // isMobile is used to toggle multiple responsive styles and component attributes. Easier than using mediaqueries for everything
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -306,12 +306,13 @@ const HomePage = (props) => {
   }, [isHighResolution])
 
   useEffect(() => {
-    trackEvent("page view", {
-      pageTitle: "Home Page",
-      metaTitle: t("metaData.title"),
+    PubSub.publish('ANALYTICS', {
+      event:'pageview',
+      prop6: 'Home Page',
+      prop10: t('metaData.title'),
       pageName:'msbiobank.c.gov/',
     })
-  },[trackEvent, t])
+  },[t])
 
   /* 
     If a user has just closed their account then a modal will be triggered to confirm their account was closed. 

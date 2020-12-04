@@ -36,13 +36,6 @@ export default {
       control: {
         type: null
       }
-    },
-    trackEvent: {
-      table: {
-        defaultValue: {
-          summary: 'undefined'
-        }
-      }
     }
   }
 }

@@ -1,1 +1,1 @@
-export { default } from './FAQ_Group.js'
+export { default } from './FAQ_Group'

@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import { Container, Box, Grid, Typography, Divider, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
+import PubSub from 'pubsub-js'
 
-import { trackFallback } from '../../utils/utils'
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 
@@ -33,19 +33,19 @@ const useStyles = makeStyles( theme => ({
   }
 }),{name: 'EligibilityPage'})
 
-const EligibilityPage = (props) => {
+const EligibilityPage = () => {
   const classes = useStyles()
-  const { trackEvent = trackFallback } = props
   const { t } = useTranslation('eligibility')
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
   useEffect(() => {
-    trackEvent("page view", {
-      pageTitle: "Eligibility and locations",
-      metaTitle: t("metaData.title")
+    PubSub.publish('ANALYTICS', {
+      event:'pageview',
+      prop6: "Eligibility and locations",
+      prop10: t("metaData.title")
     })
-  },[trackEvent, t])
+  },[t])
 
   return (
     <Box component="article">

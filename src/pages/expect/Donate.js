@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import { Box, Container, Grid, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
+import PubSub from 'pubsub-js'
 
-import { trackFallback } from '../../utils/utils'
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 import FAQs from '../../components/FAQ_Group'
@@ -51,9 +51,8 @@ const BodyContent = () => {
   )
 }
 
-const Donate = (props) => {
+const Donate = () => {
   const classes = useStyles()
-  const { trackEvent = trackFallback } = props
   const { t, i18n } = useTranslation('donate')
   const faqs = i18n.getResourceBundle(i18n.languages[0],'donate').faqs
   const theme = useTheme()
@@ -61,11 +60,12 @@ const Donate = (props) => {
   const singleColumn = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(() => {
-    trackEvent("page view", {
-      pageTitle: "Donate samples",
-      metaTitle: t("metaData.title")
+    PubSub.publish('ANALYTICS', {
+      event:'pageview',
+      prop6: 'Donate samples',
+      prop10: t('metaData.title')
     })
-  },[trackEvent, t])
+  },[t])
 
   return (
     <Box component="article">

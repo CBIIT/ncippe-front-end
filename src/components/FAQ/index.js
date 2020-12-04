@@ -1,1 +1,1 @@
-export { default } from './FAQ.tracking.js'
+export { default } from './FAQ'

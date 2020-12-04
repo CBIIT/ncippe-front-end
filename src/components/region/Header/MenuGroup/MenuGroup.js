@@ -11,9 +11,9 @@ import {
   Paper,
   Popper,
 } from '@material-ui/core'
+import PubSub from 'pubsub-js'
 
 import ConditionalWrapper from '../../../utils/ConditionalWrapper'
-import { trackFallback } from '../../../../utils/utils'
 
 const useStyles = makeStyles(theme => ({
   popper: {
@@ -76,7 +76,7 @@ const MenuGroup = (props) => {
   const classes = useStyles()
   const randomNum = Math.floor(Math.random() * 1000) + 1
   // destructure props
-  const { index = randomNum, title, active, trackEvent = trackFallback} = props
+  const { index = randomNum, title, active } = props
   
   const [open, setOpen] = useState(false)
   const [popperClass, setPopperClass] = useState(false)
@@ -86,7 +86,12 @@ const MenuGroup = (props) => {
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
     setPopperClass(prev => !prev ? classes.activePopper : false)
-    trackEvent("toggle menu reveal",{title})
+    PubSub.publish('ANALYTICS', {
+      eventName: 'ToggleMenuReveal',
+      events:'event26',
+      prop53: `BioBank_TopNav|${title}`,
+      eVar53: `BioBank_TopNav|${title}`,
+    })
   }
 
   const handleClose = (event) => {
@@ -95,9 +100,11 @@ const MenuGroup = (props) => {
     }
 
     if(event.currentTarget !== window.document) {
-      trackEvent("toggle menu link", {
-        title,
-        textContent: event.target.textContent
+      PubSub.publish('ANALYTICS', {
+        eventName: 'ToggleMenuLink',
+        events:'event28',
+        prop53: `BioBank_TopNav|${title}|${event.target.textContent}`,
+        eVar53: `BioBank_TopNav|${title}|${event.target.textContent}`,
       })
     }
 
@@ -217,10 +224,6 @@ MenuGroup.propTypes = {
    * menu items that are anchor elements
    */
   children: PropTypes.node.isRequired,
-  /**
-   * callback event for analytics tracking
-   */
-  trackEvent: PropTypes.func
 }
 
 export default MenuGroup

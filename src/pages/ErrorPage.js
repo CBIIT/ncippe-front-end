@@ -4,21 +4,20 @@ import { Box, Container, Button } from '@material-ui/core'
 import Status from '../components/Status/Status'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
-
-import { trackFallback } from '../utils/utils'
+import PubSub from 'pubsub-js'
 
 
 const ErrorPage = (props) => {
-  const { trackEvent = trackFallback } = props
   const { t } = useTranslation('notFoundPage')
 
   useEffect(() => {
-    trackEvent("page view", {
-      pageTitle: "Error Page",
-      metaTitle: t("metaData.title"),
+    PubSub.publish('ANALYTICS', {
+      event:'pageview',
+      prop6: 'Error Page',
+      prop10: t('metaData.title'),
       pageType: "errorPage"
     })
-  },[trackEvent, t])
+  },[t])
 
   const errorDefaults = {
     status: "error",

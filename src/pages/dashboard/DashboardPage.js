@@ -3,8 +3,8 @@ import { Box, Container, Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
+import PubSub from 'pubsub-js'
 
-import { trackFallback } from '../../utils/utils'
 import { LoginConsumer } from '../../components/login/Login.context'
 import PatientList from '../../components/PatientList/PatientList'
 import IconCard from '../../components/IconCard/IconCard'
@@ -45,27 +45,30 @@ const useStyles = makeStyles(theme => ({
   }
 }),{name: 'DashboardPage'})
 
-const Page = (props) => {
+const Page = () => {
   const classes = useStyles()
-  const { trackEvent = trackFallback } = props
   const { t } = useTranslation(['a_landing','a_common'])
 
   useEffect(() => {
     // only want to track the dashboard landing page load event once, saving state to session variable
     const tracked = sessionStorage.getItem('isDashboardTracked')
     if(tracked === 'false' || !tracked) {
-      trackEvent("page view", {
-        pageTitle: "Account Page",
-        metaTitle: t('metaData.title')
+      PubSub.publish('ANALYTICS', {
+        event:'pageview',
+        prop6: 'Account Page',
+        prop10: t('metaData.title'),
       })
       sessionStorage.setItem('isDashboardTracked',true)
     }
-  },[trackEvent, t])
+  },[t])
 
   const trackCardClick = (e) => {
     const card = e.currentTarget.closest(".IconCardContent")
-    trackEvent("card link", {
-      textContent: card.querySelector("h2").textContent
+    PubSub.publish('ANALYTICS', {
+      eventName: 'CardLink',
+      events: 'event27',
+      prop57: `BioBank_AccountCard|${card.querySelector("h2").textContent}`,
+      eVar37: `BioBank_AccountCard|${card.querySelector("h2").textContent}`,
     })
     window.$defaultLinkTrack = false
   }

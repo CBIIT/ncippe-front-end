@@ -3,8 +3,8 @@ import { Router, Link as RouterLink } from '@reach/router'
 import { AppBar, Box, Container, Tab, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
+import PubSub from 'pubsub-js'
 
-import { trackFallback } from '../../utils/utils'
 import StyledTabs from '../../components/Tabs/StyledTabs'
 import Consent from './Consent'
 import Donate from './Donate'
@@ -40,9 +40,8 @@ const a11yProps = (index) => {
   };
 }
 
-const WhatToExpectPage = (props) => {
+const WhatToExpectPage = () => {
   const classes = useStyles()
-  const { trackEvent = trackFallback } = props
   const { t } = useTranslation(['consent','donate','testing'])
   const [value, setValue] = useState(()=>{
     switch(window.location.pathname){
@@ -69,8 +68,10 @@ const WhatToExpectPage = (props) => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
-    trackEvent("tab click", {
-      textContent: event.currentTarget.textContent
+    PubSub.publish('ANALYTICS', {
+      events: 'event33',
+      prop53: `BioBank_SectionTabNav|${event.currentTarget.textContent}`,
+      eVar53: `BioBank_SectionTabNav|${event.currentTarget.textContent}`,
     })
   }
 
@@ -102,9 +103,9 @@ const WhatToExpectPage = (props) => {
       </Container>
       <Container className={classes.tabsContainer}>
         <Router primary={false}>
-          <Consent index={2} isMobile={isMobile} path="/*" component="h2" trackEvent={trackEvent} />
-          <Donate index={1} isMobile={isMobile} path="donate" component="h2" trackEvent={trackEvent} />
-          <BiomarkerTest index={0} isMobile={isMobile} path="testing" component="h2" trackEvent={trackEvent} />
+          <Consent index={2} isMobile={isMobile} path="/*" component="h2" />
+          <Donate index={1} isMobile={isMobile} path="donate" component="h2" />
+          <BiomarkerTest index={0} isMobile={isMobile} path="testing" component="h2" />
         </Router>
       </Container>
     </Box>

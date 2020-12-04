@@ -5,8 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
-
-import { trackFallback } from '../utils/utils'
+import PubSub from 'pubsub-js'
 
 const useStyles = makeStyles( theme => ({
   container: {
@@ -26,18 +25,18 @@ const useStyles = makeStyles( theme => ({
   }
 }),{name: 'NotFoundPage'})
 
-const ErrorPage = (props) => {
+const ErrorPage = () => {
   const classes = useStyles()
-  const { trackEvent = trackFallback } = props
   const { t } = useTranslation('notFoundPage')
 
   useEffect(() => {
-    trackEvent("page view", {
-      pageTitle: "Error Page",
-      metaTitle: t("metaData.title"),
+    PubSub.publish('ANALYTICS', {
+      event:'pageview',
+      prop6: 'Error Page',
+      prop10: t('metaData.title'),
       pageType: "errorPage",
     })
-  },[trackEvent, t])
+  },[t])
 
   return (
     <Box mt={5}>

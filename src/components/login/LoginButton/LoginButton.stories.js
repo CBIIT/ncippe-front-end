@@ -25,13 +25,6 @@ export default {
           summary: false
         }
       }
-    },
-    trackEvent: {
-      table: {
-        defaultValue: {
-          summary: 'undefined'
-        }
-      }
     }
   }
 }

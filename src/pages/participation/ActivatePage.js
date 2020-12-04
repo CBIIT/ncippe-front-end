@@ -6,8 +6,8 @@ import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { 
   OpenInNew as OpenInNewIcon
 } from '@material-ui/icons'
+import PubSub from 'pubsub-js'
 
-import { trackFallback } from '../../utils/utils'
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 // import { AuthContext } from '../../components/login/AuthContext'
@@ -123,9 +123,8 @@ const useStyles = makeStyles( theme => ({
   }
 }),{name: 'ActivatePage'})
 
-const ActivatePage = (props) => {
+const ActivatePage = () => {
   const classes = useStyles()
-  const { trackEvent = trackFallback } = props
   const { t, i18n } = useTranslation('activate')
   // const { signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
   const faqs = i18n.getResourceBundle(i18n.languages[0],'activate').faqs
@@ -133,21 +132,27 @@ const ActivatePage = (props) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
   useEffect(() => {
-    trackEvent("page view", {
-      pageTitle: "Activate your online Biobank account",
-      metaTitle: t("metaData.title")
+    PubSub.publish('ANALYTICS', {
+      event:'pageview',
+      prop6: 'Activate your online Biobank account',
+      prop10: t('metaData.title'),
     })
-  },[trackEvent, t])
+  },[t])
 
   const handleLogin = () => {
-    trackEvent("sign in")
+    PubSub.publish('ANALYTICS', {
+      eventName: 'sign in',
+      events: 'event26',
+      prop53: `BioBank_Activate|Sign-In`,
+      eVar53: `BioBank_Activate|Sign-In`,
+    })
     window.location.assign(process.env.REACT_APP_LOGIN_LINK)
   }
 
   return (
     <Box component="article">
       <Helmet>
-        <title>{t("metaData.title")}</title>
+        <title>{t('metaData.title')}</title>
         <meta name="title" content={t("metaData.title")} />
         <meta property="og:title" content={t("metaData.OG_title")} />
         <meta name="description" content={t("metaData.description")} />

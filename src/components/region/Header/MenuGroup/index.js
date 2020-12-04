@@ -1,1 +1,1 @@
-export { default } from './MenuGroup.tracking.js'
+export { default } from './MenuGroup'

@@ -4,6 +4,8 @@ import { CssBaseline } from '@material-ui/core'
 import track from 'react-tracking'
 import { HelmetProvider, Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
+import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 
 import Routes from './routers/routes'
 import { LoginProvider } from './components/login/Login.context'
@@ -19,6 +21,16 @@ window.$role = 'Public'
  */
 const App = (props) => {
   const { t } = useTranslation('common')
+  const { trackEvent } = useTracking()
+
+  useEffect(() => {
+    const analytics = PubSub.subscribe('ANALYTICS', (msg, data) => {
+      trackEvent(data)
+    })
+    return () => {
+      PubSub.unsubscribe(analytics)
+    }
+  }, [PubSub, trackEvent])
 
   // global variable for tracking generic links and buttons. It may be desirable to skip this tracking method if the link triggers something more specific
   window.$defaultLinkTrack = true

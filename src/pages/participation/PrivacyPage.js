@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import { Container, Box, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import PubSub from 'pubsub-js'
 
-import { trackFallback } from '../../utils/utils'
 import RenderContent from '../../components/utils/RenderContent'
 import IconCard from '../../components/IconCard/IconCard'
 
@@ -27,17 +27,17 @@ const useStyles = makeStyles( theme => ({
   }
 }),{name: 'PrivacyPage'})
 
-const PrivacyPage = (props) => {
+const PrivacyPage = () => {
   const classes = useStyles()
-  const { trackEvent = trackFallback } = props
   const { t } = useTranslation('privacy')
 
   useEffect(() => {
-    trackEvent("page view", {
-      pageTitle: "Protecting your privacy",
-      metaTitle: t("metaData.title")
+    PubSub.publish('ANALYTICS', {
+      event:'pageview',
+      prop6: 'Protecting your privacy',
+      prop10: t('metaData.title'),
     })
-  },[trackEvent, t])
+  },[t])
 
   return (
     <Container className="mainContainer" component="article">

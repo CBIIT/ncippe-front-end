@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
+import { useLocation } from '@reach/router'
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   AddRounded,
   RemoveRounded
 } from '@material-ui/icons'
+import PubSub from 'pubsub-js'
+
 import RenderContent from '../../components/utils/RenderContent'
-import { trackFallback } from '../../utils/utils'
 import './FAQ.css'
 
 const useStyles = makeStyles( theme => ({
@@ -90,8 +92,9 @@ const useStyles = makeStyles( theme => ({
 const FAQ = (props) => {
   const classes = useStyles()
   const randomNum = Math.floor(Math.random() * 1000) + 1
-  const { index = randomNum, title, desc, expanded = false, onClick, trackEvent = trackFallback } = props
+  const { index = randomNum, title, desc, expanded = false, onClick } = props
   const [isExpanded, setIsExpanded] = useState(false)
+  const location = useLocation()
 
   // externally control the expansion of this component
   useEffect(() => {
@@ -118,8 +121,11 @@ const FAQ = (props) => {
   const trackClick = () => {
     // about to be expanded
     if(!isExpanded){
-      trackEvent('expand', {
-        index
+      const pageName = location.pathname.replace(/\//g,"-")
+      PubSub.publish('ANALYTICS', {
+        events: 'event72',
+        eventName: 'FAQ',
+        prop41: `BioBank|AccordianExpand|FAQ${pageName}-${index}`,
       })
     }
   }
@@ -163,10 +169,6 @@ FAQ.propTypes = {
    * callback event on click of the FAQ header
    */
   onClick: PropTypes.func,
-  /**
-   * callback event for analytics tracking
-   */
-  trackEvent: PropTypes.func
 }
 
 export default FAQ

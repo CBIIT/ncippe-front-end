@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { navigate, useLocation } from "@reach/router"
 import { useTranslation } from 'react-i18next'
 import { Button } from '@material-ui/core'
+import PubSub from 'pubsub-js'
 import { LoginContext } from '../Login.context'
-import { trackFallback } from '../../../utils/utils'
 
 /**
  * The login button will change state according to the user's login state
@@ -14,7 +14,7 @@ const LoginButton = (props) => {
   const { auth } = loginContext
   const location = useLocation()
   // destructure props
-  const { isAccount = location.pathname.includes('account'), trackEvent = trackFallback} = props
+  const { isAccount = location.pathname.includes('account')} = props
   const { t } = useTranslation('common')
 
   const handleClick = () => {
@@ -27,7 +27,12 @@ const LoginButton = (props) => {
       }
       else {
         // log-out
-        trackEvent('sign out')
+        PubSub.publish('ANALYTICS', {
+          eventName: 'Sign out',
+          events: 'event26',
+          prop53: `BioBank_TopNav|Sign-Out`,
+          eVar53: `BioBank_TopNav|Sign-Out`,
+        })
         // reset user data and log-out
         sessionStorage.setItem('isDashboardTracked',false)
         window.$role = "Public"
@@ -36,7 +41,12 @@ const LoginButton = (props) => {
     }
     // log-in
     else {
-      trackEvent('sign in')
+      PubSub.publish('ANALYTICS', {
+        eventName: 'Sign in',
+        events: 'event26',
+        prop53: `BioBank_TopNav|Sign-In`,
+        eVar53: `BioBank_TopNav|Sign-In`,
+      })
       window.location.assign(`${process.env.REACT_APP_LOGIN_LINK}?date=${Date.now()}`)
     }
   }
@@ -55,10 +65,6 @@ LoginButton.propTypes = {
    * state when an authenticated user is in the account dashboard
    */
   isAccount: PropTypes.bool,
-  /**
-   * callback event for analytics tracking
-   */
-  trackEvent: PropTypes.func
 }
 
 export default LoginButton

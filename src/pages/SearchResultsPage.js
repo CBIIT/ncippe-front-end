@@ -8,8 +8,9 @@ import {
 } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
 import lunr from 'lunr'
+import PubSub from 'pubsub-js'
 
-import { trackFallback, objectValuesToString } from '../utils/utils'
+import { objectValuesToString } from '../utils/utils'
 import RenderContent from '../components/utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
@@ -43,10 +44,9 @@ const useStyles = makeStyles( theme => ({
 }),{name: 'SearchResultsPage'})
 
 
-const SearchResults = (props) => {
+const SearchResults = () => {
   // const {location} = props
   const classes = useStyles()
-  const { trackEvent = trackFallback } = props
   const { t, i18n } = useTranslation([
     'common', // common sould always come first as the default namespace
     'about',
@@ -147,7 +147,6 @@ const SearchResults = (props) => {
     const processSearch = (results = []) => {
 
       return results.map(result => {
-  
         const doc = docData[result.ref]
         const processResults = Object.keys(result.matchData.metadata).map(match => {
           const matchData = result.matchData.metadata[match]
@@ -172,16 +171,17 @@ const SearchResults = (props) => {
       const results = processSearch(searchIndex.search(`*${searchTerm}*~1 ${searchTerm}* *${searchTerm}`))
       setSearchResults(results)
 
-      trackEvent("page view", {
-        pageTitle: "Search results",
-        metaTitle: t("searchResults:metaData.title"),
+      PubSub.publish('ANALYTICS', {
+        event:'pageview',
+        prop6: 'Search results',
+        prop10: t("searchResults:metaData.title"),
         prop14: searchTerm,
         eVar10: results.length.toString(),
         eVar14: searchTerm,
       })
     }
 
-  }, [term, searchTerm, searchIndex, docData, trackEvent, t])
+  }, [term, searchTerm, searchIndex, docData, t])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -190,8 +190,13 @@ const SearchResults = (props) => {
     // update the history to store the search term
     window.history.pushState({term}, "", "/search")
 
-    trackEvent("submit search", {
-      term
+    PubSub.publish('ANALYTICS', {
+      events: "event2",
+      prop11: "BioBank Global Search - Results New Search",
+      eVar11: "BioBank Global Search - Results New Search",
+      eVar13: "+1",
+      prop14: term,
+      eVar14: term,
     })
   }
 
@@ -206,9 +211,9 @@ const SearchResults = (props) => {
   }
 
   const trackClick = (e) => {
-    trackEvent("search result link", {
-      textContent: e.target.textContent,
-      rank: e.target.dataset.rank
+    PubSub.publish('ANALYTICS', {
+      prop50: e.target.textContent,
+      prop13: e.target.dataset.rank
     })
   }
 

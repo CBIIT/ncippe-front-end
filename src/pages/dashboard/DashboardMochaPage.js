@@ -2,26 +2,27 @@ import React, { useEffect } from 'react'
 import { Box, Container, Typography } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
+import PubSub from 'pubsub-js'
 
-import { trackFallback } from '../../utils/utils'
 import { LoginConsumer } from '../../components/login/Login.context'
 import UploadReport from '../../components/Mocha/UploadReport'
 
-const Page = (props) => {
-  const { trackEvent = trackFallback } = props
+const Page = () => {
   const { t } = useTranslation(['a_landingMocha','a_common'])
 
   useEffect(() => {
     // only want to track the dashboard landing page load event once, saving state to session variable
     const tracked = sessionStorage.getItem('isDashboardTracked')
     if(tracked === 'false' || !tracked) {
-      trackEvent("page view", {
-        pageTitle: "Mocha Landing Page",
-        metaTitle: t('metaData.title')
+      PubSub.publish('ANALYTICS', {
+        event:'pageview',
+        prop6: 'Mocha Landing Page',
+        prop10: t('metaData.title'),
       })
+      
       sessionStorage.setItem('isDashboardTracked',true)
     }
-  },[trackEvent, t])
+  },[t])
   return (
     <Box>
       <Helmet>

@@ -1,1 +1,1 @@
-export { default } from './LoginButton.tracking.js'
+export { default } from './LoginButton'
