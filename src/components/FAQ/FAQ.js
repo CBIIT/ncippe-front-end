@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { useLocation } from '@reach/router'
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
@@ -94,7 +93,6 @@ const FAQ = (props) => {
   const randomNum = Math.floor(Math.random() * 1000) + 1
   const { index = randomNum, title, desc, expanded = false, onClick } = props
   const [isExpanded, setIsExpanded] = useState(false)
-  const location = useLocation()
 
   // externally control the expansion of this component
   useEffect(() => {
@@ -121,7 +119,7 @@ const FAQ = (props) => {
   const trackClick = () => {
     // about to be expanded
     if(!isExpanded){
-      const pageName = location.pathname.replace(/\//g,"-")
+      const pageName = window.location.pathname.replace(/\//g,"-")
       PubSub.publish('ANALYTICS', {
         events: 'event72',
         eventName: 'FAQ',
