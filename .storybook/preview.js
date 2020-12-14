@@ -1,6 +1,8 @@
 
-import React, {Suspense} from 'react'
+import React, { Suspense, lazy } from 'react'
 import App from '../src/stories/Layout/AppWrapper'
+
+// const App = lazy(() => import('../src/stories/Layout/AppWrapper')) 
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -22,5 +24,4 @@ export const globalTypes = {
   },
 }
 
-// wrap all stories in our App Wrapper since trackEvent() is connected to everything
-export const decorators = [(Story,{globals: {locale}}) => <Suspense fallback={<div style={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}>Loading...</div>}><App lang={locale}><Story/></App></Suspense>];
+export const decorators = [(Story,{globals: {locale}}) => <Suspense fallback={<div style={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}>Loading...</div>}><App lang={locale}><Story/></App></Suspense>]
