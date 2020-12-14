@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from '@reach/router'
 import { Accordion, AccordionDetails, AccordionSummary, MenuList, MenuItem, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -111,11 +112,14 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
+/**
+ * This component will display a drop down menu of links. It has two styles: `stacked` and `floating`. The stacked menu variant is currently only used for the mobile menu navigation. The floating menu variant is used in various places for user interaction
+ */
 const ExpansionMenu = (props) => {
   const classes = useStyles()
   const {
-    index = "panel1", 
-    name,
+    index = `panel-${Math.floor(Math.random() * 1000) + 1}`, 
+    menuText,
     className = "", 
     expanded = false,
     active = false,
@@ -163,10 +167,10 @@ const ExpansionMenu = (props) => {
         aria-controls={`${index}Menu--content`}
         id={`${index}Menu--header`}
       >
-        <Typography variant="h4">{name}</Typography>
+        <Typography variant="h4">{menuText}</Typography>
       </AccordionSummary>
       <AccordionDetails className={classes.accordionDetails}>
-        <MenuList className={classes.menuList} autoFocusItem={isExpanded} data-panelgroup={name}>
+        <MenuList className={classes.menuList} autoFocusItem={isExpanded} data-panelgroup={menuText}>
           {
             React.Children.map(props.children, child => {
               if(child && child.type === "a") {
@@ -191,3 +195,40 @@ const ExpansionMenu = (props) => {
 }
 
 export default ExpansionMenu
+ExpansionMenu.propTypes = {
+  /**
+   * unique identifier used for ARIA controls connecting the button to the menu
+   */
+  index: PropTypes.string,
+  /**
+   * the text of the menu button
+   */
+  menuText: PropTypes.string.isRequired,
+  /**
+   * optional additional class name for custom styles
+   */
+  className: PropTypes.string,
+  /**
+   * The menu items
+   */
+  children: PropTypes.node,
+  /**
+   * sets if the menu is expanded or not
+   */
+  expanded: PropTypes.bool,
+  /**
+   * adds an `active` class name to the menu button for additional styling
+   */
+  active: PropTypes.bool,
+  /**
+   * Callback fired when the expand/collapse state is changed. 
+   * `function(event: object, expanded: boolean) => void`
+   * _event_: The event source of the callback.
+   * _expanded_: The expanded state of the accordion.
+   */
+  handleClick: PropTypes.func,
+  /**
+   * The variant to use
+   */
+  variant: PropTypes.oneOf(['stacked', 'floating']),
+}
