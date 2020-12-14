@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import RenderContent from '../utils/RenderContent'
@@ -29,6 +30,9 @@ const useStyles = makeStyles( theme => ({
   },
 }),{name: 'NoItems'})
 
+/**
+ * Display a simple and reusable "No Items" message. This component is used for notifications, biomarker reports and consent forms
+ */
 const NoItems = (props) => {
   const {message} = props
   const classes = useStyles()
@@ -36,13 +40,21 @@ const NoItems = (props) => {
   return (
     <Grid container className={classes.statusGrid}>
       <Grid item>
-        <img className={classes.statusIcon} src={`/${process.env.PUBLIC_URL}assets/icons/empty-folder.svg`} alt='empty folder icon' aria-hidden="true"></img>
+        <img className={classes.statusIcon} src={`${process.env.PUBLIC_URL}/assets/icons/empty-folder.svg`} alt='empty folder icon' aria-hidden="true"></img>
       </Grid>
       <Grid item>
         <Typography className={classes.statusText}><RenderContent source={message} /></Typography>
       </Grid>
     </Grid>
   )
+}
+
+NoItems.displayName = "NoItems"
+NoItems.propTypes = {
+  /**
+   * A message to display below the empty folder image
+   */
+  message: PropTypes.string.isRequired
 }
 
 export default NoItems
