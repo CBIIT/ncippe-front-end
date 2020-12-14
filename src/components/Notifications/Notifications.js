@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 
 import { LoginContext } from '../login/Login.context'
-// import { api } from '../../data/api'
 import getAPI from '../../data'
 
 import NotificationItem from './NotificationItem'
@@ -23,13 +22,15 @@ const useStyles = makeStyles(theme => ({
 
 let isNewSeen = false
 
+/**
+ * A listing of notifications. All notifications are provided by context (specific to user data) so this component does not have any `props`. On viewing notifications all "new" items are marked as read.
+ */
 const Notifications = () => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
-  const { notifications } = loginContext
+  const { notifications, token, uuid, newNotificationCount } = loginContext
   const count = notifications ? notifications.length : 0
   const { t } = useTranslation('a_common')
-  const {token, uuid, newNotificationCount} = loginContext
 
   useEffect(() => {
     //mark notifications as read when screen loads
@@ -62,9 +63,10 @@ const Notifications = () => {
 
   return <>
     <div className={classes.titleWithIcon}>
-      <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/notifications.svg`} alt={t('a_common:icons.notifications')} aria-hidden="true"></img>
+      <img className={classes.titleIcon} src={`${process.env.PUBLIC_URL}/assets/icons/notifications.svg`} alt={t('a_common:icons.notifications')} aria-hidden="true"></img>
       <Typography variant="h2" component="h2">{t('components.notificationView.pageTitle', {count})}</Typography>
     </div>
+    
     {count ? 
       notifications.map((item, i) => <NotificationItem key={i} notification={item} lang={loginContext.lang} />)
       :
@@ -72,5 +74,7 @@ const Notifications = () => {
     }
   </>
 }
+
+Notifications.displayName = "Notifications"
 
 export default Notifications
