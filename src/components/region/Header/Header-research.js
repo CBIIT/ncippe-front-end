@@ -12,7 +12,7 @@ import {
   Link,
   TextField,
   useMediaQuery
-} from '@material-ui/core';
+} from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { 
   MenuRounded as MenuIcon,
@@ -22,7 +22,7 @@ import {
 
 import LoginButton from '../../login/LoginButton'
 import MenuGroup from './MenuGroup';
-import ExpansionMenu from '../../ExpansionMenu/ExpansionMenu'
+import ExpansionMenu from '../../ExpansionMenu'
 import Search from '../../Search/Search'
 
 const useStyles = makeStyles(theme => ({
@@ -235,20 +235,20 @@ const Header = () => {
           <nav className={classes.publicNavDesktop} id="mainNav">
             {/* TODO: loop through nav object and dynamically render menu items */}
             {/* TODO: routes need to be added to translations in order to perform loop logic - or generated from translation key */}
-            <MenuGroup title={t('nav.about')} active={loc.includes('about')} id="about">
+            <MenuGroup menuText={t('nav.about')} active={loc.includes('about')} id="about">
               <a href="/about">{t('nav.about_subNav.about')}</a>
               <a href="/about/eligibility">{t('nav.about_subNav.eligibility')}</a>
             </MenuGroup>
-            <MenuGroup title={t('nav.expect')} active={loc.includes('expect')} id="expect">
+            <MenuGroup menuText={t('nav.expect')} active={loc.includes('expect')} id="expect">
               <a href="/expect/consent">{t('nav.expect_subNav.consent')}</a>
               <a href="/expect/donate">{t('nav.expect_subNav.donate')}</a>
               <a href="/expect/testing">{t('nav.expect_subNav.testing')}</a>
             </MenuGroup>
-            <MenuGroup title={t('nav.participation')} active={loc.includes('participation')} id="participation">
+            <MenuGroup menuText={t('nav.participation')} active={loc.includes('participation')} id="participation">
               <a href="/participation/activate">{t('nav.participation_subNav.activate')}</a>
               <a href="/participation/privacy">{t('nav.participation_subNav.privacy')}</a>
             </MenuGroup>
-            <MenuGroup title={t('nav.research')} active={loc.includes('research')} id="research">
+            <MenuGroup menuText={t('nav.research')} active={loc.includes('research')} id="research">
               <a href="/research">{t('nav.research_subNav.0')}</a>
               {/* <a className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.0')}</a>
               <a className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.1')}</a>
@@ -277,7 +277,7 @@ const Header = () => {
               handleClick={expandPanel}
               expanded={expanded.includes("about")}
               active={loc.includes('about')}
-              name={t('nav.about')}
+              menuText={t('nav.about')}
               id="about"
             >
               <a onClick={closeMenu} href="/about">{t('nav.about_subNav.about')}</a>
@@ -288,7 +288,7 @@ const Header = () => {
               handleClick={expandPanel}
               expanded={expanded.includes("expect")}
               active={loc.includes('expect')}
-              name={t('nav.expect')}
+              menuText={t('nav.expect')}
               id="expect"
             >
               <a onClick={closeMenu} href="/expect/consent">{t('nav.expect_subNav.consent')}</a>
@@ -300,7 +300,7 @@ const Header = () => {
               handleClick={expandPanel}
               expanded={expanded.includes("participation")}
               active={loc.includes('participation')}
-              name={t('nav.participation')}
+              menuText={t('nav.participation')}
               id="participation"
             >
               <a onClick={closeMenu} href="/participation/activate">{t('nav.participation_subNav.activate')}</a>
@@ -311,7 +311,7 @@ const Header = () => {
               handleClick={expandPanel}
               expanded={expanded.includes("research")}
               active={loc.includes('research')}
-              name={t('nav.research')}
+              menuText={t('nav.research')}
               id="research"
             >
               <a onClick={closeMenu} href="/research">{t('nav.research_subNav.0')}</a>

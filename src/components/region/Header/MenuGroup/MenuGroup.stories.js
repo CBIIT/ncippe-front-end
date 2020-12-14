@@ -5,6 +5,11 @@ import MenuGroup from './MenuGroup'
 export default {
   title: 'UI/Menu Group',
   component: MenuGroup,
+  // decorators:  [(Story) => {
+  //   const source = createMemorySource('/')
+  //   const history = createHistory(source)
+  //   return <LocationProvider history={history}><Story /></LocationProvider>
+  // }],
   argTypes: {
     index: {
       table: {
@@ -13,7 +18,7 @@ export default {
         }
       }
     },
-    title: {
+    menuText: {
       table: {
         defaultValue: {
           summary: 'undefined'
@@ -47,17 +52,18 @@ const Template = (args) => {
   return (
     <LocationProvider history={history}>
       <MenuGroup {...args}>
-        <a href="/">Home</a>
         <a href="/about">About</a>
-        <a href="/contact">Contact</a>
+        <a href="/about/eligibility">Eligibility</a>
       </MenuGroup>
     </LocationProvider>
   )
 }
 
-export const Menu = Template.bind({})
+const Menu = Template.bind({})
 Menu.storyName = "Menu Group"
 Menu.args = {
-  title: "Menu Group Button",
+  menuText: "Menu Group Button",
   active: false
 }
+
+export { Menu }

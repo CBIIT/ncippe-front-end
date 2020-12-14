@@ -22,7 +22,7 @@ import {
 
 import LoginButton from '../../login/LoginButton'
 import MenuGroup from './MenuGroup'
-import ExpansionMenu from '../../ExpansionMenu/ExpansionMenu'
+import ExpansionMenu from '../../ExpansionMenu'
 import Search from '../../Search/Search'
 
 const useStyles = makeStyles(theme => ({
@@ -243,17 +243,17 @@ const Header = () => {
           <nav className={classes.publicNavDesktop} id="mainNav">
             {/* TODO: loop through nav object and dynamically render menu items */}
             {/* TODO: routes need to be added to translations in order to perform loop logic - or generated from translation key */}
-            <MenuGroup title={t('nav.about')} active={loc.includes('about')} index="about">
+            <MenuGroup menuText={t('nav.about')} active={loc.includes('about')} index="about">
               <a href="/about">{t('nav.about_subNav.about')}</a>
               <a href="/about/eligibility">{t('nav.about_subNav.eligibility')}</a>
               <a href="/about/research">{t('nav.research')}</a>
             </MenuGroup>
-            <MenuGroup title={t('nav.expect')} active={loc.includes('expect')} index="expect">
+            <MenuGroup menuText={t('nav.expect')} active={loc.includes('expect')} index="expect">
               <a href="/expect/consent">{t('nav.expect_subNav.consent')}</a>
               <a href="/expect/donate">{t('nav.expect_subNav.donate')}</a>
               <a href="/expect/testing">{t('nav.expect_subNav.testing')}</a>
             </MenuGroup>
-            <MenuGroup title={t('nav.participation')} active={loc.includes('participation')} index="participation">
+            <MenuGroup menuText={t('nav.participation')} active={loc.includes('participation')} index="participation">
               <a href="/participation/activate">{t('nav.participation_subNav.activate')}</a>
               <a href="/participation/privacy">{t('nav.participation_subNav.privacy')}</a>
             </MenuGroup>
@@ -280,7 +280,7 @@ const Header = () => {
               handleClick={expandPanel}
               expanded={expanded.includes("about")}
               active={loc.includes('about')}
-              name={t('nav.about')}
+              menuText={t('nav.about')}
               index="about"
             >
               <a onClick={closeMenu} href="/about">{t('nav.about_subNav.about')}</a>
@@ -292,7 +292,7 @@ const Header = () => {
               handleClick={expandPanel}
               expanded={expanded.includes("expect")}
               active={loc.includes('expect')}
-              name={t('nav.expect')}
+              menuText={t('nav.expect')}
               index="expect"
             >
               <a onClick={closeMenu} href="/expect/consent">{t('nav.expect_subNav.consent')}</a>
@@ -304,7 +304,7 @@ const Header = () => {
               handleClick={expandPanel}
               expanded={expanded.includes("participation")}
               active={loc.includes('participation')}
-              name={t('nav.participation')}
+              menuText={t('nav.participation')}
               index="participation"
             >
               <a onClick={closeMenu} href="/participation/activate">{t('nav.participation_subNav.activate')}</a>

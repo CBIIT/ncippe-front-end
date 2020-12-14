@@ -76,7 +76,7 @@ const MenuGroup = (props) => {
   const classes = useStyles()
   const randomNum = Math.floor(Math.random() * 1000) + 1
   // destructure props
-  const { index = randomNum, title, active } = props
+  const { index = randomNum, menuText, active } = props
   
   const [open, setOpen] = useState(false)
   const [popperClass, setPopperClass] = useState(false)
@@ -89,8 +89,8 @@ const MenuGroup = (props) => {
     PubSub.publish('ANALYTICS', {
       eventName: 'ToggleMenuReveal',
       events:'event26',
-      prop53: `BioBank_TopNav|${title}`,
-      eVar53: `BioBank_TopNav|${title}`,
+      prop53: `BioBank_TopNav|${menuText}`,
+      eVar53: `BioBank_TopNav|${menuText}`,
     })
   }
 
@@ -103,8 +103,8 @@ const MenuGroup = (props) => {
       PubSub.publish('ANALYTICS', {
         eventName: 'ToggleMenuLink',
         events:'event28',
-        prop53: `BioBank_TopNav|${title}|${event.target.textContent}`,
-        eVar53: `BioBank_TopNav|${title}|${event.target.textContent}`,
+        prop53: `BioBank_TopNav|${menuText}|${event.target.textContent}`,
+        eVar53: `BioBank_TopNav|${menuText}|${event.target.textContent}`,
       })
     }
 
@@ -155,7 +155,7 @@ const MenuGroup = (props) => {
       onClick={handleToggle}
       className={active ? `${classes.active} active` : classes.button}
     >
-      {title}
+      {menuText}
     </Button>
     <Popper 
       className={`${classes.popper} ${popperClass}`} 
@@ -215,7 +215,7 @@ MenuGroup.propTypes = {
   /**
    * text for the top level menu button
    */
-  title: PropTypes.string.isRequired,
+  menuText: PropTypes.string.isRequired,
   /**
    * sets the active state for this menu
    */
