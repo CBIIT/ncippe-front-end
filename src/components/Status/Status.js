@@ -1,5 +1,6 @@
-import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   CheckCircle as SuccessIcon,
@@ -53,17 +54,32 @@ const useStyles = makeStyles( theme => ({
   }
 }),{name: 'Status'})
 
+/**
+ * Easily render status messages to users with useful feedback
+ */
 const Status = (props) => {
-  const {state = 'info', title, message} = props
-  const classes = useStyles(props)
+  const {state = 'info', title, message, fullWidth = false} = props
+  const classes = useStyles({state,fullWidth})
+
+  let Icon
+  switch(state) {
+    case 'success':
+      Icon = SuccessIcon
+      break;
+    case 'warning':
+      Icon = WarningIcon
+      break;
+    case 'error':
+      Icon = ErrorIcon
+      break;
+    default:
+      Icon = InfoIcon
+  }
 
   return (
     <Grid container className={classes.root}>
       <Grid item className={classes.gridItem_icon}>
-        {state==='success' && <SuccessIcon className={classes.icon} />}
-        {state==='warning' && <WarningIcon className={classes.icon} />}
-        {state==='error' && <ErrorIcon className={classes.icon} />}
-        {state==='info' && <InfoIcon className={classes.icon} />}
+        <Icon className={classes.icon} />
       </Grid>
       <Grid item className={classes.gridItem_text}>
         <Typography className={classes.title}>{title}</Typography>
@@ -71,6 +87,26 @@ const Status = (props) => {
       </Grid>
     </Grid>
   )
+}
+
+Status.displayName = 'Status'
+Status.propTypes = {
+  /**
+   * The visual state of the status message
+   */
+  state: PropTypes.oneOf(['success','warning','error','info']),
+  /**
+   * The title for this status message
+   */
+  title: PropTypes.string.isRequired,
+  /**
+   * The descriptive text that appears in the status message
+   */
+  message: PropTypes.string.isRequired,
+  /**
+   * Optionally set the component to 100% width
+   */
+  fullWidth: PropTypes.bool
 }
 
 export default Status
