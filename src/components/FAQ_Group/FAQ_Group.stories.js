@@ -1,5 +1,4 @@
 import React from 'react'
-import { createMemorySource, createHistory, LocationProvider } from '@reach/router'
 import FAQs from './FAQ_Group'
 
 export default {
@@ -44,16 +43,7 @@ export default {
   }
 }
 
-const Template = (args) => {
-  const source = createMemorySource('/')
-  const history = createHistory(source)
-
-  return (
-    <LocationProvider history={history}>
-        <FAQs {...args} />
-    </LocationProvider>
-  )
-}
+const Template = (args) => <FAQs {...args} />
 
 export const MultipleFAQ = Template.bind({})
 MultipleFAQ.args = {
