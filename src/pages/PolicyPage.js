@@ -79,8 +79,8 @@ const PolicyPage = () => {
         <meta property="og:title" content={t("metaData.OG_title")} />
         <meta name="description" content={t("metaData.description")} />
         <meta property="og:description" content={t("metaData.OG_description")} />
-        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/policy`} />
-        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/policy`} />
+        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/website-privacy-security`} />
+        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/website-privacy-security`} />
       </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">
