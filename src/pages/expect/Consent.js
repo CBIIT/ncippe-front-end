@@ -102,13 +102,13 @@ const Consent = () => {
           <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>
             <Box mb={5} className={classes.linkList}>
               <Typography variant="h3" component="h3">{t('sample_title')}</Typography>
-              <Button  href={`/${process.env.PUBLIC_URL}assets/documents/Sample-Adult-Consent-Form.pdf`} color="primary" rel="noopener noreferrer" target="_blank">
+              <Button  href={`/${process.env.PUBLIC_URL}assets/documents/${t('form_file_adult')}`} color="primary" rel="noopener noreferrer" target="_blank">
                 <RenderContent source={t('form_link_adult')} />
               </Button>
-              <Button  href={`/${process.env.PUBLIC_URL}assets/documents/Sample-Parental-Permission-Form.pdf`} color="primary" rel="noopener noreferrer" target="_blank">
+              <Button  href={`/${process.env.PUBLIC_URL}assets/documents/${t('form_file_parental')}`} color="primary" rel="noopener noreferrer" target="_blank">
                 <RenderContent source={t('form_link_parental')} />
               </Button>
-              <Button  href={`/${process.env.PUBLIC_URL}assets/documents/Sample-Assent-Form-For-Minors.pdf`} color="primary" rel="noopener noreferrer" target="_blank">
+              <Button  href={`/${process.env.PUBLIC_URL}assets/documents/${t('form_file_minors')}`} color="primary" rel="noopener noreferrer" target="_blank">
                 <RenderContent source={t('form_link_minors')} />
               </Button>
             </Box>
