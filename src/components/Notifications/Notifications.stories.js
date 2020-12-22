@@ -6,10 +6,17 @@ export default {
   component: Notifications,
   argTypes: {
     notifications: {
-      description: "Sample data that would be found in user context data",
+      description: "An array of notifications as structured for the `NotificationItem` component",
       table: {
         defaultValue: {
           summary: '[]'
+        }
+      }
+    },
+    lang: {
+      table: {
+        defaultValue: {
+          summary: 'en'
         }
       }
     },

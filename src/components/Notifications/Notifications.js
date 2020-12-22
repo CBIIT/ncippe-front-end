@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 
 /**
- * A listing of notifications. On viewing notifications all "new" items are marked as read.
+ * A listing of notifications. On viewing notifications, all "new" items are marked as read.
  */
 const Notifications = (props) => {
   const classes = useStyles()
