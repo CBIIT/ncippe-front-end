@@ -108,11 +108,11 @@ NotificationItem.propTypes = {
      */
     message: PropTypes.shape({
       /**
-       * The message text in English as text, html or markdown
+       * Multi-line message text in English as text, html or markdown
        */
       en: PropTypes.string,
       /**
-       * The message text in English as text, html or markdown
+       * Multi-line message text in English as text, html or markdown
        */
       es: PropTypes.string,
     }),
@@ -123,7 +123,7 @@ NotificationItem.propTypes = {
     /**
      * Flag if this message has been viewed by the user. Possible values are `0` or `1` for some reason and evaluated in code as boolean. If `false` then this message will display a "new" badge
      */
-    viewedByUser: PropTypes.bool,
+    viewedByUser: PropTypes.oneOfType([PropTypes.bool,PropTypes.number]),
   }),
   /**
    * The language this message should be viewed in. This value should be prop drilled down from a parent component with access to the User Context language settings.

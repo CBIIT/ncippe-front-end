@@ -1,9 +1,8 @@
 import React from 'react'
 import Notifications from './Notifications'
-import { LoginContext } from '../login/Login.context'
 
 export default {
-  title: 'UI/Notifications Listing',
+  title: 'UI/Notifications/Notifications Listing',
   component: Notifications,
   argTypes: {
     notifications: {
@@ -31,7 +30,7 @@ const notificationsData = [
       es: "¡Gracias por participar en el Programa de Biobanco de Cancer Moonshot!"
     },
     dateGenerated: 1554964189000,
-    viewedByUser: 1
+    viewedByUser: true
   },
   {
     portalNotificationId: 3,
@@ -45,21 +44,19 @@ const notificationsData = [
       es: "<p> Estimado Marco, </p> <p> Agregamos un informe de biomarcadores a la cuenta de Marco. Inicie sesión en el portal PPE para ver este informe. </p> <h3> ¿Por &aacute; qué es importante? </h3> <p>Su informe de biomarcadores puede informar su tratamiento. Cada informe está disponible para el paciente, su proveedor y un miembro de la familia si se han agregado a la cuenta del paciente. </p> <div> </div> <h3> ¿Qué medidas debo tomar? </h3><p>Para pacientes y familiares: establezca un horario para hablar con su proveedor sobre estos resultados. </p> <p> Para proveedores: revise el informe y cualquier material de apoyo del NCI para determinar si debe o no alterar a su paciente&rsquo;s tratamiento. </p> <div> </div> <p> Si tiene preguntas, puede responder a este correo electrónico o llamarnos al (202) 000&ndash;0000. </p> <p> ¡Gracias por participar en el Programa de Biobanco de Cancer Moonshot! </p> <div> </div> <p> Personal del programa del NCI </p>"
     },
     dateGenerated: 1556000989000,
-    viewedByUser: 0
+    viewedByUser: false
   },
 ]
 
 
-const Template = (args,global) => (
-  <LoginContext.Provider value={[{notifications: args.notifications, lang: global.globals.locale}]}>
-    <Notifications />
-  </LoginContext.Provider>
-)
+// const Template = (args,global) => <Notifications notifications={args.notifications} lang={global.globals.locale} />
+const Template = (args) => <Notifications {...args} />
 
 const NotificationsDemo = Template.bind({})
 NotificationsDemo.storyName = "Notifications Listing"
 NotificationsDemo.args = {
-  notifications: notificationsData
+  notifications: notificationsData,
+  lang: 'en'
 }
 
 export { NotificationsDemo }
