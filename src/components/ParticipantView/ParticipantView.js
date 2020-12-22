@@ -10,12 +10,12 @@ import moment from 'moment'
 import getAPI from '../../data'
 import { LoginContext, LoginConsumer } from '../login/Login.context'
 import TestResultsItem from '../TestResults/TestResultsItem'
-import NoItems from '../NoItems/NoItems'
-import ExpansionMenu from '../ExpansionMenu/ExpansionMenu'
+import NoItems from '../NoItems'
+import ExpansionMenu from '../ExpansionMenu'
 import UploadConsentDialog from '../UploadConsent/UploadConsentDialog'
 import Status from '../Status/Status'
 import { formatPhoneNumber } from '../../utils/utils'
-import DeactivatedQuestions from '../DeactivatedQuestions/DeactivatedQuestions'
+import DeactivatedQuestions from '../DeactivatedQuestions'
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -118,9 +118,18 @@ const ParticipantView = (props) => {
     // const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).uuid
     getAPI.then(api => {
       api.fetchPatientTestResults({patientId, token}).then(resp => {
+        if(resp instanceof Error) {
+          setUser({
+            portalAccountStatus: "ACCT_TERMINATED_AT_PPE"
+          })
+          throw resp
+        }
         setReports(resp.reports)
         setFiles(resp.otherDocuments)
         setUser(resp)
+      })
+      .catch(error => {
+        console.error(error)
       })
     })
     return () => {}
@@ -195,6 +204,7 @@ const ParticipantView = (props) => {
               <div className={`${classes.profileText} highContrast`}>
                 <Typography className={classes.profileHeader} variant="h2" component="h2">{user.firstName} {user.lastName} <Chip className={classes.chip} size="small" label={patientId}/></Typography>
                 {user.isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>{t('badges.not_participating')}</Typography></div>}
+                {user.portalAccountStatus === "ACCT_TERMINATED_AT_PPE" && <div><Typography className={classes.badge}>{t('badges.terminated')}</Typography></div>}
                 <Typography><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
                 <Typography><a href={`tel:${user.phoneNumber}`}>{formatPhoneNumber(user.phoneNumber)}</a></Typography>
               </div>
@@ -212,7 +222,7 @@ const ParticipantView = (props) => {
                     <div className={classes.menuContainer}>
                       <ExpansionMenu
                         id="panel1"
-                        name={t('menu.account_actions.name')}
+                        menuText={t('menu.account_actions.name')}
                         className={classes.menu}
                         expanded={menuOpen}
                         handleClick={handleMenuState}
@@ -231,6 +241,10 @@ const ParticipantView = (props) => {
       {user && user.isActiveBiobankParticipant === false && <Status state="info" fullWidth 
         title={t('components.participantView.status.info.title')} 
         message={t('components.participantView.status.info.message', {date:moment(user.dateDeactivated).format("MMM DD, YYYY")})} />
+      }
+      {user && user.portalAccountStatus === "ACCT_TERMINATED_AT_PPE" && <Status state="error" fullWidth 
+        title={t('components.participantView.status.terminated.title')} 
+        message={t('components.participantView.status.terminated.message')} />
       }
 
       <Divider className={classes.divider} />
