@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { Box, Grid, TextField, Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
@@ -95,7 +96,7 @@ const PatientList = (props) => {
       <Grid container className={classes.title} spacing={3} alignItems="center">
         <Grid item xs={12} sm={6}>
           <div className={classes.titleWithIcon}>
-            <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/patients.svg`} alt={t('a_common:icons.user_profile')} aria-hidden="true"></img>
+            <img className={classes.cardIcon} src={`${process.env.PUBLIC_URL}/assets/icons/patients.svg`} alt={t('a_common:icons.user_profile')} aria-hidden="true"></img>
             <Typography className={classes.cardTitle} variant="h2" component="h2">{t('components.participantList.title')}</Typography>
           </div>
         </Grid>
@@ -118,6 +119,18 @@ const PatientList = (props) => {
       <AddParticipantInfoDialog open={dialogOpen} patient={patientToActivate} setParentState={closeUploadDialog} />
     </Box>
   )
+}
+
+PatientList.displayName = "PatientList"
+PatientList.propTypes = {
+  /**
+   * An array of patients as structured for the `PatientListItem` component
+   */
+  patients: PropTypes.arrayOf(PropTypes.object),
+  /**
+   * `timestamp` flag used to trigger a rerender of the patient list once a patient's account has been activated. This could not be done using an updated patients arrays since it is a deep comparison that will not trigger component rerenders
+   */
+  patientsUpdated: PropTypes.number
 }
 
 export default PatientList
