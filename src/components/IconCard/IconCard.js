@@ -66,7 +66,7 @@ const IconCard = (props) => {
   const {
     icon, 
     title, 
-    altText, 
+    altText = 'icon', 
     desc, 
     link, 
     linkText, 
@@ -131,9 +131,9 @@ IconCard.propTypes = {
    */
   title: PropTypes.string.isRequired,
   /**
-   * the alt text for the icon image
+   * the alt text for the icon image. The icon is hidden to screen readers, but the alt text attribute is still required by validators
    */
-  altText: PropTypes.string.isRequired,
+  altText: PropTypes.string,
   /**
    * The description text as text, html or markdown
    */
@@ -147,9 +147,9 @@ IconCard.propTypes = {
    */
   linkText: PropTypes.string,
   /**
-   * If a count has been provided and is greater then 0, then the badge will appear with the supplied `badgeText`. This is used for mostly for marking new notifications and report when newNotifications or newReports has been set in the user data.
+   * If a count has been provided and is greater then 0 or is `true`, then the badge will appear with the supplied `badgeText`. This is used for mostly for marking new notifications and report when newNotifications or newReports has been set in the user data.
    */
-  count: PropTypes.number,
+  count: PropTypes.oneOfType([PropTypes.number,PropTypes.bool]),
   /**
    * The text that appears in a badge when triggered by `count`
    */
