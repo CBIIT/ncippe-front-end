@@ -67,3 +67,16 @@ li {
 .tip-wrapper svg path {
   fill: #1ea7fd;
 }
+
+/* date picker control */
+input[type="date" i], input[type="time" i] {
+  padding: 6px;
+}
+input[type="date" i] {
+  min-width: 118px;
+}
+/* date picker control - icons */
+input::-webkit-calendar-picker-indicator {
+  margin-inline-start: 0;
+  padding-inline-end: 0;
+}
