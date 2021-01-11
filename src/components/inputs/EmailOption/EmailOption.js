@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 }),{name: 'EmailOption'});
 
 const EmailOption = (props) => {
-  const {value, editMode, onClick} = props
+  const {value = true, editMode = false, onClick} = props
   const classes = useStyles()
   const { t } = useTranslation('a_accountSettings')
   const [checked, setChecked] = useState(value)
@@ -63,6 +63,7 @@ const EmailOption = (props) => {
   )
 }
 
+EmailOption.displayName = "EmailOption"
 EmailOption.propTypes = {
   /**
    * The phone number formatted as (###)###-####
@@ -72,11 +73,6 @@ EmailOption.propTypes = {
    * Set this field to edit mode or read only mode
    */
   editMode: PropTypes.bool,
-};
-
-EmailOption.defaultProps = {
-  value: true,
-  editMode: false
 }
 
 export default EmailOption

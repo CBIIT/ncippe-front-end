@@ -106,8 +106,9 @@ const PhoneNumber = (props) => {
     </FormControl>
   )
 }
+
+PhoneNumber.displayName = "PhoneNumber"
 PhoneNumber.propTypes = {
-  
   /**
    * The phone number formatted as (###)###-####
    */

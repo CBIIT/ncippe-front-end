@@ -41,6 +41,7 @@ const DeactivatedQuestions = (props) => {
   )
 }
 
+DeactivatedQuestions.displayName = "DeactivatedQuestions"
 DeactivatedQuestions.propTypes = {
   /**
    * data object (from Login context) containing the questions this user answered before deactivating their account

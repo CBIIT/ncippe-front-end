@@ -51,10 +51,12 @@ const Breadcrumbs = (props) => {
   )
 }
 
-export default Breadcrumbs
+Breadcrumbs.displayName = "Breadcrumbs"
 Breadcrumbs.propTypes = {
   /**
    * a link for the back button if it's not a simple history back request
    */
   link: PropTypes.string
 }
+
+export default Breadcrumbs

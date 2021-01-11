@@ -194,7 +194,7 @@ const ExpansionMenu = (props) => {
   )
 }
 
-export default ExpansionMenu
+ExpansionMenu.displayName = 'ExpansionMenu'
 ExpansionMenu.propTypes = {
   /**
    * unique identifier used for ARIA controls connecting the button to the menu
@@ -232,3 +232,5 @@ ExpansionMenu.propTypes = {
    */
   variant: PropTypes.oneOf(['stacked', 'floating']),
 }
+
+export default ExpansionMenu
