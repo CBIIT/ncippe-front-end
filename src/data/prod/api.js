@@ -1,3 +1,5 @@
+import { filesViewedByUser, sortPatients } from '../../data/utils'
+import { formatPhoneNumber } from '../../utils/utils'
 import queryString from 'query-string'
 
 const handleResponse = resp => {
@@ -71,7 +73,7 @@ async function loginUser(){
 /*=======================================================================*/
 /*======== Fetch User Data ==============================================*/
 
-async function fetchUser({uuid, patientId, email, token}){
+async function fetchUser({uuid, patientId, email, adminId, token}){
   let query = {}
   if(typeof uuid === 'string'){
     query.uuid = uuid
@@ -90,6 +92,51 @@ async function fetchUser({uuid, patientId, email, token}){
     }
   })
   .then(handleResponse)
+  .then(data => {
+    if(data.portalAccountStatus === 'ACCT_TERMINATED_AT_PPE') {
+      return new Error(`This account has been closed`)
+    } else {
+      // format "phoneNumber" field
+      data.phoneNumber = formatPhoneNumber(data.phoneNumber)
+
+      // set new notification count
+      data.newNotificationCount = data.notifications ? data.notifications.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0
+      
+      // find which reports and otherDocuments have been viewed by this user
+      const viewer = adminId || uuid
+      const viewedReports = filesViewedByUser(data.reports, viewer)
+      const viewedDocuments = filesViewedByUser(data.otherDocuments, viewer)
+      const roleData = {
+        reports: viewedReports.files,
+        newReportCount: viewedReports.newCount,
+        hasNewReports: Boolean(viewedReports.newCount),
+        otherDocuments: viewedDocuments.files,
+        newDocumentCount: viewedDocuments.newCount,
+        hasNewDocuments: Boolean(viewedDocuments.newCount)
+      }
+      data = {...data, ...roleData}
+
+      // participant specific data 
+      if (data.roleName === "ROLE_PPE_PARTICIPANT") {
+        // have to stuff provider into an array to match prod machine. Unfortunatly, json-server does not handle many-to-many relationships, so we're hacking the response here
+        if(data.provider) {
+          const { provider, ...rest } = data
+          data = {
+            ...rest,
+            providers: [provider]
+          }
+        }
+      }
+
+      // admin specific data
+      // sort patient list alphabetically by last name
+      if(data.patients && data.patients.length > 1) {
+        data.patients = sortPatients(data.patients)
+      }
+
+      return data
+    }
+  })
   .catch(handleErrorMsg(`Unable to fetch user data based on query: ${query}.`))
 }
 
@@ -285,10 +332,12 @@ export const api = {
   updateUser,
   fetchPatientTestResults: fetchUser,
   fetchPatientReport,
+  fetchPatientFile: fetchPatientReport,
   uploadPatientReport,
+  uploadConsentForm: uploadPatientReport,
   notificationsMarkAsRead,
   reportViewedBy,
-  uploadConsentForm: uploadPatientReport,
+  documentViewedBy: reportViewedBy,
   withdrawUser,
   closeAccount,
   updateParticipantDetails,

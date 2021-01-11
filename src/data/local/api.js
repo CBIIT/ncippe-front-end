@@ -1,4 +1,5 @@
-import { createUUID, flatArray, getUserGroup } from '../../utils/utils'
+import { filesViewedByUser, sortPatients } from '../../data/utils'
+import { createUUID, flatArray, formatPhoneNumber, getUserGroup } from '../../utils/utils'
 import queryString from 'query-string'
 
 const handleResponse = resp => {
@@ -138,7 +139,7 @@ async function fetchToken({uuid, email, id_token}){
 /*=======================================================================*/
 /*======== Fetch User Data ==============================================*/
 
-async function fetchUser({uuid, patientId, email, token}){
+async function fetchUser({uuid, patientId, email, adminId, token}){
   console.log("fetchUser data sent to server:", 
     `\nuuid: ${uuid}`,
     `\npatientId: ${patientId}`,
@@ -152,15 +153,47 @@ async function fetchUser({uuid, patientId, email, token}){
       if(data.portalAccountStatus === 'ACCT_TERMINATED_AT_PPE') {
         return new Error(`This account has been closed`)
       } else {
-        // have to stuff provider into an array to match prod machine. Unfortunatly, json-server does not handle many-to-many relationships, so we're hacking the response here
-        if(data.provider) {
-          return {
-            ...data,
-            providers: [
-              data.provider
-            ]
+        // format "phoneNumber" field
+        data.phoneNumber = formatPhoneNumber(data.phoneNumber)
+
+        // set new notification count
+        data.newNotificationCount = data.notifications ? data.notifications.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0
+        
+        // find which reports and otherDocuments have been viewed by this user
+        const viewer = adminId || uuid
+        // console.log("data",data)
+        // console.log("data.reports",data.reports)
+        // console.log("data.otherDocuments",data.otherDocuments)
+        const viewedReports = filesViewedByUser(data.reports, viewer)
+        const viewedDocuments = filesViewedByUser(data.otherDocuments, viewer)
+        const roleData = {
+          reports: viewedReports.files,
+          newReportCount: viewedReports.newCount,
+          hasNewReports: Boolean(viewedReports.newCount),
+          otherDocuments: viewedDocuments.files,
+          newDocumentCount: viewedDocuments.newCount,
+          hasNewDocuments: Boolean(viewedDocuments.newCount)
+        }
+        data = {...data, ...roleData}
+
+        // participant specific data 
+        if (data.roleName === "ROLE_PPE_PARTICIPANT") {
+          // have to stuff provider into an array to match prod machine. Unfortunatly, json-server does not handle many-to-many relationships, so we're hacking the response here
+          if(data.provider) {
+            const { provider, ...rest } = data
+            data = {
+              ...rest,
+              providers: [provider]
+            }
           }
         }
+
+        // admin specific data
+        // sort patient list alphabetically by last name
+        if(data.patients && data.patients.length > 1) {
+          data.patients = sortPatients(data.patients)
+        }
+
         return data
       }
     })
@@ -317,6 +350,39 @@ async function reportViewedBy({uuid, reportId}){
 }
 
 /*=======================================================================*/
+/*======== Document Viewed By ===========================================*/
+
+async function documentViewedBy({uuid, reportId}){
+
+  // fetch the report to be updated
+  const document = await fetch(`/api/otherDocuments?fileGUID=${reportId}&singular=1`)
+    .then(handleResponse)
+    .catch(handleError)
+
+  const viewedBy = document.viewedBy || []
+  // add the uuid to the document's viewedBy list
+  const updatedDocument = {
+    ...document,
+    viewedBy: [...new Set([...viewedBy, uuid])]
+  }
+
+  console.log("documentViewedBy data sent to server:", 
+    `\nupdatedDocument:`, updatedDocument
+  )
+
+  // write updates
+  return await fetch(`/api/otherDocuments/${document.id}`,{
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(updatedDocument)
+  })
+    .then(handleResponse)
+    .catch(handleErrorMsg('Unable to mark document as read.'))
+}
+
+/*=======================================================================*/
 /*======== Withdraw User ================================================*/
 
 async function withdrawUser({uuid, patientId, qsAnsDTO, token}){
@@ -401,7 +467,7 @@ async function closeAccount({uuid, token}){
 /*=======================================================================*/
 /*======== Activate Participant =========================================*/
 
-async function updateParticipantDetails({uuid, token, patient}){
+async function updateParticipantDetails({uuid, patient, token}){
 
   // first: identify the patient
   const userData = await fetchUser({patientId: patient.patientId})
@@ -424,8 +490,12 @@ async function updateParticipantDetails({uuid, token, patient}){
     .catch(handleErrorMsg('Unable to update participant information.'))
 }
 
-async function activateParticipant({uuid, token, patient}){
+async function activateParticipant({uuid, patient, token}){
 
+  console.log("activateParticipant data sent to server", 
+    `\npatient:`, patient, 
+    `\nadmin uuid:`, uuid
+  )
   // first: identify the patient
   const userData = await fetchUser({patientId: patient.patientId})
 
@@ -463,10 +533,12 @@ export const api = {
   updateUser,
   fetchPatientTestResults: fetchUser,
   fetchPatientReport,
+  fetchPatientFile: fetchPatientReport,
   uploadPatientReport,
+  uploadConsentForm: uploadPatientReport,
   notificationsMarkAsRead,
   reportViewedBy,
-  uploadConsentForm: uploadPatientReport,
+  documentViewedBy,
   withdrawUser,
   closeAccount,
   updateParticipantDetails,

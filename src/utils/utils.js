@@ -1,5 +1,7 @@
 /**
  * Checks if a string is literally 'true' or 'false' and returns the proper boolean value
+ * works for numbers where 0 = false and >0 = true
+ * works for boolean equations such as (false + false + true)
  * @param {string} val
  * @return {boolean}
  */
