@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link as RouterLink } from "@reach/router"
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Grid, Link, Typography } from '@material-ui/core'
 
@@ -71,15 +71,14 @@ const useStyles = makeStyles(theme => ({
 const Footer = () => {
   const classes = useStyles()
   const { t } = useTranslation('common')
-  const { trackEvent } = useTracking()
 
   const trackClick = (e) => {
     if(e.target.matches('a')) {
-      trackEvent({
+      PubSub.publish('ANALYTICS', {
+        events: 'event16',
+        eventName: 'FooterLink',
         prop53: `BioBank_FooterNav|${e.target.textContent}`,
         eVar53: `BioBank_FooterNav|${e.target.textContent}`,
-        events: 'event16',
-        eventName: 'FooterLink'
       })
     }
   }

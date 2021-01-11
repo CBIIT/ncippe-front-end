@@ -3,14 +3,13 @@ import { navigate } from '@reach/router'
 import { Chip, ClickAwayListener, Divider, Grid, MenuItem, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 import moment from 'moment'
 
 // import { api } from '../../data/api'
 import getAPI from '../../data'
 import { LoginContext, LoginConsumer } from '../login/Login.context'
 import FileList from '../FileList/FileList.events'
-// import TestResults from '../TestResults'
 import NoItems from '../NoItems'
 import ExpansionMenu from '../ExpansionMenu'
 import UploadConsentDialog from '../UploadConsent/UploadConsentDialog'
@@ -100,17 +99,14 @@ const useStyles = makeStyles(theme => ({
 }),{name: 'ParticipantView'})
 
 const ParticipantView = (props) => {
-
   const classes = useStyles()
   const {patientId} = props
   const [loginContext, dispatch] = useContext(LoginContext)
-  
   const [dialogOpen, setDialogOpen] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isNewParticipant, setIsNewParticipant] = useState(false)
   const { t } = useTranslation('a_common')
-  const { trackEvent } = useTracking()
   const { uuid, token, patients } = loginContext
   const [user, setUser] = useState(patients.find(patient => patient.patientId === patientId))
 
@@ -150,23 +146,23 @@ const ParticipantView = (props) => {
 
   useEffect(() => {
     if(props.location && props.location.state && props.location.state.newParticipantActivated) {
-      trackEvent({
+      PubSub.publish('ANALYTICS', {
+        events: 'event80',
+        eventName: 'NewParticipantSuccess',
         prop42: `BioBank_NewParticipant|Success`,
         eVar42: `BioBank_NewParticipant|Success`,
-        events: 'event80',
-        eventName: 'NewParticipantSuccess'
       })
       setIsNewParticipant(true)
     }
-  }, [trackEvent, props.location])
+  }, [PubSub, props.location])
 
   const openUploadDialog = (e) => {
     const buttonText = e.target.textContent
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event28',
+      eventName: 'AccountActionsUpload',
       prop42: `BioBank_AccountActions|Click:${buttonText}`,
       eVar42: `BioBank_AccountActions|Click:${buttonText}`,
-      events: 'event28',
-      eventName: 'AccountActionsUpload'
     })
     setDialogOpen(true)
     setUploadSuccess(false)
@@ -181,11 +177,11 @@ const ParticipantView = (props) => {
 
   const openLeaveQuestions = (e) => {
     const buttonText = e.target.textContent
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event28',
+      eventName: 'AccountActionsLeave',
       prop42: `BioBank_AccountActions|Click:${buttonText}`,
       eVar42: `BioBank_AccountActions|Click:${buttonText}`,
-      events: 'event28',
-      eventName: 'AccountActionsLeave'
     })
     navigate(`${window.location.pathname}/participation/leaveQuestions`,{state: {
       user
@@ -193,11 +189,11 @@ const ParticipantView = (props) => {
   }
 
   const handleMenuState = (state) => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event26',
+      eventName: 'AccountActionsExpand',
       prop42: `BioBank_AccountActions|Expand`,
       eVar42: `BioBank_AccountActions|Expand`,
-      events: 'event26',
-      eventName: 'AccountActionsExpand'
     })
     setMenuOpen(prevState => !prevState)
   }

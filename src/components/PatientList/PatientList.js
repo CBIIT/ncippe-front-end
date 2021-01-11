@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Box, Grid, TextField, Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 
 import PatientListItem from './PatientListItem'
 import AddParticipantInfoDialog from '../../components/Participation/AddParticipantInfoDialog'
@@ -49,7 +49,6 @@ const PatientList = (props) => {
   const [hasSearched, setHasSearched] = useState(false)
   const [patientToActivate, setPatientToActivate] = useState()
   const { t } = useTranslation('a_common')
-  const { trackEvent } = useTracking()
   const allPatients = [...patients] // create new object of patients
 
   useEffect(() => {
@@ -66,22 +65,22 @@ const PatientList = (props) => {
     // capture analytics on first keypress and then disconnect
     // Goal is to see if search field is being used
     if(hasSearched === false) {
-      trackEvent({
+      PubSub.publish('ANALYTICS', {
+        events: 'event2',
+        eventName: 'ParticipantNameSearch',
         prop11: `BioBank Account Participant Name Search`,
         eVar11: `BioBank Account Participant Name Search`,
-        events: 'event2',
-        eventName: 'ParticipantNameSearch'
       })
       setHasSearched(true)
     }
   }
 
   const activateUser = (patient) => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event73',
+      eventName: 'NewParticipantStart',
       prop42: `BioBank_NewParticipant|Start`,
       eVar42: `BioBank_NewParticipant|Start`,
-      events: 'event73',
-      eventName: 'NewParticipantStart'
     })
     setDialogOpen(true)
     setPatientToActivate(patient)

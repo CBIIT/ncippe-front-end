@@ -4,7 +4,7 @@ import { Box, Button, Container, Divider, Grid, Paper, Typography } from '@mater
 import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 import { Helmet } from 'react-helmet-async'
 
 import Breadcrumbs from '../../components/Breadcrumbs'
@@ -88,7 +88,6 @@ const ProfilePage = (props) => {
   const [loginContext] = useContext(LoginContext)
   const {firstName, lastName, dateCreated, isActiveBiobankParticipant, dateDeactivated, questionAnswers, crc, providers} = loginContext
   const { t } = useTranslation(['a_accountSettings','a_common'])
-  const { trackEvent } = useTracking()
 
   const userData = {
     firstName,
@@ -98,10 +97,10 @@ const ProfilePage = (props) => {
   }
 
   const trackParticipationClick = (e) => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event73',
       prop42: `BioBank_ChangeParticipation|Start`,
       eVar42: `BioBank_ChangeParticipation|Start`,
-      events: 'event73'
     })
   }
 

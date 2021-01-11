@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link as RouterLink } from '@reach/router'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 import { AppBar, Container, Tab, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 
@@ -21,16 +21,15 @@ const useStyles = makeStyles( theme => ({
 const TabAppBar = (props) => {
   const classes = useStyles()
   const { t } = useTranslation()
-  const { trackEvent } = useTracking()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
   const handleChange = (event) => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event33',
+      eventName: 'SectionTabNav',
       prop53: `BioBank_SectionTabNav|${event.currentTarget.textContent}`,
       eVar53: `BioBank_SectionTabNav|${event.currentTarget.textContent}`,
-      events: 'event33',
-      eventName: 'SectionTabNav'
     })
     window.$defaultLinkTrack = false
   }

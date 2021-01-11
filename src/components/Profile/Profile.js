@@ -4,7 +4,7 @@ import { Box, Divider, FormControl, Input, InputLabel, Paper, Typography, Button
 import { makeStyles } from '@material-ui/core/styles'
 import { Edit as EditIcon, Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 
 import { LoginContext } from '../../components/login/Login.context'
 import PhoneNumbner from '../inputs/PhoneNumber/PhoneNumber'
@@ -52,7 +52,6 @@ const useStyles = makeStyles(theme => ({
 
 const Profile = () => {
   const classes = useStyles()
-  
   const [loginContext, dispatch] = useContext(LoginContext)
   const [editMode, setEditMode] = useState(false)
   const [errorPhone, setErrorPhone] = useState(false)
@@ -60,8 +59,6 @@ const Profile = () => {
   const [userOptIn, setUserOptIn] = useState(loginContext.allowEmailNotification)
   const [userLang, setUserLang] = useState(loginContext.lang || 'en')
   const { t, i18n } = useTranslation(['a_accountSettings','a_common'])
-  const { trackEvent } = useTracking()
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -87,11 +84,11 @@ const Profile = () => {
           if(resp instanceof Error) {
             console.error(resp.message)
           } else {
-            trackEvent({
+            PubSub.publish('ANALYTICS', {
+              events: 'event78',
+              eventName: 'ProfileSettingsSave',
               prop42: `BioBank_ProfileSettings|Save`,
               eVar42: `BioBank_ProfileSettings|Save`,
-              events: 'event78',
-              eventName: 'ProfileSettingsSave'
             })
             // Save successful, also update the user context data
             dispatch({
@@ -134,11 +131,11 @@ const Profile = () => {
 
   const toggleEditMode = () => {
     if(!editMode){
-      trackEvent({
+      PubSub.publish('ANALYTICS', {
+        events: 'event73',
+        eventName: 'ProfileSettingsEdit',
         prop42: `BioBank_ProfileSettings|Edit`,
         eVar42: `BioBank_ProfileSettings|Edit`,
-        events: 'event73',
-        eventName: 'ProfileSettingsEdit'
       })
     }
     setEditMode(!editMode)

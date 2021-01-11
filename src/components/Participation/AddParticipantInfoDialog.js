@@ -17,7 +17,7 @@ import {
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 import moment from 'moment'
 
 // import { api } from '../../data/api'
@@ -93,7 +93,6 @@ const AddParticipantInfoDialog = (props) => {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('xs'))
   const { t } = useTranslation(['a_addParticipant','a_common'])
-  const { trackEvent } = useTracking()
   const [submitText, setSubmitText] = useState(t('form.save'))
   const stringRegex = /^[a-zA-Z\s]{1,}/
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ //from https://emailregex.com/
@@ -234,11 +233,11 @@ const AddParticipantInfoDialog = (props) => {
 
       // if there are no errors...
       if (!firstName_error && !lastName_error && !email_error && !lang_error) {
-        trackEvent({
+        PubSub.publish('ANALYTICS', {
+          events: 'event75',
+          eventName: 'NewParticipantNext',
           prop42: `BioBank_NewParticipant|Next`,
           eVar42: `BioBank_NewParticipant|Next`,
-          events: 'event75',
-          eventName: 'NewParticipantNext'
         })
         // submit user update
         setActiveStep(2) // show spinning loader while fetch is running
@@ -303,11 +302,11 @@ const AddParticipantInfoDialog = (props) => {
 
         // submit consent form
         setActiveStep(2) // show spinning loader while fetch is running
-        trackEvent({
+        PubSub.publish('ANALYTICS', {
+          events: 'event78',
+          eventName: 'NewParticipantSubmit',
           prop42: `BioBank_NewParticipant|Submit`,
           eVar42: `BioBank_NewParticipant|Submit`,
-          events: 'event78',
-          eventName: 'NewParticipantSubmit'
         })
 
         getAPI.then(api => {

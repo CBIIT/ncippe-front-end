@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link as RouterLink, navigate } from "@reach/router"
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 import { 
   Box,
   Button,
@@ -146,7 +146,6 @@ const Header = () => {
   const [expanded, setExpanded] = useState(loc)
   const [isDisabled, setIsDisabled] = useState(true)
   const { t, i18n } = useTranslation('common')
-  const { trackEvent } = useTracking()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down(theme.breakpoints.values.smLandscape))
 
@@ -161,22 +160,22 @@ const Header = () => {
   const expandPanel = (event, newExpanded) => {
     const id = event.currentTarget.id
     setExpanded(newExpanded ? id : "")
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event26',
+      eventName: 'TopNavHamburger',
       prop53: `BioBank_TopNav|${event.target.textContent}`,
       eVar53: `BioBank_TopNav|${event.target.textContent}`,
-      events: 'event26',
-      eventName: 'TopNavHamburger'
     })
   }
 
   const closeMenu = (event) => {
     setMenuOpen(prev => !prev)
     if(!event.target.closest('#closeMobileMenu')){
-      trackEvent({
+      PubSub.publish('ANALYTICS', {
+        events:'event28',
+        eventName: 'TopNavHamburger',
         prop53: `BioBank_TopNav|${event.target.closest("ul").dataset.panelgroup}|${event.target.textContent}`,
         eVar53: `BioBank_TopNav|${event.target.closest("ul").dataset.panelgroup}|${event.target.textContent}`,
-        events:'event28',
-        eventName: 'TopNavHamburger'
       })
     }
   }
@@ -194,14 +193,14 @@ const Header = () => {
     e.preventDefault()
     // send the search terms to the search results page
     const searchTerm = e.target.mobileSearch.value
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: "event2",
+      eventName: 'GlobalMobileSearch',
       prop11: "BioBank Global Search",
       eVar11: "BioBank Global Search",
       eVar13: "+1",
       prop14: searchTerm,
       eVar14: searchTerm,
-      events: "event2",
-      eventName: 'GlobalMobileSearch'
     })
     navigate('/search', {state: {
       term: searchTerm
@@ -209,11 +208,11 @@ const Header = () => {
   }
 
   const trackClick = (e) => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event26',
+      eventName: 'TopNavLogo',
       prop53: 'BioBank_TopNav|Logo',
       eVar53: 'BioBank_TopNav|Logo',
-      events: 'event26',
-      eventName: 'TopNavLogo'
     })
   }
 

@@ -4,7 +4,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 
 // import { api } from '../../data/api'
 import getAPI from '../../data'
@@ -59,7 +59,6 @@ const UploadConcentDialog = (props) => {
   const [formData, setFormData] = useState(formDataDefaults)
   const [activeStep, setActiveStep] = useState(0)
   const { t } = useTranslation(['a_uploadConsent','a_common'])
-  const { trackEvent } = useTracking()
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('xs'))
 
@@ -125,11 +124,11 @@ const UploadConcentDialog = (props) => {
         return
       }
 
-      trackEvent({
+      PubSub.publish('ANALYTICS', {
+        events: 'event75',
+        eventName: 'ConsentUploadSubmit',
         prop42: `BioBank_ConsentUpload|Submit`,
         eVar42: `BioBank_ConsentUpload|Submit`,
-        events: 'event75',
-        eventName: 'ConsentUploadSubmit'
       })
       setActiveStep(1)
       // reset errors
@@ -149,11 +148,11 @@ const UploadConcentDialog = (props) => {
           })
           .then(resp => {
             if(resp instanceof Error) {
-              trackEvent({
+              PubSub.publish('ANALYTICS', {
+                events: 'event81',
+                eventName: 'ConsentUploadError',
                 prop42: `BioBank_ConsentUpload|Error`,
                 eVar42: `BioBank_ConsentUpload|Error`,
-                events: 'event81',
-                eventName: 'ConsentUploadError'
               })
               // Save unsuccessful - go back a step
               setActiveStep(0)
@@ -164,11 +163,11 @@ const UploadConcentDialog = (props) => {
                 errorMessage:t('upload.0.error.onServer.message'),
               }))
             } else {
-              trackEvent({
+              PubSub.publish('ANALYTICS', {
+                events: 'event80',
+                eventName: 'ConsentUploadSuccess',
                 prop42: `BioBank_ConsentUpload|Success`,
                 eVar42: `BioBank_ConsentUpload|Success`,
-                events: 'event80',
-                eventName: 'ConsentUploadSuccess'
               })
               // Save successful - close modal
               handleClose(null, true)
