@@ -182,31 +182,31 @@ const BiomarkerTest = () => {
           <Grid container mt={2} spacing={2} className={classes.samples}>
             <Grid item xs={12} md={6}>
               <Paper elevation={25}>
-                <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/sample-test-report--solid-tumor.jpg`} alt={t('sections.2.samples.0.alt_text')}
+                <img src={`${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/sample-test-report--solid-tumor.jpg`} alt={t('sections.2.samples.0.alt_text')}
                   srcSet={`
-                    /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/sample-test-report--solid-tumor.jpg 1x,
-                    /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/sample-test-report--solid-tumor.jpg 2x
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/sample-test-report--solid-tumor.jpg 1x,
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/HD/sample-test-report--solid-tumor.jpg 2x
                   `}
                 />
                 <Divider />
                 <Box p={2}>
                   <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.0.title')}</Typography>
-                  <Button href={`/${process.env.PUBLIC_URL}assets/documents/Biobank-Combined-Melanoma-Sample.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.0.aria_label')}>{t('sections.2.samples.0.link')}</Button>
+                  <Button href={`${process.env.PUBLIC_URL}/assets/documents/Biobank-Combined-Melanoma-Sample.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.0.aria_label')}>{t('sections.2.samples.0.link')}</Button>
                 </Box>
               </Paper>
             </Grid>
             <Grid item xs={12} md={6}>
               <Paper elevation={25}>
-                <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/test-guide--solid-tumor.jpg`} alt={t('sections.2.samples.1.alt_text')}
+                <img src={`${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/test-guide--solid-tumor.jpg`} alt={t('sections.2.samples.1.alt_text')}
                   srcSet={`
-                    /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/test-guide--solid-tumor.jpg 1x,
-                    /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/test-guide--solid-tumor.jpg 2x
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/test-guide--solid-tumor.jpg 1x,
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/HD/test-guide--solid-tumor.jpg 2x
                   `}
                 />
                 <Divider />
                 <Box p={2}>
                   <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.1.title')}</Typography>
-                  <Button href={`/${process.env.PUBLIC_URL}assets/documents/Biomarker-Test-Guide.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.1.aria_label')}>{t('sections.2.samples.1.link')}</Button>
+                  <Button href={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.1.aria_label')}>{t('sections.2.samples.1.link')}</Button>
                 </Box>
               </Paper>
             </Grid>
@@ -219,32 +219,32 @@ const BiomarkerTest = () => {
           <Grid container mt={2} spacing={2} className={classes.samples}>
             <Grid item xs={12} md={6}>
               <Paper elevation={25}>
-                <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/sample-test-report--blood-cancer.jpg`} alt={t('sections.2.samples.2.alt_text')}
+                <img src={`${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/sample-test-report--blood-cancer.jpg`} alt={t('sections.2.samples.2.alt_text')}
                   srcSet={`
-                    /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/sample-test-report--blood-cancer.jpg 1x,
-                    /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/sample-test-report--blood-cancer.jpg 2x
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/sample-test-report--blood-cancer.jpg 1x,
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/HD/sample-test-report--blood-cancer.jpg 2x
                   `}
                 />
                 <Divider />
                 <Box p={2}>
                   <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.2.title')}</Typography>
-                  <Button href={`/${process.env.PUBLIC_URL}assets/documents/Ashion-GEM-ExTra-AML-Sample.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.2.aria_label')}>{t('sections.2.samples.2.link')}</Button>
+                  <Button href={`${process.env.PUBLIC_URL}/assets/documents/Ashion-GEM-ExTra-AML-Sample.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.2.aria_label')}>{t('sections.2.samples.2.link')}</Button>
                 </Box>
               </Paper>
             </Grid>
 
             <Grid item xs={12} md={6}>
               <Paper elevation={25}>
-                <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/test-guide--blood-cancer.jpg`} alt={t('sections.2.samples.3.alt_text')}
+                <img src={`${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/test-guide--blood-cancer.jpg`} alt={t('sections.2.samples.3.alt_text')}
                   srcSet={`
-                    /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/test-guide--blood-cancer.jpg 1x,
-                    /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/test-guide--blood-cancer.jpg 2x
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/test-guide--blood-cancer.jpg 1x,
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/HD/test-guide--blood-cancer.jpg 2x
                   `}
                 />
                 <Divider />
                 <Box p={2}>
                   <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.3.title')}</Typography>
-                  <Button href={`/${process.env.PUBLIC_URL}assets/documents/Biomarker-Test-Guide--Blood-Cancer.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.3.aria_label')}>{t('sections.2.samples.3.link')}</Button>
+                  <Button href={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide--Blood-Cancer.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.3.aria_label')}>{t('sections.2.samples.3.link')}</Button>
                 </Box>
               </Paper>
             </Grid>

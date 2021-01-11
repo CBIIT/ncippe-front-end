@@ -222,7 +222,7 @@ const UploadConcentDialog = (props) => {
         <>
         <CircularProgress className={classes.progress} size={70} />
         <Typography className={classes.titleUploading} variant="h6">{t('upload.1.progress')}</Typography>
-        {/* <img src={`/${process.env.PUBLIC_URL}assets/images/spinner-dna.svg`} className={classes.spinner} alt="Loading..." /> */}
+        {/* <img src={`${process.env.PUBLIC_URL}/assets/images/spinner-dna.svg`} className={classes.spinner} alt="Loading..." /> */}
         </>
       )}
       </DialogContent>

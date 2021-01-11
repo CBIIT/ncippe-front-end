@@ -209,7 +209,7 @@ const ParticipantView = (props) => {
         <div className={classes.profileTop}>
           <div>
             <div className={classes.profile}>
-              <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt={t('icons.user_profile')} aria-hidden="true" />
+              <img className={classes.profileIcon} src={`${process.env.PUBLIC_URL}/assets/icons/user-profile.svg`} alt={t('icons.user_profile')} aria-hidden="true" />
               <div className={`${classes.profileText} highContrast`}>
                 <Typography className={classes.profileHeader} variant="h2" component="h2">{user.firstName} {user.lastName} <Chip className={classes.chip} size="small" label={patientId}/></Typography>
                 {user.isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>{t('badges.not_participating')}</Typography></div>}

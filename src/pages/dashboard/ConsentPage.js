@@ -47,7 +47,7 @@ const Page = () => {
         <Grid container className={classes.grid}>
           <Grid item xs={12} md={6}>
             <div className={classes.titleWithIcon}>
-              <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/reports.svg`} alt={t('a_common:icons.reports')} aria-hidden="true"></img>
+              <img className={classes.titleIcon} src={`${process.env.PUBLIC_URL}/assets/icons/reports.svg`} alt={t('a_common:icons.reports')} aria-hidden="true"></img>
               <Typography variant="h2" component="h2">{t('components.consentView.pageTitle')}</Typography>
             </div>
             <Box mb={3}>

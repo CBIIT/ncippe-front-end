@@ -227,7 +227,7 @@ const Header = () => {
       <Box className={classes.appToolbarContainer}>
         <figure className={classes.toolbarLogo}>
           <Link component={RouterLink} to='/' onClick={trackClick}>
-            <img src={`/${process.env.PUBLIC_URL}assets/images/biobank-logo${i18n.languages[0] === 'es' ? '-es' : ''}.svg`} alt={t('logo.alt_text')} title={t('logo.title')} />
+            <img src={`${process.env.PUBLIC_URL}/assets/images/biobank-logo${i18n.languages[0] === 'es' ? '-es' : ''}.svg`} alt={t('logo.alt_text')} title={t('logo.title')} />
           </Link>
         </figure>
         {!isMobile && !loc.includes('account') && (

@@ -111,8 +111,8 @@ const Footer = () => {
             <a href={`tel:${t('footer.links.phone')}`}>{t('footer.links.phone')}</a>
             <a href={t('footer.links.cis.link')}>{t('footer.links.cis.text')}</a>
             {/* <div className={classes.social}>
-              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnFacebook}><img src={`/${process.env.PUBLIC_URL}assets/icons/facebook.svg`} alt="facebook icon" title="Share this page on Facebook" /></IconButton>
-              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnTwitter}><img src={`/${process.env.PUBLIC_URL}assets/icons/twitter.svg`} alt="twitter icon" title="Share this page on Twitter" /></IconButton>
+              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnFacebook}><img src={`${process.env.PUBLIC_URL}/assets/icons/facebook.svg`} alt="facebook icon" title="Share this page on Facebook" /></IconButton>
+              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnTwitter}><img src={`${process.env.PUBLIC_URL}/assets/icons/twitter.svg`} alt="twitter icon" title="Share this page on Twitter" /></IconButton>
             </div> */}
           </Grid>
           <Grid item xs={12} sm={4}>

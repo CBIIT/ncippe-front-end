@@ -52,7 +52,7 @@ const Page = () => {
       <Breadcrumbs pageName="Resources" />
       <Container className="mainContainer">
         <div className={classes.titleWithIcon}>
-          <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/one-idea-v2.svg`} alt={t('a_common:icons.resources')} aria-hidden="true"></img>
+          <img className={classes.titleIcon} src={`${process.env.PUBLIC_URL}/assets/icons/one-idea-v2.svg`} alt={t('a_common:icons.resources')} aria-hidden="true"></img>
           <Typography variant="h2" component="h2">{t('pageTitle')}</Typography>
         </div>
         <Typography>{t('description')} </Typography>

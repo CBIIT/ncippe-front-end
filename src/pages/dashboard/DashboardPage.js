@@ -206,7 +206,7 @@ const Page = () => {
                   icon="biomarker-tests.svg"
                   title={t('cards.guide.title')}
                   desc={t('cards.guide.description')}
-                  link={`/${process.env.PUBLIC_URL}assets/documents/Biomarker-Test-Guide.pdf`}
+                  link={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide.pdf`}
                   download={true}
                   linkText={t('cards.guide.link')}
                   cardClick={trackCardClick}

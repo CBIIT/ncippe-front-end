@@ -40,7 +40,7 @@ const useStyles = makeStyles( theme => ({
   },
   hero: {
     // backgroundColor: theme.palette.primary.lightGrey,
-    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobile/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`,
+    backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/mobile/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "top right",
     backgroundSize: "auto 100%",
@@ -52,16 +52,16 @@ const useStyles = makeStyles( theme => ({
     },
     // mobile HD background
     '@media (min-resolution: 192dpi)': {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobileHD/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/mobileHD/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`
     },
     // desktop background
     [theme.breakpoints.up('md')]: {
       height: "700px",
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktop/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/desktop/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`,
     },
     // desktop HD background
     [`@media (min-width: ${theme.breakpoints.values.md}px) and (min-resolution: 192dpi)`]: {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktopHD/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/desktopHD/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`
     },
 
   },
@@ -176,7 +176,7 @@ const useStyles = makeStyles( theme => ({
     height: '100px'
   },
   fullWidthAccentImage: {
-    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/micro/woman-with-head-scarf.jpg)`,
+    backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/micro/woman-with-head-scarf.jpg)`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center 22%",
     backgroundSize: "cover",
@@ -184,31 +184,31 @@ const useStyles = makeStyles( theme => ({
     maxHeight: 450,
     // mobile
     '@media (min-width: 380px)': {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/mobile/woman-with-head-scarf.jpg)`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/mobile/woman-with-head-scarf.jpg)`,
     },
     // micro HD
     '@media (min-resolution: 192dpi)': {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/tablet/woman-with-head-scarf.jpg), ${theme.gradients.primaryDiagonal}`
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/tablet/woman-with-head-scarf.jpg), ${theme.gradients.primaryDiagonal}`
     },
     // mobile HD
     '@media (min-width: 380px) and (min-resolution: 192dpi)': {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
     },
     // tablet
     [`@media (min-width: ${theme.breakpoints.values.sm}px)`]: {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/tablet/woman-with-head-scarf.jpg)`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/tablet/woman-with-head-scarf.jpg)`,
     },
     // tablet HD
     [`@media (min-width: ${theme.breakpoints.values.sm}px) and (min-resolution: 192dpi)`]: {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/tabletHD/woman-with-head-scarf.jpg)`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/tabletHD/woman-with-head-scarf.jpg)`,
     },
     // desktop
     [`@media (min-width: ${theme.breakpoints.values.md}px)`]: {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
     },
     // desktop HD
     [`@media (min-width: ${theme.breakpoints.values.md}px) and (min-resolution: 192dpi)`]: {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/desktopHD/woman-with-head-scarf.jpg)`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktopHD/woman-with-head-scarf.jpg)`,
     },
 
   },
@@ -219,7 +219,7 @@ const useStyles = makeStyles( theme => ({
     overflow: 'auto',
     paddingBottom: '112px',
     position: 'relative',
-    background: `url(/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-long.svg) no-repeat bottom center, ${theme.gradients.primaryDiagonal}`,
+    background: `url(${process.env.PUBLIC_URL}/assets/images/soft-diamond-background-long.svg) no-repeat bottom center, ${theme.gradients.primaryDiagonal}`,
     '& h2': {
       marginBottom: theme.spacing(2)
     },
@@ -284,7 +284,7 @@ const HomePage = () => {
   // isMobile is used to toggle multiple responsive styles and component attributes. Easier than using mediaqueries for everything
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [mediaCardPath, setMediaCardPath] = useState(`/${process.env.PUBLIC_URL}assets/images/mediaCard/standard/`)
+  const [mediaCardPath, setMediaCardPath] = useState(`${process.env.PUBLIC_URL}/assets/images/mediaCard/standard/`)
   const { t, i18n } = useTranslation('homePage')
   const isHighResolution = useMediaQuery('@media (min-resolution: 192dpi)')
   const [accountClosed, setAccountClosed] = useState(localStorage.getItem('accountClosed'))
@@ -301,7 +301,7 @@ const HomePage = () => {
   useEffect(() => {
     // upgrade image to HD, no need to downgrade if not highResolution
     if(isHighResolution) {
-      setMediaCardPath(`/${process.env.PUBLIC_URL}assets/images/mediaCard/HD/`)
+      setMediaCardPath(`${process.env.PUBLIC_URL}/assets/images/mediaCard/HD/`)
     }
   }, [isHighResolution])
 
@@ -400,19 +400,19 @@ const HomePage = () => {
             </Typography>
             <Grid container className={classes.howItWorksGrid} spacing={3}>
               <Grid item xs={12} sm={6} md={3}>
-                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/patients.svg`} alt={t('how_it_works.cards.0.alt_text')} />
+                <img className={classes.howItWorksIcon} src={`${process.env.PUBLIC_URL}/assets/icons/patients.svg`} alt={t('how_it_works.cards.0.alt_text')} />
                 <Typography><RenderContent source={t('how_it_works.cards.0.body')} /></Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/multiple-samples.svg`} alt={t('how_it_works.cards.1.alt_text')} />
+                <img className={classes.howItWorksIcon} src={`${process.env.PUBLIC_URL}/assets/icons/multiple-samples.svg`} alt={t('how_it_works.cards.1.alt_text')} />
                 <Typography><RenderContent source={t('how_it_works.cards.1.body')} /></Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/one-idea.svg`} alt={t('how_it_works.cards.2.alt_text')} />
+                <img className={classes.howItWorksIcon} src={`${process.env.PUBLIC_URL}/assets/icons/one-idea.svg`} alt={t('how_it_works.cards.2.alt_text')} />
                 <Typography><RenderContent source={t('how_it_works.cards.2.body')} /></Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/breakthrough.svg`} alt={t('how_it_works.cards.3.alt_text')} />
+                <img className={classes.howItWorksIcon} src={`${process.env.PUBLIC_URL}/assets/icons/breakthrough.svg`} alt={t('how_it_works.cards.3.alt_text')} />
                 <Typography><RenderContent source={t('how_it_works.cards.3.body')} /></Typography>
               </Grid>
             </Grid>
@@ -424,7 +424,7 @@ const HomePage = () => {
       </Container>
       <Container className={`${classes.volunteer} accentImage`}>
         {/* IE11 doesn't like svg background images, so drop it in as an accent image here */}
-        {isIE && <img className="accentImage--img" src={`/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-long.svg`} alt="accent image" aria-hidden="true" />}
+        {isIE && <img className="accentImage--img" src={`${process.env.PUBLIC_URL}/assets/images/soft-diamond-background-long.svg`} alt="accent image" aria-hidden="true" />}
         <Box component="section">
           <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}>
             <RenderContent source={t('participate.title')} />

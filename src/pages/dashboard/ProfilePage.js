@@ -114,7 +114,7 @@ const ProfilePage = (props) => {
       <Container className="mainContainer">
         <div className={classes.profileTop}>
           <div className={classes.profile}>
-            <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt={t('a_common:icons.user_profile')} aria-hidden="true" />
+            <img className={classes.profileIcon} src={`${process.env.PUBLIC_URL}/assets/icons/user-profile.svg`} alt={t('a_common:icons.user_profile')} aria-hidden="true" />
             <div className={classes.profileText}>
               <Typography className={classes.profileHeader} variant="h2" component="h2">{firstName} {lastName}</Typography>
               <Typography component="p" gutterBottom>{t('a_common:participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>

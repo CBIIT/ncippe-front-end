@@ -183,10 +183,10 @@ const ActivatePage = () => {
         <Box className={classes.tintedBox} p={7} component="section">
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid className={classes.featureImage} item xs={12} md={6}>
-              <img className={classes.screenshot} src={`/${process.env.PUBLIC_URL}assets/images/login.gov.jpg`} alt={t('sections.0.alt_text')} width="300"
+              <img className={classes.screenshot} src={`${process.env.PUBLIC_URL}/assets/images/login.gov.jpg`} alt={t('sections.0.alt_text')} width="300"
                 srcSet={`
-                  /${process.env.PUBLIC_URL}assets/images/misc/standard/login.gov.jpg 1x,
-                  /${process.env.PUBLIC_URL}assets/images/misc/HD/login.gov.jpg 2x
+                  ${process.env.PUBLIC_URL}/assets/images/misc/standard/login.gov.jpg 1x,
+                  ${process.env.PUBLIC_URL}/assets/images/misc/HD/login.gov.jpg 2x
                 `}
               />
             </Grid>
@@ -195,7 +195,7 @@ const ActivatePage = () => {
                 <RenderContent source={t('sections.0.title')} />
               </Typography>
               <Box className={classes.featureLinks}>
-                <Link href={`https://secure.login.gov/${i18n.language === 'es' ? 'es/':''}sign_up/enter_email?request_id=${process.env.REACT_APP_REQUEST_ID}`}><Button className={classes.createAccountBtn} variant="contained" color="primary">{t('sections.0.links.0')}</Button></Link>
+                <Link href={`https://secure.login.gov/${i18n.language === 'es' ? 'es/':''}sign_up/enter_email?request_id${process.env.REACT_APP_REQUEST_ID}/`}><Button className={classes.createAccountBtn} variant="contained" color="primary">{t('sections.0.links.0')}</Button></Link>
                 <br />
                 {/* <Button className={classes.haveAccountBtn} variant="outlined" color="primary" onClick={handleLogin}>{t('sections.0.links.1')}</Button> */}
                 <Button className={classes.haveAccountBtn} variant="outlined" color="primary" onClick={handleLogin}>{t('sections.0.links.1')}</Button>
@@ -226,7 +226,7 @@ const ActivatePage = () => {
                 <ul>
                   <li>
                   <div className={classes.cardContent}>
-                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/phone.svg`} alt={t('sections.1.security_options.0.alt_text')} aria-hidden="true" />
+                    <img className={classes.cardIcon} src={`${process.env.PUBLIC_URL}/assets/icons/phone.svg`} alt={t('sections.1.security_options.0.alt_text')} aria-hidden="true" />
                     <div className={classes.cardText}>
                       <div>
                         <Typography className={classes.cardTitle} component="h3">{t('sections.1.security_options.0.label')}</Typography>
@@ -237,7 +237,7 @@ const ActivatePage = () => {
                   </li>
                   <li>
                   <div className={classes.cardContent}>
-                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/authentification-application.svg`} alt={t('sections.1.security_options.1.alt_text')} aria-hidden="true" />
+                    <img className={classes.cardIcon} src={`${process.env.PUBLIC_URL}/assets/icons/authentification-application.svg`} alt={t('sections.1.security_options.1.alt_text')} aria-hidden="true" />
                     <div className={classes.cardText}>
                       <div>
                         <Typography className={classes.cardTitle} component="h3">{t('sections.1.security_options.1.label')}</Typography>
@@ -248,7 +248,7 @@ const ActivatePage = () => {
                   </li>
                   <li>
                   <div className={classes.cardContent}>
-                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/security-key.svg`} alt={t('sections.1.security_options.2.alt_text')} aria-hidden="true" />
+                    <img className={classes.cardIcon} src={`${process.env.PUBLIC_URL}/assets/icons/security-key.svg`} alt={t('sections.1.security_options.2.alt_text')} aria-hidden="true" />
                     <div className={classes.cardText}>
                       <div>
                         <Typography className={classes.cardTitle} component="h3">{t('sections.1.security_options.2.label')}</Typography>
@@ -259,7 +259,7 @@ const ActivatePage = () => {
                   </li>
                   <li>
                   <div className={classes.cardContent}>
-                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/backup-codes.svg`} alt={t('sections.1.security_options.3.alt_text')} aria-hidden="true" />
+                    <img className={classes.cardIcon} src={`${process.env.PUBLIC_URL}/assets/icons/backup-codes.svg`} alt={t('sections.1.security_options.3.alt_text')} aria-hidden="true" />
                     <div className={classes.cardText}>
                       <div>
                         <Typography className={classes.cardTitle} component="h3">{t('sections.1.security_options.3.label')}</Typography>
@@ -299,10 +299,10 @@ const ActivatePage = () => {
               </div>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
-              <img src={`/${process.env.PUBLIC_URL}assets/images/login.gov-logo.jpg`} alt={t('sections.2.alt_text')}
+              <img src={`${process.env.PUBLIC_URL}/assets/images/login.gov-logo.jpg`} alt={t('sections.2.alt_text')}
                 srcSet={`
-                /${process.env.PUBLIC_URL}assets/images/misc/standard/login.gov-logo.jpg 1x,
-                /${process.env.PUBLIC_URL}assets/images/misc/HD/login.gov-logo.jpg 2x
+                ${process.env.PUBLIC_URL}/assets/images/misc/standard/login.gov-logo.jpg 1x,
+                ${process.env.PUBLIC_URL}/assets/images/misc/HD/login.gov-logo.jpg 2x
               `}
               />
             </Grid>

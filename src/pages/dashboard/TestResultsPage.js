@@ -51,7 +51,7 @@ const Page = () => {
         <Grid container mt={2} spacing={2}>
           <Grid item xs={12} md={6}>
             <div className={classes.titleWithIcon}>
-              <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/biomarker-tests.svg`} alt={t('a_common:icons.biomarker_test')} aria-hidden="true"></img>
+              <img className={classes.titleIcon} src={`${process.env.PUBLIC_URL}/assets/icons/biomarker-tests.svg`} alt={t('a_common:icons.biomarker_test')} aria-hidden="true"></img>
               <Typography variant="h2" component="h2">{t('components.biomarkerView.pageTitle')}</Typography>
             </div>
             <Box mb={3}>
