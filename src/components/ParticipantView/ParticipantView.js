@@ -9,7 +9,8 @@ import moment from 'moment'
 // import { api } from '../../data/api'
 import getAPI from '../../data'
 import { LoginContext, LoginConsumer } from '../login/Login.context'
-import TestResultsItem from '../TestResults/TestResultsItem'
+import FileList from '../FileList/FileList.events'
+// import TestResults from '../TestResults'
 import NoItems from '../NoItems'
 import ExpansionMenu from '../ExpansionMenu'
 import UploadConsentDialog from '../UploadConsent/UploadConsentDialog'
@@ -102,38 +103,50 @@ const ParticipantView = (props) => {
 
   const classes = useStyles()
   const {patientId} = props
-  const [loginContext] = useContext(LoginContext)
-  const [reports, setReports] = useState(false)
-  const [files, setFiles] = useState(false)
-  const [user, setUser] = useState(false)
+  const [loginContext, dispatch] = useContext(LoginContext)
+  
   const [dialogOpen, setDialogOpen] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isNewParticipant, setIsNewParticipant] = useState(false)
   const { t } = useTranslation('a_common')
   const { trackEvent } = useTracking()
-  const {token} = loginContext
+  const { uuid, token, patients } = loginContext
+  const [user, setUser] = useState(patients.find(patient => patient.patientId === patientId))
 
   useEffect(() => {
     // const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).uuid
-    getAPI.then(api => {
-      api.fetchPatientTestResults({patientId, token}).then(resp => {
-        if(resp instanceof Error) {
-          setUser({
-            portalAccountStatus: "ACCT_TERMINATED_AT_PPE"
+    const patientData = patients.find(patient => patient.patientId === patientId)
+    if(!patientData.reports) {
+      getAPI.then(api => {
+        //TODO: stuff participant data into user's context for patients - prevent multiple fetch calls for same patient
+        api.fetchPatientTestResults({patientId, adminId: uuid, token}).then(resp => {
+          if(resp instanceof Error) {
+            setUser({
+              portalAccountStatus: "ACCT_TERMINATED_AT_PPE"
+            })
+            throw resp
+          }
+
+          dispatch({
+            type: 'addPatientData',
+            patients: patients.map(patient => {
+              if(patient.patientId === patientId){
+                patient = resp
+              }
+              return patient
+            })
           })
-          throw resp
-        }
-        setReports(resp.reports)
-        setFiles(resp.otherDocuments)
-        setUser(resp)
+          setUser(resp)
+
+        })
+        .catch(error => {
+          console.error(error)
+        })
       })
-      .catch(error => {
-        console.error(error)
-      })
-    })
+    }
     return () => {}
-  }, [uploadSuccess, token, patientId])
+  }, [uploadSuccess, patientId, uuid, token, patients])
 
   useEffect(() => {
     if(props.location && props.location.state && props.location.state.newParticipantActivated) {
@@ -253,13 +266,12 @@ const ParticipantView = (props) => {
           <Grid container spacing={3}>
             <Grid item xs={12} id="reports">
               <Typography className={classes.header} variant="h2" component="h2">{t('components.biomarkerView.pageTitle')} </Typography>
-              {reports && reports.length > 0 ? (
-                <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-                  {reports && reports.map((report,i) => <Grid item xs={12} key={i}><TestResultsItem report={report} patientId={user.patientId} /></Grid>)}
-                </Grid>
-              ) : (
-                <NoItems message={t('components.biomarkerView.no_results.admin')} />
-              )}
+              <FileList 
+                files={user.reports} 
+                noItemsMsg={t('components.biomarkerView.no_results.admin')} 
+                patientId={patientId}
+                type="report"
+              />
             </Grid>
 
             {/* Consent Form for CRC and above */}
@@ -272,13 +284,12 @@ const ParticipantView = (props) => {
                       title={t('components.participantView.status.uploaded.title')}
                       message={t('components.participantView.status.uploaded.message')} />
                     }
-                    {files && files.length > 0 ? (
-                      <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-                        {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} patientId={user.patientId} noBadge /></Grid>)}
-                      </Grid>
-                    ) : (
-                      <NoItems message={t('components.consentView.no_results.admin')} />
-                    )}
+                    <FileList
+                      files={user.otherDocuments} 
+                      noItemsMsg={t('components.consentView.no_results.admin')} 
+                      patientId={patientId} 
+                      type="consentForm"
+                    />
                   </Grid>
                 )
               }}
@@ -305,13 +316,12 @@ const ParticipantView = (props) => {
                       title={t('components.participantView.status.uploaded.title')}
                       message={t('components.participantView.status.uploaded.message')} />
                     }
-                    {files && files.length > 0 ? (
-                      <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
-                        {files && files.map((file,i) => <Grid item xs={12} key={i}><TestResultsItem report={file} patientId={user.patientId} noBadge /></Grid>)}
-                      </Grid>
-                    ) : (
-                      <NoItems message={t('components.consentView.no_results.admin')} />
-                    )}
+                    <FileList 
+                      files={user.otherDocuments} 
+                      noItemsMsg={t('components.consentView.no_results.admin')} 
+                      patientId={patientId} 
+                      type="consentForm"
+                    />
                   </Grid>
                 </Grid>
               </Grid>
@@ -346,7 +356,7 @@ const ParticipantView = (props) => {
           }}
         </LoginConsumer>
       </Grid>
-      <UploadConsentDialog open={dialogOpen} setParentState={closeUploadDialog} patientId={user.patientId} />
+      <UploadConsentDialog open={dialogOpen} setParentState={closeUploadDialog} patientId={patientId} />
     </>
   )
 }

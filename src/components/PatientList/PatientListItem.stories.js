@@ -63,8 +63,8 @@ export default {
         }
       }
     },
-    hasNewReports: {
-      description: `Flag if this participant has new biomarker reports. Will display a yellow "new report" chip`,
+    hasNewFiles: {
+      description: `Flag if this participant has new biomarker reports or new documents. Will display a yellow "new document" chip`,
       table: {
         category: 'patient',
         defaultValue: {
@@ -109,7 +109,7 @@ PatientListItemDemo.args = {
   email: "CadetBlue@Keagan.biz",
   lang: 'en',
   dateCreated: 1550129389000,
-  hasNewReports: false,
+  hasNewFiles: false,
   isActiveBiobankParticipant: true,
   portalAccountStatus: undefined
 }

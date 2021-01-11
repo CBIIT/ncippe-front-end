@@ -111,14 +111,14 @@ const AddParticipantInfoDialog = (props) => {
     }))
   },[open, firstName, lastName, email, lang, t])
 
-  const updatePatient = (activate = false) => {
+  const updatePatient = async (activate = false) => {
     const updatedPatients = patients.map(patient => {
       if (patient.patientId === patientId) {
         let returnObj
         if(activate){
           returnObj = {
             ...patient,
-            portalAccountStatus: null,
+            portalAccountStatus: "ACCT_ACTIVE",
           }
         } else {
           returnObj = {
@@ -311,7 +311,7 @@ const AddParticipantInfoDialog = (props) => {
         })
 
         getAPI.then(api => {
-          api.uploadPatientReport({
+          return api.uploadPatientReport({
             patientId,
             uuid,
             reportFile: formData.file,
@@ -327,7 +327,7 @@ const AddParticipantInfoDialog = (props) => {
             }
           })
           .then(api => {
-            api.activateParticipant({
+            return api.activateParticipant({
               uuid,
               token,
               patient: {
@@ -341,13 +341,14 @@ const AddParticipantInfoDialog = (props) => {
               throw resp
             } else {
               // update patient data front-end state
-              updatePatient(true)
-  
-              // save successful, close modal and redirect to Participant View
-              navigate(`/account/participant/${patientId}`, {
-                state: {
-                  newParticipantActivated: true
-                }
+              updatePatient(true).then(() => {
+                // save successful, close modal and redirect to Participant View
+                navigate(`/account/participant/${patientId}`, {
+                  state: {
+                    newParticipantActivated: true
+                  }
+                })
+
               })
             }
           })

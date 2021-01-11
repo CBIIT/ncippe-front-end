@@ -63,11 +63,11 @@ const PatientListItem = (props) => {
     email,
     lang = 'en',
     patientId, 
-    dateCreated, 
-    hasNewReports = false, 
+    dateCreated,
     isActiveBiobankParticipant = true,
     portalAccountStatus
   } = props.patient
+  const hasNewFiles = props.patient.hasNewReports || props.patient.hasNewDocuments
   const classes = useStyles()
   const { t } = useTranslation('a_common')
   const handleClick = (event) => {
@@ -80,9 +80,9 @@ const PatientListItem = (props) => {
     <Link className={classes.Link} onClick={handleClick}
       to={`/account/participant/${patientId}`}>
       <Paper className={`${classes.paper} ${portalAccountStatus === 'ACCT_NEW' && classes.new}`} elevation={25}>
-        {(hasNewReports || isActiveBiobankParticipant === false || portalAccountStatus !== 'ACCT_NEW' || portalAccountStatus !== 'ACCT_TERMINATED_AT_PPE') && 
+        {(hasNewFiles || isActiveBiobankParticipant === false || portalAccountStatus !== 'ACCT_NEW' || portalAccountStatus !== 'ACCT_TERMINATED_AT_PPE') && 
         <div className={classes.badges}>
-          {hasNewReports && <Badge className={classes.badge} badgeContent={t('badges.new_document')} />}
+          {hasNewFiles && <Badge className={classes.badge} badgeContent={t('badges.new_document')} />}
           {isActiveBiobankParticipant === false && <Badge className={classes.badge} color="error" badgeContent={t('badges.not_participating')} />}
           {portalAccountStatus === "ACCT_TERMINATED_AT_PPE" && <Badge className={classes.badge} color="error" badgeContent={t('badges.terminated')} />}
           {portalAccountStatus === 'ACCT_NEW' && <Badge className={classes.newBadge} badgeContent={t('badges.new_participant')} />}
@@ -128,9 +128,9 @@ PatientListItem.propTypes = {
      */
     dateCreated: PropTypes.number, 
     /**
-     * Flag if this participant has new biomarker reports. Will display a yellow "new report" chip
+     * Flag if this participant has new biomarker reports or new documents. Will display a yellow "new document" chip
      */
-    hasNewReports: PropTypes.bool, 
+    hasNewFiles: PropTypes.bool, 
     /**
      * Flag if this participant is no longer participating in the program. Will display an orange "not participating" chip
      */
@@ -138,7 +138,7 @@ PatientListItem.propTypes = {
     /**
      * Flag if this participant is either new to the system or has terminated their account. The whole card becomes green and displays a green "New Participant" chip if 'ACCT_NEW'.
      */
-    portalAccountStatus: PropTypes.oneOf([null,'ACCT_NEW','ACCT_TERMINATED_AT_PPE'])
+    portalAccountStatus: PropTypes.oneOf([null,'ACCT_NEW','ACCT_TERMINATED_AT_PPE','ACCT_ACTIVE'])
   })
 }
 export default PatientListItem

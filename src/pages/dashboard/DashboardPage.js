@@ -7,7 +7,7 @@ import PubSub from 'pubsub-js'
 
 import { LoginConsumer } from '../../components/login/Login.context'
 import PatientList from '../../components/PatientList/PatientList'
-import IconCard from '../../components/IconCard/IconCard'
+import IconCard from '../../components/IconCard'
 import Status from '../../components/Status/Status'
 import RenderContent from '../../components/utils/RenderContent'
 
@@ -72,6 +72,9 @@ const Page = () => {
     })
     window.$defaultLinkTrack = false
   }
+
+
+
   return (
     <Box>
       <Helmet>
@@ -104,6 +107,7 @@ const Page = () => {
           <LoginConsumer>
             {([{newNotificationCount: count}]) => {
               //{`You have ${count} new notification${count !== 1 ? 's' : ''}.`}
+              /* count will be a number */
               return (
                 <IconCard
                   icon="notifications.svg"
@@ -121,7 +125,8 @@ const Page = () => {
           {/* END: User Notifications */}
 
           <LoginConsumer>
-          {([{roleName,newReport: count}]) => {
+          {([{roleName,newReportCount,newDocumentCount}]) => {
+            /* count will be true or false */
             return roleName === "ROLE_PPE_PARTICIPANT" && (
               <>
                 {/* Participant Consent Form */}
@@ -132,6 +137,7 @@ const Page = () => {
                     desc={t('cards.consent.description')}
                     link="/account/consent"
                     linkText={t('cards.consent.link')}
+                    count={newDocumentCount}
                     cardClick={trackCardClick}
                   />
                 </Grid>
@@ -145,7 +151,7 @@ const Page = () => {
                     desc={t('cards.biomarker.description')}
                     link="/account/tests"
                     linkText={t('cards.biomarker.link')}
-                    count={count}
+                    count={newReportCount}
                     cardClick={trackCardClick}
                   />
                 </Grid>
@@ -175,7 +181,7 @@ const Page = () => {
           {/* END: User Profile */}
           {/* Get Help */}
           <LoginConsumer>
-          {([{roleName,newReport: count}]) => {
+          {([{roleName}]) => {
             return roleName === "ROLE_PPE_PARTICIPANT" && (
               <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
                 <IconCard
@@ -193,7 +199,7 @@ const Page = () => {
           {/* END: Get Help */}
           {/* Report Guide */}
           <LoginConsumer>
-          {([{roleName,newReport: count}]) => {
+          {([{roleName}]) => {
             return roleName === "ROLE_PPE_PROVIDER" && (
               <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
                 <IconCard
@@ -212,7 +218,7 @@ const Page = () => {
           {/* END: Report Guide */}
           {/* Report Guide */}
           <LoginConsumer>
-          {([{roleName,newReport: count}]) => {
+          {([{roleName}]) => {
             return (roleName === "ROLE_PPE_PARTICIPANT" || roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC") && (
               <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
                 <IconCard

@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Box, Button, Container, Divider, Grid, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 
-import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
-import TestResults from '../../components/TestResults/TestResults'
+import { LoginContext } from '../../components/login/Login.context'
+import Breadcrumbs from '../../components/Breadcrumbs'
+import TestResults from '../../components/FileList/FileList.events'
 
 const useStyles = makeStyles(theme => ({
   // aside: {
@@ -34,9 +35,10 @@ const useStyles = makeStyles(theme => ({
   },
 }),{name: 'TestResultsPage'})
 
-const Page = (props) => {
-  const { userName } = props 
+const Page = () => {
   const classes = useStyles()
+  const [loginContext] = useContext(LoginContext)
+  const { reports } = loginContext
   const { t } = useTranslation(['a_common'])
   return (
     <Box className="popup">
@@ -59,20 +61,20 @@ const Page = (props) => {
         </Grid>
         <Grid container mt={2} spacing={2} className={classes.samples}>
           <Grid item xs={12} md={6}>
-            <TestResults userName={userName} />
+            <TestResults files={reports} noItemsMsg={t('components.biomarkerView.no_results.participant')} type="report" />
           </Grid>
           <Grid item xs={12} md={6}>
             <Paper elevation={25}>
-              <img src={`/${process.env.PUBLIC_URL}assets/images/sampleReport/standard/test-guide--solid-tumor.jpg`} alt={t('components.biomarkerView.guide.alt_text')}
+              <img src={`${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/test-guide--solid-tumor.jpg`} alt={t('components.biomarkerView.guide.alt_text')}
                 srcSet={`
-                  /${process.env.PUBLIC_URL}assets/images/sampleReport/standard/test-guide--solid-tumor.jpg 1x,
-                  /${process.env.PUBLIC_URL}assets/images/sampleReport/HD/test-guide--solid-tumor.jpg 2x
+                  ${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/test-guide--solid-tumor.jpg 1x,
+                  ${process.env.PUBLIC_URL}/assets/images/sampleReport/HD/test-guide--solid-tumor.jpg 2x
                 `}
               />
               <Divider />
               <Box p={2}>
                 <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('components.biomarkerView.guide.title')}</Typography>
-                <Button href={`/${process.env.PUBLIC_URL}assets/documents/Biomarker-Test-Guide.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('components.biomarkerView.guide.aria_label')}>{t('components.biomarkerView.guide.link')}</Button>
+                <Button href={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('components.biomarkerView.guide.aria_label')}>{t('components.biomarkerView.guide.link')}</Button>
               </Box>
             </Paper>
           </Grid>
