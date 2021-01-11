@@ -1,5 +1,5 @@
-import React from 'react';
-import { Stepper, Typography, Step, StepLabel, useMediaQuery } from '@material-ui/core';
+import React from 'react'
+import { Stepper, Typography, Step, StepLabel, useMediaQuery } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 

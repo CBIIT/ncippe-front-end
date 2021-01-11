@@ -4,7 +4,7 @@ import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 
-import Loading from './components/Loading/Loading'
+import Loading from './components/Loading'
 import logo from './utils/ascii-logo'
 // import * as serviceWorker from './serviceWorker'
 

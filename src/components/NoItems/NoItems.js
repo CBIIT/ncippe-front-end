@@ -34,7 +34,7 @@ const useStyles = makeStyles( theme => ({
  * Display a simple and reusable "No Items" message. This component is used for notifications, biomarker reports and consent forms
  */
 const NoItems = (props) => {
-  const {message} = props
+  const { message = 'No items to display'} = props
   const classes = useStyles()
 
   return (
@@ -54,7 +54,7 @@ NoItems.propTypes = {
   /**
    * A message to display below the empty folder image
    */
-  message: PropTypes.string.isRequired
+  message: PropTypes.string
 }
 
 export default NoItems

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const ArticleImage = (props) => <img 
   src={process.env.PUBLIC_URL + '/assets/images/article/desktop/' + props.src} 

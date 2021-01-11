@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { LoginConsumer, LoginContext } from '../components/login/Login.context'
 // import { api } from '../data/api'
 import getAPI from '../data'
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
+import Breadcrumbs from '../components/Breadcrumbs'
 import Status from '../components/Status/Status'
 import { randomString } from '../utils/utils'
 

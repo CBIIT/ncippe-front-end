@@ -12,7 +12,7 @@ import {
 import PubSub from 'pubsub-js'
 
 import { check_webp_feature } from '../utils/utils'
-import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
+import IconCardMedia from '../components/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
 
 // Internet Explorer 6-11

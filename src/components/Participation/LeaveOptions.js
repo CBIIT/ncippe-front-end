@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { Link as RouterLink } from '@reach/router'
 import { Button, Box, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'

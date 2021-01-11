@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 
 import { LoginContext } from '../../components/login/Login.context'
-import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
+import Breadcrumbs from '../../components/Breadcrumbs'
 import RenderContent from '../../components/utils/RenderContent'
 
 const useStyles = makeStyles(theme => ({

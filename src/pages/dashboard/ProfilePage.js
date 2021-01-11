@@ -7,11 +7,11 @@ import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
 
-import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
+import Breadcrumbs from '../../components/Breadcrumbs'
 import { LoginContext, LoginConsumer } from '../../components/login/Login.context'
 import Profile from '../../components/Profile/Profile'
 import Status from '../../components/Status/Status'
-import DeactivatedQuestions from '../../components/DeactivatedQuestions/DeactivatedQuestions'
+import DeactivatedQuestions from '../../components/DeactivatedQuestions'
 import { formatPhoneNumber } from '../../utils/utils'
 
 

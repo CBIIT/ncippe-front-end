@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
-import IconCard from '../../components/IconCard/IconCard'
+import IconCard from '../../components/IconCard'
 
 const useStyles = makeStyles( theme => ({
   grid: {

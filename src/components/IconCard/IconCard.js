@@ -21,7 +21,7 @@ const useStyles = makeStyles( theme => ({
     display: 'flex',
     height: '100%',
     width: '100%',
-    position: 'absolute',
+    // position: 'absolute', // Don't know why this was set to absolute? IE?
     alignItems: 'flex-start',
     padding: theme.spacing(4,3,3,3)
   },
