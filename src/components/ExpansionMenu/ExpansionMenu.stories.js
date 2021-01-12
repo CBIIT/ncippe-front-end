@@ -1,9 +1,8 @@
 import React from 'react'
 import ExpansionMenu from './ExpansionMenu'
-import { useTranslation } from 'react-i18next'
 
 export default {
-  title: 'UI/Expansion Menu',
+  title: 'Components/Expansion Menu',
   component: ExpansionMenu,
   argTypes: {
     index: {
@@ -59,13 +58,12 @@ export default {
 }
 
 const Template = (args) => {
-  const { t } = useTranslation('storybook')
 
   return (
-    <ExpansionMenu menuText={t('components.ExpansionMenu.menuText')} {...args}>
-      <a href="/about">{t('components.ExpansionMenu.links.0')}</a>
-      <a href="/about/eligibility">{t('components.ExpansionMenu.links.1')}</a>
-      <a href="/about/research">{t('components.ExpansionMenu.links.2')}</a>
+    <ExpansionMenu menuText="Expansion Menu" {...args}>
+      <a href="/about">About</a>
+      <a href="/about/eligibility">Eligibility</a>
+      <a href="/about/research">Research</a>
     </ExpansionMenu>
   )
 }

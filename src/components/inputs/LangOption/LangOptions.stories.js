@@ -2,7 +2,7 @@ import React from 'react'
 import LangOption from './LangOption'
 
 export default {
-  title: 'UI/Inputs/Language Option',
+  title: 'Components/Inputs/Language Option',
   component: LangOption,
   argTypes: {
     id: {

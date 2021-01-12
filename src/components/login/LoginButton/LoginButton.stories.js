@@ -4,7 +4,7 @@ import LoginButton from './LoginButton'
 import { LoginContext } from '../Login.context'
 
 export default {
-  title: 'UI/Login Button',
+  title: 'Components/Login Button',
   component: LoginButton,
   argTypes: {
     authenticated: {

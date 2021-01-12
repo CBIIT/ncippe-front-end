@@ -2,7 +2,7 @@ import React from 'react'
 import NotificationItem from './NotificationItem'
 
 export default {
-  title: 'UI/Notifications/Notifications Item',
+  title: 'Components/Notifications/Notifications Item',
   component: NotificationItem,
   argTypes: {
     notification: {

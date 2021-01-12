@@ -2,7 +2,7 @@ import React from 'react'
 import Component from './Component'
 
 export default {
-  title: 'UI/Component',
+  title: 'Components/Component',
   component: Component,
   argTypes: {
     index: {

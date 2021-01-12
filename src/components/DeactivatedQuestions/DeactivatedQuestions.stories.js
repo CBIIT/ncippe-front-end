@@ -29,7 +29,7 @@ const userJSON = `{
 const user = JSON.parse(userJSON)
 
 export default {
-  title: 'UI/Questions/Deactivated Questions',
+  title: 'Components/Questions/Deactivated Questions',
   component: DeactivatedQuestions,
   argTypes: {
     link: {

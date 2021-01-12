@@ -2,7 +2,7 @@ import React from 'react'
 import PhoneNumber from './PhoneNumber'
 
 export default {
-  title: 'UI/Inputs/Phone Number',
+  title: 'Components/Inputs/Phone Number',
   component: PhoneNumber,
   argTypes: {
     value: {

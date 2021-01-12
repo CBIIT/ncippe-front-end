@@ -3,7 +3,7 @@ import { createMemorySource, createHistory, LocationProvider } from '@reach/rout
 import MenuGroup from './MenuGroup'
 
 export default {
-  title: 'UI/Menu Group',
+  title: 'Components/Menu Group',
   component: MenuGroup,
   // decorators:  [(Story) => {
   //   const source = createMemorySource('/')

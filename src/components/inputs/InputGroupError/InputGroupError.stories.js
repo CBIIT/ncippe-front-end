@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default {
-  title: 'UI/Inputs/InputGroupError',
+  title: 'Components/Inputs/InputGroupError',
   component: InputGroupError,
   argTypes: {
     error: {

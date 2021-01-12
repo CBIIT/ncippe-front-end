@@ -2,7 +2,7 @@ import React from 'react'
 import NoItems from './NoItems'
 
 export default {
-  title: 'UI/No Items',
+  title: 'Components/No Items',
   component: NoItems,
 }
 

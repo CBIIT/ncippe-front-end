@@ -2,7 +2,7 @@ import React from 'react'
 import EmailOption from './EmailOption'
 
 export default {
-  title: 'UI/Inputs/Email Option',
+  title: 'Components/Inputs/Email Option',
   component: EmailOption,
   argTypes: {
     value: {

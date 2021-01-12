@@ -3,7 +3,7 @@ import PatientList from './PatientList'
 import { LoginContext } from '../login/Login.context'
 
 export default {
-  title: 'UI/Patient List/Patient Listing',
+  title: 'Components/Patient List/Patient Listing',
   component: PatientList,
   argTypes: {
     patients: {

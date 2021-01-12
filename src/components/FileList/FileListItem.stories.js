@@ -2,7 +2,7 @@ import React from 'react'
 import FileListItem from './FileListItem'
 
 export default {
-  title: 'UI/File List/File List Item',
+  title: 'Components/File List/File List Item',
   component: FileListItem,
   argTypes: {
     file: {

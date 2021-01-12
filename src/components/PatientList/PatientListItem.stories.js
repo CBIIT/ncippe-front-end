@@ -2,7 +2,7 @@ import React from 'react'
 import PatientListItem from './PatientListItem'
 
 export default {
-  title: 'UI/Patient List/Patient List Item',
+  title: 'Components/Patient List/Patient List Item',
   component: PatientListItem,
   argTypes: {
     patient: {

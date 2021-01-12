@@ -2,7 +2,7 @@ import React from 'react'
 import IconCard from './IconCard'
 
 export default {
-  title: 'UI/Icon Card',
+  title: 'Components/Icon Card',
   component: IconCard,
   argTypes: {
     icon: {},

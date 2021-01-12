@@ -2,7 +2,7 @@ import React from 'react'
 import Status from './Status'
 
 export default {
-  title: 'UI/Status',
+  title: 'Components/Status',
   component: Status,
   argTypes: {
     state: {

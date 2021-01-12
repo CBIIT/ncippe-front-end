@@ -2,7 +2,7 @@ import React from 'react'
 import IconCardMedia from './IconCardMedia'
 
 export default {
-  title: 'UI/Icon Card Media',
+  title: 'Components/Icon Card Media',
   component: IconCardMedia
 }
 

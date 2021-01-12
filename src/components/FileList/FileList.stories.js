@@ -2,7 +2,7 @@ import React from 'react'
 import FileList from './FileList'
 
 export default {
-  title: 'UI/File List/File Listing',
+  title: 'Components/File List/File Listing',
   component: FileList,
   argTypes: {
     noItemsMsg: {

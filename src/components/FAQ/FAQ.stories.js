@@ -3,7 +3,7 @@ import { createMemorySource, createHistory, LocationProvider } from '@reach/rout
 import FAQ from './FAQ'
 
 export default {
-  title: 'UI/FAQ/Single FAQ',
+  title: 'Components/FAQ/Single FAQ',
   component: FAQ,
   argTypes: {
     index: {
