@@ -25,8 +25,8 @@ import getAPI from '../../data'
 import { LoginContext } from '../login/Login.context'
 import Status from '../Status/Status'
 import FileItem from '../Mocha/FileItem'
-import InputGroupError from '../inputs/InputGroupError/InputGroupError'
-import LangOption from '../inputs/LangOption/LangOption'
+import InputGroupError from '../inputs/InputGroupError'
+import LangOption from '../inputs/LangOption'
 
 const useStyles = makeStyles(theme => ({
   // contentText: {

@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 
 import { LoginContext } from '../../components/login/Login.context'
-import PhoneNumbner from '../inputs/PhoneNumber/PhoneNumber'
-import EmailOption from '../inputs/EmailOption/EmailOption'
-import LangOption from '../inputs/LangOption/LangOption'
+import PhoneNumbner from '../inputs/PhoneNumber'
+import EmailOption from '../inputs/EmailOption'
+import LangOption from '../inputs/LangOption'
 // import { api } from '../../data/api'
 import getAPI from '../../data'
 

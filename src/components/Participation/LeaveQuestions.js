@@ -10,7 +10,7 @@ import PubSub from 'pubsub-js'
 import { LoginContext } from '../login/Login.context'
 // import { api } from '../../data/api'
 import getAPI from '../../data'
-import InputGroupError from '../inputs/InputGroupError/InputGroupError'
+import InputGroupError from '../inputs/InputGroupError'
 import Status from '../Status/Status'
 import RenderContent from '../utils/RenderContent'
 

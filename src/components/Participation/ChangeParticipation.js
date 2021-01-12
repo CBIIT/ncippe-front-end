@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 
 import { LoginContext } from '../login/Login.context'
-import InputGroupError from '../inputs/InputGroupError/InputGroupError'
+import InputGroupError from '../inputs/InputGroupError'
 import RenderContent from '../utils/RenderContent'
 
 
