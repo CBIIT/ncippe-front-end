@@ -13,7 +13,7 @@ import FileList from '../FileList/FileList.events'
 import NoItems from '../NoItems'
 import ExpansionMenu from '../ExpansionMenu'
 import UploadConsentDialog from '../UploadConsent/UploadConsentDialog'
-import Status from '../Status/Status'
+import Status from '../Status'
 import { formatPhoneNumber } from '../../utils/utils'
 import DeactivatedQuestions from '../DeactivatedQuestions'
 

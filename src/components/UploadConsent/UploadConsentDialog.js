@@ -9,7 +9,7 @@ import PubSub from 'pubsub-js'
 // import { api } from '../../data/api'
 import getAPI from '../../data'
 import { LoginContext } from '../login/Login.context'
-import Status from '../Status/Status'
+import Status from '../Status'
 import FileItem from '../Mocha/FileItem'
 
 const useStyles = makeStyles(theme => ({

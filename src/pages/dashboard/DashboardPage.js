@@ -8,7 +8,7 @@ import PubSub from 'pubsub-js'
 import { LoginConsumer } from '../../components/login/Login.context'
 import PatientList from '../../components/PatientList/PatientList'
 import IconCard from '../../components/IconCard'
-import Status from '../../components/Status/Status'
+import Status from '../../components/Status'
 import RenderContent from '../../components/utils/RenderContent'
 
 

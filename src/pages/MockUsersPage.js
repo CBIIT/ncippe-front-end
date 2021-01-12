@@ -7,7 +7,7 @@ import { LoginConsumer, LoginContext } from '../components/login/Login.context'
 // import { api } from '../data/api'
 import getAPI from '../data'
 import Breadcrumbs from '../components/Breadcrumbs'
-import Status from '../components/Status/Status'
+import Status from '../components/Status'
 import { randomString } from '../utils/utils'
 
 const useStyles = makeStyles(theme => ({

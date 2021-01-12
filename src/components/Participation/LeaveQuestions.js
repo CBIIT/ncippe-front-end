@@ -11,7 +11,7 @@ import { LoginContext } from '../login/Login.context'
 // import { api } from '../../data/api'
 import getAPI from '../../data'
 import InputGroupError from '../inputs/InputGroupError'
-import Status from '../Status/Status'
+import Status from '../Status'
 import RenderContent from '../utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({

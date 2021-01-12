@@ -14,7 +14,7 @@ import UploadStepper from './UploadStepper'
 import FileItem from './FileItem'
 import ReportList from './ReportList'
 import { isValidUserId } from '../../utils/utils'
-import Status from '../Status/Status'
+import Status from '../Status'
 
 const useStyles = makeStyles( theme => ({
   paper: {

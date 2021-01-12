@@ -11,7 +11,7 @@ import { LoginContext } from '../login/Login.context'
 import getAPI from '../../data'
 import { formatPhoneNumber } from '../../utils/utils'
 import RenderContent from '../utils/RenderContent'
-import Status from '../Status/Status'
+import Status from '../Status'
 
 const useStyles = makeStyles( theme => ({
   header: {

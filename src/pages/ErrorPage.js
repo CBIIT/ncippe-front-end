@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link as RouterLink } from "@reach/router"
 import { Box, Container, Button } from '@material-ui/core'
-import Status from '../components/Status/Status'
+import Status from '../components/Status'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import PubSub from 'pubsub-js'
