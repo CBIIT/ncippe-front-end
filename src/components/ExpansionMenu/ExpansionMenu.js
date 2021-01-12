@@ -124,7 +124,8 @@ const ExpansionMenu = (props) => {
     expanded = false,
     active = false,
     handleClick,
-    variant = 'stacked'
+    variant = 'stacked',
+    children
   } = props
   
   const [isExpanded, setIsExpanded] = useState(expanded)
@@ -172,7 +173,7 @@ const ExpansionMenu = (props) => {
       <AccordionDetails className={classes.accordionDetails}>
         <MenuList className={classes.menuList} autoFocusItem={isExpanded} data-panelgroup={menuText}>
           {
-            React.Children.map(props.children, child => {
+            React.Children.map(children, child => {
               if(child && child.type === "a") {
                 return (
                   <MenuItem onClick={child.props.onClick} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={loc === child.props.href}  className={child.props.className}>
@@ -211,7 +212,7 @@ ExpansionMenu.propTypes = {
   /**
    * The menu items
    */
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   /**
    * sets if the menu is expanded or not
    */
