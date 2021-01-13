@@ -1,5 +1,5 @@
 
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense } from 'react'
 import App from '../src/stories/Layout/AppWrapper'
 
 // const App = lazy(() => import('../src/stories/Layout/AppWrapper')) 

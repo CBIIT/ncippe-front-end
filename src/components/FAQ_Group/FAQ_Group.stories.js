@@ -2,7 +2,7 @@ import React from 'react'
 import FAQs from './FAQ_Group'
 
 export default {
-  title: "UI/FAQ/Multiple FAQ",
+  title: "Components/FAQ/Multiple FAQ",
   component: FAQs,
   argTypes: {
     title: {
