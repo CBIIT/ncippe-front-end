@@ -2,7 +2,10 @@
 # This script will generate responsive images for the given image type
 # This script is dependent on imagemagick and imageoptim
 # See also: https://hackernoon.com/save-time-by-transforming-images-in-the-command-line-c63c83e53b17
-# usage 
+# usage: from the /public/assets/images folder - "{path to utils.sh file} {command}" 
+#        e.g.: ~/GIT/ncippe-front-end/public/assets/images> ../../../utils.sh hello
+# commands: hello, mediaCard, fullWidth, article, sampleReport, hero, createAll
+
 hello(){
   echo "Hello"
 }
@@ -61,6 +64,8 @@ sampleReport(){
   cd sampleReport
   img_size_folder HD 640
   img_size_folder standard 320
+  img_size_folder dashboardHD 1720
+  img_size_folder dashboard 860
   cd ..
 }
 

@@ -206,7 +206,7 @@ const BiomarkerTest = () => {
                 <Divider />
                 <Box p={2}>
                   <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.1.title')}</Typography>
-                  <Button href={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.1.aria_label')}>{t('sections.2.samples.1.link')}</Button>
+                  <Button href={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide--Solid-Tumor.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.1.aria_label')}>{t('sections.2.samples.1.link')}</Button>
                 </Box>
               </Paper>
             </Grid>
