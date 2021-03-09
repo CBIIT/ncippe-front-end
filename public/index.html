@@ -37,6 +37,12 @@
     <meta property="og:type" content="article" />
     <meta property="og:image" content="%REACT_APP_PUBLIC_URL%/assets/images/Cancer-Moonshot-Biobank-Banner-for-Social-Media.jpg" />
     <meta name="twitter:card" value="summary_large_image" />
+    <!-- Outdated Browser Check: Should be in <head>, before any other script tags -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/outdated-browser-rework/3.0.1/style.min.css" integrity="sha512-2lGH1Qnh34HUCry+IxSR+EmwUMX8ib72VH6alcqKVPARQyRDU55AeDlVHQrNseGxX3jEtUg55NdqLQxIqAjyBQ==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/outdated-browser-rework/3.0.1/outdated-browser-rework.min.js" integrity="sha512-8JSiMT5Tzn4WG6vzwg4GdRuSnf0U3mKMlJ54Ix7JnSFwuV7rgeMaEqoMnL4/cvzu4AZFWbNPs1pVPeyx7ol+gQ==" crossorigin="anonymous"></script>
+    <script>
+      outdatedBrowserRework();
+    </script>
 
     <!-- Fonts to support Material Design -->
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" /> -->
@@ -56,6 +62,7 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this website.</noscript>
+    <div id="outdated"></div>
     <div id="root">
       <div style="display:flex; flex-direction:row; justify-content:center; width: 100vw; height: 50vh">
         <img srcset="%PUBLIC_URL%/assets/images/spinner-dna.svg" src="%PUBLIC_URL%/assets/images/spinner-dna.gif" alt="loading indicator" width="250px" style="width:250px;height:250px;margin:auto 0" />

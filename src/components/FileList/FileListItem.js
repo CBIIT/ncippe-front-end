@@ -63,7 +63,7 @@ const FileListItem = (props) => {
   const classes = useStyles()
   const {fileName, dateUploaded, fileGUID, viewedByUser = false} = file
   const { t } = useTranslation('a_common')
-  const isIE = /*@cc_on!@*/false || !!document.documentMode
+  // const isIE = /*@cc_on!@*/false || !!document.documentMode
 
   // response header example to parse
   //Content-Disposition: attachment; filename=dummy_PatientFile - Copy8322721829336469280.pdf
@@ -90,7 +90,8 @@ const FileListItem = (props) => {
           <Typography>{t('components.testResultItem.uploaded')} {moment(dateUploaded).format("MMM DD, YYYY")}</Typography>
         </CardContent>
         <CardActions className={classes.cardAction}>
-          {isIE ? <Typography component="div" /> : <Button color="primary" variant="text" data-fileid={fileGUID} onClick={handleViewFile}><LaunchIcon className={classes.icon} /> {t('buttons.view')}</Button>}
+          {/* isIE ? <Typography component="div" /> : <Button color="primary" variant="text" data-fileid={fileGUID} onClick={handleViewFile}><LaunchIcon className={classes.icon} /> {t('buttons.view')}</Button> */}
+          <Button color="primary" variant="text" data-fileid={fileGUID} onClick={handleViewFile}><LaunchIcon className={classes.icon} /> {t('buttons.view')}</Button>
           <Button color="primary" variant="text" data-download data-fileid={fileGUID} onClick={handleViewFile}><GetAppIcon className={classes.icon}  /> {t('buttons.download')}</Button>
         </CardActions>
       </ConditionalWrapper>

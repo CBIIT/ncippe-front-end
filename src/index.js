@@ -1,5 +1,3 @@
-import 'react-app-polyfill/ie11'
-import 'react-app-polyfill/stable'
 import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
