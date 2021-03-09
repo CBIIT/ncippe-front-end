@@ -10,7 +10,7 @@ hello(){
   echo "Hello"
 }
 
-img_size_folder(){
+make_images(){
   filetype=${3:-jpg}
   mkdir $1
   parent=${PWD##*/}
@@ -35,46 +35,46 @@ img_size_folder(){
 
 mediaCard(){
   cd mediaCard
-  img_size_folder HD 1064
-  img_size_folder standard 532
+  make_images HD 1064
+  make_images standard 532
   cd ..
 }
 
 fullWidth(){
   cd fullWidth
-  img_size_folder desktopHD 2560
-  img_size_folder tabletHD 1920
-  img_size_folder desktop 1280
-  img_size_folder tablet 960
-  img_size_folder mobile 600
-  img_size_folder micro 380
+  make_images desktopHD 2560
+  make_images tabletHD 1920
+  make_images desktop 1280
+  make_images tablet 960
+  make_images mobile 600
+  make_images micro 380
   cd ..
 }
 
 article(){
   cd article
-  img_size_folder tabletHD 1200
-  img_size_folder desktopHD 760
-  img_size_folder tablet 600
-  img_size_folder desktop 380
+  make_images tabletHD 1200
+  make_images desktopHD 760
+  make_images tablet 600
+  make_images desktop 380
   cd ..
 }
 
 sampleReport(){
   cd sampleReport
-  img_size_folder HD 640
-  img_size_folder standard 320
-  img_size_folder dashboardHD 1720
-  img_size_folder dashboard 860
+  make_images HD 640
+  make_images standard 320
+  make_images dashboardHD 1720
+  make_images dashboard 860
   cd ..
 }
 
 hero(){
   cd hero
-  img_size_folder desktopHD 1400 png x
-  img_size_folder mobileHD 1000 png x
-  img_size_folder desktop 700 png x
-  img_size_folder mobile 500 png x
+  make_images desktopHD 1400 png x
+  make_images mobileHD 1000 png x
+  make_images desktop 700 png x
+  make_images mobile 500 png x
   cd ..
 }
 
