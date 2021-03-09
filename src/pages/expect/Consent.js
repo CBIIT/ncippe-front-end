@@ -60,9 +60,10 @@ const useStyles = makeStyles( theme => ({
 
 const Consent = () => {
   const classes = useStyles()
-  const { t } = useTranslation('consent')
+  const { t, i18n } = useTranslation('consent')
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const videoURL = i18n.languages[0] === 'en' ? "https://www.youtube.com/embed/KCMvPPRUcZU" : "https://www.youtube.com/embed/iq83dR49WMg"
 
 
   useEffect(() => {
@@ -118,7 +119,7 @@ const Consent = () => {
                   <CardMedia
                     component='iframe'
                     className={classes.media}
-                    src='https://www.youtube.com/embed/KCMvPPRUcZU'
+                    src={videoURL}
                     title={t('video_title')}
                     allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
                     allowFullScreen
