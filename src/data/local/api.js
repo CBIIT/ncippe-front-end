@@ -75,7 +75,8 @@ async function fetchMockUsers(){
       "crcs",
       "bsscs",
       "mochaAdmins",
-      "admins"
+      "admins",
+      "messengers",
     ]
   }
 

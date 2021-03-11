@@ -383,6 +383,22 @@
       "dateCreated": 1553236189000
     }
   ],
+  "messengers": [
+    {
+      "id": 1,
+      "userListId": 1,
+      "mockUserId": 1,
+      "firstName": "Jennifer",
+      "lastName": "Smith",
+      "uuid": "d01602e5-5332-4b5b-9c22-2cd288fb2fda",
+      "email": "j.smith@email.com",
+      "phoneNumber": "412-555-5302",
+      "allowEmailNotification": true,
+      "userType": "PPE_MESSENGER",
+      "roleName": "ROLE_PPE_MESSENGER",
+      "dateCreated": 1615407150215
+    }
+  ],
   "notifications": [
     {
       "id": 1,
