@@ -12,6 +12,10 @@ const useStyles = makeStyles( theme => ({
   errorText: {
     color: theme.palette.error.text,
     fontWeight: 'bold'
+  },
+  column: {
+    display: 'inline-flex',
+    flexDirection: 'column',
   }
 }),{name: 'InputGroupError'})
 
@@ -20,10 +24,11 @@ const useStyles = makeStyles( theme => ({
  */
 const InputGroupError = (props) => {
   const classes = useStyles()
-  const {children, error = false, errorMessage = ''} = props
+  const {children, error = false, errorMessage = '', variant = false} = props
 
   return error ? (
-    <div className={classes.root}>
+    // <div className={classes.root}>
+    <div className={`${classes.root} ${variant ? classes[variant] : ''}`}>
       {children}
       <Typography className={classes.errorText}>{errorMessage}</Typography>
     </div>
@@ -43,7 +48,11 @@ InputGroupError.propTypes = {
   /**
    * The error message displayed (after the form field) when there is an error
    */
-  errorMessage: PropTypes.string
+  errorMessage: PropTypes.string,
+  /**
+   * An additional class to add to the component to provide layout options
+   */
+  variant: PropTypes.string
 }
 
 export default InputGroupError
