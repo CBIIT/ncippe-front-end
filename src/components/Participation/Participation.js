@@ -19,7 +19,7 @@ const useStyles = makeStyles( theme => ({
   maxWidth: {
     maxWidth: 600
   }
-}))
+}),{name: 'Participation'})
 
 const Participation = (props) => {
   const classes = useStyles()

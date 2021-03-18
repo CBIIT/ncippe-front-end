@@ -92,48 +92,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         if(data instanceof Error){
           throw new Error(data)
         } else {
-          const hasUnviewedReports = (reports, uuid) => {
-            //TODO: only for Participants
-            if(reports){
-              return reports.some(report => {
-                if (!report.viewedBy) {
-                  return true
-                } else {
-                  return !report.viewedBy.includes(uuid)
-                }
-              })          
-            } else {
-              return null
-            }
-          }
-          
-          const userData = {
-            ...data,
-            phoneNumber: formatPhoneNumber(data.phoneNumber), //format "phoneNumber" field
-            newNotificationCount: data.notifications ? data.notifications.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0,
-            newReport: hasUnviewedReports(data.reports, data.uuid)
-          }
-    
-          // sort patient list alphabetically by last name
-          if(userData.patients && userData.patients.length > 1){
-            const sortedPatients = userData.patients
-              // sort alphabetically
-              .sort((a, b) => a.lastName.localeCompare(b.lastName))
-              // bring new accounts to the top
-              .sort((a,b) => {
-                if(a.portalAccountStatus === "ACCT_NEW" && b.portalAccountStatus !== "ACCT_NEW") {
-                  return -1
-                }
-                if(b.portalAccountStatus === "ACCT_NEW" && a.portalAccountStatus !== "ACCT_NEW") {
-                  return 1
-                }
-                return 0
-              })
-            userData.patients = sortedPatients
-          }
-    
-          return userData
-    
+          return data
         }
       })
       .catch(error => {

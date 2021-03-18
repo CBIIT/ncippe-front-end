@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Link } from '@reach/router'
-import { useTracking } from 'react-tracking'
+import PropTypes from 'prop-types'
+import { Link, useLocation } from '@reach/router'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import { 
   Button,
@@ -10,9 +10,10 @@ import {
   MenuList,
   Paper,
   Popper,
-} from '@material-ui/core';
+} from '@material-ui/core'
+import PubSub from 'pubsub-js'
 
-import ConditionalWrapper from '../../utils/ConditionalWrapper'
+import ConditionalWrapper from '../../../utils/ConditionalWrapper'
 
 const useStyles = makeStyles(theme => ({
   popper: {
@@ -29,6 +30,9 @@ const useStyles = makeStyles(theme => ({
     marginTop: 5,
     fontWeight: 'bold',
   },
+  activePopper: {
+    zIndex: '10 !important'
+  },
   menuList: {
     padding: 0,
     '& .Mui-selected,& .Mui-selected:focus,& .Mui-selected:hover': {
@@ -41,9 +45,9 @@ const useStyles = makeStyles(theme => ({
       }
     },
   }
-}))
+}),{name: 'MenuGroup'})
 
-const StyledMenuItem = withStyles(theme => ({
+export const StyledMenuItem = withStyles(theme => ({
   root: {
     borderBottom: `1px solid #ccc`,
     padding: 0,
@@ -56,51 +60,51 @@ const StyledMenuItem = withStyles(theme => ({
       color: theme.palette.common.black,
       textDecoration: 'none',
       padding: '6px 16px',
-      // fontWeight: 600
     },
     '&:focus': {
-      // backgroundColor: theme.palette.primary.main,
       backgroundColor: 'rgba(0,0,0,.08)',
-      // '& a': {
-      //   // color: theme.palette.common.white,
-      //   fontWeight: 600
-      // },
     },
   },
-}))(props => <MenuItem {...props}/>)
+}),{name: 'StyledMenuItem'})(props => <MenuItem {...props}/>)
 
+/**
+ * Dropdown navigation menu component used in the top level global navigation on desktop
+ * 
+ * The active menu item is dynamically selected based on the app's location matching a child's `href`
+ */
 const MenuGroup = (props) => {
-  const randomNum = Math.floor(Math.random() * 1000) + 1
-  const { id = randomNum} = props
   const classes = useStyles()
+  const randomNum = Math.floor(Math.random() * 1000) + 1
+  // destructure props
+  const { index = randomNum, menuText, active } = props
+  
   const [open, setOpen] = useState(false)
   const [popperClass, setPopperClass] = useState(false)
   const anchorRef = useRef(null)
   const containerNode = document.querySelector("#root .transitionGroup")
-  const { trackEvent } = useTracking()
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
-    setPopperClass(prev => !prev ? 'active-popper' : false)
-    trackEvent({
-      prop53: `BioBank_TopNav|${props.title}`,
-      eVar53: `BioBank_TopNav|${props.title}`,
+    setPopperClass(prev => !prev ? classes.activePopper : false)
+    PubSub.publish('ANALYTICS', {
+      eventName: 'ToggleMenuReveal',
       events:'event26',
-      eventName: 'ToggleMenuReveal'
+      prop53: `BioBank_TopNav|${menuText}`,
+      eVar53: `BioBank_TopNav|${menuText}`,
     })
   }
 
-  const handleClose = event => {
+  const handleClose = (event) => {
     if (event.target.classList.contains("Mui-selected") || (anchorRef.current && anchorRef.current.contains(event.target))) {
       return
     }
 
     if(event.currentTarget !== window.document) {
-      trackEvent({
-        prop53: `BioBank_TopNav|${props.title}|${event.target.textContent}`,
-        eVar53: `BioBank_TopNav|${props.title}|${event.target.textContent}`,
+      PubSub.publish('ANALYTICS', {
+        eventName: 'ToggleMenuLink',
         events:'event28',
-        eventName: 'ToggleMenuLink'
+        prop53: `BioBank_TopNav|${menuText}|${event.target.textContent}`,
+        eVar53: `BioBank_TopNav|${menuText}|${event.target.textContent}`,
       })
     }
 
@@ -126,14 +130,14 @@ const MenuGroup = (props) => {
     event.currentTarget.focus()
   }
 
-  const loc = window.location.pathname
+  const location = useLocation().pathname
 
   // return focus to the button when we transitioned from !open -> open
   // this does not work when clicking from one menu item to the next
   const prevOpen = useRef(open)
   useEffect(() => {
     // check if another MenuGroup was clicked on
-    const activePoppers = document.querySelectorAll(".active-popper")
+    const activePoppers = document.querySelectorAll('[class*="active-popper"]')
 
     if (prevOpen.current === true && open === false && activePoppers.length < 2) {
       anchorRef.current.focus()
@@ -146,12 +150,12 @@ const MenuGroup = (props) => {
     <>
     <Button
       ref={anchorRef}
-      aria-controls={`menu-list-grow-${id}`}
+      aria-controls={`menu-list-grow-${index}`}
       aria-haspopup="true"
       onClick={handleToggle}
-      className={props.active ? `${classes.active} active` : classes.button}
+      className={active ? `${classes.active} active` : classes.button}
     >
-      {props.title}
+      {menuText}
     </Button>
     <Popper 
       className={`${classes.popper} ${popperClass}`} 
@@ -174,14 +178,14 @@ const MenuGroup = (props) => {
           {...TransitionProps}
           style={{ transformOrigin: 'left top' }}
         >
-          <Paper id={`menu-list-grow-${id}`} elevation={1} square={true}>
+          <Paper id={`menu-list-grow-${index}`} elevation={1} square={true}>
             <ClickAwayListener onClickAway={handleClose}>
               <MenuList className={classes.menuList} autoFocusItem={open} onKeyDown={handleListKeyDown}>
                 {
                   React.Children.map(props.children, child => (
-                    <StyledMenuItem onClick={handleClose} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={loc === child.props.href} className={child.props.className}>
+                    <StyledMenuItem onClick={handleClose} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={location === child.props.href} className={child.props.className}>
                       <ConditionalWrapper
-                        condition={loc !== child.props.href}
+                        condition={location !== child.props.href}
                         wrapper={children => <Link to={child.props.href}>{children}</Link>}
                       >
                         <span>{child.props.children}</span>
@@ -197,6 +201,29 @@ const MenuGroup = (props) => {
     </Popper>
     </>
   )
+}
+
+MenuGroup.displayName = 'MenuGroup'
+MenuGroup.propTypes = {
+  /**
+   * unique index of this menu group
+   */
+  index: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]),
+  /**
+   * text for the top level menu button
+   */
+  menuText: PropTypes.string.isRequired,
+  /**
+   * sets the active state for this menu
+   */
+  active: PropTypes.bool,
+  /**
+   * menu items that are anchor elements
+   */
+  children: PropTypes.node.isRequired,
 }
 
 export default MenuGroup

@@ -1,0 +1,42 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import '../assets/css/storybook.css'
+
+<Meta title="Architecture/Included Packages" />
+
+# Included Packages
+
+Let's talk about Included Packages
+
+| Package | Description |
+|:--------|:------------|
+|[@material-ui/core](https://github.com/mui-org/material-ui) | React components based on [Material Design](https://material.io/design). This package is used as the foundation for most of our custom components. This package includes [@material-ui/styles/](https://github.com/mui-org/material-ui/tree/next/packages/material-ui-styles), which is a `CSS-in-JS` solution that implements [JSS](https://cssinjs.org/?v=v10.5.0). With `@material-ui/styles/` we were able to developed a custom visual theme for this project. See [Styling](/?path=/docs/architecture-styling--page) for more details.  |
+|[@material-ui/icons](https://github.com/mui-org/material-ui/tree/next/packages/material-ui-icons) | This package provides the Google [Material icons](https://material.io/tools/icons/) packaged as a set of React components. This is used for some of our iconogrophy, but most of our icons were custom made and reside in the `/public/assets/icons` folder |
+|[@material-ui/lab](https://github.com/mui-org/material-ui/tree/next/packages/material-ui-lab) | This package hosts the incubator components that are not yet ready to move to `@material-ui/core`. We are using only the [Toggle Button](https://material-ui.com/components/toggle-button/) component from this package. |
+|[@reach/router](https://reach.tech/router/) | Reach Router is a small, simple router for React that has a small footprint, supports only simple route patterns by design, and has strong accessibility features. This is used to switch between "pages" in our Single Page App (SPA). This router was selected over [React Router](https://reactrouter.com/) because it was easier to integrate with our OIDC client for user authentication. However, we later switched to NIH's Site Minder SSO for user authentication.  |
+|[core-js](https://github.com/zloirock/core-js#readme) | This library includes [polyfills](https://remysharp.com/2010/10/08/what-is-a-polyfill#:~:text=A%20polyfill%2C%20or%20polyfiller%2C%20is,API%20landscape%20if%20you%20will.) for ECMAscript up to 2021. This is needed to mimic new JavaScript features in older web browsers. |
+|[env-cmd](https://github.com/toddbluhm/env-cmd#readme) | This package is used to provide environment variables based on build configurations. We've create a `.env-cmdrc` file with an array of variables based on our different server tiers, such as `Development`, `Testing`, `Staging`, and `Production`. This enables us to use non-Production assets for development and testing work, such as logins, development API's, and dummy user data |
+|[i18next](http://github.com) | Description |
+|[i18next-browser-languagedetector](http://github.com) | Description |
+|[i18next-xhr-backend](http://github.com) | Description |
+|[json-server](http://github.com) | Description |
+|[lunr](http://github.com) | Description |
+|[moment](http://github.com) | Description |
+|[ncippe-content`](http://github.com) | Description |
+|[oidc-client](http://github.com) | Description |
+|[prop-types](http://github.com) | Description |
+|[pubsub-js](http://github.com) | Description |
+|[query-string](http://github.com) | Description |
+|[react](http://github.com) | Description |
+|[react-app-polyfill](http://github.com) | Description |
+|[react-dom](http://github.com) | Description |
+|[react-helmet-async](http://github.com) | Description |
+|[react-i18next](http://github.com) | Description |
+|[react-markdown](http://github.com) | Description |
+|[react-number-format](http://github.com) | Description |
+|[react-scripts](http://github.com) | Description |
+|[react-text-mask](http://github.com) | Description |
+|[react-tracking](http://github.com) | Description |
+|[react-transition-group](http://github.com) | Description |
+|[throttle-debounce](http://github.com) | Description |
+
+<div class="subheading">Front End Architectural Features</div>

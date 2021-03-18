@@ -3,10 +3,10 @@ import { Button, Box, FormControl, FormControlLabel, RadioGroup, Radio, Typograp
 import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 
 import { LoginContext } from '../login/Login.context'
-import InputGroupError from '../inputs/InputGroupError/InputGroupError'
+import InputGroupError from '../inputs/InputGroupError'
 import RenderContent from '../utils/RenderContent'
 
 
@@ -23,7 +23,7 @@ const useStyles = makeStyles( theme => ({
   btnSubmit: {
     marginRight: theme.spacing(1)
   }
-}))
+}),{name: 'ChangeParticipation'})
 
 const ChangeParticipation = (props) => {
   const {nextStep, cancel, isMobile} = props
@@ -33,7 +33,6 @@ const ChangeParticipation = (props) => {
   const [participationOptionError, setParticipationOptionError] = useState(false);
   const classes = useStyles()
   const { t } = useTranslation(['a_changeParticipation','a_common'])
-  const { trackEvent } = useTracking()
 
   const changeParticipationOption = event => {
     setParticipationOption(event.target.value)
@@ -45,11 +44,11 @@ const ChangeParticipation = (props) => {
     if(!participationOption) {
       setParticipationOptionError(true)
     } else {
-      trackEvent({
+      PubSub.publish('ANALYTICS', {
+        events: 'event74',
+        eventName: 'ChangeParticipationNext',
         prop42: `BioBank_ChangeParticipation|Next:${participationOption}`,
         eVar42: `BioBank_ChangeParticipation|Next:${participationOption}`,
-        events: 'event74',
-        eventName: 'ChangeParticipationNext'
       })
       nextStep(participationOption)
     }

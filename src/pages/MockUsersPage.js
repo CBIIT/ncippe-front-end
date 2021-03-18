@@ -6,8 +6,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { LoginConsumer, LoginContext } from '../components/login/Login.context'
 // import { api } from '../data/api'
 import getAPI from '../data'
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs'
-import Status from '../components/Status/Status'
+import Breadcrumbs from '../components/Breadcrumbs'
+import Status from '../components/Status'
 import { randomString } from '../utils/utils'
 
 const useStyles = makeStyles(theme => ({
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   mainContainer: {
     textAlign: 'center'
   }
-}))
+}),{name: 'MockRoles'})
 
 const MockRoles = () => {
   const classes = useStyles()

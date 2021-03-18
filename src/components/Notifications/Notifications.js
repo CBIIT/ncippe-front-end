@@ -1,11 +1,8 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
-
-import { LoginContext } from '../login/Login.context'
-// import { api } from '../../data/api'
-import getAPI from '../../data'
 
 import NotificationItem from './NotificationItem'
 
@@ -19,58 +16,69 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(3),
     width: '49px',
   },
-}))
+}),{name: 'Notifications'})
 
-let isNewSeen = false
 
-const Notifications = () => {
+
+/**
+ * A listing of notifications. On viewing notifications, all "new" items are marked as read.
+ */
+const Notifications = (props) => {
   const classes = useStyles()
-  const [loginContext, dispatch] = useContext(LoginContext)
-  const { notifications } = loginContext
+  const { onLoad, onUnload, notifications, lang } = props
   const count = notifications ? notifications.length : 0
   const { t } = useTranslation('a_common')
-  const {token, uuid, newNotificationCount} = loginContext
 
   useEffect(() => {
     //mark notifications as read when screen loads
-    if(newNotificationCount){
-      isNewSeen = true
-      dispatch({
-        type: 'clearNewNotifications'
-      })
+    if(onLoad){
+      onLoad()
     }
-  },[newNotificationCount, dispatch])
+  },[onLoad])
 
   useEffect(() => {
     //mark notifications as read in the backend on unmount
     return () => {
-      if(isNewSeen){
-        getAPI.then(api => {
-          api.notificationsMarkAsRead({uuid, token}).then((resp)=>{
-            if(resp instanceof Error) {
-              console.error(resp.message)
-            } else {
-              dispatch({
-                type: 'notificationsMarkAsRead'
-              })
-            }
-          })
-        })
+      if(onUnload){
+        onUnload()
       }
     }
-  },[token, uuid, dispatch])
+  },[onUnload])
 
-  return <>
-    <div className={classes.titleWithIcon}>
-      <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/notifications.svg`} alt={t('a_common:icons.notifications')} aria-hidden="true"></img>
-      <Typography variant="h2" component="h2">{t('components.notificationView.pageTitle', {count})}</Typography>
-    </div>
-    {count ? 
-      notifications.map((item, i) => <NotificationItem key={i} notification={item} lang={loginContext.lang} />)
-      :
-      <Typography variant="h6" className={classes.header}>{t('components.notificationView.no_results')}</Typography>
-    }
-  </>
+  return (
+    <>
+      <div className={classes.titleWithIcon}>
+        <img className={classes.titleIcon} src={`${process.env.PUBLIC_URL}/assets/icons/notifications.svg`} alt={t('a_common:icons.notifications')} aria-hidden="true"></img>
+        <Typography variant="h2" component="h2">{t('components.notificationView.pageTitle', {count})}</Typography>
+      </div>
+      
+      {count ? 
+        notifications.map((item, i) => <NotificationItem key={i} notification={item} lang={lang} />)
+        :
+        <Typography variant="h6" className={classes.header}>{t('components.notificationView.no_results')}</Typography>
+      }
+    </>
+  )
+}
+
+Notifications.displayName = "Notifications"
+Notifications.propTypes = {
+  /**
+   * An array of notifications as structured for the `NotificationItem` component
+   */
+  notifications: PropTypes.arrayOf(PropTypes.object),
+  /**
+   * The language preference for this user
+   */
+  lang: PropTypes.oneOf(['en','es']),
+  /**
+   * The callback when notifications are first loaded
+   */
+  onLoad: PropTypes.func,
+  /**
+   * The callback when the component unloads (returning to the Dashboard)
+   */
+  onUnload: PropTypes.func
 }
 
 export default Notifications

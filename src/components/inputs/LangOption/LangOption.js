@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { FormControl, FormLabel, FormHelperText } from '@material-ui/core'
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
 import { makeStyles } from '@material-ui/core/styles'
@@ -34,11 +35,11 @@ const useStyles = makeStyles( theme => ({
       backgroundColor: theme.palette.primary.main
     }
   }
-}))
+}),{name: 'LanguagePreferences'})
 
 const LanguagePreferences = (props) => {
   const { t } = useTranslation(['a_accountSettings','a_common'])
-  const {id = "language-input", label, helperText, value, editMode, onChange} = props
+  const {id = "language-input", label, helperText, value, editMode = false, onChange} = props
   const classes = useStyles()
   const [lang, setLang] = useState(value)
 
@@ -81,6 +82,34 @@ const LanguagePreferences = (props) => {
     }
   </FormControl>
   )
+}
+
+LanguagePreferences.displayName = "LanguagePreferences"
+LanguagePreferences.propTypes = {
+  /**
+   * The unique Id for this FormControl
+   */
+  id: PropTypes.string,
+  /**
+   * The label text that goes with the form control
+   */
+  label: PropTypes.string,
+  /**
+   * The helper text that appears under form control
+   */
+  helperText: PropTypes.string,
+  /**
+   * The value of the toggle button
+   */
+  value: PropTypes.oneOf(['en','es']),
+  /**
+   * Switched the component from an interactive form control to static text
+   */
+  editMode: PropTypes.bool,
+  /**
+   * callback function when the control is toggled, passing the `value`
+   */
+  onChange: PropTypes.func,
 }
 
 export default LanguagePreferences

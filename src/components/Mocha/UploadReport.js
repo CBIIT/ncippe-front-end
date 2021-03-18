@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react'
 import { Box, Button, Chip, Divider, Paper, Typography, TextField, CircularProgress } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
   Clear as ClearIcon
 } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 
 // import { api } from '../../data/api'
 import getAPI from '../../data'
@@ -14,7 +14,7 @@ import UploadStepper from './UploadStepper'
 import FileItem from './FileItem'
 import ReportList from './ReportList'
 import { isValidUserId } from '../../utils/utils'
-import Status from '../Status/Status'
+import Status from '../Status'
 
 const useStyles = makeStyles( theme => ({
   paper: {
@@ -73,7 +73,7 @@ const useStyles = makeStyles( theme => ({
       marginTop: 42
     }
   }
-}))
+}),{name: 'UploadReport'})
 
 const formDataDefaults = {
   reportFile: null,
@@ -98,7 +98,6 @@ const UploadReport = () => {
   const [patientData, setPatientData] = useState(patientDataDefaults)
   const [loginContext] = useContext(LoginContext)
   const { t } = useTranslation(['a_landingMocha','a_common'])
-  const { trackEvent } = useTracking()
 
   // controlled text input
   const handlePatientId = (event) => {
@@ -158,11 +157,11 @@ const UploadReport = () => {
                 ...prevState,
                 notFound: true
               }))
-              trackEvent({
+              PubSub.publish('ANALYTICS', {
+                events: 'event81',
+                eventName: 'PatientIDError',
                 prop42: `BioBank_AdminUpload|Error: User not found in the system`,
                 eVar42: `BioBank_AdminUpload|Error: User not found in the system`,
-                events: 'event81',
-                eventName: 'PatientIDError'
               })
             } else {
               // user found - progress
@@ -179,11 +178,11 @@ const UploadReport = () => {
                 patientId
               }))
               setActiveStep(1)
-              trackEvent({
+              PubSub.publish('ANALYTICS', {
+                events: 'event73',
+                eventName: 'PatientIDEntered',
                 prop42: `BioBank_AdminUpload|PatientIDEntered`,
                 eVar42: `BioBank_AdminUpload|PatientIDEntered`,
-                events: 'event73',
-                eventName: 'PatientIDEntered'
               })
             }
           })
@@ -216,11 +215,11 @@ const UploadReport = () => {
       }
 
       setActiveStep(2)
-      trackEvent({
+      PubSub.publish('ANALYTICS', {
+        events: 'event78',
+        eventName: 'FilesUploaded',
         prop42: `BioBank_AdminUpload|FilesUploaded`,
         eVar42: `BioBank_AdminUpload|FilesUploaded`,
-        events: 'event78',
-        eventName: 'FilesUploaded'
       })
       // reset errors
       setFormData(prevState => ({
@@ -248,20 +247,20 @@ const UploadReport = () => {
                 errorTitle: t('upload.1.error.onServer.title'),
                 errorMessage: t('upload.1.error.onServer.message')
               }))
-              trackEvent({
+              PubSub.publish('ANALYTICS', {
+                events: 'event81',
+                eventName: 'AdminUploadError',
                 prop42: `BioBank_AdminUpload|Error: Failed to upload to server`,
                 eVar42: `BioBank_AdminUpload|Error: Failed to upload to server`,
-                events: 'event81',
-                eventName: 'AdminUploadError'
               })
             } else {
               // Save successful
               setActiveStep(3)
-              trackEvent({
+              PubSub.publish('ANALYTICS', {
+                events: 'event80',
+                eventName: 'AdminUploadComplete',
                 prop42: `BioBank_AdminUpload|Completed`,
                 eVar42: `BioBank_AdminUpload|Completed`,
-                events: 'event80',
-                eventName: 'AdminUploadComplete'
               })
             }
           })
@@ -386,7 +385,7 @@ const UploadReport = () => {
           <>
           <CircularProgress className={classes.progress} size={70} />
           <Typography className={classes.titleUploading} variant="h6">{t('upload.2.progress')}</Typography>
-          {/* <img src={`/${process.env.PUBLIC_URL}assets/images/spinner-dna.svg`} className={classes.spinner} alt="Loading..." /> */}
+          {/* <img src={`${process.env.PUBLIC_URL}/assets/images/spinner-dna.svg`} className={classes.spinner} alt="Loading..." /> */}
           </>
         )}
 

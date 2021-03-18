@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 
-import NoItems from '../NoItems/NoItems'
+import NoItems from '../NoItems'
 
 const useStyles = makeStyles( theme => ({
   title: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles( theme => ({
   card: {
     marginBottom: theme.spacing(2),
   },
-}))
+}),{name: 'ReportList'})
 
 const ReportList = (props) => {
   const classes = useStyles()

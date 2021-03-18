@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
 import { Box, Container, Grid, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
+import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
-import FAQs from '../../components/FAQ/FAQ_Wrapper'
+import FAQs from '../../components/FAQ_Group'
 import TabAppBar from './AppBar'
 
 const useStyles = makeStyles( theme => ({
@@ -39,7 +39,7 @@ const useStyles = makeStyles( theme => ({
       }
     }
   },
-}))
+}),{name: 'DonatePage'})
 
 const BodyContent = () => {
   const classes = useStyles()
@@ -54,19 +54,18 @@ const BodyContent = () => {
 const Donate = () => {
   const classes = useStyles()
   const { t, i18n } = useTranslation('donate')
-  const { trackEvent } = useTracking()
   const faqs = i18n.getResourceBundle(i18n.languages[0],'donate').faqs
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
   const singleColumn = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(() => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
       event:'pageview',
-      prop6: "Donate samples",
-      prop10: t("metaData.title")
+      prop6: 'Donate samples',
+      prop10: t('metaData.title')
     })
-  },[trackEvent, t])
+  },[t])
 
   return (
     <Box component="article">

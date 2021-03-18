@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 import { Link as RouterLink } from '@reach/router'
 import { Button, Box, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 
 import RenderContent from '../utils/RenderContent'
 
@@ -18,20 +18,18 @@ const useStyles = makeStyles( theme => ({
   btnSubmit: {
     marginRight: theme.spacing(1)
   }
-}))
+}),{name: 'LeaveOptions'})
 
 const LeaveOptions = (props) => {
   const {isMobile} = props
   const classes = useStyles()
   const { t } = useTranslation(['a_changeParticipation','a_common'])
-  const { trackEvent } = useTracking()
-
   const trackClick = (e) => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event76',
+      eventName: 'ChangeParticipationLeave',
       prop42: `BioBank_ChangeParticipation|Leave:Understand`,
       eVar42: `BioBank_ChangeParticipation|Leave:Understand`,
-      events: 'event76',
-      eventName: 'ChangeParticipationLeave'
     })
   }
 

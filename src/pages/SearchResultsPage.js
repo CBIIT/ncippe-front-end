@@ -6,10 +6,10 @@ import { Helmet } from 'react-helmet-async'
 import { 
   Search as SearchIcon
 } from '@material-ui/icons'
-// import { searchIndex } from '../i18n'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import lunr from 'lunr'
+import PubSub from 'pubsub-js'
+
 import { objectValuesToString } from '../utils/utils'
 import RenderContent from '../components/utils/RenderContent'
 
@@ -41,11 +41,10 @@ const useStyles = makeStyles( theme => ({
     color: theme.palette.grey.medium,
     wordBreak: 'break-all'
   }
-}))
+}),{name: 'SearchResultsPage'})
 
 
-
-const SearchResults = (props) => {
+const SearchResults = () => {
   // const {location} = props
   const classes = useStyles()
   const { t, i18n } = useTranslation([
@@ -66,7 +65,7 @@ const SearchResults = (props) => {
     'testing',
     'policy'
   ])
-  const { trackEvent } = useTracking()
+
   // const term = location ? location.state ? location.state.term : '' : ''
   const term = window.history.state ? window.history.state.term : ""
   const [searchTerm, setSearchTerm] = useState(term)
@@ -148,7 +147,6 @@ const SearchResults = (props) => {
     const processSearch = (results = []) => {
 
       return results.map(result => {
-  
         const doc = docData[result.ref]
         const processResults = Object.keys(result.matchData.metadata).map(match => {
           const matchData = result.matchData.metadata[match]
@@ -173,17 +171,17 @@ const SearchResults = (props) => {
       const results = processSearch(searchIndex.search(`*${searchTerm}*~1 ${searchTerm}* *${searchTerm}`))
       setSearchResults(results)
 
-      trackEvent({
+      PubSub.publish('ANALYTICS', {
         event:'pageview',
-        prop6: "Search results",
-        eVar10: results.length.toString(),
+        prop6: 'Search results',
+        prop10: t("searchResults:metaData.title"),
         prop14: searchTerm,
+        eVar10: results.length.toString(),
         eVar14: searchTerm,
-        prop10: t("searchResults:metaData.title")
       })
     }
 
-  }, [term, searchTerm, searchIndex, docData, trackEvent, t])
+  }, [term, searchTerm, searchIndex, docData, t])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -192,13 +190,13 @@ const SearchResults = (props) => {
     // update the history to store the search term
     window.history.pushState({term}, "", "/search")
 
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: "event2",
       prop11: "BioBank Global Search - Results New Search",
       eVar11: "BioBank Global Search - Results New Search",
       eVar13: "+1",
       prop14: term,
       eVar14: term,
-      events: "event2"
     })
   }
 
@@ -213,7 +211,7 @@ const SearchResults = (props) => {
   }
 
   const trackClick = (e) => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
       prop50: e.target.textContent,
       prop13: e.target.dataset.rank
     })

@@ -9,7 +9,7 @@ const useStyles = makeStyles( theme => ({
       padding: props => props.stupidPaddingException ? theme.spacing(5,3,0) : theme.spacing(5,3),
     }
   }
-}))
+}),{name: 'TabPanel'})
 
 const TabPanel = (props) => {
   const { children, stupidPaddingException, ...other } = props

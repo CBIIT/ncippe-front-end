@@ -4,14 +4,14 @@ import { Box, Button, Container, Divider, Grid, Paper, Typography } from '@mater
 import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 import { Helmet } from 'react-helmet-async'
 
-import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
+import Breadcrumbs from '../../components/Breadcrumbs'
 import { LoginContext, LoginConsumer } from '../../components/login/Login.context'
 import Profile from '../../components/Profile/Profile'
-import Status from '../../components/Status/Status'
-import DeactivatedQuestions from '../../components/DeactivatedQuestions/DeactivatedQuestions'
+import Status from '../../components/Status'
+import DeactivatedQuestions from '../../components/DeactivatedQuestions'
 import { formatPhoneNumber } from '../../utils/utils'
 
 
@@ -80,7 +80,7 @@ const useStyles = makeStyles(theme => ({
   bold: {
     fontWeight: theme.typography.fontWeightBold
   },
-}))
+}),{name: 'ProfilePage'})
 
 
 const ProfilePage = (props) => {
@@ -88,7 +88,6 @@ const ProfilePage = (props) => {
   const [loginContext] = useContext(LoginContext)
   const {firstName, lastName, dateCreated, isActiveBiobankParticipant, dateDeactivated, questionAnswers, crc, providers} = loginContext
   const { t } = useTranslation(['a_accountSettings','a_common'])
-  const { trackEvent } = useTracking()
 
   const userData = {
     firstName,
@@ -98,10 +97,10 @@ const ProfilePage = (props) => {
   }
 
   const trackParticipationClick = (e) => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event73',
       prop42: `BioBank_ChangeParticipation|Start`,
       eVar42: `BioBank_ChangeParticipation|Start`,
-      events: 'event73'
     })
   }
 
@@ -115,7 +114,7 @@ const ProfilePage = (props) => {
       <Container className="mainContainer">
         <div className={classes.profileTop}>
           <div className={classes.profile}>
-            <img className={classes.profileIcon} src={`/${process.env.PUBLIC_URL}assets/icons/user-profile.svg`} alt={t('a_common:icons.user_profile')} aria-hidden="true" />
+            <img className={classes.profileIcon} src={`${process.env.PUBLIC_URL}/assets/icons/user-profile.svg`} alt={t('a_common:icons.user_profile')} aria-hidden="true" />
             <div className={classes.profileText}>
               <Typography className={classes.profileHeader} variant="h2" component="h2">{firstName} {lastName}</Typography>
               <Typography component="p" gutterBottom>{t('a_common:participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>

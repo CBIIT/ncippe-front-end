@@ -5,13 +5,13 @@ import { makeStyles, useTheme } from '@material-ui/core/styles'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 
 import { LoginContext } from '../login/Login.context'
 // import { api } from '../../data/api'
 import getAPI from '../../data'
-import InputGroupError from '../inputs/InputGroupError/InputGroupError'
-import Status from '../Status/Status'
+import InputGroupError from '../inputs/InputGroupError'
+import Status from '../Status'
 import RenderContent from '../utils/RenderContent'
 
 const useStyles = makeStyles( theme => ({
@@ -71,13 +71,12 @@ const useStyles = makeStyles( theme => ({
       backgroundColor: theme.palette.error.dark,
     }
   }
-}))
+}),{name: 'LeaveQuestions'})
 
 const LeaveQuestions = (props) => {
   const {location: {state: {user}},cancel,isMobile} = props
   const classes = useStyles()
   const { t } = useTranslation(['a_changeParticipation','a_common'])
-  const { trackEvent } = useTracking()
   const [loginContext, dispatch] = useContext(LoginContext)
   const [questionData, setQuestionData] = useState({})
   const [q1Error, setQ1Error] = useState(false)
@@ -141,11 +140,11 @@ const LeaveQuestions = (props) => {
   const handleNextStep = () => {
     // validate - check for errors
     if(validateQuestions()){
-      trackEvent({
+      PubSub.publish('ANALYTICS', {
+        events: 'event77',
+        eventName: 'ChangeParticipationLeave',
         prop42: `BioBank_ChangeParticipation|Leave:LeaveBioBank`,
         eVar42: `BioBank_ChangeParticipation|Leave:LeaveBioBank`,
-        events: 'event77',
-        eventName: 'ChangeParticipationLeave'
       })
       // open modal for final confirmation
       setIsModalOpen(true)
@@ -186,11 +185,11 @@ const LeaveQuestions = (props) => {
       q4
     ]
 
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event78',
+      eventName: 'ChangeParticipationLeave',
       prop42: `BioBank_ChangeParticipation|Leave:Confirm`,
       eVar42: `BioBank_ChangeParticipation|Leave:Confirm`,
-      events: 'event78',
-      eventName: 'ChangeParticipationLeave'
     })
 
     getAPI.then(api => {
@@ -260,7 +259,6 @@ const LeaveQuestions = (props) => {
       <Typography className={classes.gutterBottom_2}>{t('leave.1.description.participant')}</Typography>
       }
       
-
       <Typography id="q1-text" variant={isMobile ? "h4" : "h3"} gutterBottom>{ user ? 
         t('leave.1.form.questions.0.question.admin'):t('leave.1.form.questions.0.question.participant')
       }</Typography>

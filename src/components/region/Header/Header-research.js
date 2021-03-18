@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link as RouterLink, navigate } from "@reach/router"
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 import { 
   Box,
   Button,
@@ -12,7 +12,7 @@ import {
   Link,
   TextField,
   useMediaQuery
-} from '@material-ui/core';
+} from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { 
   MenuRounded as MenuIcon,
@@ -22,7 +22,7 @@ import {
 
 import LoginButton from '../../login/LoginButton'
 import MenuGroup from './MenuGroup';
-import ExpansionMenu from '../../ExpansionMenu/ExpansionMenu'
+import ExpansionMenu from '../../ExpansionMenu'
 import Search from '../../Search/Search'
 
 const useStyles = makeStyles(theme => ({
@@ -137,7 +137,7 @@ const useStyles = makeStyles(theme => ({
       lineHeight: 'normal'
     }
   }
-}))
+}),{name: 'Header'})
 
 const Header = () => {
   const classes = useStyles()
@@ -146,7 +146,6 @@ const Header = () => {
   const [expanded, setExpanded] = useState(loc)
   const [isDisabled, setIsDisabled] = useState(true)
   const { t, i18n } = useTranslation('common')
-  const { trackEvent } = useTracking()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down(theme.breakpoints.values.smLandscape))
 
@@ -161,22 +160,22 @@ const Header = () => {
   const expandPanel = (event, newExpanded) => {
     const id = event.currentTarget.id
     setExpanded(newExpanded ? id : "")
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event26',
+      eventName: 'TopNavHamburger',
       prop53: `BioBank_TopNav|${event.target.textContent}`,
       eVar53: `BioBank_TopNav|${event.target.textContent}`,
-      events: 'event26',
-      eventName: 'TopNavHamburger'
     })
   }
 
   const closeMenu = (event) => {
     setMenuOpen(prev => !prev)
     if(!event.target.closest('#closeMobileMenu')){
-      trackEvent({
+      PubSub.publish('ANALYTICS', {
+        events:'event28',
+        eventName: 'TopNavHamburger',
         prop53: `BioBank_TopNav|${event.target.closest("ul").dataset.panelgroup}|${event.target.textContent}`,
         eVar53: `BioBank_TopNav|${event.target.closest("ul").dataset.panelgroup}|${event.target.textContent}`,
-        events:'event28',
-        eventName: 'TopNavHamburger'
       })
     }
   }
@@ -194,14 +193,14 @@ const Header = () => {
     e.preventDefault()
     // send the search terms to the search results page
     const searchTerm = e.target.mobileSearch.value
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: "event2",
+      eventName: 'GlobalMobileSearch',
       prop11: "BioBank Global Search",
       eVar11: "BioBank Global Search",
       eVar13: "+1",
       prop14: searchTerm,
       eVar14: searchTerm,
-      events: "event2",
-      eventName: 'GlobalMobileSearch'
     })
     navigate('/search', {state: {
       term: searchTerm
@@ -209,11 +208,11 @@ const Header = () => {
   }
 
   const trackClick = (e) => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event26',
+      eventName: 'TopNavLogo',
       prop53: 'BioBank_TopNav|Logo',
       eVar53: 'BioBank_TopNav|Logo',
-      events: 'event26',
-      eventName: 'TopNavLogo'
     })
   }
 
@@ -228,27 +227,27 @@ const Header = () => {
       <Box className={classes.appToolbarContainer}>
         <figure className={classes.toolbarLogo}>
           <Link component={RouterLink} to='/' onClick={trackClick}>
-            <img src={`/${process.env.PUBLIC_URL}assets/images/biobank-logo${i18n.languages[0] === 'es' ? '-es' : ''}.svg`} alt={t('logo.alt_text')} title={t('logo.title')} />
+            <img src={`${process.env.PUBLIC_URL}/assets/images/biobank-logo${i18n.languages[0] === 'es' ? '-es' : ''}.svg`} alt={t('logo.alt_text')} title={t('logo.title')} />
           </Link>
         </figure>
         {!isMobile && !loc.includes('account') && (
           <nav className={classes.publicNavDesktop} id="mainNav">
             {/* TODO: loop through nav object and dynamically render menu items */}
             {/* TODO: routes need to be added to translations in order to perform loop logic - or generated from translation key */}
-            <MenuGroup title={t('nav.about')} active={loc.includes('about')} id="about">
+            <MenuGroup menuText={t('nav.about')} active={loc.includes('about')} id="about">
               <a href="/about">{t('nav.about_subNav.about')}</a>
               <a href="/about/eligibility">{t('nav.about_subNav.eligibility')}</a>
             </MenuGroup>
-            <MenuGroup title={t('nav.expect')} active={loc.includes('expect')} id="expect">
+            <MenuGroup menuText={t('nav.expect')} active={loc.includes('expect')} id="expect">
               <a href="/expect/consent">{t('nav.expect_subNav.consent')}</a>
               <a href="/expect/donate">{t('nav.expect_subNav.donate')}</a>
               <a href="/expect/testing">{t('nav.expect_subNav.testing')}</a>
             </MenuGroup>
-            <MenuGroup title={t('nav.participation')} active={loc.includes('participation')} id="participation">
+            <MenuGroup menuText={t('nav.participation')} active={loc.includes('participation')} id="participation">
               <a href="/participation/activate">{t('nav.participation_subNav.activate')}</a>
               <a href="/participation/privacy">{t('nav.participation_subNav.privacy')}</a>
             </MenuGroup>
-            <MenuGroup title={t('nav.research')} active={loc.includes('research')} id="research">
+            <MenuGroup menuText={t('nav.research')} active={loc.includes('research')} id="research">
               <a href="/research">{t('nav.research_subNav.0')}</a>
               {/* <a className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.0')}</a>
               <a className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.1')}</a>
@@ -277,7 +276,7 @@ const Header = () => {
               handleClick={expandPanel}
               expanded={expanded.includes("about")}
               active={loc.includes('about')}
-              name={t('nav.about')}
+              menuText={t('nav.about')}
               id="about"
             >
               <a onClick={closeMenu} href="/about">{t('nav.about_subNav.about')}</a>
@@ -288,7 +287,7 @@ const Header = () => {
               handleClick={expandPanel}
               expanded={expanded.includes("expect")}
               active={loc.includes('expect')}
-              name={t('nav.expect')}
+              menuText={t('nav.expect')}
               id="expect"
             >
               <a onClick={closeMenu} href="/expect/consent">{t('nav.expect_subNav.consent')}</a>
@@ -300,7 +299,7 @@ const Header = () => {
               handleClick={expandPanel}
               expanded={expanded.includes("participation")}
               active={loc.includes('participation')}
-              name={t('nav.participation')}
+              menuText={t('nav.participation')}
               id="participation"
             >
               <a onClick={closeMenu} href="/participation/activate">{t('nav.participation_subNav.activate')}</a>
@@ -311,7 +310,7 @@ const Header = () => {
               handleClick={expandPanel}
               expanded={expanded.includes("research")}
               active={loc.includes('research')}
-              name={t('nav.research')}
+              menuText={t('nav.research')}
               id="research"
             >
               <a onClick={closeMenu} href="/research">{t('nav.research_subNav.0')}</a>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import { Box, Grid, TextField, Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 
 import PatientListItem from './PatientListItem'
 import AddParticipantInfoDialog from '../../components/Participation/AddParticipantInfoDialog'
@@ -38,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
 
-}))
+}),{name: 'PatientList'})
 
 const PatientList = (props) => {
   const {patients, patientsUpdated} = props
@@ -48,7 +49,6 @@ const PatientList = (props) => {
   const [hasSearched, setHasSearched] = useState(false)
   const [patientToActivate, setPatientToActivate] = useState()
   const { t } = useTranslation('a_common')
-  const { trackEvent } = useTracking()
   const allPatients = [...patients] // create new object of patients
 
   useEffect(() => {
@@ -65,22 +65,22 @@ const PatientList = (props) => {
     // capture analytics on first keypress and then disconnect
     // Goal is to see if search field is being used
     if(hasSearched === false) {
-      trackEvent({
+      PubSub.publish('ANALYTICS', {
+        events: 'event2',
+        eventName: 'ParticipantNameSearch',
         prop11: `BioBank Account Participant Name Search`,
         eVar11: `BioBank Account Participant Name Search`,
-        events: 'event2',
-        eventName: 'ParticipantNameSearch'
       })
       setHasSearched(true)
     }
   }
 
   const activateUser = (patient) => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event73',
+      eventName: 'NewParticipantStart',
       prop42: `BioBank_NewParticipant|Start`,
       eVar42: `BioBank_NewParticipant|Start`,
-      events: 'event73',
-      eventName: 'NewParticipantStart'
     })
     setDialogOpen(true)
     setPatientToActivate(patient)
@@ -95,7 +95,7 @@ const PatientList = (props) => {
       <Grid container className={classes.title} spacing={3} alignItems="center">
         <Grid item xs={12} sm={6}>
           <div className={classes.titleWithIcon}>
-            <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/patients.svg`} alt={t('a_common:icons.user_profile')} aria-hidden="true"></img>
+            <img className={classes.cardIcon} src={`${process.env.PUBLIC_URL}/assets/icons/patients.svg`} alt={t('a_common:icons.user_profile')} aria-hidden="true"></img>
             <Typography className={classes.cardTitle} variant="h2" component="h2">{t('components.participantList.title')}</Typography>
           </div>
         </Grid>
@@ -118,6 +118,18 @@ const PatientList = (props) => {
       <AddParticipantInfoDialog open={dialogOpen} patient={patientToActivate} setParentState={closeUploadDialog} />
     </Box>
   )
+}
+
+PatientList.displayName = "PatientList"
+PatientList.propTypes = {
+  /**
+   * An array of patients as structured for the `PatientListItem` component
+   */
+  patients: PropTypes.arrayOf(PropTypes.object),
+  /**
+   * `timestamp` flag used to trigger a rerender of the patient list once a patient's account has been activated. This could not be done using an updated patients arrays since it is a deep comparison that will not trigger component rerenders
+   */
+  patientsUpdated: PropTypes.number
 }
 
 export default PatientList

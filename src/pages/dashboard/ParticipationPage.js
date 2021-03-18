@@ -3,9 +3,8 @@ import { Box, Container} from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 
-import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
+import Breadcrumbs from '../../components/Breadcrumbs'
 import ChangeParticipation from '../../components/Participation/Participation'
-
 
 const Page = () => {
   const { t } = useTranslation(['a_changeParticipation'])

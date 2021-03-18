@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Checkbox from '@material-ui/core/Checkbox'
 import PropTypes from 'prop-types'
-import { FormControl, FormLabel, FormControlLabel } from '@material-ui/core'
+import { Checkbox, FormControl, FormLabel, FormControlLabel } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 
@@ -18,10 +17,10 @@ const useStyles = makeStyles(theme => ({
     transform: "none",
     marginBottom: theme.spacing(1)
   }
-}));
+}),{name: 'EmailOption'});
 
 const EmailOption = (props) => {
-  const {value, editMode, onClick} = props
+  const {value = true, editMode = false, onClick} = props
   const classes = useStyles()
   const { t } = useTranslation('a_accountSettings')
   const [checked, setChecked] = useState(value)
@@ -64,6 +63,7 @@ const EmailOption = (props) => {
   )
 }
 
+EmailOption.displayName = "EmailOption"
 EmailOption.propTypes = {
   /**
    * The phone number formatted as (###)###-####
@@ -73,11 +73,6 @@ EmailOption.propTypes = {
    * Set this field to edit mode or read only mode
    */
   editMode: PropTypes.bool,
-};
-
-EmailOption.defaultProps = {
-  value: true,
-  editMode: false
 }
 
 export default EmailOption

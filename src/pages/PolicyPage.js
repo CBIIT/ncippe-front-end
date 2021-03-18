@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { Box, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
+import PubSub from 'pubsub-js'
 
 import RenderContent from '../components/utils/RenderContent'
 
@@ -43,22 +43,20 @@ const useStyles = makeStyles( theme => ({
       display: "inline-block",
       margin: theme.spacing(0,0,1,4),
     }
-
   },
-}))
+}),{name: 'PolicyPage'})
 
 const PolicyPage = () => {
   const classes = useStyles()
   const { t } = useTranslation('policy')
-  const { trackEvent } = useTracking()
 
   useEffect(() => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
       event:'pageview',
-      prop6: "Policy Page",
-      prop10: t("metaData.title")
+      prop6: 'Policy Page',
+      prop10: t('metaData.title'),
     })
-  },[trackEvent, t])
+  },[t])
 
   // navigate to anchor tags on page load
   useEffect(() => {

@@ -1,0 +1,31 @@
+@keyframes whiteToTransparent {
+  0% {
+    background-color: white;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+@keyframes transparentToWhite {
+  0% {
+    background-color: transparent;
+  }
+  100% {
+    background-color: white;
+  }
+}
+@keyframes whiteToPink {
+  0% {
+    background: white;
+  }
+  100% {
+    background: #ffebf1;
+  }
+}
+
+/* Stupid IE11 hacks */
+@media all and (-ms-high-contrast:none) {
+  #mainNav--mobile > div > .MuiAccordionSummary-root {
+    height: 48px;
+  }
+}

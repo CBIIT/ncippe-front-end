@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { Link as RouterLink } from '@reach/router'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
-import { Box, Container, Divider, Grid, Link, Typography } from '@material-ui/core';
+import { Box, Container, Divider, Grid, Link, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
@@ -29,20 +29,19 @@ const useStyles = makeStyles( theme => ({
       }
     }
   }
-}))
+}),{name: 'ResearchPage'})
 
 const ResearchPage = () => {
   const classes = useStyles()
   const { t } = useTranslation('research')
-  const { trackEvent } = useTracking()
 
   useEffect(() => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
       event:'pageview',
-      prop6: "Biobanks are important for research",
-      prop10: t("metaData.title")
+      prop6: 'Biobanks are important for research',
+      prop10: t('metaData.title'),
     })
-  },[trackEvent, t])
+  },[t])
 
   return (
     <Box component="article">

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
@@ -19,8 +20,11 @@ const useStyles = makeStyles( theme => ({
   question: {
     fontWeight: theme.typography.fontWeightBold
   }
-}))
+}),{name: 'DeactivatedQuestions'})
 
+/**
+ * This component will render on the Account Setting page if the user has deactivated their account
+ */
 const DeactivatedQuestions = (props) => {
   const {user} = props
   const classes = useStyles()
@@ -35,6 +39,47 @@ const DeactivatedQuestions = (props) => {
       </div>)}
     </Paper>
   )
+}
+
+DeactivatedQuestions.displayName = "DeactivatedQuestions"
+DeactivatedQuestions.propTypes = {
+  /**
+   * data object (from Login context) containing the questions this user answered before deactivating their account
+   */
+  user: PropTypes.shape({
+    /**
+     * user's first name
+     */
+    firstName: PropTypes.string.isRequired,
+    /**
+     * user's last name
+     */
+    lastName: PropTypes.string.isRequired,
+    /**
+     * date the user deactivated their account as a raw timestamp
+     */
+    dateDeactivated: PropTypes.number.isRequired,
+    /**
+     * array of questions that the user should have answered before deactivating their account
+     */
+    questionAnswers: PropTypes.arrayOf(
+      PropTypes.shape({
+        /**
+         * The question number, used for sorting
+         */
+        questionOrder: PropTypes.number,
+        /**
+         * The question
+         */
+        question: PropTypes.string,
+        /**
+         * the answer provided by the user or the admin who deactivated the account
+         */
+        answer: PropTypes.string
+      })
+    ).isRequired
+
+  })
 }
 
 export default DeactivatedQuestions

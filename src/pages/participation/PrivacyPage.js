@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
-import { Container, Box, Grid, Typography } from '@material-ui/core';
+import { Container, Box, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
-import IconCard from '../../components/IconCard/IconCard'
+import IconCard from '../../components/IconCard'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -15,12 +15,6 @@ const useStyles = makeStyles( theme => ({
   },
   gridItem: {
     width: '33.333333%',
-
-    // '& $card': {
-    //   [theme.breakpoints.up('md')]: {
-    //     margin: 0
-    //   }
-    // }
   },
   disclaimer: {
     width: '100%',
@@ -31,20 +25,19 @@ const useStyles = makeStyles( theme => ({
       width: '64%'
     }
   }
-}))
+}),{name: 'PrivacyPage'})
 
 const PrivacyPage = () => {
   const classes = useStyles()
   const { t } = useTranslation('privacy')
-  const { trackEvent } = useTracking()
 
   useEffect(() => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
       event:'pageview',
-      prop6: "Protecting your privacy",
-      prop10: t("metaData.title")
+      prop6: 'Protecting your privacy',
+      prop10: t('metaData.title'),
     })
-  },[trackEvent, t])
+  },[t])
 
   return (
     <Container className="mainContainer" component="article">

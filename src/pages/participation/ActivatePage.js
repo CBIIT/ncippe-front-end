@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
-import { Box, Button, Container, Divider, Grid, Link, Stepper, Step, StepLabel, StepContent, Typography, useMediaQuery } from '@material-ui/core';
+import { Box, Button, Container, Divider, Grid, Link, Stepper, Step, StepLabel, StepContent, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { 
   OpenInNew as OpenInNewIcon
 } from '@material-ui/icons'
+import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 // import { AuthContext } from '../../components/login/AuthContext'
-import FAQs from '../../components/FAQ/FAQ_Wrapper'
+import FAQs from '../../components/FAQ_Group'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -121,31 +121,30 @@ const useStyles = makeStyles( theme => ({
       }
     }
   }
-}))
+}),{name: 'ActivatePage'})
 
 const ActivatePage = () => {
   const classes = useStyles()
   const { t, i18n } = useTranslation('activate')
-  const { trackEvent } = useTracking()
   // const { signinRedirect, signoutRedirectCallback } = useContext(AuthContext)
   const faqs = i18n.getResourceBundle(i18n.languages[0],'activate').faqs
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
   useEffect(() => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
       event:'pageview',
-      prop6: "Activate your online Biobank account",
-      prop10: t("metaData.title")
+      prop6: 'Activate your online Biobank account',
+      prop10: t('metaData.title'),
     })
-  },[trackEvent, t])
+  },[t])
 
   const handleLogin = () => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      eventName: 'sign in',
+      events: 'event26',
       prop53: `BioBank_Activate|Sign-In`,
       eVar53: `BioBank_Activate|Sign-In`,
-      events: 'event26',
-      eventName: 'Sign in'
     })
     window.location.assign(process.env.REACT_APP_LOGIN_LINK)
   }
@@ -153,7 +152,7 @@ const ActivatePage = () => {
   return (
     <Box component="article">
       <Helmet>
-        <title>{t("metaData.title")}</title>
+        <title>{t('metaData.title')}</title>
         <meta name="title" content={t("metaData.title")} />
         <meta property="og:title" content={t("metaData.OG_title")} />
         <meta name="description" content={t("metaData.description")} />
@@ -184,10 +183,10 @@ const ActivatePage = () => {
         <Box className={classes.tintedBox} p={7} component="section">
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid className={classes.featureImage} item xs={12} md={6}>
-              <img className={classes.screenshot} src={`/${process.env.PUBLIC_URL}assets/images/login.gov.jpg`} alt={t('sections.0.alt_text')} width="300"
+              <img className={classes.screenshot} src={`${process.env.PUBLIC_URL}/assets/images/login.gov.jpg`} alt={t('sections.0.alt_text')} width="300"
                 srcSet={`
-                  /${process.env.PUBLIC_URL}assets/images/misc/standard/login.gov.jpg 1x,
-                  /${process.env.PUBLIC_URL}assets/images/misc/HD/login.gov.jpg 2x
+                  ${process.env.PUBLIC_URL}/assets/images/misc/standard/login.gov.jpg 1x,
+                  ${process.env.PUBLIC_URL}/assets/images/misc/HD/login.gov.jpg 2x
                 `}
               />
             </Grid>
@@ -196,7 +195,7 @@ const ActivatePage = () => {
                 <RenderContent source={t('sections.0.title')} />
               </Typography>
               <Box className={classes.featureLinks}>
-                <Link href={`https://secure.login.gov/${i18n.language === 'es' ? 'es/':''}sign_up/enter_email?request_id=${process.env.REACT_APP_REQUEST_ID}`}><Button className={classes.createAccountBtn} variant="contained" color="primary">{t('sections.0.links.0')}</Button></Link>
+                <Link href={`https://secure.login.gov/${i18n.language === 'es' ? 'es/':''}sign_up/enter_email?request_id${process.env.REACT_APP_REQUEST_ID}/`}><Button className={classes.createAccountBtn} variant="contained" color="primary">{t('sections.0.links.0')}</Button></Link>
                 <br />
                 {/* <Button className={classes.haveAccountBtn} variant="outlined" color="primary" onClick={handleLogin}>{t('sections.0.links.1')}</Button> */}
                 <Button className={classes.haveAccountBtn} variant="outlined" color="primary" onClick={handleLogin}>{t('sections.0.links.1')}</Button>
@@ -227,7 +226,7 @@ const ActivatePage = () => {
                 <ul>
                   <li>
                   <div className={classes.cardContent}>
-                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/phone.svg`} alt={t('sections.1.security_options.0.alt_text')} aria-hidden="true" />
+                    <img className={classes.cardIcon} src={`${process.env.PUBLIC_URL}/assets/icons/phone.svg`} alt={t('sections.1.security_options.0.alt_text')} aria-hidden="true" />
                     <div className={classes.cardText}>
                       <div>
                         <Typography className={classes.cardTitle} component="h3">{t('sections.1.security_options.0.label')}</Typography>
@@ -238,7 +237,7 @@ const ActivatePage = () => {
                   </li>
                   <li>
                   <div className={classes.cardContent}>
-                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/authentification-application.svg`} alt={t('sections.1.security_options.1.alt_text')} aria-hidden="true" />
+                    <img className={classes.cardIcon} src={`${process.env.PUBLIC_URL}/assets/icons/authentification-application.svg`} alt={t('sections.1.security_options.1.alt_text')} aria-hidden="true" />
                     <div className={classes.cardText}>
                       <div>
                         <Typography className={classes.cardTitle} component="h3">{t('sections.1.security_options.1.label')}</Typography>
@@ -249,7 +248,7 @@ const ActivatePage = () => {
                   </li>
                   <li>
                   <div className={classes.cardContent}>
-                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/security-key.svg`} alt={t('sections.1.security_options.2.alt_text')} aria-hidden="true" />
+                    <img className={classes.cardIcon} src={`${process.env.PUBLIC_URL}/assets/icons/security-key.svg`} alt={t('sections.1.security_options.2.alt_text')} aria-hidden="true" />
                     <div className={classes.cardText}>
                       <div>
                         <Typography className={classes.cardTitle} component="h3">{t('sections.1.security_options.2.label')}</Typography>
@@ -260,7 +259,7 @@ const ActivatePage = () => {
                   </li>
                   <li>
                   <div className={classes.cardContent}>
-                    <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/backup-codes.svg`} alt={t('sections.1.security_options.3.alt_text')} aria-hidden="true" />
+                    <img className={classes.cardIcon} src={`${process.env.PUBLIC_URL}/assets/icons/backup-codes.svg`} alt={t('sections.1.security_options.3.alt_text')} aria-hidden="true" />
                     <div className={classes.cardText}>
                       <div>
                         <Typography className={classes.cardTitle} component="h3">{t('sections.1.security_options.3.label')}</Typography>
@@ -300,10 +299,10 @@ const ActivatePage = () => {
               </div>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
-              <img src={`/${process.env.PUBLIC_URL}assets/images/login.gov-logo.jpg`} alt={t('sections.2.alt_text')}
+              <img src={`${process.env.PUBLIC_URL}/assets/images/login.gov-logo.jpg`} alt={t('sections.2.alt_text')}
                 srcSet={`
-                /${process.env.PUBLIC_URL}assets/images/misc/standard/login.gov-logo.jpg 1x,
-                /${process.env.PUBLIC_URL}assets/images/misc/HD/login.gov-logo.jpg 2x
+                ${process.env.PUBLIC_URL}/assets/images/misc/standard/login.gov-logo.jpg 1x,
+                ${process.env.PUBLIC_URL}/assets/images/misc/HD/login.gov-logo.jpg 2x
               `}
               />
             </Grid>

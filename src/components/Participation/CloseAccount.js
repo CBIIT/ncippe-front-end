@@ -3,7 +3,7 @@ import { Box, Button, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 
 import { LoginContext } from '../login/Login.context'
 // import { AuthContext } from '../login/AuthContext'
@@ -11,7 +11,7 @@ import { LoginContext } from '../login/Login.context'
 import getAPI from '../../data'
 import { formatPhoneNumber } from '../../utils/utils'
 import RenderContent from '../utils/RenderContent'
-import Status from '../Status/Status'
+import Status from '../Status'
 
 const useStyles = makeStyles( theme => ({
   header: {
@@ -40,13 +40,12 @@ const useStyles = makeStyles( theme => ({
       backgroundColor: theme.palette.error.dark,
     }
   }
-}))
+}),{name: 'CloseAccount'})
 
 const CloseAccount = (props) => {
   const {isMobile} = props
   const classes = useStyles()
   const { t } = useTranslation(['a_changeParticipation','a_common'])
-  const { trackEvent } = useTracking()
   const [loginContext, dispatch] = useContext(LoginContext)
   // const { signoutRedirectCallback } = useContext(AuthContext)
   const [ closeError, setCloseError ] = useState(false)
@@ -54,11 +53,11 @@ const CloseAccount = (props) => {
 
   const handleSubmit = () => {
     const {uuid, token} = loginContext
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event76',
+      eventName: 'ChangeParticipationClose',
       prop42: `BioBank_ChangeParticipation|Close:CloseAccount`,
       eVar42: `BioBank_ChangeParticipation|Close:CloseAccount`,
-      events: 'event76',
-      eventName: 'ChangeParticipationClose'
     })
     getAPI.then(api => {
       api.closeAccount({uuid, token}).then(resp => {

@@ -1,4 +1,5 @@
 import React, { createContext, useReducer } from 'react'
+import { hasUnviewedFiles } from '../../data/utils'
 
 const userInitialState = {
   auth: false,
@@ -6,21 +7,6 @@ const userInitialState = {
 }
 
 export const LoginContext = createContext()
-
-const hasUnviewedReports = (reports, uuid) => {
-  //TODO: only for Participants
-  if(reports){
-    return reports.some(report => {
-      if (!report.viewedBy) {
-        return true
-      } else {
-        return !report.viewedBy.includes(uuid)
-      }
-    })          
-  } else {
-    return null
-  }
-}
 
 const userReducer = (state, action) => {
   switch (action.type) {
@@ -43,26 +29,30 @@ const userReducer = (state, action) => {
         })
       ],
     })
-    case 'reportViewedByOther': {
+    case 'addPatientData':
+    case 'accountActivated':
+    case 'reportViewedByOther':
+    case 'documentViewedByOther': {
       return ({
         ...state,
         patients: action.patients,
         patientsUpdated: Date.now()
       })
     }
-    case 'accountActivated': {
-      return ({
-        ...state,
-        patients: action.patients,
-        patientsUpdated: Date.now()
-      })
-    }
-
     case 'reportViewedByPatient': {
       return ({
         ...state,
-        reports: [...action.reports],
-        newReport: hasUnviewedReports(action.reports, action.uuid)
+        reports: [...action.files],
+        newReportCount: action.newFileCount,
+        hasNewReports: action.hasNewFiles
+      })
+    }
+    case 'documentViewedByPatient': {
+      return ({
+        ...state,
+        otherDocuments: [...action.files],
+        newDocumentCount: action.newFileCount,
+        hasNewDocuments: action.hasNewFiles
       })
     }
     case 'reset': return ({

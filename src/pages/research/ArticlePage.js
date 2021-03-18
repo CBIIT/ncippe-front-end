@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
 import { Box, Container, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
+import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
@@ -30,16 +30,23 @@ const useStyles = makeStyles( theme => ({
       }
     }
   }
-}))
+}),{name: 'ArticlePage'})
 
 // This component is for a reusable research article page, but it's limiting in it's layout. Opting for individual article pages that have more flexibility.
 
-const Article = (props) => {
+const Article = () => {
   const classes = useStyles()
   const { t, i18n } = useTranslation(`r_${caseConverter(props.article)}`)
-  const { trackEvent } = useTracking()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+
+  useEffect(() => {
+    PubSub.publish('ANALYTICS', {
+      event:'pageview',
+      prop6: t('metaData.title'),
+      prop10: t('metaData.title'),
+    })
+  },[t])
 
   // dynamic path does not exist
   if(!i18n.hasResourceBundle(i18n.languages[0],`r_${caseConverter(props.article)}`)) {

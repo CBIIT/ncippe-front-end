@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { navigate, Link as RouterLink } from '@reach/router'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
-
 import { useMediaQuery, Box, Button, Container, Dialog, DialogContent, Grid, IconButton, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
@@ -11,9 +9,10 @@ import {
   CheckCircle as CheckCircleIcon,
   KeyboardArrowRight as ArrowRightIcon
 } from '@material-ui/icons'
+import PubSub from 'pubsub-js'
 
 import { check_webp_feature } from '../utils/utils'
-import IconCardMedia from '../components/IconCardMedia/IconCardMedia'
+import IconCardMedia from '../components/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
 
 // Internet Explorer 6-11
@@ -21,6 +20,7 @@ const isIE = /*@cc_on!@*/false || !!document.documentMode;
 
 let extension = 'png'
 
+// only using webp for the homepage hero since it's extra large and requires alpha transparency. webp is 80% smaller than png
 check_webp_feature('alpha', (feature, isSupported) => {
   if (isSupported) {
     // webp is supported, 
@@ -40,7 +40,7 @@ const useStyles = makeStyles( theme => ({
   },
   hero: {
     // backgroundColor: theme.palette.primary.lightGrey,
-    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobile/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`,
+    backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/mobile/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "top right",
     backgroundSize: "auto 100%",
@@ -52,16 +52,16 @@ const useStyles = makeStyles( theme => ({
     },
     // mobile HD background
     '@media (min-resolution: 192dpi)': {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/mobileHD/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/mobileHD/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`
     },
     // desktop background
     [theme.breakpoints.up('md')]: {
       height: "700px",
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktop/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/desktop/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`,
     },
     // desktop HD background
     [`@media (min-width: ${theme.breakpoints.values.md}px) and (min-resolution: 192dpi)`]: {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/hero/desktopHD/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/desktopHD/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`
     },
 
   },
@@ -176,7 +176,7 @@ const useStyles = makeStyles( theme => ({
     height: '100px'
   },
   fullWidthAccentImage: {
-    backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/micro/woman-with-head-scarf.jpg)`,
+    backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/micro/woman-with-head-scarf.jpg)`,
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center 22%",
     backgroundSize: "cover",
@@ -184,31 +184,31 @@ const useStyles = makeStyles( theme => ({
     maxHeight: 450,
     // mobile
     '@media (min-width: 380px)': {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/mobile/woman-with-head-scarf.jpg)`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/mobile/woman-with-head-scarf.jpg)`,
     },
     // micro HD
     '@media (min-resolution: 192dpi)': {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/tablet/woman-with-head-scarf.jpg), ${theme.gradients.primaryDiagonal}`
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/tablet/woman-with-head-scarf.jpg), ${theme.gradients.primaryDiagonal}`
     },
     // mobile HD
     '@media (min-width: 380px) and (min-resolution: 192dpi)': {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
     },
     // tablet
     [`@media (min-width: ${theme.breakpoints.values.sm}px)`]: {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/tablet/woman-with-head-scarf.jpg)`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/tablet/woman-with-head-scarf.jpg)`,
     },
     // tablet HD
     [`@media (min-width: ${theme.breakpoints.values.sm}px) and (min-resolution: 192dpi)`]: {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/tabletHD/woman-with-head-scarf.jpg)`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/tabletHD/woman-with-head-scarf.jpg)`,
     },
     // desktop
     [`@media (min-width: ${theme.breakpoints.values.md}px)`]: {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
     },
     // desktop HD
     [`@media (min-width: ${theme.breakpoints.values.md}px) and (min-resolution: 192dpi)`]: {
-      backgroundImage: `url(/${process.env.PUBLIC_URL}assets/images/fullWidth/desktopHD/woman-with-head-scarf.jpg)`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktopHD/woman-with-head-scarf.jpg)`,
     },
 
   },
@@ -219,7 +219,7 @@ const useStyles = makeStyles( theme => ({
     overflow: 'auto',
     paddingBottom: '112px',
     position: 'relative',
-    background: `url(/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-long.svg) no-repeat bottom center, ${theme.gradients.primaryDiagonal}`,
+    background: `url(${process.env.PUBLIC_URL}/assets/images/soft-diamond-background-long.svg) no-repeat bottom center, ${theme.gradients.primaryDiagonal}`,
     '& h2': {
       marginBottom: theme.spacing(2)
     },
@@ -274,15 +274,18 @@ const useStyles = makeStyles( theme => ({
     marginRight: theme.spacing(3),
     fill: theme.palette.success.main
   }
-}))
-
-const HomePage = (props) => {
+}),{name: 'HomePage'})
+/**
+ * Home Page for the app.
+ * 
+ */
+const HomePage = () => {
   const classes = useStyles()
+  // isMobile is used to toggle multiple responsive styles and component attributes. Easier than using mediaqueries for everything
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [mediaCardPath, setMediaCardPath] = useState(`/${process.env.PUBLIC_URL}assets/images/mediaCard/standard/`)
+  const [mediaCardPath, setMediaCardPath] = useState(`${process.env.PUBLIC_URL}/assets/images/mediaCard/standard/`)
   const { t, i18n } = useTranslation('homePage')
-  const { trackEvent } = useTracking()
   const isHighResolution = useMediaQuery('@media (min-resolution: 192dpi)')
   const [accountClosed, setAccountClosed] = useState(localStorage.getItem('accountClosed'))
 
@@ -298,18 +301,23 @@ const HomePage = (props) => {
   useEffect(() => {
     // upgrade image to HD, no need to downgrade if not highResolution
     if(isHighResolution) {
-      setMediaCardPath(`/${process.env.PUBLIC_URL}assets/images/mediaCard/HD/`)
+      setMediaCardPath(`${process.env.PUBLIC_URL}/assets/images/mediaCard/HD/`)
     }
   }, [isHighResolution])
 
-  // useEffect(() => {
-  //   if(props.location && props.location.state) {
-  //     const {accountClosed} = props.location.state
-  //     if(accountClosed) {
-  //       setIsModalOpen(true)
-  //     }
-  //   }
-  // }, [props.location])
+  useEffect(() => {
+    PubSub.publish('ANALYTICS', {
+      event:'pageview',
+      prop6: 'Home Page',
+      prop10: t('metaData.title'),
+      pageName:'msbiobank.c.gov/',
+    })
+  },[t])
+
+  /* 
+    If a user has just closed their account then a modal will be triggered to confirm their account was closed. 
+    This occurs after a forced logout and redirection to HomePage
+  */
   useEffect(() => {
     if(localStorage.getItem('accountClosed')){
       localStorage.clear('accountClosed')
@@ -317,16 +325,6 @@ const HomePage = (props) => {
       setIsModalOpen(true)
     }
   }, [accountClosed])
-
-  useEffect(() => {
-    trackEvent({
-      event:'pageview',
-      pageName:'msbiobank.c.gov/',
-      prop6: "Home Page",
-      prop10: t("metaData.title")
-    })
-    //trackEvent({linkName:'somewhere', eVar8:"Frank Ali", event:'custom'})
-  },[trackEvent, t])
 
   const handleClose = () => {
     setIsModalOpen(false)
@@ -402,19 +400,19 @@ const HomePage = (props) => {
             </Typography>
             <Grid container className={classes.howItWorksGrid} spacing={3}>
               <Grid item xs={12} sm={6} md={3}>
-                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/patients.svg`} alt={t('how_it_works.cards.0.alt_text')} />
+                <img className={classes.howItWorksIcon} src={`${process.env.PUBLIC_URL}/assets/icons/patients.svg`} alt={t('how_it_works.cards.0.alt_text')} />
                 <Typography><RenderContent source={t('how_it_works.cards.0.body')} /></Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/multiple-samples.svg`} alt={t('how_it_works.cards.1.alt_text')} />
+                <img className={classes.howItWorksIcon} src={`${process.env.PUBLIC_URL}/assets/icons/multiple-samples.svg`} alt={t('how_it_works.cards.1.alt_text')} />
                 <Typography><RenderContent source={t('how_it_works.cards.1.body')} /></Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/one-idea.svg`} alt={t('how_it_works.cards.2.alt_text')} />
+                <img className={classes.howItWorksIcon} src={`${process.env.PUBLIC_URL}/assets/icons/one-idea.svg`} alt={t('how_it_works.cards.2.alt_text')} />
                 <Typography><RenderContent source={t('how_it_works.cards.2.body')} /></Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
-                <img className={classes.howItWorksIcon} src={`/${process.env.PUBLIC_URL}assets/icons/breakthrough.svg`} alt={t('how_it_works.cards.3.alt_text')} />
+                <img className={classes.howItWorksIcon} src={`${process.env.PUBLIC_URL}/assets/icons/breakthrough.svg`} alt={t('how_it_works.cards.3.alt_text')} />
                 <Typography><RenderContent source={t('how_it_works.cards.3.body')} /></Typography>
               </Grid>
             </Grid>
@@ -425,7 +423,8 @@ const HomePage = (props) => {
         <Box>{/* empty box because Container must have children */}</Box>
       </Container>
       <Container className={`${classes.volunteer} accentImage`}>
-        {isIE && <img className="accentImage--img" src={`/${process.env.PUBLIC_URL}assets/images/soft-diamond-background-long.svg`} alt="accent image" aria-hidden="true" />}
+        {/* IE11 doesn't like svg background images, so drop it in as an accent image here */}
+        {isIE && <img className="accentImage--img" src={`${process.env.PUBLIC_URL}/assets/images/soft-diamond-background-long.svg`} alt="accent image" aria-hidden="true" />}
         <Box component="section">
           <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}>
             <RenderContent source={t('participate.title')} />

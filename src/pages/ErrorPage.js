@@ -1,24 +1,23 @@
 import React, { useEffect } from 'react'
 import { Link as RouterLink } from "@reach/router"
 import { Box, Container, Button } from '@material-ui/core'
-import Status from '../components/Status/Status'
+import Status from '../components/Status'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
+import PubSub from 'pubsub-js'
 
 
 const ErrorPage = (props) => {
   const { t } = useTranslation('notFoundPage')
-  const { trackEvent } = useTracking()
 
   useEffect(() => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
       event:'pageview',
-      prop6: "Error Page",
-      pageType: "errorPage",
-      prop10: t("metaData.title")
+      prop6: 'Error Page',
+      prop10: t('metaData.title'),
+      pageType: "errorPage"
     })
-  },[trackEvent, t])
+  },[t])
 
   const errorDefaults = {
     status: "error",

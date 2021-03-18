@@ -4,8 +4,8 @@ import { Box, Button, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
 import { Helmet } from 'react-helmet-async'
+import PubSub from 'pubsub-js'
 
 const useStyles = makeStyles( theme => ({
   container: {
@@ -23,21 +23,20 @@ const useStyles = makeStyles( theme => ({
       fontSize: "5.8rem",
     }
   }
-}))
+}),{name: 'NotFoundPage'})
 
 const ErrorPage = () => {
   const classes = useStyles()
   const { t } = useTranslation('notFoundPage')
-  const { trackEvent } = useTracking()
 
   useEffect(() => {
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
       event:'pageview',
-      prop6: "Error Page",
+      prop6: 'Error Page',
+      prop10: t('metaData.title'),
       pageType: "errorPage",
-      prop10: t("metaData.title")
     })
-  },[trackEvent, t])
+  },[t])
 
   return (
     <Box mt={5}>

@@ -1,10 +1,10 @@
 import React from 'react'
-import { Box, Container, Grid, Typography } from '@material-ui/core';
+import { Box, Container, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 
-import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
+import Breadcrumbs from '../../components/Breadcrumbs'
 import ArticleImage from '../../components/utils/ArticleImage'
 
 const useStyles = makeStyles(theme => ({
@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(7,0)
     }
   },
-}))
+}),{name: 'GetHelpPage'})
 
 const Page = () => {
   const classes = useStyles()
@@ -50,7 +50,7 @@ const Page = () => {
       <Breadcrumbs pageName="Get Help" />
       <Container className="mainContainer">
         <div className={classes.titleWithIcon}>
-          <img className={classes.titleIcon} src={`/${process.env.PUBLIC_URL}assets/icons/get-help.svg`} alt={t('a_common:icons.help')} aria-hidden="true"></img>
+          <img className={classes.titleIcon} src={`${process.env.PUBLIC_URL}/assets/icons/get-help.svg`} alt={t('a_common:icons.help')} aria-hidden="true"></img>
           <Typography variant="h2" component="h2">{t('pageTitle')}</Typography>
         </div>
         <Typography>{t('description')} </Typography>

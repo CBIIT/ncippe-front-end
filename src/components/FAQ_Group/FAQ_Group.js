@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import PropTypes from 'prop-types'
 import { Box, Button, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
@@ -7,7 +8,7 @@ import {
 } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
 
-import FAQ from './FAQ'
+import FAQ from '../FAQ'
 
 const useStyles = makeStyles( theme => ({
   faq_title: {
@@ -35,8 +36,11 @@ const useStyles = makeStyles( theme => ({
       margin: theme.spacing(0, 0, 0, 2),
     }
   }
-}))
+}),{name: 'FAQ_Group'})
 
+/**
+ * Create a group of frequent asked question accordions that can all be toggled together
+ */
 const FAQs = (props) => {
   const { title, faqs, className, ...other } = props
   const classes = useStyles()
@@ -86,11 +90,27 @@ const FAQs = (props) => {
           title={faqs[faq].question}
           desc={faqs[faq].answer}
           expanded={isExpanded}
-          clickHandler={trackToggle}
+          onClick={trackToggle}
         />)}
       </Box>
     </Container>
   )
+}
+
+FAQs.displayName = 'FAQ_Group'
+FAQs.propTypes = {
+  /**
+   * text that appears in the FAQ header
+   */
+  title: PropTypes.string, 
+  /**
+   * faq data to be rendered
+   */
+  faqs: PropTypes.object.isRequired,
+  /**
+   * assign a class name to this component for additional styles
+   */
+  className: PropTypes.string,
 }
 
 export default FAQs

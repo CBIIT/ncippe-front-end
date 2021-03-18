@@ -1,6 +1,7 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from '@reach/router'
-import { Badge, Button, Card, CardActions, CardContent, Typography } from '@material-ui/core';
+import { Badge, Button, Card, CardActions, CardContent, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { KeyboardArrowRight as KeyboardArrowRightIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
@@ -20,6 +21,7 @@ const useStyles = makeStyles( theme => ({
     display: 'flex',
     height: '100%',
     width: '100%',
+    // position: 'absolute', // Don't know why this was set to absolute? IE?
     alignItems: 'flex-start',
     padding: theme.spacing(4,3,3,3)
   },
@@ -53,12 +55,26 @@ const useStyles = makeStyles( theme => ({
     padding: theme.spacing(1,0,0,0),
     marginTop: theme.spacing(1)
   }
-}))
+}),{name: 'IconCard'})
 
+/**
+ * This responsive card is a custom Material UI card designed to make it easy to drop in card elements while keeping a uniform style. 
+ */
 const IconCard = (props) => {
-  const { t } = useTranslation('a_common')
-  const {icon, title, altText, desc, link, linkText, count = 0, badgeText = t('badges.new'), download = false, cardClick} = props
   const classes = useStyles()
+  const { t } = useTranslation('a_common')
+  const {
+    icon, 
+    title, 
+    altText = 'icon', 
+    desc, 
+    link, 
+    linkText, 
+    count = 0, 
+    badgeText = t('badges.new'), 
+    download = false, 
+    cardClick
+  } = props
 
   const handleClick = (e) => {
     if (cardClick && e.currentTarget.tagName === "A") {
@@ -73,16 +89,16 @@ const IconCard = (props) => {
         wrapper={children => <Badge className={classes.badge} badgeContent={badgeText} component="div">{children}</Badge>}>
 
         <CardContent className={`${classes.cardContent} IconCardContent`}>
-          {icon && <img className={classes.cardIcon} src={`/${process.env.PUBLIC_URL}assets/icons/${icon}`} alt={altText} aria-hidden="true" />}
+          {icon && <img className={classes.cardIcon} src={`${process.env.PUBLIC_URL}/assets/icons/${icon}`} alt={altText} aria-hidden="true" />}
           <div className={classes.cardTextContainer}>
             <div className={classes.cardText}>
               <Typography className={classes.cardTitle} variant="body2" component="h2">{title}</Typography>
-              <Typography><RenderContent source={desc} /></Typography>
+              <Typography component="div"><RenderContent source={desc} /></Typography>
             </div>
             {link && (
               <CardActions className={classes.cardActions}>
                 {download ? 
-                  <Button 
+                  <Button
                     href={link} color="primary" 
                     rel="noopener noreferrer" 
                     target="_blank">
@@ -104,4 +120,47 @@ const IconCard = (props) => {
   )
 }
 
+IconCard.displayName = "IconCard"
+IconCard.propTypes = {
+  /**
+   * assign any icon file from the `/public/assets/icons` folder, including the file extension
+   */
+  icon: PropTypes.string.isRequired,
+  /**
+   * the title for this card
+   */
+  title: PropTypes.string.isRequired,
+  /**
+   * the alt text for the icon image. The icon is hidden to screen readers, but the alt text attribute is still required by validators
+   */
+  altText: PropTypes.string,
+  /**
+   * The description text as text, html or markdown
+   */
+  desc: PropTypes.string.isRequired,
+  /**
+   * the URL for a link provided at the bottom of the card. `linkText` is required if link is provided
+   */
+  link: PropTypes.string,
+  /**
+   * the text for a link provided at the bottom of the card. `link` is required if linkText is provided
+   */
+  linkText: PropTypes.string,
+  /**
+   * If a count has been provided and is greater then 0 or is `true`, then the badge will appear with the supplied `badgeText`. This is used for mostly for marking new notifications and report when newNotifications or newReports has been set in the user data.
+   */
+  count: PropTypes.oneOfType([PropTypes.number,PropTypes.bool]),
+  /**
+   * The text that appears in a badge when triggered by `count`
+   */
+  badgeText: PropTypes.string,
+  /**
+   * If true, then the `link` provided will open in a new window or tab. This is used to download and preview pdf files in a new browser window or tab
+   */
+  download: PropTypes.bool,
+  /**
+   * callback event for `link` clicks. Mostly used by analytics.
+   */
+  cardClick: PropTypes.func
+}
 export default IconCard

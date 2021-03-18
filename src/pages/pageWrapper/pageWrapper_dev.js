@@ -1,14 +1,14 @@
-import React from 'react';
+import React from 'react'
 import { Link as RouterLink } from "@reach/router"
 import { 
   Button,
   Container,
   Link,
-} from '@material-ui/core';
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import Header from '../components/region/Header/Header'
-import Footer from '../components/region/Footer/Footer'
+import Header from '../../components/region/Header/Header'
+import Footer from '../../components/region/Footer/Footer'
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
       boxShadow: theme.shadows[2]
     }
   },
-}))
+}),{name: 'pageWrapper'})
 
 const pageWrapper = (Component) => ({children, ...props}) => {
   const classes = useStyles()

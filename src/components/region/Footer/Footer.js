@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link as RouterLink } from "@reach/router"
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Grid, Link, Typography } from '@material-ui/core'
 
@@ -65,24 +65,27 @@ const useStyles = makeStyles(theme => ({
   //   width: 60,
   //   paddingLeft: 5
   // }
-}))
+}),{name: 'Footer'})
 
 
 const Footer = () => {
   const classes = useStyles()
   const { t } = useTranslation('common')
-  const { trackEvent } = useTracking()
 
   const trackClick = (e) => {
     if(e.target.matches('a')) {
-      trackEvent({
+      PubSub.publish('ANALYTICS', {
+        events: 'event16',
+        eventName: 'FooterLink',
         prop53: `BioBank_FooterNav|${e.target.textContent}`,
         eVar53: `BioBank_FooterNav|${e.target.textContent}`,
-        events: 'event16',
-        eventName: 'FooterLink'
       })
     }
   }
+
+/*
+  Social media integrations on hold until we get Server Side Rendering (SSR) or https://prerender.io/ working, which will respond to search engines and crawlers with correct metadata
+*/
 
   // const handleShareOnFacebook = (e) => {
   //   const url = `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`
@@ -108,8 +111,8 @@ const Footer = () => {
             <a href={`tel:${t('footer.links.phone')}`}>{t('footer.links.phone')}</a>
             <a href={t('footer.links.cis.link')}>{t('footer.links.cis.text')}</a>
             {/* <div className={classes.social}>
-              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnFacebook}><img src={`/${process.env.PUBLIC_URL}assets/icons/facebook.svg`} alt="facebook icon" title="Share this page on Facebook" /></IconButton>
-              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnTwitter}><img src={`/${process.env.PUBLIC_URL}assets/icons/twitter.svg`} alt="twitter icon" title="Share this page on Twitter" /></IconButton>
+              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnFacebook}><img src={`${process.env.PUBLIC_URL}/assets/icons/facebook.svg`} alt="facebook icon" title="Share this page on Facebook" /></IconButton>
+              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnTwitter}><img src={`${process.env.PUBLIC_URL}/assets/icons/twitter.svg`} alt="twitter icon" title="Share this page on Twitter" /></IconButton>
             </div> */}
           </Grid>
           <Grid item xs={12} sm={4}>

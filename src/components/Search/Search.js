@@ -7,7 +7,7 @@ import {
   Clear as ClearIcon
 } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import { useTracking } from 'react-tracking'
+import PubSub from 'pubsub-js'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -39,22 +39,26 @@ const useStyles = makeStyles(theme => ({
   input: {
     flexGrow: 1
   }
-}));
+}),{name: 'Search'});
 
+/**
+ * Site Search component seen in the common header nav
+ * 
+ * This component presents the search icon and the input field, but does not perform the site search business logic. That is handled in the SearchResultsPage.js
+ */
 const Search = () => {
   const classes = useStyles()
   const { t } = useTranslation('common')
-  const { trackEvent } = useTracking()
   const [open, setOpen] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
 
   const handleClickOpen = () => {
     setOpen(true)
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: 'event26',
+      eventName: 'TopNavSearch',
       prop53: 'BioBank_TopNav|Search',
       eVar53: 'BioBank_TopNav|Search',
-      events: 'event26',
-      eventName: 'TopNavSearch'
     })
   }
 
@@ -66,14 +70,14 @@ const Search = () => {
     e.preventDefault()
     // send the search terms to the search results page
     const searchTerm = e.target.siteSearch.value
-    trackEvent({
+    PubSub.publish('ANALYTICS', {
+      events: "event2",
+      eventName: 'GlobalSearch',
       prop11: "BioBank Global Search",
       eVar11: "BioBank Global Search",
       eVar13: "+1",
       prop14: searchTerm,
       eVar14: searchTerm,
-      events: "event2",
-      eventName: 'GlobalSearch'
     })
     navigate(`/search`,{state: {
       term: searchTerm
