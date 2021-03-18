@@ -31,7 +31,7 @@ const useStyles = makeStyles( theme => ({
   location: {
     display: 'block',
     margin: theme.spacing(1),
-    padding: theme.spacing(1,0),
+    // padding: theme.spacing(1,0),
     lineHeight: 'normal',
     textDecoration: 'none',
     color: theme.palette.text.primary,
@@ -47,7 +47,7 @@ const useStyles = makeStyles( theme => ({
       textDecoration: 'none',
     },
     '&:hover > div,&.active > div': {
-      backgroundColor: 'rgba(30, 111, 214, 0.08)',
+      backgroundColor: 'rgba(30, 111, 214, 0.05)',
     },
   },
   icon: {
@@ -81,7 +81,7 @@ const HospitalMap = (props) => {
 
         // fallback map view if location is not available
         bssMap.on('locationerror',(e) => {
-          console.error(e)
+          console.error("Location not available: ",e)
           bssMap.setView([38.5561, -90.2496], 5)
         })
 
@@ -176,11 +176,20 @@ const HospitalMap = (props) => {
   }, [])
 
   const updateMap = (e) => {
+    if(e.target.tagName.toLowerCase() === "a"){
+      return
+    }
     e.preventDefault()
     const cords = e.currentTarget.dataset.location.split(",")
     const i = e.currentTarget.dataset.index
     map.setView(cords,11)
     markers[i].openPopup()
+  }
+
+  const handleKeyDown = (e) => {
+    if(e.key.toLowerCase() === "enter") {
+      updateMap(e)
+    }
   }
 
   return (
@@ -198,7 +207,7 @@ const HospitalMap = (props) => {
                   // console.log(refs[i])
                   return (
                     <React.Fragment key={i}>
-                      <Link href="#" className={classes.location} ref={refs[i]} data-location={hospital.gps_coordinates} onClick={updateMap} data-index={i}>
+                      <div className={classes.location} ref={refs[i]} data-location={hospital.gps_coordinates} onClick={updateMap} data-index={i} onKeyDown={handleKeyDown} tabIndex="0">
                         <Box>
                           <Typography className={classes.title}>{hospital.title}</Typography>
                           <Typography>
@@ -208,12 +217,12 @@ const HospitalMap = (props) => {
                           </Typography>
                           <Typography className="breakAll">
                             {hospital.poc && <><PersonIcon className={classes.icon} /> {hospital.poc} <br /></>}
-                            {hospital.poc_email && <><EmailIcon className={classes.icon} /> {hospital.poc_email} <br /></>}
-                            <PhoneIcon className={classes.icon} /> {formatPhoneNumber(hospital.telephone)} {hospital.extension && <>x{hospital.extension}</>}
-                            {hospital.website && <><br /><WebsiteIcon className={classes.icon} /> {hospital.website}</>}
+                            {hospital.poc_email && <><EmailIcon className={classes.icon} /> <a href={`mailto:${hospital.poc_email}`}>{hospital.poc_email}</a> <br /></>}
+                            <PhoneIcon className={classes.icon} /> <a href={`tel:${formatPhoneNumber(hospital.telephone)}`}>{formatPhoneNumber(hospital.telephone)}</a> {hospital.extension && `x${hospital.extension}`}
+                            {hospital.website && <><br /><WebsiteIcon className={classes.icon} /> <a href={hospital.website} rel='noopener noreferrer' target="_blank">{hospital.website}</a></>}
                           </Typography>
                         </Box>
-                      </Link>
+                      </div>
                       {i < hospitalData.length-1 && <Divider className={classes.divider} />}
                     </React.Fragment>
                   )
