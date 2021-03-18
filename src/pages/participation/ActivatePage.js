@@ -293,9 +293,9 @@ const ActivatePage = () => {
                 <RenderContent source={t('sections.2.title')} />
               </Typography>
               <div className={classes.linkList}>
-                <Button href="https://login.gov/help/" color="primary" rel="noopener noreferrer" target="_blank">{t('sections.2.links.0')} <OpenInNewIcon /></Button>
-                <Button href="https://login.gov/contact/" color="primary" rel="noopener noreferrer" target="_blank">{t('sections.2.links.1')} <OpenInNewIcon /></Button>
-                <Button href="https://login.gov/help/creating-an-account/how-to-create-an-account/" color="primary" rel="noopener noreferrer" target="_blank">{t('sections.2.links.2')} <OpenInNewIcon /></Button>
+                <Button href="https://login.gov/help/" color="primary" rel="noopener noreferrer" target="_blank">{t('sections.2.links.0')}</Button>
+                <Button href="https://login.gov/contact/" color="primary" rel="noopener noreferrer" target="_blank">{t('sections.2.links.1')}</Button>
+                <Button href="https://login.gov/help/creating-an-account/how-to-create-an-account/" color="primary" rel="noopener noreferrer" target="_blank">{t('sections.2.links.2')}</Button>
               </div>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
