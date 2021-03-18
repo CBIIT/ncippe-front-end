@@ -65,10 +65,10 @@ const Page = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <Paper elevation={25}>
-              <img src={`${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/test-guide--solid-tumor.jpg`} alt={t('components.biomarkerView.guide.alt_text')}
+              <img src={`${process.env.PUBLIC_URL}/assets/images/sampleReport/dashboard/test-guide--solid-tumor.jpg`} alt={t('components.biomarkerView.guide.alt_text')}
                 srcSet={`
-                  ${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/test-guide--solid-tumor.jpg 1x,
-                  ${process.env.PUBLIC_URL}/assets/images/sampleReport/HD/test-guide--solid-tumor.jpg 2x
+                  ${process.env.PUBLIC_URL}/assets/images/sampleReport/dashboard/test-guide--solid-tumor.jpg 1x,
+                  ${process.env.PUBLIC_URL}/assets/images/sampleReport/dashboardHD/test-guide--solid-tumor.jpg 2x
                 `}
               />
               <Divider />

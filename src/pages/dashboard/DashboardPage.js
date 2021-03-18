@@ -200,13 +200,13 @@ const Page = () => {
           {/* Report Guide */}
           <LoginConsumer>
           {([{roleName}]) => {
-            return roleName === "ROLE_PPE_PROVIDER" && (
+            return (roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC") && (
               <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
                 <IconCard
                   icon="biomarker-tests.svg"
                   title={t('cards.guide.title')}
                   desc={t('cards.guide.description')}
-                  link={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide.pdf`}
+                  link={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide--Solid-Tumor.pdf`}
                   download={true}
                   linkText={t('cards.guide.link')}
                   cardClick={trackCardClick}
