@@ -24,8 +24,8 @@
 }
 
 /* Stupid IE11 hacks */
-@media all and (-ms-high-contrast:none) {
+/* @media all and (-ms-high-contrast:none) {
   #mainNav--mobile > div > .MuiAccordionSummary-root {
     height: 48px;
   }
-}
+} */

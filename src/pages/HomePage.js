@@ -16,7 +16,7 @@ import IconCardMedia from '../components/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
 
 // Internet Explorer 6-11
-const isIE = /*@cc_on!@*/false || !!document.documentMode;
+// const isIE = /*@cc_on!@*/false || !!document.documentMode;
 
 let extension = 'png'
 
@@ -424,7 +424,7 @@ const HomePage = () => {
       </Container>
       <Container className={`${classes.volunteer} accentImage`}>
         {/* IE11 doesn't like svg background images, so drop it in as an accent image here */}
-        {isIE && <img className="accentImage--img" src={`${process.env.PUBLIC_URL}/assets/images/soft-diamond-background-long.svg`} alt="accent image" aria-hidden="true" />}
+        {/* {isIE && <img className="accentImage--img" src={`${process.env.PUBLIC_URL}/assets/images/soft-diamond-background-long.svg`} alt="accent image" aria-hidden="true" />} */}
         <Box component="section">
           <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}>
             <RenderContent source={t('participate.title')} />

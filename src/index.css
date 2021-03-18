@@ -460,9 +460,9 @@ html {
 }
 
 /* Stupid IE11 hacks */
-@media all and (-ms-high-contrast:none) {
+/* @media all and (-ms-high-contrast:none) { */
   /* Header nav */
-  #mainNav > * {
+  /* #mainNav > * {
     height: 82px;
   }
 
@@ -473,14 +473,14 @@ html {
 
   .mainContainer, .innerContainer {
     background-size: 541px 349px;
-  }
+  } */
 
   /* .mainContainer--dashboard {
 
   } */
 
   /* Home Page accent image */
-  .accentImage {
+  /* .accentImage {
     background: linear-gradient(315deg, #FFEBF1 0%, #F3EEF6 51%, #E8F0FA 100%) !important;
   }
   
@@ -490,24 +490,24 @@ html {
     left: 0;
     right: 0;
     pointer-events: none;
-  }
+  } */
 
   /* What to Expect tab nav */
-  #tabBar a::before {
+  /* #tabBar a::before {
     top: 4px;
-  }
+  } */
 
   /* Icon Cards */
-  .IconCardContent > img {
+  /* .IconCardContent > img {
     height: 74px;
   }
   .IconCardContent > div {
     width: calc(100% - 100px);
-  }
+  } */
 
   /* Footer */
-  #appFooter {
+  /* #appFooter {
     flex: 0 0 auto;
-  }
-}
+  } */
+/* } */
 
