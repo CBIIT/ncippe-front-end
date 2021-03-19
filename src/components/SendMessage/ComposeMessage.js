@@ -5,11 +5,12 @@ import {
   Clear as ClearIcon
 } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
+
+import { SendMessageContext } from './SendMessage.context'
+import FormButtons from './FormButtons'
 import InputGroupError from '../inputs/InputGroupError'
 import Editor from '../Editor'
 import Loading from '../Loading'
-import { SendMessageContext } from './SendMessage.context'
-import FormButtons from './FormButtons'
 
 const useStyles = makeStyles( theme => ({
   formControl: {
@@ -18,8 +19,7 @@ const useStyles = makeStyles( theme => ({
   },
 }),{name: 'ComposeMessage'})
 
-const ComposeMessage = (props) => {
-  const { onNavigate } = props
+const ComposeMessage = () => {
   const classes = useStyles()
   const [sendMessageContext, dispatch] = useContext(SendMessageContext)
   const { t } = useTranslation(['a_sendMessage'])

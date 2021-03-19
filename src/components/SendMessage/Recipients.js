@@ -5,9 +5,10 @@ import {
   Clear as ClearIcon
 } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
-import InputGroupError from '../inputs/InputGroupError'
+
 import { SendMessageContext } from './SendMessage.context'
 import FormButtons from './FormButtons'
+import InputGroupError from '../inputs/InputGroupError'
 
 const useStyles = makeStyles( theme => ({
   formControl: {
@@ -15,8 +16,7 @@ const useStyles = makeStyles( theme => ({
   },
 }),{name: 'Recipients'})
 
-const Recipients = (props) => {
-  const { onNavigate } = props
+const Recipients = () => {
   const classes = useStyles()
   const { t } = useTranslation(['a_sendMessage'])
   const [sendMessageContext, dispatch] = useContext(SendMessageContext)

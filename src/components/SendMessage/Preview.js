@@ -37,8 +37,7 @@ const useStyles = makeStyles( theme => ({
   }
 }),{name: 'PreviewMessage'})
 
-const PreviewMessage = (props) => {
-  const { onNavigate } = props
+const PreviewMessage = () => {
   const classes = useStyles()
   const { t } = useTranslation(['a_sendMessage'])
   const [sendMessageContext, dispatch] = useContext(SendMessageContext)
