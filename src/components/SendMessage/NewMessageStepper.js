@@ -28,11 +28,7 @@ const NewMessageStepper = (props) => {
   const orientation = useMediaQuery('@media (max-width: 799px)') ? "vertical" : "horizontal"
   const labelOrientation = useMediaQuery('@media (max-width: 799px)') ? false : true
 
-  const stepText = [
-    t('stepper.0.label'),
-    t('stepper.1.label'),
-    t('stepper.2.label')
-  ]
+  const stepText = Object.values(t('stepper', {returnObjects: true})).map(key => key.label)
 
   return (
     <div className={classes.root}>
