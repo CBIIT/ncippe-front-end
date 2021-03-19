@@ -5,14 +5,21 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles( theme => ({
   root: {
+    '& .errorText': {
+      display: 'none',
+      color: theme.palette.error.text,
+      fontWeight: 'bold'
+    },
+  },
+  error: {
     borderLeft: `10px solid ${theme.palette.error.main}`,
     padding: theme.spacing(0, 2),
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
+    '& .errorText': {
+      display: 'inline-block',
+    }
   },
-  errorText: {
-    color: theme.palette.error.text,
-    fontWeight: 'bold'
-  },
+
   column: {
     display: 'inline-flex',
     flexDirection: 'column',
@@ -25,14 +32,15 @@ const useStyles = makeStyles( theme => ({
 const InputGroupError = (props) => {
   const classes = useStyles()
   const {children, error = false, errorMessage = '', variant = false} = props
+  const errorClass = error ? classes.error : ''
+  const variantClass = variant ? classes[variant] : ''
 
-  return error ? (
-    // <div className={classes.root}>
-    <div className={`${classes.root} ${variant ? classes[variant] : ''}`}>
+  return (
+    <div className={`${classes.root} ${errorClass} ${variantClass}`}>
       {children}
-      <Typography className={classes.errorText}>{errorMessage}</Typography>
+      <Typography className="errorText">{errorMessage}</Typography>
     </div>
-  ) : children
+  )
 }
 
 InputGroupError.displayName = "InputGroupError"
