@@ -9,12 +9,12 @@ const useStyles = makeStyles(theme => ({
     flex: '1 0 auto',
     margin: '0',
   }
-}),{name: 'PageWrapper'})
+}),{name: 'pageWrapper'})
 
-const PageWrapper = (Component) => ({children, ...props}) => {
+const pageWrapper = (Component) => ({children, ...props}) => {
   const classes = useStyles()
   return (
-    <div className="siteWrapper"> {/* returning a fragment here does not work in ie11 */}
+    <div className="siteWrapper">
       <Header />
       <div id="main" className={classes.main} role="main">
         <Component {...props} />
@@ -24,4 +24,4 @@ const PageWrapper = (Component) => ({children, ...props}) => {
   )
 }
 
-export default PageWrapper
+export default pageWrapper
