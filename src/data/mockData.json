@@ -655,6 +655,7 @@
   },
   "hospitals": [
     {
+      "id": 1,
       "city": "Fort Smith",
       "state": "Arkansas",
       "title": "Mercy Hospital Fort Smith",
@@ -669,6 +670,7 @@
       "website": "https://ozarkscancerresearch.org"
     },
     {
+      "id": 2,
       "city": "Savannah",
       "state": "Georgia",
       "title": "Lewis Cancer and Research Pavilion at Saint Joseph's/Candler",
@@ -683,6 +685,7 @@
       "website": "https://www.gancorp.org/default.aspx"
     },
     {
+      "id": 3,
       "city": "Atlanta",
       "state": "Georgia",
       "title": "Northside Hospital",
@@ -697,6 +700,7 @@
       "website": null
     },
     {
+      "id": 4,
       "city": "Urbana",
       "state": "Illinois",
       "title": "Carle Cancer Center",
@@ -711,6 +715,7 @@
       "website": "https://carle.org/services/cancer"
     },
     {
+      "id": 5,
       "city": "Danville",
       "state": "Illinois",
       "title": "Carle on Vermilion",
@@ -725,6 +730,7 @@
       "website": "https://carle.org/services/cancer"
     },
     {
+      "id": 6,
       "city": "Mattoon",
       "state": "Illinois",
       "title": "Carle Physician Group-Mattoon/Charleston",
@@ -739,6 +745,7 @@
       "website": "https://carle.org/services/cancer"
     },
     {
+      "id": 7,
       "city": "Chicago",
       "state": "Illinois",
       "title": "John H Stroger Jr Hospital of Cook County",
@@ -752,6 +759,7 @@
       "gps_coordinates": "41.8736169,-87.6743711"
     },
     {
+      "id": 8,
       "city": "Des Moines",
       "state": "Iowa",
       "title": "Iowa Methodist Medical Center",
@@ -766,6 +774,7 @@
       "website": "http://www.iora.org"
     },
     {
+      "id": 9,
       "city": "Cedar Rapids",
       "state": "Iowa",
       "title": "Physicians' Clinic of Iowa PC",
@@ -780,6 +789,7 @@
       "website": "http://www.iora.org"
     },
     {
+      "id": 10,
       "city": "Cedar Rapids",
       "state": "Iowa",
       "title": "Oncology Associates at Mercy Medical Center",
@@ -794,6 +804,7 @@
       "website": "http://www.iora.org"
     },
     {
+      "id": 11,
       "city": "Augusta",
       "state": "Maine",
       "title": "Harold Alfond Center for Cancer Care",
