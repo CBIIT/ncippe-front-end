@@ -1,4 +1,5 @@
 import React, { createContext, useReducer } from 'react'
+import data from '../../data'
 
 const initialState = {
   audience_state: [],
@@ -23,6 +24,10 @@ const userReducer = (state, action) => {
     })
     case 'reset': return ({
       ...initialState
+    })
+    case 'error': return ({
+      ...state,
+      serverError: action.data
     })
     default: throw new Error('Unexpected action')
   }
