@@ -260,6 +260,15 @@ export const theme = createMuiTheme({
       root: {
         letterSpacing: ".03rem"
       }
+    },
+    MuiTableCell: {
+      root: {
+        fontSize: '.875rem',
+        lineHeight: '1.5rem'
+      },
+      head: {
+        fontWeight: 600
+      }
     }
   }
 });

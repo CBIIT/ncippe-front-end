@@ -549,6 +549,15 @@ async function sendMessage({audiences,subject,message}){
   .catch(handleErrorMsg('The server was unable to send messages.'))
 }
 
+/*=======================================================================*/
+/*======== Get Messages =================================================*/
+
+async function getMessages(){
+  console.log("getMessages data from the server:")
+  return await fetch(`/api/messages`)
+  .then(handleResponse)
+  .catch(handleErrorMsg('The server was unable to fetch messages.'))
+}
 
 /*=======================================================================*/
 /*======== Public API ===================================================*/
@@ -573,4 +582,5 @@ export const api = {
   activateParticipant,
   getHospitalList,
   sendMessage,
+  getMessages,
 }
