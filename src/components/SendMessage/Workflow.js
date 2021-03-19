@@ -72,11 +72,6 @@ const NewMessageWorkflow = (props) => {
       })
       handleNavigate('finish')
     })
-    // trigger function based on current active step
-    // setTimeout(() => {
-    //   console.log("simulate api call here")
-    //   handleNavigate('finish')
-    // }, 2000)
   }
 
   const handleNavigate = (to) => {
