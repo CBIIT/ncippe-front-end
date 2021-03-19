@@ -1,5 +1,4 @@
 import React, { createContext, useReducer } from 'react'
-import data from '../../data'
 
 const initialState = {
   audience_state: [],
