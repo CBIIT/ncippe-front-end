@@ -322,6 +322,27 @@ async function getHospitalList(){
 }
 
 /*=======================================================================*/
+/*======== Send Message =================================================*/
+
+async function sendMessage({audiences,subject,message}){
+  return await fetch(`/publicapi/v1/sites`,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'text/plain',
+      'access-control-allow-origin': '*'
+    },
+    body: JSON.stringify({
+      audiences,
+      subject,
+      message,
+      dateSent: Date.now(),
+    })
+  })
+    .then(handleResponse)
+    .catch(handleErrorMsg('The server was unable to send messages.'))
+}
+
+/*=======================================================================*/
 /*======== Public API ===================================================*/
 
 export const api = {
@@ -342,5 +363,6 @@ export const api = {
   closeAccount,
   updateParticipantDetails,
   activateParticipant,
-  getHospitalList
+  getHospitalList,
+  sendMessage
 }

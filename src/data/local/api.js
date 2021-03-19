@@ -515,13 +515,40 @@ async function activateParticipant({uuid, patient, token}){
 }
 
 /*=======================================================================*/
-/*======== Get Hospital List =========================================*/
+/*======== Get Hospital List ============================================*/
 
 async function getHospitalList(){
   return await fetch(`/api/hospitals/`)
     .then(handleResponse)
     .catch(handleErrorMsg('Unable to fetch hospital list at this time.'))
 }
+
+/*=======================================================================*/
+/*======== Send Messages ================================================*/
+
+async function sendMessage({audiences,subject,message}){
+  console.log("sendMessage data sent to server:",
+    `\naudiences: ${audiences}`,
+    `\nsubject: ${subject}`,
+    `\nmessage: ${message}`,
+  )
+  return await fetch(`/api/messages`,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      audiences,
+      subject,
+      message,
+      dateSent: Date.now(),
+    })
+  })
+  .then(handleResponse)
+  .then(resp => resp)
+  .catch(handleErrorMsg('The server was unable to send messages.'))
+}
+
 
 /*=======================================================================*/
 /*======== Public API ===================================================*/
@@ -544,5 +571,6 @@ export const api = {
   closeAccount,
   updateParticipantDetails,
   activateParticipant,
-  getHospitalList
+  getHospitalList,
+  sendMessage,
 }

@@ -4,15 +4,15 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import { navigate } from '@reach/router'
 
+import getAPI from '../../data'
+
 import { SendMessageContext } from './SendMessage.context'
-import FormButtons from './FormButtons'
 import NewMessageStepper from './NewMessageStepper'
-
-import Status from '../Status'
-
 import Recipients from './Recipients'
 import ComposeMessage from './ComposeMessage'
 import Preview from './Preview'
+import Status from '../Status'
+import FormButtons from './FormButtons'
 
 const useStyles = makeStyles( theme => ({
   divider: {
@@ -54,11 +54,29 @@ const NewMessageWorkflow = (props) => {
     if(event){
       event.preventDefault()
     }
-    // trigger function based on current active step
-    setTimeout(() => {
-      console.log("simulate api call here")
+
+    const { audiences, subject, message} = sendMessageContext
+
+    getAPI.then(api => {
+      return api.sendMessage({audiences, subject, message}).then(resp => {
+        if(resp instanceof Error) {
+          throw resp
+        }
+        handleNavigate('finish')
+      })
+    })
+    .catch(error => {
+      dispatch({
+        type: 'error',
+        data: error
+      })
       handleNavigate('finish')
-    }, 2000)
+    })
+    // trigger function based on current active step
+    // setTimeout(() => {
+    //   console.log("simulate api call here")
+    //   handleNavigate('finish')
+    // }, 2000)
   }
 
   const handleNavigate = (to) => {
@@ -98,7 +116,7 @@ const NewMessageWorkflow = (props) => {
       <NewMessageStepper activeStep={activeStep} />
       <Divider className={classes.divider} />
 
-      <form id="sendNewMessage" autoComplete="off" onSubmit={handleFormSubmit}>
+      <form id="sendNewMessage" autoComplete="off">
         {activeStep === 0 && (
           <Recipients />
         )}
@@ -116,11 +134,19 @@ const NewMessageWorkflow = (props) => {
         )}
         {activeStep === 4 && (
           <Box>
-            <Status 
-              state="success"
-              title={t('success.title')}
-              message={t('success.message')}
-            />
+            {sendMessageContext.serverError ? 
+              <Status 
+                state="error"
+                title={t('error.title')}
+                message={t('error.message')}
+              />
+              :
+              <Status 
+                state="success"
+                title={t('success.title')}
+                message={t('success.message')}
+              />
+            }
             <FormButtons
               leftButtons={<Button variant="outlined" color="primary" onClick={() => handleNavigate('repeat')}>{t('success.buttons.repeat')}</Button>}
               rightButtons={<Button className={classes.btnSubmit} variant="contained" color="primary" onClick={() => handleNavigate('dashboard')}>{t('success.buttons.return')}</Button>}
