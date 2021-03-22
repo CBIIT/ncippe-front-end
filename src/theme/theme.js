@@ -269,6 +269,12 @@ export const theme = createMuiTheme({
       head: {
         fontWeight: 600
       }
+    },
+    MuiTablePagination: {
+      caption: {
+        fontSize: '.875rem',
+        lineHeight: '1.5rem'
+      }
     }
   }
 });
