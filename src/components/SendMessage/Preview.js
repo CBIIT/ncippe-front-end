@@ -33,6 +33,10 @@ const useStyles = makeStyles( theme => ({
       fontWeight: 'revert',
       margin: 'revert',
       letterSpacing: 'revert',
+    },
+    '& img': {
+      width: 'revert',
+      height: 'revert'
     }
   }
 }),{name: 'PreviewMessage'})
