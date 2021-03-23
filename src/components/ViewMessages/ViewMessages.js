@@ -76,7 +76,7 @@ const ViewMessages = (props) => {
         if(resp instanceof Error) {
           throw resp
         }
-        setMessages(resp)
+        setMessages(resp.reverse())
         setLoading(false)
       })
     })
