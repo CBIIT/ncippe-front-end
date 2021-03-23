@@ -533,9 +533,10 @@ async function getHospitalList(){
 /*=======================================================================*/
 /*======== Send Messages ================================================*/
 
-async function sendMessage({audiences,subject,body}){
+async function sendMessage({audiences, roles, subject, body}){
   console.log("sendMessage data sent to server:",
     `\naudiences: ${audiences}`,
+    `\nroless: ${roles}`,
     `\nsubject: ${subject}`,
     `\nmessage: ${body}`,
   )
@@ -546,6 +547,7 @@ async function sendMessage({audiences,subject,body}){
     },
     body: JSON.stringify({
       audiences,
+      roles,
       subject,
       body,
       dateSent: Date.now(),

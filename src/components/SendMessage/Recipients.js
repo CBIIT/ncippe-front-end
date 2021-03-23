@@ -16,12 +16,26 @@ const useStyles = makeStyles( theme => ({
   },
 }),{name: 'Recipients'})
 
+const recipientList = [
+  {
+    label: 'Clinical Research Associates',
+    value: 'ROLE_PPE_CRC'
+  },
+  {
+    label: 'Providers',
+    value: 'ROLE_PPE_PROVIDER'
+  },
+  {
+    label: 'Participants',
+    value: 'ROLE_PPE_PARTICIPANT'
+  }
+]
+
 const Recipients = () => {
   const classes = useStyles()
   const { t } = useTranslation(['a_sendMessage'])
   const [sendMessageContext, dispatch] = useContext(SendMessageContext)
-  const recipientList = t('recipients.list', {returnObjects: true})
-  const [checked, setChecked] = useState(Object.values(recipientList).map(() => false))
+  const [checked, setChecked] = useState(recipientList.map(() => false))
   const [error, setError] = useState(false)
 
   useEffect(() => {
@@ -50,7 +64,7 @@ const Recipients = () => {
   }
 
   const handleSubmit = (e) => {
-    const selected = Object.values(recipientList).filter((val,i) => checked[i]).map(listItem => listItem.label)
+    const selected = recipientList.filter((val,i) => checked[i])
     if(selected.length === 0) {
       setError(true)
     } else {
@@ -58,7 +72,8 @@ const Recipients = () => {
         type: 'update',
         data: {
           audience_state: checked,
-          audiences: selected,
+          audiences: selected.map(listItem => listItem.label),
+          roles: selected.map(listItem => listItem.value),
           navigate: 'composeMessage'
         }
       })
@@ -70,19 +85,19 @@ const Recipients = () => {
       <Typography variant="h3">{t('recipients.title')}</Typography>
       <FormControl component="fieldset" className={classes.formControl}>
         <InputGroupError error={error} variant="column" errorMessage={t('recipients.form.error')}>
-          {checked.map((isChecked,i) => (
+          {recipientList.map((recipient,i) => (
             <FormControlLabel key={i}
               control={
                 <Checkbox 
                   id={i.toString()}
                   color="primary" 
-                  checked={isChecked} 
+                  checked={checked[i]} 
                   onChange={handleListChange}
                   name="audience"
                 />
               }
-              label={t(`recipients.list.${i}.label`)}
-              value={t(`recipients.list.${i}.label`)}
+              label={recipient.label}
+              value={recipient.value}
               labelPlacement="end"
             />
           ))}
