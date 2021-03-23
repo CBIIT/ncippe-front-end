@@ -19,26 +19,10 @@ const useStyles = makeStyles( theme => ({
     maxHeight: 400,
     overflow: 'auto',
     padding: theme.spacing(1,3,1,1),
-  },
-  preview: {
-    padding: theme.spacing(2,4),
-    '& ul, & ol': {
-      margin: 'revert',
-      padding: 'revert',
-      listStyle: 'revert',
-    },
-    '& h1, & h2, & h3, & h4, & h5, & h6, & p': {
-      fontFamily: 'revert',
-      fontSize: 'revert',
-      fontWeight: 'revert',
-      margin: 'revert',
-      letterSpacing: 'revert',
-    },
-    '& img': {
-      width: 'revert',
-      height: 'revert'
+    '& .preview': {
+      padding: theme.spacing(2,4),
     }
-  }
+  },
 }),{name: 'PreviewMessage'})
 
 const PreviewMessage = () => {
@@ -63,7 +47,7 @@ const PreviewMessage = () => {
       </Typography>
       <Divider className={classes.divider} />
       <Box className={classes.previewWrapper}>
-        <Paper className={classes.preview} elevation={4}>
+        <Paper className="preview" elevation={4}>
           <h3>{subject}</h3>
           <p>{moment().format('MMMM Do YYYY, h:mm a')}</p>
           <hr />

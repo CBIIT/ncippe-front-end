@@ -5,7 +5,14 @@ import queryString from 'query-string'
 const handleResponse = resp => {
   if(resp.ok) {
     const contentType = resp.headers.get("content-type")
-    if (contentType && contentType.indexOf("application/json") !== -1) {
+    const totalCount = resp.headers.get('x-total-count')
+    if (totalCount) {
+      return resp.json().then((records) => ({
+        records,
+        totalCount
+      }))
+    }
+    else if (contentType && contentType.indexOf("application/json") !== -1) {
       return resp.json()
     } else {
       return resp
@@ -545,16 +552,27 @@ async function sendMessage({audiences,subject,message}){
     })
   })
   .then(handleResponse)
-  .then(resp => resp)
   .catch(handleErrorMsg('The server was unable to send messages.'))
 }
 
 /*=======================================================================*/
 /*======== Get Messages =================================================*/
 
+// paginated results
+// async function getMessages({page,limit}){
+//   console.log("getMessages data from the server:")
+  
+//   return await fetch(`/api/messages?_page=${page}&_limit=${limit}`)
+//   .then(handleResponse)
+//   .catch(handleErrorMsg('The server was unable to fetch messages.'))
+// }
+
+// get all results
 async function getMessages(){
   console.log("getMessages data from the server:")
+  
   return await fetch(`/api/messages`)
+  // .then(sleeper(5000))
   .then(handleResponse)
   .catch(handleErrorMsg('The server was unable to fetch messages.'))
 }

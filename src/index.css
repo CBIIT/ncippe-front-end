@@ -434,6 +434,23 @@ html {
   top: 3px;
 }
 
+.preview ul, .preview ol {
+  margin: revert;
+  padding: revert;
+  list-style: revert;
+}
+.preview h1, .preview h2, .preview h3, .preview h4, .preview h5, .preview h6, .preview p {
+  font-family: revert;
+  font-size: revert;
+  font-weight: revert;
+  margin: revert;
+  letter-spacing: revert;
+}
+.preview img {
+  width: revert;
+  height: revert;
+}
+
 @media (min-width: 600px) {
   .MuiTypography-body2 > p {
     margin-bottom: 24px;
