@@ -324,8 +324,8 @@ async function getHospitalList(){
 /*=======================================================================*/
 /*======== Send Message =================================================*/
 
-async function sendMessage({audiences,subject,message}){
-  return await fetch(`/publicapi/v1/messages`,{
+async function sendMessage({audiences,subject,body}){
+  return await fetch(`/api/v1/messages`,{
     method: 'POST',
     headers: {
       'Content-Type': 'text/plain',
@@ -334,8 +334,7 @@ async function sendMessage({audiences,subject,message}){
     body: JSON.stringify({
       audiences,
       subject,
-      message,
-      dateSent: Date.now(),
+      body
     })
   })
     .then(handleResponse)
@@ -346,7 +345,7 @@ async function sendMessage({audiences,subject,message}){
 /*======== Get Messages =================================================*/
 
 async function getMessages(){
-  return await fetch(`/publicapi/v1/messages`,{
+  return await fetch(`/api/v1/messages`,{
     headers: {
       'Content-Type': 'text/plain',
       'access-control-allow-origin': '*'

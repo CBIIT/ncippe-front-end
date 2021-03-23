@@ -57,7 +57,7 @@ const NewMessageWorkflow = (props) => {
     
     getAPI.then(api => {
       const { audiences, subject, message} = sendMessageContext
-      return api.sendMessage({audiences, subject, message}).then(resp => {
+      return api.sendMessage({audiences, subject, body:message}).then(resp => {
         if(resp instanceof Error) {
           throw resp
         }
