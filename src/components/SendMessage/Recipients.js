@@ -19,15 +19,15 @@ const useStyles = makeStyles( theme => ({
 const recipientList = [
   {
     label: 'Clinical Research Associates',
-    value: 'ROLE_PPE_CRC'
+    value: 'PPE_CRC'
   },
   {
     label: 'Providers',
-    value: 'ROLE_PPE_PROVIDER'
+    value: 'PPE_PROVIDER'
   },
   {
     label: 'Participants',
-    value: 'ROLE_PPE_PARTICIPANT'
+    value: 'PPE_PARTICIPANT'
   }
 ]
 

@@ -56,8 +56,19 @@ const NewMessageWorkflow = (props) => {
     }
     
     getAPI.then(api => {
-      const { audiences, roles, subject, message} = sendMessageContext
-      return api.sendMessage({audiences, roles, subject, body:message}).then(resp => {
+      const { roles, subject, message} = sendMessageContext
+      // formatted to match notifications api
+      return api.sendMessage({
+        audiences:roles,
+        subject: {
+          en: subject,
+          es: subject
+        },
+        message: {
+          en: message,
+          es: message
+        }
+      }).then(resp => {
         if(resp instanceof Error) {
           throw resp
         }

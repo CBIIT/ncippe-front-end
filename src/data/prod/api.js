@@ -324,8 +324,8 @@ async function getHospitalList(){
 /*=======================================================================*/
 /*======== Send Message =================================================*/
 
-async function sendMessage({audiences, roles, subject, body}){
-  return await fetch(`/api/v1/messages`,{
+async function sendMessage({audiences, subject, message}){
+  return await fetch(`/api/v1/notifications`,{
     method: 'POST',
     headers: {
       'Content-Type': 'text/plain',
@@ -333,9 +333,8 @@ async function sendMessage({audiences, roles, subject, body}){
     },
     body: JSON.stringify({
       audiences,
-      roles,
       subject,
-      body
+      message
     })
   })
     .then(handleResponse)

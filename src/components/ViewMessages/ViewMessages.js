@@ -127,8 +127,8 @@ const ViewMessages = (props) => {
             </TableHead>
             <TableBody>
               {messages.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((message, i) => (
-                <TableRow key={message.id} className={classes.tableRow} data-index={i} onClick={viewMessage}>
-                  <TableCell className={classes.tableSubject}>{message.subject}</TableCell>
+                <TableRow key={i} className={classes.tableRow} data-index={i} onClick={viewMessage}>
+                  <TableCell className={classes.tableSubject}>{message.subject.en}</TableCell>
                   <TableCell className={classes.tableAudience}>{message.audiences.join(', ')}</TableCell>
                   <TableCell align="right" className={classes.tableDateSent}>{moment(message.dateSent).format('M/D/YYYY')}</TableCell>
                 </TableRow>
@@ -149,10 +149,10 @@ const ViewMessages = (props) => {
       <Dialog open={open} onClose={handleClose} maxWidth='lg'>
         {selected !== false && 
           <DialogContent className="preview">
-            <h3>{messages[selected].subject}</h3>
+            <h3>{messages[selected].subject.en}</h3>
             <p>{moment(messages[selected].sendDate).format('MMMM Do YYYY, h:mm a')}</p>
             <hr />
-            <RenderContent source={messages[selected].message} />
+            <RenderContent source={messages[selected].message.en} />
           </DialogContent>
         }
         <DialogActions>
