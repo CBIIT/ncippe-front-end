@@ -568,8 +568,10 @@ async function sendMessage({audiences, subject, message}){
 // }
 
 // get all results
-async function getMessages(){
-  console.log("getMessages data from the server:")
+async function getMessages({uuid}){
+  console.log("getMessages data from the server:", 
+  `\nadmin uuid:`, uuid
+)
   
   return await fetch(`/api/messages`)
   // .then(sleeper(5000))

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, Button, Dialog, DialogActions, DialogContent, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
 
 import getAPI from '../../data'
+import { LoginContext } from '../login/Login.context'
 import RenderContent from '../utils/RenderContent'
 import Status from '../Status'
 import Loading from '../Loading'
@@ -48,6 +49,7 @@ const useStyles = makeStyles( theme => ({
 
 const ViewMessages = (props) => {
   const classes = useStyles()
+  const [loginContext, dispatch] = useContext(LoginContext)
   const [messages, setMessages] = useState([])
   // const [totalCount, setTotalCount] = useState(0);
   const [page, setPage] = useState(0);
@@ -56,6 +58,7 @@ const ViewMessages = (props) => {
   const [selected, setSelected] = useState(false)
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
+  const { uuid } = loginContext
 
   useEffect(() => {
     //load messages from api
@@ -72,7 +75,7 @@ const ViewMessages = (props) => {
     // })
 
     getAPI.then(api => {
-      return api.getMessages().then(resp => {
+      return api.getMessages({uuid}).then(resp => {
         if(resp instanceof Error) {
           throw resp
         }
