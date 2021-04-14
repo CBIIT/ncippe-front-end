@@ -73,13 +73,13 @@
       ">0.2%",
       "not dead",
       "not op_mini all",
-      "ie 11"
+      "not ie > 0"
     ],
     "development": [
       ">0.2%",
       "not dead",
       "not op_mini all",
-      "ie 11"
+      "not ie > 0"
     ]
   },
   "proxy": "http://localhost:5000"
