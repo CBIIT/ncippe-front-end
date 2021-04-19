@@ -34,16 +34,24 @@ const TinyMCE_Editor = forwardRef((props, ref) => {
           alignment | charmap | image | bullist numlist | paste pastetext |removeformat | help`,
         quickbars_insert_toolbar: false,
         quickbars_selection_toolbar: 'bold italic underline | link',
-        setup: function (editor) {
+        setup: (editor) => {
 
           /* example, adding a group toolbar button */
           editor.ui.registry.addGroupToolbarButton('alignment', {
             icon: 'align-left',
             tooltip: 'Alignment',
             items: 'alignleft aligncenter alignright | alignjustify | outdent indent'
-          });
-      
-        },
+          })
+          editor.on('ObjectResizeStart', (e) => {
+            if (e.target.nodeName === 'IMG') {
+              const selectedImage = editor.selection.getNode()
+              editor.dom.setStyle(selectedImage,'width', e.width)
+              editor.dom.setStyle(selectedImage,'height', e.height)
+              selectedImage.removeAttribute('width')
+              selectedImage.removeAttribute('height')
+            }
+          })
+        }
       }}
       onEditorChange={handleEditorChange}
     />
