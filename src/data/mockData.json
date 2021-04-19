@@ -1007,9 +1007,6 @@
       "id": 12
     },
     {
-      "audiences": [
-        "PPE_CRC"
-      ],
       "subject": {
         "en": "Alert / Alerta",
         "es": "Alert / Alerta"

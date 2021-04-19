@@ -60,6 +60,12 @@ const ViewMessages = (props) => {
   const [loading, setLoading] = useState(true)
   const { uuid } = loginContext
 
+  const recipientTypes = {
+    PPE_CRC: 'Clinical Research Associates',
+    PPE_PROVIDER: 'Providers',
+    PPE_PARTICIPANT: 'Participants'
+  }
+
   useEffect(() => {
     //load messages from api
 
@@ -109,6 +115,11 @@ const ViewMessages = (props) => {
     setOpen(true)
   }
 
+  const niceAudienceNames = (audiences) => {
+    const niceNames = audiences.map(key => recipientTypes[key])
+    return niceNames.join(', ')
+  }
+
   if(loading) {
     return <Loading />
   }
@@ -132,7 +143,7 @@ const ViewMessages = (props) => {
               {messages.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((message, i) => (
                 <TableRow key={i} className={classes.tableRow} data-index={i} onClick={viewMessage}>
                   <TableCell className={classes.tableSubject}>{message.subject.en}</TableCell>
-                  {message.audiences && <TableCell className={classes.tableAudience}>{message.audiences.join(', ')}</TableCell>}
+                  {message.audiences && <TableCell className={classes.tableAudience}>{niceAudienceNames(message.audiences)}</TableCell>}
                   <TableCell align="right" className={classes.tableDateSent}>{moment(message.dateSent).format('M/D/YYYY')}</TableCell>
                 </TableRow>
               ))}
