@@ -132,7 +132,7 @@ const ViewMessages = (props) => {
               {messages.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((message, i) => (
                 <TableRow key={i} className={classes.tableRow} data-index={i} onClick={viewMessage}>
                   <TableCell className={classes.tableSubject}>{message.subject.en}</TableCell>
-                  <TableCell className={classes.tableAudience}>{message.audiences.join(', ')}</TableCell>
+                  {message.audiences && <TableCell className={classes.tableAudience}>{message.audiences.join(', ')}</TableCell>}
                   <TableCell align="right" className={classes.tableDateSent}>{moment(message.dateSent).format('M/D/YYYY')}</TableCell>
                 </TableRow>
               ))}
