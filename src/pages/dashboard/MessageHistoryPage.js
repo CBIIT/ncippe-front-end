@@ -20,22 +20,22 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Page = () => {
-  const { t } = useTranslation(['a_common'])
+  const { t } = useTranslation(['a_messageHistory','a_common'])
   const classes = useStyles()
 
   return (
     <Box className="popup">
       <Helmet>
-        <title>{t('components.messageHistory.metaData.title')}</title>
-        <meta name="title" content={t('components.messageHistory.metaData.title')} />
+        <title>{t('metaData.title')}</title>
+        <meta name="title" content={t('metaData.title')} />
       </Helmet>
       <Breadcrumbs pageName="Notifications" />
       <Container className="mainContainer">
         <div className={classes.titleWithIcon}>
           <img className={classes.titleIcon} src={`${process.env.PUBLIC_URL}/assets/icons/notifications.svg`} alt={t('a_common:icons.notifications')} aria-hidden="true"></img>
           <div>
-            <Typography variant="h2" component="h2">{t('components.messageHistory.pageTitle')}</Typography>
-            <Typography>{t('components.messageHistory.description')}</Typography>
+            <Typography variant="h2" component="h2">{t('pageTitle')}</Typography>
+            <Typography>{t('description')}</Typography>
           </div>
         </div>
         <ViewMessages />
