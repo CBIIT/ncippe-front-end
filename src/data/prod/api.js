@@ -347,18 +347,14 @@ async function getHospitalList(){
 /*=======================================================================*/
 /*======== Send Message =================================================*/
 
-async function sendMessage({audiences, subject, message}){
+async function sendMessage(data){
   return await fetch(`/api/v1/notifications`,{
     method: 'POST',
     headers: {
       'Content-Type': 'text/plain',
       'access-control-allow-origin': '*'
     },
-    body: JSON.stringify({
-      audiences,
-      subject,
-      message
-    })
+    body: JSON.stringify(data)
   })
     .then(handleResponse)
     .catch(handleErrorMsg('The server was unable to send messages.'))

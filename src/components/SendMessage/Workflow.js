@@ -6,6 +6,7 @@ import { navigate } from '@reach/router'
 
 import getAPI from '../../data'
 
+import { LoginContext } from '../login/Login.context'
 import { SendMessageContext } from './SendMessage.context'
 import NewMessageStepper from './NewMessageStepper'
 import Recipients from './Recipients'
@@ -38,9 +39,11 @@ const useStyles = makeStyles( theme => ({
 
 const NewMessageWorkflow = (props) => {
   const classes = useStyles()
+  const [loginContext] = useContext(LoginContext)
   const { t } = useTranslation(['a_sendMessage','a_common'])
   const [activeStep, setActiveStep] = useState(0)
   const [sendMessageContext, dispatch] = useContext(SendMessageContext)
+  const { uuid, firstName, lastName, email } = loginContext
 
   useEffect(() => {
     if(sendMessageContext.navigate) {
@@ -67,7 +70,13 @@ const NewMessageWorkflow = (props) => {
         message: {
           en: message,
           es: message
-        }
+        },
+        messageFrom: {
+          firstName,
+          lastName,
+          email
+        },
+        sentBy: uuid
       }).then(resp => {
         if(resp instanceof Error) {
           throw resp
