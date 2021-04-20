@@ -20,8 +20,8 @@ const Page = () => {
   return (
     <Box className="popup">
       <Helmet>
-        <title>{t('components.notificationView.metaData.title')}</title>
-        <meta name="title" content={t('components.notificationView.metaData.title')} />
+        <title>{t('metaData.title')}</title>
+        <meta name="title" content={t('metaData.title')} />
       </Helmet>
       <Breadcrumbs pageName="Notifications" />
       <Container className="mainContainer">
