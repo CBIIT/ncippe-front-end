@@ -91,7 +91,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(4,3),
     '& > :not(:first-child)': {
       marginTop: theme.spacing(2),
-      borderTop: '2px solid rgba(0, 0, 0, 0.12)',
+      borderTop: `2px solid ${theme.palette.divider}`,
       paddingTop: theme.spacing(2)
     }
   }
