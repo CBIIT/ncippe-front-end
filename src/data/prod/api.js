@@ -67,6 +67,41 @@ async function loginUser(){
     }
   })
   .then(handleResponse)
+  .then(data => {
+    if(data.portalAccountStatus === 'ACCT_TERMINATED_AT_PPE') {
+      return new Error(`This account has been closed`)
+    } else {
+      // format "phoneNumber" field
+      data.phoneNumber = formatPhoneNumber(data.phoneNumber)
+
+      // set new notification count
+      data.newNotificationCount = data.notifications ? data.notifications.reduce((total, notification) => total + (notification.viewedByUser ? 0 : 1), 0) : 0
+      
+      // participant specific data
+      // find which reports and otherDocuments have been viewed by this user
+      if(data.userType === 'PPE_PARTICIPANT') {
+        const viewedReports = filesViewedByUser(data.reports, data.uuid)
+        const viewedDocuments = filesViewedByUser(data.otherDocuments, data.uuid)
+        const roleData = {
+          reports: viewedReports.files,
+          newReportCount: viewedReports.newCount,
+          hasNewReports: Boolean(viewedReports.newCount),
+          otherDocuments: viewedDocuments.files,
+          newDocumentCount: viewedDocuments.newCount,
+          hasNewDocuments: Boolean(viewedDocuments.newCount)
+        }
+        data = {...data, ...roleData}
+      }
+
+      // admin specific data
+      // sort patient list alphabetically by last name
+      if(data.patients && data.patients.length > 1) {
+        data.patients = sortPatients(data.patients)
+      }
+
+      return data
+    }
+  })
   .catch(handleErrorMsg(`Unable to login user.`))
 }
 
@@ -115,18 +150,6 @@ async function fetchUser({uuid, patientId, email, adminId, token}){
         hasNewDocuments: Boolean(viewedDocuments.newCount)
       }
       data = {...data, ...roleData}
-
-      // participant specific data 
-      if (data.roleName === "ROLE_PPE_PARTICIPANT") {
-        // have to stuff provider into an array to match prod machine. Unfortunatly, json-server does not handle many-to-many relationships, so we're hacking the response here
-        if(data.provider) {
-          const { provider, ...rest } = data
-          data = {
-            ...rest,
-            providers: [provider]
-          }
-        }
-      }
 
       // admin specific data
       // sort patient list alphabetically by last name
