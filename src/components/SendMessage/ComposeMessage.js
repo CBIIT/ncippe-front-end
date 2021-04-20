@@ -29,6 +29,7 @@ const ComposeMessage = () => {
   const [subjectError, setSubjectError] = useState(false)
   const [message, setMessage]  = useState(sendMessageContext.message)
   const [messageError, setMessageError] = useState(false)
+  const [messageErrorText, setMessageErrorText] = useState(t('compose.form.error_textarea'))
 
   const navigate = (to) => {
     dispatch({
@@ -71,6 +72,17 @@ const ComposeMessage = () => {
       valid = false
     }
     if(!cleanValue || cleanValue === tinyEditor_InitialValue) {
+      setMessageErrorText(t('compose.form.error_textarea'))
+      setMessageError(true)
+      valid = false
+    }
+    else if(cleanValue.includes("English text of the message...")){
+      setMessageErrorText(t('compose.form.error_enPlaceholder'))
+      setMessageError(true)
+      valid = false
+    } 
+    else if(cleanValue.includes("Spanish text of the message...")){
+      setMessageErrorText(t('compose.form.error_esPlaceholder'))
       setMessageError(true)
       valid = false
     }
@@ -106,7 +118,7 @@ const ComposeMessage = () => {
           />
         </Box>
           <Suspense fallback={<div style={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}><Loading /></div>}>
-            <InputGroupError error={messageError} errorMessage={t('compose.form.error_textarea')}>
+            <InputGroupError error={messageError} errorMessage={messageErrorText}>
               <Editor 
               ref={tinyEditor} 
               value={message}
