@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { Button, Chip, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
@@ -54,6 +54,13 @@ const AddReport = (props) => {
   const { t } = useTranslation(['a_landingMocha','a_common'])
   const [mochaContext, dispatch] = useContext(MochaContext)
   const [loginContext] = useContext(LoginContext)
+  const submitBtn = useRef()
+
+  useEffect(()=>{
+    if(mochaContext.reportFile) {
+      submitBtn.current.focus()
+    }
+  },[mochaContext.reportFile])
 
   const navigate = (to) => {
     dispatch({
@@ -201,7 +208,7 @@ const AddReport = (props) => {
         <FormButtons
           leftButtons={
             <>
-            <Button variant="contained" color="primary" onClick={uploadFile} disabled={!mochaContext.reportFile || mochaContext.uploadError}>{t('a_common:buttons.submit')}</Button>
+            <Button variant="contained" color="primary" type="submit" ref={submitBtn} onClick={uploadFile} disabled={!mochaContext.reportFile || mochaContext.uploadError}>{t('a_common:buttons.submit')}</Button>
             <Button variant="text" color="primary" onClick={() => navigate('dashboard')}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
             </>
           }

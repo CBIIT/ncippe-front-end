@@ -22,7 +22,7 @@ const Component = (props) => {
     <Box>
       <Status state="success" title={t('upload.3.success.title')} message={t('upload.3.success.message')} />
       <FormButtons
-        leftButtons={<Button variant="contained" color="primary" onClick={() => navigate('restart')}>{t('upload.3.success.button_reset')}</Button>}
+        leftButtons={<Button variant="contained" color="primary" type="submit" onClick={() => navigate('restart')}>{t('upload.3.success.button_reset')}</Button>}
       />
     </Box>
   )

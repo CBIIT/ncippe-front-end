@@ -124,7 +124,7 @@ const ParticipantId = (props) => {
       <FormButtons
         leftButtons={
           <>
-          <Button variant="contained" color="primary" onClick={validatePatientId}>{t('a_common:buttons.next')}</Button>
+          <Button variant="contained" color="primary" type="submit" onClick={validatePatientId}>{t('a_common:buttons.next')}</Button>
           <Button variant="text" color="primary" onClick={() => navigate('dashboard')}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
           </>
         }

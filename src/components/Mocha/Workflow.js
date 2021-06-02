@@ -41,6 +41,9 @@ const MochaReport = () => {
     }
   }, [mochaContext.navigate])
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+  }
 
   const handleNavigate = (to) => {
     switch (to) {
@@ -81,7 +84,7 @@ const MochaReport = () => {
         <UploadStepper activeStep={activeStep} />
         <Divider className={classes.divider} />
         
-        <form id="uploadPatientReport" className={classes.formUpload} autoComplete="off">
+        <form id="uploadPatientReport" className={classes.formUpload} autoComplete="off" onSubmit={handleSubmit}>
           {activeStep === 0 && (
             // participant ID
             <ParticipantId />
