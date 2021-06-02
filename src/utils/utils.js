@@ -39,7 +39,7 @@ export const isValidUUID = (uuid) => {
  * @return {boolean}
  */
 export const isValidUserId = (id) => {
-  const userIdRegex = /[A-Za-z0-9._~()'!*:@,;+?-]{1,20}/;
+  const userIdRegex = /^[A-Za-z0-9._~()'!*:@,;+?-]{1,20}$/g;
   return userIdRegex.test(id)
 }
 
