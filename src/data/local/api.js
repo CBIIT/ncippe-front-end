@@ -198,7 +198,7 @@ async function fetchUser({uuid, patientId, email, adminId, token}){
       }
     })
     // .then(sleeper(5000))
-    .catch(handleErrorMsg(`Unable to fetch user data based on query: ${query}`))
+    .catch(handleErrorMsg(`Unable to fetch user data based on query: ${JSON.stringify(query)}`))
 }
 
 /*=======================================================================*/
