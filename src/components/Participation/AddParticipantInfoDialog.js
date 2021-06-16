@@ -24,7 +24,7 @@ import moment from 'moment'
 import getAPI from '../../data'
 import { LoginContext } from '../login/Login.context'
 import Status from '../Status'
-import FileItem from '../Mocha/FileItem'
+import FileItem from '../FileItem'
 import InputGroupError from '../inputs/InputGroupError'
 import LangOption from '../inputs/LangOption'
 
