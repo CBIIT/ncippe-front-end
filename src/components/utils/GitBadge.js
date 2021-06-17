@@ -13,7 +13,6 @@ const useStyles = makeStyles( theme => ({
     transform: 'none',
     borderRadius: '6px 6px 0 0',
     padding: theme.spacing(1,2),
-    textTransform: 'uppercase',
     backgroundColor: theme.palette.gold.main,
     color: theme.palette.common.black,
     fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
