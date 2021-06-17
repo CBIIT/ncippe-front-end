@@ -570,8 +570,8 @@ async function sendMessage(data){
 // get all results
 async function getMessages({uuid}){
   console.log("getMessages data from the server:", 
-  `\nadmin uuid:`, uuid
-)
+    `\nadmin uuid:`, uuid
+  )
   
   return await fetch(`/api/messages`)
   // .then(sleeper(5000))

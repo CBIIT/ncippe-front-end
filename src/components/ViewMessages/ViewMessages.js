@@ -9,6 +9,7 @@ import { LoginContext } from '../login/Login.context'
 import RenderContent from '../utils/RenderContent'
 import Status from '../Status'
 import Loading from '../Loading'
+import NoItems from '../NoItems'
 
 const useStyles = makeStyles( theme => ({
   root: {
@@ -106,7 +107,7 @@ const ViewMessages = (props) => {
 
     getAPI.then(api => {
       return api.getMessages({uuid}).then(resp => {
-        if(resp instanceof Error) {
+        if(resp instanceof Error || resp?.error) {
           throw resp
         }
         setAllMessages(resp.reverse())
@@ -159,8 +160,13 @@ const ViewMessages = (props) => {
   }
 
   if(error) {
-    return <Status state="error" title="Server Error" message={error.message} />
+    if(error?.error) {
+      return <NoItems message={error.error} />
+    } else {
+      return <Status state="error" title="Server Error" message={error.message} />
+    }
   }
+
 
   return (
     <Box className={classes.root}>
