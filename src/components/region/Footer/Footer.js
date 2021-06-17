@@ -5,10 +5,13 @@ import PubSub from 'pubsub-js'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Grid, Link, Typography } from '@material-ui/core'
 
+import GitBadge from '../../utils/GitBadge'
+
 // import { newWindow } from '../../../utils/utils'
 
 const useStyles = makeStyles(theme => ({
   root: {
+    position: 'relative',
     backgroundColor: '#0D1C3C',
     padding: theme.spacing(3),
     color: theme.palette.common.white,
@@ -134,6 +137,7 @@ const Footer = () => {
         <div className={classes.tagline}>{t('footer.tagline')}</div>
       </Typography>
       <div id="external" className="visually-hidden">{t('aria.external')}</div>
+      {process.env.REACT_APP_GIT_BRANCH_TAG === "true" && <GitBadge />}
     </Container>
   )
 }
