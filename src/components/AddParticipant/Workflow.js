@@ -210,8 +210,8 @@ const AddParticipantWorkflow = (props) => {
   }
 
   const activateParticipant = () => {
-    getAPI.then(api => {
-      api.activateParticipant({
+    getAPI.then(async api => {
+      return await api.activateParticipant({
         uuid,
         token,
         patient: {
@@ -310,7 +310,7 @@ const AddParticipantWorkflow = (props) => {
           <AddConsent />
         )}
         {activeStep === 2 && (
-          // upload progress
+          // upload progress. On success - redirected to Participant View
           <Progress title={t('progress')} />
         )}
       </DialogContent>
