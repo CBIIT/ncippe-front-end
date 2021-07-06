@@ -7,6 +7,8 @@ import { navigate } from '@reach/router'
 import getAPI from '../../data'
 
 import { SendMessageContext } from './SendMessage.context'
+import { LoginContext } from '../login/Login.context'
+
 import NewMessageStepper from './NewMessageStepper'
 import Recipients from './Recipients'
 import ComposeMessage from './ComposeMessage'
@@ -41,6 +43,7 @@ const NewMessageWorkflow = (props) => {
   const { t } = useTranslation(['a_sendMessage','a_common'])
   const [activeStep, setActiveStep] = useState(0)
   const [sendMessageContext, dispatch] = useContext(SendMessageContext)
+  const [loginContext] = useContext(LoginContext)
 
   useEffect(() => {
     if(sendMessageContext.navigate) {
@@ -59,6 +62,7 @@ const NewMessageWorkflow = (props) => {
       const { roles, subject, message} = sendMessageContext
       // formatted to match notifications api
       return api.sendMessage({
+        sentBy: loginContext.uuid,
         audiences:roles,
         subject: {
           en: subject,

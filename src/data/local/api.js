@@ -534,22 +534,36 @@ async function getHospitalList(){
 /*======== Send Messages ================================================*/
 
 async function sendMessage(data){
+
+  const userData = await fetchUser({uuid: data.uuid})
+
+  // const { uuid, ...rest } = data
+
+  const msgData = {
+    ...data,
+    dateSent: Date.now(),
+    messageFrom: {
+      userUUID: userData.uuid,
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+    }
+  }
+
   console.log("sendMessage data sent to server:",
-    `\naudiences: ${data.audiences}`,
-    `\nsubject: ${JSON.stringify(data.subject)}`,
-    `\nmessage: ${JSON.stringify(data.message)}`,
-    `\nmessageFrom: ${JSON.stringify(data.messageFrom)}`,
-    `\nsentBy: ${JSON.stringify(data.sentBy)}`,
-  )
+  `\naudiences: ${msgData.audiences}`,
+  `\nsubject: ${JSON.stringify(msgData.subject)}`,
+  `\nmessage: ${JSON.stringify(msgData.message)}`,
+  `\nmessageFrom: ${JSON.stringify(msgData.messageFrom)}`,
+  `\ndateSent: ${JSON.stringify(msgData.dateSent)}`,
+)
+
   return await fetch(`/api/messages`,{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      ...data,
-      dateSent: Date.now(),
-    })
+    body: JSON.stringify(msgData)
   })
   .then(handleResponse)
   .catch(handleErrorMsg('The server was unable to send messages.'))
@@ -567,13 +581,13 @@ async function sendMessage(data){
 //   .catch(handleErrorMsg('The server was unable to fetch messages.'))
 // }
 
-// get all results
+// get only messages for current user
 async function getMessages({uuid}){
   console.log("getMessages data from the server:", 
     `\nadmin uuid:`, uuid
   )
   
-  return await fetch(`/api/messages`)
+  return await fetch(`/api/messages?sentBy=${uuid}`)
   // .then(sleeper(5000))
   .then(handleResponse)
   .catch(handleErrorMsg('The server was unable to fetch messages.'))

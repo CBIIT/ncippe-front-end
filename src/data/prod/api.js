@@ -364,7 +364,7 @@ async function sendMessage(data){
 /*======== Get Messages =================================================*/
 
 async function getMessages({uuid}){
-  return await fetch(`/api/v1/user/${uuid}/notifications`,{
+  return await fetch(`/api/v1/notifications`,{
     headers: {
       'Content-Type': 'text/plain',
       'access-control-allow-origin': '*'

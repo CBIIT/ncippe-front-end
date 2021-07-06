@@ -15,19 +15,19 @@ const useStyles = makeStyles( theme => ({
   root: {
     position: 'relative'
   },
-  tableOptions: {
-    position: 'absolute',
-    top: -43,
-    right: 0,
-    display: 'inline-flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginBottom: theme.spacing(.5),
-    marginLeft: theme.spacing(2),
-    '& > :first-child': {
-      marginRight: theme.spacing(1.5)
-    }
-  },
+  // tableOptions: {
+  //   position: 'absolute',
+  //   top: -43,
+  //   right: 0,
+  //   display: 'inline-flex',
+  //   justifyContent: 'flex-end',
+  //   alignItems: 'center',
+  //   marginBottom: theme.spacing(.5),
+  //   marginLeft: theme.spacing(2),
+  //   '& > :first-child': {
+  //     marginRight: theme.spacing(1.5)
+  //   }
+  // },
   table: {
     minWidth: 600,
   },
@@ -73,9 +73,9 @@ const ViewMessages = (props) => {
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const { t } = useTranslation(['a_messageHistory'])
-  const [allMessages, setAllMessages] = useState([])
+  // const [allMessages, setAllMessages] = useState([])
   const [messages, setMessages] = useState([]) // to be filtered by user
-  const [viewAll, setViewAll] = useState(false)
+  // const [viewAll, setViewAll] = useState(false)
   // const [totalCount, setTotalCount] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -86,9 +86,9 @@ const ViewMessages = (props) => {
   const { uuid } = loginContext
 
   const recipientTypes = {
-    PPE_CRC: 'Clinical Research Associates',
-    PPE_PROVIDER: 'Providers',
-    PPE_PARTICIPANT: 'Participants'
+    ROLE_PPE_CRC: 'Clinical Research Associates',
+    ROLE_PPE_PROVIDER: 'Providers',
+    ROLE_PPE_PARTICIPANT: 'Participants'
   }
 
   useEffect(() => {
@@ -110,7 +110,8 @@ const ViewMessages = (props) => {
         if(resp instanceof Error || resp?.error) {
           throw resp
         }
-        setAllMessages(resp.reverse())
+        // setAllMessages(resp.reverse())
+        setMessages(resp.reverse())
         setLoading(false)
       })
     })
@@ -121,13 +122,13 @@ const ViewMessages = (props) => {
   
   },[])
 
-  useEffect(()=>{
-    if(viewAll) {
-      setMessages(allMessages)
-    } else {
-      setMessages(prev => allMessages.filter(message => message.sentBy === uuid))
-    }
-  },[allMessages, viewAll, uuid])
+  // useEffect(()=>{
+  //   if(viewAll) {
+  //     setMessages(allMessages)
+  //   } else {
+  //     setMessages(prev => allMessages.filter(message => message.messageFrom?.userUUID === uuid))
+  //   }
+  // },[allMessages, viewAll, uuid])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage)
@@ -153,7 +154,7 @@ const ViewMessages = (props) => {
     return niceNames.join(', ')
   }
 
-  const handleSwitchChange = (e) => setViewAll(e.target.checked)
+  // const handleSwitchChange = (e) => setViewAll(e.target.checked)
 
   if(loading) {
     return <Loading />
@@ -170,13 +171,13 @@ const ViewMessages = (props) => {
 
   return (
     <Box className={classes.root}>
-      <Box className={classes.tableOptions}>
+      {/* <Box className={classes.tableOptions}>
         <Typography component="span">{t('switch.mine')}</Typography>
         <FormControlLabel
           control={<Switch color="primary" checked={viewAll} onChange={handleSwitchChange} />}
           label={t('switch.all')}
         />
-      </Box>
+      </Box> */}
       <Paper>
         <TableContainer>
           <Table className={classes.table} aria-label="simple table">
@@ -192,7 +193,7 @@ const ViewMessages = (props) => {
                   <TableCell className={classes.tableSubject}>{message.subject.en}</TableCell>
                   {message.audiences && <TableCell className={classes.tableAudience}>{t('message.sentTo')}: {niceAudienceNames(message.audiences)}</TableCell>}
                   {/* {viewAll && <TableCell className={classes.tableMessageFrom}>{t('message.sentBy')}: <a href={`mailto:${message.messageFrom.email}`}>{message.messageFrom.firstName} {message.messageFrom.lastName}</a></TableCell>} */}
-                  {viewAll && <TableCell className={classes.tableMessageFrom}>{t('message.sentBy')}: {message.messageFrom.firstName} {message.messageFrom.lastName} &lt;{message.messageFrom.email}&gt;</TableCell>}
+                  {/* {viewAll && <TableCell className={classes.tableMessageFrom}>{t('message.sentBy')}: {message.messageFrom.firstName} {message.messageFrom.lastName} &lt;{message.messageFrom.email}&gt;</TableCell>} */}
                   <TableCell align="right" className={classes.tableDateSent}>{moment(message.dateSent).format('M/D/YYYY')}</TableCell>
                 </TableRow>
               ))}
