@@ -214,7 +214,7 @@ const ViewMessages = (props) => {
         {selected !== false && 
           <DialogContent className="preview">
             <h3>{messages[selected].subject.en}</h3>
-            <p>{moment(messages[selected].sendDate).format('MMMM Do YYYY, h:mm a')}</p>
+            <p>{moment(messages[selected].dateSent).format('MMMM Do YYYY, h:mm a')}</p>
             <hr />
             <RenderContent source={messages[selected].message.en} />
           </DialogContent>
