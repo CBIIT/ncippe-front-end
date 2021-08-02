@@ -5,7 +5,14 @@ import queryString from 'query-string'
 const handleResponse = resp => {
   if(resp.ok) {
     const contentType = resp.headers.get("content-type")
-    if (contentType && contentType.indexOf("application/json") !== -1) {
+    const totalCount = resp.headers.get('x-total-count')
+    if (totalCount) {
+      return resp.json().then((records) => ({
+        records,
+        totalCount
+      }))
+    }
+    else if (contentType && contentType.indexOf("application/json") !== -1) {
       return resp.json()
     } else {
       return resp
@@ -75,7 +82,8 @@ async function fetchMockUsers(){
       "crcs",
       "bsscs",
       "mochaAdmins",
-      "admins"
+      "admins",
+      "messengers",
     ]
   }
 
@@ -514,12 +522,75 @@ async function activateParticipant({uuid, patient, token}){
 }
 
 /*=======================================================================*/
-/*======== Get Hospital List =========================================*/
+/*======== Get Hospital List ============================================*/
 
 async function getHospitalList(){
   return await fetch(`/api/hospitals/`)
     .then(handleResponse)
     .catch(handleErrorMsg('Unable to fetch hospital list at this time.'))
+}
+
+/*=======================================================================*/
+/*======== Send Messages ================================================*/
+
+async function sendMessage(data){
+
+  const userData = await fetchUser({uuid: data.uuid})
+
+  // const { uuid, ...rest } = data
+
+  const msgData = {
+    ...data,
+    dateSent: Date.now(),
+    messageFrom: {
+      userUUID: userData.uuid,
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      email: userData.email,
+    }
+  }
+
+  console.log("sendMessage data sent to server:",
+  `\naudiences: ${msgData.audiences}`,
+  `\nsubject: ${JSON.stringify(msgData.subject)}`,
+  `\nmessage: ${JSON.stringify(msgData.message)}`,
+  `\nmessageFrom: ${JSON.stringify(msgData.messageFrom)}`,
+  `\ndateSent: ${JSON.stringify(msgData.dateSent)}`,
+)
+
+  return await fetch(`/api/messages`,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(msgData)
+  })
+  .then(handleResponse)
+  .catch(handleErrorMsg('The server was unable to send messages.'))
+}
+
+/*=======================================================================*/
+/*======== Get Messages =================================================*/
+
+// paginated results
+// async function getMessages({page,limit}){
+//   console.log("getMessages data from the server:")
+  
+//   return await fetch(`/api/messages?_page=${page}&_limit=${limit}`)
+//   .then(handleResponse)
+//   .catch(handleErrorMsg('The server was unable to fetch messages.'))
+// }
+
+// get only messages for current user
+async function getMessages({uuid}){
+  console.log("getMessages data from the server:", 
+    `\nadmin uuid:`, uuid
+  )
+  
+  return await fetch(`/api/messages?sentBy=${uuid}`)
+  // .then(sleeper(5000))
+  .then(handleResponse)
+  .catch(handleErrorMsg('The server was unable to fetch messages.'))
 }
 
 /*=======================================================================*/
@@ -543,5 +614,7 @@ export const api = {
   closeAccount,
   updateParticipantDetails,
   activateParticipant,
-  getHospitalList
+  getHospitalList,
+  sendMessage,
+  getMessages,
 }

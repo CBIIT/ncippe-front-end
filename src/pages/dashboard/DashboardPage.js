@@ -102,26 +102,66 @@ const Page = () => {
         
         {/* Primary row */}
         <Grid container className={classes.grid} spacing={2} direction="row" justify="center" alignItems="stretch">
-          {/* User Notifications */}
-          <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+          {/* Send Message */}
           <LoginConsumer>
-            {([{newNotificationCount: count}]) => {
+            {([{roleName}]) => {
               //{`You have ${count} new notification${count !== 1 ? 's' : ''}.`}
               /* count will be a number */
-              return (
-                <IconCard
-                  icon="notifications.svg"
-                  title={t('cards.notifications.title')}
-                  desc={t('cards.notifications.description', {count})}
-                  link="/account/notifications"
-                  linkText={t('cards.notifications.link')}
-                  count={count}
-                  cardClick={trackCardClick}
-                />
+              return roleName === "ROLE_PPE_MESSENGER" && (
+                <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+                  <IconCard
+                    icon="notifications.svg"
+                    title={t('cards.sendMessage.title')}
+                    desc={t('cards.sendMessage.description')}
+                    link="/account/sendMessage"
+                    linkText={t('cards.sendMessage.link')}
+                    cardClick={trackCardClick}
+                  />
+                </Grid>
               )
             }}
           </LoginConsumer>
-          </Grid>
+          {/* END: Send Message */}
+          {/* Message History */}
+          <LoginConsumer>
+            {([{roleName}]) => {
+              //{`You have ${count} new notification${count !== 1 ? 's' : ''}.`}
+              /* count will be a number */
+              return roleName === "ROLE_PPE_MESSENGER" && (
+                <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+                  <IconCard
+                    icon="stored-medical-info.svg"
+                    title={t('cards.messageHistory.title')}
+                    desc={t('cards.messageHistory.description')}
+                    link="/account/messageHistory"
+                    linkText={t('cards.messageHistory.link')}
+                    cardClick={trackCardClick}
+                  />
+                </Grid>
+              )
+            }}
+          </LoginConsumer>
+          {/* END: Message History */}
+          {/* User Notifications */}
+          <LoginConsumer>
+            {([{roleName, newNotificationCount: count}]) => {
+              //{`You have ${count} new notification${count !== 1 ? 's' : ''}.`}
+              /* count will be a number */
+              return roleName !== "ROLE_PPE_MESSENGER" && (
+                <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+                  <IconCard
+                    icon="notifications.svg"
+                    title={t('cards.notifications.title')}
+                    desc={t('cards.notifications.description', {count})}
+                    link="/account/notifications"
+                    linkText={t('cards.notifications.link')}
+                    count={count}
+                    cardClick={trackCardClick}
+                  />
+                </Grid>
+              )
+            }}
+          </LoginConsumer>
           {/* END: User Notifications */}
 
           <LoginConsumer>
@@ -162,22 +202,25 @@ const Page = () => {
           </LoginConsumer>
 
           {/* User Profile */}
-          <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
           <LoginConsumer>
+          
           {([{roleName}]) => {
             const icon = roleName === "ROLE_PPE_PARTICIPANT" ? "user-profile.svg" : "doctor.svg"
             const description = roleName === "ROLE_PPE_PARTICIPANT" ? t('cards.settings.description.participant') : t('cards.settings.description.admin')
-            return <IconCard
-                icon={icon}
-                title={t('cards.settings.title')}
-                desc={description}
-                link="/account/profile"
-                linkText={t('cards.settings.link')}
-                cardClick={trackCardClick}
-              />
+            return (
+                <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+                  <IconCard
+                    icon={icon}
+                    title={t('cards.settings.title')}
+                    desc={description}
+                    link="/account/profile"
+                    linkText={t('cards.settings.link')}
+                    cardClick={trackCardClick}
+                  />
+                </Grid>
+              )
             }}
-            </LoginConsumer>
-          </Grid>
+          </LoginConsumer>
           {/* END: User Profile */}
           {/* Get Help */}
           <LoginConsumer>

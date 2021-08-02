@@ -42,7 +42,8 @@ module.exports = (req, res, next) => {
           'crcs',
           'bsscs',
           'mochaAdmins',
-          'admins'
+          'admins',
+          'messengers'
         ],
       }
     },(error, resp, body) => {
@@ -95,6 +96,9 @@ module.exports = (req, res, next) => {
               userType = 'admins'
               _embed = ['notifications']
               break;
+            case 'PPE_MESSENGER':
+                userType = 'messengers'
+                break;
             default:
               userType = 'patients'
               _embed = ['notifications']

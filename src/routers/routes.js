@@ -30,6 +30,9 @@ import ProfilePage        from '../pages/dashboard/ProfilePage'
 import ParticipationPage  from '../pages/dashboard/ParticipationPage'
 import GetHelpPage        from '../pages/dashboard/GetHelpPage'
 import ResourcesPage      from '../pages/dashboard/ResourcesPage'
+import SendMessagePage    from '../pages/dashboard/SendMessagePage'
+import MessageHistoryPage from '../pages/dashboard/MessageHistoryPage'
+
 import { LoginContext, LoginConsumer }  from '../components/login/Login.context'
 import { useTranslation } from 'react-i18next'
 
@@ -200,6 +203,8 @@ export default () => (
             <PrivateRoute path='/account/profile/participation/*' component={ParticipationPage} />
             <PrivateRoute path='/account/help' component={GetHelpPage} />
             <PrivateRoute path='/account/resources' component={ResourcesPage} />
+            <PrivateRoute path='/account/sendMessage' component={SendMessagePage} />
+            <PrivateRoute path='/account/messageHistory' component={MessageHistoryPage} />
             <NotFoundPage default />
           </Router>
         </CSSTransition>
