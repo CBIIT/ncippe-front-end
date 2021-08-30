@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 
 import PatientListItem from './PatientListItem'
-import AddParticipantInfoDialog from '../../components/Participation/AddParticipantInfoDialog'
+// import AddParticipantInfoDialog from '../../components/Participation/AddParticipantInfoDialog'
+import AddParticipantInfoDialog from '../../components/AddParticipant'
 
 const useStyles = makeStyles(theme => ({
   titleWithIcon: {
@@ -82,8 +83,8 @@ const PatientList = (props) => {
       prop42: `BioBank_NewParticipant|Start`,
       eVar42: `BioBank_NewParticipant|Start`,
     })
-    setDialogOpen(true)
     setPatientToActivate(patient)
+    setDialogOpen(true)
   }
 
   const closeUploadDialog = (success) => {

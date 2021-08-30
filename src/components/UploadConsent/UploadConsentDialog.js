@@ -10,7 +10,7 @@ import PubSub from 'pubsub-js'
 import getAPI from '../../data'
 import { LoginContext } from '../login/Login.context'
 import Status from '../Status'
-import FileItem from '../Mocha/FileItem'
+import FileItem from '../FileItem'
 
 const useStyles = makeStyles(theme => ({
   // contentText: {

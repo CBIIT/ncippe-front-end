@@ -12,7 +12,7 @@ import getAPI from '../../data'
 import { MochaContext } from './Mocha.context'
 import { LoginContext } from '../login/Login.context'
 
-import FileItem from './FileItem'
+import FileItem from '../FileItem'
 import ReportList from './ReportList'
 import Status from '../Status'
 import FormButtons from '../inputs/FormButtons'
