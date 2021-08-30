@@ -41,7 +41,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/outdated-browser-rework/3.0.1/style.min.css" integrity="sha512-2lGH1Qnh34HUCry+IxSR+EmwUMX8ib72VH6alcqKVPARQyRDU55AeDlVHQrNseGxX3jEtUg55NdqLQxIqAjyBQ==" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/outdated-browser-rework/3.0.1/outdated-browser-rework.min.js" integrity="sha512-8JSiMT5Tzn4WG6vzwg4GdRuSnf0U3mKMlJ54Ix7JnSFwuV7rgeMaEqoMnL4/cvzu4AZFWbNPs1pVPeyx7ol+gQ==" crossorigin="anonymous"></script>
     <script>
-      outdatedBrowserRework();
+      outdatedBrowserRework({
+				browserSupport: {
+					Prerender: 1
+				},
+				isUnknownBrowserOK: true,
+			});
     </script>
 
     <!-- Fonts to support Material Design -->
