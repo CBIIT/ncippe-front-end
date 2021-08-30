@@ -47,9 +47,9 @@ module.exports = (req, res, next) => {
         ],
       }
     },(error, resp, body) => {
-
+      
       // if there was a query then return single user
-      if(Object.keys(_query).length) {
+      if(Object.keys(_query).length && body) {
 
         const user = JSON.parse(body)
 

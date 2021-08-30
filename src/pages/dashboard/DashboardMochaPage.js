@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async'
 import PubSub from 'pubsub-js'
 
 import { LoginConsumer } from '../../components/login/Login.context'
-import UploadReport from '../../components/Mocha/UploadReport'
+import MochaReport from '../../components//Mocha'
 
 const Page = () => {
   const { t } = useTranslation(['a_landingMocha','a_common'])
@@ -33,7 +33,7 @@ const Page = () => {
           <LoginConsumer>
           {([{firstName, lastName}]) => <Box my={6} mx={0}><Typography variant='h1' component='h1' gutterBottom>{t('a_common:welcome')}, {firstName} {lastName}</Typography></Box>}
           </LoginConsumer>
-          <UploadReport />
+          <MochaReport />
       </Container>
     </Box>
   )
