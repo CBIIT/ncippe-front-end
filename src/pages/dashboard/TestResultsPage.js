@@ -65,6 +65,9 @@ const Page = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <Paper elevation={25}>
+							<Box p={2}>
+								<Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('components.biomarkerView.guide.title')}</Typography>
+							</Box>
               <img src={`${process.env.PUBLIC_URL}/assets/images/sampleReport/dashboard/test-guide--solid-tumor.jpg`} alt={t('components.biomarkerView.guide.alt_text')}
                 srcSet={`
                   ${process.env.PUBLIC_URL}/assets/images/sampleReport/dashboard/test-guide--solid-tumor.jpg 1x,
@@ -73,8 +76,7 @@ const Page = () => {
               />
               <Divider />
               <Box p={2}>
-                <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('components.biomarkerView.guide.title')}</Typography>
-                <Button href={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('components.biomarkerView.guide.aria_label')}>{t('components.biomarkerView.guide.link')}</Button>
+                <Button href={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('components.biomarkerView.guide.title_aria')}>{t('components.biomarkerView.guide.link')}</Button>
               </Box>
             </Paper>
           </Grid>
