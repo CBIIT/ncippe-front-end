@@ -3,11 +3,11 @@ import { Link as RouterLink } from "@reach/router"
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 import { makeStyles } from '@material-ui/core/styles'
-import { Container, Grid, Link, Typography } from '@material-ui/core'
+import { Container, Grid, IconButton, Link, Typography } from '@material-ui/core'
 
 import GitBadge from '../../utils/GitBadge'
 
-// import { newWindow } from '../../../utils/utils'
+import { newWindow } from '../../../utils/utils'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,10 +64,10 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'uppercase',
     marginBottom: 14
   },
-  // socialIcon: {
-  //   width: 60,
-  //   paddingLeft: 5
-  // }
+  socialIcon: {
+    width: 60,
+    paddingLeft: 5
+  }
 }),{name: 'Footer'})
 
 
@@ -90,15 +90,20 @@ const Footer = () => {
   Social media integrations on hold until we get Server Side Rendering (SSR) or https://prerender.io/ working, which will respond to search engines and crawlers with correct metadata
 */
 
-  // const handleShareOnFacebook = (e) => {
-  //   const url = `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`
-  //   newWindow(url)
-  // }
+  const handleShareOnFacebook = (e) => {
+    const url = `https://www.facebook.com/sharer/sharer.php?u=https://moonshotbiobank.cancer.gov${window.location.pathname}`
+    newWindow(url)
+  }
 
-  // const handleShareOnTwitter = (e) => {
-  //   const url = `https://twitter.com/share?url=${window.location.href}`
-  //   newWindow(url)
-  // }
+  const handleShareOnTwitter = (e) => {
+    const url = `https://twitter.com/share?url=https://moonshotbiobank.cancer.gov${window.location.pathname}`
+    newWindow(url)
+  }
+
+  const handleShareOnLinkedin = (e) => {
+    const url = `https://www.linkedin.com/sharing/share-offsite/?url=https://moonshotbiobank.cancer.gov${window.location.pathname}`
+    newWindow(url)
+  }
 
 
   return (
@@ -113,10 +118,12 @@ const Footer = () => {
             <a className="breakAll" href={`mailto:${t('footer.links.email')}`}>{t('footer.links.email')}</a>
             <a href={`tel:${t('footer.links.phone')}`}>{t('footer.links.phone')}</a>
             <a href={t('footer.links.cis.link')}>{t('footer.links.cis.text')}</a>
-            {/* <div className={classes.social}>
-              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnFacebook}><img src={`${process.env.PUBLIC_URL}/assets/icons/facebook.svg`} alt="facebook icon" title="Share this page on Facebook" /></IconButton>
-              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnTwitter}><img src={`${process.env.PUBLIC_URL}/assets/icons/twitter.svg`} alt="twitter icon" title="Share this page on Twitter" /></IconButton>
-            </div> */}
+						<div className={classes.columnTitle}>{t('footer.links.share_title')}</div>
+            <div className={classes.social}>
+              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnFacebook}><img src={`${process.env.PUBLIC_URL}/assets/icons/facebook.svg`} alt={t('footer.links.facebook.alt_text')} title={t('footer.links.facebook.text')} /></IconButton>
+              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnTwitter}><img src={`${process.env.PUBLIC_URL}/assets/icons/twitter.svg`} alt={t('footer.links.twitter.alt_text')} title={t('footer.links.twitter.text')} /></IconButton>
+              <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnLinkedin}><img src={`${process.env.PUBLIC_URL}/assets/icons/linkedin.svg`} alt={t('footer.links.linkedin.alt_text')} title={t('footer.links.linkedin.text')} /></IconButton>
+            </div>
           </Grid>
           <Grid item xs={12} sm={4}>
             <div className={classes.columnTitle}>{t('footer.links.policy_title')}</div>
