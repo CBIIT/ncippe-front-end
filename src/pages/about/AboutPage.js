@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
-import { Container, Box, Grid, Typography, useMediaQuery } from '@material-ui/core'
+import { Box, Container, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
+import BodyImage from '../../components/utils/BodyImage'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -25,14 +26,31 @@ const useStyles = makeStyles( theme => ({
         maxWidth: 380
       }
     }
+  },
+  divider: {
+    width: '100%',
+    margin: theme.spacing(3,0),
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing(7,0)
+    }
+  },
+  linkImg: {
+    '& img': {
+      display: "inline-block",
+      margin: 0,
+    },
+    '& figcaption': {
+      margin: theme.spacing(0,0,2,0),
+    }
   }
 }),{name: 'AboutPage'})
 
 const AboutPage = () => {
   const classes = useStyles()
-  const { t } = useTranslation('about')
+  const { t, i18n } = useTranslation('about')
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const lang = i18n.languages[0] === 'en' ? "" : "-es"
 
   useEffect(() => {
     PubSub.publish('ANALYTICS', {
@@ -73,12 +91,37 @@ const AboutPage = () => {
               <Typography component="div">
                 <RenderContent source={t('sections.0.body')} />
               </Typography>
+
+
+
             </Grid>
             { !isMobile &&
             <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
               <ArticleImage src="father-son.jpg" alt={t('sections.0.alt_text')} />
             </Grid>
             }
+
+            <Divider className={classes.divider} />
+
+            <Grid item xs={12} md={6}>
+              <Typography paragraph={true} variant="h2" component="h2">
+                <RenderContent source={t('sections.1.title')} />
+              </Typography>
+
+              <Typography component="div">
+                <RenderContent source={t('sections.1.intro')} />
+              </Typography>
+              <figure className={classes.linkImg}>
+                <a href={`${process.env.PUBLIC_URL}/assets/documents/How-Biobank-Works${lang}.pdf`} rel="noopener noreferrer" target="_blank">
+                  <BodyImage src={`how-biobank-works${lang}.jpg`} alt={t('sections.1.alt_text')} />
+                </a>
+                <figcaption><RenderContent source={t('sections.1.caption')} /></figcaption>
+              </figure>
+
+              <Typography component="div">
+                <RenderContent source={t('sections.1.body')} />
+              </Typography>
+            </Grid>
           </Grid>
         </Box>
       </Container>
