@@ -35,8 +35,11 @@ const useStyles = makeStyles( theme => ({
     }
   },
   linkImg: {
-    '& img': {
+    '& a': {
       display: "inline-block",
+      border: `2px solid ${theme.palette.grey.light}`,
+    },
+    '& img': {
       margin: 0,
     },
     '& figcaption': {
