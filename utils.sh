@@ -60,6 +60,13 @@ article(){
   cd ..
 }
 
+body(){
+  cd body
+  make_images desktopHD 1200
+  make_images desktop 600
+  cd ..
+}
+
 sampleReport(){
   cd sampleReport
   make_images HD 640
