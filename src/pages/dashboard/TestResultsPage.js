@@ -68,7 +68,7 @@ const Page = () => {
           <Grid item xs={12} md={6}>
             <TestResults files={reports} noItemsMsg={t('components.biomarkerView.no_results.participant')} type="report" />
           </Grid>
-          <Grid item xs={12} md={6} mt={2} spacing={2} className={classes.samples}>
+          <Grid item xs={12} md={6} mt={2} className={classes.samples}>
             <Grid item>
               <Paper elevation={25}>
                 <Box p={2}>
