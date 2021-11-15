@@ -33,6 +33,11 @@ const useStyles = makeStyles(theme => ({
     borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
     marginBottom: theme.spacing(1),
   },
+  samples: {
+    "& .MuiGrid-item": {
+      marginBottom: theme.spacing(2)
+    }
+  }
 }),{name: 'TestResultsPage'})
 
 const Page = () => {
@@ -59,26 +64,45 @@ const Page = () => {
             </Box>
           </Grid>
         </Grid>
-        <Grid container mt={2} spacing={2} className={classes.samples}>
+        <Grid container mt={2} spacing={2}>
           <Grid item xs={12} md={6}>
             <TestResults files={reports} noItemsMsg={t('components.biomarkerView.no_results.participant')} type="report" />
           </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper elevation={25}>
-							<Box p={2}>
-								<Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('components.biomarkerView.guide.title')}</Typography>
-							</Box>
-              <img src={`${process.env.PUBLIC_URL}/assets/images/sampleReport/dashboard/test-guide--solid-tumor.jpg`} alt={t('components.biomarkerView.guide.alt_text')}
-                srcSet={`
-                  ${process.env.PUBLIC_URL}/assets/images/sampleReport/dashboard/test-guide--solid-tumor.jpg 1x,
-                  ${process.env.PUBLIC_URL}/assets/images/sampleReport/dashboardHD/test-guide--solid-tumor.jpg 2x
-                `}
-              />
-              <Divider />
-              <Box p={2}>
-                <Button href={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('components.biomarkerView.guide.title_aria')}>{t('components.biomarkerView.guide.link')}</Button>
-              </Box>
-            </Paper>
+          <Grid item xs={12} md={6} mt={2} className={classes.samples}>
+            <Grid item>
+              <Paper elevation={25}>
+                <Box p={2}>
+                  <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('components.biomarkerView.guide.0.title')}</Typography>
+                </Box>
+                <img src={`${process.env.PUBLIC_URL}/assets/images/sampleReport/dashboard/test-guide--solid-tumor--short.jpg`} alt={t('components.biomarkerView.guide.0.alt_text')}
+                  srcSet={`
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/dashboard/test-guide--solid-tumor--short.jpg 1x,
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/dashboardHD/test-guide--solid-tumor--short.jpg 2x
+                  `}
+                />
+                <Divider />
+                <Box p={2}>
+                  <Button href={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide--Solid-Tumor.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('components.biomarkerView.guide.0.title_aria')}>{t('components.biomarkerView.guide.0.link')}</Button>
+                </Box>
+              </Paper>
+            </Grid>
+            <Grid item>
+              <Paper elevation={25}>
+                <Box p={2}>
+                  <Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('components.biomarkerView.guide.1.title')}</Typography>
+                </Box>
+                <img src={`${process.env.PUBLIC_URL}/assets/images/sampleReport/dashboard/test-guide--aml--short.jpg`} alt={t('components.biomarkerView.guide.1.alt_text')}
+                  srcSet={`
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/dashboard/test-guide--aml--short.jpg 1x,
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/dashboardHD/test-guide--aml--short.jpg 2x
+                  `}
+                />
+                <Divider />
+                <Box p={2}>
+                  <Button href={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide--AML.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('components.biomarkerView.guide.1.title_aria')}>{t('components.biomarkerView.guide.1.link')}</Button>
+                </Box>
+              </Paper>
+            </Grid>
           </Grid>
         </Grid>
       </Container>

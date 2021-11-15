@@ -244,17 +244,30 @@ const Page = () => {
           <LoginConsumer>
           {([{roleName}]) => {
             return (roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC") && (
+              <>
               <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
                 <IconCard
                   icon="biomarker-tests.svg"
-                  title={t('cards.guide.title')}
-                  desc={t('cards.guide.description')}
+                  title={t('cards.guide.0.title')}
+                  desc={t('cards.guide.0.description')}
                   link={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide--Solid-Tumor.pdf`}
                   download={true}
-                  linkText={t('cards.guide.link')}
+                  linkText={t('cards.guide.0.link')}
                   cardClick={trackCardClick}
                 />
               </Grid>
+              <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+                <IconCard
+                  icon="biomarker-tests.svg"
+                  title={t('cards.guide.1.title')}
+                  desc={t('cards.guide.1.description')}
+                  link={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide--AML.pdf`}
+                  download={true}
+                  linkText={t('cards.guide.1.link')}
+                  cardClick={trackCardClick}
+                />
+              </Grid>
+              </>
             )
           }}
           </LoginConsumer>

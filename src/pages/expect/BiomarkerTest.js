@@ -216,6 +216,47 @@ const BiomarkerTest = () => {
             </Grid>
           </Grid>
 
+          {/* AML sample report and guide  */}
+          <Typography variant="h3" component="h3" className={classes.h3}>
+            <RenderContent source={t('sections.2.subtitle.2')} />
+          </Typography>
+          <Grid container mt={2} spacing={2} className={classes.samples}>
+            <Grid item xs={12} md={6}>
+              <Paper elevation={25}>
+								<Box p={2}>
+									<Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.4.title')}</Typography>
+								</Box>
+                <img src={`${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/sample-test-report--aml.jpg`} alt={t('sections.2.samples.4.alt_text')}
+                  srcSet={`
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/sample-test-report--aml.jpg 1x,
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/HD/sample-test-report--aml.jpg 2x
+                  `}
+                />
+                <Divider />
+                <Box p={2}>
+                  <Button href={`${process.env.PUBLIC_URL}/assets/documents/AML-Biomarker-Sample.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.4.title_aria')}>{t('sections.2.samples.4.link')}</Button>
+                </Box>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Paper elevation={25}>
+								<Box p={2}>
+									<Typography variant="h3" component="h3" className={classes.sampleTitle}>{t('sections.2.samples.5.title')}</Typography>
+								</Box>
+                <img src={`${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/test-guide--aml.jpg`} alt={t('sections.2.samples.5.alt_text')}
+                  srcSet={`
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/standard/test-guide--aml.jpg 1x,
+                    ${process.env.PUBLIC_URL}/assets/images/sampleReport/HD/test-guide--aml.jpg 2x
+                  `}
+                />
+                <Divider />
+                <Box p={2}>
+                  <Button href={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Test-Guide--AML.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.5.title_aria')}>{t('sections.2.samples.5.link')}</Button>
+                </Box>
+              </Paper>
+            </Grid>
+          </Grid>
+
           {/* Blood cancer sample report and guide - pending from NCI */}
           {/* <Typography variant="h3" component="h3" className={classes.h3}>
             <RenderContent source={t('sections.2.subtitle.1')} />
