@@ -27,6 +27,10 @@ const useStyles = makeStyles( theme => ({
       }
     }
   },
+  img_fullWidth: {
+    width: '100%',
+    maxWidth: 'none !important'
+  },
   divider: {
     width: '100%',
     margin: theme.spacing(3,0),
@@ -106,7 +110,7 @@ const AboutPage = () => {
 
             <Divider className={classes.divider} />
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={9}>
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent source={t('sections.1.title')} />
               </Typography>
@@ -114,13 +118,28 @@ const AboutPage = () => {
               <Typography component="div">
                 <RenderContent source={t('sections.1.intro')} />
               </Typography>
+            </Grid>
+            <Grid item xs={12}>
               <figure className={classes.linkImg}>
                 <a href={`${process.env.PUBLIC_URL}/assets/documents/How-Biobank-Works${lang}.pdf`} rel="noopener noreferrer" target="_blank">
-                  <BodyImage src={`how-biobank-works${lang}.jpg`} alt={t('sections.1.alt_text')} />
+                  {/* <BodyImage src={`how-biobank-works${lang}.jpg`} alt={t('sections.1.alt_text')} /> */}
+                  <img className={classes.img_fullWidth}
+                    src={process.env.PUBLIC_URL + `/assets/images/fullWidth/micro/how-biobank-works${lang}.jpg`} 
+                    alt={t('sections.1.alt_text')}
+                    srcSet={`
+                      ${process.env.PUBLIC_URL}/assets/images/fullWidth/micro/how-biobank-works${lang}.jpg 380w,
+                      ${process.env.PUBLIC_URL}/assets/images/fullWidth/mobile/how-biobank-works${lang}.jpg 600w,
+                      ${process.env.PUBLIC_URL}/assets/images/fullWidth/tablet/how-biobank-works${lang}.jpg 960w,
+                      ${process.env.PUBLIC_URL}/assets/images/fullWidth/desktop/how-biobank-works${lang}.jpg 1280w,
+                      ${process.env.PUBLIC_URL}/assets/images/fullWidth/tabletHD/how-biobank-works${lang}.jpg 1920w,
+                      ${process.env.PUBLIC_URL}/assets/images/fullWidth/desktopHD/how-biobank-works${lang}.jpg 2560w,
+                    `}
+                  />
                 </a>
                 <figcaption><RenderContent source={t('sections.1.caption')} /></figcaption>
               </figure>
-
+            </Grid>
+            <Grid item xs={12} md={9}>
               <Typography component="div">
                 <RenderContent source={t('sections.1.body')} />
               </Typography>
