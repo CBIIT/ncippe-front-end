@@ -7,7 +7,6 @@ import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
-import BodyImage from '../../components/utils/BodyImage'
 
 const useStyles = makeStyles( theme => ({
   grid: {
