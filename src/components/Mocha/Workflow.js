@@ -37,41 +37,37 @@ const MochaReport = () => {
   // set activeStep when navigation value changes
   useEffect(() => {
     if(mochaContext.navigate) {
-      handleNavigate(mochaContext.navigate)
+      switch (mochaContext.navigate) {
+        case 'dashboard':
+          navigate('/account-mocha')
+          break
+        case 'participantId':
+        case 'reset':
+          setActiveStep(0)
+          break
+        case 'addReport':
+          setActiveStep(1)
+          break
+        case 'submit':
+          setActiveStep(2)
+          // handleFormSubmit()
+          break
+        case 'finish':
+          setActiveStep(3)
+          break
+        case 'restart':
+          dispatch({
+            type: 'reset'
+          })
+          break
+        default:
+          console.error(`form navigation step '${mochaContext.navigate}' not found`)
+      }
     }
-  }, [mochaContext.navigate])
+  }, [mochaContext.navigate, dispatch])
 
   const handleSubmit = (e) => {
     e.preventDefault()
-  }
-
-  const handleNavigate = (to) => {
-    switch (to) {
-      case 'dashboard':
-        navigate('/account-mocha')
-        break
-      case 'participantId':
-      case 'reset':
-        setActiveStep(0)
-        break
-      case 'addReport':
-        setActiveStep(1)
-        break
-      case 'submit':
-        setActiveStep(2)
-        // handleFormSubmit()
-        break
-      case 'finish':
-        setActiveStep(3)
-        break
-      case 'restart':
-        dispatch({
-          type: 'reset'
-        })
-        break
-      default:
-        console.error(`form navigation step '${to}' not found`)
-    }
   }
 
   return (

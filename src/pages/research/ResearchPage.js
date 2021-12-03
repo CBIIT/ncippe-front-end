@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-import { Link as RouterLink } from '@reach/router'
+// import { Link as RouterLink } from '@reach/router'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
-import { Box, Container, Divider, Grid, Link, Typography } from '@material-ui/core'
+import { Box, Container, Divider, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import PubSub from 'pubsub-js'
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Box, Button, Dialog, DialogActions, DialogContent, FormControlLabel, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from '@material-ui/core'
+import { Box, Button, Dialog, DialogActions, DialogContent, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
@@ -71,7 +71,7 @@ const useStyles = makeStyles( theme => ({
 
 const ViewMessages = (props) => {
   const classes = useStyles()
-  const [loginContext, dispatch] = useContext(LoginContext)
+  const [loginContext] = useContext(LoginContext)
   const { t } = useTranslation(['a_messageHistory'])
   // const [allMessages, setAllMessages] = useState([])
   const [messages, setMessages] = useState([]) // to be filtered by user
@@ -120,7 +120,7 @@ const ViewMessages = (props) => {
       setError(error)
     })
   
-  },[])
+  },[uuid])
 
   // useEffect(()=>{
   //   if(viewAll) {

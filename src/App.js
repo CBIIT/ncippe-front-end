@@ -30,7 +30,7 @@ const App = (props) => {
     return () => {
       PubSub.unsubscribe(analytics)
     }
-  }, [PubSub, trackEvent])
+  }, [trackEvent])
 
   // global variable for tracking generic links and buttons. It may be desirable to skip this tracking method if the link triggers something more specific
   window.$defaultLinkTrack = true

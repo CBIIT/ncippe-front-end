@@ -142,7 +142,7 @@ const ParticipantView = (props) => {
       })
     }
     return () => {}
-  }, [uploadSuccess, patientId, uuid, token, patients])
+  }, [uploadSuccess, patientId, uuid, token, patients, dispatch])
 
   useEffect(() => {
     if(props.location && props.location.state && props.location.state.newParticipantActivated) {
@@ -154,7 +154,7 @@ const ParticipantView = (props) => {
       })
       setIsNewParticipant(true)
     }
-  }, [PubSub, props.location])
+  }, [props.location])
 
   const openUploadDialog = (e) => {
     const buttonText = e.target.textContent

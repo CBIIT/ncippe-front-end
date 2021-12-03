@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Paper, Typography, useMediaQuery } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Paper, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
@@ -60,7 +60,7 @@ const AddParticipantWorkflow = (props) => {
         lang,
       }
     })
-  },[open])
+  },[dispatch, open, patientId, firstName, lastName, email, lang])
 
   const handleClose = (e, success = false) => {
     if(setParentState){

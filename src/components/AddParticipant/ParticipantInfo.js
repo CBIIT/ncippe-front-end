@@ -47,7 +47,7 @@ const ParticipantInfo = (props) => {
         })
       }
     }
-  }, [hasError])
+  }, [hasError, dispatch])
 
   const handleFormSubmit = (e) => {
     e.preventDefault()

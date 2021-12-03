@@ -3,9 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import { Box, Button, Container, Divider, Grid, Link, Stepper, Step, StepLabel, StepContent, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import { 
-  OpenInNew as OpenInNewIcon
-} from '@material-ui/icons'
 import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'

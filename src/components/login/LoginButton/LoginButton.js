@@ -10,7 +10,7 @@ import { LoginContext } from '../Login.context'
  * The login button will change state according to the user's login state
  */
 const LoginButton = (props) => {
-  const [loginContext, dispatch] = useContext(LoginContext)
+  const [loginContext] = useContext(LoginContext)
   const { auth } = loginContext
   const location = useLocation()
   // destructure props

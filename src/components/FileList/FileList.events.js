@@ -182,7 +182,7 @@ const FileListWrapper = (props) => {
           })
       })
     }, 100)
-  },[loginContext, dispatch, patientId])
+  },[loginContext, dispatch, patientId, type])
 
   useEffect(() => {
     const onViewFile = PubSub.subscribe(eventName, (msg, data) => {

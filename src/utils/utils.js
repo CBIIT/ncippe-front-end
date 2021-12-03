@@ -67,7 +67,7 @@ export const randomString = (length) => [...Array(length)].map(i=>(~~(Math.rando
  * @param {number} digits - Maximum number of place values
  * @return {number}
  */
-const randomNum = (digits = 1) => Math.floor(Math.random() * (Math.pow(10,Math.abs(digits)))) + 1
+export const randomNum = (digits = 1) => Math.floor(Math.random() * (Math.pow(10,Math.abs(digits)))) + 1
 
 /**
  * Consolidates arrays within an object

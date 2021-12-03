@@ -46,7 +46,7 @@ const CloseAccount = (props) => {
   const {isMobile} = props
   const classes = useStyles()
   const { t } = useTranslation(['a_changeParticipation','a_common'])
-  const [loginContext, dispatch] = useContext(LoginContext)
+  const [loginContext] = useContext(LoginContext)
   // const { signoutRedirectCallback } = useContext(AuthContext)
   const [ closeError, setCloseError ] = useState(false)
   const { crc } = loginContext

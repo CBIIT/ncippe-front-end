@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { Button, TextField, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 import { 
   Clear as ClearIcon
 } from '@material-ui/icons'
@@ -14,14 +13,8 @@ import Status from '../Status'
 import FormButtons from '../inputs/FormButtons'
 import { isValidUserId } from '../../utils/utils'
 
-const useStyles = makeStyles( theme => ({
-
-}),{name: 'ParticipantId'})
-
-
 
 const ParticipantId = (props) => {
-  const classes = useStyles()
   const { t } = useTranslation(['a_landingMocha','a_common'])
   const [mochaContext, dispatch] = useContext(MochaContext)
 
@@ -69,7 +62,7 @@ const ParticipantId = (props) => {
               })
             } else {
               // user found - progress
-              const {firstName, lastName, patientId, reports} = resp
+              const {firstName, lastName, reports} = resp
               dispatch({
                 type: 'update',
                 data: {
@@ -102,14 +95,13 @@ const ParticipantId = (props) => {
   }
 
   return (
-    <div className={classes.participantId}>
+    <div>
       <Typography variant="h6">{t('upload.0.form_title')}</Typography>
       <TextField
         error={mochaContext.error}
         required
         id="patientId-required"
         label={t('upload.0.input_label')}
-        className={classes.textField}
         margin="normal"
         variant="outlined"
         helperText={mochaContext.error ? t('upload.0.input_error') : t('upload.0.input_helper_text')}

@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react'
-import { hasUnviewedFiles } from '../../data/utils'
+// import { hasUnviewedFiles } from '../../data/utils'
 
 const userInitialState = {
   auth: false,

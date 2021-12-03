@@ -1,22 +1,14 @@
 import React, { forwardRef } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import { Editor } from '@tinymce/tinymce-react';
-
-const useStyles = makeStyles( theme => ({
-
-}),{name: 'TinyMCE_Editor'})
 
 const TinyMCE_Editor = forwardRef((props, ref) => {
   const { onEditorChange } = props
-  const classes = useStyles()
   const { initialValue = "Compose your message here...", value = "" } = props
 
   const handleEditorChange = (content, editor) => {
     if(onEditorChange) {
       onEditorChange(content)
     }
-    // console.log('Content was updated:', content);
-    // console.log('tinyEditor ref:', ref);
   }
 
   return (
