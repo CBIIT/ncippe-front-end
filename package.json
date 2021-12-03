@@ -27,16 +27,14 @@
     "react": "^17.0.1",
     "react-app-polyfill": "^2.0.0",
     "react-dom": "^17.0.1",
-    "react-helmet-async": "^1.0.4",
     "react-git-info": "^2.0.0",
+    "react-helmet-async": "^1.0.4",
     "react-i18next": "^11.8.5",
     "react-markdown": "^5.0.2",
-    "react-number-format": "^4.4.4",
     "react-scripts": "^4.0.0",
     "react-text-mask": "^5.4.3",
     "react-tracking": "^8.0.0",
-    "react-transition-group": "^4.3.0",
-    "throttle-debounce": "^3.0.1"
+    "react-transition-group": "^4.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
