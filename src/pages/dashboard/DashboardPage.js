@@ -101,7 +101,7 @@ const Page = () => {
         </LoginConsumer>
         
         {/* Primary row */}
-        <Grid container className={classes.grid} spacing={2} direction="row" justify="center" alignItems="stretch">
+        <Grid container className={classes.grid} spacing={2} direction="row" justifyContent="center" alignItems="stretch">
           {/* Send Message */}
           <LoginConsumer>
             {([{roleName}]) => {

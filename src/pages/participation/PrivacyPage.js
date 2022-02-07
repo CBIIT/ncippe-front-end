@@ -58,7 +58,7 @@ const PrivacyPage = () => {
           <RenderContent source={t('subtitle')} />
         </Typography>
       </Box>
-      <Grid container className={classes.grid} spacing={2} direction="row" justify="center" alignItems="stretch" component="section">
+      <Grid container className={classes.grid} spacing={2} direction="row" justifyContent="center" alignItems="stretch" component="section">
         <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
           <IconCard
             icon="identification.svg"
