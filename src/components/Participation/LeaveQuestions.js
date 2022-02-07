@@ -361,7 +361,7 @@ const LeaveQuestions = (props) => {
             <Typography variant={isMobile ? "h4" : "h3"} component="h3">{t('leave.2.modalTitle.admin',{user:`${user.firstName} ${user.lastName}`})}</Typography>
             <Typography>{t('leave.2.body.admin')}</Typography>
           </>:<>
-            <Typography variant={isMobile ? "h4" : "h3"} component="h3"><RenderContent source={t('leave.2.modalTitle.participant')} /></Typography>
+            <Typography variant={isMobile ? "h4" : "h3"} component="h3"><RenderContent children={t('leave.2.modalTitle.participant')} /></Typography>
             <Typography>{t('leave.2.body.participant')}</Typography>
           </>}
 

@@ -52,10 +52,10 @@ const PrivacyPage = () => {
       </Helmet>
       <Box py={4} mx={0} component="section">
         <Typography variant="h2" component="h1" gutterBottom>
-          <RenderContent source={t('pageTitle')} />
+          <RenderContent children={t('pageTitle')} />
         </Typography>
         <Typography variant="body2" component="div">
-          <RenderContent source={t('subtitle')} />
+          <RenderContent children={t('subtitle')} />
         </Typography>
       </Box>
       <Grid container className={classes.grid} spacing={2} direction="row" justifyContent="center" alignItems="stretch" component="section">
@@ -109,7 +109,7 @@ const PrivacyPage = () => {
         </Grid>
       </Grid>
       <Typography className={classes.disclaimer} paragraph={true} component="div">
-        <RenderContent source={t('disclaimer')} />
+        <RenderContent children={t('disclaimer')} />
       </Typography>
     </Container>
   )

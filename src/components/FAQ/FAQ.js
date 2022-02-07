@@ -135,7 +135,7 @@ const FAQ = (props) => {
       </AccordionSummary>
       <AccordionDetails>
         <Typography className={classes.panelDetails} component="div">
-          <RenderContent source={desc} />
+          <RenderContent children={desc} />
         </Typography>
       </AccordionDetails>
     </Accordion>

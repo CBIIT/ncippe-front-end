@@ -93,7 +93,7 @@ const Page = () => {
                   <Status state="info" fullWidth title={t('a_common:not_participating.status.title')} message={t('a_common:not_participating.status.message')} />
                 </div>
                 :
-                <Typography variant="body2"><RenderContent source={t('subtitle')} /></Typography>
+                <Typography variant="body2"><RenderContent children={t('subtitle')} /></Typography>
               }
             </Box>
           )

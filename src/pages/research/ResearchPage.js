@@ -56,7 +56,7 @@ const ResearchPage = () => {
       </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">
-          <RenderContent source={t('pageTitle')} />
+          <RenderContent children={t('pageTitle')} />
         </Typography>
       </Container>
       <Container className="mainContainer mainContainer--public">
@@ -64,10 +64,10 @@ const ResearchPage = () => {
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6} component="section">
               <Typography paragraph={true} variant="h2" component="h2">
-                <RenderContent source={t('sections.0.title')} />
+                <RenderContent children={t('sections.0.title')} />
               </Typography>
               <Typography component="div">
-                <RenderContent source={t('sections.0.body')} />
+                <RenderContent children={t('sections.0.body')} />
               </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
@@ -78,10 +78,10 @@ const ResearchPage = () => {
 
             <Grid item xs={12} md={6} component="section">
               <Typography paragraph={true} variant="h2" component="h2">
-                <RenderContent source={t('sections.1.title')} />
+                <RenderContent children={t('sections.1.title')} />
               </Typography>
               <Typography component="div">
-                <RenderContent source={t('sections.1.body')} />
+                <RenderContent children={t('sections.1.body')} />
               </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
@@ -92,13 +92,13 @@ const ResearchPage = () => {
 
             <Grid item xs={12} md={6} component="section">
               <Typography paragraph={true} variant="h2" component="h2">
-                <RenderContent source={t('sections.2.title')} />
+                <RenderContent children={t('sections.2.title')} />
               </Typography>
               <div>
                 {Object.keys(t('sections.2.links', { returnObjects: true })).map((link, i) => 
                   <Typography component="div" paragraph={true} key={i}>
                     <Link component={RouterLink} to={t(`sections.2.links.${i}.route`)}>{t(`sections.2.links.${i}.text`)}</Link>
-                    <Typography><RenderContent source={t(`sections.2.links.${i}.author`)} /></Typography>
+                    <Typography><RenderContent children={t(`sections.2.links.${i}.author`)} /></Typography>
                   </Typography>
                 )}
               </div>

@@ -51,7 +51,7 @@ const PreviewMessage = () => {
           <h3>{subject}</h3>
           <p>{moment().format('MMMM Do YYYY, h:mm a')}</p>
           <hr />
-          <RenderContent source={message} />
+          <RenderContent children={message} />
         </Paper>
       </Box>
       <FormButtons

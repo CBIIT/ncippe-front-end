@@ -46,7 +46,7 @@ const BodyContent = () => {
   const { t } = useTranslation('donate')
   return (
     <Typography component="div" className={classes.extraSpacing}>
-      <RenderContent source={t('body')} />
+      <RenderContent children={t('body')} />
     </Typography>
   )
 }
@@ -87,7 +87,7 @@ const Donate = () => {
         <Grid container component="section">
           <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>
             <Typography className={classes.bottomSpacer} variant={isMobile ? "body1" : "body2"}>
-              <RenderContent source={t('intro_text')} />
+              <RenderContent children={t('intro_text')} />
             </Typography>
             {!singleColumn && <BodyContent />}
           </Grid>

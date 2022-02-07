@@ -159,7 +159,7 @@ const ActivatePage = () => {
       </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">
-          <RenderContent source={t('pageTitle')} />
+          <RenderContent children={t('pageTitle')} />
         </Typography>
       </Container>
       <Container>
@@ -167,7 +167,7 @@ const ActivatePage = () => {
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
               <Typography variant={isMobile ? "body1" : "body2"} component="div">
-                <RenderContent source={t('intro_text')} />
+                <RenderContent children={t('intro_text')} />
               </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
@@ -189,7 +189,7 @@ const ActivatePage = () => {
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h2" component="h2">
-                <RenderContent source={t('sections.0.title')} />
+                <RenderContent children={t('sections.0.title')} />
               </Typography>
               <Box className={classes.featureLinks}>
                 <Link href={`https://secure.login.gov/${i18n.language === 'es' ? 'es/':''}sign_up/enter_email?request_id${process.env.REACT_APP_REQUEST_ID}/`}><Button className={classes.createAccountBtn} variant="contained" color="primary">{t('sections.0.links.0')}</Button></Link>
@@ -206,7 +206,7 @@ const ActivatePage = () => {
         {/* To create your login.gov account */}
         <Box component="section" mt={5}>
           <Typography variant="h2" component="h2">
-            <RenderContent source={t('sections.1.title')} />
+            <RenderContent children={t('sections.1.title')} />
           </Typography>
           <Stepper className={classes.stepper} orientation="vertical" nonLinear>
             <Step active={true}>
@@ -287,7 +287,7 @@ const ActivatePage = () => {
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
               <Typography paragraph={true} variant="h2" component="h2">
-                <RenderContent source={t('sections.2.title')} />
+                <RenderContent children={t('sections.2.title')} />
               </Typography>
               <div className={classes.linkList}>
                 <Button href="https://login.gov/help/" color="primary" rel="noopener noreferrer" target="_blank">{t('sections.2.links.0')}</Button>

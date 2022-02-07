@@ -29,11 +29,12 @@
     "react-git-info": "^2.0.1",
     "react-helmet-async": "^1.2.2",
     "react-i18next": "^11.15.3",
-    "react-markdown": "^5.0.2",
+    "react-markdown": "^8.0.0",
     "react-scripts": "^5.0.0",
     "react-text-mask": "^5.4.3",
     "react-tracking": "^9.1.0",
     "react-transition-group": "^4.4.2",
+    "rehype-raw": "^6.1.1",
     "request": "^2.88.2"
   },
   "devDependencies": {
