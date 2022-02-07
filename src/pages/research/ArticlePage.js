@@ -34,7 +34,7 @@ const useStyles = makeStyles( theme => ({
 
 // This component is for a reusable research article page, but it's limiting in it's layout. Opting for individual article pages that have more flexibility.
 
-const Article = () => {
+const Article = (props) => {
   const classes = useStyles()
   const { t, i18n } = useTranslation(`r_${caseConverter(props.article)}`)
   const theme = useTheme()
