@@ -59,14 +59,14 @@ const EligibilityPage = () => {
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/about/eligibility`} />
       </Helmet>
       <Container className="pageHeader--gradient">
-        <Typography variant="h2" component="h1"><RenderContent source={t('pageTitle')} /></Typography>
+        <Typography variant="h2" component="h1"><RenderContent children={t('pageTitle')} /></Typography>
       </Container>
       <Container className="mainContainer mainContainer--public">
         <Box mt={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6} component="section">
               <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}>
-                <RenderContent source={t('introText')} />
+                <RenderContent children={t('introText')} />
               </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
@@ -74,13 +74,13 @@ const EligibilityPage = () => {
             </Grid>
             <Grid item component="section">
               <Typography paragraph={true} variant="h2" component="h2">
-                <RenderContent source={t('sections.0.title')} />
+                <RenderContent children={t('sections.0.title')} />
               </Typography>
               <Typography paragraph={true} variant="h3" component="h3">
-                <RenderContent source={t('sections.0.subtitle')} />
+                <RenderContent children={t('sections.0.subtitle')} />
               </Typography>
               <Typography component="div">
-                <RenderContent source={t('sections.0.body.list')} />
+                <RenderContent children={t('sections.0.body.list')} />
               </Typography>
             </Grid>
 
@@ -88,13 +88,13 @@ const EligibilityPage = () => {
             
             <Grid className={classes.gridItem} item xs={12} md={6} component="section">
               <Typography paragraph={true} variant="h2" component="h2">
-                <RenderContent source={t('sections.1.title')} />
+                <RenderContent children={t('sections.1.title')} />
               </Typography>
               <Typography paragraph={true} variant="body2">
-                <RenderContent source={t('sections.1.subtitle')} />
+                <RenderContent children={t('sections.1.subtitle')} />
               </Typography>
               <Typography component="div">
-              <RenderContent source={t('sections.1.body')} />
+              <RenderContent children={t('sections.1.body')} />
               </Typography>
             </Grid>
             <HospitalMap />
@@ -103,11 +103,11 @@ const EligibilityPage = () => {
 
             <Grid item xs={12} md={6} component="section">
               <Typography paragraph={true} variant="h2" component="h2">
-                <RenderContent source={t('sections.2.title')} />
+                <RenderContent children={t('sections.2.title')} />
               </Typography>
               <Typography component="div">
-                <RenderContent source={t('sections.2.body.text')} />
-                <RenderContent source={t('sections.2.body.list')} />
+                <RenderContent children={t('sections.2.body.text')} />
+                <RenderContent children={t('sections.2.body.list')} />
               </Typography>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">

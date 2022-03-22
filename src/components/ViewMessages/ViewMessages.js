@@ -216,7 +216,7 @@ const ViewMessages = (props) => {
             <h3>{messages[selected].subject.en}</h3>
             <p>{moment(messages[selected].dateSent).format('MMMM Do YYYY, h:mm a')}</p>
             <hr />
-            <RenderContent source={messages[selected].message.en} />
+            <RenderContent children={messages[selected].message.en} />
           </DialogContent>
         }
         <DialogActions>

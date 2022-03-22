@@ -49,7 +49,7 @@ const IconCardMedia = (props) => {
           </Typography>
           {desc &&
             <Typography component="div">
-              <RenderContent source={desc} />
+              <RenderContent children={desc} />
             </Typography>
           }
         </CardContent>

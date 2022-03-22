@@ -89,7 +89,7 @@ const BodyContent = () => {
   const { t } = useTranslation('testing')
   return (
     <Typography className={classes.extraSpacing} component="div">
-      <RenderContent source={t('sections.0.body')} />
+      <RenderContent children={t('sections.0.body')} />
     </Typography>
   )
 }
@@ -131,7 +131,7 @@ const BiomarkerTest = () => {
         <Grid container component="section">
           <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>
             <Typography variant={isMobile ? "body1" : "body2"} component="div">
-              <RenderContent source={t('intro_text')} />
+              <RenderContent children={t('intro_text')} />
             </Typography>
             {!singleColumn && <BodyContent />}
           </Grid>
@@ -146,10 +146,10 @@ const BiomarkerTest = () => {
         {/* How is the test performed? */}
         <Box component="section">
           <Typography variant="h2" component="h2">
-            <RenderContent source={t('sections.1.title')} />
+            <RenderContent children={t('sections.1.title')} />
           </Typography>
           <Typography component="div">
-            <RenderContent source={t('sections.1.body')} />
+            <RenderContent children={t('sections.1.body')} />
           </Typography>
           <Stepper className={classes.stepper} orientation="vertical" nonLinear>
             <Step active={true}>
@@ -172,12 +172,12 @@ const BiomarkerTest = () => {
         {/* Sample Report */}
         <Box component="section">
           <Typography variant="h2" component="h2" paragraph={true}>
-            <RenderContent source={t('sections.2.title')} />
+            <RenderContent children={t('sections.2.title')} />
           </Typography>
 
           {/* Solid tumor sample report and guide  */}
           <Typography variant="h3" component="h3" className={classes.h3}>
-            <RenderContent source={t('sections.2.subtitle.0')} />
+            <RenderContent children={t('sections.2.subtitle.0')} />
           </Typography>
           <Grid container mt={2} spacing={2} className={classes.samples}>
             <Grid item xs={12} md={6}>
@@ -218,7 +218,7 @@ const BiomarkerTest = () => {
 
           {/* AML sample report and guide  */}
           <Typography variant="h3" component="h3" className={classes.h3}>
-            <RenderContent source={t('sections.2.subtitle.2')} />
+            <RenderContent children={t('sections.2.subtitle.2')} />
           </Typography>
           <Grid container mt={2} spacing={2} className={classes.samples}>
             <Grid item xs={12} md={6}>
@@ -259,7 +259,7 @@ const BiomarkerTest = () => {
 
           {/* Blood cancer sample report and guide - pending from NCI */}
           {/* <Typography variant="h3" component="h3" className={classes.h3}>
-            <RenderContent source={t('sections.2.subtitle.1')} />
+            <RenderContent children={t('sections.2.subtitle.1')} />
           </Typography>
           <Grid container mt={2} spacing={2} className={classes.samples}>
             <Grid item xs={12} md={6}>
@@ -303,7 +303,7 @@ const BiomarkerTest = () => {
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
               <Typography paragraph={true} variant="h2" component="h2">
-                <RenderContent source={t('sections.3.title')} />
+                <RenderContent children={t('sections.3.title')} />
               </Typography>
               <ul className={classes.linkList}>
                 <li><Button href="https://www.cancer.gov/about-cancer/treatment/types/precision-medicine/tumor-dna-sequencing" color="primary" rel="noopener noreferrer" target="_blank">{t('sections.3.links.0')}</Button></li>

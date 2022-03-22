@@ -66,7 +66,7 @@ const Article = () => {
       </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">
-          <RenderContent source={t('pageTitle')} />
+          <RenderContent children={t('pageTitle')} />
         </Typography>
       </Container>
       <Container className="mainContainer mainContainer--public">
@@ -74,7 +74,7 @@ const Article = () => {
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6} component="section">
               <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}>
-                <RenderContent source={t('intro_text')} />
+                <RenderContent children={t('intro_text')} />
               </Typography>
             </Grid>
             
@@ -88,7 +88,7 @@ const Article = () => {
             {Object.keys(t('sections', { returnObjects: true })).map((section, i) => 
               <Grid item xs={12} md={8} component="section" key={i}>
                 <Typography variant="h3" component="h3">
-                  <RenderContent source={t(`sections.${i}.title`)} />
+                  <RenderContent children={t(`sections.${i}.title`)} />
                 </Typography>
                 {/* Render blockquotes if they're provided for this section */}
                 {t(`sections.${i}.quote`) !== `sections.${i}.quote` && <blockquote>
@@ -97,7 +97,7 @@ const Article = () => {
                   </blockquote>
                 }
                 <Typography component="div">
-                  <RenderContent source={t(`sections.${i}.body`)} />
+                  <RenderContent children={t(`sections.${i}.body`)} />
                 </Typography>
               </Grid>
             )}

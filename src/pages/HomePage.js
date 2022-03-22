@@ -348,7 +348,7 @@ const HomePage = () => {
       i18n.exists('homePage:hero.banner') && t('hero.banner').trim().length > 0 &&
       <Container className={classes.banner}>
         <Typography className={classes.bannerText} component="div">
-          <strong><RenderContent source={t('hero.banner')} /></strong>
+          <strong><RenderContent children={t('hero.banner')} /></strong>
         </Typography>
       </Container>
       }
@@ -358,19 +358,19 @@ const HomePage = () => {
           {isMobile ? 
           <Paper className={classes.heroPaper} elevation={25}>
             <Typography className={classes.mainTitle} component="h1">
-              <RenderContent source={t('hero.title')} />
+              <RenderContent children={t('hero.title')} />
             </Typography>
             <Typography variant="body1" component="h2">
-              <RenderContent source={t('hero.subtitle_mobile')} />
+              <RenderContent children={t('hero.subtitle_mobile')} />
             </Typography>
           </Paper>
           :
           <>
             <Typography className={classes.mainTitle} component="h1">
-              <RenderContent source={t('hero.title')} />
+              <RenderContent children={t('hero.title')} />
             </Typography>
             <Typography variant="h2" component="h2">
-              <RenderContent source={t('hero.subtitle')} />
+              <RenderContent children={t('hero.subtitle')} />
             </Typography>
           </>
           }
@@ -381,13 +381,13 @@ const HomePage = () => {
           <Paper className={classes.infoOffsetPaper} elevation={25}>
             <Box className={classes.infoBox}>
               <Typography className={classes.infoBoxTitle} variant="h2" component="h2">
-                <RenderContent source={t('mission.title')} />
+                <RenderContent children={t('mission.title')} />
               </Typography>
               <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}>
-                <RenderContent source={t('mission.body')} />
+                <RenderContent children={t('mission.body')} />
               </Typography>
               <Button to="/expect/consent" color="primary" className={classes.icon_link} component={RouterLink}>
-                <RenderContent source={t('mission.link')} />
+                <RenderContent children={t('mission.link')} />
                 <ArrowRightIcon />
               </Button>
             </Box>
@@ -396,24 +396,24 @@ const HomePage = () => {
         <Box className={classes.howItWorks} component="section">
           <Box mt={isMobile ? 2 : 4} pb={isMobile ? 4 : 11}>
             <Typography className={classes.infoBox} variant={isMobile ? "h2" : "h1"} component="h2">
-              <RenderContent source={t('how_it_works.title')} />
+              <RenderContent children={t('how_it_works.title')} />
             </Typography>
             <Grid container className={classes.howItWorksGrid} spacing={3}>
               <Grid item xs={12} sm={6} md={3}>
                 <img className={classes.howItWorksIcon} src={`${process.env.PUBLIC_URL}/assets/icons/patients.svg`} alt={t('how_it_works.cards.0.alt_text')} />
-                <Typography><RenderContent source={t('how_it_works.cards.0.body')} /></Typography>
+                <Typography><RenderContent children={t('how_it_works.cards.0.body')} /></Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <img className={classes.howItWorksIcon} src={`${process.env.PUBLIC_URL}/assets/icons/multiple-samples.svg`} alt={t('how_it_works.cards.1.alt_text')} />
-                <Typography><RenderContent source={t('how_it_works.cards.1.body')} /></Typography>
+                <Typography><RenderContent children={t('how_it_works.cards.1.body')} /></Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <img className={classes.howItWorksIcon} src={`${process.env.PUBLIC_URL}/assets/icons/one-idea.svg`} alt={t('how_it_works.cards.2.alt_text')} />
-                <Typography><RenderContent source={t('how_it_works.cards.2.body')} /></Typography>
+                <Typography><RenderContent children={t('how_it_works.cards.2.body')} /></Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
                 <img className={classes.howItWorksIcon} src={`${process.env.PUBLIC_URL}/assets/icons/breakthrough.svg`} alt={t('how_it_works.cards.3.alt_text')} />
-                <Typography><RenderContent source={t('how_it_works.cards.3.body')} /></Typography>
+                <Typography><RenderContent children={t('how_it_works.cards.3.body')} /></Typography>
               </Grid>
             </Grid>
           </Box>
@@ -427,10 +427,10 @@ const HomePage = () => {
         {/* {isIE && <img className="accentImage--img" src={`${process.env.PUBLIC_URL}/assets/images/soft-diamond-background-long.svg`} alt="accent image" aria-hidden="true" />} */}
         <Box component="section">
           <Typography variant={isMobile ? "h2" : "h1"} component="h2" className={classes.infoBox}>
-            <RenderContent source={t('participate.title')} />
+            <RenderContent children={t('participate.title')} />
           </Typography>
           <Typography paragraph={true} variant={isMobile ? "body1" : "body2"} className={classes.volunteerText}>
-            <RenderContent source={t('participate.body')} />
+            <RenderContent children={t('participate.body')} />
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} md={4}>
@@ -476,10 +476,10 @@ const HomePage = () => {
           </IconButton>
           <CheckCircleIcon className={classes.closeAccountIcon} />
           <Typography variant="h3" component="h3">
-            <RenderContent source={t('modal.closed_account.title')} />
+            <RenderContent children={t('modal.closed_account.title')} />
           </Typography>
           <Typography component="div">
-            <RenderContent source={t('modal.closed_account.body')} />
+            <RenderContent children={t('modal.closed_account.body')} />
           </Typography>
         </DialogContent>
       </Dialog>
