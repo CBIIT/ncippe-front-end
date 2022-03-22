@@ -61,7 +61,7 @@ const AboutPage = () => {
   useEffect(() => {
     PubSub.publish('ANALYTICS', {
       event:'pageview',
-      prop6: 'About the Boibank',
+      prop6: 'About the Biobank',
       prop10: t("metaData.title"),
     })
   },[t])
