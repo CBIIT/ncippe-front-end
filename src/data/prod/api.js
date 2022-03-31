@@ -345,6 +345,20 @@ async function getHospitalList(){
 }
 
 /*=======================================================================*/
+/*======== Get News and Events ==========================================*/
+
+async function getNewsEvents(){
+  return await fetch(`/publicapi/v1/newsEvents`,{
+    headers: {
+      'Content-Type': 'text/plain',
+      'access-control-allow-origin': '*'
+    }
+  })
+    .then(handleResponse)
+    .catch(handleErrorMsg('Unable to fetch news & events at this time.'))
+}
+
+/*=======================================================================*/
 /*======== Send Message =================================================*/
 
 async function sendMessage(data){
@@ -396,6 +410,7 @@ export const api = {
   updateParticipantDetails,
   activateParticipant,
   getHospitalList,
+  getNewsEvents,
   sendMessage,
   getMessages,
 }
