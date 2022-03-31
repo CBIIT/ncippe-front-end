@@ -3,7 +3,6 @@ import { Location, Router, Redirect, navigate } from '@reach/router'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import pageWrapper from '../pages/pageWrapper'
 import getAPI from '../data'
-import { formatPhoneNumber } from '../utils/utils'
 
 // imports for public pages
 import NotFound           from '../pages/NotFoundPage'
@@ -11,6 +10,7 @@ import Home               from '../pages/HomePage'
 import Errors             from '../pages/ErrorPage' // 'Error' is reserved keyword
 import About              from '../pages/about/AboutPage'
 import Eligibility        from '../pages/about/EligibilityPage'
+import News               from '../pages/about/NewsPage'
 import AboutConsent       from '../pages/expect/Consent'
 import Donate             from '../pages/expect/Donate'
 import BiomarkerTest      from '../pages/expect/BiomarkerTest'
@@ -45,6 +45,7 @@ const SearchResults = lazy(() => import('../pages/SearchResultsPage'))
 const HomePage = pageWrapper(Home)
 const AboutPage = pageWrapper(About)
 const EligibilityPage = pageWrapper(Eligibility)
+const NewsPage = pageWrapper(News)
 const ResearchPage = pageWrapper(Research)
 const DashboardPage = pageWrapper(Dashboard)
 const DashboardMochaPage = pageWrapper(DashboardMocha)
@@ -181,6 +182,7 @@ export default () => (
             <HomePage path='/' />
             <AboutPage path='/about' />
             <EligibilityPage path='/about/eligibility' />
+            <NewsPage path='/about/news' />
             <ResearchPage path='/about/research' />
             <AboutConsentPage path='/expect/consent' /> 
             <DonatePage path='/expect/donate' /> 
