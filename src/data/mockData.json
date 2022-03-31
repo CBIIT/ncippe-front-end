@@ -1149,7 +1149,7 @@
     {
       "id": 1,
       "contentType": "news",
-      "date": 1548910800000,
+      "publishedDate": 1548910800000,
       "title": "New funding opportunities: Cancer Moonshot Biobank",
       "author": "Dr. Abhi Rao",
       "link": "https://biospecimens.cancer.gov/fundingopportunities/fo.asp",
@@ -1158,7 +1158,7 @@
     {
       "id": 2,
       "contentType": "news",
-      "date": 1554699600000,
+      "publishedDate": 1554699600000,
       "title": "2019 submission dates for PAR-18-947 Integrating Biospecimen Science Approaches into Clinical Assay Development: March 14, 2019; July 11, 2019; November 7, 2019.",
       "author": "NCI",
       "link": "https://grants.nih.gov/grants/guide/pa-files/PAR-18-947.html",
@@ -1167,7 +1167,7 @@
     {
       "id": 3,
       "contentType": "news",
-      "date": 1555736400000,
+      "publishedDate": 1555736400000,
       "title": "New publications from the NCI BPV program",
       "author": "DCTD",
       "link": "https://biospecimens.cancer.gov/about/sp.asp",
@@ -1176,7 +1176,7 @@
     {
       "id": 4,
       "contentType": "news",
-      "date": 1584248400000,
+      "publishedDate": 1584248400000,
       "title": "New BEBP on cfDNA is Now Available",
       "author": "DCTD",
       "link": "https://biospecimens.cancer.gov/about/sp.asp",
@@ -1185,7 +1185,7 @@
     {
       "id": 5,
       "contentType": "news",
-      "date": 1586926800000,
+      "publishedDate": 1586926800000,
       "title": "Please take a short survey on the BRD's SOP Library",
       "author": "DCTD",
       "link": "https://nci.az1.qualtrics.com/jfe/form/SV_bdfJPzby9QX54Y5",
@@ -1194,7 +1194,7 @@
     {
       "id": 6,
       "contentType": "news",
-      "date": 1597467600000,
+      "publishedDate": 1597467600000,
       "title": "FOA PAR 18-947 Integrating Biospecimen Science Approaches into Clinical Assay Development",
       "author": "DCTD",
       "link": "https://biospecimens.cancer.gov/fundingopportunities/fo.asp",
@@ -1203,7 +1203,7 @@
     {
       "id": 7,
       "contentType": "event",
-      "date": 1619845200000,
+      "publishedDate": 1619845200000,
       "title": "Biobanking for Precision Medicine Seminar Series",
       "author": "Dr. Craig Shriver and Dr. Justin Wells",
       "link": "https://biospecimens.cancer.gov/newsevents/news/20210708_shriver.asp",
@@ -1212,7 +1212,7 @@
     {
       "id": 8,
       "contentType": "news",
-      "date": 1634274000000,
+      "publishedDate": 1634274000000,
       "title": "Re-issued FOA PAR 22-049 Integrating Biospecimen Science Approaches into Clinical Assay Development ",
       "author": "DCTD",
       "link": "https://biospecimens.cancer.gov/fundingopportunities/fo.asp",
@@ -1221,7 +1221,7 @@
     {
       "id": 9,
       "contentType": "event",
-      "date": 1604206800000,
+      "publishedDate": 1604206800000,
       "title": "Biobanking for Precision Medicine Seminar Series",
       "author": "Dr. Peter Watson",
       "link": "https://biospecimens.cancer.gov/newsevents/news/20210708_watson.asp",
@@ -1230,7 +1230,7 @@
     {
       "id": 10,
       "contentType": "event",
-      "date": 1614574800000,
+      "publishedDate": 1614574800000,
       "title": "Biobanking for Precision Medicine Seminar Series",
       "author": "Dr. Helen Morrin",
       "link": "https://biospecimens.cancer.gov/newsevents/news/20210708_morrin.asp",

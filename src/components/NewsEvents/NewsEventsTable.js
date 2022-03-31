@@ -69,7 +69,7 @@ const NewsEventsTable = (props) => {
             <TableBody>
               {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item, i) => (
                 <TableRow key={item.id} className={classes.tableRow} data-index={i}>
-                  <TableCell className={classes.tableDate}>{moment(item.date).format('M/D/YYYY')}</TableCell>
+                  <TableCell className={classes.tableDate}>{moment(item.publishedDate).format('M/D/YYYY')}</TableCell>
                   <TableCell className={classes.tableTitle}><a href={item.link} rel='noopener noreferrer' target="_blank">{item.title}</a></TableCell>
                 </TableRow>
               ))}
