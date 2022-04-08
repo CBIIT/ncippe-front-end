@@ -476,6 +476,17 @@ html {
   letter-spacing: 0;
 }
 
+/* Research Nav hack */
+#menu-list-grow-research {
+  max-width: 254px;
+}
+#menu-list-grow-research .MuiMenuItem-root {
+  white-space: normal;
+}
+#menu-list-grow-research span {
+  display: inline-block;
+}
+
 /* Stupid IE11 hacks */
 /* @media all and (-ms-high-contrast:none) { */
   /* Header nav */
