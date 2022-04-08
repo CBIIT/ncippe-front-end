@@ -105,6 +105,10 @@ const Footer = () => {
     newWindow(url)
   }
 
+  const handleLiveHelp = (e) => {
+    e.preventDefault()
+    newWindow(t('footer.links.liveHelp.link'))
+  }
 
   return (
     <Container className={classes.root} component="footer" id="appFooter">
@@ -118,6 +122,7 @@ const Footer = () => {
             <a className="breakAll" href={`mailto:${t('footer.links.email')}`}>{t('footer.links.email')}</a>
             <a href={`tel:${t('footer.links.phone')}`}>{t('footer.links.phone')}</a>
             <a href={t('footer.links.cis.link')}>{t('footer.links.cis.text')}</a>
+            <a href="#" onClick={handleLiveHelp}>{t('footer.links.liveHelp.text')}</a>
 						<div className={classes.columnTitle}>{t('footer.links.share_title')}</div>
             <div className={classes.social}>
               <IconButton className={classes.socialIcon} variant="outlined" onClick={handleShareOnFacebook}><img src={`${process.env.PUBLIC_URL}/assets/icons/facebook.svg`} alt={t('footer.links.facebook.alt_text')} title={t('footer.links.facebook.text')} /></IconButton>
