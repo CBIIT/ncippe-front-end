@@ -259,9 +259,9 @@ const Header = () => {
             </MenuGroup>
             <MenuGroup menuText={t('nav.research')} active={loc.includes('research')} index="research">
               <a href="/research">{t('nav.research_subNav.0')}</a>
-              <a className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.0')}</a>
-              <a className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.1')}</a>
-              <a className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.2')}</a>
+              <a className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.0')}</a>
+              <a className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.1')}</a>
+              <a className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.2')}</a>
             </MenuGroup>
             <Search />
           </nav>
@@ -327,9 +327,9 @@ const Header = () => {
               index="research"
             >
               <a onClick={closeMenu} href="/research">{t('nav.research_subNav.0')}</a>
-              <a onClick={closeMenu} className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.0')}</a>
-              <a onClick={closeMenu} className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.1')}</a>
-              <a onClick={closeMenu} className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.2')}</a>
+              <a onClick={closeMenu} className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.0')}</a>
+              <a onClick={closeMenu} className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.1')}</a>
+              <a onClick={closeMenu} className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.2')}</a>
             </ExpansionMenu>
 
             <Box className={classes.mobileSearch} component="form" onSubmit={handleSearchSubmit}>
