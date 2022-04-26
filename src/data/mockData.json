@@ -1236,5 +1236,47 @@
       "link": "https://biospecimens.cancer.gov/newsevents/news/20210708_morrin.asp",
       "expirationDate": 1617253200000
     }
+  ],
+  "alerts": [
+    {
+      "id": 0,
+      "contentType": "error",
+      "dateCreated": 1549265389000,
+      "expirationDate": null,
+      "message": {
+        "en": "This is an ERROR alert",
+        "es": ""
+      }
+    },
+    {
+      "id": 1,
+      "contentType": "warning",
+      "dateCreated": 1549265389000,
+      "expirationDate": null,
+      "message": {
+        "en": "This is a WARNING alert",
+        "es": ""
+      }
+    },
+    {
+      "id": 2,
+      "contentType": "info",
+      "dateCreated": 1549265389000,
+      "expirationDate": null,
+      "message": {
+        "en": "This is an INFO alert",
+        "es": ""
+      }
+    },
+    {
+      "id": 3,
+      "contentType": "success",
+      "dateCreated": 1549265389000,
+      "expirationDate": null,
+      "message": {
+        "en": "This is a SUCCESS alert",
+        "es": ""
+      }
+    }
   ]
 }

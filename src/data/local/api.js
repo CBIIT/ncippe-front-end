@@ -546,6 +546,15 @@ async function activateParticipant({uuid, patient, token}){
 }
 
 /*=======================================================================*/
+/*======== Get Home Page Alert ==========================================*/
+
+async function getAlerts(){
+  return await fetch(`/api/alerts/`)
+    .then(handleResponse)
+    .catch(handleErrorMsg('Unable to fetch site alerts at this time.'))
+}
+
+/*=======================================================================*/
 /*======== Get Hospital List ============================================*/
 
 async function getHospitalList(){
@@ -649,6 +658,7 @@ export const api = {
   updateParticipantDetails,
   updateParticipantEmail,
   activateParticipant,
+  getAlerts,
   getHospitalList,
   getNewsEvents,
   sendMessage,

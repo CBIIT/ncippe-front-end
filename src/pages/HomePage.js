@@ -11,6 +11,7 @@ import {
 } from '@material-ui/icons'
 import PubSub from 'pubsub-js'
 
+import getAPI from '../data'
 import { check_webp_feature } from '../utils/utils'
 import IconCardMedia from '../components/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
@@ -288,6 +289,7 @@ const HomePage = () => {
   const { t, i18n } = useTranslation('homePage')
   const isHighResolution = useMediaQuery('@media (min-resolution: 192dpi)')
   const [accountClosed, setAccountClosed] = useState(localStorage.getItem('accountClosed'))
+  const [alerts, setAlerts] = useState([])
 
   useEffect(() => {
     const resizeEvt = () => {
@@ -326,6 +328,30 @@ const HomePage = () => {
     }
   }, [accountClosed])
 
+  /* check if there are any system alerts to be retrieved */
+  /* TODO:
+    - check for local variable that will cache system alerts - is this overkill?
+    - set system alert timestamp - configurable - 1 hour
+    - short circuit api calls else
+    - use api to check for alerts
+    - store local flag that alerts were retrieved within config window
+    - filter out alerts that have expired
+  */
+  useEffect(() => {
+    getAPI.then(api => {
+      api.getAlerts().then(resp => {
+        if(resp instanceof Error) {
+          throw resp
+        }
+        console.log('resp', resp)
+        setAlerts(resp)
+      })
+    })
+    .catch(error => {
+      console.error(error)
+    })
+  }, [])
+
   const handleClose = () => {
     setIsModalOpen(false)
     navigate('/', {state:{}}, { replace: true })
@@ -345,12 +371,14 @@ const HomePage = () => {
 
 
       {/* Render the banner if it exists and the value is not an empty string */
-      i18n.exists('homePage:hero.banner') && t('hero.banner').trim().length > 0 &&
-      <Container className={classes.banner}>
-        <Typography className={classes.bannerText} component="div">
-          <strong><RenderContent children={t('hero.banner')} /></strong>
-        </Typography>
-      </Container>
+      // i18n.exists('homePage:hero.banner') && t('hero.banner').trim().length > 0 &&
+      alerts.length > 0 && alerts.map((alert,i) => 
+        <Container key={i} className={classes.banner}>
+          <Typography className={classes.bannerText} component="div">
+            <strong><RenderContent children={alert.message[i18n.languages[0]]} /></strong>
+          </Typography>
+        </Container>
+      )
       }
 
       <Container className={classes.hero}>
