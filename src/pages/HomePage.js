@@ -39,6 +39,18 @@ const useStyles = makeStyles( theme => ({
   bannerText: {
     fontFamily: 'Montserrat, Helvetica, Arial, sans-serif'
   },
+  banner_warning: {
+    backgroundColor: '#fce2b5',
+    border: '1px solid #FEB73C',
+  },
+  banner_info: {
+    backgroundColor: '#E7F0FB',
+    border: '1px solid #bdd9fc',
+  },
+  banner_success: {
+    backgroundColor: '#E3FCF2',
+    border: '1px solid #01C585',
+  },
   hero: {
     // backgroundColor: theme.palette.primary.lightGrey,
     backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/mobile/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`,
@@ -373,7 +385,7 @@ const HomePage = () => {
       {/* Render the banner if it exists and the value is not an empty string */
       // i18n.exists('homePage:hero.banner') && t('hero.banner').trim().length > 0 &&
       alerts.length > 0 && alerts.map((alert,i) => 
-        <Container key={i} className={classes.banner}>
+        <Container key={i} className={`${classes.banner} ${classes['banner_' + alert.contentType]}`}>
           <Typography className={classes.bannerText} component="div">
             <strong><RenderContent children={alert.message[i18n.languages[0]]} /></strong>
           </Typography>
