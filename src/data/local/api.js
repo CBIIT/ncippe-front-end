@@ -530,6 +530,16 @@ async function getHospitalList(){
     .catch(handleErrorMsg('Unable to fetch hospital list at this time.'))
 }
 
+
+/*=======================================================================*/
+/*======== Get News and Events ==========================================*/
+
+async function getNewsEvents(){
+  return await fetch(`/api/newsEvents/`)
+    .then(handleResponse)
+    .catch(handleErrorMsg('Unable to fetch news & events at this time.'))
+}
+
 /*=======================================================================*/
 /*======== Send Messages ================================================*/
 
@@ -615,6 +625,7 @@ export const api = {
   updateParticipantDetails,
   activateParticipant,
   getHospitalList,
+  getNewsEvents,
   sendMessage,
   getMessages,
 }

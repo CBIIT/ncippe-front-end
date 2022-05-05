@@ -56,6 +56,7 @@ const SearchResults = () => {
     'eligibility',
     'homePage',
     'hospitalList',
+    'news',
     'privacy',
     // 'r_blakelyImprovingResponses',
     // 'r_kuoInteractionsEnvironment',
