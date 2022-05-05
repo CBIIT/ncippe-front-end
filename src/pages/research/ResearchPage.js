@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
-// import { Link as RouterLink } from '@reach/router'
+import { Link as RouterLink } from '@reach/router'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
-import { Box, Container, Divider, Grid, Typography } from '@material-ui/core'
+import { Box, Container, Divider, Grid, Link, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import PubSub from 'pubsub-js'
 
@@ -20,6 +20,13 @@ const useStyles = makeStyles( theme => ({
       margin: theme.spacing(7,0)
     }
   },
+  dividerSmall: {
+    width: '100%',
+    margin: theme.spacing(2,0),
+    [theme.breakpoints.up('md')]: {
+      margin: theme.spacing(3,0)
+    }
+  },
   gridItemImg: {
     textAlign: 'center',
     '& img': {
@@ -28,6 +35,9 @@ const useStyles = makeStyles( theme => ({
         maxWidth: 380
       }
     }
+  },
+  updates: {
+    marginTop: theme.spacing(5)
   }
 }),{name: 'ResearchPage'})
 
@@ -83,26 +93,29 @@ const ResearchPage = () => {
               <Typography component="div">
                 <RenderContent children={t('sections.1.body')} />
               </Typography>
+
+              <section className={classes.updates}>
+                <Typography paragraph={true} variant="h3" component="h3">
+                  <RenderContent children={t('sections.2.title')} />
+                </Typography>
+                <div>
+                  {Object.keys(t('sections.2.links', { returnObjects: true })).map((link, i) => 
+                    <Typography component="div" paragraph={true} key={i}>
+                      <Link component={RouterLink} to={t(`sections.2.links.${i}.route`)}>{t(`sections.2.links.${i}.text`)}</Link>
+                      <Typography><RenderContent children={t(`sections.2.links.${i}.author`)} /></Typography>
+                      <Divider className={classes.dividerSmall} />
+                    </Typography>
+                  )}
+                </div>
+              </section>
             </Grid>
             <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
               <ArticleImage src="researchers-1.jpg" alt={t('sections.1.alt_text')} />
             </Grid>
 
-            {/* <Divider className={classes.divider} />
-
             <Grid item xs={12} md={6} component="section">
-              <Typography paragraph={true} variant="h2" component="h2">
-                <RenderContent children={t('sections.2.title')} />
-              </Typography>
-              <div>
-                {Object.keys(t('sections.2.links', { returnObjects: true })).map((link, i) => 
-                  <Typography component="div" paragraph={true} key={i}>
-                    <Link component={RouterLink} to={t(`sections.2.links.${i}.route`)}>{t(`sections.2.links.${i}.text`)}</Link>
-                    <Typography><RenderContent children={t(`sections.2.links.${i}.author`)} /></Typography>
-                  </Typography>
-                )}
-              </div>
-            </Grid> */}
+              
+            </Grid>
           </Grid>
         </Box>
       </Container>

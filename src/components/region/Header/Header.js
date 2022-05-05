@@ -245,7 +245,7 @@ const Header = () => {
             <MenuGroup menuText={t('nav.about')} active={loc.includes('about')} index="about">
               <a href="/about">{t('nav.about_subNav.about')}</a>
               <a href="/about/eligibility">{t('nav.about_subNav.eligibility')}</a>
-              <a href="/about/research">{t('nav.research')}</a>
+              {/* <a href="/about/research">{t('nav.research')}</a> */}
               <a href="/about/news">{t('nav.about_subNav.news')}</a>
             </MenuGroup>
             <MenuGroup menuText={t('nav.expect')} active={loc.includes('expect')} index="expect">
@@ -256,6 +256,12 @@ const Header = () => {
             <MenuGroup menuText={t('nav.participation')} active={loc.includes('participation')} index="participation">
               <a href="/participation/activate">{t('nav.participation_subNav.activate')}</a>
               <a href="/participation/privacy">{t('nav.participation_subNav.privacy')}</a>
+            </MenuGroup>
+            <MenuGroup menuText={t('nav.research')} active={loc.includes('research')} index="research">
+              <a href="/research">{t('nav.research_subNav.0')}</a>
+              <a className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.0')}</a>
+              <a className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.1')}</a>
+              <a className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.2')}</a>
             </MenuGroup>
             <Search />
           </nav>
@@ -285,7 +291,8 @@ const Header = () => {
             >
               <a onClick={closeMenu} href="/about">{t('nav.about_subNav.about')}</a>
               <a onClick={closeMenu} href="/about/eligibility">{t('nav.about_subNav.eligibility')}</a>
-              <a onClick={closeMenu} href="/about/research">{t('nav.research')}</a>
+
+              {/* <a onClick={closeMenu} href="/about/research">{t('nav.research')}</a> */}
               <a onClick={closeMenu} href="/about/news">{t('nav.about_subNav.news')}</a>
             </ExpansionMenu>
 
@@ -310,6 +317,19 @@ const Header = () => {
             >
               <a onClick={closeMenu} href="/participation/activate">{t('nav.participation_subNav.activate')}</a>
               <a onClick={closeMenu} href="/participation/privacy">{t('nav.participation_subNav.privacy')}</a>
+            </ExpansionMenu>
+
+            <ExpansionMenu
+              handleClick={expandPanel}
+              expanded={expanded.includes("research")}
+              active={loc.includes('research')}
+              menuText={t('nav.research')}
+              index="research"
+            >
+              <a onClick={closeMenu} href="/research">{t('nav.research_subNav.0')}</a>
+              <a onClick={closeMenu} className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.0')}</a>
+              <a onClick={closeMenu} className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.1')}</a>
+              <a onClick={closeMenu} className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.2')}</a>
             </ExpansionMenu>
 
             <Box className={classes.mobileSearch} component="form" onSubmit={handleSearchSubmit}>

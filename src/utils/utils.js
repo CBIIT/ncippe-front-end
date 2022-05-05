@@ -282,7 +282,7 @@ export const convertToKebab = (string) => string.replace(/([a-z])([A-Z])/g, '$1-
  */
 export const convertToCamel = (string, pascal = false) => {
 	const converter = (matches) => matches[1].toUpperCase();
-	let result = string.replace(/(-|\s\w)/g, converter);
+	let result = string.replace(/(-\w|\s\w)/g, converter);
 
 	if ( pascal === true ) {
 		result = result.charAt(0).toUpperCase() + result.slice(1);
