@@ -350,6 +350,20 @@ async function activateParticipant({uuid, token, patient}){
 }
 
 /*=======================================================================*/
+/*======== Get Home Page Alert ==========================================*/
+
+async function getAlerts(){
+  return await fetch(`/publicapi/v1/alerts/`,{
+    headers: {
+      'Content-Type': 'text/plain',
+      'access-control-allow-origin': '*'
+    }
+  })
+    .then(handleResponse)
+    .catch(handleErrorMsg('Unable to fetch site alerts at this time.'))
+}
+
+/*=======================================================================*/
 /*======== Get Hospital List =========================================*/
 
 async function getHospitalList(){
@@ -429,6 +443,7 @@ export const api = {
   updateParticipantDetails,
   updateParticipantEmail,
   activateParticipant,
+  getAlerts,
   getHospitalList,
   getNewsEvents,
   sendMessage,
