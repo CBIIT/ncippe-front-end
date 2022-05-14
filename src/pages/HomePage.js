@@ -302,6 +302,7 @@ const HomePage = () => {
   const isHighResolution = useMediaQuery('@media (min-resolution: 192dpi)')
   const [accountClosed, setAccountClosed] = useState(localStorage.getItem('accountClosed'))
   const [alerts, setAlerts] = useState([])
+  const [refreshAlerts, setRefreshAlerts] = useState(false)
 
   useEffect(() => {
     const resizeEvt = () => {
@@ -350,19 +351,44 @@ const HomePage = () => {
     - filter out alerts that have expired
   */
   useEffect(() => {
-    getAPI.then(api => {
-      api.getAlerts().then(resp => {
-        if(resp instanceof Error) {
-          throw resp
-        }
-        console.log('resp', resp)
-        setAlerts(resp)
-      })
-    })
-    .catch(error => {
-      console.error(error)
-    })
+    // get the datestamp alerts were last fetched
+    const alertsLastFetched = localStorage.getItem('alertsLastFetched')
+    // get new alerts if time interval has passed
+    if(alertsLastFetched){
+      const refreshTime = 1 // time in hours
+      const time = Date.now()
+      const gap = (time - alertsLastFetched)/(1000 * 60 * 60) // time in hours
+      if(gap > refreshTime) {
+        // getAlerts by triggering a state variable
+        return setRefreshAlerts(true)
+      }
+      // if alerts are still fresh then pull them from localStorage
+      const alerts = JSON.parse(localStorage.getItem('alerts'))
+      setAlerts(alerts)
+    } else {
+      // if alerts have never been fetched then now's the time
+      setRefreshAlerts(true)
+    }
   }, [])
+  useEffect(() => {
+    if(refreshAlerts){
+      getAPI.then(api => {
+        api.getAlerts().then(resp => {
+          if(resp instanceof Error) {
+            throw resp
+          }
+          // filter out any expired alerts, keeping those that have no expirationDate
+          const filteredAlerts = resp.filter(alert => alert.expirationDate == null || Date.now() < alert.expirationDate)
+          localStorage.setItem('alertsLastFetched', Date.now())
+          localStorage.setItem('alerts', JSON.stringify(filteredAlerts))
+          setAlerts(filteredAlerts)
+        })
+      })
+      .catch(error => {
+        console.error(error)
+      })
+    }
+  }, [refreshAlerts])
 
   const handleClose = () => {
     setIsModalOpen(false)
@@ -382,9 +408,8 @@ const HomePage = () => {
       </Helmet>
 
 
-      {/* Render the banner if it exists and the value is not an empty string */
-      // i18n.exists('homePage:hero.banner') && t('hero.banner').trim().length > 0 &&
-      alerts.length > 0 && alerts.map((alert,i) => 
+      {
+      alerts.map((alert,i) => 
         <Container key={i} className={`${classes.banner} ${classes['banner_' + alert.contentType]}`}>
           <Typography className={classes.bannerText} component="div">
             <strong><RenderContent children={alert.message[i18n.languages[0]]} /></strong>
