@@ -1242,7 +1242,7 @@
       "id": 0,
       "contentType": "error",
       "dateCreated": 1549265389000,
-      "expirationDate": null,
+      "expirationDate": 1652456800689,
       "message": {
         "en": "This is an ERROR alert",
         "es": ""
@@ -1252,7 +1252,7 @@
       "id": 1,
       "contentType": "warning",
       "dateCreated": 1549265389000,
-      "expirationDate": null,
+      "expirationDate": 1652369065959,
       "message": {
         "en": "This is a WARNING alert",
         "es": ""
@@ -1262,7 +1262,7 @@
       "id": 2,
       "contentType": "info",
       "dateCreated": 1549265389000,
-      "expirationDate": null,
+      "expirationDate": 1684033068000,
       "message": {
         "en": "This is an INFO alert",
         "es": ""
