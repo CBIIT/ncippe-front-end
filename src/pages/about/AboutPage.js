@@ -79,7 +79,7 @@ const AboutPage = () => {
       </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">
-          <RenderContent source={t('pageTitle')} />
+          <RenderContent children={t('pageTitle')} />
         </Typography>
       </Container>
       <Container className="mainContainer mainContainer--public">
@@ -87,15 +87,15 @@ const AboutPage = () => {
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">
             <Grid item xs={12} md={6}>
               <Typography paragraph={true} variant="h2" component="h2">
-                <RenderContent source={t('sections.0.title')} />
+                <RenderContent children={t('sections.0.title')} />
               </Typography>
               { isMobile && <ArticleImage src="father-son.jpg" alt={t('sections.0.alt_text')} />}
               <Typography paragraph={true} variant="h3" component="h3">
-                <RenderContent source={t('sections.0.subtitle')} />
+                <RenderContent children={t('sections.0.subtitle')} />
               </Typography>
               
               <Typography component="div">
-                <RenderContent source={t('sections.0.body')} />
+                <RenderContent children={t('sections.0.body')} />
               </Typography>
 
 
@@ -111,11 +111,11 @@ const AboutPage = () => {
 
             <Grid item xs={12} md={9}>
               <Typography paragraph={true} variant="h2" component="h2">
-                <RenderContent source={t('sections.1.title')} />
+                <RenderContent children={t('sections.1.title')} />
               </Typography>
 
               <Typography component="div">
-                <RenderContent source={t('sections.1.intro')} />
+                <RenderContent children={t('sections.1.intro')} />
               </Typography>
             </Grid>
             <Grid item xs={12}>
@@ -135,12 +135,12 @@ const AboutPage = () => {
                     `}
                   />
                 </a>
-                <figcaption><RenderContent source={t('sections.1.caption')} /></figcaption>
+                <figcaption><RenderContent children={t('sections.1.caption')} /></figcaption>
               </figure>
             </Grid>
             <Grid item xs={12} md={9}>
               <Typography component="div">
-                <RenderContent source={t('sections.1.body')} />
+                <RenderContent children={t('sections.1.body')} />
               </Typography>
             </Grid>
           </Grid>

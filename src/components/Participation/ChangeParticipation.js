@@ -57,7 +57,7 @@ const ChangeParticipation = (props) => {
   return (
     <Box>
       <Typography className={classes.header} variant={isMobile ? "h2" : "h1"} component="h1">{t('landing.pageTitle')}</Typography>
-      <Typography component="div"><RenderContent source={t('landing.body')} /></Typography>
+      <Typography component="div"><RenderContent children={t('landing.body')} /></Typography>
 
       <FormControl component="fieldset" className={classes.formControl}>
         <legend><Typography variant={isMobile ? "h4" : "h3"}>{t('landing.form.title')}</Typography></legend>

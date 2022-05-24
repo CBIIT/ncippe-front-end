@@ -95,7 +95,7 @@ const Consent = () => {
         <Grid container component="section">
           <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>
             <Typography variant={isMobile ? "body1" : "body2"} component="div">
-              <RenderContent source={t('intro_text')} />
+              <RenderContent children={t('intro_text')} />
             </Typography>
           </Grid>
           <Grid item xs={12} md={6} lg={4} className={classes.gridItemImg} component="aside">
@@ -105,13 +105,13 @@ const Consent = () => {
             <Box mb={5} className={classes.linkList}>
               <Typography variant="h3" component="h3">{t('sample_title')}</Typography>
               <Button  href={`${process.env.PUBLIC_URL}/assets/documents/Sample-Adult-Consent-Form${lang}.pdf`} color="primary" rel="noopener noreferrer" target="_blank">
-                <RenderContent source={t('form_link_adult')} />
+                <RenderContent children={t('form_link_adult')} />
               </Button>
               <Button  href={`${process.env.PUBLIC_URL}/assets/documents/Sample-Parental-Permission-Form${lang}.pdf`} color="primary" rel="noopener noreferrer" target="_blank">
-                <RenderContent source={t('form_link_parental')} />
+                <RenderContent children={t('form_link_parental')} />
               </Button>
               <Button  href={`${process.env.PUBLIC_URL}/assets/documents/Sample-Assent-Form-For-Minors${lang}.pdf`} color="primary" rel="noopener noreferrer" target="_blank">
-                <RenderContent source={t('form_link_minors')} />
+                <RenderContent children={t('form_link_minors')} />
               </Button>
             </Box>
             <Box mb={4}>
@@ -126,7 +126,7 @@ const Consent = () => {
                     allowFullScreen
                   />
                 </Card>
-                <figcaption><RenderContent source={t('video_caption')} /></figcaption>
+                <figcaption><RenderContent children={t('video_caption')} /></figcaption>
               </figure>
             </Box>
           </Grid>

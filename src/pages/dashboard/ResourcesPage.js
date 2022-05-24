@@ -62,10 +62,10 @@ const Page = () => {
             <div key={i} className={classes.resourceBlock}>
               {i !== 0 && <Divider className={classes.divider} />}
               <Typography variant="h3" component="h3">
-                <RenderContent source={t(`sections.${i}.title`)} />
+                <RenderContent children={t(`sections.${i}.title`)} />
               </Typography>
               <Typography component="div">
-                <RenderContent source={t(`sections.${i}.body`)} />
+                <RenderContent children={t(`sections.${i}.body`)} />
               </Typography>
             </div>
           )}

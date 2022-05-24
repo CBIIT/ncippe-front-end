@@ -93,7 +93,7 @@ const IconCard = (props) => {
           <div className={classes.cardTextContainer}>
             <div className={classes.cardText}>
               <Typography className={classes.cardTitle} variant="body2" component="h2">{title}</Typography>
-              <Typography component="div"><RenderContent source={desc} /></Typography>
+              <Typography component="div"><RenderContent children={desc} /></Typography>
             </div>
             {link && (
               <CardActions className={classes.cardActions}>

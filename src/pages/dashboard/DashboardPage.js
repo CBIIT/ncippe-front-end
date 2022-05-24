@@ -93,7 +93,7 @@ const Page = () => {
                   <Status state="info" fullWidth title={t('a_common:not_participating.status.title')} message={t('a_common:not_participating.status.message')} />
                 </div>
                 :
-                <Typography variant="body2"><RenderContent source={t('subtitle')} /></Typography>
+                <Typography variant="body2"><RenderContent children={t('subtitle')} /></Typography>
               }
             </Box>
           )
@@ -101,7 +101,7 @@ const Page = () => {
         </LoginConsumer>
         
         {/* Primary row */}
-        <Grid container className={classes.grid} spacing={2} direction="row" justify="center" alignItems="stretch">
+        <Grid container className={classes.grid} spacing={2} direction="row" justifyContent="center" alignItems="stretch">
           {/* Send Message */}
           <LoginConsumer>
             {([{roleName}]) => {

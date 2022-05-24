@@ -261,7 +261,7 @@ const SearchResults = () => {
                       <Link to={route} className="bold" component={RouterLink} data-rank={i + 1} onClick={trackClick}>{page}</Link>
                     </Typography>
                     <Typography component="div">
-                      <RenderContent source={results} />
+                      <RenderContent children={results} />
                     </Typography>
                     <Typography className={classes.dim}>{window.location.origin + route}</Typography>
                   </Box>

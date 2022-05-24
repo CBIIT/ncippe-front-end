@@ -82,45 +82,45 @@ const PolicyPage = () => {
       </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">
-          <RenderContent source={t('pageTitle')} />
+          <RenderContent children={t('pageTitle')} />
         </Typography>
       </Container>
       <Container className="mainContainer mainContainer--public">
         <Box mt={5} component="article" className={`${classes.typography} ${classes.container}`}>
           <Typography component="div">
-            <RenderContent source={t(`description`)} />
+            <RenderContent children={t(`description`)} />
           </Typography>
           <section>
             <Typography variant="h2" component="h2">{t('PII.title')}</Typography>
-            <Typography component="div"><RenderContent source={t(`PII.body`)} /></Typography>
+            <Typography component="div"><RenderContent children={t(`PII.body`)} /></Typography>
           </section>
           <section>
             <Typography variant="h2" component="h2">{t('disclosure.title')}</Typography>
-            <Typography component="div"><RenderContent source={t(`disclosure.body`)} /></Typography>
+            <Typography component="div"><RenderContent children={t(`disclosure.body`)} /></Typography>
           </section>
           <Typography className={classes.nav} component="nav">
             <Typography component="h2">
-              <RenderContent source={t(`nav.title`)} />
+              <RenderContent children={t(`nav.title`)} />
             </Typography>
-            <RenderContent source={t(`nav.body`)} />
+            <RenderContent children={t(`nav.body`)} />
           </Typography>
           <section>
             <Typography id="public" variant="h2" component="h2">{t('public.title')}</Typography>
-            <Typography component="div"><RenderContent source={t(`public.body`)} /></Typography>
+            <Typography component="div"><RenderContent children={t(`public.body`)} /></Typography>
             {Object.keys(t('public.sections', { returnObjects: true })).map((section, i) => 
               <Typography component="section" key={i}>
-                <RenderContent source={t(`public.sections.${i}.title`)} />
-                <RenderContent source={t(`public.sections.${i}.body`)} />
+                <RenderContent children={t(`public.sections.${i}.title`)} />
+                <RenderContent children={t(`public.sections.${i}.body`)} />
               </Typography>
             )}
           </section>
           <section>
             <Typography id="portal" variant="h2" component="h2">{t('portal.title')}</Typography>
-            <Typography component="div"><RenderContent source={t(`portal.body`)} /></Typography>
+            <Typography component="div"><RenderContent children={t(`portal.body`)} /></Typography>
             {Object.keys(t('portal.sections', { returnObjects: true })).map((section, i) => 
               <Typography component="section" key={i}>
-                <RenderContent source={t(`portal.sections.${i}.title`)} />
-                <RenderContent source={t(`portal.sections.${i}.body`)} />
+                <RenderContent children={t(`portal.sections.${i}.title`)} />
+                <RenderContent children={t(`portal.sections.${i}.body`)} />
               </Typography>
             )}
           </section>
