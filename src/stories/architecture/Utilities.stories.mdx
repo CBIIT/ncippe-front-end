@@ -3,8 +3,56 @@ import '../assets/css/storybook.css'
 
 <Meta title="Architecture/Utilities" />
 
-# Utilities
+# Utilities and 3rd Party Libraries
 
-Let's talk about Utilities
+This site makes use of a few programs that fall outside of the node development stack.
+
+## Image generation
+The most important utility to cover is how responsive images are created for this project. Creating responsive images for multiple resolutions manually is time consuming. We make use of [ImageMagick](https://imagemagick.org/index.php) for resizing images and [ImageOptim](https://imageoptim.com/) for compressing the images. This is all easily executed using the `/utils.sh` script.
+
+The idea for this technique is based on the Hackernoon article [Save Time by Transforming Images in the Command Line](https://hackernoon.com/save-time-by-transforming-images-in-the-command-line-c63c83e53b17). Here are the steps to run the responsive image utility.
+
+### Step 1 - Install Software
+Install [ImageMagick](https://imagemagick.org/index.php) on your machine. ImageMagick provides your CLI with two powerful commands: `convert` and `mogrify`. Typing these commands into the CLI should output the help text on how to use the commands.
+
+Install [ImageOptim](https://imageoptim.com/). Once installed view the help text by typing `imageoptim -h`.
+
+### Step 2 - Test Run the Script
+Now that the software is installed, change your path to where the source images are located `cd public/assets/images`. From this folder you can run the `utils.sh` file. Test that it executes properly with `./../../../utils.sh hello`. This should output `Hello` to your terminal. If it does not execute then you may need to run `chmod` to set the file permissions.
+
+### Step 3 - Creating the Images
+Now you can run the script to batch generate responsive images. Looking at the folder structure of `/public/assets/images/` you should see folders for `article`, `body`, `fullWidth`, `hero`, `mediaCard`, `sampleReport`, and `misc`. These are the image content types. Inside each of these folders is a sub-folder named `_original` where the original full resolution images should be placed. See the table below for the script commands.
+
+| Content Type | Command | Description |
+|-|-|-|
+| Article         | article       | Appear in the right column of content, usually in an `aside` element. <span class="block">Images created at `1200`, `760`, `600`, `380`</span>|
+| Body            | body          | Appear in the left column among the content text. <span class="block">Images created at `1200`, `600`</span>|
+| Full Width      | fullWidth     | Used for background images and images that span the full 12 columns of the layout grid. <span class="block">Images created at `2560`, `1920`, `1280`, `960`, `600`, `380`</span>|
+| Hero            | hero          | Used specifically on the home page. <span class="block">Images created at `1400`, `1000`, `700`, `500`</span>|
+| Media Card      | mediaCard     | Used by `IconCardMedia` elements seen on the home page. <span class="block">Images created at `1064`, `532`</span>|
+| Sample Reports  | sampleReport  | Displays sample report cover images as seen on the Biomarker Test page and the Test Results dashboard page.  <span class="block">Images created at `1720`, `860`, `640`, `320`</span>|
+| Miscellaneous   | -             | All other images that do not fit into the other categories.|
+| -               | createAll     | runs all the image scripts|
+
+You'll notice that there is no command for `miscellaneous` content type. Miscellaneous images have to be processed manually. Alternatively, you could add a new temporary category to `utils.sh` for a one-off run. Looking at the script you'll see that all other categories call `make_images` which accepts two arguments, `breakpoint name` and `size`. `breakpoint name` becomes the name of the sub-folder the processed images are saved to. It's a very simple but effective script.
+
+__All processed images should be checked into source control__. This script is not run when the site is deployed. It is just a front-end utility.
+
+#### <a name="RIC" id="RIC"></a>Responsive Image Components
+The "Article" and "Body" content types are used throughout the site. To save time on typing out a full `srcSet` image element every time, we've created components for this purpose. Articles can use the [ArticleImage]() component at `/src/components/utils/ArticleImage.js` and Body images can use the [BodyImage]() component at `/src/components/utils/BodyImage.js`. See the component documentation for more information.
+
+Most of the "Full Width" images are used as background images, as seen on the Home Page.
+
+The "Hero" images is also applied as a background image on the Home Page.
+
+"Media Card" images are passed as a url param to the `IconCardMedia` component. This path is dynamically changed by React depending on the screen width.
+
+"Sample Reports" would probably benefit from a utility component similar to "Article" and "Body". However, we're using a plain HTML `img` element with a `srcSet` attribute.
+
+## Prerender.io
+Moonshot Biobank uses React to create a Single Page App (SPA). As such, this makes it difficult to deep link to pages and there are other issues concerning web crawlers' ability to index the site properly. SPA's are also difficult to share links to on social media sites. To remedy this issue, we use [Prerender.io](https://prerender.io/). Prerender.io will generate cached version of each page on our `sitemap.xml` as well as any manual entries added through their dashboard. If pages are added to the site then the `sitemap.xml` file should be updated and Prerender.io should be re-cached. This can only be done once the site updates have been deployed to PROD. This feature does not work on lower tiers.
+
+## Maps
+The "Eligibility and locations" page has an interactive map that show the locations of centers participating in the Moonshot Biobank project. These maps are powered by [Leaflet](https://leafletjs.com/). Leaflet, in turn, makes use of [Thunderforest](https://www.thunderforest.com/) for high-quality map tiles. These libraries are only present in the `HospitalMap` component.
 
 <div class="subheading">Front End Architectural Features</div>

@@ -5,6 +5,25 @@ import '../assets/css/storybook.css'
 
 # Analytics
 
-Let's talk about Analytics
+The site uses [Adobe Analytics](https://experienceleague.adobe.com/docs/analytics/implementation/home.html?lang=en) for tracking data and building metrics for site performance. The core file is available at `/public/assets/analytics/AppMeasurement.js`. This file is loaded on the `/public/index.html` page. The App uses [react-tracking](https://github.com/nytimes/react-tracking) and [pubsub-js](https://github.com/mroderick/PubSubJS) to capture and report analytics events.
+
+The App component sets up the events to be dispatched to AppMeasurements which is either a 'pageview' event, a 'link click' event or a 'generic link tracking' event. Generic link tracking is enabled for all links and buttons inside the `#main` page container. `PubSub` is used to report tracking events in order to decouple components from the App component. This allows us to write stories for individual components and makes them more testable. The pubsub event will provide additional details of the event being tracked, which are then concatenated with other common event details (set up in the App component) before being reported to Adobe.
+
+The App component is only subscribed to events specifically named `ANALYTICS`. This is required when publishing an event and is the first argument of the `publish()` method.
+
+A common example of a pubsub event can be found in the footer component:
+```JavaScript
+  const trackClick = (e) => {
+    if(e.target.matches('a')) {
+      PubSub.publish('ANALYTICS', {
+        events: 'event16',
+        eventName: 'FooterLink',
+        prop53: `BioBank_FooterNav|${e.target.textContent}`,
+        eVar53: `BioBank_FooterNav|${e.target.textContent}`,
+      })
+    }
+  }
+```
+
 
 <div class="subheading">Front End Architectural Features</div>
