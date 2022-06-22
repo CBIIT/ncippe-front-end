@@ -69,10 +69,10 @@ body(){
 
 sampleReport(){
   cd sampleReport
-  make_images HD 640
-  make_images standard 320
   make_images dashboardHD 1720
   make_images dashboard 860
+  make_images HD 640
+  make_images standard 320
   cd ..
 }
 
@@ -100,6 +100,9 @@ createAll(){
 
   echo "processing hero images"
   hero
+
+  echo "processing body images"
+  body
 }
 
 "$@"
