@@ -46,6 +46,7 @@
     "@storybook/node-logger": "^6.5.9",
     "@storybook/preset-create-react-app": "^4.0.1",
     "@storybook/react": "^6.5.9",
+    "@storybook/storybook-deployer": "^2.8.11",
     "copyfiles": "^2.4.1",
     "glob-parent": "^6.0.2",
     "json-server": "^0.17.0",
@@ -73,6 +74,7 @@
     "analyzer": "npm run build -- --stats && webpack-bundle-analyzer build/bundle-stats.json",
     "storybook": "./node_modules/.bin/env-cmd -e docs start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
+    "deploy-storybook": "storybook-to-ghpages",
     "preinstall": "npx force-resolutions"
   },
   "eslintConfig": {
