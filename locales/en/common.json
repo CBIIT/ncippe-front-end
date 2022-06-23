@@ -1,0 +1,136 @@
+{
+	"aria": {
+		"external": "external link",
+		"menu": "menu"
+	},
+	"buttons": {
+		"close": "Close",
+		"collapse": "Collapse all",
+		"expand": "Expand all",
+		"search": "Search",
+		"sign_in": "Sign in",
+		"sign_out": "Sign out",
+		"your_account": "Your account"
+	},
+	"footer": {
+		"links": {
+			"accessibility": {
+				"link": "https://www.cancer.gov/policies/accessibility",
+				"text": "Accessibility"
+			},
+			"bio": {
+				"link": "https://biospecimens.cancer.gov",
+				"text": "Biorepositories and Biospecimen Research Branch"
+			},
+			"cis": {
+				"link": "https://www.cancer.gov/contact",
+				"text": "Cancer Information Service"
+			},
+			"disclaimer": {
+				"link": "https://www.cancer.gov/policies/disclaimer",
+				"text": "Disclaimer Policy"
+			},
+			"email": "moonshotbiobank@nih.gov",
+			"facebook": {
+				"alt_text": "facebook icon",
+				"text": "Share this page on Facebook"
+			},
+			"foia": {
+				"link": "https://www.cancer.gov/policies/foia",
+				"text": "FOIA"
+			},
+			"hhs": {
+				"link": "https://www.hhs.gov/",
+				"text": "U.S. Department of Health and Human Services"
+			},
+			"linkedin": {
+				"alt_text": "linkedin icon",
+				"text": "Share this page on LinkedIn"
+			},
+			"liveHelp": {
+				"link": "https://livehelp.cancer.gov/app/chat/chat_launch",
+				"text": "Cancer Information Service Chat"
+			},
+			"nci": {
+				"link": "https://www.cancer.gov/",
+				"text": "National Cancer Institute"
+			},
+			"nih": {
+				"link": "https://www.nih.gov/",
+				"text": "National Institutes of Health"
+			},
+			"phone": "1-800-4-CANCER",
+			"policy_title": "Website Policies",
+			"privacy": {
+				"link": "/website-privacy-security",
+				"text": "Privacy and Security Policy"
+			},
+			"resources_title": "More Resources",
+			"share_title": "Share this site with friends and family",
+			"twitter": {
+				"alt_text": "twitter icon",
+				"text": "Share this page on Twitter"
+			},
+			"usa": {
+				"link": "https://www.usa.gov/",
+				"text": "USA.gov"
+			}
+		},
+		"logo": {
+			"alt_text": "Logo for National Cancer Institute | Cancer Moonshot Biobank",
+			"heading": "National Cancer Institute",
+			"subheading": "at the National Institutes of Health",
+			"title": "NIH | National Cancer Institute"
+		},
+		"tagline": "NIH … Turning Discovery Into Health ®"
+	},
+	"links": {
+		"language_toggle": "Leer en Español"
+	},
+	"logo": {
+		"alt_text": "NCI Cancer Moonshot Biobank logo",
+		"title": "NCI Cancer Moonshot Biobank"
+	},
+	"metaData": {
+		"site_name": "Cancer Moonshot Biobank",
+		"twitter_image_alt": "Cancer Moonshot Biobank – Help change the future of cancer treatment"
+	},
+	"nav": {
+		"about": "About",
+		"about_subNav": {
+			"about": "About the Biobank",
+			"eligibility": "Eligibility and locations",
+			"news": "News and events"
+		},
+		"expect": "What to expect",
+		"expect_subNav": {
+			"consent": "Give your consent",
+			"donate": "Donate samples",
+			"testing": "Get a biomarker test"
+		},
+		"participation": "Your participation",
+		"participation_subNav": {
+			"activate": "Activate your account",
+			"privacy": "Protecting your privacy"
+		},
+		"research": "Research",
+		"research_subNav": {
+			"0": "Research Overview",
+			"0_subNav": {
+				"0": "Genetics of acute myeloid leukemia",
+				"1": "Improving lung cancer treatment",
+				"2": "Cancer cell environment"
+			}
+		}
+	},
+	"search": {
+		"input_placeholder": "Search"
+	},
+	"tabs": {
+		"expect": {
+			"consent": "Give your consent",
+			"donate": "Donate samples",
+			"testing": "Get a biomarker test"
+		}
+	}
+}

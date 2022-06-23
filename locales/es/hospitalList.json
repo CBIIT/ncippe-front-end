@@ -1,0 +1,66 @@
+{
+	"hospitals": {
+		"0": {
+			"address_1": "2240 West Ogden Avenue",
+			"address_2": "Floor 12",
+			"city": "Chicago",
+			"gps_coordinates": "41.868636,-87.681454",
+			"pin_popup_text": "Stroger Hospital of Cook County",
+			"poc": "Meng Ru",
+			"state": "Illinois",
+			"telephone": "(555) 555-5555",
+			"title": "Stroger Hospital of Cook County Minority Underserved NCORP",
+			"zip": "60612"
+		},
+		"1": {
+			"address_1": "Baptist Cancer Center",
+			"address_2": "1995 Highway 51 South",
+			"city": "Covington",
+			"gps_coordinates": "35.5354435,-89.6785178",
+			"pin_popup_text": "Baptist Memorial Health Care",
+			"poc": "Emlen Beaver",
+			"state": "Tennessee",
+			"telephone": "(555) 555-5555",
+			"title": "Baptist Memorial Health Care/Mid South Minority Underserved NCORP",
+			"zip": "38019"
+		},
+		"2": {
+			"address_1": "The University of New Mexico",
+			"address_2": "MSC 09 5220",
+			"city": "Albuquerque",
+			"gps_coordinates": "35.0843187,-106.6219699",
+			"pin_popup_text": "The University of New Mexico",
+			"poc": "Saami Al Samad",
+			"state": "New Mexico",
+			"telephone": "(555) 555-5555",
+			"title": "New Mexico Minority Underserved NCORP",
+			"zip": "87131"
+		},
+		"3": {
+			"address_1": "800 East Leigh Street",
+			"address_2": "",
+			"city": "Richmond",
+			"gps_coordinates": "37.544077,-77.432143",
+			"pin_popup_text": "VCU Massey Cancer Center",
+			"poc": "Paulina Gayoso",
+			"state": "Virginia",
+			"telephone": "(555) 555-5555",
+			"title": "VCU Massey Cancer Center Minority Underserved NCORP",
+			"zip": "23298"
+		},
+		"4": {
+			"address_1": "111 East 210th Street",
+			"address_2": "",
+			"city": "Bronx",
+			"gps_coordinates": "40.8800853,-73.8798439",
+			"pin_popup_text": "Montefiore Medical Center",
+			"poc": "Heather Clark",
+			"state": "New York",
+			"telephone": "(555) 555-5555",
+			"title": "Montefiore Minority Underserved NCORP",
+			"zip": "10467"
+		}
+	},
+	"pageRoute": "/about/eligibility",
+	"pageTitle": "Elegibilidad y ubicaciones"
+}

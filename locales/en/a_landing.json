@@ -1,0 +1,68 @@
+{
+	"cards": {
+		"biomarker": {
+			"description": "View the reports from your Biomarker tests.",
+			"link": "View reports",
+			"title": "Biomarker reports"
+		},
+		"consent": {
+			"description": "Review the form you signed when you agreed to participate in the Biobank.",
+			"link": "View forms",
+			"title": "Consent forms"
+		},
+		"guide": {
+			"0": {
+				"description": "Understand how to interpret the results of the solid tumor and multiple myeloma test report.",
+				"link": "Download PDF",
+				"title": "Guide to solid tumors and multiple myeloma report"
+			},
+			"1": {
+				"description": "Understand how to interpret the results of the Acute Myeloid Leukemia (AML) test report.",
+				"link": "Download PDF",
+				"title": "Guide to AML biomarker report"
+			}
+		},
+		"help": {
+			"description": "Learn about changing your participation in the Biobank.",
+			"link": "Learn more",
+			"title": "Get help"
+		},
+		"messageHistory": {
+			"description": "View past sent messages",
+			"link": "History",
+			"title": "Message history"
+		},
+		"notifications": {
+			"description": "You have {{count}} new notification",
+			"description_plural": "You have {{count}} new notifications",
+			"link": "Review",
+			"title": "Notifications"
+		},
+		"resources": {
+			"description": {
+				"admin": "Resources to help you in your research and your work with patients.",
+				"participant": "Information and advocacy organizations to support you."
+			},
+			"link": "Learn more",
+			"title": "Resources and support"
+		},
+		"sendMessage": {
+			"description": "Compose and send a message",
+			"link": "Compose message",
+			"title": "Send message"
+		},
+		"settings": {
+			"description": {
+				"admin": "Keep your contact information up to date to receive program notifications.",
+				"participant": "Update your information, set your language, or change how you participate in the Biobank."
+			},
+			"link": "Update account",
+			"title": "Account settings"
+		}
+	},
+	"metaData": {
+		"title": "Account | Cancer Moonshot Biobank"
+	},
+	"pageTitle": "Welcome",
+	"subtitle": "Thank you for joining the Cancer Moonshot<sup>SM</sup> Biobank"
+}

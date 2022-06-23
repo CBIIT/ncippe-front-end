@@ -1,0 +1,21 @@
+{
+	"alt_text": {
+		"0": "Médico y paciente"
+	},
+	"form_link_adult": "Formulario de consentimiento para adultos",
+	"form_link_minors": "Formulario de asentimiento para menores de edad",
+	"form_link_parental": "Formulario de autorización de padres",
+	"intro_text": "<p>Después de que usted y el médico conversen sobre el Biobanco y usted decida que le gustaría participar, se le dará un formulario de consentimiento para que lo lea con atención y lo firme.</p><p>La participación en el Biobanco es voluntaria, y la decisión de no participar no afectará su atención. También puede salirse del programa en cualquier momento.</p>",
+	"link": "Revisar una muestra de formulario de consentimiento para adultos",
+	"metaData": {
+		"OG_description": "Después de que converse con el médico sobre el Biobanco y usted decida que le gustaría inscribirse, se le dará un formulario de consentimiento para que lo lea con atención y lo firme.",
+		"OG_title": "Qué puede esperar – dar consentimiento | Cancer Moonshot Biobank",
+		"description": "Después de que converse con el médico sobre el Biobanco y usted decida que le gustaría inscribirse, se le dará un formulario de consentimiento para que lo lea con atención y lo firme.",
+		"title": "Qué puede esperar – dar consentimiento | Cancer Moonshot Biobank"
+	},
+	"pageRoute": "/expect/consent",
+	"pageTitle": "Qué puede esperar si se inscribe en el Biobanco",
+	"sample_title": "Ejemplos de formularios de consentimiento para el participante",
+	"video_caption": "Verá este video como parte del proceso de consentimiento informado.",
+	"video_title": "Un diálogo Sobre Disparidades, Prevención e Investigación del Cáncer: Facebook Live"
+}

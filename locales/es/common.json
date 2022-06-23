@@ -1,0 +1,136 @@
+{
+	"aria": {
+		"external": "enlace externo",
+		"menu": "menú"
+	},
+	"buttons": {
+		"close": "Cerrar",
+		"collapse": "Contraer todo",
+		"expand": "Expandir todo",
+		"search": "Buscar",
+		"sign_in": "Iniciar sesión",
+		"sign_out": "Cerrar sesión",
+		"your_account": "Su cuenta"
+	},
+	"footer": {
+		"links": {
+			"accessibility": {
+				"link": "https://www.cancer.gov/espanol/politicas/accesibilidad",
+				"text": "Accesibilidad"
+			},
+			"bio": {
+				"link": "https://biospecimens.cancer.gov",
+				"text": "División de Biodepósitos e Investigaciones con Muestras Biológicas"
+			},
+			"cis": {
+				"link": "https://www.cancer.gov/espanol/contactenos",
+				"text": "Servicios de Información Sobre el Cáncer"
+			},
+			"disclaimer": {
+				"link": "https://www.cancer.gov/espanol/politicas/exoneracion",
+				"text": "Política de Exención de Responsabilidad"
+			},
+			"email": "moonshotbiobank@nih.gov",
+			"facebook": {
+				"alt_text": "icono de facebook",
+				"text": "Comparte esta página en Facebook"
+			},
+			"foia": {
+				"link": "https://www.cancer.gov/espanol/politicas/foia",
+				"text": "Ley de libre acceso a la información (FOIA)"
+			},
+			"hhs": {
+				"link": "https://www.hhs.gov/",
+				"text": "Departamento de Salud y Servicios Humanos de EE. UU."
+			},
+			"linkedin": {
+				"alt_text": "icono de linkedin",
+				"text": "Comparte esta página en LinkedIn"
+			},
+			"liveHelp": {
+				"link": "https://livehelp-es.cancer.gov/app/chat/chat_launch",
+				"text": "Charla del Servicio de Información de Cáncer"
+			},
+			"nci": {
+				"link": "https://www.cancer.gov/espanol",
+				"text": "Instituto Nacional del Cáncer"
+			},
+			"nih": {
+				"link": "https://salud.nih.gov/",
+				"text": "Institutos Nacionales de la Salud"
+			},
+			"phone": "1-800-4-CANCER",
+			"policy_title": "Políticas del Sitio Web",
+			"privacy": {
+				"link": "/website-privacy-security",
+				"text": "Política de Privacidad y Seguridad"
+			},
+			"resources_title": "Más Recursos",
+			"share_title": "Comparte este sitio con amigos y familiares",
+			"twitter": {
+				"alt_text": "icono de twitter",
+				"text": "Comparte esta pagina en Twitter"
+			},
+			"usa": {
+				"link": "https://www.usa.gov/espanol/",
+				"text": "USA.gov"
+			}
+		},
+		"logo": {
+			"alt_text": "Logotipo de Instituto Nacional del Cáncer | Cancer Moonshot Biobank",
+			"heading": "Instituto Nacional del Cáncer",
+			"subheading": "de los Institutos Nacionales de la Salud",
+			"title": "NIH | Instituto Nacional del Cáncer"
+		},
+		"tagline": "NIH ... Transformación de Descubrimientos en Salud ®"
+	},
+	"links": {
+		"language_toggle": "View in English"
+	},
+	"logo": {
+		"alt_text": "Logotipo del NCI Cancer Moonshot Biobank",
+		"title": "NCI Cancer Moonshot Biobank"
+	},
+	"metaData": {
+		"site_name": "Cancer Moonshot Biobank",
+		"twitter_image_alt": "Cancer Moonshot Biobank - Ayuda a cambiar el futuro del tratamiento del cáncer"
+	},
+	"nav": {
+		"about": "Acerca de",
+		"about_subNav": {
+			"about": "Acerca del Biobanco",
+			"eligibility": "Idoneidad para participar y ubicaciones",
+			"news": "Noticias y eventos"
+		},
+		"expect": "Qué puede esperar",
+		"expect_subNav": {
+			"consent": "Dar su consentimiento",
+			"donate": "Donar muestras",
+			"testing": "Hacerse una prueba de biomarcadores"
+		},
+		"participation": "Su participación",
+		"participation_subNav": {
+			"activate": "Active su cuenta",
+			"privacy": "Protección de su privacidad"
+		},
+		"research": "Investigación",
+		"research_subNav": {
+			"0": "Resumen de la investigación",
+			"0_subNav": {
+				"0": "Genéticas de la leucemia mieloide aguda",
+				"1": "Mejores tratamientos para el cáncer de pulmón",
+				"2": "El ambiente de las células cancerosas"
+			}
+		}
+	},
+	"search": {
+		"input_placeholder": "Buscar"
+	},
+	"tabs": {
+		"expect": {
+			"consent": "Dar su consentimiento",
+			"donate": "Done muestras",
+			"testing": "Hacerse su prueba de biomarcadores"
+		}
+	}
+}

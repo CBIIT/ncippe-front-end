@@ -1,0 +1,68 @@
+{
+	"cards": {
+		"biomarker": {
+			"description": "Vea los informes de sus pruebas de biomarcadores.",
+			"link": "Vea los informes",
+			"title": "Informes de biomarcadores"
+		},
+		"consent": {
+			"description": "Lea con atención el formulario que firmó cuando aceptó participar en el Biobanco.",
+			"link": "Vea los formularios",
+			"title": "Formularios de consentimiento"
+		},
+		"guide": {
+			"0": {
+				"description": "Entienda cómo interpretar los resultados del informe de la prueba de tumores sólidos y mieloma múltiple.",
+				"link": "Descargar PDF",
+				"title": "Guía del informe de tumores sólidos y mieloma múltiple"
+			},
+			"1": {
+				"description": "Entienda cómo interpretar los resultados del informe de la prueba de leucemia mieloide aguda (LMA).",
+				"link": "Descargar PDF",
+				"title": "Guía del informe de biomarcadores de LMA"
+			}
+		},
+		"help": {
+			"description": "Obtenga información sobre cómo cambiar su participación en el Biobanco.",
+			"link": "Obtenga más información",
+			"title": "Obtenga ayuda"
+		},
+		"messageHistory": {
+			"description": "Ver mensajes enviados anteriores",
+			"link": "Historia",
+			"title": "Historial de mensajes"
+		},
+		"notifications": {
+			"description": "Tiene {{count}} notificación nueva",
+			"description_plural": "Tiene {{count}} notificaciones nuevas",
+			"link": "Lea",
+			"title": "Notificaciones"
+		},
+		"resources": {
+			"description": {
+				"admin": "Recursos para ayudarlo con sus investigaciones y su trabajo con pacientes.",
+				"participant": "Información y organizaciones de defensoría para apoyarlo."
+			},
+			"link": "Obtenga más información",
+			"title": "Recursos y apoyo"
+		},
+		"sendMessage": {
+			"description": "Redactar y enviar un mensaje",
+			"link": "Crear Mensaje",
+			"title": "Enviar mensaje"
+		},
+		"settings": {
+			"description": {
+				"admin": "Mantenga su información de contacto actualizada para recibir notificaciones del programa.",
+				"participant": "Actualice su información, configure su idioma o cambie cómo participa en el Biobanco."
+			},
+			"link": "Actualice su cuenta",
+			"title": "Configuración de la cuenta"
+		}
+	},
+	"metaData": {
+		"title": "Cuenta | Cancer Moonshot Biobank"
+	},
+	"pageTitle": "Bienvenido",
+	"subtitle": "Gracias por inscribirse en el Cancer Moonshot<sup>SM</sup> Biobank"
+}

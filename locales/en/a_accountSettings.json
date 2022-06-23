@@ -1,0 +1,30 @@
+{
+	"contacts": {
+		"crc": "Research coordinator",
+		"doctor": "Doctor",
+		"title": "Your Biobank contacts"
+	},
+	"metaData": {
+		"title": "Account settings | Account | Cancer Moonshot Biobank"
+	},
+	"profile": {
+		"email": "Email",
+		"lang": {
+			"english": "English",
+			"spanish": "Español",
+			"title": "Language preference"
+		},
+		"notifications": {
+			"edit_label": "Send email notifications (recommended)",
+			"label": "Notifications",
+			"off": "off",
+			"on": "on",
+			"title": "Notification settings"
+		},
+		"phone": {
+			"helper_text": "Enter your preferred contact number.",
+			"title": "Phone number (optional)"
+		},
+		"title": "Your personal information"
+	}
+}
