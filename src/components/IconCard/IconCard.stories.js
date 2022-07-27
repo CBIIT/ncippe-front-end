@@ -73,7 +73,7 @@ DownloadIconCard.args = {
   desc: "Here is the consent form you sign when agreeing to participate in the NCI Biobank project.",
   count: 0,
   download: true,
-  link: '//youtu.be/dQw4w9WgXcQ',
+  link: '//youtu.be/dQw4w9WgXcQ?t=43&autoplay=1',
   linkText: "Preview Report",
 }
 DownloadIconCard.story = {
