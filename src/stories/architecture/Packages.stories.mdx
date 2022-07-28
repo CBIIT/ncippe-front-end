@@ -1,11 +1,11 @@
-import { Meta } from '@storybook/addon-docs/blocks'
+import { Meta } from '@storybook/addon-docs'
 import '../assets/css/storybook.css'
 
 <Meta title="Architecture/Included Packages" />
 
 # Included Packages
 
-Let's talk about Included Packages
+Below is the listing of all npm packages installed by the site and a brief description of their purpose.
 
 | Package | Description |
 |:--------|:------------|
@@ -15,28 +15,25 @@ Let's talk about Included Packages
 |[@reach/router](https://reach.tech/router/) | Reach Router is a small, simple router for React that has a small footprint, supports only simple route patterns by design, and has strong accessibility features. This is used to switch between "pages" in our Single Page App (SPA). This router was selected over [React Router](https://reactrouter.com/) because it was easier to integrate with our OIDC client for user authentication. However, we later switched to NIH's Site Minder SSO for user authentication.  |
 |[core-js](https://github.com/zloirock/core-js#readme) | This library includes [polyfills](https://remysharp.com/2010/10/08/what-is-a-polyfill#:~:text=A%20polyfill%2C%20or%20polyfiller%2C%20is,API%20landscape%20if%20you%20will.) for ECMAscript up to 2021. This is needed to mimic new JavaScript features in older web browsers. |
 |[env-cmd](https://github.com/toddbluhm/env-cmd#readme) | This package is used to provide environment variables based on build configurations. We've create a `.env-cmdrc` file with an array of variables based on our different server tiers, such as `Development`, `Testing`, `Staging`, and `Production`. This enables us to use non-Production assets for development and testing work, such as logins, development API's, and dummy user data |
-|[i18next](http://github.com) | Description |
-|[i18next-browser-languagedetector](http://github.com) | Description |
-|[i18next-xhr-backend](http://github.com) | Description |
-|[json-server](http://github.com) | Description |
-|[lunr](http://github.com) | Description |
-|[moment](http://github.com) | Description |
-|[ncippe-content`](http://github.com) | Description |
-|[oidc-client](http://github.com) | Description |
-|[prop-types](http://github.com) | Description |
-|[pubsub-js](http://github.com) | Description |
-|[query-string](http://github.com) | Description |
-|[react](http://github.com) | Description |
-|[react-app-polyfill](http://github.com) | Description |
-|[react-dom](http://github.com) | Description |
-|[react-helmet-async](http://github.com) | Description |
-|[react-i18next](http://github.com) | Description |
-|[react-markdown](http://github.com) | Description |
-|[react-number-format](http://github.com) | Description |
-|[react-scripts](http://github.com) | Description |
-|[react-text-mask](http://github.com) | Description |
-|[react-tracking](http://github.com) | Description |
-|[react-transition-group](http://github.com) | Description |
-|[throttle-debounce](http://github.com) | Description |
+|[i18next](https://github.com/i18next/i18next) | i18next is a very popular internationalization framework for javascript environments. This allows us to support multiple languages for the site. |
+|[i18next-browser-languagedetector](https://github.com/i18next/i18next-browser-languageDetector) | This is a i18next language detection plugin used to auto-detect the user's default language in the browser. |
+|[i18next-xhr-backend](https://github.com/i18next/i18next-xhr-backend) | This is a simple i18next backend to be used in the browser. It will load language resources from a backend server using the xhr API. |
+|[json-server](https://github.com/typicode/json-server) | Used to create a fake REST API for back-end prototyping and mocking. Used for all front-end dev work. Run it with `npm run dev-server` |
+|[lunr](https://github.com/olivernn/lunr.js) | A client-side faceted search engine used on the Search page. "A bit like Solr, but much smaller and not as bright." |
+|[moment](https://github.com/moment/momentjs.com) | This packages allows for easy handling of timestamps and localizations for date formats. |
+|[ncippe-content`](https://github.com/CBIIT/ncippe-content) | This repo contains the multilingual content for the site. This project was built to support [Babel Edit](https://www.codeandweb.com/babeledit) as the translation manager of choice.  |
+|[oidc-client](https://github.com/IdentityModel/oidc-client-js) | Library to provide OpenID Connect (OIDC) and OAuth2 protocol support for client-side, browser-based JavaScript client applications. Also included is support for user session and access token management. This library is now only used in development to authenticate mock user roles. |
+|[prop-types](https://github.com/facebook/prop-types) | Runtime type checking for React props |
+|[pubsub-js](https://github.com/mroderick/PubSubJS) | PubSubJS is a topic-based publish/subscribe library written in JavaScript. This is mostly used to decouple analytics events from components. |
+|[query-string](https://github.com/sindresorhus/query-string) | Parse and stringify URL query strings. Mostly used by the api component to prep data being sent to the server. |
+|[react](https://github.com/facebook/react) | React is an open source JavaScript library used for designing user interfaces. |
+|[react-dom](https://www.npmjs.com/package/react-dom) | This package serves as the entry point to the DOM and server renderers for React. |
+|[react-helmet-async](https://github.com/staylor/react-helmet-async) | This component helps manage changes to the document head and improves SEO. Also helps to enables social sharing on a page-level basis. |
+|[react-i18next](https://github.com/i18next/react-i18next) | This package is an internationalization framework for React / React Native which is based on [i18next](http://i18next.com/) |
+|[react-markdown](https://github.com/remarkjs/react-markdown) | Markdown component for React using [remark](https://github.com/remarkjs/remark). This enables using Markdown or HTML in our language content files. |
+|[react-scripts](https://www.npmjs.com/package/react-scripts) | This package includes scripts and configuration used by [Create React App](https://github.com/facebook/create-react-app) |
+|[react-text-mask](https://github.com/text-mask/text-mask) | React input component that accepts mask pattern. Used for user's phone number input field. |
+|[react-tracking](https://github.com/nytimes/react-tracking) | Declarative tracking for React apps. Used as a HoC on the App and paired with `pubsub-js` to track analytics. |
+|[react-transition-group](https://github.com/reactjs/react-transition-group) | A set of components for managing component states (including mounting and unmounting) over time, specifically designed with animation in mind. |
 
 <div class="subheading">Front End Architectural Features</div>

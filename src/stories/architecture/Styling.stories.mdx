@@ -1,10 +1,75 @@
-import { Meta } from '@storybook/addon-docs/blocks'
+import { Meta } from '@storybook/addon-docs'
 import '../assets/css/storybook.css'
 
 <Meta title="Architecture/Styling" />
 
 # Styling
 
-Let's talk about Styling
+Since the app makes heavy use of the [Material UI](https://mui.com/material-ui/getting-started/overview/) (MUI) library, we have also implemented the [Material UI theming](https://mui.com/material-ui/customization/theming/) system. This system is best described as a `CSS in JS` system where almost all the styles are defined as javascript objects within the components they are used. This brings with it the benefit of knowing exactly where CSS declarations are used but with the trade off of being a little less flexible. React's hook system is used to apply these component styles.
+
+
+## theme.js
+While most styles will be applied at the component level, there is also a global style object available at `./src/themes/theme.js`. This file is actually providing overrides to MUI's default theme settings. The MUI docs site has a references for [all the default styles](https://mui.com/material-ui/customization/default-theme/#explore). 
+
+Our `theme.js` file is where application wide styles and overrides are applied. This is also where global component overrides can be applied. For example, you want all buttons in the app to have a drop shadow. Instead of applying a drop shadow to every component that has a button, you would instead apply it to the `theme.js` file.
+
+## Spacing
+The theme system also provides a great helper for [spacing](https://mui.com/material-ui/customization/spacing/). MUI uses a recommended `8px` scaling factor by default. Throughout the code there are calls to `theme.spacing()`. Please use this helper instead of fixed pixel when it's sensible, such as CSS margin and padding settings. This `8px` scale can be divided when necessary using decimal values (e.g.: `theme.spacing(.5) = 4px`)
+
+## Responsiveness
+The `theme.js` file also contains the fixed pixel settings for the breakpoints used by MUI's component. It looks like this:
+```javascript
+  breakpoints: {
+    keys: [
+      "xs",
+      "sm",
+      "smLandscape",
+      "md",
+      "lg",
+      "xl"
+    ],
+    values: {
+      xs: 0,
+      sm: 600,
+      smLandscape: 880,
+      md: 960,
+      lg: 1280,
+      xl: 1920
+    }
+  }
+  ```
+
+  Inside components, responsive breakpoints can be accessed when using the `makeStyles` hook.
+
+  ```javascript
+  import { makeStyles } from '@material-ui/core/styles'
+  ...
+  const useStyles = makeStyles( theme => ({
+    hero: {
+      [theme.breakpoints.up('sm')]: {
+        height: "500px",
+        alignItems: 'center',
+      }
+    }
+  })
+  ```
+
+  Read more about using responsive image components on the [Utilities](?path=/docs/architecture-utilities--page#RIC) page
+
+  ## `isMobile` State
+
+  In some responsive instances we need to trigger a component change. We use React's state hook to manages this. You may see this state variable in some components:
+  ```javascript
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600)
+  ```
+
+  This creates a responsive state variable that we can use with resize events. For instance, it may be used to change CSS classes `<Typography variant={isMobile ? "body1" : "body2"}>` or it may be used to toggle components. For example:
+  ```jsx
+  { isMobile ? 
+    <MobileComponent />
+    :
+    <DesktopComponent />
+  }
+  ```
 
 <div class="subheading">Front End Architectural Features</div>

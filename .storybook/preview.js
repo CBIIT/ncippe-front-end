@@ -6,7 +6,8 @@ import App from '../src/stories/Layout/AppWrapper'
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
-  controls: { expanded: true }
+  controls: { expanded: true },
+  viewMode: 'docs'
 }
 
 export const globalTypes = {

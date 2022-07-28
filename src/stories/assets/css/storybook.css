@@ -97,3 +97,11 @@ div.tip-wrapper code {
   font-size: 12px;
   display: inline-block;
 }
+
+.inline-block {
+  display: inline-block;
+}
+
+.block {
+  display: block;
+}

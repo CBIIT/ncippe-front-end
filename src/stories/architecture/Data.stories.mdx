@@ -1,10 +1,43 @@
-import { Meta } from '@storybook/addon-docs/blocks'
+import { Meta } from '@storybook/addon-docs'
 import '../assets/css/storybook.css'
 
 <Meta title="Architecture/Data" />
 
 # Data
 
-Let's talk about Data
+The main feature of the Moonshot Biobank site is the patient portal, which deals with protected patient data. In order to develop the site without using any real patient data, mock data has been created to mimic the data provided by NCI. At the start of the project, or while developing features, often the backend work to create new data endpoints is happening in tandem with the front-end updates to render the data. In order to provide a development environment where the front-end was not dependent on back-end apis being completely ready, a mock server has been stood up using `json-server` to provide the mock data. So everything is nicely contained in the front-end project.
+
+## Mock Data and Mock Server
+When running `npm run dev` the `json-server` is started on port `5000` before the react app starts up. Inside the `/server` folder are some middleware files. These are used to manipulate the mock-data so it more accurately matches what is coming back from the PROD server api. The mock data file is located at `/src/data/mockData.json`. 
+
+While interacting with the site, the `json-server` will write updates to this file. __DO not check-in changes to `mockData.json` to source control__. The `mockData.json` file is considered the "start point" for the app and functional tests. If you need to reset the app, simply revert the changes made to this file. Only manual changes made to support new features or tests should be checked in.
+
+## API endpoint
+The api endpoints for all CRUD operations are located in `/src/data`. Depending on the environment being run, the app will either select the `api.js` file in the `local` or the `prod` folder. This is based on the `process.env.REACT_APP_API_PATH` environment variable setting in the `/.env-cmdrc` file. Both `api.js` files return an `api` object with the same methods, but the methods themselves are tuned to communicate with the mock server or the prod server. The dev `api.js` file has some extra debugging logs and does a bit more work to mimic data that comes from PROD. The important things that must remain consistent between these two files is the exposed methods have the same names, accept the same arguments and have the same return data structures.
+
+## Connecting to the API
+In order to switch between the __PROD__ and the __DEV__ api, we make use of dynamic imports. Dynamic imports use Promises to resolve the module being requested. Using the API in a component would look like this:
+
+```JavaScript
+import getAPI from '../../data'
+...
+useEffect(() => {
+  getAPI.then(api => {
+    const userData = api.fetchUser({uuid})
+  }
+},[])
+```
+
+Or using await
+
+```JavaScript
+import getAPI from '../../data'
+...
+useEffect(() => {
+  const user = await getAPI.then(api => {
+    return api.fetchUser({uuid})
+  })
+},[])
+```
 
 <div class="subheading">Front End Architectural Features</div>

@@ -1,10 +1,53 @@
-import { Meta } from '@storybook/addon-docs/blocks'
+import { Meta } from '@storybook/addon-docs'
 import '../assets/css/storybook.css'
 
 <Meta title="Architecture/Translations" />
 
 # Translations
+The Moonshot Biobank app is built with multi-lingual support. The languages available are English and Spanish. We use the [i18next](https://www.i18next.com/) library to deliver these features. The term `i18n` is an abbreviation of "internationalization" in that there are 18 letters between the "i" and "n".
 
-Let's talk about Translations
+## Content
+The content for the site is kept in it's own repository at [NCIPPE Content](https://github.com/CBIIT/ncippe-content). Content was separated for a couple of reasons. The first was so we could better manage permissions on who was editing content without the risk of application code being affected. The second reason was to decouple the content from the app in case a headless CMS like Drupal was brought in to manage content. The third reason was so revision could be made to content separate from the application code.
+
+### Symlink
+The easiest way to use the content library with a dev project is to `symlink` it in your NCIPPE-front-end project. For a Mac, use the following command `ln -s /path/to/original /path/to/link`. The `-s` flag on the link command means `symbolic`. For this project the command may resemble `ln -s ~/GIT/ncippe-content/locales ~/GIT/ncippe-front-end/public/locales`. Now, any changes you make in `NCIPPE-content` will be immediately reflected in `NCIPPE-front-end` on a page refresh.
+
+### Editing Content
+I've been using [BabelEdit](https://www.codeandweb.com/babeledit) for managing and editing the JSON language files. It's simple and effective software that provides a quality GUI for making updates to multiple language files at the same time. The `.babel` project file is available in the repo for others to use. Just be sure to check-in changes to the `.babel` file as fields are added or removed from the project.
+
+## Implementation
+The file at `/src/i18n.js` sets up the i18next translation features and React Context. This is imported into the App entry point at `/src/index.js`. From the components you can import the `useTranslation` hook to load the required JSON file for that component. Each JSON file name is considered a `namespace`. The `useTranslation` hook function takes one options argument. You can either pass in a namespace or an array of namespaces to load. Translations will resolve from the first specified namespace to the last.
+
+## Using Plurals
+Using plurals is explained on i18next docs for [JSON Format](https://www.i18next.com/misc/json-format#i18next-json-v3). Basically `_plural` can be added to any translation key to provide a plural format that will be interpolated at run time.
+
+```json
+{
+  "a_landing": {
+    "cards": {
+      "notifications": {
+        "description": "You have {{count}} new notification",
+        "description_plural": "You have {{count}} new notifications",
+      }
+    }
+  }
+}
+```
+
+## Translations with Arrays
+Arrays are not a supported data structure of BabelEdit. However, numbers can be used as keys and manually incremented in a subsection. When requesting the parent key, specifying `{returnObjects: true}` will convert the child keys into an object that can be looped over. The example below was taken from  `/src/pages/PolicyPage.js`
+
+```javascript
+  {Object.keys(t('public.sections', { returnObjects: true })).map((section, i) => 
+    <Typography component="section" key={i}>
+      <RenderContent children={t(`public.sections.${i}.title`)} />
+      <RenderContent children={t(`public.sections.${i}.body`)} />
+    </Typography>
+  )}
+```
+
+## Localization with MomentJS
+[Moment JS](https://momentjs.com/) is a node module that enables easy handling of timestamps and localizations for date formats. Dates are formatted differently between Spanish and English. Moment JS is not the newest or most compact time management library, but it's one of the best at supporting i18n which is why it was chosen. The localization is set using `moment.locale(lang)` in the `/src/routers/routes.js` file.
+
 
 <div class="subheading">Front End Architectural Features</div>

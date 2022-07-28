@@ -1,10 +1,30 @@
-import { Meta } from '@storybook/addon-docs/blocks'
+import { Meta } from '@storybook/addon-docs'
 import '../assets/css/storybook.css'
 
 <Meta title="Architecture/Build Configurations" />
 
 # Build Configurations
 
-Let's talk about Build Configurations
+This site was built out to a few different environments for development, testing and production before finally landing on NIH's servers. In order to accommodate different target environment, the `env-cmd` module was employed. This file contains all the environment variables for the different targets. The build environments are also used to switch up some modules between development and production modes. 
+
+## App
+The easiest way to toggle between DEV mode and PROD mode was to switch out the main App component based on the target environment. There is both an `App.js` and `App_dev.js`. The main difference between these components is that the `App_dev.js` file will import the `AuthProvider` component that is used to mock login functionality. This makes it easy to quickly switch between different user roles. The `AuthProvider` component was originally used to provide 2FA through [login.gov](https://login.gov/) but this was later replaced by NIH's Single Sign On service.
+
+### Routes
+There are router files for both DEV and PROD located inside the `/routers` folder. These are picked in the App component based on the environment. The difference between these two files is mostly tied to authenticating mock users and verification for private routes.
+
+### Page Wrapper
+The DEV `pageWrapper` simply provides a button to easily switch between mock users.
+
+## Footer Build Tag
+In the footer you may notice this code:
+```JavaScript
+{process.env.REACT_APP_GIT_BRANCH_TAG === "true" && <GitBadge />}
+```
+This was an attempt to render the current branch name to the footer for testing environments. However, this does not seem to work any longer using NIH's Jenkins platform. It still works in the local dev environment though.
+
+## PWA Fail
+Create React App has a great feature that can easily turn your Single Page App into a Progressive Web App. This has many benefits on mobile devices and allows your site to run almost like a native app in a browser container. Unfortunately, the aggressive caching of the PWA service worker interferes with NIH's login platform. Because of this we had to turn off the PWA features. Please do not enable the service worker on the `index.js` page.
+
 
 <div class="subheading">Front End Architectural Features</div>

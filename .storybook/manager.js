@@ -3,7 +3,7 @@ import { create } from '@storybook/theming/create'
 
 const theme = create({
   base: 'light',
-  brandTitle: 'NCI Biobank',
+  brandTitle: 'NCI Moonshot Biobank',
   brandUrl: 'https://moonshotbiobank.cancer.gov/'
 });
 
