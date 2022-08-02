@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { navigate } from '@reach/router'
-import { Chip, ClickAwayListener, Divider, Grid, MenuItem, Paper, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Button, Chip, ClickAwayListener, Dialog, DialogContent, DialogActions, Divider, Grid, MenuItem, Paper, Typography } from '@material-ui/core'
+import { Edit as EditIcon, Clear as ClearIcon } from '@material-ui/icons'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 import moment from 'moment'
@@ -10,6 +12,7 @@ import moment from 'moment'
 import getAPI from '../../data'
 import { LoginContext, LoginConsumer } from '../login/Login.context'
 import FileList from '../FileList/FileList.events'
+import Email from '../inputs/Email'
 import NoItems from '../NoItems'
 import ExpansionMenu from '../ExpansionMenu'
 import UploadConsentDialog from '../UploadConsent/UploadConsentDialog'
@@ -71,6 +74,18 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
     textTransform: 'uppercase',
   },
+  email:{
+    display: "flex",
+    alignItems: "center",
+    columnGap: theme.spacing(1),
+    "& button": {
+      padding: theme.spacing(1),
+      minWidth: 0,
+    },
+    "& svg": {
+      fontSize: "1.2rem"
+    }
+  },
   menu: {
     position: 'absolute',
     [theme.breakpoints.up('sm')]: {
@@ -100,15 +115,22 @@ const useStyles = makeStyles(theme => ({
 
 const ParticipantView = (props) => {
   const classes = useStyles()
-  const {patientId} = props
+  const {patientId, isMobile} = props
   const [loginContext, dispatch] = useContext(LoginContext)
-  const [dialogOpen, setDialogOpen] = useState(false)
+  const { uuid, token, patients } = loginContext
+  const [dialogOpenConsent, setDialogOpenConsent] = useState(false)
+  const [dialogOpenEmail, setDialogOpenEmail] = useState(false)
+  const [errorEmail, setErrorEmail] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isNewParticipant, setIsNewParticipant] = useState(false)
   const { t } = useTranslation('a_common')
-  const { uuid, token, patients } = loginContext
-  const [user, setUser] = useState(patients.find(patient => patient.patientId === patientId))
+  const [participant, setParticipant] = useState(patients.find(patient => patient.patientId === patientId))
+  const [participantEmail, setParticipantEmail] = useState(participant.email)
+
+  const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ //from https://emailregex.com/
+  const theme = useTheme()
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xs'))
 
   useEffect(() => {
     // const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).uuid
@@ -118,7 +140,7 @@ const ParticipantView = (props) => {
         //TODO: stuff participant data into user's context for patients - prevent multiple fetch calls for same patient
         api.fetchPatientTestResults({patientId, adminId: uuid, token}).then(resp => {
           if(resp instanceof Error) {
-            setUser({
+            setParticipant({
               portalAccountStatus: "ACCT_TERMINATED_AT_PPE"
             })
             throw resp
@@ -133,7 +155,7 @@ const ParticipantView = (props) => {
               return patient
             })
           })
-          setUser(resp)
+          setParticipant(resp)
 
         })
         .catch(error => {
@@ -164,15 +186,21 @@ const ParticipantView = (props) => {
       prop42: `BioBank_AccountActions|Click:${buttonText}`,
       eVar42: `BioBank_AccountActions|Click:${buttonText}`,
     })
-    setDialogOpen(true)
+    setDialogOpenConsent(true)
     setUploadSuccess(false)
     setMenuOpen(false)
   }
   const closeUploadDialog = (success) => {
-    setDialogOpen(false)
+    setDialogOpenConsent(false)
     // setting success to true will trigger data refresh
     // TODO: on success update front-end state instead of data fetch
     setUploadSuccess(success)
+  }
+
+  const editProfile = (e) => {
+    navigate(`${window.location.pathname}/profile`,{state: {
+      participant
+    }})
   }
 
   const openLeaveQuestions = (e) => {
@@ -183,9 +211,7 @@ const ParticipantView = (props) => {
       prop42: `BioBank_AccountActions|Click:${buttonText}`,
       eVar42: `BioBank_AccountActions|Click:${buttonText}`,
     })
-    navigate(`${window.location.pathname}/participation/leaveQuestions`,{state: {
-      user
-    }})
+    navigate(`${window.location.pathname}/participation/leaveQuestions`)
   }
 
   const handleMenuState = (state) => {
@@ -200,22 +226,75 @@ const ParticipantView = (props) => {
 
   const handleClickAway = () => {
     setMenuOpen(false);
-  };
+  }
+
+  const updateEmail = (val) => {
+    setParticipantEmail(val)
+  }
+
+  const dialogCloseEmail = (e) => {
+    setDialogOpenEmail(false)
+    // clear any errors on cancel
+    setErrorEmail(false)
+    // reset the email to the original value
+    setParticipantEmail(participant.email)
+  }
+  
+  const handleEditEmail = (e) => {
+    setDialogOpenEmail(true)
+  }
+
+  const handleConfirmEmail = (e) => {
+    const isValid = emailRegex.test(participantEmail)
+    setErrorEmail(!isValid)
+    if(isValid) {
+      // Get API
+      getAPI.then(api => {
+        api.updateUserEmail({patientId, email: participantEmail, token}).then(resp => {
+          if(resp instanceof Error) {
+            throw resp
+          }
+
+          dispatch({
+            type: 'addPatientData',
+            patients: patients.map(patient => {
+              if(patient.patientId === patientId){
+                patient = resp
+              }
+              return patient
+            })
+          })
+          // the response should be the updated participant data
+          setParticipant(resp)
+          setDialogOpenEmail(false)
+
+        })
+        .catch(error => {
+          console.error(error)
+        })
+      })
+    }
+  }
+
 
 
   return (
     <>
-      {user && (
+      {participant && (
         <div className={classes.profileTop}>
           <div>
             <div className={classes.profile}>
               <img className={classes.profileIcon} src={`${process.env.PUBLIC_URL}/assets/icons/user-profile.svg`} alt={t('icons.user_profile')} aria-hidden="true" />
               <div className={`${classes.profileText} highContrast`}>
-                <Typography className={classes.profileHeader} variant="h2" component="h2">{user.firstName} {user.lastName} <Chip className={classes.chip} size="small" label={patientId}/></Typography>
-                {user.isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>{t('badges.not_participating')}</Typography></div>}
-                {user.portalAccountStatus === "ACCT_TERMINATED_AT_PPE" && <div><Typography className={classes.badge}>{t('badges.terminated')}</Typography></div>}
-                <Typography><a href={`mailto:${user.email}`}>{user.email}</a></Typography>
-                <Typography><a href={`tel:${user.phoneNumber}`}>{formatPhoneNumber(user.phoneNumber)}</a></Typography>
+                <Typography className={classes.profileHeader} variant="h2" component="h2">{participant.firstName} {participant.lastName} <Chip className={classes.chip} size="small" label={patientId}/></Typography>
+                {participant.isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>{t('badges.not_participating')}</Typography></div>}
+                {participant.portalAccountStatus === "ACCT_TERMINATED_AT_PPE" && <div><Typography className={classes.badge}>{t('badges.terminated')}</Typography></div>}
+                <div className={classes.email}>
+                  {participant.email && <Typography><a href={`mailto:${participant.email}`}>{participant.email}</a></Typography>}
+                  {!participant.email && <Typography>No email address</Typography>}
+                  {!participant.uuid && <Button color="primary" onClick={handleEditEmail}><EditIcon /></Button>}
+                </div>
+                {participant.phoneNumber && <Typography><a href={`tel:${participant.phoneNumber}`}>{formatPhoneNumber(participant.phoneNumber)}</a></Typography>}
               </div>
             </div>
             {isNewParticipant &&
@@ -237,8 +316,9 @@ const ParticipantView = (props) => {
                         handleClick={handleMenuState}
                         variant="floating"
                         >
+                          {participant.uuid && <MenuItem onClick={editProfile}>{t('menu.account_actions.edit_profile')}</MenuItem>}
                           <MenuItem onClick={openUploadDialog}>{t('menu.account_actions.upload_consent')}</MenuItem>
-                          {user.isActiveBiobankParticipant !== false && <MenuItem onClick={openLeaveQuestions}>{t('menu.account_actions.leave_biobank')}</MenuItem>}
+                          {participant.isActiveBiobankParticipant !== false && <MenuItem onClick={openLeaveQuestions}>{t('menu.account_actions.leave_biobank')}</MenuItem>}
                       </ExpansionMenu>
                     </div>
                   </ClickAwayListener>
@@ -247,11 +327,11 @@ const ParticipantView = (props) => {
             </LoginConsumer>
         </div>
       )}
-      {user && user.isActiveBiobankParticipant === false && <Status state="info" fullWidth 
+      {participant && participant.isActiveBiobankParticipant === false && <Status state="info" fullWidth 
         title={t('components.participantView.status.info.title')} 
-        message={t('components.participantView.status.info.message', {date:moment(user.dateDeactivated).format("MMM DD, YYYY")})} />
+        message={t('components.participantView.status.info.message', {date:moment(participant.dateDeactivated).format("MMM DD, YYYY")})} />
       }
-      {user && user.portalAccountStatus === "ACCT_TERMINATED_AT_PPE" && <Status state="error" fullWidth 
+      {participant && participant.portalAccountStatus === "ACCT_TERMINATED_AT_PPE" && <Status state="error" fullWidth 
         title={t('components.participantView.status.terminated.title')} 
         message={t('components.participantView.status.terminated.message')} />
       }
@@ -263,7 +343,7 @@ const ParticipantView = (props) => {
             <Grid item xs={12} id="reports">
               <Typography className={classes.header} variant="h2" component="h2">{t('components.biomarkerView.pageTitle')} </Typography>
               <FileList 
-                files={user.reports} 
+                files={participant.reports} 
                 noItemsMsg={t('components.biomarkerView.no_results.admin')} 
                 patientId={patientId}
                 type="report"
@@ -281,7 +361,7 @@ const ParticipantView = (props) => {
                       message={t('components.participantView.status.uploaded.message')} />
                     }
                     <FileList
-                      files={user.otherDocuments} 
+                      files={participant.otherDocuments} 
                       noItemsMsg={t('components.consentView.no_results.admin')} 
                       patientId={patientId} 
                       type="consentForm"
@@ -291,10 +371,10 @@ const ParticipantView = (props) => {
               }}
             </LoginConsumer>
 
-            {user && user.isActiveBiobankParticipant === false && user.questionAnswers && (
+            {participant && participant.isActiveBiobankParticipant === false && participant.questionAnswers && (
               <Grid item xs={12} id="withdrawal">
                 <Typography className={classes.header} variant="h2" component="h2">{t('components.withdrawalView.pageTitle')} </Typography>
-                  <DeactivatedQuestions user={user} />
+                  <DeactivatedQuestions participant={participant} />
               </Grid>
             )}
           </Grid>
@@ -313,7 +393,7 @@ const ParticipantView = (props) => {
                       message={t('components.participantView.status.uploaded.message')} />
                     }
                     <FileList 
-                      files={user.otherDocuments} 
+                      files={participant.otherDocuments} 
                       noItemsMsg={t('components.consentView.no_results.admin')} 
                       patientId={patientId} 
                       type="consentForm"
@@ -331,11 +411,11 @@ const ParticipantView = (props) => {
             return (roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && (
               <Grid item xs={12} md={6} id="providers">
                 <Typography className={classes.header} variant="h2" component="h2">{t('components.providerView.pageTitle')}</Typography>
-                {user.providers ? (
+                {participant.providers ? (
                   <Grid container className={classes.reportsGrid} spacing={3} alignItems="stretch">
                     <Grid item xs={12}>
                       <Paper elevation={25} className={classes.providerCard}>
-                        {user.providers.map((provider,i) => <div key={i} className={classes.providerCard_details}>
+                        {participant.providers.map((provider,i) => <div key={i} className={classes.providerCard_details}>
                             <Typography><strong>Dr. {provider.firstName} {provider.lastName}</strong></Typography>
                             <Typography><a href={`tel:${provider.phoneNumber}`}>{formatPhoneNumber(provider.phoneNumber)}</a></Typography>
                             <Typography><a href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
@@ -352,7 +432,23 @@ const ParticipantView = (props) => {
           }}
         </LoginConsumer>
       </Grid>
-      <UploadConsentDialog open={dialogOpen} setParentState={closeUploadDialog} patientId={patientId} />
+      <UploadConsentDialog open={dialogOpenConsent} setParentState={closeUploadDialog} patientId={patientId} />
+      <Dialog
+        fullScreen={fullScreen}
+        open={dialogOpenEmail}
+        onClose={dialogCloseEmail}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogContent>
+          <Typography variant={isMobile ? "h4" : "h3"} component="h3">{t('a_common:components.participantView.changeEmail.title')}</Typography>
+          <Typography>{t('a_common:components.participantView.changeEmail.desc')}</Typography>
+          <Email value={participantEmail} editMode={true} error={errorEmail} onChange={updateEmail} />
+        </DialogContent>
+        <DialogActions>
+          <Button className={classes.dialogBtnSubmit} onClick={handleConfirmEmail} color="primary" variant="contained">{t('a_common:buttons.save')}</Button>
+          <Button variant="text" color="primary" onClick={dialogCloseEmail}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+        </DialogActions>
+      </Dialog>
     </>
   )
 }

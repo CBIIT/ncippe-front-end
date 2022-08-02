@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet-async'
 import Breadcrumbs from '../../components/Breadcrumbs'
 import ChangeParticipation from '../../components/Participation/Participation'
 
-const Page = () => {
+const Page = (props) => {
   const { t } = useTranslation(['a_changeParticipation'])
   return (
     <Box className="popup">

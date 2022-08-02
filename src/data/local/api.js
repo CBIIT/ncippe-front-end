@@ -234,6 +234,30 @@ async function updateUser({uuid, data, token}){
 }
 
 /*=======================================================================*/
+/*======== Update User Email =====================================*/
+
+async function updateUserEmail({patientId, email, token}){
+  console.log("updateUserEmail data sent to server:",
+    `\npatientId: ${patientId}`,
+    `\nemail: ${JSON.stringify(email)}`
+  )
+
+  // first: identify the user
+  const userData = await fetchUser({patientId})
+
+  return await fetch(`/api/${getUserGroup(userData.userType)}/${userData.id}`,{
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({email:email})
+  })
+  .then(handleResponse)
+  .then(resp => resp)
+  .catch(handleErrorMsg('Unable to save changes.'))
+}
+
+/*=======================================================================*/
 /*======== Upload Report/File ============================================*/
 
 async function uploadPatientReport({patientId, uuid, reportFile, fileType}){
@@ -612,6 +636,7 @@ export const api = {
   loginUser: fetchUser,
   fetchUser,
   updateUser,
+  updateUserEmail,
   fetchPatientTestResults: fetchUser,
   fetchPatientReport,
   fetchPatientFile: fetchPatientReport,
