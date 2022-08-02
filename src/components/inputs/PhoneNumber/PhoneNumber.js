@@ -58,7 +58,7 @@ const PhoneNumber = (props) => {
   const { value, editMode = false, error = false, onChange } = props
   const classes = useStyles()
   const { t } = useTranslation('a_accountSettings')
-  const [phoneNum, setPhoneNum] = useState(value || '(   )    -    ')
+  const [phoneNum, setPhoneNum] = useState(value || '(   )    -    ')
 
   useEffect(() => {
     setPhoneNum(value)
