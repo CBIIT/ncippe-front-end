@@ -250,7 +250,7 @@ const ParticipantView = (props) => {
     if(isValid) {
       // Get API
       getAPI.then(api => {
-        api.updateUserEmail({patientId, email: participantEmail, token}).then(resp => {
+        api.updateParticipantEmail({patientId, email: participantEmail, token}).then(resp => {
           if(resp instanceof Error) {
             throw resp
           }

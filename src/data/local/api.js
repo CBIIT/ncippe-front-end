@@ -234,10 +234,10 @@ async function updateUser({uuid, data, token}){
 }
 
 /*=======================================================================*/
-/*======== Update User Email =====================================*/
+/*======== Update Participant Email =====================================*/
 
-async function updateUserEmail({patientId, email, token}){
-  console.log("updateUserEmail data sent to server:",
+async function updateParticipantEmail({patientId, email, token}){
+  console.log("updateParticipantEmail data sent to server:",
     `\npatientId: ${patientId}`,
     `\nemail: ${JSON.stringify(email)}`
   )
@@ -636,7 +636,6 @@ export const api = {
   loginUser: fetchUser,
   fetchUser,
   updateUser,
-  updateUserEmail,
   fetchPatientTestResults: fetchUser,
   fetchPatientReport,
   fetchPatientFile: fetchPatientReport,
@@ -648,6 +647,7 @@ export const api = {
   withdrawUser,
   closeAccount,
   updateParticipantDetails,
+  updateParticipantEmail,
   activateParticipant,
   getHospitalList,
   getNewsEvents,

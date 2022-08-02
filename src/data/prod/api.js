@@ -185,6 +185,25 @@ async function updateUser({uuid, data, token}){
 }
 
 /*=======================================================================*/
+/*======== Update Participant Email =====================================*/
+
+async function updateParticipantEmail({patientId, email, token}){
+  const query = {
+    patientId,
+    email
+  }
+  return await fetch(`/api/v1/user/update-participant-email?${queryString.stringify(query)}`,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'text/plain',
+      'access-control-allow-origin': '*'
+    }
+  })
+  .then(handleResponse)
+  .catch(handleErrorMsg('Unable to save changes.'))
+}
+
+/*=======================================================================*/
 /*======== Upload Report/File ============================================*/
 
 async function uploadPatientReport({patientId, uuid, reportFile, fileType, token}){
@@ -408,6 +427,7 @@ export const api = {
   withdrawUser,
   closeAccount,
   updateParticipantDetails,
+  updateParticipantEmail,
   activateParticipant,
   getHospitalList,
   getNewsEvents,
