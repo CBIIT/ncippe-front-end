@@ -135,6 +135,7 @@ const Routes = () => (
             <PrivateRoute path='/account/tests' component={TestResultsPage} />
             <PrivateRoute path='/account/participant/:patientId' component={ParticipantPage} />
             <PrivateRoute path='/account/participant/:patientId/participation/*' component={ParticipationPage} />
+            <PrivateRoute path='/account/participant/:patientId/profile' component={ProfilePage} />
             <PrivateRoute path='/account/profile' component={ProfilePage} />
             <PrivateRoute path='/account/profile/participation/*' component={ParticipationPage} />
             <PrivateRoute path='/account/help' component={GetHelpPage} />
