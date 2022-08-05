@@ -184,12 +184,18 @@ const MenuGroup = (props) => {
                 {
                   React.Children.map(props.children, child => (
                     <StyledMenuItem onClick={handleClose} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={location === child.props.href} className={child.props.className}>
-                      <ConditionalWrapper
-                        condition={location !== child.props.href}
-                        wrapper={children => <Link to={child.props.href}>{children}</Link>}
-                      >
-                        <span>{child.props.children}</span>
-                      </ConditionalWrapper>
+                      {/* // if there's a target prop then this is an external link in the menu */}
+                      {child.props.target ? 
+                      // remake the external link like a menu item Link component
+                        <a {...child.props}><span>{child.props.children}</span></a>
+                      :
+                        <ConditionalWrapper
+                          condition={location !== child.props.href}
+                          wrapper={children => <Link to={child.props.href}>{children}</Link>}
+                        >
+                          <span>{child.props.children}</span>
+                        </ConditionalWrapper>
+                      }
                     </StyledMenuItem>
                   ))
                 }

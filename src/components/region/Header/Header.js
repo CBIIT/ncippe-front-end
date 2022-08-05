@@ -262,8 +262,9 @@ const Header = () => {
               <a className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.0')}</a>
               <a className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.1')}</a>
               <a className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.2')}</a>
+              <a href="https://samples.moonshotbiobank.cancer.gov" rel='noopener noreferrer' target="_blank">Request Samples</a>
             </MenuGroup>
-            <Search />
+            <Search />  
           </nav>
         )}
 
