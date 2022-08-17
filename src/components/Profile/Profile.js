@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react'
-
 import { Box, Divider, FormControl, Input, InputLabel, Paper, Typography, Button} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Edit as EditIcon, Clear as ClearIcon } from '@material-ui/icons'
@@ -7,7 +6,8 @@ import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 
 import { LoginContext } from '../../components/login/Login.context'
-import PhoneNumbner from '../inputs/PhoneNumber'
+import Email from '../inputs/Email'
+import PhoneNumber from '../inputs/PhoneNumber'
 import EmailOption from '../inputs/EmailOption'
 import LangOption from '../inputs/LangOption'
 // import { api } from '../../data/api'
@@ -50,34 +50,53 @@ const useStyles = makeStyles(theme => ({
   }
 }),{name: 'Profile'})
 
-const Profile = () => {
+const Profile = (props) => {
+  // if there's a patientId then this profile is being edited by an admin, otherwise it's being edited by the user
+  const {patientId} = props
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const [editMode, setEditMode] = useState(false)
   const [errorPhone, setErrorPhone] = useState(false)
-  const [userPhone, setUserPhone] = useState(loginContext.phoneNumber)
-  const [userOptIn, setUserOptIn] = useState(loginContext.allowEmailNotification)
-  const [userLang, setUserLang] = useState(loginContext.lang || 'en')
+  
   const { t, i18n } = useTranslation(['a_accountSettings','a_common'])
 
-  const handleSubmit = (event) => {
+  let profileData = loginContext
+
+  if(patientId) {
+    profileData = loginContext.patients.find(patient => patient.patientId === patientId)
+  }
+  
+  const [userPhone, setUserPhone] = useState(profileData.phoneNumber)
+  const [userOptIn, setUserOptIn] = useState(profileData.allowEmailNotification)
+  const [userLang, setUserLang] = useState(profileData.lang || 'en')
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const phoneNumber = event.target['phone-number-input'].value || ''
     const allowEmailNotification = event.target['notifications-input'].checked ? true : false
     // pattern must be a valid phone number or empty input mask pattern
     const phonePattern = /\([2-9]\d{2}\)\s?[2-9]\d{2}-\d{4}|\(\s{3}\)\s{4}-\s{4}/
+  
 
-    const valid = phonePattern.test(phoneNumber)
-    setErrorPhone(!valid)
-    if(valid) {
+    let isValid = phonePattern.test(phoneNumber)
+    setErrorPhone(!isValid)
+
+    if(isValid) {
       const cleanPhoneNumber = phoneNumber.replace(/\D*/g,"") // remove formatting and just send numbers
       const data = {
         phoneNumber: cleanPhoneNumber,
         allowEmailNotification,
         lang: userLang
       }
-      const { token, uuid } = loginContext
+
+      const { uuid } = profileData
+      const { token } = loginContext
+
+      // Redundant - cannot get to participant profile if UUID does not exist
+      if (!uuid) {
+        throw new Error('The profile you are attempting to update does not have a valid UUID.')
+      }
 
       getAPI.then(api => {
         api.updateUser({uuid, token, data}).then(resp => {
@@ -86,20 +105,35 @@ const Profile = () => {
           } else {
             PubSub.publish('ANALYTICS', {
               events: 'event78',
-              eventName: 'ProfileSettingsSave',
+              eventName: 'ProfileSettingsSave', 
               prop42: `BioBank_ProfileSettings|Save`,
               eVar42: `BioBank_ProfileSettings|Save`,
             })
-            // Save successful, also update the user context data
-            dispatch({
-              type: 'update',
-              userData: {
-                phoneNumber,
-                allowEmailNotification,
-                lang: userLang
-              }
-            })
-            i18n.changeLanguage(userLang)
+            // Save successful
+            // update either the admin's patient list or the user data
+            if(patientId) {
+              dispatch({
+                type: 'addPatientData',
+                patients: loginContext.patients.map(patient => {
+                  if(patient.patientId === patientId){
+                    patient.phoneNumber = phoneNumber
+                    patient.allowEmailNotification = allowEmailNotification
+                    patient.lang = userLang
+                  }
+                  return patient
+                })
+              })
+            } else {
+              dispatch({
+                type: 'update',
+                userData: {
+                  phoneNumber,
+                  allowEmailNotification,
+                  lang: userLang
+                }
+              })
+              i18n.changeLanguage(userLang)
+            }
             toggleEditMode()
           }
         })
@@ -109,10 +143,10 @@ const Profile = () => {
 
   const cancelEdit = () => {
     //restore user context
-    setUserPhone(loginContext.phoneNumber)
+    setUserPhone(profileData.phoneNumber)
     setErrorPhone(false)
-    setUserOptIn(loginContext.allowEmailNotification)
-    setUserLang(loginContext.lang || 'en')
+    setUserOptIn(profileData.allowEmailNotification)
+    setUserLang(profileData.lang || 'en')
 
     toggleEditMode()
   }
@@ -157,28 +191,14 @@ const Profile = () => {
             </Button>
           )}
         </Box>
-        <FormControl className={classes.formControl} margin="normal">
-          <InputLabel 
-            htmlFor="email-input" 
-            shrink
-            className={classes.label}
-          >
-            {t('profile.email')}
-          </InputLabel>
-          <Input
-            id="email-input"
-            placeholder={t('profile.email')}
-            value={loginContext.email}
-            readOnly={true}
-            disabled
-          />
-        </FormControl>
-        <PhoneNumbner value={userPhone} editMode={editMode} error={errorPhone} onChange={updatePhoneNumber} />
+        <Email value={profileData.email} />
+        <Divider />
+        <PhoneNumber value={userPhone} editMode={editMode} error={errorPhone} onChange={updatePhoneNumber} />
         <Divider />
         <EmailOption value={userOptIn} editMode={editMode} onClick={updateEmailOption} />
         <Divider />
-        {loginContext.roleName === "ROLE_PPE_PARTICIPANT" && <LangOption label={t('profile.lang.title')} value={userLang} editMode={editMode} onChange={updateLang} />}
-        {loginContext.roleName === "ROLE_PPE_PARTICIPANT" && <Divider />}
+        {profileData.roleName === "ROLE_PPE_PARTICIPANT" && <LangOption label={t('profile.lang.title')} value={userLang} editMode={editMode} onChange={updateLang} />}
+        {profileData.roleName === "ROLE_PPE_PARTICIPANT" && <Divider />}
 
         {editMode && (
           <FormControl className={`${classes.formControl} ${classes.cta}`} >
@@ -187,6 +207,7 @@ const Profile = () => {
           </FormControl>
         )}
       </form>
+
     </Paper>
   )
 }
