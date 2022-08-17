@@ -8,7 +8,7 @@ import PubSub from 'pubsub-js'
 import { Helmet } from 'react-helmet-async'
 
 import Breadcrumbs from '../../components/Breadcrumbs'
-import { LoginContext, LoginConsumer } from '../../components/login/Login.context'
+import { LoginContext } from '../../components/login/Login.context'
 import Profile from '../../components/Profile/Profile'
 import Status from '../../components/Status'
 import DeactivatedQuestions from '../../components/DeactivatedQuestions'
@@ -84,10 +84,26 @@ const useStyles = makeStyles(theme => ({
 
 
 const ProfilePage = (props) => {
+  const {patientId} = props
   const classes = useStyles()
   const [loginContext] = useContext(LoginContext)
-  const {firstName, lastName, dateCreated, isActiveBiobankParticipant, dateDeactivated, questionAnswers, crc, providers} = loginContext
   const { t } = useTranslation(['a_accountSettings','a_common'])
+  
+  let profileData = loginContext
+  if(patientId) {
+    profileData = loginContext.patients.find(patient => patient.patientId === patientId)
+  }
+  const {
+    firstName, 
+    lastName, 
+    dateCreated, 
+    isActiveBiobankParticipant, 
+    dateDeactivated, 
+    questionAnswers, 
+    crc, 
+    providers,
+    roleName,
+  } = profileData
 
   const userData = {
     firstName,
@@ -121,27 +137,21 @@ const ProfilePage = (props) => {
               {isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>{t('a_common:not_participating.badge')}</Typography></div>}
             </div>
           </div>
-          <LoginConsumer>
-          {([{roleName}]) => {
-            return roleName === "ROLE_PPE_PARTICIPANT" && (
-              <div><Button className={classes.menu} variant="outlined" color="primary" component={RouterLink} to="participation" onClick={trackParticipationClick}>{t('a_common:buttons.change_participation')}</Button></div>
-            )
-          }}
-          </LoginConsumer>
+          {roleName === "ROLE_PPE_PARTICIPANT" && (
+            <div><Button className={classes.menu} variant="outlined" color="primary" component={RouterLink} to="participation" onClick={trackParticipationClick}>{t('a_common:buttons.change_participation')}</Button></div>
+          )}
         </div>
         {isActiveBiobankParticipant === false && <Status state="info" fullWidth title={t('a_common:not_participating.status.title')} message={t('a_common:not_participating.status.message')} />}
         <Divider className={classes.divider} />
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <Profile />
+            <Profile patientId={props.patientId} />
             {isActiveBiobankParticipant === false && questionAnswers && (
               <DeactivatedQuestions user={userData} />
             )}
           </Grid>
           <Grid item xs={12} md={6}>
-          <LoginConsumer>
-          {([{roleName}]) => {
-            return roleName === "ROLE_PPE_PARTICIPANT" && (
+            {roleName === "ROLE_PPE_PARTICIPANT" && (
               <Paper className={classes.biobankInfo} elevation={25}>
                 <Typography className={classes.header} variant="h3" component="h3" gutterBottom>{t('contacts.title')}</Typography>
 
@@ -159,9 +169,7 @@ const ProfilePage = (props) => {
                 <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
                 <Typography><a className="email" href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
               </Paper>
-            )
-          }}
-          </LoginConsumer>
+            )}
           </Grid>
         </Grid>
       </Container>

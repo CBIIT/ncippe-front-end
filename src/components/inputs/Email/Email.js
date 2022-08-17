@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import MaskedInput from 'react-text-mask'
 import PropTypes from 'prop-types'
 import { makeStyles } from '@material-ui/core/styles'
 import { FormControl, TextField} from '@material-ui/core'
@@ -7,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
-    minWidth: '200px',
+    minWidth: '300px',
     '& .MuiInput-formControl': {
       marginTop: 20
     },
@@ -23,49 +22,16 @@ const useStyles = makeStyles(theme => ({
   helperText: {
     marginBottom: theme.spacing(2)
   }
-}),{name: 'PhoneNumber'});
+}),{name: 'Email'});
 
-// move input cursor to first available placeholder character
-const selectAfterUserInput = (event) => {
-  const input = event.target
-  let placeholder = '\u2000';
-  let i = input.value.indexOf(placeholder)
-  if (i === -1) { i = input.value.length; }
-  setTimeout(function() { input.setSelectionRange(i, i); }, 0)
-}
-
-const TextMaskCustom = (props) => {
-  const { inputRef, ...other } = props;
-
-  return (
-    <MaskedInput
-      {...other}
-      ref={ref => {
-        inputRef(ref ? ref.inputElement : null);
-      }}
-      mask={['(', /[2-9]/, /\d/, /\d/, ')', ' ', /[2-9]/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-      placeholderChar={'\u2000'}
-      showMask
-      onFocus={selectAfterUserInput}
-    />
-  );
-}
-TextMaskCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired,
-};
-
-const PhoneNumber = (props) => {
+const Email = (props) => {
   const { value, editMode = false, error = false, onChange } = props
   const classes = useStyles()
   const { t } = useTranslation('a_accountSettings')
-  const [phoneNum, setPhoneNum] = useState(value || '(   )    -    ')
-
-  useEffect(() => {
-    setPhoneNum(value)
-  }, [value])
+  // const [email, setEmail] = useState(value)
 
   const handleChange = event => {
-    setPhoneNum(event.target.value)
+    // setEmail(event.target.value)
     // alert parent component to change
     if (onChange) {
       onChange(event.target.value)
@@ -75,16 +41,17 @@ const PhoneNumber = (props) => {
   return (
     <FormControl className={classes.formControl} margin="normal">
       <TextField
-        label={t('profile.phone.title')}
+        label={t('profile.email.title')}
         error={error}
-        value={phoneNum}
+        value={value}
         onChange={handleChange}
-        id="phone-number-input"
+        id="email-input"
+        placeholder={t('profile.email.title')}
         variant={editMode ? 'outlined': 'standard'}
+        disabled={ !editMode }
         
-        helperText={editMode ? t('profile.phone.helper_text') : ''}
-        InputProps={{
-          inputComponent: TextMaskCustom,
+        helperText={editMode ? t('profile.email.helper_text') : ''}
+        inputProps={{
           readOnly: !editMode
         }}
         InputLabelProps={{
@@ -100,10 +67,10 @@ const PhoneNumber = (props) => {
   )
 }
 
-PhoneNumber.displayName = "PhoneNumber"
-PhoneNumber.propTypes = {
+Email.displayName = "Email"
+Email.propTypes = {
   /**
-   * The phone number formatted as (###)###-####
+   * The email as text
    */
   value: PropTypes.string,
   /**
@@ -120,4 +87,4 @@ PhoneNumber.propTypes = {
   onChange: PropTypes.func,
 }
 
-export default PhoneNumber
+export default Email
