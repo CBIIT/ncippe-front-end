@@ -11,6 +11,7 @@ import {
 } from '@material-ui/icons'
 import PubSub from 'pubsub-js'
 
+import getAPI from '../data'
 import { check_webp_feature } from '../utils/utils'
 import IconCardMedia from '../components/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
@@ -37,6 +38,18 @@ const useStyles = makeStyles( theme => ({
   },
   bannerText: {
     fontFamily: 'Montserrat, Helvetica, Arial, sans-serif'
+  },
+  banner_warning: {
+    backgroundColor: '#fce2b5',
+    border: '1px solid #FEB73C',
+  },
+  banner_info: {
+    backgroundColor: '#E7F0FB',
+    border: '1px solid #bdd9fc',
+  },
+  banner_success: {
+    backgroundColor: '#E3FCF2',
+    border: '1px solid #01C585',
   },
   hero: {
     // backgroundColor: theme.palette.primary.lightGrey,
@@ -288,6 +301,8 @@ const HomePage = () => {
   const { t, i18n } = useTranslation('homePage')
   const isHighResolution = useMediaQuery('@media (min-resolution: 192dpi)')
   const [accountClosed, setAccountClosed] = useState(localStorage.getItem('accountClosed'))
+  const [alerts, setAlerts] = useState([])
+  const [refreshAlerts, setRefreshAlerts] = useState(false)
 
   useEffect(() => {
     const resizeEvt = () => {
@@ -326,6 +341,55 @@ const HomePage = () => {
     }
   }, [accountClosed])
 
+  /* check if there are any system alerts to be retrieved */
+  /* TODO:
+    - check for local variable that will cache system alerts - is this overkill?
+    - set system alert timestamp - configurable - 1 hour
+    - short circuit api calls else
+    - use api to check for alerts
+    - store local flag that alerts were retrieved within config window
+    - filter out alerts that have expired
+  */
+  useEffect(() => {
+    // get the datestamp alerts were last fetched
+    const alertsLastFetched = localStorage.getItem('alertsLastFetched')
+    // get new alerts if time interval has passed
+    if(alertsLastFetched){
+      const refreshTime = 1 // time in hours
+      const time = Date.now()
+      const gap = (time - alertsLastFetched)/(1000 * 60 * 60) // time in hours
+      if(gap > refreshTime) {
+        // getAlerts by triggering a state variable
+        return setRefreshAlerts(true)
+      }
+      // if alerts are still fresh then pull them from localStorage
+      const alerts = JSON.parse(localStorage.getItem('alerts'))
+      setAlerts(alerts)
+    } else {
+      // if alerts have never been fetched then now's the time
+      setRefreshAlerts(true)
+    }
+  }, [])
+  useEffect(() => {
+    if(refreshAlerts){
+      getAPI.then(api => {
+        api.getAlerts().then(resp => {
+          if(resp instanceof Error) {
+            throw resp
+          }
+          // filter out any expired alerts, keeping those that have no expirationDate
+          const filteredAlerts = resp.filter(alert => alert.expirationDate == null || Date.now() < alert.expirationDate)
+          localStorage.setItem('alertsLastFetched', Date.now())
+          localStorage.setItem('alerts', JSON.stringify(filteredAlerts))
+          setAlerts(filteredAlerts)
+        })
+      })
+      .catch(error => {
+        console.error(error)
+      })
+    }
+  }, [refreshAlerts])
+
   const handleClose = () => {
     setIsModalOpen(false)
     navigate('/', {state:{}}, { replace: true })
@@ -344,13 +408,14 @@ const HomePage = () => {
       </Helmet>
 
 
-      {/* Render the banner if it exists and the value is not an empty string */
-      i18n.exists('homePage:hero.banner') && t('hero.banner').trim().length > 0 &&
-      <Container className={classes.banner}>
-        <Typography className={classes.bannerText} component="div">
-          <strong><RenderContent children={t('hero.banner')} /></strong>
-        </Typography>
-      </Container>
+      {
+      alerts.map((alert,i) => 
+        <Container key={i} className={`${classes.banner} ${classes['banner_' + alert.contentType]}`}>
+          <Typography className={classes.bannerText} component="div">
+            <strong><RenderContent children={alert.message[i18n.languages[0]]} /></strong>
+          </Typography>
+        </Container>
+      )
       }
 
       <Container className={classes.hero}>
