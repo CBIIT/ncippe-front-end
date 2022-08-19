@@ -34,7 +34,7 @@ const useStyles = makeStyles( theme => ({
   //   fontWeight: 'bold'
   // },
   tableDate: {
-    width: 120,
+    width: 170,
   }
 
 }),{name: 'ViewMessages'})
