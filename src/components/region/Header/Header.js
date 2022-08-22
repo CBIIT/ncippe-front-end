@@ -19,6 +19,7 @@ import {
   Search as SearchIcon,
   Clear as ClearIcon,
 } from '@material-ui/icons'
+import moment from 'moment'
 
 import LoginButton from '../../login/LoginButton'
 import MenuGroup from './MenuGroup'
@@ -228,6 +229,7 @@ const Header = () => {
     e.preventDefault()
     const newLang = i18n.languages[0] === 'en' ? "es" : "en"
     i18n.changeLanguage(newLang)
+    moment.locale(newLang)
   }
 
   return (

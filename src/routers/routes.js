@@ -40,6 +40,7 @@ import { useTranslation } from 'react-i18next'
 // imports for time
 import moment from 'moment'
 import 'moment/locale/es'
+moment.locale('en')
 
 const SearchResults = lazy(() => import('../pages/SearchResultsPage'))
 

@@ -41,6 +41,7 @@ import { useTranslation } from 'react-i18next'
 // imports for time
 import moment from 'moment'
 import 'moment/locale/es'
+moment.locale('en')
 
 const SearchResults = lazy(() => import('../pages/SearchResultsPage'))
 
@@ -80,6 +81,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         if(state.auth) {
           // set default language in case it's not specified
           const lang = state.lang || "en"
+          console.log('lang', lang)
           // set date format based on language
           moment.locale(lang)
           if(lang !== i18n.language) {

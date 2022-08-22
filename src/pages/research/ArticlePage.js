@@ -36,15 +36,16 @@ const useStyles = makeStyles( theme => ({
 
 const Article = (props) => {
   const classes = useStyles()
-  const { t, i18n } = useTranslation(`r_${caseConverter(props.article)}`)
+  const nameSpace = `r_${caseConverter(props.article)}`
+  const { t, i18n } = useTranslation([nameSpace,'common'])
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
 
   useEffect(() => {
     PubSub.publish('ANALYTICS', {
       event:'pageview',
-      prop6: t('metaData.title'),
-      prop10: t('metaData.title'),
+      prop6: t('pageTitle'),
+      prop10: `${t("pageTitle")} | ${t("common:nav.research")}`,
     })
   },[t])
 
@@ -56,13 +57,13 @@ const Article = (props) => {
   return (
     <Box component="article">
       <Helmet>
-        <title>{t("metaData.title")}</title>
-        <meta name="title" content={t("metaData.title")} />
-        <meta property="og:title" content={t("metaData.OG_title")} />
-        <meta name="description" content={t("metaData.description")} />
-        <meta property="og:description" content={t("metaData.OG_description")} />
-        <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/research`} />
-        <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/research`} />
+        <title>{`${t("pageTitle")} | ${t("common:nav.research")}`}</title>
+        <meta name="title" content={`${t("pageTitle")} | ${t("common:nav.research")}`} />
+        <meta property="og:title" content={t("pageTitle")} />
+        <meta name="description" content={t("intro_text")} />
+        <meta property="og:description" content={t("intro_text")} />
+        <link rel="canonical"      href={process.env.REACT_APP_PUBLIC_URL + t('pageRoute')} />
+        <meta property="og:url" content={process.env.REACT_APP_PUBLIC_URL + t('pageRoute')} />
       </Helmet>
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1">
@@ -78,7 +79,7 @@ const Article = (props) => {
               </Typography>
             </Grid>
             
-              {t('img') !== 'img' && <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
+              {i18n.exists(`${nameSpace}:img`) && <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
                   <ArticleImage src={t('img.0.file_name')} alt={t('img.0.alt_text')} />
                 </Grid>
               }
@@ -87,18 +88,23 @@ const Article = (props) => {
 
             {Object.keys(t('sections', { returnObjects: true })).map((section, i) => 
               <Grid item xs={12} md={8} component="section" key={i}>
-                <Typography variant="h3" component="h3">
-                  <RenderContent children={t(`sections.${i}.title`)} />
-                </Typography>
+                {i18n.exists(`${nameSpace}:sections.${i}.title`) &&
+                  <Typography variant="h3" component="h3">
+                    <RenderContent children={t(`sections.${i}.title`)} />
+                  </Typography>
+                }
                 {/* Render blockquotes if they're provided for this section */}
-                {t(`sections.${i}.quote`) !== `sections.${i}.quote` && <blockquote>
+                {i18n.exists(`${nameSpace}:sections.${i}.quote`) && 
+                  <blockquote>
                     <Typography>{t(`sections.${i}.quote.text`)}</Typography>
                     <cite>{t(`sections.${i}.quote.cite`)}</cite>
                   </blockquote>
                 }
-                <Typography component="div">
-                  <RenderContent children={t(`sections.${i}.body`)} />
-                </Typography>
+                {i18n.exists(`${nameSpace}:sections.${i}.body`) &&
+                  <Typography component="div">
+                    <RenderContent children={t(`sections.${i}.body`)} />
+                  </Typography>
+                }
               </Grid>
             )}
           </Grid>

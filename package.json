@@ -65,8 +65,7 @@
     "trim": "^1.0.1"
   },
   "scripts": {
-    "dev": "npm run mock & ./node_modules/.bin/env-cmd -e local react-scripts start",
-    "start": "npm run copyfiles & npm run mock & ./node_modules/.bin/env-cmd -e local react-scripts start",
+    "start": "npm run mock & ./node_modules/.bin/env-cmd -e local react-scripts start",
     "build": "npm run copyfiles & react-scripts build",
     "test": "npm run copyfiles & react-scripts test",
     "mock": "json-server --watch ./src/data/mockData.json --port 5000 --routes ./server/routes.json --middlewares ./server/getUser.js ./server/getProviders.js ./server/singular.js",
