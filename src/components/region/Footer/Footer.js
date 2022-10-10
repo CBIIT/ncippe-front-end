@@ -136,6 +136,7 @@ const Footer = () => {
             <a href={t('footer.links.disclaimer.link')}>{t('footer.links.disclaimer.text')}</a>
             <a href={t('footer.links.accessibility.link')}>{t('footer.links.accessibility.text')}</a>
             <a href={t('footer.links.foia.link')}>{t('footer.links.foia.text')}</a>
+            <a href={t('footer.links.vulnerability.link')}>{t('footer.links.vulnerability.text')}</a>
           </Grid>
           <Grid item xs={12} sm={4}>
             <div className={classes.columnTitle}>{t('footer.links.resources_title')}</div>
