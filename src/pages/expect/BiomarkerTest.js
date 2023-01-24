@@ -234,7 +234,7 @@ const BiomarkerTest = () => {
                 />
                 <Divider />
                 <Box p={2}>
-                  <Button href={`${process.env.PUBLIC_URL}/assets/documents/AML-Biomarker-Sample.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.4.title_aria')}>{t('sections.2.samples.4.link')}</Button>
+                  <Button href={`${process.env.PUBLIC_URL}/assets/documents/Biomarker-Sample-Report--AML.pdf`} color="primary" rel="noopener noreferrer" target="_blank" aria-label={t('sections.2.samples.4.title_aria')}>{t('sections.2.samples.4.link')}</Button>
                 </Box>
               </Paper>
             </Grid>
