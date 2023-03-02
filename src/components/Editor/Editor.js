@@ -18,6 +18,8 @@ const TinyMCE_Editor = forwardRef((props, ref) => {
       initialValue={initialValue}
       value={value}
       init={{
+        browser_spellcheck: true,
+        contextmenu: false,
         height: 500,
         menubar: false,
         plugins: `autolink lists link image charmap paste help wordcount quickbars`,
