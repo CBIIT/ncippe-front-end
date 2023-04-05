@@ -60,17 +60,22 @@ const useStyles = makeStyles( theme => ({
 const AboutPage = () => {
   let TESTING = true;
   let handleClick = () =>{
-        console.log('MHL handleClick');
+      console.log('MHL handleClick');
       getAPI.then(api => {
-              api.getChartData().then(data => {
-console.log('MHL data: ', data );
+          console.log('MHL 00 data: ', data );
+          api.getChartData().then(data => {
+              console.log('MHL 01 data: ', data );
+          })
+              .catch(er => {
+                  console.error(er)
+                  console.log('MHL 02 error: ', er );
               })
-          })
-          .catch(error => {
-              console.error(error)
-              console.log('MHL error: ', error );
-          })
-    }
+      })
+      .catch(error => {
+          console.error(error)
+          console.log('MHL error: ', error );
+      })
+  }
   const classes = useStyles();
   const { t, i18n } = useTranslation('about');
   const theme = useTheme();
