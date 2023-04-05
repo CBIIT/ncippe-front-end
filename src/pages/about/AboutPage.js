@@ -7,6 +7,7 @@ import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
+import Charts from "../../components/Charts/Charts";
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -37,6 +38,10 @@ const useStyles = makeStyles( theme => ({
       margin: theme.spacing(7,0)
     }
   },
+ testAlpha:{
+      width: '25%',
+      backgroundColor: '#b90d87'
+ },
   linkImg: {
     '& a': {
       display: "inline-block",
@@ -52,12 +57,15 @@ const useStyles = makeStyles( theme => ({
 }),{name: 'AboutPage'})
 
 const AboutPage = () => {
-  const classes = useStyles()
-  const { t, i18n } = useTranslation('about')
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  let TESTING = true;
+  let handleClick = () =>{
+        console.log('MHL handleClick');
+    }
+  const classes = useStyles();
+  const { t, i18n } = useTranslation('about');
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const lang = i18n.languages[0] === 'en' ? "" : "-es"
-
   useEffect(() => {
     PubSub.publish('ANALYTICS', {
       event:'pageview',
@@ -65,6 +73,7 @@ const AboutPage = () => {
       prop10: t("metaData.title"),
     })
   },[t])
+
 
   return (
     <Box component="article">
@@ -93,8 +102,116 @@ const AboutPage = () => {
               <Typography paragraph={true} variant="h3" component="h3">
                 <RenderContent children={t('sections.0.subtitle')} />
               </Typography>
-              
-              <Typography component="div">
+
+                <div>
+                    {TESTING ? (
+                        <section>
+                            <button onClick={handleClick}>Test server</button>
+                            <hr/>
+                            { isMobile && <h2>isMobile</h2>}
+                            { ! isMobile && <h2>NOT isMobile</h2>}
+
+                                <Grid item xs={12} md={6}>
+                                    <Charts
+                                        chartId={0}
+                                        chartType={0}
+                                        chartSize={1}
+                                        svgId={0}
+                                        isMobile={isMobile}
+                                        chartTitle={t('charts.ProjectSummary.title')}
+                                        subtitle={t('charts.ProjectSummary.subtitle')}
+                                    ></Charts>
+                                </Grid>
+                                 {!isMobile ? (
+                                        <Grid item xs={12} md={6}>
+                                            <p>Pie chart "Patient Demographics" - Full size</p>
+
+                                            <Charts
+                                                chartId={1}
+                                                chartType={1}
+                                                chartSize={2}
+                                                svgId={2}
+                                                isMobile={isMobile}
+                                                chartTitle={t('charts.PatientDemographics.title') }
+                                                chartSubtitle={t('charts.PatientDemographics.subtitle')}
+                                            ></Charts>
+                                        </Grid>
+                                 ) : (
+                                      <Grid item xs={12} md={6}>
+                                            <p>Pie chart "Patient Demographics" - Full size</p>
+
+                                            <Charts
+                                                chartId={1}
+                                                chartType={1}
+                                                chartSize={0}
+                                                svgId={2}
+                                                isMobile={isMobile}
+                                                chartTitle={t('charts.PatientDemographics.title') }
+                                                chartSubtitle={t('charts.PatientDemographics.subtitle')}
+                                            ></Charts>
+                                        </Grid>
+                                     ) }
+
+
+                            {/* Bar chart "Participant Demographic Age" - Full size */}
+                            <Grid item xs={12} md={6}>
+                                <Charts
+                                    chartId={2}
+                                    chartType={2}
+                                    chartSize={2}
+
+                                    chartTitle={t('charts.ParticipantDemographicsAge.title')}
+                                    chartSubtitle={t('charts.ParticipantDemographicsAge.subtitle')}
+                                    svgId={3}
+                                    isMobile={isMobile}
+                                />
+                            </Grid>
+
+                            {/* Bar chart "Participant Demographic Sex" - Full size */}
+                            <Grid item xs={12} md={6}>
+                                <Charts
+                                    chartId={3}
+                                    chartType={2}
+                                    chartSize={2}
+
+                                    chartTitle={t('charts.ParticipantDemographicsSex.title')}
+                                    chartSubtitle={t('charts.ParticipantDemographicsSex.subtitle')}
+                                    svgId={4}
+                                    isMobile={isMobile}
+                                />
+                            </Grid>
+
+                            {/* Patient Demographics Race */}
+                            <Grid item xs={12} md={6}>
+                                <Charts
+                                    chartId={4}
+                                    chartType={1}
+                                    chartSize={2}
+                                    svgId={5}
+                                    isMobile={isMobile}
+                                    chartTitle={t('charts.PatientDemographicsRace.title')}
+                                    chartSubtitle={t('charts.PatientDemographicsRace.subtitle')}
+                                ></Charts>
+                            </Grid>
+
+                            {/* Patient Demographics Ethnicity */}
+                            <Grid item xs={12} md={6}>
+                                <Charts
+                                    chartId={5}
+                                    chartType={1}
+                                    chartSize={2}
+                                    svgId={6}
+                                    isMobile={isMobile}
+                                    chartTitle={t('charts.PatientDemographicsEthnicity.title')}
+                                    chartSubtitle={t('charts.PatientDemographicsEthnicity.subtitle')}
+                                ></Charts>
+                            </Grid>
+                        </section>
+                    ) : null}
+                    {/*End of TESTING*/}
+                </div>
+
+                <Typography component="div">
                 <RenderContent children={t('sections.0.body')} />
               </Typography>
 
@@ -117,13 +234,14 @@ const AboutPage = () => {
               <Typography component="div">
                 <RenderContent children={t('sections.1.intro')} />
               </Typography>
-            </Grid>
-            <Grid item xs={12}>
+              </Grid>
+
+              <Grid item xs={12}>
               <figure className={classes.linkImg}>
                 <a href={`${process.env.PUBLIC_URL}/assets/documents/How-Biobank-Works${lang}.pdf`} rel="noopener noreferrer" target="_blank">
                   {/* <BodyImage src={`how-biobank-works${lang}.jpg`} alt={t('sections.1.alt_text')} /> */}
                   <img className={classes.img_fullWidth}
-                    src={process.env.PUBLIC_URL + `/assets/images/fullWidth/micro/how-biobank-works${lang}.jpg`} 
+                    src={process.env.PUBLIC_URL + `/assets/images/fullWidth/micro/how-biobank-works${lang}.jpg`}
                     alt={t('sections.1.alt_text')}
                     srcSet={`
                       ${process.env.PUBLIC_URL}/assets/images/fullWidth/micro/how-biobank-works${lang}.jpg 380w,
@@ -143,6 +261,8 @@ const AboutPage = () => {
                 <RenderContent children={t('sections.1.body')} />
               </Typography>
             </Grid>
+
+
           </Grid>
         </Box>
       </Container>

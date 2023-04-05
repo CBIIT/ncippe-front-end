@@ -487,6 +487,18 @@ html {
   display: inline-block;
 }
 
+/* Charts */
+.div-chart{
+    width: 620px;  /* @FIXME TESTING */
+    background-color: #ffffff;
+    font-size: 14px;
+   /* border: solid #333333 2px; */
+    box-shadow: 0px 0px 3px rgba(45, 45, 45, 0.5);
+    border-radius: 3px;
+    padding: 6px;
+    margin-top: 16px;
+}
+
 /* Stupid IE11 hacks */
 /* @media all and (-ms-high-contrast:none) { */
   /* Header nav */
