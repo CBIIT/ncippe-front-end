@@ -6,9 +6,11 @@ const handleResponse = resp => {
   if(resp.ok) {
     const contentType = resp.headers.get("content-type")
     if (contentType && contentType.indexOf("application/json") !== -1) {
+        console.log('MHL resp.json(): ', resp.json());
       return resp.json()
     } else {
-      return resp
+        console.log('MHL resp: ', resp);
+        return resp
     }
   } else {
     throw new Error(`Request rejected with status ${resp.status}: ${resp.statusText}`)
@@ -422,6 +424,21 @@ async function getMessages({uuid}){
 }
 
 /*=======================================================================*/
+/*======== Get Chart data =================================================*/
+
+async function getChartData(){
+    console.log('MHL getChartData');
+    return await fetch(`/chartData`,{
+        headers: {
+            'Content-Type': 'text/plain',
+            'access-control-allow-origin': '*'
+        }
+    })
+        .then(handleResponse)
+        .catch(handleErrorMsg('Unable to fetch chart data at this time.'))
+}
+
+/*=======================================================================*/
 /*======== Public API ===================================================*/
 
 export const api = {
@@ -448,4 +465,5 @@ export const api = {
   getNewsEvents,
   sendMessage,
   getMessages,
+  getChartData,
 }

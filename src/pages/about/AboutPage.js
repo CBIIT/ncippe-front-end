@@ -8,6 +8,7 @@ import PubSub from 'pubsub-js'
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 import Charts from "../../components/Charts/Charts";
+import {getAPI} from "../../data";
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -60,6 +61,15 @@ const AboutPage = () => {
   let TESTING = true;
   let handleClick = () =>{
         console.log('MHL handleClick');
+      getAPI.then(api => {
+              api.getChartData().then(data => {
+console.log('MHL data: ', data );
+              })
+          })
+          .catch(error => {
+              console.error(error)
+              console.log('MHL error: ', error );
+          })
     }
   const classes = useStyles();
   const { t, i18n } = useTranslation('about');

@@ -19,8 +19,11 @@ i18n
       // for all available options read the backend's repository readme file
       // loadPath: '/locales/{{lng}}/{{ns}}.json'
       loadPath: () => {
-        const prefix = window.location.hostname === "cbiit.github.io" ? '/ncippe-front-end/' : '/'
-        return prefix + 'locales/{{lng}}/{{ns}}.json'
+          const prefix = window.location.hostname === "cbiit.github.io" ? '/ncippe-front-end/' : '/';
+          console.log('MHL 00 prefix: ' + prefix);
+          console.log('MHL 01 window.location.hostname: ' + window.location.hostname);
+          console.log('MHL 02 window.location.hostname: ' + prefix + 'locales/{{lng}}/{{ns}}.json');
+          return prefix + 'locales/{{lng}}/{{ns}}.json';
       }
 
     },
