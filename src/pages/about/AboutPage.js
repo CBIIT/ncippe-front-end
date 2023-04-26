@@ -58,26 +58,12 @@ const useStyles = makeStyles( theme => ({
 }),{name: 'AboutPage'})
 
 const AboutPage = () => {
-  let TESTING = true;
-  let handleClick = () =>{
-      console.log('MHL handleClick');
-      getAPI.then(api => {
-          console.log('MHL 00 data: ', data );
-          api.getChartData().then(data => {
-              console.log('MHL 01 data: ', data );
-          })
-              .catch(er => {
-                  console.error(er)
-                  console.log('MHL 02 error: ', er );
-              })
-      })
-      .catch(error => {
-          console.error(error)
-          console.log('MHL error: ', error );
-      })
-  }
+  let TESTING = false;
+
+
+
   const classes = useStyles();
-  const { t, i18n } = useTranslation('about');
+  let { t, i18n } = useTranslation('about');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const lang = i18n.languages[0] === 'en' ? "" : "-es"
@@ -121,7 +107,9 @@ const AboutPage = () => {
                 <div>
                     {TESTING ? (
                         <section>
+{/*
                             <button onClick={handleClick}>Test server</button>
+*/}
                             <hr/>
                             { isMobile && <h2>isMobile</h2>}
                             { ! isMobile && <h2>NOT isMobile</h2>}
