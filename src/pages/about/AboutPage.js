@@ -63,7 +63,7 @@ const AboutPage = () => {
         console.log('MHL 00 handleClick');
         getAPI.then(api => {
                 console.log('MHL 01 handleClick');
-                api.getNewsEvents().then(resp => {
+                api.getChartData().then(resp => {
                     if(resp instanceof Error) {
                         throw resp
                     }
