@@ -8,7 +8,7 @@ import PubSub from 'pubsub-js'
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 import Charts from "../../components/Charts/Charts";
-import {getAPI} from "../../data";
+import getAPI from '../../data'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -60,19 +60,22 @@ const useStyles = makeStyles( theme => ({
 const AboutPage = () => {
   let TESTING = true;
     let handleClick = () =>{
-        console.log('MHL handleClick');
+        console.log('MHL 00 handleClick');
         getAPI.then(api => {
-                api.getChartData().then(data => {
-                        console.log('MHL 00 data: ', data );
-                    })
-                    .catch(er => {
-                        console.error(er)
-                        console.log('MHL 00 error: ', er );
-                    })
+                console.log('MHL 01 handleClick');
+                api.getNewsEvents().then(resp => {
+                    if(resp instanceof Error) {
+                        throw resp
+                    }
+                   // setNewsData(resp.filter(items => items.contentType === "news"))
+                   //  setEventsData(resp.filter(items => items.contentType === "event"))
+                   console.log('MHL resp: ', resp );
+
+                })
             })
             .catch(error => {
+                console.log('MHL 02 handleClick error: ', error);
                 console.error(error)
-                console.log('MHL error: ', error );
             })
     }
 
