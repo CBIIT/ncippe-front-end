@@ -58,7 +58,23 @@ const useStyles = makeStyles( theme => ({
 }),{name: 'AboutPage'})
 
 const AboutPage = () => {
-  let TESTING = false;
+  let TESTING = true;
+    let handleClick = () =>{
+        console.log('MHL handleClick');
+        getAPI.then(api => {
+                api.getChartData().then(data => {
+                        console.log('MHL 00 data: ', data );
+                    })
+                    .catch(er => {
+                        console.error(er)
+                        console.log('MHL 00 error: ', er );
+                    })
+            })
+            .catch(error => {
+                console.error(error)
+                console.log('MHL error: ', error );
+            })
+    }
 
 
 
@@ -107,9 +123,7 @@ const AboutPage = () => {
                 <div>
                     {TESTING ? (
                         <section>
-{/*
                             <button onClick={handleClick}>Test server</button>
-*/}
                             <hr/>
                             { isMobile && <h2>isMobile</h2>}
                             { ! isMobile && <h2>NOT isMobile</h2>}
