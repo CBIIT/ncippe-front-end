@@ -66,7 +66,7 @@ const AboutPage = () => {
                 // api.getChartData().then(resp => {
                 api.getNewsEvents().then(resp => {
                     if(resp instanceof Error) {
-                        throw resp
+                        console.log('MHL 02 handleClick error: ', resp);
                     }
                    // setNewsData(resp.filter(items => items.contentType === "news"))
                    //  setEventsData(resp.filter(items => items.contentType === "event"))
@@ -75,7 +75,7 @@ const AboutPage = () => {
                 })
             })
             .catch(error => {
-                console.log('MHL 02 handleClick error: ', error);
+                console.log('MHL 03 handleClick error: ', error);
                 console.error(error)
             })
     }
