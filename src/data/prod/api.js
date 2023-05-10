@@ -4,18 +4,19 @@ import queryString from 'query-string'
 import {Slider} from "@material-ui/core";
 
 const handleResponse = resp => {
-  console.log('MHL resp.json(): ', resp.json());
+  console.log('MHL 0 resp.json(): ', resp.json());
 
   if(resp.ok) {
     const contentType = resp.headers.get("content-type")
     if (contentType && contentType.indexOf("application/json") !== -1) {
-        console.log('MHL resp.json(): ', resp.json());
+        console.log('MHL 1 resp.json(): ', resp.json());
       return resp.json()
     } else {
-        console.log('MHL resp: ', resp);
+        console.log('MHL 2 resp: ', resp);
         return resp
     }
   } else {
+    console.error('MHL 3 error handleResponse');
     throw new Error(`Request rejected with status ${resp.status}: ${resp.statusText}`)
   }
 }
