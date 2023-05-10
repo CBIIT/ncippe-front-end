@@ -1,8 +1,11 @@
 import { filesViewedByUser, sortPatients } from '../../data/utils'
 import { formatPhoneNumber } from '../../utils/utils'
 import queryString from 'query-string'
+import {Slider} from "@material-ui/core";
 
 const handleResponse = resp => {
+  console.log('MHL resp.json(): ', resp.json());
+
   if(resp.ok) {
     const contentType = resp.headers.get("content-type")
     if (contentType && contentType.indexOf("application/json") !== -1) {
