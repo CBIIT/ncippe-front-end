@@ -62,9 +62,9 @@ const AboutPage = () => {
     let handleClick = () =>{
         console.log('MHL 00 handleClick');
         getAPI.then(api => {
-                console.log('MHL 01 handleClick');
+                console.log('MHL 01a handleClick');
                 // api.getChartData().then(resp => {
-                api.getNewsEvents().then(resp => {
+                 api.getNewsEvents().then(resp => {
                     if(resp instanceof Error) {
                         console.log('MHL 02 handleClick error: ', resp);
                     }
