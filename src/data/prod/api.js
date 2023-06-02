@@ -8,15 +8,16 @@ const handleResponse = resp => {
 
   if(resp.ok) {
     const contentType = resp.headers.get("content-type")
-    if (contentType && contentType.indexOf("application/json") !== -1) {
-        console.log('MHL 1 resp.json(): ', resp.json());
+      console.log('MHL 1 contentType: ', contentType);
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        console.log('MHL 2 resp.json(): ', resp.json());
       return resp.json()
     } else {
-        console.log('MHL 2 resp: ', resp);
+        console.log('MHL 3 resp: ', resp);
         return resp
     }
   } else {
-    console.error('MHL 3 error handleResponse');
+    console.error('MHL 4 error handleResponse');
     throw new Error(`Request rejected with status ${resp.status}: ${resp.statusText}`)
   }
 }
