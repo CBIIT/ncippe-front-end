@@ -168,6 +168,7 @@ const HospitalMap = (props) => {
           setRefs(prev => [...prev,React.createRef()])
         })
         setHospitalData(resp)
+        console.log('MHL  resp: ', resp)
       })
     })
     .catch(error => {
