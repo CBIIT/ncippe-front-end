@@ -10,15 +10,11 @@ const handleResponse = resp => {
     const contentType = resp.headers.get("content-type")
       console.log('MHL 1 contentType: ', contentType);
       if (contentType && contentType.indexOf("application/json") !== -1) {
-        // console.log('MHL 2 resp.json(): ', resp.json()); // Can't do this twice!!!
-        console.log('MHL 2 resp.json(): BLANK');
       return resp.json()
     } else {
-        console.log('MHL 3 resp: ', resp);
         return resp
     }
   } else {
-    console.error('MHL 4 error handleResponse');
     throw new Error(`Request rejected with status ${resp.status}: ${resp.statusText}`)
   }
 }
