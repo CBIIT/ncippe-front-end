@@ -67,10 +67,9 @@ const Charts = (props) => {
     };
 
     let data;
-
-    // Patient Demographics - By Cancer Type
+    let patientDemographicsByCancerType
     if (chartId === 1) {
-        data = [
+        patientDemographicsByCancerType = [
             {label: t('charts.chart_data.PatientDemographics.ColonCancer.label'), value: 26},
             {label: t('charts.chart_data.PatientDemographics.LungCancer.label'), value: 21},
             {label: t('charts.chart_data.PatientDemographics.ProstateCancer.label'), value: 18},
@@ -147,7 +146,7 @@ const Charts = (props) => {
         return (
             <div>
                 <PieChart
-                    data={data}
+                    data={patientDemographicsByCancerType}
                     chartSize={chartSize}
                     svgId={svgId}
                     isMobile={isMobile}
