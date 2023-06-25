@@ -85,7 +85,7 @@ const AboutPage = () => {
         getAPI.then(api => {
                 console.log('MHL 11a handleClick');
                  //api.getChartData().then(resp => {
-                 api.getNewsEvents().then(resp => {
+                 api.getChartData2().then(resp => {
                     if(resp instanceof Error) {
                         console.log('MHL 12 handleClick2 error: ', resp);
                     }
@@ -107,7 +107,7 @@ const AboutPage = () => {
         getAPI.then(api => {
                 console.log('MHL 11a handleClick');
                  //api.getChartData().then(resp => {
-                 api.getNewsEvents().then(resp => {
+                 api.getChartData3().then(resp => {
                     if(resp instanceof Error) {
                         console.log('MHL 12 handleClick3 error: ', resp);
                     }
