@@ -452,6 +452,18 @@ async function getChartData2(){
         .catch(handleErrorMsg('getChartData2 Unable to fetch chart data at this time.'))
 }
 
+async function getChartData3(){
+    console.log('MHL getChartData2');
+    return await fetch(`/api/alerts`,{
+        headers: {
+            'Content-Type': 'text/plain',
+            'access-control-allow-origin': '*'
+        }
+    })
+        .then(handleResponse)
+        .catch(handleErrorMsg('getChartData2 Unable to fetch chart data at this time.'))
+}
+
 /*=======================================================================*/
 /*======== Public API ===================================================*/
 
@@ -480,4 +492,6 @@ export const api = {
   sendMessage,
   getMessages,
   getChartData,
+    getChartData2,
+    getChartData3
 }
