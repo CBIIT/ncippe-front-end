@@ -64,12 +64,9 @@ const AboutPage = () => {
         getAPI.then(api => {
                 console.log('MHL 01a handleClick');
                  api.getChartData().then(resp => {
-                // api.getNewsEvents().then(resp => {
                     if(resp instanceof Error) {
                         console.log('MHL 02 handleClick error: ', resp);
                     }
-                   // setNewsData(resp.filter(items => items.contentType === "news"))
-                   //  setEventsData(resp.filter(items => items.contentType === "event"))
                    console.log('MHL resp: ', resp );
 
                 })
@@ -90,10 +87,7 @@ const AboutPage = () => {
                     if(resp instanceof Error) {
                         console.log('MHL 12 handleClick2 error: ', resp);
                     }
-                   // setNewsData(resp.filter(items => items.contentType === "news"))
-                   //  setEventsData(resp.filter(items => items.contentType === "event"))
                    console.log('MHL resp 13: ', resp );
-
                 })
             })
             .catch(error => {
@@ -104,27 +98,6 @@ const AboutPage = () => {
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    let handleClick3 = () =>{
-        console.log('MHL 00 handleClick3');
-        getAPI.then(api => {
-                console.log('MHL 11a handleClick');
-                 //api.getChartData().then(resp => {
-                 api.getChartData3().then(resp => {
-                    if(resp instanceof Error) {
-                        console.log('MHL 12 handleClick3 error: ', resp);
-                    }
-                   // setNewsData(resp.filter(items => items.contentType === "news"))
-                   //  setEventsData(resp.filter(items => items.contentType === "event"))
-                   console.log('MHL resp 13: ', resp );
-
-                })
-            })
-            .catch(error => {
-                console.log('MHL 14 handleClick3 error: ', error);
-                console.error(error)
-            })
-    }
 
 
 
@@ -175,7 +148,6 @@ const AboutPage = () => {
                         <section>
                             <button onClick={handleClick}>Test server</button>
                             <button onClick={handleClick2}>Test2 server</button>
-                            <button onClick={handleClick3}>Test3 server</button>
                             <hr/>
                             { isMobile && <h2>isMobile</h2>}
                             { ! isMobile && <h2>NOT isMobile</h2>}
@@ -191,6 +163,8 @@ const AboutPage = () => {
                                         subtitle={t('charts.ProjectSummary.subtitle')}
                                     ></Charts>
                                 </Grid>
+
+                            
                                  {!isMobile ? (
                                         <Grid item xs={12} md={6}>
                                             <p>Pie chart "Patient Demographics" - Full size</p>
