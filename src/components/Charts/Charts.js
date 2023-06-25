@@ -1,7 +1,5 @@
 import React, {useRef, useEffect} from "react";
-import * as d3 from "d3";
-import {Typography} from "@material-ui/core";
-import RenderContent from "../utils/RenderContent";
+
 import PieChart from "./PieChart";
 import {useTranslation} from "react-i18next";
 import TextChart from "./TextChart";
