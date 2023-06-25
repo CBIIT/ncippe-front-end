@@ -430,7 +430,7 @@ async function getMessages({uuid}){
 
 async function getChartData(){
     console.log('MHL getChartData1');
-    return await fetch(`/api/v1/chartData`,{
+    return await fetch(`/publicapi/v1/chartData`,{
         headers: {
             'Content-Type': 'text/plain',
             'access-control-allow-origin': '*'
