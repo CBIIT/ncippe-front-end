@@ -67,9 +67,10 @@ const Charts = (props) => {
     };
 
     let data;
-    let patientDemographicsByCancerType
+
+    // Patient Demographics - By Cancer Type
     if (chartId === 1) {
-        patientDemographicsByCancerType = [
+        data = [
             {label: t('charts.chart_data.PatientDemographics.ColonCancer.label'), value: 26},
             {label: t('charts.chart_data.PatientDemographics.LungCancer.label'), value: 21},
             {label: t('charts.chart_data.PatientDemographics.ProstateCancer.label'), value: 18},
