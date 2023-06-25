@@ -175,6 +175,7 @@ const AboutPage = () => {
                         <section>
                             <button onClick={handleClick}>Test server</button>
                             <button onClick={handleClick2}>Test2 server</button>
+                            <button onClick={handleClick3}>Test3 server</button>
                             <hr/>
                             { isMobile && <h2>isMobile</h2>}
                             { ! isMobile && <h2>NOT isMobile</h2>}
