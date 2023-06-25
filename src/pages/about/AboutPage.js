@@ -60,17 +60,17 @@ const useStyles = makeStyles(theme => ({
 const AboutPage = () => {
     let TESTING = true;
 
-    // Get chart data here
-
+    let chartData = '';
     let handleClick = () => {
         console.log('MHL 00 handleClick');
         getAPI.then(api => {
             console.log('MHL 01a handleClick');
             api.getChartData().then(resp => {
+                chartData = resp;
                 if (resp instanceof Error) {
                     console.log('MHL 02 handleClick error: ', resp);
                 }
-                console.log('MHL resp: ', resp);
+                console.log('MHL 00 chartData: ', chartData);
 
             })
         })
@@ -81,6 +81,8 @@ const AboutPage = () => {
     }
 
     handleClick();
+    console.log('MHL 01ß chartData: ', chartData);
+
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     let handleClick2 = () => {
