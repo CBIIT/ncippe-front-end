@@ -661,6 +661,7 @@ export const api = {
   getAlerts,
   getHospitalList,
   getNewsEvents,
+  getChartData,
   sendMessage,
   getMessages,
 }
