@@ -427,22 +427,23 @@ async function getMessages({uuid}){
 
 /*=======================================================================*/
 /*======== Get Chart data =================================================*/
-
 async function getChartData(){
     console.log('MHL getChartData1');
     return await fetch(`/publicapi/v1/chartData`,{
         headers: {
-            'Content-Type': 'text/plain',
+         //   'Content-Type': 'text/plain',
+            'Content-Type': 'application/json',
             'access-control-allow-origin': '*'
         }
     })
         .then(handleResponse)
         .catch(handleErrorMsg('Unable to fetch chart data at this time.'))
 }
+/*=======================================================================*/
 
 async function getChartData2(){
     console.log('MHL getChartData2');
-    return await fetch(`/alerts`,{
+    return await fetch(`/chartData`,{
         headers: {
             'Content-Type': 'text/plain',
             'access-control-allow-origin': '*'
