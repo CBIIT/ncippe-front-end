@@ -145,7 +145,7 @@ const Charts = (props) => {
         return (
             <div>
                 <PieChart
-                    data={patientDemographicsByCancerType}
+                    data={data}
                     chartSize={chartSize}
                     svgId={svgId}
                     isMobile={isMobile}
