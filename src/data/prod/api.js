@@ -440,6 +440,18 @@ async function getChartData(){
         .catch(handleErrorMsg('Unable to fetch chart data at this time.'))
 }
 
+async function getChartData2(){
+    console.log('MHL getChartData2');
+    return await fetch(`/api/v1/chartData`,{
+        headers: {
+            'Content-Type': 'text/plain',
+            'access-control-allow-origin': '*'
+        }
+    })
+        .then(handleResponse)
+        .catch(handleErrorMsg('getChartData2 Unable to fetch chart data at this time.'))
+}
+
 /*=======================================================================*/
 /*======== Public API ===================================================*/
 
