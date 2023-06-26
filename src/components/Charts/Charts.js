@@ -6,6 +6,9 @@ import TextChart from "./TextChart";
 import BarChart from "./BarChart";
 
 const Charts = (props) => {
+    if(props === undefined ){  //@TESTING
+        return;
+    }
     console.log('MHL Charts props: ', props);
     const {t, i18n} = useTranslation('about')
 
