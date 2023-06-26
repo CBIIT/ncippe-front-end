@@ -69,19 +69,20 @@ const Charts = (props) => {
 
     let data0 = {};
     let data;
+    data0['patientDemographicsByCancerType'] = [
+        {label: t('charts.chart_data.PatientDemographics.ColonCancer.label'), value: 26},
+        {label: t('charts.chart_data.PatientDemographics.LungCancer.label'), value: 21},
+        {label: t('charts.chart_data.PatientDemographics.ProstateCancer.label'), value: 18},
+        {label: t('charts.chart_data.PatientDemographics.Melanoma.label'), value: 16},
+        {label: t('charts.chart_data.PatientDemographics.GastroesophagealCancer.label'), value: 9},
+        {label: t('charts.chart_data.PatientDemographics.MultipleMyeloma.label'), value: 4},
+        {label: t('charts.chart_data.PatientDemographics.Leukemia.label'), value: 6},
+        {label: t('charts.chart_data.PatientDemographics.AcuteMyeloid.label'), value: 1}
+    ];
 
     // Patient Demographics - By Cancer Type
     if (chartId === 1) {
-        data0['patientDemographicsByCancerType'] = [
-            {label: t('charts.chart_data.PatientDemographics.ColonCancer.label'), value: 26},
-            {label: t('charts.chart_data.PatientDemographics.LungCancer.label'), value: 21},
-            {label: t('charts.chart_data.PatientDemographics.ProstateCancer.label'), value: 18},
-            {label: t('charts.chart_data.PatientDemographics.Melanoma.label'), value: 16},
-            {label: t('charts.chart_data.PatientDemographics.GastroesophagealCancer.label'), value: 9},
-            {label: t('charts.chart_data.PatientDemographics.MultipleMyeloma.label'), value: 4},
-            {label: t('charts.chart_data.PatientDemographics.Leukemia.label'), value: 6},
-            {label: t('charts.chart_data.PatientDemographics.AcuteMyeloid.label'), value: 1}
-        ];
+        data = data0['patientDemographicsByCancerType'];
     }
 
     // Participant Demographics - Age
@@ -149,7 +150,7 @@ const Charts = (props) => {
         return (
             <div>
                 <PieChart
-                    data={data0['patientDemographicsByCancerType']}
+                    data={data}
                     chartSize={chartSize}
                     svgId={svgId}
                     isMobile={isMobile}
