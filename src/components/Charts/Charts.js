@@ -64,11 +64,12 @@ const Charts = (props) => {
         },
     };
 
+    let data0 = {};
     let data;
 
     // Patient Demographics - By Cancer Type
     if (chartId === 1) {
-        data = [
+        data0.push ({ "patientDemographicsByCancerType":[
             {label: t('charts.chart_data.PatientDemographics.ColonCancer.label'), value: 26},
             {label: t('charts.chart_data.PatientDemographics.LungCancer.label'), value: 21},
             {label: t('charts.chart_data.PatientDemographics.ProstateCancer.label'), value: 18},
@@ -77,7 +78,7 @@ const Charts = (props) => {
             {label: t('charts.chart_data.PatientDemographics.MultipleMyeloma.label'), value: 4},
             {label: t('charts.chart_data.PatientDemographics.Leukemia.label'), value: 6},
             {label: t('charts.chart_data.PatientDemographics.AcuteMyeloid.label'), value: 1}
-        ];
+        ]});
     }
 
     // Participant Demographics - Age
@@ -145,7 +146,7 @@ const Charts = (props) => {
         return (
             <div>
                 <PieChart
-                    data={data}
+                    data={data0['patientDemographicsByCancerType']}
                     chartSize={chartSize}
                     svgId={svgId}
                     isMobile={isMobile}
