@@ -69,7 +69,7 @@ const Charts = (props) => {
 
     // Patient Demographics - By Cancer Type
     if (chartId === 1) {
-        data0.push ({ "patientDemographicsByCancerType":[
+        data0['patientDemographicsByCancerType'] = [
             {label: t('charts.chart_data.PatientDemographics.ColonCancer.label'), value: 26},
             {label: t('charts.chart_data.PatientDemographics.LungCancer.label'), value: 21},
             {label: t('charts.chart_data.PatientDemographics.ProstateCancer.label'), value: 18},
@@ -78,7 +78,7 @@ const Charts = (props) => {
             {label: t('charts.chart_data.PatientDemographics.MultipleMyeloma.label'), value: 4},
             {label: t('charts.chart_data.PatientDemographics.Leukemia.label'), value: 6},
             {label: t('charts.chart_data.PatientDemographics.AcuteMyeloid.label'), value: 1}
-        ]});
+        ];
     }
 
     // Participant Demographics - Age
