@@ -162,6 +162,7 @@ const AboutPage = () => {
 
                                         <Grid item xs={12} md={6}>
                                             <Charts
+                                                translator={t}
                                                 chartId={0}
                                                 chartType={0}
                                                 chartSize={1}
@@ -178,6 +179,7 @@ const AboutPage = () => {
                                                 <p>Pie chart "Patient Demographics" - Full size</p>
 
                                                 <Charts
+                                                    translator={t}
                                                     chartId={1}
                                                     chartType={1}
                                                     chartSize={2}
@@ -192,6 +194,7 @@ const AboutPage = () => {
                                                 <p>Pie chart "Patient Demographics" - Full size</p>
 
                                                 <Charts
+                                                    translator={t}
                                                     chartId={1}
                                                     chartType={1}
                                                     chartSize={0}
@@ -207,6 +210,7 @@ const AboutPage = () => {
                                         {/* Bar chart "Participant Demographic Age" - Full size */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
+                                                translator={t}
                                                 chartId={2}
                                                 chartType={2}
                                                 chartSize={2}
@@ -221,6 +225,7 @@ const AboutPage = () => {
                                         {/* Bar chart "Participant Demographic Sex" - Full size */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
+                                                translator={t}
                                                 chartId={3}
                                                 chartType={2}
                                                 chartSize={2}
@@ -235,6 +240,7 @@ const AboutPage = () => {
                                         {/* Patient Demographics Race */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
+                                                translator={t}
                                                 chartId={4}
                                                 chartType={1}
                                                 chartSize={2}
@@ -248,6 +254,7 @@ const AboutPage = () => {
                                         {/* Patient Demographics Ethnicity */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
+                                                translator={t}
                                                 chartId={5}
                                                 chartType={1}
                                                 chartSize={2}
