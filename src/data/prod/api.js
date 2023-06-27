@@ -428,7 +428,7 @@ async function getMessages({uuid}){
 /*=======================================================================*/
 /*======== Get Chart data =================================================*/
 async function getChartData(){
-    console.log('MHL getChartData1');
+    console.log('MHL getChartData1 ***');
     return await fetch(`/publicapi/v1/chartData`,{
         headers: {
          //   'Content-Type': 'text/plain',
@@ -451,18 +451,6 @@ async function getChartData2(){
     })
         .then(handleResponse)
         .catch(handleErrorMsg('getChartData2 Unable to fetch chart data at this time.'))
-}
-
-async function getChartData3(){
-    console.log('MHL getChartData3 /api/alerts');
-    return await fetch(`/publicapi/v1/alerts`,{
-        headers: {
-            'Content-Type': 'text/plain',
-            'access-control-allow-origin': '*'
-        }
-    })
-        .then(handleResponse)
-        .catch(handleErrorMsg('getChartData3 Unable to fetch chart data at this time.'))
 }
 
 /*=======================================================================*/
@@ -493,6 +481,5 @@ export const api = {
   sendMessage,
   getMessages,
   getChartData,
-  getChartData2,
-  getChartData3
+  getChartData2
 }
