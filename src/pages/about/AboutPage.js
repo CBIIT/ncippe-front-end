@@ -80,17 +80,21 @@ const AboutPage = () => {
                 console.error(error);
             })
     }
-    // ///////////////////////////////////////////////////////////
-    console.log('MHL aa BEFORE init');
-    init();
-    console.log('MHL bb AFTER init');
 
+    // //////////////////////////////////////////////
     async function init() {
         console.log('MHL IN init');
         handleClick();
         const chartDataX = await waitForValue();
         console.log('MHL 01b chartDataX: ', chartDataX);
     }
+    // //////////////////////////////////////////////
+
+
+    // ///////////////////////////////////////////////////////////
+    console.log('MHL aa BEFORE init');
+    init();
+    console.log('MHL bb AFTER init');
 
     // ///////////////////////////////////////////////////////////
 
