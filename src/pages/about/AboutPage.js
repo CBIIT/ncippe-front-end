@@ -84,6 +84,7 @@ const AboutPage = () => {
     init();
 
     async function init() {
+        console.log('MHL IN init');
         handleClick();
         const chartDataX = await waitForValue();
         console.log('MHL 01b chartDataX: ', chartDataX);
