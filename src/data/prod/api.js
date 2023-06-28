@@ -456,6 +456,7 @@ async function getChartData() {
       .catch(error => {
         console.error('Error reading the stream:', error);
       });
+  return tempA;
 }
   /*
   async function getChartData(){
