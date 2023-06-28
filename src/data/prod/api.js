@@ -450,13 +450,14 @@ async function getChartData() {
             // readStream();
           });
         }
+        console.log('MHL 601 chart data tempA: ',  tempA);
 
        return readStream();
       })
       .catch(error => {
         console.error('Error reading the stream:', error);
       });
-  console.log('MHL 601 chart data tempA: ',  tempA);
+  console.log('MHL 602 chart data tempA: ',  tempA);
   return tempA;
 }
   /*
