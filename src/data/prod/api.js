@@ -435,14 +435,16 @@ async function getChartData() {
 
         function readStream() {
           reader.read().then(({done, value}) => {
+/*
             if (done) {
               console.log('MHL Stream reading complete');
               return JSON.parse(String.fromCharCode.apply(null, value));
             }
+*/
 
             // Process the chunk of data from the stream
             tempA =  JSON.parse(String.fromCharCode.apply(null, value));
-            console.log('MHL chart data value: ',  tempA);
+            console.log('MHL chart data tempA: ',  tempA);
             return tempA;
             // Continue reading the stream recursively
             // readStream();
