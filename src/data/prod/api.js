@@ -434,7 +434,8 @@ async function getChartData() {
         const reader = body.getReader();
 
         function readStream() {
-          reader.read().then(({done, value}) => {
+          reader.read().then(
+              ({done, value}) => {
             console.log('MHL 600 chart datareadStream');
 
 
@@ -455,7 +456,9 @@ async function getChartData() {
         }
         console.log('MHL 602 chart data tempA: ',  tempA);
 
-       return readStream();
+        let tempB =  readStream();
+        console.log('MHL 603 chart data tempB: ',  tempB);
+        return tempB;
       })
       .catch(error => {
         console.error('Error reading the stream:', error);
