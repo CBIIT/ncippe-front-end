@@ -441,8 +441,8 @@ async function getChartData() {
             }
 
             // Process the chunk of data from the stream
-            console.log('MHL chart data value: ', String.fromCharCode.apply(null, value));
-            return String.fromCharCode.apply(null, value);
+            console.log('MHL chart data value: ',  JSON.parse(String.fromCharCode.apply(null, value)));
+            return JSON.parse(String.fromCharCode.apply(null, value));
             // Continue reading the stream recursively
            // readStream();
           });
