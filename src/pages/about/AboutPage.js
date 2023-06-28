@@ -66,8 +66,6 @@ const AboutPage = () => {
         getAPI.then(api => {
             console.log('MHL 01b handleClick');
             api.getChartData().then(resp => {
-                console.log('MHL 01d chartData typeof: ', typeof resp);
-                console.log('MHL 01e chartData filter: ', resp.filter);
                 chartData = resp;
                 console.log('MHL 01c chartData: ', chartData);
                 if (resp instanceof Error) {
