@@ -443,9 +443,9 @@ async function getChartData() {
 
             // Process the chunk of data from the stream
             console.log('MHL chart data value: ', value);
-
+            return value;
             // Continue reading the stream recursively
-            readStream();
+           // readStream();
           });
         }
 
