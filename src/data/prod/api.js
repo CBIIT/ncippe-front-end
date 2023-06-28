@@ -435,29 +435,32 @@ async function getChartData() {
 
         function readStream() {
           reader.read().then(({done, value}) => {
-/*
-            if (done) {
-              console.log('MHL Stream reading complete');
-              return JSON.parse(String.fromCharCode.apply(null, value));
-            }
-*/
+            console.log('MHL 600 chart datareadStream');
+
+
+            /*
+                        if (done) {
+                          console.log('MHL Stream reading complete');
+                          return JSON.parse(String.fromCharCode.apply(null, value));
+                        }
+            */
 
             // Process the chunk of data from the stream
             tempA =  JSON.parse(String.fromCharCode.apply(null, value));
-            console.log('MHL 600 chart data tempA: ',  tempA);
+            console.log('MHL 601 chart data tempA: ',  tempA);
             return tempA;
             // Continue reading the stream recursively
             // readStream();
           });
         }
-        console.log('MHL 601 chart data tempA: ',  tempA);
+        console.log('MHL 602 chart data tempA: ',  tempA);
 
        return readStream();
       })
       .catch(error => {
         console.error('Error reading the stream:', error);
       });
-  console.log('MHL 602 chart data tempA: ',  tempA);
+  console.log('MHL 603 chart data tempA: ',  tempA);
   return tempA;
 }
   /*
