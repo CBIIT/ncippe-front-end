@@ -83,7 +83,7 @@ const AboutPage = () => {
     // ///////////////////////////////////////////////////////////
     console.log('MHL aa BEFORE init');
     init();
-    console.log('MHL bb BEFORE init');
+    console.log('MHL bb AFTER init');
 
     async function init() {
         console.log('MHL IN init');
@@ -99,6 +99,7 @@ const AboutPage = () => {
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Function that returns a Promise which resolves when the value is no longer undefined
     async function waitForValue() {
+        console.log('MHL 700 waitForValue chartDataX');
         return new Promise(resolve => {
 
             // Define an interval to periodically check the value
@@ -106,6 +107,7 @@ const AboutPage = () => {
                 // Check if the value is defined
                 if (chartDataX !== undefined) {
                     clearInterval(interval); // Clear the interval
+                    console.log('MHL 701 waitForValue chartDataX: ', chartDataX);
                     resolve(chartDataX); // Resolve the Promise with the value
                 }
             }, 100); // Interval duration in milliseconds
