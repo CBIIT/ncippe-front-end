@@ -121,9 +121,9 @@ const AboutPage = () => {
                     console.log('MHL 703 waitForValue chartDataX: ', chartDataX);
                 }
                 else{
-                    console.log('MHL 701b waitForValue chartDataX[' + tempCount + ']: ', chartDataX);
+                    console.log('MHL 701b undefined waitForValue chartDataX[' + tempCount + ']: ', chartDataX);
                 }
-            }, 1000); // Interval duration in milliseconds
+            }, 2000); // Interval duration in milliseconds
         });
     }
 
