@@ -423,7 +423,7 @@ async function getMessages({uuid}){
     .then(handleResponse)
     .catch(handleErrorMsg('Unable to fetch messages at this time.'))
 }
-
+let tempA;
 /*=======================================================================*/
 /*======== Get Chart data =================================================*/
 async function getChartData() {
@@ -441,11 +441,11 @@ async function getChartData() {
             }
 
             // Process the chunk of data from the stream
-            let temp =  JSON.parse(String.fromCharCode.apply(null, value));
-            console.log('MHL chart data value: ',  temp);
-            return temp;
+            tempA =  JSON.parse(String.fromCharCode.apply(null, value));
+            console.log('MHL chart data value: ',  tempA);
+            return tempA;
             // Continue reading the stream recursively
-           // readStream();
+            // readStream();
           });
         }
 
