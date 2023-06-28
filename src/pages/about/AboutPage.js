@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
 
  const AboutPage = () => {
     let TESTING = true;
-
+    let chartDataX;
     let chartData;
     let handleClick = () => {
         console.log('MHL 01a handleClick');
@@ -94,9 +94,9 @@ const useStyles = makeStyles(theme => ({
         // Define an interval to periodically check the value
         const interval = setInterval(() => {
             // Check if the value is defined
-            if (chartData !== undefined) {
+            if (chartDataX !== undefined) {
                 clearInterval(interval); // Clear the interval
-                resolve(chartData); // Resolve the Promise with the value
+                resolve(chartDataX); // Resolve the Promise with the value
             }
         }, 100); // Interval duration in milliseconds
     });
