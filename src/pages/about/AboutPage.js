@@ -57,15 +57,16 @@ const useStyles = makeStyles(theme => ({
     }
 }), {name: 'AboutPage'})
 
-const AboutPage = () => {
+ const AboutPage = () => {
     let TESTING = true;
 
-    let chartData = '';
+    let chartData;
     let handleClick = () => {
         console.log('MHL 01a handleClick');
         getAPI.then(api => {
             console.log('MHL 01b handleClick');
             api.getChartData().then(resp => {
+                console.log('MHL 01d chartData typeof: ', typeof resp);
                 chartData = resp;
                 console.log('MHL 01c chartData: ', chartData);
                 console.log('MHL 01d resp : ', resp);
@@ -79,9 +80,28 @@ const AboutPage = () => {
                 console.error(error);
             })
     }
-
+    async  function init() {
      handleClick();
-     console.log('MHL 01b chartData: ', chartData);
+     const chartDataX = await waitForValue();
+     console.log('MHL 01b chartDataX: ', chartDataX);
+    }
+    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Function that returns a Promise which resolves when the value is no longer undefined
+    async function  waitForValue() {
+    return new Promise(resolve => {
+
+        // Define an interval to periodically check the value
+        const interval = setInterval(() => {
+            // Check if the value is defined
+            if (chartData !== undefined) {
+                clearInterval(interval); // Clear the interval
+                resolve(chartData); // Resolve the Promise with the value
+            }
+        }, 100); // Interval duration in milliseconds
+    });
+}
+
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
