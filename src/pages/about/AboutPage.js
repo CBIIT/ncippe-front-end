@@ -106,11 +106,13 @@ const AboutPage = () => {
             const interval = setInterval(() => {
                 // Check if the value is defined
                 if (chartDataX !== undefined) {
-                    clearInterval(interval); // Clear the interval
                     console.log('MHL 701 waitForValue chartDataX: ', chartDataX);
+                    clearInterval(interval); // Clear the interval
+                    console.log('MHL 702 waitForValue chartDataX: ', chartDataX);
                     resolve(chartDataX); // Resolve the Promise with the value
+                    console.log('MHL 703 waitForValue chartDataX: ', chartDataX);
                 }
-            }, 100); // Interval duration in milliseconds
+            }, 1000); // Interval duration in milliseconds
         });
     }
 
