@@ -71,7 +71,6 @@ const AboutPage = () => {
                 if (resp instanceof Error) {
                     console.log('MHL 02 handleClick error: ', resp);
                 }
-
             })
         })
             .catch(error => {
@@ -80,8 +79,8 @@ const AboutPage = () => {
             })
     }
 
-    // handleClick();
-    // console.log('MHL 01b chartData: ', chartData);
+     handleClick();
+     console.log('MHL 01b chartData: ', chartData);
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
