@@ -68,6 +68,7 @@ const AboutPage = () => {
             api.getChartData().then(resp => {
                 console.log('MHL 01c chartData: ', chartData);
                 console.log('MHL 01d chartData: ', resp.filter(items => items.contentType === "label"));
+                console.log('MHL 01e chartData filter: ', resp.filter);
                 chartData = resp;
                 if (resp instanceof Error) {
                     console.log('MHL 02 handleClick error: ', resp);
