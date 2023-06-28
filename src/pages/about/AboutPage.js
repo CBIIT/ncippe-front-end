@@ -62,21 +62,22 @@ const AboutPage = () => {
 
     let chartData = '';
     let handleClick = () => {
-        console.log('MHL 00 handleClick');
+        console.log('MHL 01a handleClick');
         getAPI.then(api => {
-            console.log('MHL 01a handleClick');
+            console.log('MHL 01b handleClick');
             api.getChartData().then(resp => {
+                console.log('MHL 01c chartData: ', chartData);
+                console.log('MHL 01d chartData: ', resp.filter(items => items.contentType === "label"));
                 chartData = resp;
                 if (resp instanceof Error) {
                     console.log('MHL 02 handleClick error: ', resp);
                 }
-                console.log('MHL 00 chartData: ', chartData);
 
             })
         })
             .catch(error => {
                 console.log('MHL 03 handleClick error: ', error);
-                console.error(error)
+                console.error(error);
             })
     }
 
