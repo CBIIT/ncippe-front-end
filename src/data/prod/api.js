@@ -451,7 +451,7 @@ async function getChartData() {
           });
         }
 
-        readStream();
+       return readStream();
       })
       .catch(error => {
         console.error('Error reading the stream:', error);
