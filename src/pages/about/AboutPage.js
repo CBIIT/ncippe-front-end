@@ -81,7 +81,9 @@ const AboutPage = () => {
             })
     }
     // ///////////////////////////////////////////////////////////
+    console.log('MHL aa BEFORE init');
     init();
+    console.log('MHL bb BEFORE init');
 
     async function init() {
         console.log('MHL IN init');
