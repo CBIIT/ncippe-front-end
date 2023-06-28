@@ -429,7 +429,7 @@ let tempA;
 async function getChartData() {
   console.log('MHL getChartData1 ***');
   return await fetch(`/publicapi/v1/chartData`)
-      .then(response => response.body)
+   //   .then(response => response.body)
       .then(body => {
         const reader = body.getReader();
 
