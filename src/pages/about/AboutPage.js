@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
     }
 }), {name: 'AboutPage'})
 
- const AboutPage = () => {
+const AboutPage = () => {
     let TESTING = true;
     let chartDataX;
     let chartData;
@@ -80,27 +80,34 @@ const useStyles = makeStyles(theme => ({
                 console.error(error);
             })
     }
-    async  function init() {
-     handleClick();
-     const chartDataX = await waitForValue();
-     console.log('MHL 01b chartDataX: ', chartDataX);
+    // ///////////////////////////////////////////////////////////
+    init();
+
+    async function init() {
+        handleClick();
+        const chartDataX = await waitForValue();
+        console.log('MHL 01b chartDataX: ', chartDataX);
     }
+
+    // ///////////////////////////////////////////////////////////
+
+
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Function that returns a Promise which resolves when the value is no longer undefined
-    async function  waitForValue() {
-    return new Promise(resolve => {
+    async function waitForValue() {
+        return new Promise(resolve => {
 
-        // Define an interval to periodically check the value
-        const interval = setInterval(() => {
-            // Check if the value is defined
-            if (chartDataX !== undefined) {
-                clearInterval(interval); // Clear the interval
-                resolve(chartDataX); // Resolve the Promise with the value
-            }
-        }, 100); // Interval duration in milliseconds
-    });
-}
+            // Define an interval to periodically check the value
+            const interval = setInterval(() => {
+                // Check if the value is defined
+                if (chartDataX !== undefined) {
+                    clearInterval(interval); // Clear the interval
+                    resolve(chartDataX); // Resolve the Promise with the value
+                }
+            }, 100); // Interval duration in milliseconds
+        });
+    }
 
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -125,8 +132,6 @@ const useStyles = makeStyles(theme => ({
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 
     const classes = useStyles();
