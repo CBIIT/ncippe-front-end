@@ -444,7 +444,7 @@ async function getChartData() {
 
             // Process the chunk of data from the stream
             tempA =  JSON.parse(String.fromCharCode.apply(null, value));
-            console.log('MHL chart data tempA: ',  tempA);
+            console.log('MHL 600 chart data tempA: ',  tempA);
             return tempA;
             // Continue reading the stream recursively
             // readStream();
@@ -456,6 +456,7 @@ async function getChartData() {
       .catch(error => {
         console.error('Error reading the stream:', error);
       });
+  console.log('MHL 601 chart data tempA: ',  tempA);
   return tempA;
 }
   /*
