@@ -104,9 +104,11 @@ const AboutPage = () => {
 
             // Define an interval to periodically check the value
             const interval = setInterval(() => {
+                console.log('MHL 701a waitForValue chartDataX: ', chartDataX);
+
                 // Check if the value is defined
                 if (chartDataX !== undefined) {
-                    console.log('MHL 701 waitForValue chartDataX: ', chartDataX);
+                    console.log('MHL 701b waitForValue chartDataX: ', chartDataX);
                     clearInterval(interval); // Clear the interval
                     console.log('MHL 702 waitForValue chartDataX: ', chartDataX);
                     resolve(chartDataX); // Resolve the Promise with the value
