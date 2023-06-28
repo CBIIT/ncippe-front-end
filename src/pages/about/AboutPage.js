@@ -98,12 +98,14 @@ const AboutPage = () => {
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Function that returns a Promise which resolves when the value is no longer undefined
+    let tempCount = 0;
     async function waitForValue() {
         console.log('MHL 700 waitForValue chartDataX');
         return new Promise(resolve => {
 
             // Define an interval to periodically check the value
             const interval = setInterval(() => {
+                tempCount++;
                 console.log('MHL 701a waitForValue chartDataX: ', chartDataX);
 
                 // Check if the value is defined
@@ -113,6 +115,9 @@ const AboutPage = () => {
                     console.log('MHL 702 waitForValue chartDataX: ', chartDataX);
                     resolve(chartDataX); // Resolve the Promise with the value
                     console.log('MHL 703 waitForValue chartDataX: ', chartDataX);
+                }
+                else{
+                    console.log('MHL 701b waitForValue chartDataX[' + tempCount + ']: ', chartDataX);
                 }
             }, 1000); // Interval duration in milliseconds
         });
