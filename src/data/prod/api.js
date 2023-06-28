@@ -437,7 +437,7 @@ async function getChartData() {
           reader.read().then(({done, value}) => {
             if (done) {
               console.log('MHL Stream reading complete');
-              return;
+              return JSON.parse(String.fromCharCode.apply(null, value));
             }
 
             // Process the chunk of data from the stream
