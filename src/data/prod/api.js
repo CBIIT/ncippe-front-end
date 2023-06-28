@@ -427,20 +427,53 @@ async function getMessages({uuid}){
 
 /*=======================================================================*/
 /*======== Get Chart data =================================================*/
-async function getChartData(){
-    console.log('MHL getChartData1 ***');
-    return await fetch(`/publicapi/v1/chartData`,{
-        headers: {
-            'Content-Type': 'text/plain',
-         //   'Content-Type': 'application/json',
-            'access-control-allow-origin': '*'
-        }
-    })
-        .then(handleResponse)
-        .catch(handleErrorMsg('Unable to fetch chart data at this time.'))
-}
-/*=======================================================================*/
+async function getChartData() {
+  console.log('MHL getChartData1 ***');
+  return await fetch(`/publicapi/v1/chartData`)
+      .then(response => response.body)
+      .then(body => {
+        const reader = body.getReader();
 
+        function readStream() {
+          reader.read().then(({done, value}) => {
+            if (done) {
+              console.log('MHL Stream reading complete');
+              return;
+            }
+
+            // Process the chunk of data from the stream
+            console.log('MHL chart data value: ', value);
+
+            // Continue reading the stream recursively
+            readStream();
+          });
+        }
+
+        readStream();
+      })
+      .catch(error => {
+        console.error('Error reading the stream:', error);
+      });
+}
+  /*
+  async function getChartData(){
+      console.log('MHL getChartData1 ***');
+      return await fetch(`/publicapi/v1/chartData`,{
+          headers: {
+              'Content-Type': 'text/plain',
+           //   'Content-Type': 'application/json',
+              'access-control-allow-origin': '*'
+          }
+      })
+          .then(handleResponse)
+          .catch(handleErrorMsg('Unable to fetch chart data at this time.'))
+  }
+  */
+/*=======================================================================*/
+// Make a request and get the response
+
+
+// ////////////////////////////////
 async function getChartData2(){
     console.log('MHL getChartData2');
     return await fetch(`/chartData`,{
