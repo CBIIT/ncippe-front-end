@@ -1,7 +1,6 @@
-import { filesViewedByUser, sortPatients } from '../../data/utils'
-import { formatPhoneNumber } from '../../utils/utils'
+import {filesViewedByUser, sortPatients} from '../../data/utils'
+import {formatPhoneNumber} from '../../utils/utils'
 import queryString from 'query-string'
-import {Slider} from "@material-ui/core";
 
 const handleResponse = resp => {
   console.log('MHL 0a resp: ', resp);
@@ -442,8 +441,8 @@ async function getChartData() {
             }
 
             // Process the chunk of data from the stream
-            console.log('MHL chart data value: ', value);
-            return value;
+            console.log('MHL chart data value: ', String.fromCharCode.apply(null, value););
+            return String.fromCharCode.apply(null, value);
             // Continue reading the stream recursively
            // readStream();
           });
