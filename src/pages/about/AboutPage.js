@@ -61,7 +61,7 @@ const AboutPage = () => {
     let TESTING = true;
     let data0 = {
         "patientDemographicsByCancerType": [
-            {label: 'charts.chart_data.PatientDemographics.ColonCancer.label', value: 26},
+            {label: 'charts.chart_data.PatientDemographics.ColonCancer.label', value: 25},
             {label: 'charts.chart_data.PatientDemographics.LungCancer.label', value: 21},
             {label: 'charts.chart_data.PatientDemographics.ProstateCancer.label', value: 18},
             {label: 'charts.chart_data.PatientDemographics.Melanoma.label', value: 16},
