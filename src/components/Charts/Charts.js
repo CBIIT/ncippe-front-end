@@ -20,6 +20,7 @@ const Charts = (props) => {
     } = props;
     let chartData = window.chData;
 console.log('MHL XXXXXXX  chartData: ', chartData );
+console.log('MHL XXXXXXX  window.chData: ', window.chData );
     const t = props.translator;
 
     function translateLabels(obj) {
