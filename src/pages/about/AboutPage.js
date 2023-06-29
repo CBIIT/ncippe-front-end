@@ -60,6 +60,7 @@ const useStyles = makeStyles(theme => ({
 const AboutPage = () => {
     let TESTING = true;
     let data0;
+    let chartData;
 /*
     let data0 = {
         "patientDemographicsByCancerType": [
@@ -101,7 +102,7 @@ const AboutPage = () => {
     };
 */
     let chartDataX;
-    let chartData;
+
     let tempA = '';
 
     let handleClick = () => {
@@ -123,7 +124,7 @@ const AboutPage = () => {
                 console.error(error);
             })
     }
-
+async
     // //////////////////////////////////////////////
     async function init() {
         console.log('MHL IN init');
@@ -149,18 +150,16 @@ const AboutPage = () => {
                                 */
 
                                 // Process the chunk of data from the stream
-                                data0 =  JSON.parse(String.fromCharCode.apply(null, value));
-                                console.log('MHL 601 chart data data0: ',  data0);
-                                return data0;
+                                chartData =  JSON.parse(String.fromCharCode.apply(null, value));
+                                console.log('MHL 601 chart data data0: ',  chartData);
+                                return chartData;
                                 // Continue reading the stream recursively
                                 // readStream();
                             });
                     }
-                    console.log('MHL 602 chart data data0: ',  data0);
+                    console.log('MHL 602 chart data chartData: ',  chartData);
 
-                    let tempB =  readStream();
-                    console.log('MHL 603 chart data tempB: ',  tempB);
-                    return tempB;
+                    readStream();
                 })
                 .catch(error => {
                     console.error('Error reading the stream:', error);
@@ -287,7 +286,7 @@ const AboutPage = () => {
 
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={data0}
+                                                chartData={chartData}
                                                 translator={t}
                                                 chartId={0}
                                                 chartType={0}
@@ -305,7 +304,7 @@ const AboutPage = () => {
                                                 <p>Pie chart "Patient Demographics" - Full size</p>
 
                                                 <Charts
-                                                    chartData={data0}
+                                                    chartData={chartData}
                                                     translator={t}
                                                     chartId={1}
                                                     chartType={1}
@@ -321,7 +320,7 @@ const AboutPage = () => {
                                                 <p>Pie chart "Patient Demographics" - Full size</p>
 
                                                 <Charts
-                                                    chartData={data0}
+                                                    chartData={chartData}
                                                     translator={t}
                                                     chartId={1}
                                                     chartType={1}
@@ -338,7 +337,7 @@ const AboutPage = () => {
                                         {/* Bar chart "Participant Demographic Age" - Full size */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={data0}
+                                                chartData={chartData}
                                                 translator={t}
                                                 chartId={2}
                                                 chartType={2}
@@ -354,7 +353,7 @@ const AboutPage = () => {
                                         {/* Bar chart "Participant Demographic Sex" - Full size */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={data0}
+                                                chartData={chartData}
                                                 translator={t}
                                                 chartId={3}
                                                 chartType={2}
@@ -370,7 +369,7 @@ const AboutPage = () => {
                                         {/* Patient Demographics Race */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={data0}
+                                                chartData={chartData}
                                                 translator={t}
                                                 chartId={4}
                                                 chartType={1}
@@ -385,7 +384,7 @@ const AboutPage = () => {
                                         {/* Patient Demographics Ethnicity */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={data0}
+                                                chartData={chartData}
                                                 translator={t}
                                                 chartId={5}
                                                 chartType={1}
