@@ -161,7 +161,14 @@ const AboutPage = () => {
 
                     chartData =  readStream();
                     console.log('MHL 603 chart data chartData: ',  chartData);
+                    while( chartData === undefined ){
+                        console.log('MHL BEFORE pause');
+                        setTimeout(() =>{
+                            console.log('MHL After pause');
+                        }, 3000);
+                        console.log('MHL After setTimeout');
 
+                    }
                 })
                 .catch(error => {
                     console.error('Error reading the stream:', error);
