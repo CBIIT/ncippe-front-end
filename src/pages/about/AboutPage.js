@@ -59,9 +59,11 @@ const useStyles = makeStyles(theme => ({
 
 const AboutPage = () => {
     let TESTING = true;
+    let data0;
+/*
     let data0 = {
         "patientDemographicsByCancerType": [
-            {label: 'charts.chart_data.PatientDemographics.ColonCancer.label', value: 25},
+            {label: 'charts.chart_data.PatientDemographics.ColonCancer.label', value: 26},
             {label: 'charts.chart_data.PatientDemographics.LungCancer.label', value: 21},
             {label: 'charts.chart_data.PatientDemographics.ProstateCancer.label', value: 18},
             {label: 'charts.chart_data.PatientDemographics.Melanoma.label', value: 16},
@@ -97,6 +99,7 @@ const AboutPage = () => {
             {label: 'charts.chart_data.PatientDemographicsEthnicity.NotReported.label', value: 1},
         ]
     };
+*/
     let chartDataX;
     let chartData;
     let tempA = '';
@@ -146,14 +149,14 @@ const AboutPage = () => {
                                 */
 
                                 // Process the chunk of data from the stream
-                                tempA =  JSON.parse(String.fromCharCode.apply(null, value));
-                                console.log('MHL 601 chart data tempA: ',  tempA);
-                                return tempA;
+                                data0 =  JSON.parse(String.fromCharCode.apply(null, value));
+                                console.log('MHL 601 chart data data0: ',  data0);
+                                return data0;
                                 // Continue reading the stream recursively
                                 // readStream();
                             });
                     }
-                    console.log('MHL 602 chart data tempA: ',  tempA);
+                    console.log('MHL 602 chart data data0: ',  data0);
 
                     let tempB =  readStream();
                     console.log('MHL 603 chart data tempB: ',  tempB);
