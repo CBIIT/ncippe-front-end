@@ -88,7 +88,6 @@ const AboutPage = () => {
         console.log('MHL IN init');
         /*=======================================================================*/
         /*======== Get Chart data =================================================*/
-        async function getChartData() {
             console.log('MHL getChartData1 ***');
             return await fetch(`/publicapi/v1/chartData`)
                 .then(response => response.body)
@@ -127,7 +126,7 @@ const AboutPage = () => {
                 });
             console.log('MHL 603 chart data tempA: ',  tempA);
             return tempA;
-        }
+
         console.log('MHL 01b chartDataX: ', chartDataX);
     }
     // //////////////////////////////////////////////
