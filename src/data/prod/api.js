@@ -429,7 +429,13 @@ let tempA;
 async function getChartData() {
   console.log('MHL getChartData1 ***');
   return await fetch(`/publicapi/v1/chartData`)
-   //   .then(response => response.body)
+      .then(handleResponse)
+      .catch(handleErrorMsg('Unable to fetch messages at this time.'))
+}
+async function getChartData0() {
+  console.log('MHL getChartData1 ***');
+  return await fetch(`/publicapi/v1/chartData`)
+      .then(response => response.body)
       .then(body => {
         const reader = body.getReader();
 

@@ -104,7 +104,7 @@ const AboutPage = () => {
     let chartDataX;
 
     let tempA = '';
-
+window.chData = '';
     let handleClick = () => {
         console.log('MHL 01a handleClick');
         getAPI.then(api => {
@@ -112,6 +112,7 @@ const AboutPage = () => {
             api.getChartData().then(resp => {
                 console.log('MHL 01d chartData typeof: ', typeof resp);
                 chartData = resp;
+                window.chData = resp;
                 console.log('MHL 01c chartData: ', chartData);
                 console.log('MHL 01d resp : ', resp);
                 if (resp instanceof Error) {
@@ -128,54 +129,8 @@ const AboutPage = () => {
     // //////////////////////////////////////////////
     async function init() {
         console.log('MHL IN init');
-        /*=======================================================================*/
-        /*======== Get Chart data =================================================*/
-            console.log('MHL getChartData1 ***');
-            return await fetch(`/publicapi/v1/chartData`)
-                .then(response => response.body)
-                .then(body => {
-                    const reader = body.getReader();
-
-                    function readStream() {
-                        reader.read().then(
-                            ({done, value}) => {
-                                console.log('MHL 600 chart datareadStream');
-
-
-                                /*
-                                            if (done) {
-                                              console.log('MHL Stream reading complete');
-                                              return JSON.parse(String.fromCharCode.apply(null, value));
-                                            }
-                                */
-
-                                // Process the chunk of data from the stream
-                                chartData =  JSON.parse(String.fromCharCode.apply(null, value));
-                                console.log('MHL 601 chart data data0: ',  chartData);
-                                return chartData;
-                                // Continue reading the stream recursively
-                                // readStream();
-                            });
-                    }
-                    console.log('MHL 602 chart data chartData: ',  chartData);
-
-                    chartData =  readStream();
-                    console.log('MHL 603 chart data chartData: ',  chartData);
-                    while( chartData === undefined ){
-                        console.log('MHL BEFORE pause');
-                        setTimeout(() =>{
-                            console.log('MHL After pause');
-                        }, 3000);
-                        console.log('MHL After setTimeout');
-
-                    }
-                })
-                .catch(error => {
-                    console.error('Error reading the stream:', error);
-                });
-            console.log('MHL 603 chart data tempA: ',  tempA);
-            return tempA;
-
+        handleClick();
+       // const chartDataX = await waitForValue();
         console.log('MHL 01b chartDataX: ', chartDataX);
     }
     // //////////////////////////////////////////////
@@ -295,7 +250,7 @@ const AboutPage = () => {
 
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={chartData}
+                                                chartData={window.chData}
                                                 translator={t}
                                                 chartId={0}
                                                 chartType={0}
@@ -313,7 +268,7 @@ const AboutPage = () => {
                                                 <p>Pie chart "Patient Demographics" - Full size</p>
 
                                                 <Charts
-                                                    chartData={chartData}
+                                                    chartData={window.chData}
                                                     translator={t}
                                                     chartId={1}
                                                     chartType={1}
@@ -329,7 +284,7 @@ const AboutPage = () => {
                                                 <p>Pie chart "Patient Demographics" - Full size</p>
 
                                                 <Charts
-                                                    chartData={chartData}
+                                                    chartData={window.chData}
                                                     translator={t}
                                                     chartId={1}
                                                     chartType={1}
@@ -346,7 +301,7 @@ const AboutPage = () => {
                                         {/* Bar chart "Participant Demographic Age" - Full size */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={chartData}
+                                                chartData={window.chData}
                                                 translator={t}
                                                 chartId={2}
                                                 chartType={2}
@@ -362,7 +317,7 @@ const AboutPage = () => {
                                         {/* Bar chart "Participant Demographic Sex" - Full size */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={chartData}
+                                                chartData={window.chData}
                                                 translator={t}
                                                 chartId={3}
                                                 chartType={2}
@@ -378,7 +333,7 @@ const AboutPage = () => {
                                         {/* Patient Demographics Race */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={chartData}
+                                                chartData={window.chData}
                                                 translator={t}
                                                 chartId={4}
                                                 chartType={1}
@@ -393,7 +348,7 @@ const AboutPage = () => {
                                         {/* Patient Demographics Ethnicity */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={chartData}
+                                                chartData={window.chData}
                                                 translator={t}
                                                 chartId={5}
                                                 chartType={1}
