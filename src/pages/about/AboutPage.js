@@ -159,7 +159,9 @@ const AboutPage = () => {
                     }
                     console.log('MHL 602 chart data chartData: ',  chartData);
 
-                    readStream();
+                    chartData =  readStream();
+                    console.log('MHL 603 chart data chartData: ',  chartData);
+
                 })
                 .catch(error => {
                     console.error('Error reading the stream:', error);
