@@ -19,7 +19,7 @@ const Charts = (props) => {
         chartTitle,
         svgId
     } = props;
-
+console.log('MHL XXXXXXX  chartData: ', chartData );
     const t = props.translator;
 
     function translateLabels(obj) {
