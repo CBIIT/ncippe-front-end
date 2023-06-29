@@ -9,8 +9,11 @@ const handleResponse = resp => {
     const contentType = resp.headers.get("content-type")
       console.log('MHL 1 contentType: ', contentType);
       if (contentType && contentType.indexOf("application/json") !== -1) {
-      return resp.json()
+        console.log('MHL 2 resp.json: ', resp.json());
+
+        return resp.json()
     } else {
+        console.log('MHL 3 resp: ', resp);
         return resp
     }
   } else {
