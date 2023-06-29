@@ -11,7 +11,6 @@ const Charts = (props) => {
     console.log('MHL Charts props: ', props);
 
     const {
-        chartData,
         chartId,
         chartSize,
         isMobile,
@@ -19,6 +18,7 @@ const Charts = (props) => {
         chartTitle,
         svgId
     } = props;
+    let chartData = window.chData;
 console.log('MHL XXXXXXX  chartData: ', chartData );
     const t = props.translator;
 
