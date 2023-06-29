@@ -124,7 +124,7 @@ const AboutPage = () => {
                 console.error(error);
             })
     }
-async
+
     // //////////////////////////////////////////////
     async function init() {
         console.log('MHL IN init');
