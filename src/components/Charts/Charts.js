@@ -11,6 +11,7 @@ const Charts = (props) => {
     console.log('MHL Charts props: ', props);
 
     const {
+        chartData,
         chartId,
         chartSize,
         isMobile,
@@ -78,7 +79,8 @@ const Charts = (props) => {
     };
 
     let data;
-    let data0 = {
+    let data0 = chartData;
+/*    let data0 = {
         "patientDemographicsByCancerType": [
             {label: 'charts.chart_data.PatientDemographics.ColonCancer.label', value: 26},
             {label: 'charts.chart_data.PatientDemographics.LungCancer.label', value: 21},
@@ -115,7 +117,7 @@ const Charts = (props) => {
             {label: 'charts.chart_data.PatientDemographicsEthnicity.Unknown.label', value: 1},
             {label: 'charts.chart_data.PatientDemographicsEthnicity.NotReported.label', value: 1},
         ]
-    };
+    };*/
 console.log('MHL data0: ', data0);
     // do the translations
     translateLabels(data0['patientDemographicsEthnicity']);
