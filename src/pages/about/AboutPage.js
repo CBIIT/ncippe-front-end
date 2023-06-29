@@ -61,6 +61,8 @@ const AboutPage = () => {
     let TESTING = true;
     let chartDataX;
     let chartData;
+    let tempA = '';
+
     let handleClick = () => {
         console.log('MHL 01a handleClick');
         getAPI.then(api => {
@@ -84,8 +86,48 @@ const AboutPage = () => {
     // //////////////////////////////////////////////
     async function init() {
         console.log('MHL IN init');
-        handleClick();
-        const chartDataX = await waitForValue();
+        /*=======================================================================*/
+        /*======== Get Chart data =================================================*/
+        async function getChartData() {
+            console.log('MHL getChartData1 ***');
+            return await fetch(`/publicapi/v1/chartData`)
+                .then(response => response.body)
+                .then(body => {
+                    const reader = body.getReader();
+
+                    function readStream() {
+                        reader.read().then(
+                            ({done, value}) => {
+                                console.log('MHL 600 chart datareadStream');
+
+
+                                /*
+                                            if (done) {
+                                              console.log('MHL Stream reading complete');
+                                              return JSON.parse(String.fromCharCode.apply(null, value));
+                                            }
+                                */
+
+                                // Process the chunk of data from the stream
+                                tempA =  JSON.parse(String.fromCharCode.apply(null, value));
+                                console.log('MHL 601 chart data tempA: ',  tempA);
+                                return tempA;
+                                // Continue reading the stream recursively
+                                // readStream();
+                            });
+                    }
+                    console.log('MHL 602 chart data tempA: ',  tempA);
+
+                    let tempB =  readStream();
+                    console.log('MHL 603 chart data tempB: ',  tempB);
+                    return tempB;
+                })
+                .catch(error => {
+                    console.error('Error reading the stream:', error);
+                });
+            console.log('MHL 603 chart data tempA: ',  tempA);
+            return tempA;
+        }
         console.log('MHL 01b chartDataX: ', chartDataX);
     }
     // //////////////////////////////////////////////
