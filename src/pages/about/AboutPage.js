@@ -100,8 +100,8 @@ const AboutPage = () => {
         ]
     };
 
-   // let chartDataX = data0;
-    let chartDataX;
+    let chartDataX = data0;
+  //  let chartDataX;
 
     let tempA = '';
 window.chData = '';
@@ -138,7 +138,7 @@ window.chData = '';
 
     // ///////////////////////////////////////////////////////////
     console.log('MHL aa BEFORE init');
-   init();
+ //  init();
     console.log('MHL bb AFTER init chartDataX: ', chartDataX);
 
     // ///////////////////////////////////////////////////////////
