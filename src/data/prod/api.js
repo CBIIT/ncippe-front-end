@@ -3,8 +3,8 @@ import {formatPhoneNumber} from '../../utils/utils'
 import queryString from 'query-string'
 
 const handleResponse = resp => {
-  console.log('MHL 0a typeof resp: ', typeof resp);
-  console.log('MHL 0b resp: ', resp);
+  console.log('MHL QQ 0a typeof resp: ', typeof resp);
+  console.log('MHL QQ 0b resp: ', resp);
 
   if(resp.ok) {
     const contentType = resp.headers.get("content-type")
@@ -19,6 +19,7 @@ const handleResponse = resp => {
         return resp;
     }
   } else {
+    console.log('MHL 4 resp ERROR');
     throw new Error(`Request rejected with status ${resp.status}: ${resp.statusText}`)
   }
 }
