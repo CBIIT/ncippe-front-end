@@ -199,6 +199,8 @@ window.chData = '';
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     let handleClick3 = () => {
+        let tempResp;
+
         console.log('MHL 00 handleClick2');
         getAPI.then(api => {
 
@@ -211,6 +213,7 @@ window.chData = '';
                     console.log('MHL 15 handleClick3 error: ', resp);
                 }
                 console.log('MHL resp 15a: ', resp);
+                tempResp = resp;
                 return resp;
             }).catch(er => { console.log('MHL 15b handleClick2 error: ', er);
                 console.error(er)})
@@ -220,6 +223,9 @@ window.chData = '';
                 console.log('MHL 14 handleClick2 error: ', error);
                 console.error(error)
             })
+
+        console.log('MHL 16 handleClick3 tempResp: ', tempResp);
+
     }
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
