@@ -201,6 +201,7 @@ window.chData = '';
     let handleClick3 = () => {
         console.log('MHL 00 handleClick2');
         getAPI.then(api => {
+
             console.log('MHL 14a handleClick2');
             //api.getChartData().then(resp => {
             //api.getChartData2().then(resp => {
@@ -209,8 +210,9 @@ window.chData = '';
                 if (resp instanceof Error) {
                     console.log('MHL 15 handleClick3 error: ', resp);
                 }
-                console.log('MHL resp 15: ', resp);
-            })
+                console.log('MHL resp 15a: ', resp);
+            }).catch(er => { console.log('MHL 15b handleClick2 error: ', er);
+                console.error(er)})
 
         })
             .catch(error => {
