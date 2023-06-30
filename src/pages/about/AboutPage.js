@@ -138,7 +138,7 @@ window.chData = '';
     // ///////////////////////////////////////////////////////////
     console.log('MHL aa BEFORE init');
    init();
-    console.log('MHL bb AFTER init');
+    console.log('MHL bb AFTER init chartDataX: ', chartDataX);
 
     // ///////////////////////////////////////////////////////////
 
