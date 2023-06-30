@@ -216,7 +216,7 @@ window.chData = '';
                 tempResp = resp;
                 setData1(resp);
                 setChartData(resp);
-                console.log('MHL resp data1 15b: ', data1);
+                console.log('MHL resp resp 15b: ', resp);
                 console.log('MHL resp chartData 15c: ', chartData);
 
                 return resp;
