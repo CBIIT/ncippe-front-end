@@ -8,7 +8,7 @@ const handleResponse = resp => {
 
   if(resp.ok) {
     const contentType = resp.headers.get("content-type")
-      console.log('MHL 1 handleResponse contentType: ', contentType);
+      console.log('MHL 1 handleResponse resp contentType: ', contentType);
       if (contentType && contentType.indexOf("application/json") !== -1) {
         let temp = resp.json();
         console.log('MHL 2 handleResponse resp.json: ', temp);
