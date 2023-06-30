@@ -11,7 +11,7 @@ const handleResponse = resp => {
       console.log('MHL 1 handleResponse resp contentType: ', contentType);
       if (contentType && contentType.indexOf("application/json") !== -1) {
         let temp = resp.json();
-        console.log('MHL 2 handleResponse Object resp.json: ', temp['Object']);
+        console.log('MHL 2 handleResponse Object resp.json: ', temp[0]);
 
         return temp;
     } else {
