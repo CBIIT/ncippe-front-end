@@ -100,7 +100,8 @@ const AboutPage = () => {
         ]
     };
 
-    let chartDataX = data0;
+   // let chartDataX = data0;
+    let chartDataX;
 
     let tempA = '';
 window.chData = '';
