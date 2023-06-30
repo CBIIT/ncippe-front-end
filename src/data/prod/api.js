@@ -3,7 +3,8 @@ import {formatPhoneNumber} from '../../utils/utils'
 import queryString from 'query-string'
 
 const handleResponse = resp => {
-  console.log('MHL 0a resp: ', resp);
+  console.log('MHL 0a typeof resp: ', typeof resp);
+  console.log('MHL 0b resp: ', resp);
 
   if(resp.ok) {
     const contentType = resp.headers.get("content-type")
@@ -496,7 +497,7 @@ async function getChartData() {
 // ////////////////////////////////
 async function getChartData2(){
     console.log('MHL getChartData2');
-    return await fetch(`/chartData`,{
+    return await fetch(`/publicapi/v1/chartData`,{
         headers: {
             'Content-Type': 'text/plain',
             'access-control-allow-origin': '*'
