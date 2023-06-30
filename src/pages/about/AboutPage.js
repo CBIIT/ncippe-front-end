@@ -201,6 +201,7 @@ window.chData = '';
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     let handleClick3 = () => {
+
         let tempResp;
 
         console.log('MHL 00 handleClick2');
@@ -213,14 +214,15 @@ window.chData = '';
                     console.log('MHL 15 handleClick3 error: ', resp);
                 }
                 console.log('MHL resp 15a: ', resp);
+                console.log('MHL resp 15b: ', resp['patientDemographicsEthnicity']);
                 tempResp = resp;
                 setData1(resp);
                 setChartData(resp);
-                console.log('MHL resp resp 15b: ', resp);
-                console.log('MHL resp chartData 15c: ', chartData);
+                console.log('MHL resp resp 15c: ', resp);
+                console.log('MHL resp chartData 15d: ', chartData);
 
                 return resp;
-            }).catch(er => { console.log('MHL 15d handleClick2 error: ', er);
+            }).catch(er => { console.log('MHL 15e handleClick2 error: ', er);
                 console.error(er)})
 
         })
@@ -229,7 +231,14 @@ window.chData = '';
                 console.error(error)
             })
 
-        console.log('MHL 16 handleClick3 tempResp: ', tempResp);
+        console.log('MHL 16a handleClick3 tempResp: ', tempResp);
+        setTimeout(
+            function() {
+
+                console.log('MHL 16b handleClick3 tempResp: ', tempResp);
+
+            }, 5000);
+        console.log('MHL 16c handleClick3 tempResp: ', tempResp);
 
     }
 
