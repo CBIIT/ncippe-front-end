@@ -497,7 +497,7 @@ async function getChartData() {
 // ////////////////////////////////
 async function getChartData2(){
     console.log('MHL getChartData2');
-    return await fetch(`/publicapi/v1/chartData`,{
+    return await fetch(`/publicapi/v1/newsEvents`,{
         headers: {
             'Content-Type': 'text/plain',
             'access-control-allow-origin': '*'
