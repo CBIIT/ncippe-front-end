@@ -59,9 +59,8 @@ const useStyles = makeStyles(theme => ({
 
 const AboutPage = () => {
     let TESTING = true;
-    let data0;
     let chartData;
-/*
+
     let data0 = {
         "patientDemographicsByCancerType": [
             {label: 'charts.chart_data.PatientDemographics.ColonCancer.label', value: 26},
@@ -100,8 +99,8 @@ const AboutPage = () => {
             {label: 'charts.chart_data.PatientDemographicsEthnicity.NotReported.label', value: 1},
         ]
     };
-*/
-    let chartDataX;
+
+    let chartDataX = data0;
 
     let tempA = '';
 window.chData = '';
