@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Helmet} from 'react-helmet-async'
 import {useTranslation} from 'react-i18next'
 import {Box, Container, Divider, Grid, Typography, useMediaQuery} from '@material-ui/core'
@@ -60,6 +60,8 @@ const useStyles = makeStyles(theme => ({
 const AboutPage = () => {
     let TESTING = true;
     let chartData;
+    const [data1, setData1] = useState([]);
+
 
     let data0 = {
         "patientDemographicsByCancerType": [
@@ -214,8 +216,11 @@ window.chData = '';
                 }
                 console.log('MHL resp 15a: ', resp);
                 tempResp = resp;
+                setData1(resp);
+                console.log('MHL resp data1 15b: ', data1);
+
                 return resp;
-            }).catch(er => { console.log('MHL 15b handleClick2 error: ', er);
+            }).catch(er => { console.log('MHL 15c handleClick2 error: ', er);
                 console.error(er)})
 
         })
