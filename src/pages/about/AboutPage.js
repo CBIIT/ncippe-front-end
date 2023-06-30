@@ -59,8 +59,8 @@ const useStyles = makeStyles(theme => ({
 
 const AboutPage = () => {
     let TESTING = true;
-    let chartData;
     const [data1, setData1] = useState([]);
+    let [chartData, setChartData] = useState([]);
 
 
     let data0 = {
@@ -217,10 +217,12 @@ window.chData = '';
                 console.log('MHL resp 15a: ', resp);
                 tempResp = resp;
                 setData1(resp);
+                setChartData(resp);
                 console.log('MHL resp data1 15b: ', data1);
+                console.log('MHL resp chartData 15c: ', chartData);
 
                 return resp;
-            }).catch(er => { console.log('MHL 15c handleClick2 error: ', er);
+            }).catch(er => { console.log('MHL 15d handleClick2 error: ', er);
                 console.error(er)})
 
         })
