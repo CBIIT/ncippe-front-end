@@ -178,17 +178,18 @@ window.chData = '';
     let handleClick2 = () => {
         console.log('MHL 00 handleClick2');
         getAPI.then(api => {
-            console.log('MHL 11a handleClick');
+            console.log('MHL 11a handleClick2');
             //api.getChartData().then(resp => {
 
-/*
+
             api.getChartData2().then(resp => {
+                console.log('MHL 11b handleClick2');
                 if (resp instanceof Error) {
                     console.log('MHL 12 handleClick2 error: ', resp);
                 }
                 console.log('MHL resp 13: ', resp);
             })
-*/
+
 
 
 
