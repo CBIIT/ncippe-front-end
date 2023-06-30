@@ -180,8 +180,7 @@ window.chData = '';
         getAPI.then(api => {
             console.log('MHL 11a handleClick2');
             //api.getChartData().then(resp => {
-
-
+            //api.getChartData3().then(resp => {
             api.getChartData2().then(resp => {
                 console.log('MHL 11b handleClick2');
                 if (resp instanceof Error) {
@@ -190,8 +189,28 @@ window.chData = '';
                 console.log('MHL resp 13: ', resp);
             })
 
+        })
+            .catch(error => {
+                console.log('MHL 14 handleClick2 error: ', error);
+                console.error(error)
+            })
+    }
 
-
+    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    let handleClick3 = () => {
+        console.log('MHL 00 handleClick2');
+        getAPI.then(api => {
+            console.log('MHL 14a handleClick2');
+            //api.getChartData().then(resp => {
+            //api.getChartData2().then(resp => {
+            api.getChartData3().then(resp => {
+                console.log('MHL 14b handleClick3');
+                if (resp instanceof Error) {
+                    console.log('MHL 15 handleClick3 error: ', resp);
+                }
+                console.log('MHL resp 15: ', resp);
+            })
 
         })
             .catch(error => {
@@ -251,6 +270,7 @@ window.chData = '';
                                     <section>
                                         <button onClick={handleClick}>Test1 server</button>
                                         <button onClick={handleClick2}>Test2 server</button>
+                                        <button onClick={handleClick3}>Test3 server</button>
                                         <hr/>
                                         {isMobile && <h2>isMobile</h2>}
                                         {!isMobile && <h2>NOT isMobile</h2>}
