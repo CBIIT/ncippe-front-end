@@ -11,7 +11,7 @@ const handleResponse = resp => {
       console.log('MHL 1 handleResponse resp contentType: ', contentType);
       if (contentType && contentType.indexOf("application/json") !== -1) {
         let temp = resp.json();
-        console.log('MHL 2 handleResponse resp.json: ', temp);
+        console.log('MHL 2 handleResponse Object resp.json: ', temp['Object']);
 
         return temp;
     } else {
@@ -511,7 +511,7 @@ async function getChartData2(){
 
 // ////////////////////////////////
 async function getChartData3(){
-    console.log('MHL getChartData2');
+    console.log('MHL getChartData3 *****************');
     return await fetch(`/publicapi/v1/chartData`,{
         headers: {
             'Content-Type': 'application/json',
