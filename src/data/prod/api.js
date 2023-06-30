@@ -429,13 +429,13 @@ async function getMessages({uuid}){
 let tempA;
 /*=======================================================================*/
 /*======== Get Chart data =================================================*/
-async function getChartData() {
+async function getChartData0() {
   console.log('MHL getChartData1 ***');
   return await fetch(`/publicapi/v1/chartData`)
       .then(handleResponse)
       .catch(handleErrorMsg('Unable to fetch messages at this time.'))
 }
-async function getChartData0() {
+async function getChartData() {
   console.log('MHL getChartData1 ***');
   return await fetch(`/publicapi/v1/chartData`)
       .then(response => response.body)
