@@ -211,6 +211,7 @@ window.chData = '';
                     console.log('MHL 15 handleClick3 error: ', resp);
                 }
                 console.log('MHL resp 15a: ', resp);
+                return resp;
             }).catch(er => { console.log('MHL 15b handleClick2 error: ', er);
                 console.error(er)})
 
