@@ -236,9 +236,11 @@ window.chData = '';
             function() {
 
                 console.log('MHL 16b handleClick3 tempResp: ', tempResp);
+                console.log('MHL16c  resp chartData 15d: ', chartData);
 
             }, 5000);
-        console.log('MHL 16c handleClick3 tempResp: ', tempResp);
+        console.log('MHL 16d handleClick3 tempResp: ', tempResp);
+        console.log('MHL 16e resp chartData: ', chartData);
 
     }
 
