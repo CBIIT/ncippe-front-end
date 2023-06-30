@@ -180,12 +180,18 @@ window.chData = '';
         getAPI.then(api => {
             console.log('MHL 11a handleClick');
             //api.getChartData().then(resp => {
+
+/*
             api.getChartData2().then(resp => {
                 if (resp instanceof Error) {
                     console.log('MHL 12 handleClick2 error: ', resp);
                 }
                 console.log('MHL resp 13: ', resp);
             })
+*/
+
+
+
         })
             .catch(error => {
                 console.log('MHL 14 handleClick2 error: ', error);
