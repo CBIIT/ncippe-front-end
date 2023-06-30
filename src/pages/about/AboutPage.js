@@ -207,8 +207,6 @@ window.chData = '';
         getAPI.then(api => {
 
             console.log('MHL 14a handleClick2');
-            //api.getChartData().then(resp => {
-            //api.getChartData2().then(resp => {
             api.getChartData3().then(resp => {
                 console.log('MHL 14b handleClick3');
                 if (resp instanceof Error) {
