@@ -9,7 +9,7 @@ const BarChart = (props) => {
 
     const {
         onSelectedBarData,
-        data,
+        dataX,
         config,
         chartTitle,
         chartSubtitle,
@@ -28,7 +28,7 @@ const BarChart = (props) => {
     };
     const width = config.width - margin.left - margin.right;
     const height = config.height - margin.top - margin.bottom;
-    const barWidth = (width / data.length) - 20;
+    const barWidth = (width / dataX.length) - 20;
     const onBarClick = (d, i) => {
         console.log('MHL onBarClick d: ', d);
         console.log('MHL onBarClick i: ', i);
