@@ -28,6 +28,7 @@ const BarChart = (props) => {
 
     // @FIXME dup code
     function translateLabels(obj) {
+        const {t} = useTranslation('about');
         for (const key in obj) {
             if (obj.hasOwnProperty(key)) {
                 if (typeof obj[key] === 'object' && obj[key] !== null) {
