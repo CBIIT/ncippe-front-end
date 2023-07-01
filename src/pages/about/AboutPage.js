@@ -214,7 +214,7 @@ window.chData = '';
                     console.log('MHL 15 handleClick3 error: ', resp);
                 }
                 console.log('MHL resp 15a: ', resp);
-                console.log('MHL resp 15b: ', resp['patientDemographicsEthnicity']);
+                console.log('MHL resp 15b [\'patientDemographicsEthnicity\'][\'label\']: ', resp['patientDemographicsEthnicity']['label']);
                 tempResp = resp;
                 setData1(resp);
                 setChartData(resp);
