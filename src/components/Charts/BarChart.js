@@ -17,20 +17,6 @@ const BarChart = (props) => {
 
 
     console.log('MHL BarChart chartTitle: ', chartTitle);
-    const margin = {
-        top: config.margin.top,
-        right: config.margin.right,
-        bottom: config.margin.bottom,
-        left: config.margin.left
-    };
-    const width = config.width - margin.left - margin.right;
-    const height = config.height - margin.top - margin.bottom;
-    const barWidth = (width / data.length) - 20;
-    const onBarClick = (d, i) => {
-        console.log('MHL onBarClick d: ', d);
-        console.log('MHL onBarClick i: ', i);
-        onSelectedBarData({'id': props.svgId, 'label': i['label'], 'value': i['value'], 'svgId': svgId});
-    }
 
 
     useEffect(() => {
@@ -38,6 +24,20 @@ const BarChart = (props) => {
     });
 
     function drawBarChart00(config) {
+        let margin = {
+            top: config.margin.top,
+            right: config.margin.right,
+            bottom: config.margin.bottom,
+            left: config.margin.left
+        };
+        let width = config.width - margin.left - margin.right;
+        let height = config.height - margin.top - margin.bottom;
+        let barWidth = (width / data.length) - 20;
+        let onBarClick = (d, i) => {
+            console.log('MHL onBarClick d: ', d);
+            console.log('MHL onBarClick i: ', i);
+            onSelectedBarData({'id': props.svgId, 'label': i['label'], 'value': i['value'], 'svgId': svgId});
+        }
 
         // Set the color pallet
         const colorScale1 = d3.scaleOrdinal()
