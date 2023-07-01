@@ -1,11 +1,8 @@
 import React, {useRef, useEffect} from "react";
 import * as d3 from "d3";
-import getAPI from "../../data";
-import {useTranslation} from "react-i18next";
 
 const BarChart = (props) => {
     console.log('MHL BarChart props: ', props );
-    const {t, i18n} = useTranslation('about');
 
     const {
         onSelectedBarData,
@@ -36,45 +33,11 @@ const BarChart = (props) => {
     }
 
 
-    // @FIXME dup code
-    function translateLabels(obj) {
-        for (const key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                if (typeof obj[key] === 'object' && obj[key] !== null) {
-                    translateLabels(obj[key]); // recursive
-                } else {
-                    obj[key] = t(obj[key]);
-                }
-            }
-        }
-    }
-
     useEffect(() => {
         drawBarChart00(config);
     });
 
     function drawBarChart00(config) {
-        let data;
-        getAPI.then(api => {
-
-            console.log('MHL 414a handleClick2');
-            api.getChartData3().then(resp => {
-                console.log('MHL 414b handleClick3');
-                if (resp instanceof Error) {
-                    console.error('MHL 415c handleClick3 error: ', resp);
-                }
-/*
-
-                if( svgId === 3) {
-                    data = resp['participantDemographicsAge'];
-                }
-                else if( svgId === 4) {
-                    data = resp['patientDemographicsSex'];
-                }
-
-                translateLabels(data);
-*/
-
 
         // Set the color pallet
         const colorScale1 = d3.scaleOrdinal()
@@ -218,12 +181,12 @@ const BarChart = (props) => {
             });
         // /////////////////////////////////////////////////////
         // /////////////////////////////////////////////////////
-            })})
+
     }
     console.log('MHL NOG: ', 'bar-container' + svgId.toString());
     return (
         <div>
-            <h3>MHL BarChart svgId: {svgId.toString()} </h3>
+            <h2>MHL svgId: {svgId}</h2>
         <div className={'div-chart'} id={'bar-container' + svgId.toString()}/>
         </div>
             );
