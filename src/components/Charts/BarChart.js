@@ -44,17 +44,21 @@ const BarChart = (props) => {
         let data = '{}';
         getAPI.then(api => {
 
-            console.log('MHL 414a handleClick2');
+            console.log('MHL 514a handleClick2');
             api.getChartData3().then(resp => {
-                console.log('MHL 414b handleClick3');
+                console.log('MHL 514b handleClick3');
                 if (resp instanceof Error) {
-                    console.error('MHL 415c handleClick3 error: ', resp);
+                    console.error('MHL 515c getChartData3 error: ', resp);
                 }
                 if (svgId === 3) {
                     data = resp['patientDemographicsAge'];
+                    console.error('MHL 515d getChartData3 svgId: ', svgId);
+                    console.error('MHL 515e getChartData3 data: ', data);
+
                 } else if (svgId === 4) {
                     data = resp['patientDemographicsSex'];
-                }
+                    console.error('MHL 515f getChartData3 svgId: ', svgId);
+                    console.error('MHL 515g getChartData3 data: ', data);  }
 
                 translateLabels(data);
 
