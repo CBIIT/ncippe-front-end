@@ -364,6 +364,9 @@ const PieChart = (props) => {
                 if (resp instanceof Error) {
                     console.log('MHL 415 handleClick3 error: ', resp);
                 }
+                if( svgId === 2) {
+                    data = resp['patientDemographicsByCancerType'];
+                }
                 console.log('MHL resp 415a: ', resp);
                 console.log('MHL resp 415b [\'patientDemographicsByCancerType\']: ', resp['patientDemographicsByCancerType']);
 
