@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from "react";
 import * as d3 from "d3";
 import {useTranslation} from "react-i18next";
-const {t, i18n} = useTranslation('about')
+const {t} = useTranslation('about');
 import getAPI from "../../data";
 
 const BarChart = (props) => {
