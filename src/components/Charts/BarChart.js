@@ -1,9 +1,11 @@
 import React, {useRef, useEffect} from "react";
 import * as d3 from "d3";
 import getAPI from "../../data";
+import {useTranslation} from "react-i18next";
 
 const BarChart = (props) => {
     console.log('MHL BarChart props: ', props );
+    const {t, i18n} = useTranslation('about');
 
     const {
         onSelectedBarData,
