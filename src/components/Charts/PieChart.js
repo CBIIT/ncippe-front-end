@@ -368,15 +368,15 @@ const PieChart = (props) => {
                     data = resp['patientDemographicsByCancerType'];
                     console.log('MHL resp 415d [\'patientDemographicsByCancerType\']: ', resp['patientDemographicsByCancerType']);
                 }
-                if( svgId === 5) {
+                else if( svgId === 5) {
                     data = resp['patientDemographicsRace'];
                     console.log('MHL resp 415e [\'patientDemographicsRace\']: ', resp['patientDemographicsRace']);
                 }
-                if( svgId === 6) {
+                else if( svgId === 6) {
                     data = resp['patientDemographicsEthnicity'];
-                    console.log('MHL resp 415e [\'patientDemographicsEthnicity\']: ', resp['patientDemographicsEthnicity']);
+                    console.log('MHL resp 415g [\'patientDemographicsEthnicity\']: ', resp['patientDemographicsEthnicity']);
                 }
-                console.log('MHL resp 415f: ', resp);
+                console.log('MHL resp 415h: ', resp);
 
 
 
