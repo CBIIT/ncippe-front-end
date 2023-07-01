@@ -170,6 +170,7 @@ console.log('MHL data0: ', data0);
         console.log('MHL zXz PieChart data: ', data);
         return (
             <div>
+                <span>svgId: {svgId}</span>
                 <PieChart
                     data={data}
                     chartSize={chartSize}
