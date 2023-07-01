@@ -1,11 +1,8 @@
 import React, {useRef, useEffect} from "react";
 import * as d3 from "d3";
-import getAPI from "../../data";
-import {useTranslation} from "react-i18next";
 
 const BarChart = (props) => {
     console.log('MHL BarChart props: ', props );
-    const {t, i18n} = useTranslation('about');
 
     const {
         onSelectedBarData,
@@ -36,48 +33,13 @@ const BarChart = (props) => {
     }
 
 
-    // @FIXME dup code
-    function translateLabels(obj) {
-        for (const key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                if (typeof obj[key] === 'object' && obj[key] !== null) {
-                    translateLabels(obj[key]); // recursive
-                } else {
-                    obj[key] = t(obj[key]);
-                }
-            }
-        }
-    }
-
     useEffect(() => {
         drawBarChart00(config);
     });
 
     function drawBarChart00(config) {
-        let data;
-        getAPI.then(api => {
 
-            console.log('MHL 414a handleClick2');
-            api.getChartData3().then(resp => {
-                console.log('MHL 414b handleClick3');
-/*
-                if (resp instanceof Error) {
-                    console.error('MHL 415c handleClick3 error: ', resp);
-                }
-                if( svgId === 2) {
-                    data = resp['patientDemographicsByCancerType'];
-                }
-                else if( svgId === 5) {
-                    data = resp['patientDemographicsRace'];
-                }
-                else if( svgId === 6) {
-                    data = resp['patientDemographicsEthnicity'];
-                }
-                translateLabels(data);
-*/
-
-
-                // Set the color pallet
+        // Set the color pallet
         const colorScale1 = d3.scaleOrdinal()
             .domain(data)
             .range(d3.schemeDark2);
@@ -219,14 +181,11 @@ const BarChart = (props) => {
             });
         // /////////////////////////////////////////////////////
         // /////////////////////////////////////////////////////
-            })})
+
     }
     console.log('MHL NOG: ', 'bar-container' + svgId.toString());
     return (
-        <div>
-        <span> BARCHART svgId: {svgId}</span>
         <div className={'div-chart'} id={'bar-container' + svgId.toString()}/>
-        </div>
     );
 
 
