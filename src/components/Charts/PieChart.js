@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import * as d3 from 'd3';
 import {useTranslation} from "react-i18next";
+import getAPI from "../../data";
 
 const PieChart = (props) => {
     let data = props.data;
@@ -355,6 +356,22 @@ const PieChart = (props) => {
      * @param config
      */
     function drawChart(config) {
+        getAPI.then(api => {
+
+            console.log('MHL 414a handleClick2');
+            api.getChartData3().then(resp => {
+                console.log('MHL 414b handleClick3');
+                if (resp instanceof Error) {
+                    console.log('MHL 415 handleClick3 error: ', resp);
+                }
+                console.log('MHL resp 415a: ', resp);
+                console.log('MHL resp 415b [\'patientDemographicsEthnicity\'][\'label\']: ', resp['patientDemographicsEthnicity']['label']);
+
+
+
+
+
+
         colorScale0 = d3.scaleOrdinal().domain(data).range(colors);
         // Remove the old svg
         d3.select('#pie-container' + svgId)
@@ -608,8 +625,8 @@ const PieChart = (props) => {
         console.log('MHL XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX: ', titleText);
         console.log('MHL XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX chartSubtitle: ', chartSubtitle);
         console.log('MHL XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX props: ', props);
-
-    }
+            } )  } )
+    } // End draw chart
 
     return <div className={'div-chart'}>
         {/*
