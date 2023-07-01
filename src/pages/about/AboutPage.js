@@ -217,8 +217,8 @@ window.chData = '';
                 console.log('MHL resp 15b [\'patientDemographicsEthnicity\'][\'label\']: ', resp['patientDemographicsEthnicity']['label']);
                 tempResp = resp;
                 test0(resp);
-                
-                setChartData(resp);
+
+                setChartData(resp['patientDemographicsEthnicity']['label']);
                 console.log('MHL resp resp 15c: ', resp);
                 console.log('MHL resp chartData 15d: ', chartData);
 
@@ -297,7 +297,9 @@ window.chData = '';
 
                             <div>
                                 {TESTING ? (
+
                                     <section>
+                                        <h2>MHL {{chartData}}</h2>
                                         <button onClick={handleClick}>Test1 server</button>
                                         <button onClick={handleClick2}>Test2 server</button>
                                         <button onClick={handleClick3}>Test3 server</button>
