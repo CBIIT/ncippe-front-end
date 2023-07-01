@@ -374,30 +374,16 @@ const PieChart = (props) => {
             api.getChartData3().then(resp => {
                 console.log('MHL 414b handleClick3');
                 if (resp instanceof Error) {
-                    console.log('MHL 415c handleClick3 error: ', resp);
+                    console.error('MHL 415c handleClick3 error: ', resp);
                 }
-                if( svgId === 2) {
+                if (svgId === 2) {
                     data = resp['patientDemographicsByCancerType'];
-                    console.log('MHL resp 415d [\'patientDemographicsByCancerType\']: ', resp['patientDemographicsByCancerType']);
-                }
-                else if( svgId === 5) {
+                } else if (svgId === 5) {
                     data = resp['patientDemographicsRace'];
-                    console.log('MHL resp 415e [\'patientDemographicsRace\']: ', resp['patientDemographicsRace']);
-                }
-                else if( svgId === 6) {
+                } else if (svgId === 6) {
                     data = resp['patientDemographicsEthnicity'];
-                    console.log('MHL resp 415g [\'patientDemographicsEthnicity\']: ', resp['patientDemographicsEthnicity']);
                 }
-                console.log('MHL resp 415h: ', resp);
                 translateLabels(data);
-
-/*
-                translateLabels(data0['patientDemographicsByCancerType']);
-                translateLabels(data0['participantDemographicsSex']);
-                translateLabels(data0['patientDemographicsRace']);
-*/
-
-
 
 
 
