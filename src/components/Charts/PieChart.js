@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import getAPI from "../../data";
 
 const PieChart = (props) => {
-    let data;
+    let data = '{}';
     console.log('MHL PieChart data:', data);
     console.log('MHL PieChart props:', props);
     const {t, i18n} = useTranslation('about')
