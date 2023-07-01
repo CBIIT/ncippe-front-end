@@ -633,6 +633,8 @@ const PieChart = (props) => {
         { isMobile && <h2>Yes is Mobile</h2>}
         { !isMobile && <h2>Is not Mobile</h2>}
 */}
+        <span>svgId: {svgId}</span>
+
         <div id={'pie-container' + svgId.toString()}/>
     </div>;
 }
