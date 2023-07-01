@@ -372,6 +372,10 @@ const PieChart = (props) => {
                     data = resp['patientDemographicsRace'];
                     console.log('MHL resp 415e [\'patientDemographicsRace\']: ', resp['patientDemographicsRace']);
                 }
+                if( svgId === 6) {
+                    data = resp['patientDemographicsEthnicity'];
+                    console.log('MHL resp 415e [\'patientDemographicsEthnicity\']: ', resp['patientDemographicsEthnicity']);
+                }
                 console.log('MHL resp 415f: ', resp);
 
 
