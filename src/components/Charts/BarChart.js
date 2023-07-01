@@ -221,7 +221,10 @@ const BarChart = (props) => {
     }
     console.log('MHL NOG: ', 'bar-container' + svgId.toString());
     return (
+        <div>
+        <span> svgId: {svgId}</span>
         <div className={'div-chart'} id={'bar-container' + svgId.toString()}/>
+        </div>
     );
 
 
