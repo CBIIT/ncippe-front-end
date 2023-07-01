@@ -51,9 +51,9 @@ const BarChart = (props) => {
                     console.error('MHL 415c handleClick3 error: ', resp);
                 }
                 if (svgId === 3) {
-                    data = resp['patientDemographicsByCancerType'];
+                    data = resp['patientDemographicsAge'];
                 } else if (svgId === 4) {
-                    data = resp['patientDemographicsRace'];
+                    data = resp['patientDemographicsSex'];
                 }
 
                 translateLabels(data);
