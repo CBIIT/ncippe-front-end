@@ -216,7 +216,8 @@ window.chData = '';
                 console.log('MHL resp 15a: ', resp);
                 console.log('MHL resp 15b [\'patientDemographicsEthnicity\'][\'label\']: ', resp['patientDemographicsEthnicity']['label']);
                 tempResp = resp;
-                setData1(resp);
+                test0(resp);
+                
                 setChartData(resp);
                 console.log('MHL resp resp 15c: ', resp);
                 console.log('MHL resp chartData 15d: ', chartData);
@@ -244,6 +245,10 @@ window.chData = '';
 
     }
 
+
+    let test0 = (text) => {
+        console.log('MHL text: ', text );
+    }
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
