@@ -60,6 +60,7 @@ const BarChart = (props) => {
             console.log('MHL 414a handleClick2');
             api.getChartData3().then(resp => {
                 console.log('MHL 414b handleClick3');
+/*
                 if (resp instanceof Error) {
                     console.error('MHL 415c handleClick3 error: ', resp);
                 }
@@ -73,6 +74,7 @@ const BarChart = (props) => {
                     data = resp['patientDemographicsEthnicity'];
                 }
                 translateLabels(data);
+*/
 
 
                 // Set the color pallet
@@ -222,7 +224,7 @@ const BarChart = (props) => {
     console.log('MHL NOG: ', 'bar-container' + svgId.toString());
     return (
         <div>
-        <span> svgId: {svgId}</span>
+        <span> BARCHART svgId: {svgId}</span>
         <div className={'div-chart'} id={'bar-container' + svgId.toString()}/>
         </div>
     );
