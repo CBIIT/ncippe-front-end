@@ -365,7 +365,7 @@ const PieChart = (props) => {
                     console.log('MHL 415 handleClick3 error: ', resp);
                 }
                 console.log('MHL resp 415a: ', resp);
-                console.log('MHL resp 415b [\'patientDemographicsEthnicity\'][\'label\']: ', resp['patientDemographicsEthnicity']['label']);
+                console.log('MHL resp 415b [\'patientDemographicsByCancerType\']: ', resp['patientDemographicsByCancerType']);
 
 
 
