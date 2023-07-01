@@ -519,7 +519,7 @@ async function getChartData3(){
         }
     })
         .then(handleResponse)
-        .catch(handleErrorMsg('getChartData2 Unable to fetch chart data at this time.'))
+        .catch(handleErrorMsg('getChartData3 Unable to fetch chart data at this time.'))
 }
 
 /*=======================================================================*/
