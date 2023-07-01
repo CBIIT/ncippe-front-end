@@ -186,7 +186,7 @@ const BarChart = (props) => {
     console.log('MHL NOG: ', 'bar-container' + svgId.toString());
     return (
         <div>
-            <h2>MHL svgId: {svgId}</h2>
+            <h3>MHL BarChart svgId: {svgId.toString()} </h3>
         <div className={'div-chart'} id={'bar-container' + svgId.toString()}/>
         </div>
             );
