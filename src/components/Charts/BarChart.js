@@ -34,6 +34,19 @@ const BarChart = (props) => {
     }
 
 
+    // @FIXME dup code
+    function translateLabels(obj) {
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                if (typeof obj[key] === 'object' && obj[key] !== null) {
+                    translateLabels(obj[key]); // recursive
+                } else {
+                    obj[key] = t(obj[key]);
+                }
+            }
+        }
+    }
+
     useEffect(() => {
         drawBarChart00(config);
     });
