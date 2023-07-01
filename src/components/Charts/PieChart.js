@@ -350,6 +350,18 @@ const PieChart = (props) => {
     });
 
 
+    function translateLabels(obj) {
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                if (typeof obj[key] === 'object' && obj[key] !== null) {
+                    translateLabels(obj[key]); // recursive
+                } else {
+                    obj[key] = t(obj[key]);
+                }
+            }
+        }
+    }
+
     /**
      * This is the function that is called to run this component
      * It is called after initialization
@@ -377,7 +389,13 @@ const PieChart = (props) => {
                     console.log('MHL resp 415g [\'patientDemographicsEthnicity\']: ', resp['patientDemographicsEthnicity']);
                 }
                 console.log('MHL resp 415h: ', resp);
+                translateLabels(data);
 
+/*
+                translateLabels(data0['patientDemographicsByCancerType']);
+                translateLabels(data0['participantDemographicsSex']);
+                translateLabels(data0['patientDemographicsRace']);
+*/
 
 
 
