@@ -6,7 +6,6 @@ const BarChart = (props) => {
 
     const {
         onSelectedBarData,
-        data,
         config,
         chartTitle,
         chartSubtitle,
@@ -24,6 +23,8 @@ const BarChart = (props) => {
     });
 
     function drawBarChart00(config) {
+
+        let data = '{}';
         let margin = {
             top: config.margin.top,
             right: config.margin.right,
