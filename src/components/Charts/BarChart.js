@@ -51,14 +51,14 @@ const BarChart = (props) => {
                     console.error('MHL 515c getChartData3 error: ', resp);
                 }
                 if (svgId === 3) {
-                    data = resp['patientDemographicsAge'];
-                    console.error('MHL 515d getChartData3 svgId: ', svgId);
-                    console.error('MHL 515e getChartData3 data: ', data);
+                    data = resp['participantDemographicsAge'];
+                    console.log('MHL 515d getChartData3 svgId: ', svgId);
+                    console.log('MHL 515e getChartData3 data: ', data);
 
                 } else if (svgId === 4) {
-                    data = resp['patientDemographicsSex'];
-                    console.error('MHL 515f getChartData3 svgId: ', svgId);
-                    console.error('MHL 515g getChartData3 data: ', data);  }
+                    data = resp['participantDemographicsSex'];
+                    console.log('MHL 515f getChartData3 svgId: ', svgId);
+                    console.log('MHL 515g getChartData3 data: ', data);  }
 
                 translateLabels(data);
 
