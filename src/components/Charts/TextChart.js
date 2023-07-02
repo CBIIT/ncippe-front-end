@@ -18,6 +18,7 @@ const TextChart = (props) => {
         isMobile
     } = props;
 
+    let data = '{}';
 
     const node = 'textChart-container' + svgId.toString();
     // @TODO Move this to Chart.js
@@ -30,7 +31,6 @@ const TextChart = (props) => {
     ];
 */
 
-    let data = '{}';
     getAPI.then(api => {
 
         console.log('MHL 614a drawBarChart00');
@@ -43,7 +43,6 @@ const TextChart = (props) => {
                 data = resp['projectSummary'];
                 console.log('MHL 615d getChartData1 svgId: ', svgId);
                 console.log('MHL 615e getChartData3 data: ', data);
-
             }
 
             translateLabels(data);
