@@ -80,7 +80,6 @@ const Charts = (props) => {
         );
     } else if (props.chartType === 1) {
         console.log('MHL zz PieChart data: ', props);
-        console.log('MHL zXz PieChart data: ', data);
         return (
             <div>
                 <span>svgId: {svgId}</span>
