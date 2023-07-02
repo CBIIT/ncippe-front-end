@@ -44,9 +44,9 @@ const TextChart = (props) => {
     function drawTextChart(config) {
         getAPI.then(api => {
 
-            console.log('MHL 614a drawBarChart00 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+            console.log('MHL 614a textChart XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
             api.getChartData3().then(resp => {
-               // console.log('MHL 614b handleClick3 resp: ', resp);
+               console.log('MHL ZZZZZZZZZZZZZZ 614b handleClick3 resp: ', resp);
                 if (resp instanceof Error) {
                     console.error('MHL 615c getChartData3 error: ', resp);
                 }
