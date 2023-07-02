@@ -6,7 +6,6 @@ import RenderContent from "../utils/RenderContent";
 import getAPI from "../../data";
 
 const TextChart = (props) => {
-    console.log('MHL TextChart props: ', props );
     const { t, i18n } = useTranslation('about')
     const [chartData, setChartData] = useState([])
     const [data, setData] = useState([])
@@ -44,7 +43,7 @@ const TextChart = (props) => {
     function drawTextChart(config) {
         getAPI.then(api => {
 
-            console.log('MHL 614a textChart XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+            console.log('MHL 614a textChart XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXDDDDDDDDDDDDDDDDDDDDDDDD');
             api.getChartData3().then(resp => {
                console.log('MHL ZZZZZZZZZZZZZZ 614b handleClick3 resp: ', resp);
                 if (resp instanceof Error) {
