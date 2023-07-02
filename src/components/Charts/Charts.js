@@ -18,9 +18,6 @@ const Charts = (props) => {
         chartTitle,
         svgId
     } = props;
-    let chartData = window.chData;
-console.log('MHL XXXXXXX  chartData: ', chartData );
-console.log('MHL XXXXXXX  window.chData: ', window.chData );
     const t = props.translator;
 
     function translateLabels(obj) {
@@ -125,6 +122,7 @@ console.log('MHL data0: ', data0);
     translateLabels(data0['patientDemographicsByCancerType']);
     translateLabels(data0['participantDemographicsSex']);
     translateLabels(data0['patientDemographicsRace']);
+/*
 
     // Patient Demographics - By Cancer Type
     if (chartId === 1) {
@@ -150,6 +148,7 @@ console.log('MHL data0: ', data0);
 
     console.log('MHL Charts chartId: ' + chartId);
     console.log('MHL Charts data: ', data);
+*/
 
     if (props.chartType === 0) {
         console.log('MHL TextChart data: ', props);
