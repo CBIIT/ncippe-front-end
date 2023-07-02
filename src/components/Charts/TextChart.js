@@ -34,10 +34,7 @@ const TextChart = (props) => {
     });
 
 
-
-
     function drawTextChart(config) {
-
         getAPI.then(api => {
 
             console.log('MHL 614a drawBarChart00');
