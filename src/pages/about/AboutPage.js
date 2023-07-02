@@ -63,7 +63,6 @@ const AboutPage = () => {
     let [chartData, setChartData] = useState([]);
 
 
-window.chData = '';
     let handleClick = () => {
         console.log('MHL 01a handleClick');
         getAPI.then(api => {
@@ -71,7 +70,6 @@ window.chData = '';
             api.getChartData().then(resp => {
                 console.log('MHL 01d chartData typeof: ', typeof resp);
                 chartData = resp;
-                window.chData = resp;
                 console.log('MHL 01c chartData: ', chartData);
                 console.log('MHL 01d resp : ', resp);
                 if (resp instanceof Error) {
@@ -220,7 +218,6 @@ window.chData = '';
 
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={window.chData}
                                                 translator={t}
                                                 chartId={0}
                                                 chartType={0}
@@ -238,7 +235,6 @@ window.chData = '';
                                                 <p>Pie chart "Patient Demographics" - Full size</p>
 
                                                 <Charts
-                                                    chartData={window.chData}
                                                     translator={t}
                                                     chartId={1}
                                                     chartType={1}
@@ -254,7 +250,6 @@ window.chData = '';
                                                 <p>Pie chart "Patient Demographics" - Full size</p>
 
                                                 <Charts
-                                                    chartData={window.chData}
                                                     translator={t}
                                                     chartId={1}
                                                     chartType={1}
@@ -271,7 +266,6 @@ window.chData = '';
                                         {/* Bar chart "Participant Demographic Age" - Full size */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={window.chData}
                                                 translator={t}
                                                 chartId={2}
                                                 chartType={2}
@@ -287,7 +281,6 @@ window.chData = '';
                                         {/* Bar chart "Participant Demographic Sex" - Full size */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={window.chData}
                                                 translator={t}
                                                 chartId={3}
                                                 chartType={2}
@@ -303,7 +296,6 @@ window.chData = '';
                                         {/* Patient Demographics Race */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={window.chData}
                                                 translator={t}
                                                 chartId={4}
                                                 chartType={1}
@@ -318,7 +310,6 @@ window.chData = '';
                                         {/* Patient Demographics Ethnicity */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                chartData={window.chData}
                                                 translator={t}
                                                 chartId={5}
                                                 chartType={1}
