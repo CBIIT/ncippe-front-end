@@ -43,11 +43,11 @@ const TextChart = (props) => {
 
             console.log('MHL 614a drawBarChart00');
             api.getChartData3().then(resp => {
-                console.log('MHL 614b handleClick3 resp: ', resp);
+               // console.log('MHL 614b handleClick3 resp: ', resp);
                 if (resp instanceof Error) {
                     console.error('MHL 615c getChartData3 error: ', resp);
                 }
-                console.log('MHL 615d getChartData1 svgId: ', svgId);
+               // console.log('MHL 615d getChartData1 svgId: ', svgId);
                 if (svgId === 0) {
                     data = resp['projectSummary'];
                     console.log('MHL 615e getChartData3 data: ', data);
@@ -56,7 +56,7 @@ const TextChart = (props) => {
 
                 //     translateLabels(data);
 
-                console.log('MHL 1 BarChart data: ', data);
+            //    console.log('MHL 1 BarChart data: ', data);
             })
         });
     }
