@@ -8,7 +8,7 @@ const BarChart = (props) => {
 
     const {
         onSelectedBarData,
-        data,
+        data,  // MHL @CHECKME
         config,
         chartTitle,
         chartSubtitle,
@@ -18,6 +18,7 @@ const BarChart = (props) => {
 
 
     console.log('MHL BarChart chartTitle: ', chartTitle);
+    console.log('MHL BarChart data: ', data);
 
 
     useEffect(() => {
