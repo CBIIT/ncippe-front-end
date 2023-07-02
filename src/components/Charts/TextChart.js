@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from "react";
+import React, {useRef, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import '../../index.css'
 import {Typography} from "@material-ui/core";
@@ -8,6 +8,7 @@ import getAPI from "../../data";
 const TextChart = (props) => {
     console.log('MHL TextChart props: ', props );
     const { t, i18n } = useTranslation('about')
+    const [chartData, setChartData] = useState([])
 
     const {
         onSelectedBarData,
@@ -50,6 +51,7 @@ const TextChart = (props) => {
                 if (svgId === 0) {
                     data = resp['projectSummary'];
                     console.log('MHL 615e getChartData3 data: ', data);
+                    setChartData(resp['projectSummary']);
                 }
 
                 //     translateLabels(data);
@@ -78,7 +80,7 @@ const TextChart = (props) => {
                 <RenderContent children={chartTitle} />
               </Typography>
 
-                {data.map(value => (
+                {chartData.map(value => (
                     <div key={value.label}>
                        {t(value.label)} = {t(value.value)}
                     </div>
