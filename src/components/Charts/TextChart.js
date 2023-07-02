@@ -20,14 +20,14 @@ const TextChart = (props) => {
 
 
     const node = 'textChart-container' + svgId.toString();
-   // let data = '{}';
-    let data = [
+    let data = '{}';
+    /*let data = [
         {label: t('charts.chart_data.ProjectSummary.ParticipantsEnrolled') , value: 26},
         {label: t('charts.chart_data.ProjectSummary.SitesThatHaveEnrolledParticipants'), value: 21},
         {label: t('charts.chart_data.ProjectSummary.CancerTypes'), value: 18},
         {label: t('charts.chart_data.ProjectSummary.BiomarkerTestReturned'), value: 16}
     ];
-
+*/
     // This runs the component, initialize things, then do this
     useEffect(() => {
         drawTextChart(config);
@@ -38,7 +38,6 @@ const TextChart = (props) => {
 
     function drawTextChart(config) {
 
-        let data = '{}';
         getAPI.then(api => {
 
             console.log('MHL 614a drawBarChart00');
