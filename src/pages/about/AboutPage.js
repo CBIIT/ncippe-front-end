@@ -128,52 +128,6 @@ window.chData = '';
             })
     }
 
-    // //////////////////////////////////////////////
-    async function init() {
-        console.log('MHL IN init');
-        handleClick();
-       // const chartDataX = await waitForValue();
-        console.log('MHL 01b chartDataX: ', chartDataX);
-    }
-    // //////////////////////////////////////////////
-
-
-    // ///////////////////////////////////////////////////////////
-    console.log('MHL aa BEFORE init');
- //  init();
-    console.log('MHL bb AFTER init chartDataX: ', chartDataX);
-
-    // ///////////////////////////////////////////////////////////
-
-
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Function that returns a Promise which resolves when the value is no longer undefined
-    let tempCount = 0;
-    async function waitForValue() {
-        console.log('MHL 700 waitForValue chartDataX');
-        return new Promise(resolve => {
-
-            // Define an interval to periodically check the value
-            const interval = setInterval(() => {
-                tempCount++;
-                console.log('MHL 701a waitForValue chartDataX: ', chartDataX);
-
-                // Check if the value is defined
-                if (chartDataX !== undefined) {
-                    console.log('MHL 701b waitForValue chartDataX: ', chartDataX);
-                    clearInterval(interval); // Clear the interval
-                    console.log('MHL 702 waitForValue chartDataX: ', chartDataX);
-                    resolve(chartDataX); // Resolve the Promise with the value
-                    console.log('MHL 703 waitForValue chartDataX: ', chartDataX);
-                }
-                else{
-                   // console.log('MHL 701b undefined waitForValue chartDataX[' + tempCount + ']: ', chartDataX);
-                }
-            }, 2000); // Interval duration in milliseconds
-        });
-    }
-
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
