@@ -45,7 +45,7 @@ const TextChart = (props) => {
                 console.log('MHL 615e getChartData3 data: ', data);
             }
 
-            translateLabels(data);
+       //     translateLabels(data);
 
             console.log('MHL 1 BarChart data: ', data);
         })});
