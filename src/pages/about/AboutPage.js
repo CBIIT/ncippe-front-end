@@ -59,7 +59,6 @@ const useStyles = makeStyles(theme => ({
 
 const AboutPage = () => {
     let TESTING = true;
-    const [data1, setData1] = useState([]);
     let [chartData, setChartData] = useState([]);
 
 
