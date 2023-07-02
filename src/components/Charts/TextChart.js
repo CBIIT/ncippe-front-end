@@ -43,16 +43,13 @@ const TextChart = (props) => {
     function drawTextChart(config) {
         getAPI.then(api => {
 
-            console.log('MHL 614a textChart zorn XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXDDDDDDDDDDDDDDDDDDDDDDDD');
             api.getChartData3().then(resp => {
-               console.log('MHL ZZZZZZZZZZZZZZ 614b handleClick3 resp: ', resp);
                 if (resp instanceof Error) {
-                    console.error('MHL 615c getChartData3 error: ', resp);
+                    console.error('MHL drawTextChart error: ', resp);
                 }
                // console.log('MHL 615d getChartData1 svgId: ', svgId);
                 if (svgId === 0) {
                     setData(resp['projectSummary']);
-                    console.log('MHL 615e getChartData3 data: ', data);
                    // setChartData(resp['projectSummary']);
                 }
 
