@@ -9,6 +9,7 @@ const TextChart = (props) => {
     console.log('MHL TextChart props: ', props );
     const { t, i18n } = useTranslation('about')
     const [chartData, setChartData] = useState([])
+    const [data, setData] = useState([])
 
     const {
         onSelectedBarData,
@@ -25,12 +26,14 @@ const TextChart = (props) => {
 
 
     // @FIXME
+/*
     let data = [
         {label: t('charts.chart_data.ProjectSummary.ParticipantsEnrolled') , value: 27},
         {label: t('charts.chart_data.ProjectSummary.SitesThatHaveEnrolledParticipants'), value: 21},
         {label: t('charts.chart_data.ProjectSummary.CancerTypes'), value: 18},
         {label: t('charts.chart_data.ProjectSummary.BiomarkerTestReturned'), value: 16}
     ];
+*/
 
     // This runs the component, initialize things, then do this
     useEffect(() => {
@@ -49,9 +52,9 @@ const TextChart = (props) => {
                 }
                // console.log('MHL 615d getChartData1 svgId: ', svgId);
                 if (svgId === 0) {
-                    data = resp['projectSummary'];
+                    setData(resp['projectSummary']);
                     console.log('MHL 615e getChartData3 data: ', data);
-                    setChartData(resp['projectSummary']);
+                   // setChartData(resp['projectSummary']);
                 }
 
                 //     translateLabels(data);
@@ -80,7 +83,7 @@ const TextChart = (props) => {
                 <RenderContent children={chartTitle} />
               </Typography>
 
-                {chartData.map(value => (
+                {data.map(value => (
                     <div key={value.label}>
                        {t(value.label)} = {t(value.value)}
                     </div>
