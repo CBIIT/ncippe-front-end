@@ -18,7 +18,7 @@ const BarChart = (props) => {
 
 
     console.log('MHL BarChart chartTitle: ', chartTitle);
-    console.log('MHL BarChart data: ', data);
+    console.log('MHL 0 BarChart data: ', data);
 
 
     useEffect(() => {
@@ -63,6 +63,7 @@ const BarChart = (props) => {
 
                 translateLabels(data);
 
+                console.log('MHL 1 BarChart data: ', data);
 
                 let margin = {
                     top: config.margin.top,
