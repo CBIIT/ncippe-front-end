@@ -22,7 +22,7 @@ const TextChart = (props) => {
     const node = 'textChart-container' + svgId.toString();
     let data = '{}';
     /*let data = [
-        {label: t('charts.chart_data.ProjectSummary.ParticipantsEnrolled') , value: 26},
+        {label: t('charts.chart_data.ProjectSummary.ParticipantsEnrolled') , value: 27},
         {label: t('charts.chart_data.ProjectSummary.SitesThatHaveEnrolledParticipants'), value: 21},
         {label: t('charts.chart_data.ProjectSummary.CancerTypes'), value: 18},
         {label: t('charts.chart_data.ProjectSummary.BiomarkerTestReturned'), value: 16}
