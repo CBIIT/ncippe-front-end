@@ -51,7 +51,7 @@ const TextChart = (props) => {
                 if (svgId === 0) {
                     data = resp['projectSummary'];
                     console.log('MHL 615e getChartData3 data: ', data);
-                    setChartData(resp['projectSummary']);
+                   // setChartData(resp['projectSummary']);
                 }
 
                 //     translateLabels(data);
