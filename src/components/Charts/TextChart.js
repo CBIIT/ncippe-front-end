@@ -41,7 +41,7 @@ const TextChart = (props) => {
     function drawTextChart(config) {
         getAPI.then(api => {
 
-            console.log('MHL 614a drawBarChart00');
+            console.log('MHL 614a drawBarChart00 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
             api.getChartData3().then(resp => {
                // console.log('MHL 614b handleClick3 resp: ', resp);
                 if (resp instanceof Error) {
@@ -51,7 +51,7 @@ const TextChart = (props) => {
                 if (svgId === 0) {
                     data = resp['projectSummary'];
                     console.log('MHL 615e getChartData3 data: ', data);
-                   // setChartData(resp['projectSummary']);
+                    setChartData(resp['projectSummary']);
                 }
 
                 //     translateLabels(data);
