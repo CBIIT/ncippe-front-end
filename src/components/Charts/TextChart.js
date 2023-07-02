@@ -52,7 +52,7 @@ const TextChart = (props) => {
                 }
                // console.log('MHL 615d getChartData1 svgId: ', svgId);
                 if (svgId === 0) {
-                    setData(resp['projectSummary']);
+                   // setData(resp['projectSummary']);
                     console.log('MHL 615e getChartData3 data: ', data);
                    // setChartData(resp['projectSummary']);
                 }
