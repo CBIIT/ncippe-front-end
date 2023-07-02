@@ -3,23 +3,16 @@ import {formatPhoneNumber} from '../../utils/utils'
 import queryString from 'query-string'
 
 const handleResponse = resp => {
-  console.log('MHL QQ 0a typeof resp: ', typeof resp);
-  console.log('MHL QQ 0b resp: ', resp);
-
   if(resp.ok) {
     const contentType = resp.headers.get("content-type")
-      console.log('MHL 1 handleResponse resp contentType: ', contentType);
       if (contentType && contentType.indexOf("application/json") !== -1) {
         let temp = resp.json();
-        console.log('MHL 2 handleResponse Object resp.json: ', temp[0]);
 
         return temp;
     } else {
-        console.log('MHL 3 resp: ', resp);
         return resp;
     }
   } else {
-    console.log('MHL 4 resp ERROR');
     throw new Error(`Request rejected with status ${resp.status}: ${resp.statusText}`)
   }
 }
