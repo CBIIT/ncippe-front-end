@@ -46,8 +46,10 @@ const BarChart = (props) => {
         getAPI.then(api => {
 
             console.log('MHL 514a drawBarChart00');
+            console.log('MHL 514bq drawBarChart00 zorn XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+
             api.getChartData3().then(resp => {
-                console.log('MHL 514b handleClick3 resp: ', resp );
+                console.log('MHL 514bb handleClick3 resp: ', resp );
                 if (resp instanceof Error) {
                     console.error('MHL 515c getChartData3 error: ', resp);
                 }

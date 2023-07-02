@@ -5,16 +5,10 @@ import getAPI from "../../data";
 
 const PieChart = (props) => {
     let data = '{}';
-    console.log('MHL PieChart data:', data);
-    console.log('MHL PieChart props:', props);
     const {t, i18n} = useTranslation('about')
-    let svgId = props.svgId;
-    let isMobile = props.isMobile
+    const svgId = props.svgId;
+    const isMobile = props.isMobile
 
-    // const {t} = useTranslation('about');
-
-
-    // var title,     setter setTitle    default  props.title
     const [testText, setTestText] = useState("MHL Test Title");
     const titleText = props.chartTitle;
     const chartSubtitle = props.chartSubtitle;
@@ -371,6 +365,8 @@ const PieChart = (props) => {
         getAPI.then(api => {
 
             console.log('MHL 414a handleClick2');
+            console.log('MHL 414bq drawBarChart00 zorn XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+
             api.getChartData3().then(resp => {
                 console.log('MHL 414b handleClick3');
                 if (resp instanceof Error) {

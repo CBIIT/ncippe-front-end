@@ -632,6 +632,7 @@ async function getMessages({uuid}){
   
   return await fetch(`/api/messages?sentBy=${uuid}`)
   // .then(sleeper(5000))
+
   .then(handleResponse)
   .catch(handleErrorMsg('The server was unable to fetch messages.'))
 }

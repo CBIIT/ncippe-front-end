@@ -43,7 +43,7 @@ const TextChart = (props) => {
     function drawTextChart(config) {
         getAPI.then(api => {
 
-            console.log('MHL 614a textChart XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXDDDDDDDDDDDDDDDDDDDDDDDD');
+            console.log('MHL 614a textChart zorn XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXDDDDDDDDDDDDDDDDDDDDDDDD');
             api.getChartData3().then(resp => {
                console.log('MHL ZZZZZZZZZZZZZZ 614b handleClick3 resp: ', resp);
                 if (resp instanceof Error) {

@@ -98,10 +98,12 @@ const AboutPage = () => {
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     let handleClick3 = () => {
         let tempResp;
-        console.log('MHL 00 handleClick2');
+        console.log('MHL 00 handleClick3');
         getAPI.then(api => {
 
-            console.log('MHL 14a handleClick2');
+            console.log('MHL 14a handleClick3');
+            console.log('MHL 14bq handleClick3 zorn XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+
             api.getChartData3().then(resp => {
                 console.log('MHL 14b handleClick3');
                 if (resp instanceof Error) {
