@@ -21,10 +21,10 @@ const TextChart = (props) => {
     const node = 'textChart-container' + svgId.toString();
     // @TODO Move this to Chart.js
     let data = [
-        {label: t('charts.chart_data.ProjectSummary.ParticipantsEnrolled') , value: 26, key: 0},
-        {label: t('charts.chart_data.ProjectSummary.SitesThatHaveEnrolledParticipants'), value: 21, key: 1},
-        {label: t('charts.chart_data.ProjectSummary.CancerTypes'), value: 18, key: 2},
-        {label: t('charts.chart_data.ProjectSummary.BiomarkerTestReturned'), value: 16, key: 3}
+        {label: t('charts.chart_data.ProjectSummary.ParticipantsEnrolled') , value: 26},
+        {label: t('charts.chart_data.ProjectSummary.SitesThatHaveEnrolledParticipants'), value: 21},
+        {label: t('charts.chart_data.ProjectSummary.CancerTypes'), value: 18},
+        {label: t('charts.chart_data.ProjectSummary.BiomarkerTestReturned'), value: 16}
     ];
 
     return (
