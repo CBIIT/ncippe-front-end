@@ -448,34 +448,20 @@ async function getChartData() {
         function readStream() {
           reader.read().then(
               ({done, value}) => {
-            console.log('MHL 600 chart datareadStream');
-
-
-            /*
-                        if (done) {
-                          console.log('MHL Stream reading complete');
-                          return JSON.parse(String.fromCharCode.apply(null, value));
-                        }
-            */
-
             // Process the chunk of data from the stream
             tempA =  JSON.parse(String.fromCharCode.apply(null, value));
-            console.log('MHL 601 chart data tempA: ',  tempA);
             return tempA;
             // Continue reading the stream recursively
             // readStream();
           });
         }
-        console.log('MHL 602 chart data tempA: ',  tempA);
 
         let tempB =  readStream();
-        console.log('MHL 603 chart data tempB: ',  tempB);
         return tempB;
       })
       .catch(error => {
         console.error('Error reading the stream:', error);
       });
-  console.log('MHL 603 chart data tempA: ',  tempA);
   return tempA;
 }
   /*
@@ -511,7 +497,6 @@ async function getChartData2(){
 
 // ////////////////////////////////
 async function getChartData3(){
-    console.log('MHL getChartData3 *****************');
     return await fetch(`/publicapi/v1/chartData`,{
         headers: {
             'Content-Type': 'application/json',
