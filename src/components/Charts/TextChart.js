@@ -39,7 +39,7 @@ const TextChart = (props) => {
             if (resp instanceof Error) {
                 console.error('MHL 615c getChartData3 error: ', resp);
             }
-            if (svgId === 1) {
+            if (svgId === 0) {
                 data = resp['projectSummary'];
                 console.log('MHL 615d getChartData1 svgId: ', svgId);
                 console.log('MHL 615e getChartData3 data: ', data);
