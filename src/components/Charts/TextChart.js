@@ -18,18 +18,16 @@ const TextChart = (props) => {
         isMobile
     } = props;
 
-    let data = '{}';
 
     const node = 'textChart-container' + svgId.toString();
-    // @TODO Move this to Chart.js
-/*
+   // let data = '{}';
     let data = [
         {label: t('charts.chart_data.ProjectSummary.ParticipantsEnrolled') , value: 26},
         {label: t('charts.chart_data.ProjectSummary.SitesThatHaveEnrolledParticipants'), value: 21},
         {label: t('charts.chart_data.ProjectSummary.CancerTypes'), value: 18},
         {label: t('charts.chart_data.ProjectSummary.BiomarkerTestReturned'), value: 16}
     ];
-*/
+
 
     getAPI.then(api => {
 
