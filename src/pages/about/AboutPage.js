@@ -61,16 +61,10 @@ const AboutPage = () => {
     let TESTING = true;
     let [chartData, setChartData] = useState([]);
 
-
     let handleClick = () => {
-        console.log('MHL 01a handleClick');
         getAPI.then(api => {
-            console.log('MHL 01b handleClick');
             api.getChartData().then(resp => {
-                console.log('MHL 01d chartData typeof: ', typeof resp);
                 chartData = resp;
-                console.log('MHL 01c chartData: ', chartData);
-                console.log('MHL 01d resp : ', resp);
                 if (resp instanceof Error) {
                     console.log('MHL 02 handleClick error: ', resp);
                 }
@@ -86,19 +80,13 @@ const AboutPage = () => {
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     let handleClick2 = () => {
-        console.log('MHL 00 handleClick2');
         getAPI.then(api => {
-            console.log('MHL 11a handleClick2');
-            //api.getChartData().then(resp => {
-            //api.getChartData3().then(resp => {
             api.getChartData2().then(resp => {
-                console.log('MHL 11b handleClick2');
                 if (resp instanceof Error) {
                     console.log('MHL 12 handleClick2 error: ', resp);
                 }
                 console.log('MHL resp 13: ', resp);
             })
-
         })
             .catch(error => {
                 console.log('MHL 14 handleClick2 error: ', error);
@@ -109,9 +97,7 @@ const AboutPage = () => {
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     let handleClick3 = () => {
-
         let tempResp;
-
         console.log('MHL 00 handleClick2');
         getAPI.then(api => {
 
@@ -217,7 +203,6 @@ const AboutPage = () => {
 
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                translator={t}
                                                 chartId={0}
                                                 chartType={0}
                                                 chartSize={1}
@@ -234,7 +219,6 @@ const AboutPage = () => {
                                                 <p>Pie chart "Patient Demographics" - Full size</p>
 
                                                 <Charts
-                                                    translator={t}
                                                     chartId={1}
                                                     chartType={1}
                                                     chartSize={2}
@@ -249,7 +233,6 @@ const AboutPage = () => {
                                                 <p>Pie chart "Patient Demographics" - Full size</p>
 
                                                 <Charts
-                                                    translator={t}
                                                     chartId={1}
                                                     chartType={1}
                                                     chartSize={0}
@@ -265,7 +248,6 @@ const AboutPage = () => {
                                         {/* Bar chart "Participant Demographic Age" - Full size */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                translator={t}
                                                 chartId={2}
                                                 chartType={2}
                                                 chartSize={2}
@@ -280,7 +262,6 @@ const AboutPage = () => {
                                         {/* Bar chart "Participant Demographic Sex" - Full size */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                translator={t}
                                                 chartId={3}
                                                 chartType={2}
                                                 chartSize={2}
@@ -295,7 +276,6 @@ const AboutPage = () => {
                                         {/* Patient Demographics Race */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                translator={t}
                                                 chartId={4}
                                                 chartType={1}
                                                 chartSize={2}
@@ -309,7 +289,6 @@ const AboutPage = () => {
                                         {/* Patient Demographics Ethnicity */}
                                         <Grid item xs={12} md={6}>
                                             <Charts
-                                                translator={t}
                                                 chartId={5}
                                                 chartType={1}
                                                 chartSize={2}
