@@ -8,7 +8,7 @@ import getAPI from "../../data";
 const TextChart = (props) => {
     const { t, i18n } = useTranslation('about')
     const [chartData, setChartData] = useState([])
-    const [data, setData] = useState([])
+    // const [data, setData] = useState([])
 
     const {
         onSelectedBarData,
@@ -25,14 +25,14 @@ const TextChart = (props) => {
 
 
     // @FIXME
-/*
+
     let data = [
         {label: t('charts.chart_data.ProjectSummary.ParticipantsEnrolled') , value: 27},
         {label: t('charts.chart_data.ProjectSummary.SitesThatHaveEnrolledParticipants'), value: 21},
         {label: t('charts.chart_data.ProjectSummary.CancerTypes'), value: 18},
         {label: t('charts.chart_data.ProjectSummary.BiomarkerTestReturned'), value: 16}
     ];
-*/
+
 
     // This runs the component, initialize things, then do this
     useEffect(() => {
@@ -42,6 +42,9 @@ const TextChart = (props) => {
 
     let isChartUp = false;
     function drawTextChart(config) {
+
+
+/*
         if( isChartUp ){
             return
         }
@@ -54,8 +57,8 @@ const TextChart = (props) => {
                 }
                console.log('MHL 615d getChartData3 drawTextChart isChartUp: ', isChartUp);
                 if (svgId === 0) {
-                    setData(resp['projectSummary']);
-                   // setChartData(resp['projectSummary']);
+                    // setData(resp['projectSummary']);
+                    setData(data);
                 }
 
                 //     translateLabels(data);
@@ -63,6 +66,7 @@ const TextChart = (props) => {
             //    console.log('MHL 1 BarChart data: ', data);
             })
         });
+*/
     }
     // @FIXME dup code
     function translateLabels(obj) {
