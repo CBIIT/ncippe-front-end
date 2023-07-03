@@ -40,7 +40,12 @@ const TextChart = (props) => {
     });
 
 
+    let isChartUp = false;
     function drawTextChart(config) {
+        if( isChartUp ){
+            return
+        }
+        isChartUp = true;
         getAPI.then(api => {
 
             api.getChartData3().then(resp => {
