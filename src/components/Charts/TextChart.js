@@ -45,14 +45,14 @@ const TextChart = (props) => {
         if( isChartUp ){
             return
         }
-        isChartUp = true;
         getAPI.then(api => {
+            isChartUp = true;
 
             api.getChartData3().then(resp => {
                 if (resp instanceof Error) {
                     console.error('MHL drawTextChart error: ', resp);
                 }
-               // console.log('MHL 615d getChartData1 svgId: ', svgId);
+               console.log('MHL 615d getChartData3 drawTextChart isChartUp: ', isChartUp);
                 if (svgId === 0) {
                     setData(resp['projectSummary']);
                    // setChartData(resp['projectSummary']);
