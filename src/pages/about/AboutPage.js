@@ -195,11 +195,7 @@ const AboutPage = () => {
                                 {TESTING ? (
 
                                     <section>
-                                        <h2>MHL {chartData}</h2>
-                                        <button onClick={handleClick}>Test1 server</button>
-                                        <button onClick={handleClick2}>Test2 server</button>
-                                        <button onClick={handleClick3}>Test3 server</button>
-                                        <hr/>
+
                                         {isMobile && <h2>isMobile</h2>}
                                         {!isMobile && <h2>NOT isMobile</h2>}
 
