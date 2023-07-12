@@ -227,6 +227,7 @@ const AboutPage = () => {
                                                 ></Charts>
                                             </Grid>
                                         ) : (
+                                            // @TODO probably won't need'
                                             <Grid item xs={12} md={6}>
                                                 <Charts
                                                     chartId={1}
