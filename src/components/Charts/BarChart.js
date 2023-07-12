@@ -44,23 +44,16 @@ const BarChart = (props) => {
 
         let data = '{}';
         getAPI.then(api => {
-
-            console.log('MHL 514a drawBarChart00');
-            console.log('MHL 514bq drawBarChart00 zorn XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-
             api.getChartData3().then(resp => {
-                console.log('MHL 514bb handleClick3 resp: ', resp );
                 if (resp instanceof Error) {
                     console.error('MHL 515c getChartData3 error: ', resp);
                 }
                 if (svgId === 3) {
                     data = resp['participantDemographicsAge'];
-                    console.log('MHL 515d getChartData3 svgId: ', svgId);
                     console.log('MHL 515e getChartData3 data: ', data);
 
                 } else if (svgId === 4) {
                     data = resp['participantDemographicsSex'];
-                    console.log('MHL 515f getChartData3 svgId: ', svgId);
                     console.log('MHL 515g getChartData3 data: ', data);  }
 
                 translateLabels(data);
@@ -231,7 +224,6 @@ const BarChart = (props) => {
     console.log('MHL NOG: ', 'bar-container' + svgId.toString());
     return (
         <div>
-            <h2>MHL svgId: {svgId}</h2>
             <div className={'div-chart'} id={'bar-container' + svgId.toString()}/>
         </div>
     );

@@ -82,7 +82,6 @@ const Charts = (props) => {
         console.log('MHL zz PieChart data: ', props);
         return (
             <div>
-                <span>svgId: {svgId}</span>
                 <PieChart
                     chartSize={chartSize}
                     svgId={svgId}
