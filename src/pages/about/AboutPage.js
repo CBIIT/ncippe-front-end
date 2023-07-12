@@ -214,8 +214,6 @@ const AboutPage = () => {
 
                                         {!isMobile ? (
                                             <Grid item xs={12} md={6}>
-                                                <p>Pie chart "Patient Demographics" - Full size</p>
-
                                                 <Charts
                                                     chartId={1}
                                                     chartType={1}
@@ -228,8 +226,6 @@ const AboutPage = () => {
                                             </Grid>
                                         ) : (
                                             <Grid item xs={12} md={6}>
-                                                <p>Pie chart "Patient Demographics" - Full size</p>
-
                                                 <Charts
                                                     chartId={1}
                                                     chartType={1}

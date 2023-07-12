@@ -65,7 +65,6 @@ const Charts = (props) => {
     };
 
     if (props.chartType === 0) {
-        console.log('MHL TextChart data: ', props);
         return (
             <div>
                 <TextChart
@@ -79,7 +78,6 @@ const Charts = (props) => {
             </div>
         );
     } else if (props.chartType === 1) {
-        console.log('MHL zz PieChart data: ', props);
         return (
             <div>
                 <PieChart

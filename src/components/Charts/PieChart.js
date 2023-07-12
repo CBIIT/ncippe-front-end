@@ -632,10 +632,6 @@ const PieChart = (props) => {
         // /////////////////////////////////////////////////////
         // /////////////////////////////////////////////////////
 
-
-        console.log('MHL XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX: ', titleText);
-        console.log('MHL XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX chartSubtitle: ', chartSubtitle);
-        console.log('MHL XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX props: ', props);
             } )  } )
     } // End draw chart
 
