@@ -196,8 +196,10 @@ const AboutPage = () => {
 
                                     <section>
 
+{/*
                                         {isMobile && <h2>isMobile</h2>}
                                         {!isMobile && <h2>NOT isMobile</h2>}
+*/}
 
                                         <Grid item xs={12} md={6}>
                                             <Charts
