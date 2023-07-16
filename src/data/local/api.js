@@ -637,10 +637,16 @@ async function getMessages({uuid}){
   .catch(handleErrorMsg('The server was unable to fetch messages.'))
 }
 
-/*=======================================================================*/
 /*======== Get Chart data =================================================*/
-async function getChartData(){
-    console.log('MHL getChartData');
+async function getChartData3(){
+    return await fetch(`/publicapi/v1/chartData`,{
+        headers: {
+            'Content-Type': 'application/json',
+            'access-control-allow-origin': '*'
+        }
+    })
+        .then(handleResponse)
+        .catch(handleErrorMsg('getChartData3 Unable to fetch mock chart data at this time.'))
  }
 
 /*=======================================================================*/
@@ -668,7 +674,7 @@ export const api = {
   getAlerts,
   getHospitalList,
   getNewsEvents,
-  getChartData,
+  getChartData3,
   sendMessage,
   getMessages,
 }
