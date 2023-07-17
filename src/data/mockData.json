@@ -1302,7 +1302,7 @@
             "patientDemographicsByCancerType":[
                 {
                     "label":"charts.chart_data.PatientDemographics.ColonCancer.label",
-                    "value":26
+                    "value":28
                 },
                 {
                     "label":"charts.chart_data.PatientDemographics.LungCancer.label",
