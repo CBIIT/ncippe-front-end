@@ -1361,11 +1361,11 @@
             ],
             "participantDemographicsSex":[
                 {
-                    "label":"Male",
+                    "label":"about:charts.chart_data.PatientDemographicsSex.Male.label",
                     "value":62
                 },
                 {
-                    "label":"Female",
+                    "label":"about:charts.chart_data.PatientDemographicsSex.Female.label",
                     "value":38
                 }
             ],

@@ -4,21 +4,32 @@ import {useTranslation} from "react-i18next";
 import getAPI from "../../data";
 
 const BarChart = (props) => {
-    console.log('MHL BarChart props: ', props);
+
+    // Barchart
+    const config = {
+        width: 600,
+        height: 350,
+        titleFontSize: 20,
+        titleTopMargin: 36,
+        titleX: 250,
+
+        textOnChartColor: '#000000',
+        textOnChartSize: 12,
+        margin: {
+            top: 52,
+            right: 20,
+            bottom: 30,
+            left: 45,
+        },
+    };
 
     const {
         onSelectedBarData,
-        data,  // MHL @CHECKME
-        config,
         chartTitle,
         chartSubtitle,
         svgId,
         isMobile
     } = props;
-
-
-    console.log('MHL BarChart chartTitle: ', chartTitle);
-    console.log('MHL 0 BarChart data: ', data);
 
 
     useEffect(() => {
@@ -34,10 +45,20 @@ const BarChart = (props) => {
                 if (typeof obj[key] === 'object' && obj[key] !== null) {
                     translateLabels(obj[key]); // recursive
                 } else {
-                    obj[key] = t(obj[key]);
+                    obj[key] = t(obj[key]);  // Translate here
                 }
             }
         }
+    }
+
+    function maxValue(array) {
+        let m = -1;
+        for (const element of array) {
+            if (m < +element['value']) {
+                m = +element['value'];
+            }
+        }
+        return m;
     }
 
     function drawBarChart00(config) {
@@ -46,19 +67,17 @@ const BarChart = (props) => {
         getAPI.then(api => {
             api.getChartData3().then(resp => {
                 if (resp instanceof Error) {
-                    console.error('MHL 515c getChartData3 error: ', resp);
+                    console.error('Error getting chart data: ', resp);
                 }
                 if (svgId === 3) {
                     data = resp['participantDemographicsAge'];
-                    console.log('MHL 515e getChartData3 data: ', data);
 
                 } else if (svgId === 4) {
                     data = resp['participantDemographicsSex'];
-                    console.log('MHL 515g getChartData3 data: ', data);  }
+                }
 
                 translateLabels(data);
-
-                console.log('MHL 1 BarChart data: ', data);
+                let max = maxValue(data);
 
                 let margin = {
                     top: config.margin.top,
@@ -70,15 +89,13 @@ const BarChart = (props) => {
                 let height = config.height - margin.top - margin.bottom;
                 let barWidth = (width / data.length) - 20;
                 let onBarClick = (d, i) => {
-                    console.log('MHL onBarClick d: ', d);
-                    console.log('MHL onBarClick i: ', i);
                     onSelectedBarData({'id': props.svgId, 'label': i['label'], 'value': i['value'], 'svgId': svgId});
                 }
 
                 // Set the color pallet
                 const colorScale1 = d3.scaleOrdinal()
                     .domain(data)
-                    .range(d3.schemeDark2);
+                    .range(d3.schemeCategory10);
 
                 // Remove the old svg
                 d3.select('#bar-container' + svgId)
@@ -101,21 +118,18 @@ const BarChart = (props) => {
 
                 svg.append("g")
                     .attr("transform", `translate(0,${height})`)
-                    .call(d3.axisBottom(x));
+                    .call(d3.axisBottom(x))
+                ;
 
                 // set up the y-axis
                 const y = d3.scaleLinear().rangeRound([height, 0]);
-                // @TESTING
-                y.domain([0, d3.max(data, d => d.value)]);
-                // y.domain([0, 100]);
+                y.domain([0, max]);
 
-//        y.ti .tickSize(10); // Set the length of the tick marks to 10 pixels
-                let yAxis = d3.axisLeft(y)
-                yAxis.tickSize(10)
-                // yAxis.tickValues([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]);
+                let yAxis = d3.axisLeft(y);
+                yAxis.tickSize(10); // Set the length of the tick marks to 10 pixels
 
                 const yScale = d3.scaleLinear()
-                    .domain([0, d3.max(data, d => d.value)])
+                    .domain([0, max])
                     .range([height, 0]);
 
 
@@ -130,21 +144,13 @@ const BarChart = (props) => {
                     .attr("y1", (d) => yScale(d))
                     .attr("x2", width)
                     .attr("y2", (d) => yScale(d))
-                    .attr("stroke", "gray")
-                // .attr("stroke-dasharray", "2")
+                    .attr("stroke", "lightgrey")
                 ;
 
 
                 svg
                     .append("g")
-
-                    .attr('fake', d => {
-                        // console.log('MHL y: ', y(d.value))
-                        console.log('MHL d: ', y)
-                    })
-
                     .call(yAxis);
-
 
                 // create the bars
                 svg
@@ -152,11 +158,6 @@ const BarChart = (props) => {
                     .selectAll(".bar")
                     .data(data)
                     .enter()
-
-
-
-
-                    // ////
                     .append("rect")
                     .attr("class", "bar")
                     .attr("x", d => x(d.label))
@@ -166,7 +167,6 @@ const BarChart = (props) => {
                     .attr("width", barWidth)
                     .attr("height", d => height - y(d.value))
                     .on('click', function (d, i) {
-                        console.log('MHL i010xx: ', i);
                         onBarClick(d, i)
                     });
 
@@ -177,8 +177,8 @@ const BarChart = (props) => {
                     .enter()
                     .append('text')
                     .attr("class", "bar")
-                    .attr("x", d => x(d.label) + config.textOnChartXOffset)
-                    .attr("y", d => y(d.value + .4))
+                    .attr("x", d => x(d.label) + (barWidth * 0.45))
+                    .attr("y", d => y(+d.value + 1.0))
                     .style('fill', '#000000')
                     .style("font-size", config.textOnChartSize + "px")
                     .text((d) => {
@@ -220,16 +220,11 @@ const BarChart = (props) => {
         })
     }
 
-
-    console.log('MHL NOG: ', 'bar-container' + svgId.toString());
     return (
         <div>
             <div className={'div-chart'} id={'bar-container' + svgId.toString()}/>
         </div>
     );
-
-
 }
-
 
 export default BarChart;

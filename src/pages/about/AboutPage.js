@@ -61,41 +61,9 @@ const AboutPage = () => {
     let TESTING = true;
     let [chartData, setChartData] = useState([]);
 
-    let handleClick = () => {
-        getAPI.then(api => {
-            api.getChartData().then(resp => {
-                chartData = resp;
-                if (resp instanceof Error) {
-                    console.log('MHL 02 handleClick error: ', resp);
-                }
-            })
-        })
-            .catch(error => {
-                console.log('MHL 03 handleClick error: ', error);
-                console.error(error);
-            })
-    }
-
-
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    let handleClick2 = () => {
-        getAPI.then(api => {
-            api.getChartData2().then(resp => {
-                if (resp instanceof Error) {
-                    console.log('MHL 12 handleClick2 error: ', resp);
-                }
-                console.log('MHL resp 13: ', resp);
-            })
-        })
-            .catch(error => {
-                console.log('MHL 14 handleClick2 error: ', error);
-                console.error(error)
-            })
-    }
-
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
     let handleClick3 = () => {
         let tempResp;
         console.log('MHL 00 handleClick3');
@@ -140,14 +108,7 @@ const AboutPage = () => {
         console.log('MHL 16e resp chartData: ', chartData);
 
     }
-
-
-    let test0 = (text) => {
-        console.log('MHL text: ', text );
-    }
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+*/
 
     const classes = useStyles();
     let {t, i18n} = useTranslation('about');
@@ -227,7 +188,6 @@ const AboutPage = () => {
                                                 ></Charts>
                                             </Grid>
                                         ) : (
-                                            // @TODO probably won't need'
                                             <Grid item xs={12} md={6}>
                                                 <Charts
                                                     chartId={1}

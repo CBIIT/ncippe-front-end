@@ -9,7 +9,6 @@ const PieChart = (props) => {
     const svgId = props.svgId;
     const isMobile = props.isMobile
 
-    const [testText, setTestText] = useState("MHL Test Title");
     const titleText = props.chartTitle;
     const chartSubtitle = props.chartSubtitle;
     let configArray = [];
@@ -212,10 +211,7 @@ const PieChart = (props) => {
         },
     };
 
-
-    console.log('MHL ZOG props.chartSize:  ', props.chartSize);
     let config = configArray[props.chartSize];
-
 
     let titleFontSize = config.titleFontSize;
     /**
@@ -226,7 +222,6 @@ const PieChart = (props) => {
     if (config.titleSizeFactor > 0) {
         titleSizeFactorValue = config.titleSizeFactor;
     }
-
 
     const margin = config.margin;
     const width = config.width;  // Width of the svg
@@ -324,12 +319,12 @@ const PieChart = (props) => {
      * Rename to colorScale0 to use
      * @type {ScaleSequential<string, never>}
      */
-    /*
+
         const colorScale1 = d3
             .scaleSequential()
             .interpolator(d3.interpolateViridis)
             .domain([0, data.length]);
-    */
+
 
 
     // These will be used if/when we do something useful when a Pie slice is clicked
@@ -364,13 +359,9 @@ const PieChart = (props) => {
     function drawChart(config) {
         getAPI.then(api => {
 
-            console.log('MHL 414a handleClick2');
-            console.log('MHL 414bq drawBarChart00 zorn XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-
             api.getChartData3().then(resp => {
-                console.log('MHL 414b handleClick3');
                 if (resp instanceof Error) {
-                    console.error('MHL 415c handleClick3 error: ', resp);
+                    console.error('drawChart error: ', resp);
                 }
                 if (svgId === 2) {
                     data = resp['patientDemographicsByCancerType'];
@@ -379,260 +370,240 @@ const PieChart = (props) => {
                 } else if (svgId === 6) {
                     data = resp['patientDemographicsEthnicity'];
                 }
+
+
+                colorScale0 = d3.scaleOrdinal().domain(data).range(colors);
                 translateLabels(data);
 
+                // Remove the old svg
+                d3.select('#pie-container' + svgId)
+                    .select('svg')
+                    .remove();
 
-
-        colorScale0 = d3.scaleOrdinal().domain(data).range(colors);
-        // Remove the old svg
-        d3.select('#pie-container' + svgId)
-            .select('svg')
-            .remove();
-
-        // Create a new svg
-        const svg = d3
-            .select('#pie-container' + svgId)
-            .append('svg')
-            .attr('width', width)
-            .attr('height', height)
-            .append('g')
-            .attr('transform', `translate(${config.outerRadius + margin.left}, ${config.outerRadius + margin.top})`)
-        ;
-
-
-// //////////////////////////////////////////////////////////////////////////////////
-// //////////////////////////////////////////////////////////////////////////////////
-        // On the click of a slice - We don't make use of this yet
-        const onSliceClick = (d, i) => {
-            currentPieSliceIndex = i['index'];
-            currentPieSliceLabel = data[currentPieSliceIndex]['label'];
-            currentPieSliceValue = data[currentPieSliceIndex]['value'];
-            let retObj = {'id': props.svgId, 'label': currentPieSliceLabel, 'value': currentPieSliceValue};
-            console.log('MHL showDataLabel currentPieSliceLabel: {\'id\': props.svgId, \'label\': currentPieSliceLabel, \'value\': currentPieSliceValue}:  ', retObj);
-            setTestText(currentPieSliceLabel + " : " + currentPieSliceValue);
-        }
-// //////////////////////////////////////////////////////////////////////////////////
-
-
-        // Creates the Pie
-        const pieGenerator = d3
-            .pie()
-            .padAngle(0)
-            .value((d) => d['value']);  // The data - Used to set up the Pie
-
-        const arc = svg
-            .selectAll('#pie-container' + svgId) // The ID of our HTML div
-            .data(pieGenerator(data)) // Give the Pie generator the data
-            .enter(); // Run it
-
-
-        // Creates Pie slices
-        const arcGenerator = d3
-            .arc()
-            .innerRadius(config.innerRadius)
-            .outerRadius(config.outerRadius);
-
-
-        // Append arcs (Pie slices)
-        arc
-            .append('path')
-
-            /*
-            The d attribute is a string of path commands that define the shape of the path.
-            These path commands can be used to draw simple or complex shapes, such as circles, rectangles, lines, curves, and more.
-             */
-            .attr('d', arcGenerator)
-
-
-            // Give each arc a unique ID, so I can identify him in the mouseover, mouseclick and mouseout functions.
-            .attr('id', (data) => {
-                let index = data['index'];
-                return 'graph-00-slice-' + svgId.toString() + '-' + index.toString();
-            })
-
-
-            .style('fill', (_, i) => colorScale0( data[i].label ) )
-
-            .attr("fake",  (_, i) => {
-                console.log('MHL data.label data: ', data);
-                console.log('MHL data.label i: ', i);
-                console.log('MHL data.label data[i]: ', data[i]);
-                console.log('MHL data.label data[i].label: ', data[i].label);
-            })
-
-          //  .attr("fill", function(d) { return colorScale0(data.label); })
-
-
-            .style('stroke', chartBorderColor)   // Pie border color
-            .style('stroke-width', chartBorderWidth)
-            .on('click', function (d, i) {
-                console.log('MHL i010z: ', i);
-                onSliceClick(d, i)
-            })
-
-
-            // Do something in the Legend when mouse is over his slice
-            .on('mouseover', function (d, i) {
-
-                // Put a box around this legend entries color box
-                d3.select('#graph-00-legend-' + svgId.toString() + '-' + i['index'].toString())
-                    .style('stroke', '#000000')
-                    .style('stroke-width', legendBoxOutlineWidth)
+                // Create a new svg
+                const svg = d3
+                    .select('#pie-container' + svgId)
+                    .append('svg')
+                    .attr('width', width)
+                    .attr('height', height)
+                    .append('g')
+                    .attr('transform', `translate(${config.outerRadius + margin.left}, ${config.outerRadius + margin.top})`)
                 ;
 
-                // Bold the text for this legend entry
-                d3.select('#graph-00-legend-text-' + svgId.toString() + '-' + i['index'].toString())
-                    .style("font-weight", "bold")
-                ;
+                // On the click of a slice - We don't make use of this yet
+                const onSliceClick = (d, i) => {
+                    currentPieSliceIndex = i['index'];
+                    currentPieSliceLabel = data[currentPieSliceIndex]['label'];
+                    currentPieSliceValue = data[currentPieSliceIndex]['value'];
+                    let retObj = {'id': props.svgId, 'label': currentPieSliceLabel, 'value': currentPieSliceValue};
+                    console.log(' currentPieSliceLabel: {\'id\': props.svgId, \'label\': currentPieSliceLabel, \'value\': currentPieSliceValue}:  ', retObj);
+                }
 
+                // Creates the Pie
+                const pieGenerator = d3
+                    .pie()
+                    .padAngle(0)
+                    .value((d) => d['value']);  // The data - Used to set up the Pie
 
-                d3.selectAll('#graph-00-slice-' + svgId.toString() + '-' + i['index'].toString())
-                    .transition()
-                    .duration(config.sliceMotionDuration)
-                    .attr('d',         // Make the large arc, for when the mouse is over an individual slice.
-                        d3.arc()
-                            .outerRadius(config.outerRadius + largeRadiusAddOn)
-                            .innerRadius(config.innerRadius))
-                ;
+                const arc = svg
+                    .selectAll('#pie-container' + svgId) // The ID of our HTML div
+                    .data(pieGenerator(data)) // Give the Pie generator the data
+                    .enter(); // Run it
 
-            })
+                // Creates Pie slices
+                const arcGenerator = d3
+                    .arc()
+                    .innerRadius(config.innerRadius)
+                    .outerRadius(config.outerRadius);
 
-
-
-            // UnDo something in the Legend when mouse leaves his slice
-            .on('mouseout', function (d, i) {
-                    // Remove (make white) the box around this legend entries color box
-                    d3.select('#graph-00-legend-' + svgId.toString() + '-' + i['index'].toString())
-                        .style('stroke', colorScale0(i['index']));
-
-                    // Bold the text for this legend entry
-                    d3.select('#graph-00-legend-text-' + svgId.toString() + '-' + i['index'].toString())
-                        .style("font-weight", "normal");
-
-
-                    d3.selectAll('#graph-00-slice-' + svgId.toString() + '-' + i['index'].toString())
-                        .transition()
-                        .duration(config.sliceMotionDuration)
-                        .attr('d',   // Return the arc to its original size, for when the mouse has left an individual slice.
-                            d3.arc()
-                                .outerRadius(config.outerRadius)
-                                .innerRadius(config.innerRadius))
-                    ;
-                } // END mouseout
-            );
-
-
-        // Text labels on the pie slices, Number followed by %
-        /*
+                // Append arcs (Pie slices)
                 arc
-                    .append('text')
-                    .attr('text-anchor', 'middle')
-                    .attr('alignment-baseline', 'middle')
-                    .text((d) => {
-                        if (d.data['value'] > outsideThePieMin || d.data['value'] > config.outsideThePiePercentSignMin) {
-                            return d.data.value + '%';
-                        } else {
-                            return d.data.value;  // Outside the pie for small Arcs
-                        }
+                    .append('path')
+
+                    /*
+                    The d attribute is a string of path commands that define the shape of the path.
+                    These path commands can be used to draw simple or complex shapes, such as circles, rectangles, lines, curves, and more.
+                     */
+                    .attr('d', arcGenerator)
+
+
+                    // Give each arc a unique ID, so I can identify him in the mouseover, mouseclick and mouseout functions.
+                    .attr('id', (data) => {
+                        let index = data['index'];
+                        return 'graph-00-slice-' + svgId.toString() + '-' + index.toString();
                     })
 
-                    .style('fill', config['textOnChartColor'])
-                    .attr('font-size', textOnChartSize)
 
-                    .attr('transform', (d) => {
-                        const [x, y] = arcGenerator.centroid(d);
-                        if (d.data['value'] > outsideThePieMin) {
-                            return `translate(${x * valueDisplayOffset}, ${y * valueDisplayOffset})`; // Big arcs
-                        } else {
-                            return `translate(${x * smallValueDisplayOffset}, ${y * smallValueDisplayOffset})`; // Small arcs
-                            // return `translate(${x * valueDisplayOffset}, ${y * valueDisplayOffset})`; // @CHECKME This keeps the small numbers IN the pie, but without a trailing %
-                        }
+                    .style('fill', (_, i) => colorScale0(data[i]['label']))
+                   // .style('fill', (_, i) => colorScale1(data)
+                     //   .attr("fill", (d) => colorScale1())
+                    .style('stroke', chartBorderColor)   // Pie border color
+                    .style('stroke-width', chartBorderWidth)
+                    .on('click', function (d, i) {
+                        onSliceClick(d, i)
+                    })
+
+
+                    // Do something in the Legend when mouse is over his slice
+                    .on('mouseover', function (d, i) {
+
+                        // Put a box around this legend entries color box
+                        d3.select('#graph-00-legend-' + svgId.toString() + '-' + i['index'].toString())
+                            .style('stroke', '#000000')
+                            .style('stroke-width', legendBoxOutlineWidth)
+                        ;
+
+                        // Bold the text for this legend entry
+                        d3.select('#graph-00-legend-text-' + svgId.toString() + '-' + i['index'].toString())
+                            .style("font-weight", "bold")
+                        ;
+
+
+                        d3.selectAll('#graph-00-slice-' + svgId.toString() + '-' + i['index'].toString())
+                            .transition()
+                            .duration(config.sliceMotionDuration)
+                            .attr('d',         // Make the large arc, for when the mouse is over an individual slice.
+                                d3.arc()
+                                    .outerRadius(config.outerRadius + largeRadiusAddOn)
+                                    .innerRadius(config.innerRadius))
+                        ;
+
+                    })
+
+
+
+                    // UnDo something in the Legend when mouse leaves his slice
+                    .on('mouseout', function (d, i) {
+                            // Remove (make white) the box around this legend entries color box
+                            d3.select('#graph-00-legend-' + svgId.toString() + '-' + i['index'].toString())
+                                .style('stroke', colorScale0(i['index']));
+
+                            // Bold the text for this legend entry
+                            d3.select('#graph-00-legend-text-' + svgId.toString() + '-' + i['index'].toString())
+                                .style("font-weight", "normal");
+
+
+                            d3.selectAll('#graph-00-slice-' + svgId.toString() + '-' + i['index'].toString())
+                                .transition()
+                                .duration(config.sliceMotionDuration)
+                                .attr('d',   // Return the arc to its original size, for when the mouse has left an individual slice.
+                                    d3.arc()
+                                        .outerRadius(config.outerRadius)
+                                        .innerRadius(config.innerRadius))
+                            ;
+                        } // END mouseout
+                    );
+
+
+                // Text labels on the pie slices, Number followed by %
+                /*
+                        arc
+                            .append('text')
+                            .attr('text-anchor', 'middle')
+                            .attr('alignment-baseline', 'middle')
+                            .text((d) => {
+                                if (d.data['value'] > outsideThePieMin || d.data['value'] > config.outsideThePiePercentSignMin) {
+                                    return d.data.value + '%';
+                                } else {
+                                    return d.data.value;  // Outside the pie for small Arcs
+                                }
+                            })
+
+                            .style('fill', config['textOnChartColor'])
+                            .attr('font-size', textOnChartSize)
+
+                            .attr('transform', (d) => {
+                                const [x, y] = arcGenerator.centroid(d);
+                                if (d.data['value'] > outsideThePieMin) {
+                                    return `translate(${x * valueDisplayOffset}, ${y * valueDisplayOffset})`; // Big arcs
+                                } else {
+                                    return `translate(${x * smallValueDisplayOffset}, ${y * smallValueDisplayOffset})`; // Small arcs
+                                    // return `translate(${x * valueDisplayOffset}, ${y * valueDisplayOffset})`; // @CHECKME This keeps the small numbers IN the pie, but without a trailing %
+                                }
+                            });
+                */
+
+
+                // Append text labels for legend
+                svg
+                    .selectAll()
+                    .data(pieGenerator(data))
+                    .enter()
+                    .append('text')
+                    .attr('text-anchor', 'start')
+                    .attr('alignment-baseline', 'middle')
+                    .attr('font-size', config.legendFontSize)
+                    .text((d, i) => d.data.label + ' (' + d.data.value + '%)')
+
+                    // Give each arc a unique ID, so I can identify him in the mouseover and mouseout  functions.
+                    .attr('id', (data) => {
+                        let index = data['index'];
+                        return 'graph-00-legend-text-' + svgId.toString() + '-' + index.toString();
+                    })
+
+                    .style('fill', legendTextColor)
+                    /*
+                                .style("font-size", config.legendFontSize + 'px')
+                    */
+                    .attr('transform', (d, i) => {
+                        return `translate(${legendX}, ${(i * (config.legendFontSize + config.legendTextVerticalSpacing)) - (config.outerRadius) + config.legendY})`;
                     });
-        */
 
 
-        // Append text labels for legend
-        svg
-            .selectAll()
-            .data(pieGenerator(data))
-            .enter()
-            .append('text')
-            .attr('text-anchor', 'start')
-            .attr('alignment-baseline', 'middle')
-            .attr('font-size', config.legendFontSize)
-            .text((d, i) => d.data.label + ' (' + d.data.value + '%)')
+                // Append squares for legend labels
+                svg
+                    .selectAll()
+                    .data(pieGenerator(data))
+                    .enter()
+                    .append('rect')
 
-            // Give each arc a unique ID, so I can identify him in the mouseover and mouseout  functions.
-            .attr('id', (data) => {
-                let index = data['index'];
-                return 'graph-00-legend-text-' + svgId.toString() + '-' + index.toString();
+                    .attr('x', 0)
+                    .attr('y', 0)
+                    .attr('width', config.legendFontSize * 0.75)
+                    .attr('height', config.legendFontSize * 0.75)
+                    // Outline black when high lighted back to this on mouse out
+                    .style('stroke', (_, i) => colorScale0(i))
+                    .style('fill', (_, i) => colorScale0(i))
+                    // Give each arc a unique ID, so I can identify him in the mouseover and mouseout  functions.
+                    .attr('id', (data) => {
+                        let index = data['index'];
+                        return 'graph-00-legend-' + svgId.toString() + '-' + index.toString();
+                    })
+
+                    .attr('transform', (d, i) => {
+                        return `translate(${legendX - 24}, ${config.legendY + (i * (config.legendFontSize + config.legendTextVerticalSpacing)) - (config.outerRadius) - ((config.legendFontSize + config.legendTextVerticalSpacing) / 2)})`;
+                    });
+
+
+                //  title
+                svg.append("text")
+                    .attr("text-anchor", "start")
+                    .style("font-size", titleFontSize + "px")
+                    .text(titleText)
+                    .attr('transform', (d, i) => {
+                        return `translate(${-config.titleX}, ${-config.titleTopMargin})`;
+                    });
+
+
+                // /////////////////////////////////////////////////////
+                // /////////////////////////////////////////////////////
+
+
+                //  subtitle
+                svg.append("text")
+                    .attr("text-anchor", "middle")
+                    .style("font-size", (config.titleFontSize * 0.75) + "px") // @TODO 0.75 is just a test
+                    .style('fill', '#123e57')
+
+                    .text(chartSubtitle)
+                    .attr('transform', (d, i) => {
+                        return `translate(${config.subtitleX}, ${20 - config.titleTopMargin})`;
+                    });
+                // /////////////////////////////////////////////////////
+                // /////////////////////////////////////////////////////
+
             })
-
-            .style('fill', legendTextColor)
-            /*
-                        .style("font-size", config.legendFontSize + 'px')
-            */
-            .attr('transform', (d, i) => {
-                return `translate(${legendX}, ${(i * (config.legendFontSize + config.legendTextVerticalSpacing)) - (config.outerRadius) + config.legendY})`;
-            });
-
-
-        // Append squares for legend labels
-        svg
-            .selectAll()
-            .data(pieGenerator(data))
-            .enter()
-            .append('rect')
-
-            .attr('x', 0)
-            .attr('y', 0)
-            .attr('width', config.legendFontSize * 0.75)
-            .attr('height', config.legendFontSize * 0.75)
-            // Outline black when high lighted back to this on mouse out
-            .style('stroke', (_, i) => colorScale0(i))
-            .style('fill', (_, i) => colorScale0(i))
-            // Give each arc a unique ID, so I can identify him in the mouseover and mouseout  functions.
-            .attr('id', (data) => {
-                let index = data['index'];
-                return 'graph-00-legend-' + svgId.toString() + '-' + index.toString();
-            })
-
-            .attr('transform', (d, i) => {
-                return `translate(${legendX - 24}, ${config.legendY + (i * (config.legendFontSize + config.legendTextVerticalSpacing)) - (config.outerRadius) - ((config.legendFontSize + config.legendTextVerticalSpacing) / 2)})`;
-            });
-
-
-        //  title
-        svg.append("text")
-            .attr("text-anchor", "start")
-            .style("font-size", titleFontSize + "px")
-            .attr("fake", () => {
-                console.log('MHL config.outerRadius / titleSizeFactorValue : ', (config.outerRadius / titleSizeFactorValue));
-            })
-            .text(titleText)
-            .attr('transform', (d, i) => {
-                return `translate(${-config.titleX}, ${-config.titleTopMargin})`;
-            });
-
-
-        // /////////////////////////////////////////////////////
-        // /////////////////////////////////////////////////////
-
-
-        //  subtitle
-        svg.append("text")
-            .attr("text-anchor", "middle")
-            .style("font-size", (config.titleFontSize * 0.75) + "px") // @TODO 0.75 is just a test
-            .style('fill', '#123e57')
-
-            .text(chartSubtitle)
-            .attr('transform', (d, i) => {
-                return `translate(${config.subtitleX}, ${20 - config.titleTopMargin})`;
-            });
-        // /////////////////////////////////////////////////////
-        // /////////////////////////////////////////////////////
-
-            } )  } )
+        })
     } // End draw chart
 
     return <div className={'div-chart'}>

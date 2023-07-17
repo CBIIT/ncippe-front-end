@@ -5,10 +5,14 @@ import TextChart from "./TextChart";
 import BarChart from "./BarChart";
 
 const Charts = (props) => {
-    if (props === undefined) {  // @TESTING
+    if (props === undefined) {
         return;
     }
-    console.log('MHL Charts props: ', props);
+
+    // When a barchart bar is clicked
+    function onSelectedBarData(data) {
+        console.log('onSelectedBarData data: ', data);
+    }
 
     const {
         chartId,
@@ -19,30 +23,6 @@ const Charts = (props) => {
         svgId
     } = props;
     const t = props.translator;
-
-    // Barchart
-    const config5 = {
-        width: 600,
-        height: 350,
-        titleFontSize: 20,
-        titleTopMargin: 36,
-        titleX: 250,
-
-        legendX: 150,
-        legendFontSize: 8,
-        legendTextColor: '#1f7a00',
-
-
-        textOnChartColor: '#000000',
-        textOnChartXOffset: 8,
-        textOnChartSize: 12,
-        margin: {
-            top: 52,
-            right: 20,
-            bottom: 30,
-            left: 45,
-        },
-    };
 
 // Barchart
     const config4 = {
@@ -73,7 +53,6 @@ const Charts = (props) => {
                     isMobile={isMobile}
                     chartTitle={chartTitle}
                     chartSubtitle={chartSubtitle}
-
                 ></TextChart>
             </div>
         );
@@ -94,8 +73,8 @@ const Charts = (props) => {
             <div>
 
                 <BarChart
+                    onSelectedBarData={onSelectedBarData}
                     chartSize={chartSize}
-                    config={config5}
                     chartTitle={chartTitle}
                     chartSubtitle={chartSubtitle}
                     svgId={svgId}
