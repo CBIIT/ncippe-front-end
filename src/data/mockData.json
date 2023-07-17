@@ -1284,7 +1284,7 @@
             "projectSummary":[
                 {
                     "label":"charts.chart_data.ProjectSummary.ParticipantsEnrolled",
-                    "value":27
+                    "value":24
                 },
                 {
                     "label":"charts.chart_data.ProjectSummary.SitesThatHaveEnrolledParticipants",
@@ -1302,7 +1302,7 @@
             "patientDemographicsByCancerType":[
                 {
                     "label":"charts.chart_data.PatientDemographics.ColonCancer.label",
-                    "value":25
+                    "value":26
                 },
                 {
                     "label":"charts.chart_data.PatientDemographics.LungCancer.label",
