@@ -132,6 +132,7 @@ const BarChart = (props) => {
                     .domain([0, max])
                     .range([height, 0]);
 
+/*
 
                 const horizontalLines = svg.append("g")
                     .attr("class", "horizontal-lines");
@@ -147,6 +148,7 @@ const BarChart = (props) => {
                     .attr("stroke", "lightgrey")
                 ;
 
+*/
 
                 svg
                     .append("g")
