@@ -32,6 +32,7 @@ const BarChart = (props) => {
     } = props;
 
 
+
     useEffect(() => {
         drawBarChart00(config);
     });
@@ -75,7 +76,7 @@ const BarChart = (props) => {
                 } else if (svgId === 4) {
                     data = resp['participantDemographicsSex'];
                 }
-
+  console.log('MHL data: ', data );
                 translateLabels(data);
                 let max = maxValue(data);
 
@@ -132,8 +133,7 @@ const BarChart = (props) => {
                     .domain([0, max])
                     .range([height, 0]);
 
-/*
-
+/* Remove grid lines.
                 const horizontalLines = svg.append("g")
                     .attr("class", "horizontal-lines");
 
