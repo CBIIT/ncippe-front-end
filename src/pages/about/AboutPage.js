@@ -58,58 +58,6 @@ const useStyles = makeStyles(theme => ({
 }), {name: 'AboutPage'})
 
 const AboutPage = () => {
-    let TESTING = true;
-    let [chartData, setChartData] = useState([]);
-
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-    let handleClick3 = () => {
-        let tempResp;
-        console.log('MHL 00 handleClick3');
-        getAPI.then(api => {
-
-            console.log('MHL 14a handleClick3');
-            console.log('MHL 14bq handleClick3 zorn XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
-
-            api.getChartData3().then(resp => {
-                console.log('MHL 14b handleClick3');
-                if (resp instanceof Error) {
-                    console.log('MHL 15 handleClick3 error: ', resp);
-                }
-                console.log('MHL resp 15a: ', resp);
-                console.log('MHL resp 15b [\'patientDemographicsEthnicity\'][\'label\']: ', resp['patientDemographicsEthnicity']['label']);
-                tempResp = resp;
-                test0(resp);
-
-                setChartData(resp['patientDemographicsEthnicity']['label']);
-                console.log('MHL resp resp 15c: ', resp);
-                console.log('MHL resp chartData 15d: ', chartData);
-
-                return resp;
-            }).catch(er => { console.log('MHL 15e handleClick2 error: ', er);
-                console.error(er)})
-
-        })
-            .catch(error => {
-                console.log('MHL 14 handleClick2 error: ', error);
-                console.error(error)
-            })
-
-        console.log('MHL 16a handleClick3 tempResp: ', tempResp);
-        setTimeout(
-            function() {
-
-                console.log('MHL 16b handleClick3 tempResp: ', tempResp);
-                console.log('MHL16c  resp chartData 15d: ', chartData);
-
-            }, 5000);
-        console.log('MHL 16d handleClick3 tempResp: ', tempResp);
-        console.log('MHL 16e resp chartData: ', chartData);
-
-    }
-*/
-
     const classes = useStyles();
     let {t, i18n} = useTranslation('about');
     const theme = useTheme();
@@ -153,15 +101,11 @@ const AboutPage = () => {
                             </Typography>
 
                             <div>
-                                {TESTING ? (
-
                                     <section>
-
 {/*
                                         {isMobile && <h2>isMobile</h2>}
                                         {!isMobile && <h2>NOT isMobile</h2>}
 */}
-
                                         <Grid item xs={12} md={6}>
                                             <Charts
                                                 chartId={0}
@@ -256,8 +200,7 @@ const AboutPage = () => {
                                             ></Charts>
                                         </Grid>
                                     </section>
-                                ) : null}
-                                {/*End of TESTING*/}
+
                             </div>
 
                             <Typography component="div">
