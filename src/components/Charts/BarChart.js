@@ -76,10 +76,8 @@ const BarChart = (props) => {
                 } else if (svgId === 4) {
                     data = resp['participantDemographicsSex'];
                 }
-  console.log('MHL data: ', data );
                 translateLabels(data);
                 let max = maxValue(data);
-
                 let margin = {
                     top: config.margin.top,
                     right: config.margin.right,
