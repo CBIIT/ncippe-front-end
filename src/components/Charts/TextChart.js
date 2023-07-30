@@ -24,8 +24,7 @@ const TextChart = (props) => {
    // let data = '{}';
 
 
-    // @FIXME
-
+    // @FIXME test data
     let data = [
         {label: t('charts.chart_data.ProjectSummary.ParticipantsEnrolled') , value: 26},
         {label: t('charts.chart_data.ProjectSummary.SitesThatHaveEnrolledParticipants'), value: 21},
