@@ -9,6 +9,7 @@ import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 import Charts from "../../components/Charts/Charts";
 import getAPI from '../../data'
+import TabAboutBar from './AboutBar'
 
 const useStyles = makeStyles(theme => ({
     grid: {
@@ -88,6 +89,7 @@ const AboutPage = () => {
                     <RenderContent children={t('pageTitle')}/>
                 </Typography>
             </Container>
+            <TabAboutBar value={0} />
             <Container className="mainContainer mainContainer--public">
                 <Box mt={5} component="section">
                     <Grid container className={classes.grid} spacing={2} alignItems="stretch">
@@ -95,113 +97,10 @@ const AboutPage = () => {
                             <Typography paragraph={true} variant="h2" component="h2">
                                 <RenderContent children={t('sections.0.title')}/>
                             </Typography>
-                            {isMobile && <ArticleImage src="father-son.jpg" alt={t('sections.0.alt_text')}/>}
+                            {isMobile && <ArticleImage src="triple-pictures.jpg" alt={t('sections.0.alt_text')}/>}
                             <Typography paragraph={true} variant="h3" component="h3">
                                 <RenderContent children={t('sections.0.subtitle')}/>
                             </Typography>
-
-                            <div>
-                                    <section>
-{/*
-                                        {isMobile && <h2>isMobile</h2>}
-                                        {!isMobile && <h2>NOT isMobile</h2>}
-*/}
-                                        <Grid item xs={12} md={6}>
-                                            <Charts
-                                                chartId={0}
-                                                chartType={0}
-                                                chartSize={1}
-                                                svgId={0}
-                                                isMobile={isMobile}
-                                                chartTitle={t('charts.ProjectSummary.title')}
-                                                subtitle={t('charts.ProjectSummary.subtitle')}
-                                            ></Charts>
-                                        </Grid>
-
-
-                                        {!isMobile ? (
-                                            <Grid item xs={12} md={6}>
-                                                <Charts
-                                                    chartId={1}
-                                                    chartType={1}
-                                                    chartSize={2}
-                                                    svgId={2}
-                                                    isMobile={isMobile}
-                                                    chartTitle={t('charts.PatientDemographics.title')}
-                                                    chartSubtitle={t('charts.PatientDemographics.subtitle')}
-                                                ></Charts>
-                                            </Grid>
-                                        ) : (
-                                            <Grid item xs={12} md={6}>
-                                                <Charts
-                                                    chartId={1}
-                                                    chartType={1}
-                                                    chartSize={0}
-                                                    svgId={2}
-                                                    isMobile={isMobile}
-                                                    chartTitle={t('charts.PatientDemographics.title')}
-                                                    chartSubtitle={t('charts.PatientDemographics.subtitle')}
-                                                ></Charts>
-                                            </Grid>
-                                        )}
-
-
-                                        {/* Bar chart "Participant Demographic Age" - Full size */}
-                                        <Grid item xs={12} md={6}>
-                                            <Charts
-                                                chartId={2}
-                                                chartType={2}
-                                                chartSize={2}
-
-                                                chartTitle={t('charts.ParticipantDemographicsAge.title')}
-                                                chartSubtitle={t('charts.ParticipantDemographicsAge.subtitle')}
-                                                svgId={3}
-                                                isMobile={isMobile}
-                                            />
-                                        </Grid>
-
-                                        {/* Bar chart "Participant Demographic Sex" - Full size */}
-                                        <Grid item xs={12} md={6}>
-                                            <Charts
-                                                chartId={3}
-                                                chartType={2}
-                                                chartSize={2}
-
-                                                chartTitle={t('charts.ParticipantDemographicsSex.title')}
-                                                chartSubtitle={t('charts.ParticipantDemographicsSex.subtitle')}
-                                                svgId={4}
-                                                isMobile={isMobile}
-                                            />
-                                        </Grid>
-
-                                        {/* Patient Demographics Race */}
-                                        <Grid item xs={12} md={6}>
-                                            <Charts
-                                                chartId={4}
-                                                chartType={1}
-                                                chartSize={2}
-                                                svgId={5}
-                                                isMobile={isMobile}
-                                                chartTitle={t('charts.PatientDemographicsRace.title')}
-                                                chartSubtitle={t('charts.PatientDemographicsRace.subtitle')}
-                                            ></Charts>
-                                        </Grid>
-
-                                        {/* Patient Demographics Ethnicity */}
-                                        <Grid item xs={12} md={6}>
-                                            <Charts
-                                                chartId={5}
-                                                chartType={1}
-                                                chartSize={2}
-                                                svgId={6}
-                                                isMobile={isMobile}
-                                                chartTitle={t('charts.PatientDemographicsEthnicity.title')}
-                                                chartSubtitle={t('charts.PatientDemographicsEthnicity.subtitle')}
-                                            ></Charts>
-                                        </Grid>
-                                    </section>
-
-                            </div>
 
                             <Typography component="div">
                                 <RenderContent children={t('sections.0.body')}/>
@@ -211,7 +110,7 @@ const AboutPage = () => {
                         </Grid>
                         {!isMobile &&
                         <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
-                            <ArticleImage src="father-son.jpg" alt={t('sections.0.alt_text')}/>
+                            <ArticleImage src="triple-pictures.jpg" alt={t('sections.0.alt_text')}/>
                         </Grid>
                         }
 

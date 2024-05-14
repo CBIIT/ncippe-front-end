@@ -1,0 +1,41 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+.recharts-pie-label-text {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
+    font-size: 12px;
+    /* color:#666666;
+    fill: black; */
+  }
+
+  .recharts-legend-item-text {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
+    font-size: 12px;
+    color:#666666 !important;
+  }
+
+  .recharts-cartesian-axis-tick-value {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: lighter;
+    font-size: 12px;
+
+  }
+
+.recharts-default-legend {
+  line-height: 1.2em;
+}
+  .recharts-legend-item-text{
+    line-height: 1.2em;
+  }
+
+  /* .recharts-legend-item {
+    padding-bottom: 5px;
+  } */
+
+  .recharts-wrapper {
+    /* border: solid 1px red; */
+    border-bottom: solid 2px rgb(156, 152, 152);
+  }

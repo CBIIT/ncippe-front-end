@@ -10,6 +10,7 @@ import Errors             from '../pages/ErrorPage' // 'Error' is reserved keywo
 import About              from '../pages/about/AboutPage'
 import Eligibility        from '../pages/about/EligibilityPage'
 import News               from '../pages/about/NewsPage'
+import StudyProgress      from '../pages/about/StudyProgressPage'
 import AboutConsent       from '../pages/expect/Consent'
 import Donate             from '../pages/expect/Donate'
 import BiomarkerTest      from '../pages/expect/BiomarkerTest'
@@ -49,6 +50,7 @@ const HomePage = pageWrapper(Home)
 const AboutPage = pageWrapper(About)
 const EligibilityPage = pageWrapper(Eligibility)
 const NewsPage = pageWrapper(News)
+const StudyProgressPage = pageWrapper(StudyProgress)
 const ResearchPage = pageWrapper(Research)
 const ArticlePage = pageWrapper(Article)
 const DashboardPage = pageWrapper(Dashboard)
@@ -113,6 +115,7 @@ const Routes = () => (
             <AboutPage path='/about' />
             <EligibilityPage path='/about/eligibility' />
             <NewsPage path='/about/news' />
+            <StudyProgressPage path='/about/studyprogress' />
             {/* <ResearchPage path='/about/research' /> */}
             <ResearchPage path='/research' />
             <ArticlePage path='/research/:article' />

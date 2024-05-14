@@ -9,6 +9,7 @@ import getAPI from '../../data'
 
 import RenderContent from '../../components/utils/RenderContent'
 import NewsEventsTable from '../../components/NewsEvents/NewsEventsTable'
+import TabAboutBar from './AboutBar'
 
 const useStyles = makeStyles( theme => ({
   divider: {
@@ -68,6 +69,7 @@ const NewsPage = () => {
           <RenderContent children={t('pageTitle')} />
         </Typography>
       </Container>
+      <TabAboutBar value={2} />
       <Container className="mainContainer mainContainer--public">
         <Box mt={5} component="section">
           <Typography paragraph={true} variant="h2" component="h2">

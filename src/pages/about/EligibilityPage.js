@@ -7,9 +7,8 @@ import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
-
-
 import HospitalMap from '../../components/HospitalMap/HospitalMap'
+import TabAboutBar from './AboutBar'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -61,6 +60,7 @@ const EligibilityPage = () => {
       <Container className="pageHeader--gradient">
         <Typography variant="h2" component="h1"><RenderContent children={t('pageTitle')} /></Typography>
       </Container>
+      <TabAboutBar value={1} />
       <Container className="mainContainer mainContainer--public">
         <Box mt={5}>
           <Grid container className={classes.grid} spacing={2} alignItems="stretch">

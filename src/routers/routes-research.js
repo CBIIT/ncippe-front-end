@@ -11,6 +11,7 @@ import Home               from '../pages/HomePage'
 import Errors             from '../pages/ErrorPage' // 'Error' is reserved keyword
 import About              from '../pages/about/AboutPage'
 import Eligibility        from '../pages/about/EligibilityPage'
+import StudyProgress      from '../pages/about/StudyProgressPage'
 import AboutConsent       from '../pages/expect/Consent'
 import Donate             from '../pages/expect/Donate'
 import BiomarkerTest      from '../pages/expect/BiomarkerTest'
@@ -48,6 +49,7 @@ const SearchResults = lazy(() => import('../pages/SearchResultsPage'))
 const HomePage = pageWrapper(Home)
 const AboutPage = pageWrapper(About)
 const EligibilityPage = pageWrapper(Eligibility)
+const StudyProgressPage = pageWrapper(StudyProgress)
 const ResearchPage = pageWrapper(Research)
 // const ArticlePage = pageWrapper(Article)
 const DashboardPage = pageWrapper(Dashboard)
@@ -186,6 +188,7 @@ export default () => (
             <HomePage path='/' />
             <AboutPage path='/about' />
             <EligibilityPage path='/about/eligibility' />
+            <StudyProgressPage path='/about/studyprogress' />
             <AboutConsentPage path='/expect/consent' /> 
             <DonatePage path='/expect/donate' /> 
             <TestingPage path='/expect/testing' /> 

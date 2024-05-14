@@ -237,6 +237,7 @@ const Header = () => {
             <MenuGroup menuText={t('nav.about')} active={loc.includes('about')} id="about">
               <a href="/about">{t('nav.about_subNav.about')}</a>
               <a href="/about/eligibility">{t('nav.about_subNav.eligibility')}</a>
+              <a href="/about/studyprogress">{t('nav.about_subNav.studyprogress')}</a>
             </MenuGroup>
             <MenuGroup menuText={t('nav.expect')} active={loc.includes('expect')} id="expect">
               <a href="/expect/consent">{t('nav.expect_subNav.consent')}</a>
