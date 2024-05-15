@@ -3,7 +3,7 @@ import React from "react";
 import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,Legend, } from "recharts";
 
 export default function ReChartsBar(props) {
-    const {inputdata,  title, assignedcy }=props;
+    const {inputdata }=props;
   return (
     <BarChart
       width={410}

@@ -1,21 +1,9 @@
 import "./styles.css";
 import React from "react";
-import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,Legend, LabelList, Label, } from "recharts";
-const CustomizedLabel = () =>{
-    
-      const {x, y, fill, value} = this.props;
-         return <text 
-                 x={x} 
-                 y={y} 
-                 dy={-4} 
-                 fontSize='16' 
-                 fontFamily='sans-serif'
-                 fill={fill}
-                 textAnchor="middle">{value}</text>
-  };
+import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip } from "recharts";
 
 export default function ReChartsBar(props) {
-    const {inputdata,  title, assignedcy }=props;
+    const {inputdata }=props;
   return (
     <BarChart
       width={410}
@@ -33,9 +21,8 @@ export default function ReChartsBar(props) {
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />
-
       <Tooltip />
-      <Bar dataKey="value" isAnimationActive={false}    label />
+      <Bar dataKey="value" isAnimationActive={false}  />
 
     </BarChart>
   );
