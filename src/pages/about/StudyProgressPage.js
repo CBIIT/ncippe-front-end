@@ -33,15 +33,16 @@ let dataGeo = [
 ];
 
 let dataCancerType = [
-  { name: 'Colon Cancer', value: 44, fill: '#246AD4'},
-  { name: 'Lung Cancer', value: 44, fill: '#61A1EC'},
-  { name: 'Melanoma', value: 41, fill: '#A5D3FE' },
-  { name: 'Multiple Myeloma', value: 50, fill: '#FFCF54' },
-  { name: 'Breast Cancer', value: 22, fill: '#F294B0' },
+  { name: 'Lung Cancer', value: 99, fill: '#61A1EC'},
+  { name: 'Multiple Myeloma', value: 92, fill: '#FFCF54' },
+  { name: 'Melanoma', value: 57, fill: '#A5D3FE' },
+  { name: 'Colon Cancer', value: 55, fill: '#246AD4'},
+  { name: 'Prostate Cancer', value: 32, fill: '#F294B0' },
+  { name: 'Invasive Breast Carcinoma', value: 27, fill: '#F294B0' },
   { name: 'Ovarian Cancer', value: 16, fill: '#74F2AE'},
-  { name: 'Prostate Cancer', value: 12, fill: '#F294B0' },
-  { name: 'Gastroesophageal Cancer', value: 6, fill: '#74F2AE'},
-  { name: 'Acute Myeloid Leukemia', value: 5, fill: '#987DC4'},
+  { name: 'Gastroesophageal Cancer', value: 9, fill: '#74F2AE'},
+  { name: 'Acute Myeloid Leukemia', value: 9, fill: '#987DC4'},
+  // { name: 'Esophageal Carcinoma', value: 3, fill: '#987DC4'},
 ];
 
 let dataRace = [
