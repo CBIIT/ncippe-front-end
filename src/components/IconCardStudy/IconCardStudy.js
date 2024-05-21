@@ -81,10 +81,10 @@ const useStyles = makeStyles(
     },
     typography: {
    
-        fontFamily: "Open-Sans, sans-serif",
+        fontFamily: "Montserrat",
         fontWeight: "light",
-        fontSize: "15px",
-        lineHeight: '1.4',
+        fontSize: "16px",
+        lineHeight: '1.25',
         color:'#183787',
         alignItems:'center',
     

@@ -152,7 +152,7 @@ const useStyles = makeStyles(
     },
     typography: {
       h6: {
-        fontFamily: 'Open-Sans, sans-serif',
+        fontFamily: 'Montserrat, Open-Sans, sans-serif',
         fontWeight: 400,
         fontSize: '15px',
         lineHeight: '30px',
