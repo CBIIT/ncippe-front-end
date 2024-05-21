@@ -1,20 +1,21 @@
 import "./styles.css";
 import React from "react";
-import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip } from "recharts";
+import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip, ResponsiveContainer } from "recharts";
 
 export default function ReChartsBar(props) {
     const {inputdata }=props;
   return (
+   // <ResponsiveContainer width="100%" height={300} minHeight={300} aspect={1.8} >
     <BarChart
-      width={410}
-      height={250}
+      width={400} 
+      height={300} 
       data={inputdata}
       fontFamily="sans-serif"
       isAnimationActive={false} 
       margin={{
-        top: 25,
-        right: 60,
-        left: 40,
+        top:55,
+        right: 30,
+        left: 20,
         bottom: 25,
       }}
     >
@@ -25,5 +26,6 @@ export default function ReChartsBar(props) {
       <Bar dataKey="value" isAnimationActive={false}  />
 
     </BarChart>
+    // </ResponsiveContainer>
   );
 }

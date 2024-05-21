@@ -6,7 +6,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-let datalength = 0;
+
 const renderCustomizedLabel = (props) => {
   // assumption the pie data is sorted from large to small
   // clockwise
@@ -25,7 +25,7 @@ const renderCustomizedLabel = (props) => {
     startAngle,
     endAngle,
     index,
-    totoalSlice,
+    arrayLength,
   } = props;
   const RADIAN = Math.PI / 180;
   // console.log("mid-angle for "+ index);
@@ -46,13 +46,13 @@ const renderCustomizedLabel = (props) => {
 
   const textAnchor = isLeftSide ? "start" : "end";
   const xPosition = cx + (isLeftSide ? -1 : 1) * outerRadius;
-  let keyName = name.split(" ");
+  //let keyName = name.split(" ");
   const diffAngle = endAngle - startAngle;
 
   return (
     <>
       {(Math.abs(diffAngle) > 15 && !(isTopSide && isLeftSide)) ||
-      datalength < 3 ? (
+      arrayLength < 3 ? (
         <g>
           <text
             className="recharts-pie-label-text"
@@ -115,15 +115,18 @@ export default function ReChartsPie2Less(props) {
   // console.log(sampleData);
 
   const { inputdata } = props;
-  // console.log(inputdata);
-  datalength = inputdata.length;
+  const arrayLength = inputdata.length;
+  inputdata.map((item) => {
+     item.arrayLength = arrayLength;
+     return item;
+   });
   return (
-    <PieChart width={410} height={250} title="test">
+    <PieChart width={410} height={300} >
       <Pie
         isAnimationActive={false}
         data={inputdata}
         cx={120}
-        cy={90}
+        cy={120}
         outerRadius={70}
         fill="#8884d8"
         dataKey="value"
