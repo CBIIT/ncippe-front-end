@@ -92,8 +92,8 @@ const barDataSex = [
   { name: "Female", value: 81, fill: "#FFCF54" },
 ];
 const barDataBioSpecimen = [
-  { name: "Number of Participants", Blood: 2300, Tumor: 4000 },
-  { name: "Number of Biospecimen", Blood: 1300, Tumor: 3000 },
+  { name: "Number of Participants", Blood: 359, Tumor: 376 },
+  { name: "Number of Biospecimen", Blood: 1113, Tumor: 621 },
 ];
 
 const dataCancerTypecolor = dataCancerType.map((data, index) => {
@@ -114,6 +114,15 @@ const barDataAgecolor = barDataAge.map((data, index) => {
   data.fill = COLORS[index];
   return data;
 });
+
+const projectSummary ={
+  participantsNum:399,
+  sitesNum: 47,
+  CancerTypesNum: 10,
+  BioMarkerRerurnedNum:106,
+
+
+};
 
 const useStyles = makeStyles(
   (theme) => ({
@@ -267,7 +276,7 @@ const StudyProgressPage = () => {
           >
           <Grid item xs={12} sm={6} lg={3} sx={{ width:270, height:80}}>
           <IconCardStudy
-           count={399}
+           count={projectSummary.participantsNum}
             title={t('cards.0.title')}
             desc={t('cards.0.title')}
             altText={t('cards.0.title')}
@@ -276,8 +285,8 @@ const StudyProgressPage = () => {
         </Grid>
         <Grid sx={{ width:270, height:80}} item xs={12} sm={6} lg={3}>
           <IconCardStudy
-            count={47}
-            // title={t('cards.1.title')}
+            count={projectSummary.sitesNum}
+            title={t('cards.1.title')}
             desc={t('cards.1.title')}
             altText={t('cards.1.title')}
             icon="study-specimen-icon.svg"
@@ -286,8 +295,8 @@ const StudyProgressPage = () => {
         <Grid sx={{ width:270, height:80}} item xs={12} sm={6} lg={3}>
           <IconCardStudy
             icon="study-cancersample-icon.svg"
-            count={10}
-            // title={t('cards.2.title')}
+            count={projectSummary.CancerTypesNum}
+            title={t('cards.2.title')}
             desc={t('cards.2.title')}
             altText={t('cards.2.title')}
           />
@@ -295,8 +304,8 @@ const StudyProgressPage = () => {
         <Grid  item xs={12} sm={6} lg={3}>
           <IconCardStudy
             icon="study-biomarker-icon.svg"
-            count={67}
-            // title={t('cards.3.title')}
+            count={projectSummary.BioMarkerRerurnedNum}
+            title={t('cards.3.title')}
             desc={t('cards.3.title')}
             altText={t('cards.3.title')}
           />
@@ -478,7 +487,7 @@ const StudyProgressPage = () => {
             spacing={1}
            // disableEqualOverflow 
           >
-            <Grid item xs={12} sm={6} md={4}   sx ={{ my: 5 }} alignItems="flex-end" >
+            <Grid item xs={12} sm={6} md={4}   sx ={{ my: 5 }} >
               <Grid
                 container
                 direction="column"

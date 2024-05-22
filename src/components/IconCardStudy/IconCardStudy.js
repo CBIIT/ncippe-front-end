@@ -1,24 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "@reach/router";
 import {
-  Badge,
-  Button,
   Card,
-  CardActions,
   CardContent,
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { BorderOuterOutlined, KeyboardArrowRight as KeyboardArrowRightIcon } from "@material-ui/icons";
-import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import { useTranslation } from "react-i18next";
-
-import ConditionalWrapper from "../utils/ConditionalWrapper";
 import RenderContent from "../utils/RenderContent";
-import { grey } from "@material-ui/core/colors";
-import { color } from "d3";
 
 const useStyles = makeStyles(
   (theme) => ({
@@ -36,8 +26,7 @@ const useStyles = makeStyles(
       minWidth: 100,
       height: "85",
       minHeight: 25,
-      margin: theme.spacing(2),
-      //BorderOuterOutlined: "solid #5B6DCD 10px",
+      margin: theme.spacing(1),
       border: "solid #5B6DCD 2px",
       borderRadius: "25px",
       display: "inline-block",
