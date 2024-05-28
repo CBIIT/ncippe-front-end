@@ -31,7 +31,7 @@ export default function ReChartsBar(props) {
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />
-      <Tooltip />
+      <Tooltip cursor={{fill: '#EEEEEE'}}/>
       <Bar dataKey="value" isAnimationActive={false}  label={renderCustomBarLabel} />
     </BarChart>
     // </ResponsiveContainer>

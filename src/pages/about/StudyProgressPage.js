@@ -29,10 +29,6 @@ const COLORS = [
   "#F294B0",
   "#74F2AE",
   "#987DC4",
-  "#F2D7D5",
-  "#109618",
-  "#9FA8DA",
-  "#A1887F",
 ];
 
 // const chartLabelSex ={
@@ -189,7 +185,7 @@ const StudyProgressPage = () => {
   }, [t]);
 
   const dataCancerTypecolor = dataCancerType.map((data, index) => {
-    data.fill = COLORS[index];
+    data.fill = COLORS[index%COLORS.length];
     const label = chartLabelCancerType[data.col];
     data.name = t(label)?? data.col;
     return data;
