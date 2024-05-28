@@ -12,17 +12,15 @@ import {
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import PubSub from "pubsub-js";
 import IconCardStudy from '../../components/IconCardStudy/IconCardStudy';
-
 import RenderContent from "../../components/utils/RenderContent";
 import ArticleImage from "../../components/utils/ArticleImage";
-import Charts from "../../components/Charts/Charts";
 import ReChartsPie2Less from "../../components/Charts/ReChartsPie2Less";
 import ReChartsPie3More from "../../components/Charts/ReChartsPie3More";
 import ReChartsBar from "../../components/Charts/ReChartsBar";
-import ReChartsBar2Sets from "../../components/Charts/ReChartsBar2sets";
 import getAPI from "../../data";
 import TabAboutBar from "./AboutBar";
-import { color } from "d3";
+import {chartLabelCancerType, chartLabelRace, chartLabelRuralUreban,chartLabelBioSpecimenParticipant, chartLabelSex, chartLabelEth } from "./ChartLabel";
+
 const COLORS = [
   "#246AD4",
   "#61A1EC",
@@ -37,42 +35,45 @@ const COLORS = [
   "#A1887F",
 ];
 
+// const chartLabelSex ={
+//  "Male":"charts.chart_data.PatientDemographicsSex.Male.label",
+//  "Female":"charts.chart_data.PatientDemographicsSex.Female.label",
+// };
 // cancer type data
 const dataEth = [
-  { name: "Not Hispanic or Latino", value: 183, fill: "#246AD4" },
-  { name: "Hispanic or Latino", value: 12, fill: "#61A1EC" },
-  { name: "Unknown", value: 4, fill: "#A5D3FE" },
-  { name: "Not Reported", value: 3, fill: "#FFCF54" },
+  { col: "Not Hispanic or Latino", value: 183, fill: "#246AD4" },
+  { col: "Hispanic or Latino", value: 12, fill: "#61A1EC" },
+  { col: "Unknown", value: 4, fill: "#A5D3FE" },
+  { col: "Not Reported", value: 3, fill: "#FFCF54" },
 ];
 
 //
-const dataGeo = [
-  { name: "Urban", value: 309, fill: "#246AD4" },
-  { name: "Rural", value: 90, fill: "#61A1EC" },
+const dataRuralUrban = [
+  { col: "Urban", value: 309, fill: "#246AD4" },
+  { col: "Rural", value: 90, fill: "#61A1EC" },
 ];
 
 const dataCancerType = [
-  { name: "Lung Cancer", value: 99,  fill: "#61A1EC" },
-  { name: "Multiple Myeloma", value: 92, fill: "#FFCF54" },
-  { name: "Melanoma", value: 57,  fill: "#A5D3FE" },
-  { name: "Colon Cancer", value: 55, fill: "#246AD4" },
-  { name: "Prostate Cancer", value: 32, fill: "#F294B0" },
-  { name: "Invasive Breast Carcinoma", value: 27,  fill: "#F294B0" },
-  { name: "Ovarian Cancer", value: 16, fill: "#74F2AE" },
-  { name: "Gastroesophageal Cancer", value: 9, fill: "#74F2AE" },
-  { name: "Acute Myeloid Leukemia", value: 9,  fill: "#987DC4" },
-  { name: "Esophageal Carcinoma", value: 3,  fill: "#987DC4" },
+  { col: "Lung Cancer", value: 99,  fill: "#61A1EC" },
+  { col: "Multiple Myeloma", value: 92, fill: "#FFCF54" },
+  { col: "Melanoma", value: 57,  fill: "#A5D3FE" },
+  { col: "Colon Cancer", value: 55, fill: "#246AD4" },
+  { col: "Prostate Cancer", value: 32, fill: "#F294B0" },
+  { col: "Breast Cancer", value: 27,  fill: "#F294B0" },
+  { col: "Ovarian Cancer", value: 16, fill: "#74F2AE" },
+  { col: "Gastroesophageal Cancer", value: 12, fill: "#74F2AE" },
+  { col: "Acute Myeloid Leukemia", value: 9,  fill: "#987DC4" },
 ];
 
 const dataRace = [
-  { name: "White", value: 305, fill: "#246AD4" },
-  { name: "Black or African American", value: 62, fill: "#61A1EC" },
-  { name: "Unknown", value: 13, fill: "#A5D3FE" },
-  { name: "Asian", value: 8, fill: "#FFCF54" },
-  { name: "American Indian or Alaska Native", value: 3, fill: "#F294B0" },
-  { name: "More Than One Race", value: 1, fill: "#74F2AE" },
+  { col: "White", value: 305, fill: "#246AD4" },
+  { col: "Black or African American", value: 62, fill: "#61A1EC" },
+  { col: "Unknown", value: 13, fill: "#A5D3FE" },
+  { col: "Asian", value: 8, fill: "#FFCF54" },
+  { col: "American Indian or Alaska Native", value: 3, fill: "#F294B0" },
+  { col: "More Than One Race", value: 1, fill: "#74F2AE" },
   {
-    name: "Native Hawaiian or other Pacific Islander",
+    col: "Native Hawaiian or other Pacific Islander",
     value: 1,
     fill: "#987DC4",
   },
@@ -88,40 +89,20 @@ const barDataAge = [
 ];
 
 const barDataSex = [
-  { name: "Male", value: 121, fill: "#A5D3FE" },
-  { name: "Female", value: 81, fill: "#FFCF54" },
+  { col: "Male", value: 121, fill: "#A5D3FE" },
+  { col: "Female", value: 81, fill: "#FFCF54" },
 ];
-const barDataBioSpecimen = [
-  { name: "Number of Participants", Blood: 359, Tumor: 376 },
-  { name: "Number of Biospecimen", Blood: 1113, Tumor: 621 },
+const barDataBioSpecimenParticipants = [
+  { col: "Participants", value: 376, fill: "#246AD4" },
+  { col: "Blood Samples", value: 1113, fill: "#61A1EC" },
+  { col: "Tumor Samples", value: 621, fill: "#74F2AE" },
 ];
-
-const dataCancerTypecolor = dataCancerType.map((data, index) => {
-  data.fill = COLORS[index];
-  return data;
-});
-const dataRacecolor = dataRace.map((data, index) => {
-  data.fill = COLORS[index];
-  return data;
-});
-
-const dataEthcolor = dataEth.map((data, index) => {
-  data.fill = COLORS[index];
-  return data;
-});
-
-const barDataAgecolor = barDataAge.map((data, index) => {
-  data.fill = COLORS[index];
-  return data;
-});
 
 const projectSummary ={
   participantsNum:399,
   sitesNum: 47,
   CancerTypesNum: 10,
   BioMarkerRerurnedNum:106,
-
-
 };
 
 const useStyles = makeStyles(
@@ -197,13 +178,59 @@ const StudyProgressPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const lang = i18n.languages[0] === "en" ? "" : "-es";
+ 
   useEffect(() => {
     PubSub.publish("ANALYTICS", {
       event: "pageview",
       prop6: "Study Progress",
       prop10: t("metaData.title"),
     });
+   
   }, [t]);
+
+  const dataCancerTypecolor = dataCancerType.map((data, index) => {
+    data.fill = COLORS[index];
+    const label = chartLabelCancerType[data.col];
+    data.name = t(label)?? data.col;
+    return data;
+  });
+  const dataRacecolor = dataRace.map((data, index) => {
+    data.fill = COLORS[index];
+    const label = chartLabelRace[data.col];
+    data.name = t(label)?? data.col;
+    return data;
+  });
+  
+  const dataEthcolor = dataEth.map((data, index) => {
+    data.fill = COLORS[index];
+    const label = chartLabelEth[data.col];
+    data.name = t(label)?? data.col;
+    return data;
+  });
+  
+  const barDataAgecolor = barDataAge.map((data, index) => {
+    data.fill = COLORS[index];
+    return data;
+  });
+  
+  const dataRuralUrbancolor = dataRuralUrban.map((data, index) => {
+    const label = chartLabelRuralUreban[data.col];
+     data.name = t(label)?? data.col;
+    return data;
+  });
+  
+  const barDataSexcolor = barDataSex.map( (data, index) => {
+     const label = chartLabelSex[data.col];
+     data.name = t(label)?? data.col;
+     return data;
+   });
+
+   const barDataBioSpecimenParticipantsColor = barDataBioSpecimenParticipants.map((data, index) => {
+    data.fill = COLORS[index];
+    const label = chartLabelBioSpecimenParticipant[data.col];
+    data.name = t(label)?? data.col;
+    return data;
+  });
 
   return (
     <Box component="article">
@@ -433,7 +460,7 @@ const StudyProgressPage = () => {
                 <Grid container item >
                   <ReChartsPie2Less
                     title="Rural vs. Urban"
-                    inputdata={dataGeo}
+                    inputdata={dataRuralUrbancolor}
                   ></ReChartsPie2Less>
                 </Grid>
               </Grid>
@@ -473,7 +500,7 @@ const StudyProgressPage = () => {
                   </Typography>
                 </Grid>
                 <Grid container item margintop={6}>
-                  <ReChartsBar title="Sex" inputdata={barDataSex}></ReChartsBar>
+                  <ReChartsBar title="Sex" inputdata={barDataSexcolor}></ReChartsBar>
                 </Grid>
               </Grid>
             </Grid>
@@ -494,16 +521,16 @@ const StudyProgressPage = () => {
                 spacing={1}      
                // alignItems="stretch"
               >
-                <Grid container item>
+                <Grid container item justifyContent="center" alignItems="flex-end">
                   <Typography className={classes.typography}  variant="h6" component="h6">
                     <RenderContent children={t("charts.ParticipantDemographicsBioSpecimen.subtitle")} />
                   </Typography>
                 </Grid>
-                <Grid container item>
-                  <ReChartsBar2Sets
-                    title="Biospecimens Donated by Participants"
-                    inputdata={barDataBioSpecimen}
-                  ></ReChartsBar2Sets>
+                <Grid container item margintop={6}>
+                  <ReChartsBar
+                    title="Biospecimens"
+                    inputdata={barDataBioSpecimenParticipantsColor}
+                  ></ReChartsBar>
                 </Grid>
               </Grid>
             </Grid>
