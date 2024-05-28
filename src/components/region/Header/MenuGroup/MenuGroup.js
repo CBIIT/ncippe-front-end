@@ -11,6 +11,7 @@ import {
   Paper,
   Popper,
 } from '@material-ui/core'
+import { ArrowDropDown } from '@material-ui/icons'
 import PubSub from 'pubsub-js'
 
 import ConditionalWrapper from '../../../utils/ConditionalWrapper'
@@ -154,6 +155,7 @@ const MenuGroup = (props) => {
       aria-haspopup="true"
       onClick={handleToggle}
       className={active ? `${classes.active} active` : classes.button}
+      endIcon={<ArrowDropDown />}
     >
       {menuText}
     </Button>
