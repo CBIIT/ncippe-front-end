@@ -38,5 +38,15 @@
   .recharts-wrapper {
     /* border: solid 1px red; */
     border-width: 60%;
-    border-bottom: solid 2px rgb(156, 152, 152);
+    /* border-bottom: solid 2px rgb(156, 152, 152); */
+  }
+
+  .recharts-wrapper::after {
+    content: '';
+    display: block;
+    position: relative;
+    width: 75%;
+    border-bottom: solid 4px #E5E5E5;
+    margin: auto;
+    margin-top: -15px;
   }

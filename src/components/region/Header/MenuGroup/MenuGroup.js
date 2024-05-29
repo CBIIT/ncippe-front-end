@@ -13,9 +13,8 @@ import {
 } from '@material-ui/core'
 import { ArrowDropDown } from '@material-ui/icons'
 import PubSub from 'pubsub-js'
-
+import './MenuGroup.css'
 import ConditionalWrapper from '../../../utils/ConditionalWrapper'
-import "./MenuGroup.css"
 
 const useStyles = makeStyles(theme => ({
   popper: {
@@ -25,12 +24,17 @@ const useStyles = makeStyles(theme => ({
   button: {
     borderRadius: 0,
     fontWeight: 'normal',
+    // marginLeft: 5,
+    // marginRight: 5,
   },
   active: {
     borderBottom: `5px solid ${theme.palette.primary.main}`,
     borderRadius: 0,
     marginTop: 5,
     fontWeight: 'bold',
+    padding: '6px 0px 6px 2px',
+    marginLeft: 6,
+    marginRight: 6,
   },
   activePopper: {
     zIndex: '10 !important'
@@ -156,7 +160,6 @@ const MenuGroup = (props) => {
       aria-haspopup="true"
       onClick={handleToggle}
       className={active ? `${classes.active} active` : classes.button}
-      style={{marginLeft: 8 }}
       endIcon={<ArrowDropDown />}
     >
       {menuText}
