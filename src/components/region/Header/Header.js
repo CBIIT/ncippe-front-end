@@ -132,7 +132,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(.75, 3),
     '& a': {
       cursor: "pointer",
-      fontSize: 12,
+      fontSize: 16,
       fontFamily: theme.typography.body1.fontFamily,
       fontWeight: 'normal',
       lineHeight: 'normal'
@@ -234,6 +234,7 @@ const Header = () => {
 
   return (
     <Container component="header" className={classes.root} id="appHeader">
+
       <Box className={classes.appToolbarContainer}>
         <figure className={classes.toolbarLogo}>
           <Link component={RouterLink} to='/' onClick={trackClick}>
@@ -355,9 +356,12 @@ const Header = () => {
         </nav>
       </Drawer>
       )}
-      {/* Spanish language toggle */}
-      {!loc.includes('account') && <Box className={classes.languageToggle}>
-        <Button href="#" color="primary" onClick={toggleLang}>{t('links.language_toggle')}</Button>
+     
+       {/* Spanish language toggle */}
+       {!loc.includes('account') && <Box className={classes.languageToggle} justifyContent="flex-start">
+        <Button variant="contained" href="#" 
+        style={{backgroundColor:'#298085', color:'white',fontFamily:'Open Sans', fontSize:16, fontWeight: 600, }} 
+        onClick={toggleLang}>{t('links.language_toggle')}</Button>
       </Box>
       }
     </Container>

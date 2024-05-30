@@ -23,7 +23,7 @@ export default function ReChartsBar(props) {
       isAnimationActive={false} 
       margin={{
         top:55,
-        right: 60,
+        right: 30,
         left: 0,
         bottom: 25,
       }}

@@ -174,6 +174,8 @@ const StudyProgressPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const lang = i18n.languages[0] === "en" ? "" : "-es";
+
+  const lastUpdatedDate = Date.parse('2024-05-24');
  
   useEffect(() => {
     PubSub.publish("ANALYTICS", {
@@ -268,7 +270,7 @@ const StudyProgressPage = () => {
               </Typography>
 
               <Typography paragraph={true} component="div">
-                <RenderContent children={t("sections.0.body")} />
+                <RenderContent children={t("sections.0.body", {lastUpdateDate : lastUpdatedDate})} />
               </Typography>
             </Grid>
           </Grid>
