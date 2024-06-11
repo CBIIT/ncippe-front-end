@@ -3,10 +3,12 @@ import { Link as RouterLink, navigate } from "@reach/router"
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 import { 
+  Avatar,
   Box,
   Button,
   Container,
   Drawer,
+  Grid,
   IconButton,
   InputAdornment,
   Link,
@@ -28,10 +30,17 @@ import Search from '../../Search/Search'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingRight: theme.spacing(1),
-    [theme.breakpoints.up('smLandscape')]: {
-      paddingRight: theme.spacing(3)
-    }
+    padding: theme.spacing(1, 0,1 ,0),
+  },
+  avatar:{
+    width:16,
+    height:11,
+    alignItems: 'center',
+  },
+  banner:{
+    padding: theme.spacing(1,2,1,2),
+    display: 'flex',
+
   },
   appToolbarContainer: {
     display: 'flex',
@@ -49,6 +58,10 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: {
       minHeight: 76,
       height: 76,
+    },
+
+    [theme.breakpoints.up('smLandscape')]: {
+      paddingRight: theme.spacing(3)
     }
   },
   toolbarLogo: {
@@ -134,7 +147,7 @@ const useStyles = makeStyles(theme => ({
       cursor: "pointer",
       fontSize: 16,
       fontFamily: theme.typography.body1.fontFamily,
-      fontWeight: 'normal',
+      fontWeight: 'Bold',
       lineHeight: 'normal'
     }
   }
@@ -234,6 +247,28 @@ const Header = () => {
 
   return (
     <Container component="header" className={classes.root} id="appHeader">
+
+       {/* Spanish language toggle */}
+       {!loc.includes('account') && 
+       <Box style={{backgroundColor:'#f0f0f0', }} >
+        <Grid  container direction="row" justifyContent="space-between" className={classes.banner}>
+          <Grid item justifyContent="flex-start" direction="row" >
+            <Box style={{display: "flex", alignItems: "center"}} direction="row">
+            <Avatar variant="square" src={`${process.env.PUBLIC_URL}/assets/images/us_flag.png`}  
+              alt="USA flag" className={classes.avatar} >  </Avatar>
+            <Button variant="contained" href="#" disabled
+              style={{backgroundColor:'#f0f0f0', color:'#1b1b1b',fontFamily:'Open Sans', fontSize:14, fontWeight: 400,  }} 
+              >{t('links.banner')}</Button>
+            </Box>
+          </Grid>
+          <Grid item  justifyContent="flex-end">
+            <Button  variant="contained" href="#" justifyContent="flex-end"
+            style={{backgroundColor:'#298085', color:'white',fontFamily:'Open Sans', fontSize:14, fontWeight: 800, }} 
+            onClick={toggleLang}>{t('links.language_toggle')}</Button>
+          </Grid>
+        </Grid>
+      </Box>
+      }
 
       <Box className={classes.appToolbarContainer}>
         <figure className={classes.toolbarLogo}>
@@ -357,13 +392,7 @@ const Header = () => {
       </Drawer>
       )}
      
-       {/* Spanish language toggle */}
-       {!loc.includes('account') && <Box className={classes.languageToggle} justifyContent="flex-start">
-        <Button variant="contained" href="#" 
-        style={{backgroundColor:'#298085', color:'white',fontFamily:'Open Sans', fontSize:16, fontWeight: 600, }} 
-        onClick={toggleLang}>{t('links.language_toggle')}</Button>
-      </Box>
-      }
+      
     </Container>
   )
 }
