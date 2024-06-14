@@ -161,19 +161,19 @@ const StudyProgressPage = () => {
     return data;
   });
   const dataRacecolor = dataRace.map((data, index) => {
-    data.fill = COLORS[index];
+    data.fill = COLORS[index%COLORS.length];
     data.name = t(data.label)?? data.name;
     return data;
   });
   
   const dataEthcolor = dataEth.map((data, index) => {
-    data.fill = COLORS[index];
+    data.fill = COLORS[index%COLORS.length];
     data.name = t(data.label);
     return data;
   });
   
   const barDataAgecolor = barDataAge.map((data, index) => {
-    data.fill = COLORS[index];
+    data.fill = COLORS[index%COLORS.length];
     data.name = data.label;
     return data;
   });
