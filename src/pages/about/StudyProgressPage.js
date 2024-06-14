@@ -104,7 +104,7 @@ const StudyProgressPage = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const lang = i18n.languages[0] === "en" ? "" : "-es";
 
-  const lastUpdatedDate = Date.parse('2024-05-24');
+  const [dblastUpdatedDate, setDBLastUpdatedDate] = useState(Date.parse('2024-06-24'));
 
   const [projectSummary, setProjectSummary] = useState([]);
   const [dataCancerType, setDataCancerType] = useState([]);
@@ -131,7 +131,8 @@ const StudyProgressPage = () => {
           throw resp
         }
         console.dir(resp);
-        setProjectSummary(resp["projectSummary"][0])
+        setProjectSummary(resp["projectSummary"][0]);
+        setDBLastUpdatedDate(resp["projectSummary"][0].lastRevisedDate);
         setDataCancerType(resp["cancerType"]);
         setDataEth(resp["patientEthnicity"]);
         setDataRace(resp["patientRace"]);
@@ -234,7 +235,7 @@ const StudyProgressPage = () => {
               </Typography>
 
               <Typography paragraph={true} component="div">
-                <RenderContent children={t("sections.0.body", {lastUpdateDate : lastUpdatedDate})} />
+                <RenderContent children={t("sections.0.body", {lastUpdateDate : dblastUpdatedDate})} />
               </Typography>
             </Grid>
           </Grid>
