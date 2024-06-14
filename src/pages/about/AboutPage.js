@@ -7,9 +7,7 @@ import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
-import Charts from "../../components/Charts/Charts";
-import getAPI from '../../data'
-import TabAboutBar from './AboutBar'
+import TabAboutBar from './AboutBar';
 
 const useStyles = makeStyles(theme => ({
     grid: {

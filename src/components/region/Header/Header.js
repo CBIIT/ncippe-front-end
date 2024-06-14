@@ -252,7 +252,7 @@ const Header = () => {
        {!loc.includes('account') && 
        <Box style={{backgroundColor:'#f0f0f0', }} >
         <Grid  container direction="row" justifyContent="space-between" className={classes.banner}>
-          <Grid item justifyContent="flex-start" direction="row" >
+          <Grid item   >
             <Box style={{display: "flex", alignItems: "center"}} direction="row">
             <Avatar variant="square" src={`${process.env.PUBLIC_URL}/assets/images/us_flag.png`}  
               alt="USA flag" className={classes.avatar} >  </Avatar>
@@ -261,7 +261,7 @@ const Header = () => {
               >{t('links.banner')}</Button>
             </Box>
           </Grid>
-          <Grid item  justifyContent="flex-end">
+          <Grid item  >
             <Button  variant="contained" href="#" justifyContent="flex-end"
             style={{backgroundColor:'#298085', color:'white',fontFamily:'Open Sans', fontSize:14, fontWeight: 800, }} 
             onClick={toggleLang}>{t('links.language_toggle')}</Button>

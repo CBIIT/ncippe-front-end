@@ -21,6 +21,7 @@ export default function ReChartsBar(props) {
       data={inputdata}
       fontFamily="sans-serif"
       isAnimationActive={false} 
+      overflow="visible"
       margin={{
         top:55,
         right: 30,
@@ -29,7 +30,7 @@ export default function ReChartsBar(props) {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis dataKey="name"interval={0}/>
       <YAxis />
       <Tooltip cursor={{fill: '#EEEEEE'}}/>
       <Bar dataKey="value" isAnimationActive={false}  label={renderCustomBarLabel} />

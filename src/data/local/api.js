@@ -638,7 +638,8 @@ async function getMessages({uuid}){
 }
 
 /*======== Get Chart data =================================================*/
-async function getChartData3(){
+async function getChartData(){
+  console.log('CZ getChartData ');
     return await fetch(`/publicapi/v1/chartData`,{
         headers: {
             'Content-Type': 'application/json',
@@ -646,7 +647,7 @@ async function getChartData3(){
         }
     })
         .then(handleResponse)
-        .catch(handleErrorMsg('getChartData3 Unable to fetch mock chart data at this time.'))
+        .catch(handleErrorMsg('getChartData Unable to fetch mock chart data at this time.'))
  }
 
 /*=======================================================================*/
@@ -674,7 +675,7 @@ export const api = {
   getAlerts,
   getHospitalList,
   getNewsEvents,
-  getChartData3,
+  getChartData,
   sendMessage,
   getMessages,
 }

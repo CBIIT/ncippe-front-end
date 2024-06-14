@@ -19,7 +19,6 @@ import ReChartsPie3More from "../../components/Charts/ReChartsPie3More";
 import ReChartsBar from "../../components/Charts/ReChartsBar";
 import getAPI from "../../data";
 import TabAboutBar from "./AboutBar";
-import {chartLabelCancerType, chartLabelRace, chartLabelRuralUreban,chartLabelBioSpecimenParticipant, chartLabelSex, chartLabelEth } from "./ChartLabel";
 
 const COLORS = [
   "#246AD4",
@@ -30,76 +29,6 @@ const COLORS = [
   "#74F2AE",
   "#987DC4",
 ];
-
-// const chartLabelSex ={
-//  "Male":"charts.chart_data.PatientDemographicsSex.Male.label",
-//  "Female":"charts.chart_data.PatientDemographicsSex.Female.label",
-// };
-// cancer type data
-const dataEth = [
-  { col: "Not Hispanic or Latino", value: 183, fill: "#246AD4" },
-  { col: "Hispanic or Latino", value: 12, fill: "#61A1EC" },
-  { col: "Unknown", value: 4, fill: "#A5D3FE" },
-  { col: "Not Reported", value: 3, fill: "#FFCF54" },
-];
-
-//
-const dataRuralUrban = [
-  { col: "Urban", value: 309, fill: "#246AD4" },
-  { col: "Rural", value: 90, fill: "#61A1EC" },
-];
-
-const dataCancerType = [
-  { col: "Lung Cancer", value: 99,  fill: "#61A1EC" },
-  { col: "Multiple Myeloma", value: 92, fill: "#FFCF54" },
-  { col: "Melanoma", value: 57,  fill: "#A5D3FE" },
-  { col: "Colon Cancer", value: 55, fill: "#246AD4" },
-  { col: "Prostate Cancer", value: 32, fill: "#F294B0" },
-  { col: "Breast Cancer", value: 27,  fill: "#F294B0" },
-  { col: "Ovarian Cancer", value: 16, fill: "#74F2AE" },
-  { col: "Gastroesophageal Cancer", value: 12, fill: "#74F2AE" },
-  { col: "Acute Myeloid Leukemia", value: 9,  fill: "#987DC4" },
-];
-
-const dataRace = [
-  { col: "White", value: 305, fill: "#246AD4" },
-  { col: "Black or African American", value: 62, fill: "#61A1EC" },
-  { col: "Unknown", value: 13, fill: "#A5D3FE" },
-  { col: "Asian", value: 8, fill: "#FFCF54" },
-  { col: "American Indian or Alaska Native", value: 3, fill: "#F294B0" },
-  { col: "More Than One Race", value: 1, fill: "#74F2AE" },
-  {
-    col: "Native Hawaiian or other Pacific Islander",
-    value: 1,
-    fill: "#987DC4",
-  },
-];
-
-const barDataAge = [
-  { name: "30-39", value: 8, fill: "#246AD4" },
-  { name: "40-49", value: 13, fill: "#61A1EC" },
-  { name: "50-59", value: 49, fill: "#A5D3FE" },
-  { name: "60-69", value: 71, fill: "#FFCF54" },
-  { name: "70-79", value: 52, fill: "#F294B0" },
-  { name: "80-89", value: 9, fill: "#74F2AE" },
-];
-
-const barDataSex = [
-  { col: "Male", value: 121, fill: "#A5D3FE" },
-  { col: "Female", value: 81, fill: "#FFCF54" },
-];
-const barDataBioSpecimenParticipants = [
-  { col: "Participants", value: 376, fill: "#246AD4" },
-  { col: "Blood Samples", value: 1113, fill: "#61A1EC" },
-  { col: "Tumor Samples", value: 621, fill: "#74F2AE" },
-];
-
-const projectSummary ={
-  participantsNum:399,
-  sitesNum: 47,
-  CancerTypesNum: 10,
-  BioMarkerRerurnedNum:106,
-};
 
 const useStyles = makeStyles(
   (theme) => ({
@@ -176,6 +105,15 @@ const StudyProgressPage = () => {
   const lang = i18n.languages[0] === "en" ? "" : "-es";
 
   const lastUpdatedDate = Date.parse('2024-05-24');
+
+  const [projectSummary, setProjectSummary] = useState([]);
+  const [dataCancerType, setDataCancerType] = useState([]);
+  const [dataRace, setDataRace] = useState([]);
+  const [dataEth, setDataEth] = useState([]);
+  const [dataRuralUrban, setDataRuralUrban] = useState([]);
+  const [barDataSex, setBarDataSex] = useState([]);
+  const [barDataAge, setBarDataAge] = useState([]);
+  const [barDataBioSpecimenParticipants, setBarDataBioSpecimenParticipants] = useState([]);
  
   useEffect(() => {
     PubSub.publish("ANALYTICS", {
@@ -186,47 +124,73 @@ const StudyProgressPage = () => {
    
   }, [t]);
 
+  useEffect(() => {
+    getAPI.then(api => {
+      api.getChartData().then(resp => {
+        if(resp instanceof Error) {
+          throw resp
+        }
+        console.dir(resp);
+        setProjectSummary(resp["projectSummary"][0])
+        setDataCancerType(resp["cancerType"]);
+        setDataEth(resp["patientEthnicity"]);
+        setDataRace(resp["patientRace"]);
+        setBarDataAge(resp["patientAge"]);
+        setDataRuralUrban(resp["ruralUrban"].map((data, index) => {
+          console.log(" rual " + data.label)
+          data.fill = (data.label).includes(".Urban")? "#246AD4": "#61A1EC"; 
+          return data;
+        }));
+       
+        setBarDataSex(resp["patientSex"].map((data, index) => {
+          data.fill = (data.label).includes("Female")?"#FFCF54": "#A5D3FE" ; 
+          return data;
+        }));
+        setBarDataBioSpecimenParticipants(resp["bioSpecimenParticipants"]);
+      })
+    })
+    .catch(error => {
+      console.error(error)
+    })
+  }, [])
+
   const dataCancerTypecolor = dataCancerType.map((data, index) => {
     data.fill = COLORS[index%COLORS.length];
-    const label = chartLabelCancerType[data.col];
-    data.name = t(label)?? data.col;
+    data.name = t(data.label)?? data.name;
     return data;
   });
   const dataRacecolor = dataRace.map((data, index) => {
     data.fill = COLORS[index];
-    const label = chartLabelRace[data.col];
-    data.name = t(label)?? data.col;
+    data.name = t(data.label)?? data.name;
     return data;
   });
   
   const dataEthcolor = dataEth.map((data, index) => {
     data.fill = COLORS[index];
-    const label = chartLabelEth[data.col];
-    data.name = t(label)?? data.col;
+    data.name = t(data.label);
     return data;
   });
   
   const barDataAgecolor = barDataAge.map((data, index) => {
     data.fill = COLORS[index];
+    data.name = data.label;
     return data;
   });
   
   const dataRuralUrbancolor = dataRuralUrban.map((data, index) => {
-    const label = chartLabelRuralUreban[data.col];
-     data.name = t(label)?? data.col;
+     data.name = t(data.label);
     return data;
   });
   
   const barDataSexcolor = barDataSex.map( (data, index) => {
-     const label = chartLabelSex[data.col];
-     data.name = t(label)?? data.col;
-     return data;
-   });
+    data.name = t(data.label);
+    return data;
+  });
+
 
    const barDataBioSpecimenParticipantsColor = barDataBioSpecimenParticipants.map((data, index) => {
     data.fill = COLORS[index];
-    const label = chartLabelBioSpecimenParticipant[data.col];
-    data.name = t(label)?? data.col;
+    data.name = t(data.label);
     return data;
   });
 
@@ -301,38 +265,38 @@ const StudyProgressPage = () => {
           >
           <Grid item xs={12} sm={6} lg={3} sx={{ width:270, height:80}}>
           <IconCardStudy
-           count={projectSummary.participantsNum}
-            title={t('cards.0.title')}
-            desc={t('cards.0.title')}
-            altText={t('cards.0.title')}
+           count={projectSummary.participantsCount}
+            title={t('cards.ParticipantsCount.title')}
+            desc={t('cards.ParticipantsCount.title')}
+            altText={t('cards.ParticipantsCount.title')}
             icon="study-participant-icon.svg"
           />
         </Grid>
         <Grid sx={{ width:270, height:80}} item xs={12} sm={6} lg={3}>
           <IconCardStudy
-            count={projectSummary.sitesNum}
-            title={t('cards.1.title')}
-            desc={t('cards.1.title')}
-            altText={t('cards.1.title')}
+            count={projectSummary.sitesCount}
+            title={t('cards.SitesCount.title')}
+            desc={t('cards.SitesCount.title')}
+            altText={t('cards.SitesCount.title')}
             icon="study-specimen-icon.svg"
           />
         </Grid>
         <Grid sx={{ width:270, height:80}} item xs={12} sm={6} lg={3}>
           <IconCardStudy
             icon="study-cancersample-icon.svg"
-            count={projectSummary.CancerTypesNum}
-            title={t('cards.2.title')}
-            desc={t('cards.2.title')}
-            altText={t('cards.2.title')}
+            count={projectSummary.cancerTypesCount}
+            title={t('cards.CancerTypesCount.title')}
+            desc={t('cards.CancerTypesCount.title')}
+            altText={t('cards.CancerTypesCount.title')}
           />
         </Grid>
         <Grid  item xs={12} sm={6} lg={3}>
           <IconCardStudy
             icon="study-biomarker-icon.svg"
-            count={projectSummary.BioMarkerRerurnedNum}
-            title={t('cards.3.title')}
-            desc={t('cards.3.title')}
-            altText={t('cards.3.title')}
+            count={projectSummary.bioMarkerReturnedCount}
+            title={t('cards.BioMarkerReturnedCount.title')}
+            desc={t('cards.BioMarkerReturnedCount.title')}
+            altText={t('cards.BioMarkerReturnedCount.title')}
           />
         </Grid>
 

@@ -425,15 +425,15 @@ async function getMessages({uuid}){
 let tempA;
 /*=======================================================================*/
 /*======== Get Chart data =================================================*/
-async function getChartData0() {
+async function getChartData() {
   console.log('MHL getChartData1 ***');
   return await fetch(`/publicapi/v1/chartData`)
       .then(handleResponse)
       .catch(handleErrorMsg('Unable to fetch messages at this time.'))
 }
-async function getChartData() {
-  console.log('MHL getChartData1 ***');
-  return await fetch(`/publicapi/v1/chartData`)
+async function getChartData0() {
+  console.log('Test getChartData ***');
+  return await fetch(`/api/v1/chartData`)
       .then(response => response.body)
       .then(body => {
         const reader = body.getReader();
@@ -474,31 +474,17 @@ async function getChartData() {
 /*=======================================================================*/
 // Make a request and get the response
 
-
 // ////////////////////////////////
-async function getChartData2(){
-    console.log('MHL getChartData2');
-    return await fetch(`/publicapi/v1/newsEvents`,{
-        headers: {
-            'Content-Type': 'text/plain',
-            'access-control-allow-origin': '*'
-        }
-    })
-        .then(handleResponse)
-        .catch(handleErrorMsg('getChartData2 Unable to fetch chart data at this time.'))
-}
-
-// ////////////////////////////////
-async function getChartData3(){
-    return await fetch(`/publicapi/v1/chartData`,{
-        headers: {
-            'Content-Type': 'application/json',
-            'access-control-allow-origin': '*'
-        }
-    })
-        .then(handleResponse)
-        .catch(handleErrorMsg('getChartData3 Unable to fetch chart data at this time.'))
-}
+// async function getChartData3(){
+//     return await fetch(`/publicapi/v1/chartData`,{
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'access-control-allow-origin': '*'
+//         }
+//     })
+//         .then(handleResponse)
+//         .catch(handleErrorMsg('getChartData3 Unable to fetch chart data at this time.'))
+// }
 
 /*=======================================================================*/
 /*======== Public API ===================================================*/
@@ -527,7 +513,5 @@ export const api = {
   getNewsEvents,
   sendMessage,
   getMessages,
-  getChartData,
-  getChartData2,
-  getChartData3
+  getChartData
 }
