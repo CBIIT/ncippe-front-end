@@ -328,7 +328,7 @@ const StudyProgressPage = () => {
             spacing={1}
             // alignItems="stretch"
           >
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} md={6} lg={4}>
               <Grid
                 container
                 spacing={1}
@@ -351,7 +351,7 @@ const StudyProgressPage = () => {
               </Grid>
             </Grid>{" "}
             {/* end grid for 1st chart - 1st row */}
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} md={6}  lg={4}>
               <Grid
                 container
                 direction="column"
@@ -374,7 +374,7 @@ const StudyProgressPage = () => {
               </Grid>
             </Grid>{" "}
             {/* end grid 2nd chart - 1st row */}
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} md={6}  lg={4}>
               <Grid
                 container
                 direction="column"
@@ -407,7 +407,7 @@ const StudyProgressPage = () => {
             spacing={1}
             // alignItems="stretch"
           >
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} md={6}  lg={4} >
               <Grid
                 container
                 direction="column"
@@ -429,7 +429,7 @@ const StudyProgressPage = () => {
               </Grid>
             </Grid>{" "}
             {/* end Grid for 1st Chart -2nd row */}
-            <Grid container item xs={12} sm={6} md={4} alignItems="flex-end">
+            <Grid container item xs={12} md={6} lg={4} alignItems="flex-end">
               <Grid
                 container
                 direction="column"
@@ -450,7 +450,7 @@ const StudyProgressPage = () => {
               </Grid>
             </Grid>{" "}
             {/*end grid for 2nd Chart - 2nd row */}
-            <Grid container item xs={12} sm={6} md={4}  alignItems="flex-end" >
+            <Grid container item xs={12} md={6}  lg={4}  alignItems="flex-end" >
               <Grid
                 container
                 direction="column"
@@ -477,7 +477,7 @@ const StudyProgressPage = () => {
             spacing={1}
            // disableEqualOverflow 
           >
-            <Grid item xs={12} sm={6} md={4}   sx ={{ my: 5 }} >
+            <Grid item xs={12} md={6}  lg={4}   sx ={{ my: 5 }} >
               <Grid
                 container
                 direction="column"
