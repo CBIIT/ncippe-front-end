@@ -1,12 +1,12 @@
 import "./styles.css";
 import React from "react";
-import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,} from "recharts";
+import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,Text} from "recharts";
 
 const renderCustomBarLabel = (props) => {
   const { payload, x, y, width, height, value, fill } = props;
   return <text x={x + width / 2} y={y} 
   fontSize={12} fontFamily="Open Sans" fontWeight={600}
-  fill={fill} textAnchor="middle" dy={-6}> {value}
+  fill={fill} textAnchor="middle" dy={-6} wrapperStyle={{ position: 'relative' }} > {value}
   </text>;
 };
 
@@ -30,7 +30,7 @@ export default function ReChartsBar(props) {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name"interval={0}/>
+      <XAxis dataKey="name" interval={0} label={<Text width={60} />}/>
       <YAxis />
       <Tooltip cursor={{fill: '#EEEEEE'}}/>
       <Bar dataKey="value" isAnimationActive={false}  label={renderCustomBarLabel} />
