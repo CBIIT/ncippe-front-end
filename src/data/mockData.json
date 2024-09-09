@@ -1279,9 +1279,18 @@
       }
     }
   ],
-    "chartData":
+  "chartData":
         {
-            "projectSummary":[
+          "projectSummary":[
+            {
+              "participantsCount":399,
+              "sitesCount": 47,
+              "cancerTypesCount": 10,
+              "bioMarkerReturnedCount":106,
+              "lastRevisedDate": 1715802327000
+            }
+        ],
+            "projectSummaryOld":[
                 {
                     "label":"charts.chart_data.ProjectSummary.ParticipantsEnrolled",
                     "value":24
@@ -1299,95 +1308,127 @@
                     "value":16
                 }
             ],
-            "patientDemographicsByCancerType":[
+            "cancerType":[
+                {
+                "label":"charts.chart_data.PatientDemographics.LungCancer.label",
+                "name":"Lung Cancer",
+                "value":99
+                },
+                {
+                  "label":"charts.chart_data.PatientDemographics.MultipleMyeloma.label",
+                  "name":"Multiple Myeloma",
+                  "value":92
+                },
+               {
+                "label":"charts.chart_data.PatientDemographics.Melanoma.label",
+                "name":"Melanoma",
+                "value":57
+                },
                 {
                     "label":"charts.chart_data.PatientDemographics.ColonCancer.label",
-                    "value":28
+                    "name":"Colon Cancer",
+                    "value":55
                 },
-                {
-                    "label":"charts.chart_data.PatientDemographics.LungCancer.label",
-                    "value":21
-                },
+              
                 {
                     "label":"charts.chart_data.PatientDemographics.ProstateCancer.label",
-                    "value":18
+                    "name":"Prostage Cancer",
+                    "value":32
                 },
                 {
-                    "label":"charts.chart_data.PatientDemographics.Melanoma.label",
-                    "value":16
+                    "label":"charts.chart_data.PatientDemographics.BreastCancer.label",
+                    "name":"Breast Cancer",
+                    "value":27
                 },
+
+                {
+                  "label":"charts.chart_data.PatientDemographics.OvarianCancer.label",
+                  "name":"Ovarian Cancer",
+                  "value":16
+              },
                 {
                     "label":"charts.chart_data.PatientDemographics.GastroesophagealCancer.label",
-                    "value":9
+                    "name":"Colon Cancer",
+                    "value":12
                 },
-                {
-                    "label":"charts.chart_data.PatientDemographics.MultipleMyeloma.label",
-                    "value":4
-                },
-                {
-                    "label":"charts.chart_data.PatientDemographics.Leukemia.label",
-                    "value":6
-                },
+              
                 {
                     "label":"charts.chart_data.PatientDemographics.AcuteMyeloid.label",
-                    "value":1
+                    "name":"Acute Myeloid Leukemia",
+                    "value":9
                 }
             ],
-            "participantDemographicsAge":[
+            "patientAge":[
                 {
-                    "label":"34-43",
-                    "value":38
-                },
-                {
-                    "label":"44-53",
-                    "value":15
-                },
-                {
-                    "label":"54-63",
-                    "value":23
-                },
-                {
-                    "label":"64-73",
+                    "label":"30-39",
                     "value":8
                 },
                 {
-                    "label":"74-83",
-                    "value":15
+                    "label":"40-49",
+                    "value":13
                 },
                 {
-                    "label":"84-93",
-                    "value":2
-                }
-            ],
-            "participantDemographicsSex":[
-                {
-                    "label":"about:charts.chart_data.PatientDemographicsSex.Male.label",
-                    "value":62
+                    "label":"50-59",
+                    "value":49
                 },
                 {
-                    "label":"about:charts.chart_data.PatientDemographicsSex.Female.label",
-                    "value":38
+                    "label":"60-69",
+                    "value":71
+                },
+                {
+                    "label":"70-79",
+                    "value":52
+                },
+                {
+                    "label":"80-89",
+                    "value":9
                 }
             ],
-            "patientDemographicsRace":[
+            "patientSex":[
+                {
+                    "label":"charts.chart_data.PatientDemographicsSex.Male.label",
+                    "name": "Male",
+                    "value":121
+                },
+                {
+                    "label":"charts.chart_data.PatientDemographicsSex.Female.label",
+                    "name":"Female",
+                    "value":81
+                }
+            ],
+            "ruralUrban":[
+              {
+                  "label":"charts.chart_data.PatientDemographicsRuralUrban.Urban.label",
+                  "value":309
+              },
+              {
+                  "label":"charts.chart_data.PatientDemographicsRuralUrban.Rural.label",
+                  "value":90
+              }
+          ],
+            "patientRace":[
                 {
                     "label":"charts.chart_data.PatientDemographicsRace.White.label",
-                    "value":74
+                    "value":305
                 },
                 {
                     "label":"charts.chart_data.PatientDemographicsRace.BlackOrAfricanAmerican.label",
-                    "value":18
+                    "value":62
+                },
+                {
+                  "label":"charts.chart_data.PatientDemographicsRace.Unknown.label",
+                  "value":13
                 },
                 {
                     "label":"charts.chart_data.PatientDemographicsRace.Asian.label",
-                    "value":3
+                    "value":8
                 },
                 {
-                    "label":"charts.chart_data.PatientDemographicsRace.Unknown.label",
-                    "value":3
-                },
+                  "label":"charts.chart_data.PatientDemographicsRace.AmericanIndian.label",
+                  "value":3
+                },    
                 {
-                    "label":"charts.chart_data.PatientDemographicsRace.NotReported.label",
+                    "label":"charts.chart_data.PatientDemographicsRace.MoreThanOne.label",
                     "value":1
                 },
                 {
@@ -1395,24 +1436,39 @@
                     "value":1
                 }
             ],
-            "patientDemographicsEthnicity":[
+            "patientEthnicity":[
                 {
                     "label":"charts.chart_data.PatientDemographicsEthnicity.NotHispanicOrLatino.label",
-                    "value":94
+                    "value":183
                 },
                 {
                     "label":"charts.chart_data.PatientDemographicsEthnicity.HispanicOrLatino.label",
-                    "value":4
+                    "value":12
                 },
                 {
                     "label":"charts.chart_data.PatientDemographicsEthnicity.Unknown.label",
-                    "value":1
+                    "value":4
                 },
                 {
                     "label":"charts.chart_data.PatientDemographicsEthnicity.NotReported.label",
-                    "value":1
+                    "value":3
                 }
-            ]
+            ],
+            "bioSpecimenParticipants":[
+              {
+                "label":"charts.chart_data.PatientDemographicsParticipantBio.Participants.label",
+                "value": 376
+              },
+              {
+                  "label":"charts.chart_data.PatientDemographicsParticipantBio.BloodSamples.label",
+                  "value":1113
+              },
+             
+              {
+                  "label":"charts.chart_data.PatientDemographicsParticipantBio.TumorSamples.label",
+                  "value":621
+              }
+          ]
         }
 
 }
