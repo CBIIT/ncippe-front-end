@@ -426,7 +426,7 @@ let tempA;
 /*=======================================================================*/
 /*======== Get Chart data =================================================*/
 async function getChartData() {
-  console.log('MHL getChartData1 ***');
+  // console.log('MHL getChartData1 ***');
   return await fetch(`/publicapi/v1/chartData`)
       .then(handleResponse)
       .catch(handleErrorMsg('Unable to fetch messages at this time.'))

@@ -130,7 +130,6 @@ const StudyProgressPage = () => {
         if(resp instanceof Error) {
           throw resp
         }
-        console.dir(resp);
         setProjectSummary(resp["projectSummary"][0]);
         setDBLastUpdatedDate(resp["projectSummary"][0].lastRevisedDate);
         setDataCancerType(resp["cancerType"]);
@@ -138,7 +137,6 @@ const StudyProgressPage = () => {
         setDataRace(resp["patientRace"]);
         setBarDataAge(resp["patientAge"]);
         setDataRuralUrban(resp["ruralUrban"].map((data, index) => {
-          console.log(" rual " + data.label)
           data.fill = (data.label).includes(".Urban")? "#246AD4": "#61A1EC"; 
           return data;
         }));
