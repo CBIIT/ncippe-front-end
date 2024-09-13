@@ -333,6 +333,7 @@ const Header = () => {
 
               {/* <a onClick={closeMenu} href="/about/research">{t('nav.research')}</a> */}
               <a onClick={closeMenu} href="/about/news">{t('nav.about_subNav.news')}</a>
+              <a onClick={closeMenu} href="/about/studyprogress">{t('nav.about_subNav.studyprogress')}</a>
             </ExpansionMenu>
 
             <ExpansionMenu

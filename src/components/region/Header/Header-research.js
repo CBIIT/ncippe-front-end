@@ -282,6 +282,9 @@ const Header = () => {
             >
               <a onClick={closeMenu} href="/about">{t('nav.about_subNav.about')}</a>
               <a onClick={closeMenu} href="/about/eligibility">{t('nav.about_subNav.eligibility')}</a>
+              <a onClick={closeMenu} href="/about/news">{t('nav.about_subNav.news')}</a>
+              <a onClick={closeMenu} href="/about/studyprogress">{t('nav.about_subNav.studyprogress')}</a>
+
             </ExpansionMenu>
 
             <ExpansionMenu
