@@ -30,7 +30,6 @@ export default function ReChartsBar2sets(props) {
       <XAxis dataKey="name" interval={0} label={<Text width={60} />}/>
       <YAxis />
       <Tooltip />
-      <Legend />
       <Bar dataKey="value" isAnimationActive={false}  label={renderCustomBarLabel} />
     </BarChart>
     // </ResponsiveContainer>
