@@ -17,6 +17,7 @@ import ArticleImage from "../../components/utils/ArticleImage";
 import ReChartsPie2Less from "../../components/Charts/ReChartsPie2Less";
 import ReChartsPie3More from "../../components/Charts/ReChartsPie3More";
 import ReChartsBar from "../../components/Charts/ReChartsBar";
+import ReChartsBar2sets from "../../components/Charts/ReChartsBar2sets";
 import getAPI from "../../data";
 import TabAboutBar from "./AboutBar";
 
@@ -488,10 +489,10 @@ const StudyProgressPage = () => {
                   </Typography>
                 </Grid>
                 <Grid container item margintop={6}>
-                  <ReChartsBar
+                  <ReChartsBar2sets
                     title="Biospecimens"
                     inputdata={barDataBioSpecimenParticipantsColor}
-                  ></ReChartsBar>
+                  ></ReChartsBar2sets>
                 </Grid>
               </Grid>
             </Grid>
