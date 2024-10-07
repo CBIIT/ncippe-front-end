@@ -55,7 +55,7 @@ const ParticipantInfo = (props) => {
     setHasError(prev => ({
       firstName: !stringRegex.test(addParticipantContext.firstName),
       lastName: !stringRegex.test(addParticipantContext.lastName),
-      email: !emailRegex.test(addParticipantContext.email),
+      email: typeof addParticipantContext.email === 'string' ? false: !emailRegex.test(addParticipantContext.email),
       lang: typeof addParticipantContext.lang === 'string' ? false : true,
     }))
   }
@@ -107,7 +107,7 @@ const ParticipantInfo = (props) => {
       />
       <TextField
         error={hasError.email}
-        required
+        // required
         id="email"
         label={t('form.email')}
         className={classes.textField}
