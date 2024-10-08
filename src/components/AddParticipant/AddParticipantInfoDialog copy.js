@@ -359,7 +359,7 @@ const AddParticipantInfoDialog = (props) => {
         ...prev,
         firstName: stringRegex.test(formData.firstName),
         lastName: stringRegex.test(formData.lastName),
-        email: emailRegex.test(formData.email),
+        email: typeof formData.email === 'string' ? emailRegex.test(formData.email) :false,
         lang: typeof formData.lang === 'string' ? true : false
       }))
     }
