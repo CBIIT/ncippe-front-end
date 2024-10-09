@@ -219,7 +219,7 @@ const AddParticipantInfoDialog = (props) => {
       // validate fields
       const firstName_error = !stringRegex.test(formData.firstName)
       const lastName_error = !stringRegex.test(formData.lastName)
-      const email_error = typeof formData.email === 'string' ? false: !emailRegex.test(formData.email)
+      const email_error = formData.email ===  null || formData.email === '' ? false: !emailRegex.test(formData.email)
       const lang_error = typeof formData.lang === 'string' ? false : true
 
       // set validations
