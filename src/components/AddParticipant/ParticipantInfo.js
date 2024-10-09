@@ -55,7 +55,7 @@ const ParticipantInfo = (props) => {
     setHasError(prev => ({
       firstName: !stringRegex.test(addParticipantContext.firstName),
       lastName: !stringRegex.test(addParticipantContext.lastName),
-      email: typeof addParticipantContext.email === 'string' ? false: !emailRegex.test(addParticipantContext.email),
+      email: addParticipantContext.email ===  null || addParticipantContext.email === '' ? false: !emailRegex.test(addParticipantContext.email),
       lang: typeof addParticipantContext.lang === 'string' ? false : true,
     }))
   }
