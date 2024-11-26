@@ -105,10 +105,16 @@ const Consent = () => {
             <Box mb={5} className={classes.linkList}>
               <Typography variant="h3" component="h3">{t('sample_title')}</Typography>
               {/* add if condition for Button */}
-              <Button disabled={lang === '-es'} href={`${process.env.PUBLIC_URL}/assets/documents/Sample-Adult-Consent-Form${lang}.pdf`} color="primary" rel="noopener noreferrer" target="_blank">
+              {lang !== '-es' && ( 
+                <Button href={`${process.env.PUBLIC_URL}/assets/documents/Sample-Adult-Consent-Form${lang}.pdf`} color="primary" rel="noopener noreferrer" target="_blank">
+                  <RenderContent children={t('form_link_adult')} />
+                </Button>
+              )}
+              {/* 
+              <Button href={`${process.env.PUBLIC_URL}/assets/documents/Sample-Adult-Consent-Form${lang}.pdf`} color="primary" rel="noopener noreferrer" target="_blank">
                 
                 <RenderContent children={t('form_link_adult')} />
-              </Button>
+              </Button> */}
               <Button  href={`${process.env.PUBLIC_URL}/assets/documents/Sample-Parental-Permission-Form${lang}.pdf`} color="primary" rel="noopener noreferrer" target="_blank">
                 <RenderContent children={t('form_link_parental')} />
               </Button>
