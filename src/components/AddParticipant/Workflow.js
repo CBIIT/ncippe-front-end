@@ -37,7 +37,8 @@ const AddParticipantWorkflow = (props) => {
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const [isOpen, setIsOpen] = useState(false)
-  const [submitText, setSubmitText] = useState(t('form.save'))
+  const [submitText, setSubmitText] = useState(t('form.saveActivate'))
+  const [saveText, setSaveText] = useState(t('form.save'))
 
   // set activeStep when navigation value changes
   useEffect(() => {
@@ -164,8 +165,8 @@ const AddParticipantWorkflow = (props) => {
     // fake response delay
     // setTimeout(() => {
     // api[env].uploadPatientReport({
-    getAPI.then(api => {
-      api.uploadPatientReport({
+    getAPI.then(async api => {
+      return await api.uploadPatientReport({
         patientId: addParticipantContext.patientId,
         uuid,
         reportFile: addParticipantContext.file,
@@ -179,17 +180,17 @@ const AddParticipantWorkflow = (props) => {
           dispatch({
             type: 'navigate',
             data: 'finish'
-          })
+          });
           PubSub.publish('ANALYTICS', {
             events: 'event80',
             eventName: 'NewParticipantComplete',
             prop42: `BioBank_NewParticipant|Completed`,
             eVar42: `BioBank_NewParticipant|Completed`,
-          })
+          });
         }
       })
       .catch(error => {
-        console.error(error)
+        console.error('Error uploading Content Form:',error);
         // Save unsuccessful - go back a step
         dispatch({
           type: 'error',
@@ -197,17 +198,17 @@ const AddParticipantWorkflow = (props) => {
             upload_error: true,
             navigate: 'addReport'
           }
-        })
+        });
         PubSub.publish('ANALYTICS', {
           events: 'event81',
           eventName: 'UploadError',
           prop42: `BioBank_ConsentUpload|Error: Failed to upload to server`,
           eVar42: `BioBank_ConsentUpload|Error: Failed to upload to server`,
-        })
-      })
-    })
+        });
+      });
+    });
   // }, 3000)
-  }
+  };
 
   const activateParticipant = () => {
     getAPI.then(async api => {
@@ -236,7 +237,7 @@ const AddParticipantWorkflow = (props) => {
       }
     })
     .catch(error => {
-      console.error(error)
+      console.error('Error actuviating a patient:', error)
       dispatch({
         type: 'error',
         data: {
@@ -255,17 +256,20 @@ const AddParticipantWorkflow = (props) => {
         break
       case 'reset':
         setActiveStep(0)
-        setSubmitText(t('form.save'))
+        setSubmitText(t('form.saveActivate'))
+        setSaveText(t('form.save'))
         dispatch({
           type: 'reset'
         })
         break
       case 'participantId':
         setActiveStep(0)
-        setSubmitText(t('form.save'))
+        setSubmitText(t('form.saveActivate'))
+        setSaveText(t('form.save'))
         break
       case 'addReport':
         setActiveStep(1)
+        setSaveText(t('form.save'))
         setSubmitText(t('form.submit'))
         break
       case 'submit':
@@ -315,6 +319,7 @@ const AddParticipantWorkflow = (props) => {
         )}
       </DialogContent>
       <DialogActions>
+      {activeStep === 0 && ( <Button color="primary" variant="outlined" onClick={handleClose}>{saveText}</Button> )}
         <Button color="primary" variant="contained" type="submit" form="activatePatient">{submitText}</Button>
         <Button variant="text" color="primary" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
