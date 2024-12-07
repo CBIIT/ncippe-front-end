@@ -309,8 +309,8 @@ const AddParticipantInfoDialog = (props) => {
           eVar42: `BioBank_NewParticipant|Submit`,
         })
 
-        getAPI.then(api => {
-          return api.uploadPatientReport({
+        getAPI.then(async api => {
+         return await api.uploadPatientReport({
             patientId,
             uuid,
             reportFile: formData.file,
