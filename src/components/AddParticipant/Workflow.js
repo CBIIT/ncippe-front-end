@@ -161,6 +161,46 @@ const AddParticipantWorkflow = (props) => {
     })
   }
 
+  const handleSavePatient = (e) => {
+    e.preventDefault()
+
+    getAPI.then(api => {
+      api.updateParticipantDetails({
+        uuid,
+        patient: {
+          patientId,
+          firstName: addParticipantContext.firstName,
+          lastName: addParticipantContext.lastName,
+          email: addParticipantContext.email,
+          lang: addParticipantContext.lang
+        }
+      }).then(resp => {
+        if(resp instanceof Error) {
+          //TODO: perhaps another status message?
+          throw resp
+        } else {
+          // save successful, move to the next step - upload consent form
+          dispatch({
+            type: "navigate",
+            data: "dashboard"
+          })
+          updatePatientList()
+        }
+      })
+      .catch(error => {
+        console.error(error)
+        dispatch({
+          type: "error",
+          data: {
+            updateUser_error: true,
+            navigate: "participantId"
+          }
+        })
+      })
+    })
+  }
+
+
   const saveConsentForm = () => {
     // fake response delay
     // setTimeout(() => {
@@ -177,20 +217,11 @@ const AddParticipantWorkflow = (props) => {
           throw resp
         } else {
           // Save successful
-          dispatch({
-            type: 'navigate',
-            data: 'finish'
-          });
-          PubSub.publish('ANALYTICS', {
-            events: 'event80',
-            eventName: 'NewParticipantComplete',
-            prop42: `BioBank_NewParticipant|Completed`,
-            eVar42: `BioBank_NewParticipant|Completed`,
-          });
+         handleClose()
         }
       })
       .catch(error => {
-        console.error('Error uploading Content Form:',error);
+        console.error('Error saving patient:',error);
         // Save unsuccessful - go back a step
         dispatch({
           type: 'error',
@@ -242,7 +273,7 @@ const AddParticipantWorkflow = (props) => {
         type: 'error',
         data: {
           activate_error: true,
-          navigate: 'addReport'
+          navigate: 'dashboard'
         }
       })
     })
@@ -319,7 +350,7 @@ const AddParticipantWorkflow = (props) => {
         )}
       </DialogContent>
       <DialogActions>
-      {activeStep === 0 && ( <Button color="primary" variant="outlined" onClick={handleClose}>{saveText}</Button> )}
+      {activeStep === 0 && ( <Button color="primary" variant="outlined" onClick={handleSavePatient}>{saveText}</Button> )}
         <Button color="primary" variant="contained" type="submit" form="activatePatient">{submitText}</Button>
         <Button variant="text" color="primary" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
