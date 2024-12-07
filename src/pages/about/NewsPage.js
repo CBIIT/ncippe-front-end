@@ -44,8 +44,8 @@ const NewsPage = () => {
         if(resp instanceof Error) {
           throw resp
         }
-        setNewsData(resp.filter(items => items.contentType === "news"))
-        setEventsData(resp.filter(items => items.contentType === "event"))
+        setNewsData(resp.filter(items => items.contentType === "news").sort((a, b) => (b.publishedDate - a.publishedDate)))
+        setEventsData(resp.filter(items => items.contentType === "event").sort((a, b) => (b.publishedDate - a.publishedDate)))
       })
     })
     .catch(error => {

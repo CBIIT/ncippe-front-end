@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
 
 import Status from '../Status'
+import { count } from 'd3'
 
 const useStyles = makeStyles( theme => ({
   table: {
@@ -79,7 +80,7 @@ const NewsEventsTable = (props) => {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
-          count={totalCount}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
