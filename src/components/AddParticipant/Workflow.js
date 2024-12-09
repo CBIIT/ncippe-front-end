@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Paper, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
-import { Clear as ClearIcon } from '@material-ui/icons'
+import { Clear as ClearIcon, Save as SaveIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 import { navigate } from '@reach/router'
@@ -350,7 +350,7 @@ const AddParticipantWorkflow = (props) => {
         )}
       </DialogContent>
       <DialogActions>
-      {activeStep === 0 && ( <Button color="primary" variant="outlined" onClick={handleSavePatient}>{saveText}</Button> )}
+      {activeStep === 0 && ( <Button color="primary" variant="outlined" onClick={handleSavePatient}><SaveIcon />{saveText}</Button> )}
         <Button color="primary" variant="contained" type="submit" form="activatePatient">{submitText}</Button>
         <Button variant="text" color="primary" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
