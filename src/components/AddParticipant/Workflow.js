@@ -39,6 +39,7 @@ const AddParticipantWorkflow = (props) => {
   const [isOpen, setIsOpen] = useState(false)
   const [submitText, setSubmitText] = useState(t('form.saveActivate'))
   const [saveText, setSaveText] = useState(t('form.save'))
+  const [saveOnly, setSaveOnly] = useState(false);
 
   // set activeStep when navigation value changes
   useEffect(() => {
@@ -161,11 +162,10 @@ const AddParticipantWorkflow = (props) => {
     })
   }
 
-  const handleSavePatient = (e) => {
-    e.preventDefault()
-
-    getAPI.then(api => {
-      api.updateParticipantDetails({
+  const handleSavePatient = () => {
+    
+    getAPI.then(async api => {
+      return await api.updateParticipantDetails({
         uuid,
         patient: {
           patientId,
@@ -312,6 +312,11 @@ const AddParticipantWorkflow = (props) => {
           saveConsentForm()
         }
         break
+        case 'saveOnlySubmit':
+          if(activeStep === 0) {
+            handleSavePatient()
+          } 
+          break
       case 'finish': 
         activateParticipant()
         break
@@ -350,9 +355,9 @@ const AddParticipantWorkflow = (props) => {
         )}
       </DialogContent>
       <DialogActions>
-      {activeStep === 0 && ( <Button color="primary" variant="outlined" onClick={handleSavePatient}><SaveIcon />{saveText}</Button> )}
-      {addParticipantContext.email ? (<Button color="primary" variant="contained" type="submit" form="activatePatient" >{submitText}</Button>):
-      (<Button color="primary" variant="contained" type="submit" form="activatePatient" disabled >{submitText}</Button>) }
+      {activeStep === 0 && ( <Button color="primary" variant="outlined" id="Submit1" type="submit" form="activatePatient" ><SaveIcon />{saveText}</Button> )}
+      {addParticipantContext.email ? (<Button color="primary" variant="contained" id="Submit2" type="submit" form="activatePatient" >{submitText}</Button>):
+      (<Button color="primary" variant="contained" type="submit" form="activatePatient" id="Submit2" disabled >{submitText}</Button>) }
         <Button variant="text" color="primary" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>
