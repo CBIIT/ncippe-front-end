@@ -351,7 +351,8 @@ const AddParticipantWorkflow = (props) => {
       </DialogContent>
       <DialogActions>
       {activeStep === 0 && ( <Button color="primary" variant="outlined" onClick={handleSavePatient}><SaveIcon />{saveText}</Button> )}
-        <Button color="primary" variant="contained" type="submit" form="activatePatient">{submitText}</Button>
+      {addParticipantContext.email ? (<Button color="primary" variant="contained" type="submit" form="activatePatient" >{submitText}</Button>):
+      (<Button color="primary" variant="contained" type="submit" form="activatePatient" disabled >{submitText}</Button>) }
         <Button variant="text" color="primary" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>
