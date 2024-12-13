@@ -241,8 +241,8 @@ const AddParticipantInfoDialog = (props) => {
         })
         // submit user update
         setActiveStep(2) // show spinning loader while fetch is running
-        getAPI.then(api => {
-          api.updateParticipantDetails({
+        getAPI.then(async api => {
+          return await api.updateParticipantDetails({
             uuid,
             token,
             patient: {

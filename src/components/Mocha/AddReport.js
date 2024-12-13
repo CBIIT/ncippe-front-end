@@ -135,8 +135,8 @@ const AddReport = (props) => {
       // fake response delay
       // setTimeout(() => {
         // api[env].uploadPatientReport({
-        getAPI.then(api => {
-          api.uploadPatientReport({
+        getAPI.then(async api => {
+          return await api.uploadPatientReport({
             patientId: mochaContext.patientId,
             uuid,
             reportFile: mochaContext.reportFile,

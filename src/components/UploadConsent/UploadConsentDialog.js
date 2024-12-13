@@ -138,8 +138,8 @@ const UploadConcentDialog = (props) => {
       }))
       // fake response delay
       // setTimeout(() => {
-        getAPI.then(api => {
-          api.uploadConsentForm({
+        getAPI.then(async api => {
+          return await api.uploadConsentForm({
             patientId,
             uuid,
             reportFile: formData.file,

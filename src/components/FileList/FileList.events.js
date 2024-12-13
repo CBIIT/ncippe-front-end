@@ -76,8 +76,8 @@ const FileListWrapper = (props) => {
         }
       }
   
-      getAPI.then(api => {
-        api.fetchPatientFile({reportId: fileGUID, token})
+      getAPI.then(async api => {
+       return await api.fetchPatientFile({reportId: fileGUID, token})
           .then(resp => {
             try{
               const disposition = resp.headers.get('Content-Disposition')
@@ -133,9 +133,9 @@ const FileListWrapper = (props) => {
           })
           .then(() => {
             // mark this file as viewed in database
-            getAPI.then(api => {
+            getAPI.then(async api => {
               // dynamic api call depending on file type
-              api[API_methodName]({patientId, uuid, reportId: fileGUID, token}).then(resp => {
+              return await api[API_methodName]({patientId, uuid, reportId: fileGUID, token}).then(resp => {
                 if(resp instanceof Error) {
                   console.error(resp.message)
                 } else {

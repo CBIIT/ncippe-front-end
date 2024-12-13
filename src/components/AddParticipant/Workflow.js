@@ -126,8 +126,8 @@ const AddParticipantWorkflow = (props) => {
   const saveParticipantData = () => {
     // e.preventDefault()
 
-    getAPI.then(api => {
-      api.updateParticipantDetails({
+    getAPI.then(async api => {
+      return await api.updateParticipantDetails({
         uuid,
         patient: {
           patientId,
@@ -313,10 +313,10 @@ const AddParticipantWorkflow = (props) => {
         }
         break
         case 'saveOnlySubmit':
-          if(activeStep === 0) {
-            handleSavePatient()
-          } 
-          break
+        //  if(activeStep === 0) {
+          handleSavePatient()
+        //  } 
+        break
       case 'finish': 
         activateParticipant()
         break
@@ -355,9 +355,7 @@ const AddParticipantWorkflow = (props) => {
         )}
       </DialogContent>
       <DialogActions>
-      {activeStep === 0 && ( <Button color="primary" variant="outlined" id="Submit1" type="submit" form="activatePatient" ><SaveIcon />{saveText}</Button> )}
-      {addParticipantContext.email ? (<Button color="primary" variant="contained" id="Submit2" type="submit" form="activatePatient" >{submitText}</Button>):
-      (<Button color="primary" variant="contained" type="submit" form="activatePatient" id="Submit2" disabled >{submitText}</Button>) }
+        <Button color="primary" variant="contained" id="Submit2" type="submit" form="activatePatient" >{submitText}</Button>
         <Button variant="text" color="primary" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>

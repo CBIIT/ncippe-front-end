@@ -136,9 +136,9 @@ const ParticipantView = (props) => {
     // const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).uuid
     const patientData = patients.find(patient => patient.patientId === patientId)
     if(!patientData.reports) {
-      getAPI.then(api => {
+      getAPI.then(async api => {
         //TODO: stuff participant data into user's context for patients - prevent multiple fetch calls for same patient
-        api.fetchPatientTestResults({patientId, adminId: uuid, token}).then(resp => {
+        return await api.fetchPatientTestResults({patientId, adminId: uuid, token}).then(resp => {
           if(resp instanceof Error) {
             setParticipant({
               portalAccountStatus: "ACCT_TERMINATED_AT_PPE"
@@ -249,8 +249,8 @@ const ParticipantView = (props) => {
     setErrorEmail(!isValid)
     if(isValid) {
       // Get API
-      getAPI.then(api => {
-        api.updateParticipantEmail({patientId, email: participantEmail, token}).then(resp => {
+      getAPI.then(async api => {
+        return await api.updateParticipantEmail({patientId, email: participantEmail, token}).then(resp => {
           if(resp instanceof Error) {
             throw resp
           }

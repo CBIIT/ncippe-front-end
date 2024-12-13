@@ -42,8 +42,8 @@ const ParticipantId = (props) => {
     if(isValidUserId(mochaContext.patientId)) {
   
       // api[env].fetchUser({patientId: mochaContext.patientId, token})
-      getAPI.then(api => {
-        api.fetchUser({patientId: mochaContext.patientId})
+      getAPI.then(async api => {
+        return await api.fetchUser({patientId: mochaContext.patientId})
           .then(resp => {
             // if (resp instanceof Error)
             if(resp.hasOwnProperty('message') || !resp.patientId) {

@@ -98,8 +98,8 @@ const Profile = (props) => {
         throw new Error('The profile you are attempting to update does not have a valid UUID.')
       }
 
-      getAPI.then(api => {
-        api.updateUser({uuid, token, data}).then(resp => {
+      getAPI.then(async api => {
+        return await api.updateUser({uuid, token, data}).then(resp => {
           if(resp instanceof Error) {
             console.error(resp.message)
           } else {

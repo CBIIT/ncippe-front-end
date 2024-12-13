@@ -58,10 +58,10 @@ const NewMessageWorkflow = (props) => {
       event.preventDefault()
     }
     
-    getAPI.then(api => {
+    getAPI.then(async api => {
       const { roles, subject, message} = sendMessageContext
       // formatted to match notifications api
-      return api.sendMessage({
+      return await api.sendMessage({
         sentBy: loginContext.uuid,
         audiences:roles,
         subject: {
