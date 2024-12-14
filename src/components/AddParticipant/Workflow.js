@@ -38,8 +38,7 @@ const AddParticipantWorkflow = (props) => {
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const [isOpen, setIsOpen] = useState(false)
   const [submitText, setSubmitText] = useState(t('form.saveActivate'))
-  const [saveText, setSaveText] = useState(t('form.save'))
-  const [saveOnly, setSaveOnly] = useState(false);
+  
 
   // set activeStep when navigation value changes
   useEffect(() => {
@@ -162,45 +161,6 @@ const AddParticipantWorkflow = (props) => {
     })
   }
 
-  const handleSavePatient = () => {
-    
-    getAPI.then(async api => {
-      return await api.updateParticipantDetails({
-        uuid,
-        patient: {
-          patientId,
-          firstName: addParticipantContext.firstName,
-          lastName: addParticipantContext.lastName,
-          email: addParticipantContext.email,
-          lang: addParticipantContext.lang
-        }
-      }).then(resp => {
-        if(resp instanceof Error) {
-          //TODO: perhaps another status message?
-          throw resp
-        } else {
-          // save successful, move to the next step - upload consent form
-          dispatch({
-            type: "navigate",
-            data: "dashboard"
-          })
-          updatePatientList()
-        }
-      })
-      .catch(error => {
-        console.error(error)
-        dispatch({
-          type: "error",
-          data: {
-            updateUser_error: true,
-            navigate: "participantId"
-          }
-        })
-      })
-    })
-  }
-
-
   const saveConsentForm = () => {
     // fake response delay
     // setTimeout(() => {
@@ -217,7 +177,16 @@ const AddParticipantWorkflow = (props) => {
           throw resp
         } else {
           // Save successful
-         handleClose()
+          dispatch({
+            type: 'navigate',
+            data: 'finish'
+          });
+          PubSub.publish('ANALYTICS', {
+            events: 'event80',
+            eventName: 'NewParticipantComplete',
+            prop42: `BioBank_NewParticipant|Completed`,
+            eVar42: `BioBank_NewParticipant|Completed`,
+          });
         }
       })
       .catch(error => {
@@ -268,7 +237,7 @@ const AddParticipantWorkflow = (props) => {
       }
     })
     .catch(error => {
-      console.error('Error actuviating a patient:', error)
+      console.error('Error activating a patient:', error)
       dispatch({
         type: 'error',
         data: {
@@ -288,7 +257,6 @@ const AddParticipantWorkflow = (props) => {
       case 'reset':
         setActiveStep(0)
         setSubmitText(t('form.saveActivate'))
-        setSaveText(t('form.save'))
         dispatch({
           type: 'reset'
         })
@@ -296,11 +264,9 @@ const AddParticipantWorkflow = (props) => {
       case 'participantId':
         setActiveStep(0)
         setSubmitText(t('form.saveActivate'))
-        setSaveText(t('form.save'))
         break
       case 'addReport':
         setActiveStep(1)
-        setSaveText(t('form.save'))
         setSubmitText(t('form.submit'))
         break
       case 'submit':
@@ -311,11 +277,6 @@ const AddParticipantWorkflow = (props) => {
           setActiveStep(2)
           saveConsentForm()
         }
-        break
-        case 'saveOnlySubmit':
-        //  if(activeStep === 0) {
-          handleSavePatient()
-        //  } 
         break
       case 'finish': 
         activateParticipant()
