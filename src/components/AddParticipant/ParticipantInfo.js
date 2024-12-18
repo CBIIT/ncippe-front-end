@@ -35,30 +35,23 @@ const ParticipantInfo = (props) => {
   const [addParticipantContext, dispatch] = useContext(AddParticipantContext)
   const [hasError, setHasError] = useState(defaultValidations)
   const initialRender = useRef(true);
-  const [saveOnly, setSaveOnly] = useState(false);
 
   useEffect(()=>{
     if (initialRender.current) {
       initialRender.current = false;
     } else {
       if(!Object.values(hasError).includes(true)) {
-        !saveOnly ?
         dispatch({
           type: "navigate",
           data: "submit"
-        }):
-        dispatch({
-          type: "navigate",
-          data: "saveOnlySubmit"
         })
       }
     }
   }, [hasError, dispatch])
 
   const handleFormSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // console.log("submit form")
-    setSaveOnly(e.nativeEvent.submitter.id === 'Submit1')
     setHasError(prev => ({
       firstName: !stringRegex.test(addParticipantContext.firstName),
       lastName: !stringRegex.test(addParticipantContext.lastName),

@@ -32,6 +32,8 @@ const AddConsent = (props) => {
     const file = event.currentTarget.files.item(0)
 
     if(file) {
+      if(fileError) setFileError(false);
+      if(fileTypeError) setFileTypeError(false)
       dispatch({
         type: 'update',
         data: {
@@ -64,6 +66,9 @@ const AddConsent = (props) => {
         setFileTypeError(true)
         return
       }
+
+      setFileError(false);
+      setFileTypeError(false)
 
       PubSub.publish('ANALYTICS', {
         events: 'event78',
