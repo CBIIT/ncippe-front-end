@@ -202,7 +202,13 @@ async function updateParticipantEmail({patientId, email, token}){
     }
   })
   .then(handleResponse)
-  .catch(handleErrorMsg('Unable to save changes.'))
+  .catch((error) => {
+    if((error.message).indexOf('User.Email_UNIQUE') > -1) {
+      handleErrorMsg('New email address is Existing !');
+    }else {
+      handleErrorMsg('Unable to save changes.');
+    }
+  });
 }
 
 /*=======================================================================*/
@@ -331,7 +337,13 @@ async function updateParticipantDetails({uuid, token, patient}){
     }
   })
   .then(handleResponse)
-  .catch(handleErrorMsg('Unable to update participant information.'))
+  .catch((error) => {
+    if((error.message).indexOf('User.Email_UNIQUE') > -1) {
+      handleErrorMsg('New email address is Existing !');
+    }else {
+      handleErrorMsg('Unable to update participant information.');
+    }
+  });
 }
 
 async function activateParticipant({uuid, token, patient}){
