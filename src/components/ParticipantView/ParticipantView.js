@@ -19,6 +19,7 @@ import UploadConsentDialog from '../UploadConsent/UploadConsentDialog'
 import Status from '../Status'
 import { formatPhoneNumber } from '../../utils/utils'
 import DeactivatedQuestions from '../DeactivatedQuestions'
+import { Alert } from '@material-ui/lab'
 
 const useStyles = makeStyles(theme => ({
   header: {
@@ -121,6 +122,7 @@ const ParticipantView = (props) => {
   const [dialogOpenConsent, setDialogOpenConsent] = useState(false)
   const [dialogOpenEmail, setDialogOpenEmail] = useState(false)
   const [errorEmail, setErrorEmail] = useState(false)
+  const [existingEmail, setExistingEmail] = useState(false)
   const [uploadSuccess, setUploadSuccess] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isNewParticipant, setIsNewParticipant] = useState(false)
@@ -229,13 +231,20 @@ const ParticipantView = (props) => {
   }
 
   const updateEmail = (val) => {
+    if(existingEmail){
+      setExistingEmail(false)
+    }
     setParticipantEmail(val)
+    if(errorEmail){
+      setErrorEmail( emailRegex.test(participantEmail))
+    }
   }
 
   const dialogCloseEmail = (e) => {
     setDialogOpenEmail(false)
     // clear any errors on cancel
     setErrorEmail(false)
+    setExistingEmail(false)
     // reset the email to the original value
     setParticipantEmail(participant.email)
   }
@@ -251,7 +260,7 @@ const ParticipantView = (props) => {
       // Get API
       getAPI.then(async api => {
         return await api.updateParticipantEmail({patientId, email: participantEmail, token}).then(resp => {
-          if(resp instanceof Error) {
+          if(resp == null || resp instanceof Error) {
             throw resp
           }
 
@@ -270,6 +279,8 @@ const ParticipantView = (props) => {
 
         })
         .catch(error => {
+          setExistingEmail(true);
+          setErrorEmail(true)
           console.error(error)
         })
       })
@@ -444,6 +455,12 @@ const ParticipantView = (props) => {
           <Typography>{t('a_common:components.participantView.changeEmail.desc')}</Typography>
           <Email value={participantEmail} editMode={true} error={errorEmail} onChange={updateEmail} />
         </DialogContent>
+        { existingEmail && 
+          <DialogContent>
+            <Alert size="md" color="warning" > {t('a_addParticipant:form.error.updateUser.existingEmail')}</Alert>
+          </DialogContent>
+
+        }
         <DialogActions>
           <Button className={classes.dialogBtnSubmit} onClick={handleConfirmEmail} color="primary" variant="contained">{t('a_common:buttons.save')}</Button>
           <Button variant="text" color="primary" onClick={dialogCloseEmail}><ClearIcon />{t('a_common:buttons.cancel')}</Button>

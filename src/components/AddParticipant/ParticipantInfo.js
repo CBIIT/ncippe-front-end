@@ -127,7 +127,7 @@ const ParticipantInfo = (props) => {
           onChange={updateLang}
         />
       </InputGroupError>
-      {addParticipantContext.updateUser_error && <Status state="error" title={t('form.error.updateUser.title')} message={t('form.error.updateUser.message')} />}
+      {addParticipantContext.updateUser_error && <Status state="error" title={t('form.error.updateUser.title')} message={t('form.error.updateUser.existingEmail')} />}
     </form>
   )
 }

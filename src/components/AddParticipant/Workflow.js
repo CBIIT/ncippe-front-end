@@ -136,7 +136,7 @@ const AddParticipantWorkflow = (props) => {
           lang: addParticipantContext.lang
         }
       }).then(resp => {
-        if(resp instanceof Error) {
+        if(resp == null || resp instanceof Error) {
           //TODO: perhaps another status message?
           throw resp
         } else {

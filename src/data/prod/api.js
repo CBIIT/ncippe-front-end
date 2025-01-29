@@ -2,30 +2,42 @@ import {filesViewedByUser, sortPatients} from '../../data/utils'
 import {formatPhoneNumber} from '../../utils/utils'
 import queryString from 'query-string'
 
-const handleResponse = resp => {
+const handleResponse = async resp => {
   if(resp.ok) {
-    const contentType = resp.headers.get("content-type")
+    const  contentType = resp.headers.get("content-type")
       if (contentType && contentType.indexOf("application/json") !== -1) {
         let temp = resp.json();
 
         return temp;
     } else {
-        return resp;
+      return resp;
     }
   } else {
-    throw new Error(`Request rejected with status ${resp.status}: ${resp.statusText}`)
+    if (resp.status === 500) {
+      const errJson = await resp.clone().json();
+    //  console.log(errJson.message);
+     if("message" in errJson){
+      throw new Error(`Error ${errJson.message}` ) 
+      }else{
+        throw new Error(` Error 500 `)
+      }
+    }else if (resp.status === 504) {
+      throw new Error(`Request timed out, please refresh page: ${resp.status} `)
+    }else{
+      throw new Error(`Request rejected with status ${resp.status}`)
+    }
+    //throw new Error(`Request rejected with status ${resp.status}: ${resp.statusText}`)
   }
 }
 
 // handle error with a custom message
 const handleErrorMsg = message => error => {
-  console.error(error)
   return message ? typeof message === 'string' ? new Error(message) : message : error.message
 }
 
 // handle default error
 const handleError = error => {
-  console.error(error)
+ // console.error(error)
   return error
 }
 
@@ -202,13 +214,7 @@ async function updateParticipantEmail({patientId, email, token}){
     }
   })
   .then(handleResponse)
-  .catch((message) => {
-    if((message).indexOf('User.Email_UNIQUE') > -1) {
-      handleErrorMsg('New email address is Existing !');
-    }else {
-      handleErrorMsg('Unable to save changes.');
-    }
-  });
+  .catch(handleError)
 }
 
 /*=======================================================================*/
@@ -337,13 +343,7 @@ async function updateParticipantDetails({uuid, token, patient}){
     }
   })
   .then(handleResponse)
-  .catch((message) => {
-    if(message.indexOf('User.Email_UNIQUE') > -1) {
-      handleErrorMsg('New email address is Existing !');
-    }else {
-      handleErrorMsg('Unable to update participant information.');
-    }
-  });
+  .catch(handleError);
 }
 
 async function activateParticipant({uuid, token, patient}){
