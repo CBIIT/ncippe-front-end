@@ -149,7 +149,6 @@ const AddParticipantWorkflow = (props) => {
         }
       })
       .catch(error => {
-        console.error(error)
         if(error.message?.indexOf('User.Email_UNIQUE') > -1){
           addParticipantContext.existingEmail_error = true;
         }
@@ -193,7 +192,6 @@ const AddParticipantWorkflow = (props) => {
         }
       })
       .catch(error => {
-        console.error('Error saving patient:',error);
         // Save unsuccessful - go back a step
         dispatch({
           type: 'error',
@@ -240,7 +238,6 @@ const AddParticipantWorkflow = (props) => {
       }
     })
     .catch(error => {
-      console.error('Error activating a patient:', error)
       dispatch({
         type: 'error',
         data: {

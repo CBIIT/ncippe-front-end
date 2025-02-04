@@ -207,7 +207,7 @@ const AddParticipantInfoDialog = (props) => {
           }
         })
         .catch(error => {
-          console.error(error)
+          //console.error(error)
           setActiveStep(0)
           setFormData(prevState => ({
             ...prevState,
@@ -269,7 +269,7 @@ const AddParticipantInfoDialog = (props) => {
           }
         })
         .catch(error => {
-          console.error(error)
+          //console.error(error)
           setActiveStep(1)
           setFormData(prevState => ({
             ...prevState,
