@@ -123,6 +123,7 @@ const ParticipantView = (props) => {
   const [dialogOpenEmail, setDialogOpenEmail] = useState(false)
   const [errorEmail, setErrorEmail] = useState(false)
   const [existingEmail, setExistingEmail] = useState(false)
+  const [errorRequest, setErrorRequest] = useState(false) 
   const [uploadSuccess, setUploadSuccess] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isNewParticipant, setIsNewParticipant] = useState(false)
@@ -234,6 +235,10 @@ const ParticipantView = (props) => {
     if(existingEmail){
       setExistingEmail(false)
     }
+    if(errorRequest){
+      setErrorRequest(false)
+    }
+
     setParticipantEmail(val)
     if(errorEmail){
       setErrorEmail( emailRegex.test(participantEmail))
@@ -245,6 +250,7 @@ const ParticipantView = (props) => {
     // clear any errors on cancel
     setErrorEmail(false)
     setExistingEmail(false)
+    setErrorRequest(false)
     // reset the email to the original value
     setParticipantEmail(participant.email)
   }
@@ -279,9 +285,19 @@ const ParticipantView = (props) => {
 
         })
         .catch(error => {
-          setExistingEmail(true);
-          setErrorEmail(true)
           console.error(error)
+          if(error == null) {
+            setErrorRequest(true)
+          }else if( error instanceof Error) {
+            if(error.message?.indexOf('User.Email_UNIQUE') > -1){
+              setExistingEmail(true);
+              setErrorEmail(true)
+            }else{
+              setErrorRequest(true)
+            }
+          }else {
+            setErrorRequest(true)
+          }
         })
       })
     }
@@ -459,7 +475,11 @@ const ParticipantView = (props) => {
           <DialogContent>
             <Alert size="md" color="warning" > {t('a_addParticipant:form.error.updateUser.existingEmail')}</Alert>
           </DialogContent>
-
+        }
+        { errorRequest && 
+          <DialogContent>
+            <Alert size="md" color="warning" > {t('a_addParticipant:form.error.updateUser.message')}</Alert>
+          </DialogContent>
         }
         <DialogActions>
           <Button className={classes.dialogBtnSubmit} onClick={handleConfirmEmail} color="primary" variant="contained">{t('a_common:buttons.save')}</Button>

@@ -150,6 +150,9 @@ const AddParticipantWorkflow = (props) => {
       })
       .catch(error => {
         console.error(error)
+        if(error.message?.indexOf('User.Email_UNIQUE') > -1){
+          addParticipantContext.existingEmail_error = true;
+        }
         dispatch({
           type: "error",
           data: {

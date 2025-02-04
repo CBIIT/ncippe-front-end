@@ -8,6 +8,7 @@ const initialState = {
   lang: null,
   file: null,
   updateUser_error: false,
+  existingEmail_error: false,
   upload_error: false,
   activate_error: false,
   navigate: null
