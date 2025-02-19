@@ -17,8 +17,13 @@ const RenderContent =  (props) => {
   const removeRootParagraph = ({node,...props}) => {
     const {children} = props
 
-    if(node.position.start.offset === node.children[0].position.start.offset) {
-      return children
+   // Ensure node and children exist before accessing properties
+   if (!node || !node.children || node.children.length === 0 || !node.position || !node.children[0].position) {
+    return <p>{children}</p>; // Fallback to preserving paragraph if data is incomplete
+  }
+  
+    if (node.position?.start?.offset === node.children[0].position?.start?.offset) {
+      return children;
     }
     // if start.offsets do not match, then this node was processed by rehypeRaw and the HTML tags at the start of the text node account for different start positions
     return <p>{children}</p>
