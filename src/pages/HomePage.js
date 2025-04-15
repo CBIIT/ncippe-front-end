@@ -15,6 +15,7 @@ import getAPI from '../data'
 import { check_webp_feature } from '../utils/utils'
 import IconCardMedia from '../components/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
+import NoticeBanner from './NoticeBanner'
 
 // Internet Explorer 6-11
 // const isIE = /*@cc_on!@*/false || !!document.documentMode;
@@ -406,7 +407,15 @@ const HomePage = () => {
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}`} />
       </Helmet>
-
+      <Container className={`${classes.banner} ${classes['banner_' + alert.contentType]}`}>
+       <Typography component="div">
+       <NoticeBanner
+        message={t('noticeBanner.message')}
+        //message ="test message "
+        duration={10000}
+      />
+       </Typography>
+      </Container>
 
       {
       alerts.map((alert,i) => 
@@ -414,11 +423,13 @@ const HomePage = () => {
           <Typography className={classes.bannerText} component="div">
             <strong><RenderContent children={alert.message[i18n.languages[0]]} /></strong>
           </Typography>
+      
         </Container>
       )
       }
+      
 
-      <Container className={classes.hero}>
+      <Container className={classes.hero}>      
         <Box className={classes.heroText} component="section">
           {isMobile ? 
           <Paper className={classes.heroPaper} elevation={25}>
