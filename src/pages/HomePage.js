@@ -412,7 +412,7 @@ const HomePage = () => {
        <NoticeBanner
         message={t('noticeBanner.message')}
         //message ="test message "
-        duration={10000}
+        timeout={30000}
       />
        </Typography>
       </Container>

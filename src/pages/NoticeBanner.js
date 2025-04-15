@@ -3,21 +3,27 @@ import './NoticeBanner.css'; // Optional for styling
 
 const NOTICE_KEY = 'dismissedNoticeV1'; // Versioning helps if message changes later
 
-const NoticeBanner = ({ message, duration = 5000 }) => {
-  const [visible, setVisible] = useState(true);
+const NoticeBanner = ({ message, timeout = 5000 }) => {
+  const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
-    const dismissed = localStorage.getItem(NOTICE_KEY);
-    if (!dismissed && message) {
-      setVisible(true);
-      const timer = setTimeout(() => {
-        localStorage.setItem(NOTICE_KEY, 'true');
-        setVisible(false);
-      }, duration);
-      return () => clearTimeout(timer); // Cleanup timer on unmount
-    }
-  
-  }, [message, duration]);
+    useEffect(() => {
+        const dismissed = localStorage.getItem(NOTICE_KEY);
+        if (!dismissed && message) {
+            setVisible(true);   
+        }
+    }, [message]);
+
+    useEffect(() => {
+        let timer;
+        if (visible && timeout > 0) {
+            timer = setTimeout (()=>{
+                localStorage.setItem(NOTICE_KEY, 'true');
+                setVisible(false);
+            }, timeout);
+        }
+        return () => clearTimeout(timer); // Cleanup timer on unmount
+    }, [visible, timeout]);
+
   const handleDismiss = () => {
     localStorage.setItem(NOTICE_KEY, 'true');
     setVisible(false);
@@ -27,7 +33,7 @@ const NoticeBanner = ({ message, duration = 5000 }) => {
 
   return (
     <div className="notice-banner">
-      <span>{message}</span>
+      <span dangerouslySetInnerHTML={{ __html: message }} />
       <button className="dismiss-button" onClick={handleDismiss}>
         x
         </button>
