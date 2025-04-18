@@ -47,7 +47,8 @@ const LoginButton = (props) => {
         prop53: `BioBank_TopNav|Sign-In`,
         eVar53: `BioBank_TopNav|Sign-In`,
       })
-      window.location.assign(`${process.env.REACT_APP_LOGIN_LINK}?date=${Date.now()}`)
+      //window.location.assign(`${process.env.REACT_APP_LOGIN_LINK}?date=${Date.now()}`)
+      navigate('/login-consent')
     }
   }
   return auth ? 

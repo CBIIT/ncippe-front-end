@@ -15,7 +15,7 @@ import getAPI from '../data'
 import { check_webp_feature } from '../utils/utils'
 import IconCardMedia from '../components/IconCardMedia'
 import RenderContent from '../components/utils/RenderContent'
-import NoticeBanner from './NoticeBanner'
+
 
 // Internet Explorer 6-11
 // const isIE = /*@cc_on!@*/false || !!document.documentMode;
@@ -407,16 +407,6 @@ const HomePage = () => {
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}`} />
       </Helmet>
-      <Container className={`${classes.banner} ${classes['banner_' + alert.contentType]}`}>
-       <Typography component="div">
-       <NoticeBanner
-        message={t('noticeBanner.message')}
-        //message ="test message "
-        timeout={30000}
-      />
-       </Typography>
-      </Container>
-
       {
       alerts.map((alert,i) => 
         <Container key={i} className={`${classes.banner} ${classes['banner_' + alert.contentType]}`}>

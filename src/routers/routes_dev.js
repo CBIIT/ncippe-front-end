@@ -37,6 +37,7 @@ import SendMessagePage    from '../pages/dashboard/SendMessagePage'
 import MessageHistoryPage from '../pages/dashboard/MessageHistoryPage'
 
 import { LoginConsumer }  from '../components/login/Login.context'
+import LoginConsent  from '../components/login/LoginConsent'
 import { useTranslation } from 'react-i18next'
 
 // imports for time
@@ -112,6 +113,7 @@ const Routes = () => (
         >
           <Router location={location} primary={false}>
             <HomePage path='/' />
+            <LoginConsent path='/login-consent' />
             <AboutPage path='/about' />
             <EligibilityPage path='/about/eligibility' />
             <NewsPage path='/about/news' />
