@@ -29,43 +29,40 @@ const LoginConsent = () => {
           Notice & Consent
         </Typography>
 
-        <div style={{ fontSize: '0.75rem', lineHeight: '1.2', marginBottom: '2rem' }}>
-          <Typography variant="subtitle1" paragraph>
+        <div style={{ fontSize: '0.75rem', lineHeight: '0.8', marginBottom: '2rem' }}>
+          <Typography variant="subtitle2" >
             This warning banner provides privacy and security notices consistent with applicable federal laws,
             directives, and other federal guidance for accessing this Government system, which includes:
           </Typography>
-          <ul style={{ paddingLeft: '1.5rem', paddingBottom: '1.1rem' }}>
+          <ul style={{ paddingLeft: '1.5rem', paddingBottom: '0.9rem' }}>
             <li>
-              <Typography variant="subtitle1">(1) This computer network,</Typography>
+              <Typography variant="subtitle2">(1) This computer network,</Typography>
             </li>
             <li>
-              <Typography variant="subtitle1">(2) All computers connected to this network, and </Typography>
+              <Typography variant="subtitle2">(2) All computers connected to this network, and </Typography>
             </li>
             <li>
-              <Typography variant="subtitle1">(3) All devices and storage media attached to this network or to a computer on this network.</Typography>
+              <Typography variant="subtitle2">(3) All devices and storage media attached to this network or to a computer on this network.</Typography>
             </li>
           </ul>
 
-          <Typography variant="subtitle1" paragraph>
+          <Typography variant="subtitle2" >
             This system is provided for Government-authorized use only.
           </Typography>
-          <Typography variant="subtitle1" paragraph>
+          <Typography variant="subtitle2" >
           Unauthorized or improper use of this system is prohibited and may result in disciplinary action and/or civil and criminal penalties.
           </Typography>
-          <Typography variant="subtitle1" paragraph>
-          Unauthorized or improper use of this system is prohibited and may result in disciplinary action and/or civil and criminal penalties.
-          </Typography>
-          <Typography variant="subtitle1" paragraph>
+          <Typography variant="subtitle2" >
           Personal use of social media and networking sites on this system is limited as to not interfere with official work duties and is subject to monitoring. </Typography>
-          <Typography variant="subtitle1" paragraph>
+          <Typography variant="subtitle2" >
           By using this system, you understand and consent to the following:
           </Typography>
            <ul style={{ paddingLeft: '1.5rem' }}>
             <li>
-              <Typography variant="subtitle1">The Government may monitor, record, and audit your system usage, including usage of personal devices and email systems for official duties or to conduct HHS business. Therefore, you have no reasonable expectation of privacy regarding any communication or data transiting or stored on this system. At any time, and for any lawful Government purpose, the government may monitor, intercept, and search and seize any communication or data transiting or stored on this system.</Typography>
+              <Typography variant="subtitle2">The Government may monitor, record, and audit your system usage, including usage of personal devices and email systems for official duties or to conduct HHS business. Therefore, you have no reasonable expectation of privacy regarding any communication or data transiting or stored on this system. At any time, and for any lawful Government purpose, the government may monitor, intercept, and search and seize any communication or data transiting or stored on this system.</Typography>
             </li>
             <li>
-              <Typography variant="subtitle1" style={{ paddingTop: '1.2rem' }}>Any communication or data transiting or stored on this system may be disclosed or used for any lawful Government purpose. </Typography>
+              <Typography variant="subtitle2" style={{ paddingTop: '0.9rem' }}>Any communication or data transiting or stored on this system may be disclosed or used for any lawful Government purpose. </Typography>
             </li>
           </ul>
         </div>
