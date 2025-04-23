@@ -1,9 +1,31 @@
-import React from 'react'
+import React,{ useEffect, useRef, useState } from 'react'
 import { Container, Button, Paper, Typography, Box } from '@material-ui/core'
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 import { useNavigate } from '@reach/router'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { useTheme } from '@material-ui/core/styles'
 
 const LoginConsent = () => {
   const navigate = useNavigate()
+  const scrollBoxRef = useRef(null)
+  const [showScrollHint, setShowScrollHint] = useState(false)
+  const theme = useTheme()
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
+
+  useEffect(() => {
+    const el = scrollBoxRef.current
+    if (el && el.scrollHeight > el.clientHeight) {
+      setShowScrollHint(true)
+      const handleScroll = () => {
+        if (el.scrollTop + el.clientHeight >= el.scrollHeight - 10) {
+          setShowScrollHint(false)
+        }
+      }
+      el.addEventListener('scroll', handleScroll)
+      return () => el.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
 
   const handleContinue = () => {
     // Redirect to actual login provider
@@ -16,19 +38,25 @@ const LoginConsent = () => {
 
   return (
 
-    <Container maxWidth="md" style={{ marginTop: '3rem'  }}>
-      <Paper elevation={2} style={{
+    <Container maxWidth={isSmallScreen ? "xs" : "md"} style={{ marginTop: '3rem' ,height: '100vh', overflow: 'auto' }}>
+      <Paper elevation={2} style={{ flex:1,
           padding: '1.5rem',
           backgroundColor: '#f9f9f9',
           border: '1px solid #ccc',
           borderRadius: '8px',
           boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-        }}>
-
+          maxHeight: 'calc(100vh - 4rem)', // space for padding
+          overflowY: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}  >
+     
         <Typography variant="h3" gutterBottom>
           Notice & Consent
         </Typography>
-
+        <Box style={{ flex:1 , overflowY: 'auto' ,  position: 'relative',  paddingRight: '0.5rem', }}
+         ref={scrollBoxRef} >
         <div style={{ fontSize: '0.75rem', lineHeight: '0.8', marginBottom: '2rem' }}>
           <Typography variant="subtitle2" >
             This warning banner provides privacy and security notices consistent with applicable federal laws,
@@ -66,8 +94,33 @@ const LoginConsent = () => {
             </li>
           </ul>
         </div>
+        {showScrollHint && (
+           <Box
+           display="flex"
+           justifyContent="center"
+           alignItems="center"
+           position="sticky"
+           bottom={0}
+           zIndex={1}
+           height="3rem"
+           style={{
+             background: 'linear-gradient(to top, #f9f9f9 60%, transparent)',
+           }}
+         >
+           <ArrowDownwardIcon style={{ fontSize: '2rem', color: '#444' }} />
+          </Box>
+        )}
         
-        <Box display="flex" justifyContent="flex-end">
+        </Box>
+        <Box mt={2}
+          pt={2}
+          borderTop="1px solid #ddd"
+          display="flex"
+          justifyContent="flex-end"
+          position="sticky"
+          bottom={0}
+          bgcolor="#f9f9f9"
+          zIndex={1}>
           <Button onClick={handleCancel} variant="outlined">
             Cancel
           </Button>
@@ -77,6 +130,7 @@ const LoginConsent = () => {
             </Button>
           </Box>
         </Box>
+        
       </Paper>
      
     </Container>
