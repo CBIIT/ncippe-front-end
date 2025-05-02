@@ -9,7 +9,7 @@ const LoginConsent = () => {
   const scrollBoxRef = useRef(null)
   const [showScrollHint, setShowScrollHint] = useState(false)
   const theme = useTheme()
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'))
 
   useEffect(() => {
     const el = scrollBoxRef.current
@@ -37,9 +37,10 @@ const LoginConsent = () => {
 
   return (
 
-    <Container maxWidth={isSmallScreen ? "xs" : "md"} style={{ marginTop: '3rem' ,height: '100vh', overflow: 'auto' }}>
+    <Container maxWidth={isSmallScreen ? "xs" : "md"} style={{ marginTop: isSmallScreen ? '1rem':'3rem' ,height: '100vh', overflow: 'auto' }}>
       <Paper elevation={2} style={{ flex:1,
           padding: '1.5rem',
+          width:  '100%',
           backgroundColor: '#f9f9f9',
           border: '1px solid #ccc',
           borderRadius: '8px',
@@ -57,22 +58,21 @@ const LoginConsent = () => {
 
           {/* Buttons at top on mobile */}
           { isSmallScreen && (
-        <Box mb={2}
+        <Box mb={2} mt={1}
           borderBottom="1px solid #ddd"
           display="flex"
           justifyContent="flex-end"
           position="sticky"
           flexDirection="row"
-          bgcolor="#f9f9f9"
-          gap={12}>
-            <Box mr={2}>
-          <Button onClick={handleCancel} variant="outlined" size="small">
+          bgcolor="#f9f9f9" >
+          <Box mr={2}>
+           <Button onClick={handleCancel} variant="outlined" size="small">
             Cancel
-          </Button>
+           </Button>
           </Box>
           <Button onClick={handleContinue} disabled={showScrollHint}
           variant="contained" color="primary" size="small">
-              Continue to Login
+            Login
           </Button>
         </Box>
          )}
