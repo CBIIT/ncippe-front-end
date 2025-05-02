@@ -145,21 +145,18 @@ const LoginConsent = () => {
           bottom={0}
           bgcolor="#f9f9f9"
           zIndex={1}>
-          <Button fullWidth={isSmallScreen} onClick={handleCancel} variant="outlined">
+          <Button  onClick={handleCancel} variant="outlined">
             Cancel
           </Button>
           <Box ml={2}>
-            <Button fullWidth={isSmallScreen} onClick={handleContinue} variant="contained" color="primary">
+            <Button disabled={showScrollHint} onClick={handleContinue} variant="contained" color="primary">
               Continue to Login
             </Button>
           </Box>
         </Box>
          )}
-        
       </Paper>
-     
     </Container>
-
   )
 }
 
