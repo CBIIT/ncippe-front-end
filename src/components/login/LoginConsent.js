@@ -1,8 +1,7 @@
 import React,{ useEffect, useRef, useState } from 'react'
-import { Container, Button, Paper, Typography, Box } from '@material-ui/core'
+import { Container, Button, Paper, Typography, Box, useMediaQuery } from '@material-ui/core'
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
 import { useNavigate } from '@reach/router'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
 
 const LoginConsent = () => {
@@ -52,12 +51,35 @@ const LoginConsent = () => {
           justifyContent: 'space-between',
         }}  >
      
-        <Typography variant="h3" gutterBottom>
+        <Typography variant= "h3" gutterBottom>
           Notice & Consent
         </Typography>
+
+          {/* Buttons at top on mobile */}
+          { isSmallScreen && (
+        <Box mb={2}
+          borderBottom="1px solid #ddd"
+          display="flex"
+          justifyContent="flex-end"
+          position="sticky"
+          flexDirection="row"
+          bgcolor="#f9f9f9"
+          gap={12}>
+            <Box mr={2}>
+          <Button onClick={handleCancel} variant="outlined" size="small">
+            Cancel
+          </Button>
+          </Box>
+          <Button onClick={handleContinue} disabled={showScrollHint}
+          variant="contained" color="primary" size="small">
+              Continue to Login
+          </Button>
+        </Box>
+         )}
+
         <Box style={{ flex:1 , overflowY: 'auto' ,  position: 'relative',  paddingRight: '0.5rem', }}
          ref={scrollBoxRef} >
-        <div style={{ fontSize: '0.75rem', lineHeight: '0.8', marginBottom: '2rem' }}>
+        <div style={{ fontSize: isSmallScreen ? '0.65rem': '0.8rem', lineHeight: isSmallScreen ? '05':'0.8', marginBottom: '2rem' }}>
           <Typography variant="subtitle2" >
             This warning banner provides privacy and security notices consistent with applicable federal laws,
             directives, and other federal guidance for accessing this Government system, which includes:
@@ -107,29 +129,32 @@ const LoginConsent = () => {
              background: 'linear-gradient(to top, #f9f9f9 60%, transparent)',
            }}
          >
-           <ArrowDownwardIcon style={{ fontSize: '2rem', color: '#444' }} />
+           <ArrowDownwardIcon style={{ fontSize: '2rem', color: '#444' }} />Scroll to read more
           </Box>
-        )}
-        
+        )}    
         </Box>
+         {/* Buttons at bottom for desktop */}
+         { !isSmallScreen && (
         <Box mt={2}
           pt={2}
           borderTop="1px solid #ddd"
           display="flex"
           justifyContent="flex-end"
           position="sticky"
+          flexDirection={isSmallScreen ? 'column' : 'row'}
           bottom={0}
           bgcolor="#f9f9f9"
           zIndex={1}>
-          <Button onClick={handleCancel} variant="outlined">
+          <Button fullWidth={isSmallScreen} onClick={handleCancel} variant="outlined">
             Cancel
           </Button>
           <Box ml={2}>
-            <Button onClick={handleContinue} variant="contained" color="primary">
+            <Button fullWidth={isSmallScreen} onClick={handleContinue} variant="contained" color="primary">
               Continue to Login
             </Button>
           </Box>
         </Box>
+         )}
         
       </Paper>
      
