@@ -1,27 +1,31 @@
 import "./styles.css";
 import React from "react";
-import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,Text} from "recharts";
+import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,Text, LabelList} from "recharts";
 
 const renderCustomBarLabel = (props) => {
+  console.dir(props);
   const { payload, x, y, width, height, value, fill } = props;
   return <text x={x + width / 2} y={y} 
   fontSize={12} fontFamily="Open Sans" fontWeight={600}
-  fill={fill} textAnchor="middle" dy={-6} wrapperStyle={{ position: 'relative' }} > {value}
+  fill={fill} textAnchor="middle" dy={-6} > {`${value}%`}
   </text>;
 };
 
 
 export default function ReChartsBar(props) {
   const {inputdata  }=props; 
+  const total = inputdata.reduce((acc, item) => acc + item.value, 0);
+  const dataWithPercent = inputdata.map((item) => ({
+    ...item,
+    percent: total > 0?  ((item.value / total) * 100).toFixed(1) : 0,
+  }));
   return (
    // <ResponsiveContainer width="100%" height={300} minHeight={300} aspect={1.8} >
     <BarChart
       width={400} 
       height={300} 
-      data={inputdata}
-      fontFamily="sans-serif"
+      data={dataWithPercent}
       isAnimationActive={false} 
-      overflow="visible"
       margin={{
         top:55,
         right: 30,
@@ -33,7 +37,9 @@ export default function ReChartsBar(props) {
       <XAxis dataKey="name" interval={0} label={<Text width={60} />}/>
       <YAxis />
       <Tooltip cursor={{fill: '#EEEEEE'}}/>
-      <Bar dataKey="value" isAnimationActive={false}  label={renderCustomBarLabel} />
+      <Bar dataKey="value" isAnimationActive={false}  >
+      <LabelList dataKey ="percent" content={ renderCustomBarLabel } />
+      </Bar>
     </BarChart>
     // </ResponsiveContainer>
   );
