@@ -5,7 +5,7 @@ const renderCustomBarLabel = (props) => {
   const { payload, x, y, width, height, value, fill } = props;
   return <text x={x + width / 2} y={y} 
   fontSize={12} fontFamily="Open Sans" fontWeight={600} 
-  fill={fill} textAnchor="middle" dy={-6} wrapperStyle={{ position: 'relative' }} > {value}
+  fill={fill} textAnchor="middle" dy={-6}  > {value}
   </text>;
 };
 export default function ReChartsBar2sets(props) {
