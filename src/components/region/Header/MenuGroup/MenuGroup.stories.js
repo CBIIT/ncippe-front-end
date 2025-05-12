@@ -1,5 +1,5 @@
 import React from 'react'
-import { createMemorySource, createHistory, LocationProvider } from '@reach/router'
+import { MemoryRouter } from 'react-router-dom'
 import MenuGroup from './MenuGroup'
 
 export default {
@@ -46,16 +46,14 @@ export default {
 }
 
 const Template = (args) => {
-  const source = createMemorySource('/')
-  const history = createHistory(source)
-
+  
   return (
-    <LocationProvider history={history}>
+    <MemoryRouter initialEntries={['/']}>
       <MenuGroup {...args}>
         <a href="/about">About</a>
         <a href="/about/eligibility">Eligibility</a>
       </MenuGroup>
-    </LocationProvider>
+    </MemoryRouter>
   )
 }
 

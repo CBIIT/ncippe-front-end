@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { navigate } from '@reach/router'
+import { useNavigate } from 'react-router-dom'
 import { Button, Dialog, Paper, IconButton, InputAdornment, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { 
@@ -51,6 +51,7 @@ const Search = () => {
   const { t } = useTranslation('common')
   const [open, setOpen] = useState(false)
   const [isDisabled, setIsDisabled] = useState(true)
+  const navigate = useNavigate()
 
   const handleClickOpen = () => {
     setOpen(true)

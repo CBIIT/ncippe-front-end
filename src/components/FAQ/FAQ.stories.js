@@ -1,5 +1,4 @@
 import React from 'react'
-import { createMemorySource, createHistory, LocationProvider } from '@reach/router'
 import FAQ from './FAQ'
 
 export default {

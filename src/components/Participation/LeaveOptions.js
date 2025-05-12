@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link as RouterLink } from '@reach/router'
+import { Link as RouterLink, useOutletContext } from 'react-router-dom'
 import { Button, Box, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
@@ -20,8 +20,8 @@ const useStyles = makeStyles( theme => ({
   }
 }),{name: 'LeaveOptions'})
 
-const LeaveOptions = (props) => {
-  const {isMobile} = props
+const LeaveOptions = () => {
+  const { isMobile, cancel } = useOutletContext();
   const classes = useStyles()
   const { t } = useTranslation(['a_changeParticipation','a_common'])
   const trackClick = (e) => {
@@ -40,7 +40,7 @@ const LeaveOptions = (props) => {
       <Typography component="div"><RenderContent children={t('leave.0.body')} /></Typography>
       <div className={classes.formButtons}>
         <Button className={classes.btnSubmit} variant="contained" color="primary" component={RouterLink} to='../leaveQuestions' onClick={trackClick}>{t('leave.0.submit')}</Button>
-        <Button variant="text" color="primary" onClick={props.cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+        <Button variant="text" color="primary" onClick={cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </div>
     </Box>
   )

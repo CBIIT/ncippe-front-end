@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Box, Button, Divider, Typography, CircularProgress} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
-import { navigate } from '@reach/router'
+import { useNavigate } from 'react-router-dom'
 
 import getAPI from '../../data'
 
@@ -44,7 +44,8 @@ const NewMessageWorkflow = (props) => {
   const [activeStep, setActiveStep] = useState(0)
   const [sendMessageContext, dispatch] = useContext(SendMessageContext)
   const [loginContext] = useContext(LoginContext)
-
+  const navigate = useNavigate()
+  
   useEffect(() => {
     if(sendMessageContext.navigate) {
       handleNavigate(sendMessageContext.navigate)

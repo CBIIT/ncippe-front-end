@@ -1,7 +1,7 @@
 import React,{ useEffect, useRef, useState } from 'react'
 import { Container, Button, Paper, Typography, Box, useMediaQuery } from '@material-ui/core'
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
-import { useNavigate } from '@reach/router'
+import { useNavigate } from 'react-router-dom'
 import { useTheme } from '@material-ui/core/styles'
 
 const LoginConsent = () => {

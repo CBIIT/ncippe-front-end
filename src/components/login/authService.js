@@ -1,6 +1,6 @@
 import { IDENTITY_CONFIG, METADATA_OIDC } from "./authConfig"
-import { UserManager, WebStorageStateStore, Log } from "oidc-client"
-import { navigate } from '@reach/router'
+import { UserManager, WebStorageStateStore, Log } from "oidc-client-ts"
+import { useNavigate } from "react-router-dom"
 
 // import { randomString } from '../../utils/utils'
 
@@ -31,6 +31,7 @@ export default class AuthService {
 
     this.UserManager.events.addAccessTokenExpired(() => {
       console.log("token expired");
+      const navigate = useNavigate();
 
       this.UserManager.clearStaleState();
       this.UserManager.signoutRedirectCallback().then(() => {
@@ -134,6 +135,7 @@ export default class AuthService {
   };
 
   signoutRedirectCallback = (state) => {
+    const navigate = useNavigate();
     this.UserManager.clearStaleState();
     this.UserManager.signoutRedirectCallback().then(() => {
       localStorage.clear()

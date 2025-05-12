@@ -1,8 +1,8 @@
 import React, { lazy, useContext } from 'react'
-import { Location, Router, Redirect, navigate } from '@reach/router'
+import { Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import pageWrapper from '../pages/pageWrapper'
-import getAPI from '../data'
+import RequireAuth from './RequireAuth'
 import { formatPhoneNumber } from '../utils/utils'
 
 // imports for public pages
@@ -37,9 +37,6 @@ import ResourcesPage      from '../pages/dashboard/ResourcesPage'
 import SendMessagePage    from '../pages/dashboard/SendMessagePage'
 import MessageHistoryPage from '../pages/dashboard/MessageHistoryPage'
 
-import { LoginContext, LoginConsumer }  from '../components/login/Login.context'
-import { useTranslation } from 'react-i18next'
-
 // imports for time
 import moment from 'moment'
 import 'moment/locale/es'
@@ -65,161 +62,54 @@ const ErrorPage = pageWrapper(Errors)
 const PolicyPage = pageWrapper(Policy)
 
 const NotFoundPage = pageWrapper(NotFound)
+const researchRoutes = () => {
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const location = useLocation();
+return (
+    <TransitionGroup className="transitionGroup" component={null}>
+      <CSSTransition 
+        key={location.key}
+        timeout={location.pathname.match(/\/account\//) ? 350 : 550}
+        classNames={location.pathname.match(/\/account\//) ? 'zoom' : 'fade'}>
+       <div className="transitionGroup">
+    
+        <Routes location={location} primary={false}>
+          {/* <Redirect from="/signout" to="/" noThrow /> */}
+            <Route path='/' element= {<HomePage />} />
+            <Route path='/about' element= { <AboutPage />} />
+            <Route path='/about/eligibility' element= { <EligibilityPage />} />
+            <Route path='/about/studyprogres' element= { <StudyProgressPage />} />
+            <Route path='/research'  element= { <ResearchPage />} />
+            <Route path='/expect/consent' element={ <AboutConsentPage />} /> 
+            <Route path='/expect/donate' element={<DonatePage />} /> 
+            <Route path='/expect/testing' element={<TestingPage />} /> 
+            <Route path='/participation/activate'element={<ActivatePage />} />
+            <Route path='/participation/privacy' element= {<PrivacyPage />} />
+            <Route path='/website-privacy-security' element= {<PolicyPage />} />
+            <Route path='/search' element= {<SearchResultsPage  />} />
+            <Route path='/error'  element= {<ErrorPage />} />
 
+          {/* Private routes */}
+          <Route path="/account" element={< RequireAuth> <DashboardPage /> </RequireAuth> } />
+        <Route path="/account-mocha" element={< RequireAuth> <DashboardMochaPage /> </RequireAuth> } />
+        <Route path="/account/notifications" element={< RequireAuth> <NotificationsPage /> </RequireAuth> } />
+        <Route path="/account/consent" element={< RequireAuth> <ConsentPage /> </RequireAuth> } />
+        <Route path="/account/tests" element={< RequireAuth> <TestResultsPage /> </RequireAuth> } />
+        <Route path="/account/participant/:patientId" element={< RequireAuth> <ParticipantPage /> </RequireAuth> } />
+        <Route path="/account/participant/:patientId/participation/*" element={< RequireAuth> <ParticipationPage /> </RequireAuth> } />
+        <Route path="/account/profile" element={< RequireAuth> <ProfilePage /> </RequireAuth> } />
+        <Route path="/account/profile/participation/*" element={< RequireAuth> <ParticipationPage /> </RequireAuth> } />
+        <Route path="/account/help" element={< RequireAuth> <GetHelpPage /> </RequireAuth> } />
+        <Route path="/account/resources" element={< RequireAuth> <ResourcesPage /> </RequireAuth> } />
+        <Route path="/account/sendMessage" element={< RequireAuth> <SendMessagePage /> </RequireAuth> } />
+        <Route path="/account/messageHistory" element={< RequireAuth> <MessageHistoryPage /> </RequireAuth> } />
 
-
-// catch relative links in the app that could not be made using @reach/router Link components
-document.addEventListener('click', function(event) {
-  if(event.target.dataset && event.target.dataset.route && event.target.pathname) {
-    event.preventDefault()
-    navigate(event.target.pathname)
-  }
-})
-
-
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { t, i18n } = useTranslation()
-  const [loginContext, dispatch] = useContext(LoginContext)
-
-  const getUserData = () => {
-
-    let params = null
-
-    if(rest.location.state) {
-      if(rest.location.state.uuid) {
-        params = {uuid:rest.location.state.uuid}
-      }
-    }
-  
-    const data = getAPI.then(api => {
-
-      // console.log("params", params)
-      
-      return api.loginUser(params).then(data => {
-
-        // console.log("loginUser Data", data)
-  
-        if(data instanceof Error){
-          throw new Error(data)
-        } else {
-          return data
-        }
-      })
-      .catch(error => {
-        console.log("Error on fetchUser:", error.message)
-      })
-    })
-    .catch(error => {
-      console.log("getAPI error", error)
-    })
-    return data
-  }
-
-  return (
-    <LoginConsumer>
-      {([state]) => {
-        if(state.auth) {
-          // set default language in case it's not specified
-          const lang = state.lang || "en"
-          // set date format based on language
-          moment.locale(lang)
-          if(lang !== i18n.language) {
-            // Helmet doesn't like that changing languages here. Should probably be a function callback from App.js
-            i18n.changeLanguage(lang)
-            moment.locale(lang)
-          }
-          return <Component {...rest} />
-        }
-        else {
-          // console.log("rest",rest)
-          // if(!state.uuid){
-            const userDataPromise = getUserData()
-            // console.log("userDataPromise", userDataPromise)
-
-            userDataPromise.then(userData => {
-              // console.log("userData",userData)
-              if(userData) {
-                dispatch({
-                  type: 'update',
-                  userData: {
-                    auth: true,
-                    ...userData
-                  }
-                })
-                // redirect mocha admins to their specific dashboard
-                if (userData.roleName === 'ROLE_PPE_MOCHA_ADMIN' && new RegExp(/\/account(?!-)/).test(rest.path)) {
-                  return navigate('/account-mocha')
-                }
-                else {
-                  return <Component {...rest} />
-                }
-              }
-              else {
-                throw new Error(t('no user data returned from server'))
-              }
-            }).catch(error => {
-              console.log("userDataPromise", error)
-              navigate('/error')
-            })
-          // } else {
-          //   return <Redirect from="" to="/" noThrow />
-          // }
-        }
-        // console.log("userData",userData)
-
-
-      }}
-    </LoginConsumer>
-  )
+        <Route path="/signout" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+        </div>
+      </CSSTransition>
+    </TransitionGroup>
+  );
 }
-
-export default () => (
-  <Location>
-    {({ location }) => (
-      <TransitionGroup className="transitionGroup" component={null}>
-        <CSSTransition 
-          key={location.key}
-          timeout={location.pathname.match(/\/account\//) ? 350 : 550}
-          classNames={location.pathname.match(/\/account\//) ? 'zoom' : 'fade'}
-          className="transitionGroup"
-        >
-          <Router location={location} primary={false}>
-            {/* <Redirect from="/signout" to="/" noThrow /> */}
-            <HomePage path='/' />
-            <AboutPage path='/about' />
-            <EligibilityPage path='/about/eligibility' />
-            <StudyProgressPage path='/about/studyprogress' />
-            <AboutConsentPage path='/expect/consent' /> 
-            <DonatePage path='/expect/donate' /> 
-            <TestingPage path='/expect/testing' /> 
-            <ActivatePage path='/participation/activate' />
-            <PrivacyPage path='/participation/privacy' />
-            <ResearchPage path='/research' />
-            {/* <ArticlePage path='/research/:article' /> */}
-            <PolicyPage path='/website-privacy-security' />
-            
-            <SearchResultsPage path='/search' />
-            <ErrorPage path='/error' />
-
-            {/* <SignInCallbackPage path='/signin' /> */}
-            <PrivateRoute path='/account' component={DashboardPage} />
-            {/* <MockUsersPage path='/mock-users' /> */}
-            <PrivateRoute path='/account-mocha' component={DashboardMochaPage} />
-            <PrivateRoute path='/account/notifications' component={NotificationsPage} />
-            <PrivateRoute path='/account/consent' component={ConsentPage} />
-            <PrivateRoute path='/account/tests' component={TestResultsPage} />
-            <PrivateRoute path='/account/participant/:patientId' component={ParticipantPage} />
-            <PrivateRoute path='/account/participant/:patientId/participation/*' component={ParticipationPage} />
-            <PrivateRoute path='/account/profile' component={ProfilePage} />
-            <PrivateRoute path='/account/profile/participation/*' component={ParticipationPage} />
-            <PrivateRoute path='/account/help' component={GetHelpPage} />
-            <PrivateRoute path='/account/resources' component={ResourcesPage} />
-            <PrivateRoute path='/account/sendMessage' component={SendMessagePage} />
-            <PrivateRoute path='/account/messageHistory' component={MessageHistoryPage} />
-            <NotFoundPage default />
-          </Router>
-        </CSSTransition>
-      </TransitionGroup>
-    )}
-  </Location>
-)
+export default researchRoutes;

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { useOutletContext } from 'react-router-dom'
 import { Box, Button, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
@@ -42,8 +43,8 @@ const useStyles = makeStyles( theme => ({
   }
 }),{name: 'CloseAccount'})
 
-const CloseAccount = (props) => {
-  const {isMobile} = props
+const CloseAccount = () => {
+  const { cancel, isMobile } = useOutletContext();
   const classes = useStyles()
   const { t } = useTranslation(['a_changeParticipation','a_common'])
   const [loginContext] = useContext(LoginContext)
@@ -99,7 +100,7 @@ const CloseAccount = (props) => {
       {closeError && <Status state="error" title={t('close.error.title')} message={t('close.error.message')} />}
       <div className={classes.formButtons}>
         <Button className={classes.btnSubmit} variant="contained" onClick={handleSubmit}>{t('close.submit')}</Button>
-        <Button className={classes.btnCancel} variant="text" color="primary" onClick={props.cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+        <Button className={classes.btnCancel} variant="text" color="primary" onClick={cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </div>
     </Box>
   )

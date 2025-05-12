@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { navigate } from '@reach/router'
+import { useNavigate } from 'react-router-dom'
 import {Box, Button, Container, Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -37,6 +37,7 @@ const useStyles = makeStyles(theme => ({
 
 const MockRoles = () => {
   const classes = useStyles()
+  const navigate = useNavigate()
   const [users, setUsers] = useState()
   const [error, setError] = useState(false)
   const [ , dispatch] = useContext(LoginContext) // don't need loginContext at index 0, just destructuring dispatch

@@ -1,5 +1,5 @@
 import React from 'react'
-import { createMemorySource, createHistory, LocationProvider } from '@reach/router'
+import { MemoryRouter } from 'react-router-dom'
 import LoginButton from './LoginButton'
 import { LoginContext } from '../Login.context'
 
@@ -31,15 +31,13 @@ export default {
 
 const Template = (args) => {
   const path = args.isAccount ? "/account" : "/"
-  const source = createMemorySource(path)
-  const history = createHistory(source)
-
+ 
   return (
+    <MemoryRouter initialEntries={[path]}>
     <LoginContext.Provider value={[{auth: args.authenticated}]}>
-      <LocationProvider history={history}>
         <LoginButton />
-      </LocationProvider>
     </LoginContext.Provider>
+    </MemoryRouter>
   )
 }
 

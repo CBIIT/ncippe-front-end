@@ -3,6 +3,7 @@ import { Box, Divider, FormControl, Input, InputLabel, Paper, Typography, Button
 import { makeStyles } from '@material-ui/core/styles'
 import { Edit as EditIcon, Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
+import { useParams } from 'react-router-dom'
 import PubSub from 'pubsub-js'
 
 import { LoginContext } from '../../components/login/Login.context'
@@ -12,6 +13,7 @@ import EmailOption from '../inputs/EmailOption'
 import LangOption from '../inputs/LangOption'
 // import { api } from '../../data/api'
 import getAPI from '../../data'
+import { use } from 'react'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,9 +52,9 @@ const useStyles = makeStyles(theme => ({
   }
 }),{name: 'Profile'})
 
-const Profile = (props) => {
+const Profile = () => {
   // if there's a patientId then this profile is being edited by an admin, otherwise it's being edited by the user
-  const {patientId} = props
+  const {patientId} = useParams()
   const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const [editMode, setEditMode] = useState(false)

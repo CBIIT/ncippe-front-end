@@ -3,12 +3,14 @@ import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import { Box, Container, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { useParams } from 'react-router-dom'
 import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 import { caseConverter } from '../../utils/utils'
 import NotFound from '../NotFoundPage'
+import { use } from 'react'
 
 const useStyles = makeStyles( theme => ({
   grid: {
@@ -34,9 +36,10 @@ const useStyles = makeStyles( theme => ({
 
 // This component is for a reusable research article page, but it's limiting in it's layout. Opting for individual article pages that have more flexibility.
 
-const Article = (props) => {
+const Article = () => {
+  const { article } = useParams()
   const classes = useStyles()
-  const nameSpace = `r_${caseConverter(props.article)}`
+  const nameSpace = `r_${caseConverter(article ?? '')}`
   const { t, i18n } = useTranslation([nameSpace,'common'])
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
@@ -50,7 +53,7 @@ const Article = (props) => {
   },[t])
 
   // dynamic path does not exist
-  if(!i18n.hasResourceBundle(i18n.languages[0],`r_${caseConverter(props.article)}`)) {
+  if(!i18n.hasResourceBundle(i18n.languages[0],`r_${caseConverter(article ?? '')}`)) {
     return   <NotFound />
   }
 

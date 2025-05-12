@@ -3,7 +3,7 @@ import React from "react";
 import {BarChart,Bar,XAxis,YAxis,CartesianGrid,Tooltip,Text, LabelList} from "recharts";
 
 const renderCustomBarLabel = (props) => {
-  console.dir(props);
+  //console.dir(props);
   const { payload, x, y, width, height, value, fill } = props;
   return <text x={x + width / 2} y={y} 
   fontSize={12} fontFamily="Open Sans" fontWeight={600}

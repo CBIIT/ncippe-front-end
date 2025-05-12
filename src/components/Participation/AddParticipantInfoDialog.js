@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { navigate } from '@reach/router'
+import { useNavigate } from 'react-router-dom'
 import { 
   Button,
   CircularProgress,
@@ -97,6 +97,7 @@ const AddParticipantInfoDialog = (props) => {
   const stringRegex = /^[a-zA-Z\s]{1,}/
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ //from https://emailregex.com/
   const {token, uuid, patients} = loginContext
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsOpen(open)

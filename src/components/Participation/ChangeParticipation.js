@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
-
+import { useOutletContext } from 'react-router-dom'
 import { LoginContext } from '../login/Login.context'
 import InputGroupError from '../inputs/InputGroupError'
 import RenderContent from '../utils/RenderContent'
@@ -25,8 +25,8 @@ const useStyles = makeStyles( theme => ({
   }
 }),{name: 'ChangeParticipation'})
 
-const ChangeParticipation = (props) => {
-  const {nextStep, cancel, isMobile} = props
+const ChangeParticipation = () => {
+  const { nextStep, cancel, isMobile } = useOutletContext();
   const [loginContext] = useContext(LoginContext)
   const { isActiveBiobankParticipant } = loginContext
   const [participationOption, setParticipationOption] = useState(false);

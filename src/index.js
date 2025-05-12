@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 
 import Loading from './components/Loading'
@@ -21,9 +22,17 @@ import './i18n'
 const App = lazy(() => import(`./App${process.env.REACT_APP_API_PATH === 'local' ? '_dev' : ''}`)) 
 
 ReactDOM.render(
-  <Suspense fallback={<div style={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}><Loading /></div>}>
+  <BrowserRouter>
+    
+  <Suspense fallback={ 
+    <div style={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}>
+      <Loading /></div>
+    }>
     <App />
-  </Suspense>, document.getElementById('root'))
+  </Suspense>
+  </BrowserRouter>  , 
+  document.getElementById('root'))
+
 
 // put a logo in the console for fun
 logo()

@@ -29,7 +29,7 @@ const useStyles = makeStyles( theme => ({
   },
 }),{name: 'ParticipantInfo'})
 
-const ParticipantInfo = (props) => {
+const ParticipantInfo = () => {
   const classes = useStyles()
   const { t } = useTranslation(['a_addParticipant','a_common'])
   const [addParticipantContext, dispatch] = useContext(AddParticipantContext)

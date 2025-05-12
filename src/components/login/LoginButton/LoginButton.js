@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { navigate, useLocation } from "@reach/router"
+import { useLocation , useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@material-ui/core'
 import PubSub from 'pubsub-js'
@@ -13,6 +13,7 @@ const LoginButton = (props) => {
   const [loginContext] = useContext(LoginContext)
   const { auth } = loginContext
   const location = useLocation()
+  const navigate = useNavigate()
   // destructure props
   const { isAccount = location.pathname.includes('account')} = props
   const { t } = useTranslation('common')

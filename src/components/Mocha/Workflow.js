@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Box, Divider, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
-import { navigate } from '@reach/router'
+import { useNavigate } from 'react-router-dom'
 
 import { MochaContext } from './Mocha.context'
 
@@ -33,6 +33,7 @@ const MochaReport = () => {
   const [activeStep, setActiveStep] = useState(0)
   const [mochaContext, dispatch] = useContext(MochaContext)
   const { t } = useTranslation(['a_landingMocha','a_common'])
+  const navigate = useNavigate();
 
   // set activeStep when navigation value changes
   useEffect(() => {

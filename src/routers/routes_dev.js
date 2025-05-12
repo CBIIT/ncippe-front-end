@@ -1,7 +1,9 @@
 import React, { lazy } from 'react'
-import { Location, Router, Redirect, navigate } from '@reach/router'
+import {  Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import pageWrapper from '../pages/pageWrapper/pageWrapper_dev'
+import RequireAuth from './RequireAuth'
+import LoginConsent  from '../components/login/LoginConsent'
 
 // imports for public pages
 import NotFound           from '../pages/NotFoundPage'
@@ -36,9 +38,12 @@ import ResourcesPage      from '../pages/dashboard/ResourcesPage'
 import SendMessagePage    from '../pages/dashboard/SendMessagePage'
 import MessageHistoryPage from '../pages/dashboard/MessageHistoryPage'
 
-import { LoginConsumer }  from '../components/login/Login.context'
-import LoginConsent  from '../components/login/LoginConsent'
-import { useTranslation } from 'react-i18next'
+// Nested Participation Steps
+import ChangeParticipation from '../components/Participation/ChangeParticipation'
+import LeaveOptions from '../components/Participation/LeaveOptions'
+import LeaveQuestions from '../components/Participation/LeaveQuestions'
+import CloseAccount from '../components/Participation/CloseAccount'
+
 
 // imports for time
 import moment from 'moment'
@@ -66,95 +71,74 @@ const SignInCallbackPage = pageWrapper(SignInCallback)
 const ErrorPage = pageWrapper(Errors)
 const PolicyPage = pageWrapper(Policy)
 
+const ChangeParticipationPage = pageWrapper(ChangeParticipation)
+const LeaveOptionsPage = pageWrapper(LeaveOptions)
+const LeaveQuestionsPage = pageWrapper(LeaveQuestions)
+const CloseAccountPage = pageWrapper(CloseAccount)
+
 const NotFoundPage = pageWrapper(NotFound)
 
-// catch relative links in the app that could not be made using @reach/router Link components
-document.addEventListener('click', function(event) {
-  if(event.target.dataset && event.target.dataset.route && event.target.pathname) {
-    event.preventDefault()
-    navigate(event.target.pathname)
-  }
-})
-
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { i18n } = useTranslation()
+const AppRoutes = () => {
+  const location = useLocation();
+  
   return (
-    <LoginConsumer>
-      {([state]) => {
-        if(state.auth) {
-          // set default language in case it's not specified
-          const lang = state.lang || "en"
-          console.log('lang', lang)
-          // set date format based on language
-          moment.locale(lang)
-          if(lang !== i18n.language) {
-            // Helmet doesn't like that changing languages here. Should probably be a function callback from App.js
-            i18n.changeLanguage(lang)
-            moment.locale(lang)
-          }
-          return <Component {...rest} />
-        } else {
-          return <Redirect from="" to="/" noThrow />
-        }
-      }}
-    </LoginConsumer>
-  )
-}
+    <TransitionGroup className="transitionGroup" component={null}>
+      <CSSTransition 
+        key={location.key}
+        timeout={location.pathname.match(/\/account\//) ? 350 : 550}
+        classNames={location.pathname.match(/\/account\//) ? 'zoom' : 'fade'} >
+        <div className="transitionGroup">
+        <Routes location={location}>
+          {/* <Redirect from="/signout" to="/" noThrow /> */}
+          <Route path='/' element= {<HomePage />} />
+          <Route path='/about' element= { <AboutPage />} />
+          <Route path='/about/eligibility' element= { <EligibilityPage />} />
+          <Route path='/about/news' element= {<NewsPage />} />
+          <Route path='/about/studyprogress' element= { <StudyProgressPage />} />
+          { /* <ResearchPage path='/about/research' /> */}
+          <Route path='/login-consent' element= { <LoginConsent />} />
+          <Route path='/research'  element= { <ResearchPage />} />
+          <Route path='/research/:article'  element= { <ArticlePage />} />
+          <Route path='/expect/consent' element={ <AboutConsentPage />} /> 
+          <Route path='/expect/donate' element={<DonatePage />} /> 
+          <Route path='/expect/testing' element={<TestingPage />} /> 
+          <Route path='/participation/activate'element={<ActivatePage />} />
+          <Route path='/participation/privacy' element= {<PrivacyPage />} />
+          <Route path='/website-privacy-security' element= {<PolicyPage />} />
+          <Route path='/search' element= {<SearchResultsPage  />} />
+          <Route path='/error'  element= {<ErrorPage />} />
 
-const Routes = () => (
-  <Location>
-    {({ location }) => (
-      <TransitionGroup className="transitionGroup" component={null}>
-        <CSSTransition 
-          key={location.key}
-          timeout={location.pathname.match(/\/account\//) ? 350 : 550}
-          classNames={location.pathname.match(/\/account\//) ? 'zoom' : 'fade'}
-          className="transitionGroup"
-        >
-          <Router location={location} primary={false}>
-            <HomePage path='/' />
-            <LoginConsent path='/login-consent' />
-            <AboutPage path='/about' />
-            <EligibilityPage path='/about/eligibility' />
-            <NewsPage path='/about/news' />
-            <StudyProgressPage path='/about/studyprogress' />
-            {/* <ResearchPage path='/about/research' /> */}
-            <ResearchPage path='/research' />
-            <ArticlePage path='/research/:article' />
-            <AboutConsentPage path='/expect/consent' /> 
-            <DonatePage path='/expect/donate' /> 
-            <TestingPage path='/expect/testing' /> 
-            <ActivatePage path='/participation/activate' />
-            <PrivacyPage path='/participation/privacy' />
-            <PolicyPage path='/website-privacy-security' />
-            
-            <SearchResultsPage path='/search' />
-            <ErrorPage path='/error' />
+          <Route path='/mock-users' element= {<MockUsersPage />} />
+          <Route path='/signin' element= {<SignInCallbackPage />} />
 
-            <MockUsersPage path='/mock-users' />
-            <SignInCallbackPage path='/signin' />
-            <Redirect from="/signout" to="/" noThrow />
-            
-            <PrivateRoute path='/account' component={DashboardPage} />
-            <PrivateRoute path='/account-mocha' component={DashboardMochaPage} />
-            <PrivateRoute path='/account/notifications' component={NotificationsPage} />
-            <PrivateRoute path='/account/consent' component={ConsentPage} />
-            <PrivateRoute path='/account/tests' component={TestResultsPage} />
-            <PrivateRoute path='/account/participant/:patientId' component={ParticipantPage} />
-            <PrivateRoute path='/account/participant/:patientId/participation/*' component={ParticipationPage} />
-            <PrivateRoute path='/account/participant/:patientId/profile' component={ProfilePage} />
-            <PrivateRoute path='/account/profile' component={ProfilePage} />
-            <PrivateRoute path='/account/profile/participation/*' component={ParticipationPage} />
-            <PrivateRoute path='/account/help' component={GetHelpPage} />
-            <PrivateRoute path='/account/resources' component={ResourcesPage} />
-            <PrivateRoute path='/account/sendMessage' component={SendMessagePage} />
-            <PrivateRoute path='/account/messageHistory' component={MessageHistoryPage} />
-            <NotFoundPage default />
-          </Router>
+          {/* Private routes */}
+          <Route path="/account" element={<RequireAuth> <DashboardPage /> </RequireAuth> } />
+          <Route path="/account-mocha" element={<RequireAuth >  <DashboardMochaPage  />  </RequireAuth> } />
+          <Route path="/account/notifications" element={<RequireAuth >  <NotificationsPage  />  </RequireAuth> } />
+          <Route path="/account/consent" element={<RequireAuth >  <ConsentPage  />  </RequireAuth> } />
+          <Route path="/account/tests" element={<RequireAuth >  <TestResultsPage  />  </RequireAuth> } />
+          <Route path="/account/participant/:patientId" element={<RequireAuth >  <ParticipantPage  />  </RequireAuth> } />
+          <Route path="/account/participant/:patientId/participation" element={<RequireAuth >  <ParticipationPage />  </RequireAuth> } >
+            <Route index element={<ChangeParticipationPage /> } />
+            <Route path="leaveOptions" element={<LeaveOptionsPage />} />
+            <Route path="leaveQuestions" element={<LeaveQuestionsPage />} />
+            <Route path="closeAccount" element={<CloseAccountPage />} />
+          </Route>
+          <Route path="/account/participant/:patientId/profile" element={<RequireAuth >  <ProfilePage  />  </RequireAuth> } />
+          <Route path="/account/profile" element={<RequireAuth >  <ProfilePage  />  </RequireAuth> } />
+          <Route path="/account/profile/participation/*" element={<RequireAuth >  <ParticipationPage  />  </RequireAuth> } />
+          <Route path="/account/help" element={<RequireAuth >  <GetHelpPage  />  </RequireAuth> } />
+          <Route path="/account/resources" element={<RequireAuth >  <ResourcesPage  />  </RequireAuth> } />
+          <Route path="/account/sendMessage" element={<RequireAuth >  <SendMessagePage  />  </RequireAuth> } />
+          <Route path="/account/messageHistory" element={<RequireAuth >  <MessageHistoryPage  />  </RequireAuth> } />
+
+          <Route path="/signout" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+          </div>
         </CSSTransition>
       </TransitionGroup>
-    )}
-  </Location>
-)
+    );
+}
 
-export default Routes
+export default AppRoutes

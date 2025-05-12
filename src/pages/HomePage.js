@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { navigate, Link as RouterLink } from '@reach/router'
+import { useNavigate, Link as RouterLink } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { useMediaQuery, Box, Button, Container, Dialog, DialogContent, Grid, IconButton, Paper, Typography } from '@material-ui/core'
@@ -304,6 +304,7 @@ const HomePage = () => {
   const [accountClosed, setAccountClosed] = useState(localStorage.getItem('accountClosed'))
   const [alerts, setAlerts] = useState([])
   const [refreshAlerts, setRefreshAlerts] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const resizeEvt = () => {

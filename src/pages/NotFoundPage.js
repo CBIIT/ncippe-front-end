@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link as RouterLink } from '@reach/router'
+import { Link as RouterLink } from 'react-router-dom'
 import { Box, Button, Container, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Clear as ClearIcon } from '@material-ui/icons'

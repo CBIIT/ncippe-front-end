@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link as RouterLink, navigate } from "@reach/router"
+import { Link as RouterLink, useNavigate } from "react-router-dom"
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 import { 
@@ -170,7 +170,7 @@ const Header = () => {
   const { t, i18n } = useTranslation('common')
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down(theme.breakpoints.values.smLandscape))
-
+  const navigate = useNavigate()
   const toggleDrawer = event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;

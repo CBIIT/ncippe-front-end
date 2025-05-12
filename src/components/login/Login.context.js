@@ -3,9 +3,19 @@ import React, { createContext, useReducer } from 'react'
 
 const userInitialState = {
   auth: false,
-  roleName: 'public'
+  roleName: 'public',
+  uuid: '',
+  notifications: [],
+  newNotificationCount: 0,
+  reports: [],
+  newReportCount: 0,
+  hasNewReports: false,
+  otherDocuments: [],
+  newDocumentCount: 0,
+  hasNewDocuments: false,
+  patients: [],
+  patientsUpdated: null,
 }
-
 export const LoginContext = createContext()
 
 const userReducer = (state, action) => {

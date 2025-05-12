@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Router, navigate } from '@reach/router'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Paper} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -24,7 +24,9 @@ const useStyles = makeStyles( theme => ({
 const Participation = (props) => {
   const classes = useStyles()
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600) // TODO: add resize, orientation change event listener
-
+  const navigate = useNavigate();
+  const location = useLocation();
+ 
   useEffect(() => {
     const resizeEvt = () => {
       setIsMobile(window.innerWidth < 600)
@@ -36,10 +38,10 @@ const Participation = (props) => {
 
   const handleNextStep = (data) => {
     if(data === 'leave') {
-      navigate(`${window.location.pathname}/leaveOptions`)
+      navigate('leaveOptions')
     }
     if(data === 'close') {
-      navigate(`${window.location.pathname}/closeAccount`)
+      navigate('closeAccount')
     }
   }
 
@@ -60,12 +62,8 @@ const Participation = (props) => {
   return (
     <Paper className={classes.root} elevation={25}>
       <div className={classes.maxWidth}>
-        <Router>
-          <ChangeParticipation isMobile={isMobile} path="/" nextStep={handleNextStep} cancel={handleCancel} />
-          <LeaveOptions isMobile={isMobile} path="leaveOptions" cancel={handleCancel} />
-          <LeaveQuestions isMobile={isMobile} path="leaveQuestions" cancel={handleCancel} />
-          <CloseAccount isMobile={isMobile} path="closeAccount" cancel={handleCancel} />
-        </Router>
+        {/* All child routes are rendered here */}
+        <Outlet context={{ nextStep: handleNextStep, cancel: handleCancel, isMobile  }} />
       </div>
     </Paper>
   )

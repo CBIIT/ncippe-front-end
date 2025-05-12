@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { navigate } from '@reach/router'
+import { useNavigate } from 'react-router-dom'
 import { Container, Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { ArrowBack } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
+
+
 
 const useStyles = makeStyles(theme => ({
   Breadcrumbs: {
@@ -34,6 +36,7 @@ const useStyles = makeStyles(theme => ({
  */
 const Breadcrumbs = (props) => {
   const classes = useStyles()
+  const navigate = useNavigate();
   const { t } = useTranslation('a_common')
   const handleClick = () => {
     if(props.link) {

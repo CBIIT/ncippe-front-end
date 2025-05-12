@@ -2,12 +2,13 @@ import React from 'react'
 import { Box, Container } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
-
+import { useParams, useLocation } from 'react-router-dom'
 import Breadcrumbs from '../../components/Breadcrumbs'
 import ParticipantView from '../../components/ParticipantView/ParticipantView'
 
-const Page = (props) => {
-  const {patientId, location} = props
+const Page = () => {
+  const { patientId } = useParams()
+  const location = useLocation()
   const { t } = useTranslation(['a_common'])
   return (
     <Box className="popup">
@@ -15,7 +16,7 @@ const Page = (props) => {
         <title>{t('components.participantView.metaData.title')}</title>
         <meta name="title" content={t('components.participantView.metaData.title')} />
       </Helmet>
-      <Breadcrumbs pageName="Reports" link={location.state.forceNavigation} />
+      <Breadcrumbs pageName="Reports" link={location.state?.forceNavigation} />
       <Container className="mainContainer">
         <ParticipantView patientId={patientId} location={location} />
       </Container>

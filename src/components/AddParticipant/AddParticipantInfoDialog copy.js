@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { navigate } from '@reach/router'
+import { useNavigate } from 'react-router-dom'
 import { 
   Button,
   CircularProgress,
@@ -109,6 +109,7 @@ const AddParticipantInfoDialog = (props) => {
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ //from https://emailregex.com/
   // const {patients} = loginContext
   const {token, uuid, patients} = loginContext
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsOpen(open)
@@ -158,6 +159,7 @@ const AddParticipantInfoDialog = (props) => {
     }
     
     const activatePatient = () => {
+      
       const updatedPatients = patients.map(patient => {
         if (patient.patientId === patientId) {
           return {
@@ -258,8 +260,7 @@ const AddParticipantInfoDialog = (props) => {
             throw resp
           } else {
             // update patient data front-end state
-            activatePatient()
-
+            activatePatient();
             // save successful, close modal and redirect to Participant View
             navigate(`/account/participant/${patientId}`, {
               state: {

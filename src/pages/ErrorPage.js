@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link as RouterLink } from "@reach/router"
+import { Link as RouterLink, useLocation } from 'react-router-dom'
 import { Box, Container, Button } from '@material-ui/core'
 import Status from '../components/Status'
 import { useTranslation } from 'react-i18next'
@@ -8,6 +8,7 @@ import PubSub from 'pubsub-js'
 
 
 const ErrorPage = (props) => {
+  const location = useLocation()
   const { t } = useTranslation('notFoundPage')
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const ErrorPage = (props) => {
   }
   const error = {
     ...errorDefaults,
-    ...props.location.state.error
+    ...location.state?.error
   }
   return (
     <Container>

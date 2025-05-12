@@ -4,7 +4,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles'
 import { Clear as ClearIcon, Save as SaveIcon } from '@material-ui/icons'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
-import { navigate } from '@reach/router'
+import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
 
 import getAPI from '../../data'
@@ -38,7 +38,7 @@ const AddParticipantWorkflow = (props) => {
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const [isOpen, setIsOpen] = useState(false)
   const [submitText, setSubmitText] = useState(t('form.saveActivate'))
-  
+  const navigate = useNavigate();
 
   // set activeStep when navigation value changes
   useEffect(() => {

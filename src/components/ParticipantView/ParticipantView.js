@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { navigate } from '@reach/router'
+import { useNavigation, useParams, useLocation } from 'react-router-dom'
 import { Button, Chip, ClickAwayListener, Dialog, DialogContent, DialogActions, Divider, Grid, MenuItem, Paper, Typography } from '@material-ui/core'
 import { Edit as EditIcon, Clear as ClearIcon } from '@material-ui/icons'
 import { makeStyles, useTheme } from '@material-ui/core/styles'
@@ -116,7 +116,8 @@ const useStyles = makeStyles(theme => ({
 
 const ParticipantView = (props) => {
   const classes = useStyles()
-  const {patientId, isMobile} = props
+  const {patientId, isMobile} = useParams()
+  const location = useLocation( )
   const [loginContext, dispatch] = useContext(LoginContext)
   const { uuid, token, patients } = loginContext
   const [dialogOpenConsent, setDialogOpenConsent] = useState(false)
@@ -134,6 +135,7 @@ const ParticipantView = (props) => {
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ //from https://emailregex.com/
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('xs'))
+  const navigate = useNavigation()
 
   useEffect(() => {
     // const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).uuid
@@ -170,7 +172,7 @@ const ParticipantView = (props) => {
   }, [uploadSuccess, patientId, uuid, token, patients, dispatch])
 
   useEffect(() => {
-    if(props.location && props.location.state && props.location.state.newParticipantActivated) {
+    if( location?.state.newParticipantActivated) {
       PubSub.publish('ANALYTICS', {
         events: 'event80',
         eventName: 'NewParticipantSuccess',
@@ -179,7 +181,7 @@ const ParticipantView = (props) => {
       })
       setIsNewParticipant(true)
     }
-  }, [props.location])
+  }, [location])
 
   const openUploadDialog = (e) => {
     const buttonText = e.target.textContent
@@ -482,8 +484,13 @@ const ParticipantView = (props) => {
           </DialogContent>
         }
         <DialogActions>
-          <Button className={classes.dialogBtnSubmit} onClick={handleConfirmEmail} color="primary" variant="contained">{t('a_common:buttons.save')}</Button>
-          <Button variant="text" color="primary" onClick={dialogCloseEmail}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+          <Button className={classes.dialogBtnSubmit} onClick={handleConfirmEmail} 
+          color="primary" variant="contained">
+            {t('a_common:buttons.save')}
+          </Button>
+          <Button variant="text" color="primary" onClick={dialogCloseEmail}>
+            <ClearIcon />{t('a_common:buttons.cancel')}
+          </Button>
         </DialogActions>
       </Dialog>
     </>

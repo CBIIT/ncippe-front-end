@@ -7,7 +7,8 @@ import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import PubSub from 'pubsub-js'
 
-import Routes from './routers/routes_dev'
+import AppRoutes from './routers/routes_dev'
+import  ClickInterceptor from './routers/ClickInterceptor'
 import { AuthProvider } from './components/login/AuthContext'
 import { LoginProvider } from './components/login/Login.context'
 import { theme } from './theme/theme'
@@ -87,7 +88,8 @@ const App = (props) => {
               <meta name="twitter:image:alt" content={t('metaData.twitter_image_alt')} />
             </Helmet>
             <CssBaseline />
-            <Routes />
+            <ClickInterceptor />
+            <AppRoutes />
           </HelmetProvider>
         </LoginProvider>
       </AuthProvider>

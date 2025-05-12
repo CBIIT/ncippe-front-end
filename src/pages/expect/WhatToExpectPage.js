@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Router, Link as RouterLink } from '@reach/router'
+import { Routes, Route, Link as RouterLink, useLocation } from 'react-router-dom'
 import { AppBar, Box, Container, Tab, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useTranslation } from 'react-i18next'
@@ -102,11 +102,12 @@ const WhatToExpectPage = () => {
         </AppBar>
       </Container>
       <Container className={classes.tabsContainer}>
-        <Router primary={false}>
-          <Consent index={2} isMobile={isMobile} path="/*" component="h2" />
-          <Donate index={1} isMobile={isMobile} path="donate" component="h2" />
-          <BiomarkerTest index={0} isMobile={isMobile} path="testing" component="h2" />
-        </Router>
+        <Routes>
+          <Route path="consent" element={<Consent index={2} isMobile={isMobile} />} />
+          <Route path="donate" element={<Donate index={1} isMobile={isMobile} />} />
+          <Route path="testing" element={<BiomarkerTest index={0} isMobile={isMobile} />} />
+          <Route path="*" element={<Consent index={2} isMobile={isMobile} />} />
+        </Routes>  
       </Container>
     </Box>
   )

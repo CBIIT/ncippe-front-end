@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Link as RouterLink } from '@reach/router'
+import { Link as RouterLink, useParams, useLocation } from 'react-router-dom'
 import { Box, Button, Container, Divider, Grid, Paper, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import moment from 'moment'
@@ -13,6 +13,7 @@ import Profile from '../../components/Profile/Profile'
 import Status from '../../components/Status'
 import DeactivatedQuestions from '../../components/DeactivatedQuestions'
 import { formatPhoneNumber } from '../../utils/utils'
+import { use } from 'react'
 
 
 const useStyles = makeStyles(theme => ({
@@ -83,8 +84,9 @@ const useStyles = makeStyles(theme => ({
 }),{name: 'ProfilePage'})
 
 
-const ProfilePage = (props) => {
-  const {patientId} = props
+const ProfilePage = () => {
+  const {patientId} = useParams()
+  const location = useLocation()
   const classes = useStyles()
   const [loginContext] = useContext(LoginContext)
   const { t } = useTranslation(['a_accountSettings','a_common'])
@@ -126,7 +128,7 @@ const ProfilePage = (props) => {
         <title>{t('metaData.title')}</title>
         <meta name="title" content={t('metaData.title')} />
       </Helmet>
-      <Breadcrumbs pageName="Profile" link={props.location.state.forceNavigation} />
+      <Breadcrumbs pageName="Profile" link={location.state?.forceNavigation} />
       <Container className="mainContainer">
         <div className={classes.profileTop}>
           <div className={classes.profile}>
@@ -145,7 +147,7 @@ const ProfilePage = (props) => {
         <Divider className={classes.divider} />
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <Profile patientId={props.patientId} />
+            <Profile patientId={patientId} />
             {isActiveBiobankParticipant === false && questionAnswers && (
               <DeactivatedQuestions user={userData} />
             )}
