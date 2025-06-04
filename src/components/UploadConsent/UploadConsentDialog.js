@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@material-ui/core'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import { Clear as ClearIcon } from '@material-ui/icons'
+import { Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { useTheme } from '@mui/material/styles';
+import { Clear as ClearIcon } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 
@@ -11,37 +11,6 @@ import getAPI from '../../data'
 import { LoginContext } from '../login/Login.context'
 import Status from '../Status'
 import FileItem from '../FileItem'
-
-const useStyles = makeStyles(theme => ({
-  // contentText: {
-  //   marginBottom: theme.spacing(2)
-  // },
-  // formUpload: {
-  //   marginTop: theme.spacing(3)
-  // },
-  // formButtons: {
-  //   marginTop: theme.spacing(2)
-  // },
-  // dialog: {
-  //   '& .MuiDialog-paper': {
-  //     minWidth: 600,
-  //   },
-  // },
-  btnSelectReport: {
-    margin: theme.spacing(3,0,3)
-  },
-  input: {
-    display: 'none'
-  },
-  spinner: {
-    margin: theme.spacing(2, 0),
-    maxWidth: '250px'
-  },
-  titleUploading: {
-    marginLeft: theme.spacing(3),
-    display: 'inline'
-  },
-}),{name: 'UploadConcentDialog'})
 
 const formDataDefaults = {
   file: null,
@@ -53,14 +22,13 @@ const formDataDefaults = {
 
 const UploadConcentDialog = (props) => {
   const {open, setParentState, patientId} = props
-  const classes = useStyles()
   const [loginContext] = useContext(LoginContext)
   const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState(formDataDefaults)
   const [activeStep, setActiveStep] = useState(0)
   const { t } = useTranslation(['a_uploadConsent','a_common'])
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xs'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(() => {
     setIsOpen(open)
@@ -192,10 +160,8 @@ const UploadConcentDialog = (props) => {
       fullScreen={fullScreen}
       open={isOpen}
       onClose={handleClose}
-      aria-labelledby="responsive-dialog-title"
-      className={classes.dialog}
-    >
-      <DialogTitle id="responsive-dialog-title" disableTypography><Typography variant="h3" component="h3">{t('title')}</Typography></DialogTitle>
+      aria-labelledby="responsive-dialog-title">
+      <DialogTitle id="responsive-dialog-title"><Typography variant="h3" component="h3">{t('title')}</Typography></DialogTitle>
       <DialogContent>
       {activeStep === 0 && (
         <>
@@ -205,33 +171,36 @@ const UploadConcentDialog = (props) => {
         )}
         <input
           accept=".pdf"
-          className={classes.input}
+          style={{ display: 'none' }}
           id="upload-file"
           type="file"
           onChange={handleFileChange}
         />
         {!formData.file && (
           <label htmlFor="upload-file">
-            <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">{t('upload.0.button_select')}</Button>
+            <Button sx={{ mt: 2}} variant="outlined" color="primary" component="span">{t('upload.0.button_select')}</Button>
           </label>
         )}
         {formData.uploadError && <Status state="error" title={formData.errorTitle} message={formData.errorMessage} />}
         </>
       )}
       {activeStep === 1 && (
-        <>
-        <CircularProgress className={classes.progress} size={70} />
-        <Typography className={classes.titleUploading} variant="h6">{t('upload.1.progress')}</Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', mt: 4 }}>
+        <CircularProgress sx={{ mr: 3}} size={70} />
+        <Typography variant="h6">{t('upload.1.progress')}</Typography>
         {/* <img src={`${process.env.PUBLIC_URL}/assets/images/spinner-dna.svg`} className={classes.spinner} alt="Loading..." /> */}
-        </>
+        </Box>
       )}
       </DialogContent>
       <DialogActions>
-        <Button disabled={!formData.file || formData.uploadError} onClick={handleSubmit} color="primary" variant="contained">{t('a_common:buttons.submit')}</Button>
-        <Button variant="text" color="primary" onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+        <Button disabled={!formData.file || formData.uploadError} 
+        onClick={handleSubmit} color="primary" variant="contained">
+          {t('a_common:buttons.submit')}</Button>
+        <Button variant="text" color="primary" onClick={handleClose}>
+          <ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>
-  )
+  );
 }
 
 export default UploadConcentDialog

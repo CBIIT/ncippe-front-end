@@ -1,9 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Box, Button, Dialog, DialogActions, DialogContent, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Button, Dialog, DialogActions, DialogContent, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
-
 import getAPI from '../../data'
 import { LoginContext } from '../login/Login.context'
 import RenderContent from '../utils/RenderContent'
@@ -11,66 +9,7 @@ import Status from '../Status'
 import Loading from '../Loading'
 import NoItems from '../NoItems'
 
-const useStyles = makeStyles( theme => ({
-  root: {
-    position: 'relative'
-  },
-  // tableOptions: {
-  //   position: 'absolute',
-  //   top: -43,
-  //   right: 0,
-  //   display: 'inline-flex',
-  //   justifyContent: 'flex-end',
-  //   alignItems: 'center',
-  //   marginBottom: theme.spacing(.5),
-  //   marginLeft: theme.spacing(2),
-  //   '& > :first-child': {
-  //     marginRight: theme.spacing(1.5)
-  //   }
-  // },
-  table: {
-    minWidth: 600,
-  },
-  tableRow: {
-    display: 'grid',
-    gridTemplateColumns: 'auto 1fr',
-    borderBottom: `1px solid ${theme.palette.divider}`,
-    padding: theme.spacing(1.5),
-    cursor: 'pointer',
-    '& td, & th': {
-      borderBottom: 'none',
-      padding: theme.spacing(.5)
-    },
-    '&:hover': {
-      backgroundColor: theme.palette.action.hover
-    }
-  },
-  tableRowHeader: {
-    cursor: 'default',
-    '&:hover': {
-      backgroundColor: 'inherit'
-    }
-  },
-  tableSubject: {
-    gridRow: 1,
-    fontWeight: 'bold'
-  },
-  tableAudience: {
-    gridRow: 2,
-    fontWeight: 'normal'
-  },
-  tableMessageFrom: {
-    gridRow: 3,
-    fontWeight: 'normal'
-  },
-  tableDateSent: {
-    gridRow: 1/4
-  }
-
-}),{name: 'ViewMessages'})
-
-const ViewMessages = (props) => {
-  const classes = useStyles()
+const ViewMessages = () => {
   const [loginContext] = useContext(LoginContext)
   const { t } = useTranslation(['a_messageHistory'])
   // const [allMessages, setAllMessages] = useState([])
@@ -170,7 +109,7 @@ const ViewMessages = (props) => {
 
 
   return (
-    <Box className={classes.root}>
+    <Box sx={{ position: 'relative', width: '100%' }}>
       {/* <Box className={classes.tableOptions}>
         <Typography component="span">{t('switch.mine')}</Typography>
         <FormControlLabel
@@ -180,21 +119,49 @@ const ViewMessages = (props) => {
       </Box> */}
       <Paper>
         <TableContainer>
-          <Table className={classes.table} aria-label="simple table">
+          <Table sx={{ minWidth: 600 }} aria-label="simple table">
             <TableHead>
-              <TableRow className={`${classes.tableRow} ${classes.tableRowHeader}`}>
-                <TableCell className={classes.tableSubject}>{t('tableCols.subject')}</TableCell>
-                <TableCell className={classes.tableDateSent} align="right">{t('tableCols.date')}</TableCell>
+              <TableRow sx={{
+                  display: 'grid',
+                  gridTemplateColumns: 'auto 1fr',
+                  borderBottom: 1,
+                  borderColor: 'divider',
+                  px: 2,
+                  py: 1.5,
+                  cursor: 'default',
+                  '&:hover': { backgroundColor: 'inherit' },
+                  '& td, & th': {
+                    borderBottom: 'none',
+                    py: 1,
+                  },
+                }}>
+                <TableCell sx={{ gridRow: 1, fontWeight: 'bold' }}>{t('tableCols.subject')}</TableCell>
+                <TableCell sx={{ gridRow: '1/4' }} align="right">{t('tableCols.date')}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {messages.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((message, i) => (
-                <TableRow key={i} className={classes.tableRow} data-index={i} onClick={viewMessage}>
-                  <TableCell className={classes.tableSubject}>{message.subject.en}</TableCell>
-                  {message.audiences && <TableCell className={classes.tableAudience}>{t('message.sentTo')}: {niceAudienceNames(message.audiences)}</TableCell>}
+                <TableRow key={i} sx={{
+                      display: 'grid',
+                      gridTemplateColumns: 'auto 1fr',
+                      borderBottom: 1,
+                      borderColor: 'divider',
+                      px: 2,
+                      py: 1.5,
+                      cursor: 'pointer',
+                      '& td, & th': {
+                        borderBottom: 'none',
+                        py: 1,
+                      },
+                      '&:hover': {
+                        backgroundColor: 'action.hover',
+                      },
+                    }} data-index={i} onClick={viewMessage}>
+                  <TableCell sx={{ gridRow: 1, fontWeight: 'bold' }}>{message.subject.en}</TableCell>
+                  {message.audiences && <TableCell sx={{ gridRow: 2 }}>{t('message.sentTo')}: {niceAudienceNames(message.audiences)}</TableCell>}
                   {/* {viewAll && <TableCell className={classes.tableMessageFrom}>{t('message.sentBy')}: <a href={`mailto:${message.messageFrom.email}`}>{message.messageFrom.firstName} {message.messageFrom.lastName}</a></TableCell>} */}
                   {/* {viewAll && <TableCell className={classes.tableMessageFrom}>{t('message.sentBy')}: {message.messageFrom.firstName} {message.messageFrom.lastName} &lt;{message.messageFrom.email}&gt;</TableCell>} */}
-                  <TableCell align="right" className={classes.tableDateSent}>{moment(message.dateSent).format('M/D/YYYY')}</TableCell>
+                  <TableCell align="right" sx={{ gridRow: '1/4'}}>{moment(message.dateSent).format('M/D/YYYY')}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -206,8 +173,8 @@ const ViewMessages = (props) => {
           count={messages.length}
           rowsPerPage={rowsPerPage}
           page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
       <Dialog open={open} onClose={handleClose} maxWidth='lg'>
@@ -226,7 +193,7 @@ const ViewMessages = (props) => {
         </DialogActions>
       </Dialog>
     </Box>
-  )
+  );
 }
 
 export default ViewMessages

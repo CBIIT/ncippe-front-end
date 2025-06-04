@@ -1,10 +1,7 @@
 import React, { useEffect, useRef, useState, useContext } from 'react'
-import { TextField } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, TextField, styled} from '@mui/material'
 import { useTranslation } from 'react-i18next'
-
 import { AddParticipantContext } from './AddParticipant.context'
-
 import InputGroupError from '../inputs/InputGroupError'
 import LangOption from '../inputs/LangOption'
 import Status from '../Status'
@@ -19,18 +16,15 @@ const defaultValidations = {
   lang: false
 }
 
-const useStyles = makeStyles( theme => ({
-  form: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  textField: {
-    width: '70%'
-  },
-}),{name: 'ParticipantInfo'})
+const StyledTextField = styled(TextField)({
+  width: {
+    xs: '100%', // mobile
+    sm: '80%',
+    md: '70%',
+  }
+});
 
 const ParticipantInfo = () => {
-  const classes = useStyles()
   const { t } = useTranslation(['a_addParticipant','a_common'])
   const [addParticipantContext, dispatch] = useContext(AddParticipantContext)
   const [hasError, setHasError] = useState(defaultValidations)
@@ -80,37 +74,35 @@ const ParticipantInfo = () => {
   }
 
   return (
-    <form id="activatePatient" className={classes.form} autoComplete="off" onSubmit={handleFormSubmit}>
-      <TextField
+    <Box component='form' id="activatePatient" sx={{ display: 'flex', flexDirection: 'column' }} autoComplete="off" onSubmit={handleFormSubmit}>
+      <StyledTextField
         error={hasError.firstName}
         required
         id="firstName"
         label={t('form.firstName')}
-        className={classes.textField}
+    
         margin="normal"
         variant="outlined"
         onChange={handleOnChange}
         value={addParticipantContext.firstName}
         helperText={hasError.firstName && t('form.error.firstName')}
       />
-      <TextField
+      <StyledTextField
         error={hasError.lastName}
         required
         id="lastName"
         label={t('form.lastName')}
-        className={classes.textField}
         margin="normal"
         variant="outlined"
         onChange={handleOnChange}
         value={addParticipantContext.lastName}
         helperText={hasError.lastName && t('form.error.lastName')}
       />
-      <TextField
+      <StyledTextField
         error={hasError.email}
         // required
         id="email"
         label={t('form.email')}
-        className={classes.textField}
         margin="normal"
         variant="outlined"
         onChange={handleOnChange}
@@ -131,7 +123,7 @@ const ParticipantInfo = () => {
       message={t('form.error.updateUser.existingEmail')} />}
       {addParticipantContext.updateUser_error && !addParticipantContext.existingEmail_error && <Status state="error" title={t('form.error.updateUser.title')} 
       message={t('form.error.updateUser.message')} />}
-    </form>
+    </Box>
   )
 }
 

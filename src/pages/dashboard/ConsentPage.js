@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-import { Box, Container, Grid, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Container, Grid, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 
@@ -9,30 +8,7 @@ import Breadcrumbs from '../../components/Breadcrumbs'
 // import FileList from '../../components/FileList'
 import ConsentForms from '../../components/FileList/FileList.events'
 
-const useStyles = makeStyles(theme => ({
-  titleWithIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: theme.spacing(3)
-  },
-  titleIcon: {
-    marginRight: theme.spacing(3),
-    width: '49px',
-  },
-  aside: {
-    marginTop: theme.spacing(3),
-    backgroundColor: '#E5E8EB',
-    padding: theme.spacing(3),
-    minHeight: '455px',
-    [theme.breakpoints.up('md')]: {
-      marginLeft: theme.spacing(4),
-      marginTop: 0
-    }
-  }
-}),{name: 'ConsentPage'})
-
 const Page = () => {
-  const classes = useStyles()
   const [loginContext] = useContext(LoginContext)
   const {otherDocuments: files} = loginContext
   const { t } = useTranslation('a_common')
@@ -44,25 +20,35 @@ const Page = () => {
       </Helmet>
       <Breadcrumbs pageName="Consent Page" />
       <Container className="mainContainer">
-        <Grid container className={classes.grid}>
-          <Grid item xs={12} md={6}>
-            <div className={classes.titleWithIcon}>
-              <img className={classes.titleIcon} src={`${process.env.PUBLIC_URL}/assets/icons/reports.svg`} alt={t('a_common:icons.reports')} aria-hidden="true"></img>
+        <Grid container spacing={4} sx={{ mt: 4 }}>
+          <Grid
+            size={{
+              xs: 12,
+              md: 6
+            }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+              <Box component='img' sx={{ width: '49px', mr: 3 }}
+               src={`${process.env.PUBLIC_URL}/assets/icons/reports.svg`} 
+               alt={t('a_common:icons.reports')} aria-hidden="true"></Box>
               <Typography variant="h2" component="h2">{t('components.consentView.pageTitle')}</Typography>
-            </div>
+            </Box>
             <Box mb={3}>
               <Typography>{t('components.consentView.description')}</Typography>
             </Box>
             <ConsentForms files={files} noItemsMsg={t('components.consentView.no_results.participant')} type="consentForm" />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid
+            size={{
+              xs: 12,
+              md: 6
+            }}>
             {/* Placeholder for future aside content */}
             {/* <Box className={classes.aside}></Box> */}
           </Grid>
         </Grid>
       </Container>
     </Box>
-  )
+  );
 }
 
 export default Page

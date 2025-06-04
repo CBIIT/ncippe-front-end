@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
-import { Container, Box, Grid, Typography, Divider, useMediaQuery } from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { Container, Box, Grid, Typography, Divider, useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles';
 import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
@@ -10,33 +10,10 @@ import ArticleImage from '../../components/utils/ArticleImage'
 import HospitalMap from '../../components/HospitalMap/HospitalMap'
 import TabAboutBar from './AboutBar'
 
-const useStyles = makeStyles( theme => ({
-  grid: {
-    justifyContent: 'flex-start'
-  },
-  divider: {
-    width: '100%',
-    margin: theme.spacing(3,0),
-    [theme.breakpoints.up('md')]: {
-      margin: theme.spacing(7,0)
-    }
-  },
-  gridItemImg: {
-    textAlign: 'center',
-    '& img': {
-      maxWidth: 600,
-      [theme.breakpoints.up('md')]: {
-        maxWidth: 380
-      }
-    }
-  }
-}),{name: 'EligibilityPage'})
-
 const EligibilityPage = () => {
-  const classes = useStyles()
   const { t } = useTranslation('eligibility')
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(() => {
     PubSub.publish('ANALYTICS', {
@@ -63,16 +40,33 @@ const EligibilityPage = () => {
       <TabAboutBar value={1} />
       <Container className="mainContainer mainContainer--public">
         <Box mt={5}>
-          <Grid container className={classes.grid} spacing={2} alignItems="stretch">
-            <Grid item xs={12} md={6} component="section">
+          <Grid container sx={{  justifyContent: 'flex-start' }} spacing={2} alignItems="stretch">
+            <Grid
+              component="section"
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}>
                 <RenderContent children={t('introText')} />
               </Typography>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
+            <Grid
+              sx={{ textAlign: 'left',
+                '& img': {
+                  maxWidth: {
+                    xs: 600,
+                    md: 380,
+                  },
+                }, }}
+              component="aside"
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               <ArticleImage src="patient-1.jpg" alt={t('sections.0.alt_text')} />
             </Grid>
-            <Grid item component="section">
+            <Grid component="section">
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent children={t('sections.0.title')} />
               </Typography>
@@ -84,9 +78,23 @@ const EligibilityPage = () => {
               </Typography>
             </Grid>
 
-            <Divider className={classes.divider} />
+            <Divider sx={{ width: '100%', margin: theme.spacing(3, 0),
+                            [theme.breakpoints.up('md')]: {
+                            margin: theme.spacing(7, 0),},  }} />
             
-            <Grid className={classes.gridItem} item xs={12} md={6} component="section">
+            <Grid
+              sx={{ textAlign: 'left',
+                '& img': {
+                  maxWidth: {
+                    xs: 600,
+                    md: 380,
+                  },
+                },}}
+              component="section"
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent children={t('sections.1.title')} />
               </Typography>
@@ -99,9 +107,16 @@ const EligibilityPage = () => {
             </Grid>
             <HospitalMap />
 
-            <Divider className={classes.divider} />
+            <Divider sx={{ width: '100%', margin: theme.spacing(3, 0),
+                            [theme.breakpoints.up('md')]: {
+                            margin: theme.spacing(7, 0),},  }} />
 
-            <Grid item xs={12} md={6} component="section">
+            <Grid
+              component="section"
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent children={t('sections.2.title')} />
               </Typography>
@@ -110,14 +125,26 @@ const EligibilityPage = () => {
                 <RenderContent children={t('sections.2.body.list')} />
               </Typography>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
+            <Grid
+              sx={{ textAlign: 'center',
+                '& img': {
+                  maxWidth: {
+                    xs: 600,
+                    md: 380,
+                  },
+                },}}
+              component="aside"
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               <ArticleImage src="patient-and-nurse-1.jpg" alt={t('sections.2.alt_text')} />
             </Grid>
           </Grid>
         </Box>
       </Container>
     </Box>
-  )
+  );
 }
 
 export default EligibilityPage

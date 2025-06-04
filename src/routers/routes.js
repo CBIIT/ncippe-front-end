@@ -1,5 +1,5 @@
-import React, { lazy, useContext } from 'react'
-import { Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
+import React, { lazy, } from 'react'
+import { Routes, Route, useLocation, Navigate, Outlet } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import pageWrapper from '../pages/pageWrapper'
 import RequireAuth from './RequireAuth'
@@ -20,22 +20,22 @@ import BiomarkerTest      from '../pages/expect/BiomarkerTest'
 import Privacy            from '../pages/participation/PrivacyPage'
 import Activate           from '../pages/participation/ActivatePage'
 import Research           from '../pages/research/ResearchPage'
-import Article            from '../pages/research/ArticlePage'
+//import Article            from '../pages/research/ArticlePage'
 import Policy             from '../pages/PolicyPage'
 
 // imports for dashboard pages
-import Dashboard          from '../pages/dashboard/DashboardPage'
-import DashboardMocha     from '../pages/dashboard/DashboardMochaPage'
-import NotificationsPage  from '../pages/dashboard/NotificationsPage'
-import TestResultsPage    from '../pages/dashboard/TestResultsPage'
-import ParticipantPage    from '../pages/dashboard/ParticipantPage'
-import ConsentPage        from '../pages/dashboard/ConsentPage'
-import ProfilePage        from '../pages/dashboard/ProfilePage'
-import ParticipationPage  from '../pages/dashboard/ParticipationPage'
-import GetHelpPage        from '../pages/dashboard/GetHelpPage'
-import ResourcesPage      from '../pages/dashboard/ResourcesPage'
-import SendMessagePage    from '../pages/dashboard/SendMessagePage'
-import MessageHistoryPage from '../pages/dashboard/MessageHistoryPage'
+// import Dashboard          from '../pages/dashboard/DashboardPage'
+// import DashboardMocha     from '../pages/dashboard/DashboardMochaPage'
+// import NotificationsPage  from '../pages/dashboard/NotificationsPage'
+// import TestResultsPage    from '../pages/dashboard/TestResultsPage'
+// import ParticipantPage    from '../pages/dashboard/ParticipantPage'
+// import ConsentPage        from '../pages/dashboard/ConsentPage'
+// import ProfilePage        from '../pages/dashboard/ProfilePage'
+// import ParticipationPage  from '../pages/dashboard/ParticipationPage'
+// import GetHelpPage        from '../pages/dashboard/GetHelpPage'
+// import ResourcesPage      from '../pages/dashboard/ResourcesPage'
+// import SendMessagePage    from '../pages/dashboard/SendMessagePage'
+// import MessageHistoryPage from '../pages/dashboard/MessageHistoryPage'
 
 // Nested Participation Steps
 import ChangeParticipation from '../components/Participation/ChangeParticipation'
@@ -50,6 +50,21 @@ import 'moment/locale/es'
 moment.locale('en')
 
 const SearchResults = lazy(() => import('../pages/SearchResultsPage'))
+
+const Article = lazy(() => import('../pages/research/ArticlePage'));
+const Dashboard = lazy(() => import('../pages/dashboard/DashboardPage'));
+const DashboardMocha = lazy(() => import('../pages/dashboard/DashboardMochaPage'));
+const NotificationsPage = lazy(() => import('../pages/dashboard/NotificationsPage'));
+const TestResultsPage = lazy(() => import('../pages/dashboard/TestResultsPage'));
+const ParticipantPage = lazy(() => import('../pages/dashboard/ParticipantPage'));
+const ConsentPage = lazy(() => import('../pages/dashboard/ConsentPage'));
+const ProfilePage = lazy(() => import('../pages/dashboard/ProfilePage'));
+const ParticipationPage = lazy(() => import('../pages/dashboard/ParticipationPage'));
+const GetHelpPage = lazy(() => import('../pages/dashboard/GetHelpPage'));
+const ResourcesPage = lazy(() => import('../pages/dashboard/ResourcesPage'));
+const SendMessagePage = lazy(() => import('../pages/dashboard/SendMessagePage'));
+const MessageHistoryPage = lazy(() => import('../pages/dashboard/MessageHistoryPage'));
+
 
 const HomePage = pageWrapper(Home)
 const AboutPage = pageWrapper(About)
@@ -68,72 +83,62 @@ const PrivacyPage = pageWrapper(Privacy)
 const SearchResultsPage = pageWrapper(SearchResults)
 const ErrorPage = pageWrapper(Errors)
 const PolicyPage = pageWrapper(Policy)
-
 const NotFoundPage = pageWrapper(NotFound)
-
-// catch relative links in the app that could not be made using @reach/router Link components
-document.addEventListener('click', function(event) {
-  const navigate = useNavigate();
-  if(event.target.dataset && event.target.dataset.route && event.target.pathname) {
-    event.preventDefault()
-    navigate(event.target.pathname)
-  }
-})
-
 const AppRoutes = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const location = useLocation();
   return (
-      <TransitionGroup className="transitionGroup" component={null}>
-        <CSSTransition 
-          key={location.key}
-          timeout={location.pathname.match(/\/account\//) ? 350 : 550}
-          classNames={location.pathname.match(/\/account\//) ? 'zoom' : 'fade'}
-        >
-          <div className="transitionGroup" >
-            <Routes location={location} primary={false}>
-            {/* <Redirect from="/signout" to="/" noThrow /> */}
-              <Route path='/' element= {<HomePage />} />
-              <Route path='/about' element= { <AboutPage />} />
-              <Route path='/about/eligibility' element= { <EligibilityPage />} />
-              <Route path='/about/news' element= {<NewsPage />} />
-              <Route path='/about/studyprogres' element= { <StudyProgressPage />} />
-              { /* <ResearchPage path='/about/research' /> */}
-              <Route path='/login-consent' element= { <LoginConsent />} />
-              <Route path='/research'  element= { <ResearchPage />} />
-              <Route path='/research/:article'  element= { <ArticlePage />} />
-              <Route path='/expect/consent' element={ <AboutConsentPage />} /> 
-              <Route path='/expect/donate' element={<DonatePage />} /> 
-              <Route path='/expect/testing' element={<TestingPage />} /> 
-              <Route path='/participation/activate'element={<ActivatePage />} />
-              <Route path='/participation/privacy' element= {<PrivacyPage />} />
-              <Route path='/website-privacy-security' element= {<PolicyPage />} />
-              <Route path='/search' element= {<SearchResultsPage  />} />
-              <Route path='/error'  element= {<ErrorPage />} />
+    <TransitionGroup className="transitionGroup" component={null}>
+      <CSSTransition 
+        key={location.key}
+        timeout={location.pathname.match(/\/account\//) ? 350 : 550}
+        classNames={location.pathname.match(/\/account\//) ? 'zoom' : 'fade'}
+      >
+        <div className="transitionGroup" >
+          <Routes location={location} primary={false}>
+          {/* <Redirect from="/signout" to="/" noThrow /> */}
+            <Route path='/' element= {<HomePage />} />
+            <Route path='/about' element= { <AboutPage />} />
+            <Route path='/about/eligibility' element= { <EligibilityPage />} />
+            <Route path='/about/news' element= {<NewsPage />} />
+            <Route path='/about/studyprogress' element= { <StudyProgressPage />} />
+            { /* <ResearchPage path='/about/research' /> */}
+            <Route path='/login-consent' element= { <LoginConsent />} />
+            <Route path='/research'  element= { <ResearchPage />} />
+            <Route path='/research/:article'  element= { <ArticlePage />} />
+            <Route path='/expect/consent' element={ <AboutConsentPage />} /> 
+            <Route path='/expect/donate' element={<DonatePage />} /> 
+            <Route path='/expect/testing' element={<TestingPage />} /> 
+            <Route path='/participation/activate'element={<ActivatePage />} />
+            <Route path='/participation/privacy' element= {<PrivacyPage />} />
+            <Route path='/website-privacy-security' element= {<PolicyPage />} />
+            <Route path='/search' element= {<SearchResultsPage  />} />
+            <Route path='/error'  element= {<ErrorPage />} />
 
-            {/* Private routes */}
-            <Route path="/account" element={<RequireAuth> <DashboardPage /> </RequireAuth> } />
-          <Route path="/account-mocha" element={ <RequireAuth> <DashboardMocha /> </RequireAuth> }  />
-          <Route path="/account/notifications" element={<RequireAuth> <NotificationsPage /> </RequireAuth> } />
-          <Route path="/account/consent" element={<RequireAuth> <ConsentPage /> </RequireAuth> } />
-          <Route path="/account/tests" element={<RequireAuth> <TestResultsPage /> </RequireAuth> } />
-          <Route path="/account/participant/:patientId" element={<RequireAuth> <ParticipantPage /> </RequireAuth> } />
-          <Route path="/account/participant/:patientId/participation/*" element={<RequireAuth> <ParticipationPage /> </RequireAuth> } />
-          <Route path="/account/participant/:patientId/profile" element={<RequireAuth> <ProfilePage /> </RequireAuth> } />
-          <Route path="/account/profile" element={<RequireAuth> <ProfilePage /> </RequireAuth> } />
-          <Route path="/account/profile/participation/*" element={<RequireAuth> <ParticipationPage /> </RequireAuth> } />
-          <Route path="/account/help" element={<RequireAuth> <GetHelpPage /> </RequireAuth> } />
-          <Route path="/account/resources" element={<RequireAuth> <ResourcesPage /> </RequireAuth> } />
-          <Route path="/account/sendMessage" element={<RequireAuth> <SendMessagePage /> </RequireAuth> } />
-          <Route path="/account/messageHistory" element={<RequireAuth> <MessageHistoryPage /> </RequireAuth> } />
+          {/* Private routes */}
+            <Route path="/account" element={<RequireAuth> <Outlet /> </RequireAuth> } >
+              <Route index element={ <DashboardMocha />  }  />
+              <Route path="notifications" element={ <NotificationsPage />  } />
+              <Route path="consent" element={ <ConsentPage />  } />
+              <Route path="tests" element={ <TestResultsPage />  } />
+              <Route path="participant/:patientId" element={ <ParticipantPage />  } />
+              <Route path="participant/:patientId/participation/*" element={ <ParticipationPage />  } />
+              <Route path="participant/:patientId/profile" element={ <ProfilePage />  } />
+              <Route path="profile" element={ <ProfilePage />  } />
+              <Route path="profile/participation/*" element={ <ParticipationPage />  } />
+              <Route path="help" element={ <GetHelpPage />  } />
+              <Route path="resources" element={ <ResourcesPage />  } />
+              <Route path="sendMessage" element={ <SendMessagePage />  } />
+              <Route path="messageHistory" element={ <MessageHistoryPage />  } />
+        </Route>
 
-          <Route path="/signout" element={<Navigate to="/" replace />} />
-          <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-          </div>
-        </CSSTransition>
-      </TransitionGroup>
-    );
+        <Route path="/signout" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+        </div>
+      </CSSTransition>
+    </TransitionGroup>
+  );
   }
 
 export default AppRoutes

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Grid, TextField, Typography} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Grid, TextField, Typography} from '@mui/material'
+
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 
@@ -9,42 +9,7 @@ import PatientListItem from './PatientListItem'
 // import AddParticipantInfoDialog from '../../components/Participation/AddParticipantInfoDialog'
 import AddParticipantInfoDialog from '../../components/AddParticipant'
 
-const useStyles = makeStyles(theme => ({
-  titleWithIcon: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  cardIcon: {
-    marginRight: theme.spacing(3),
-    width: '49px',
-  },
-  title: {
-    marginBottom: theme.spacing(5),
-  },
-  grid_textField: {
-    textAlign: 'center',
-    [theme.breakpoints.up('sm')]: {
-      textAlign: 'right',
-    }
-  },
-  textField: {
-    margin: 0,
-    width: '90%',
-    backgroundColor: theme.palette.common.white,
-    [theme.breakpoints.up('sm')]: {
-      width: 'auto',
-      minWidth: 268
-    },
-    [theme.breakpoints.up('md')]: {
-      minWidth: 300
-    }
-  },
-
-}),{name: 'PatientList'})
-
-const PatientList = (props) => {
-  const {patients, patientsUpdated} = props
-  const classes = useStyles()
+const PatientList = ({patients, patientsUpdated}) => {
   const [patientList, setPatientList] = useState(patients)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [hasSearched, setHasSearched] = useState(false)
@@ -65,7 +30,7 @@ const PatientList = (props) => {
     setPatientList(filteredList)
     // capture analytics on first keypress and then disconnect
     // Goal is to see if search field is being used
-    if(hasSearched === false) {
+    if(!hasSearched) {
       PubSub.publish('ANALYTICS', {
         events: 'event2',
         eventName: 'ParticipantNameSearch',
@@ -92,33 +57,54 @@ const PatientList = (props) => {
   }
 
   return (
-    <Box className={classes.root}>
-      <Grid container className={classes.title} spacing={3} alignItems="center">
-        <Grid item xs={12} sm={6}>
-          <div className={classes.titleWithIcon}>
-            <img className={classes.cardIcon} src={`${process.env.PUBLIC_URL}/assets/icons/patients.svg`} alt={t('a_common:icons.user_profile')} aria-hidden="true"></img>
-            <Typography className={classes.cardTitle} variant="h2" component="h2">{t('components.participantList.title')}</Typography>
-          </div>
+    <Box sx={{ p:3 }}>
+      <Grid container sx={{ mb: 5 }} spacing={3} alignItems="center">
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6
+          }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }} >
+            <Box component='img' sx={{mr: 3, width:'49px'  }} 
+            src={`${process.env.PUBLIC_URL}/assets/icons/patients.svg`} 
+            alt={t('a_common:icons.user_profile')} aria-hidden="true"></Box>
+            <Typography sx={{ fontWeight: 'bold' }} variant="h2" component="h2">{t('components.participantList.title')}</Typography>
+          </Box>
         </Grid>
-        <Grid item xs={12} sm={6} className={classes.grid_textField}>
+        <Grid
+          sx={{ textAlign: { xs: 'center', sm: 'right' } }}
+          size={{
+            xs: 12,
+            sm: 6
+          }}>
           <TextField
             id="outlined-search"
             label={t('components.participantList.search_label')}
             type="search"
-            className={classes.textField}
+            sx={{
+              width: {
+                xs: '90%',
+                sm: 'auto',
+              },
+              minWidth: {
+                sm: 268,
+                md: 300,
+              },
+              backgroundColor: 'common.white',
+              m: 0,
+            }}
             margin="normal"
             variant="outlined"
             onChange={filterPatients}
           />
         </Grid>
       </Grid>
-
       <Box>
         {patientList && patientList.map((patient, i) => <PatientListItem key={i} patient={patient} activate={activateUser} />)}
       </Box>
       <AddParticipantInfoDialog open={dialogOpen} patient={patientToActivate} setParentState={closeUploadDialog} />
     </Box>
-  )
+  );
 }
 
 PatientList.displayName = "PatientList"

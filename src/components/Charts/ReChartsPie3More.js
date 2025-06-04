@@ -117,6 +117,7 @@ export default function ReChartsPie3More(props) {
 
   return (
     // <ResponsiveContainer width="100%" height={300} >
+    //  </ ResponsiveContainer>
     <PieChart width={410} height={300}>
       <Pie
         isAnimationActive={false}
@@ -141,6 +142,5 @@ export default function ReChartsPie3More(props) {
       />
       <Tooltip />
     </PieChart>
-    //  </ ResponsiveContainer>
   );
 }

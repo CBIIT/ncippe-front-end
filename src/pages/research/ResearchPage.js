@@ -2,48 +2,15 @@ import React, { useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
-import { Box, Container, Divider, Grid, Link, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Container, Divider, Grid, Link, Typography, useTheme } from '@mui/material'
 import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 
-const useStyles = makeStyles( theme => ({
-  grid: {
-    justifyContent: 'flex-start'
-  },
-  divider: {
-    width: '100%',
-    margin: theme.spacing(3,0),
-    [theme.breakpoints.up('md')]: {
-      margin: theme.spacing(7,0)
-    }
-  },
-  dividerSmall: {
-    width: '100%',
-    margin: theme.spacing(2,0),
-    [theme.breakpoints.up('md')]: {
-      margin: theme.spacing(3,0)
-    }
-  },
-  gridItemImg: {
-    textAlign: 'center',
-    '& img': {
-      maxWidth: 600,
-      [theme.breakpoints.up('md')]: {
-        maxWidth: 380
-      }
-    }
-  },
-  updates: {
-    marginTop: theme.spacing(5)
-  }
-}),{name: 'ResearchPage'})
-
 const ResearchPage = () => {
-  const classes = useStyles()
   const { t } = useTranslation('research')
+  const theme = useTheme()
 
   useEffect(() => {
     PubSub.publish('ANALYTICS', {
@@ -71,8 +38,13 @@ const ResearchPage = () => {
       </Container>
       <Container className="mainContainer mainContainer--public">
         <Box mt={5}>
-          <Grid container className={classes.grid} spacing={2} alignItems="stretch">
-            <Grid item xs={12} md={6} component="section">
+          <Grid container sx={{ justifyContent: 'flex-start' }} spacing={2} alignItems="stretch">
+            <Grid
+              component="section"
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent children={t('sections.0.title')} />
               </Typography>
@@ -80,13 +52,27 @@ const ResearchPage = () => {
                 <RenderContent children={t('sections.0.body')} />
               </Typography>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
+            <Grid
+              sx={{ textAlign: 'center',
+                '& img': { maxWidth: { xs: 600,md: 380,}, width: '100%', },
+                }}
+              component="aside"
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               <ArticleImage src="researchers-2.jpg" alt={t('sections.0.alt_text')} />
             </Grid>
 
-            <Divider className={classes.divider} />
+            <Divider sx={{ width: '100%', my: 2,
+              [theme.breakpoints.up('md')]: { my: 3,}, }} />
 
-            <Grid item xs={12} md={6} component="section">
+            <Grid
+              component="section"
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent children={t('sections.1.title')} />
               </Typography>
@@ -94,7 +80,7 @@ const ResearchPage = () => {
                 <RenderContent children={t('sections.1.body')} />
               </Typography>
 
-              <section className={classes.updates}>
+              <Box component="section" sx={{ mt: 5 }}>
                 <Typography paragraph={true} variant="h3" component="h3">
                   <RenderContent children={t('sections.2.title')} />
                 </Typography>
@@ -103,23 +89,38 @@ const ResearchPage = () => {
                     <Typography component="div" paragraph={true} key={i}>
                       <Link component={RouterLink} to={t(`sections.2.links.${i}.route`)}>{t(`sections.2.links.${i}.text`)}</Link>
                       <Typography><RenderContent children={t(`sections.2.links.${i}.author`)} /></Typography>
-                      <Divider className={classes.dividerSmall} />
+                      <Divider sx={{ width: '100%', my: 2,
+                        [theme.breakpoints.up('md')]: { my: 3,}, }} />
+
                     </Typography>
                   )}
                 </div>
-              </section>
+              </Box>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
+            <Grid
+              sx={{ textAlign: 'center',
+                '& img': { maxWidth: { xs: 600,md: 380,}, width: '100%', },
+                }}
+              component="aside"
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               <ArticleImage src="researchers-1.jpg" alt={t('sections.1.alt_text')} />
             </Grid>
 
-            <Grid item xs={12} md={6} component="section">
+            <Grid
+              component="section"
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               
             </Grid>
           </Grid>
         </Box>
       </Container>
     </Box>
-  )
+  );
 }
 export default ResearchPage

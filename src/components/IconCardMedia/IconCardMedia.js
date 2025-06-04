@@ -1,50 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Button, Card, CardActions, CardMedia, CardContent, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { KeyboardArrowRight as KeyboardArrowRightIcon } from '@material-ui/icons'
+import { Button, Card, CardActions, CardMedia, CardContent, Typography } from '@mui/material'
+import { KeyboardArrowRight as KeyboardArrowRightIcon } from '@mui/icons-material'
 
 import RenderContent from '../utils/RenderContent'
-
-
-const useStyles = makeStyles( theme => ({
-  root: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between'
-  },
-  media: {
-    height: '146px',
-  },
-  cardTitle: {
-    fontWeight: 'bold'
-  },
-  cardActions: {
-    borderTop: `1px solid ${theme.palette.grey[300]}`,
-    padding: theme.spacing(2,0),
-    margin: theme.spacing(0,2)
-  }
-}),{name: 'IconCardMedia'})
-
 /**
  * This responsive card is a custom Material UI card designed to make it easy to drop in card elements while keeping a uniform style. It does not display an icon despite the component name. It was modeled off the IconCard.
  */
 const IconCardMedia = (props) => {
   const {title, desc, image, imageTitle, link, linkText} = props
-  const classes = useStyles()
 
   return (
-    <Card className={classes.root} elevation={25}>
+    <Card sx={{ height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between'}} elevation={25}>
       <div>
         <CardMedia
-          className={classes.media}
+          sx={{ height: 146 }}
           image={image}
           title={imageTitle}
         />
         <CardContent>
-          <Typography className={classes.cardTitle} gutterBottom variant="body2" component="h4">
+          <Typography sx={{ fontWeight: 'bold'}} gutterBottom variant="body2" component="h4">
             {title}
           </Typography>
           {desc &&
@@ -54,9 +33,14 @@ const IconCardMedia = (props) => {
           }
         </CardContent>
       </div>
-      {link && <CardActions className={classes.cardActions}>
+      {link && <CardActions sx={{
+            borderTop: theme => `1px solid ${theme.palette.grey[300]}`,
+            py: 2,       // paddingY
+            my: 0,       // marginY
+            mx: 2        // marginX
+          }}>
         <Button color="primary" component={Link} to={link}>
-          {linkText} <KeyboardArrowRightIcon className={classes.linkIcon} />
+          {linkText} <KeyboardArrowRightIcon  />
         </Button>
       </CardActions>}
     </Card>

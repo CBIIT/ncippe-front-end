@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
-import { Box, Divider, FormControl, Input, InputLabel, Paper, Typography, Button} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { Edit as EditIcon, Clear as ClearIcon } from '@material-ui/icons'
+import { Box, Divider, FormControl, Input, InputLabel, Paper, Typography, Button} from '@mui/material'
+import { Edit as EditIcon, Clear as ClearIcon } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router-dom'
 import PubSub from 'pubsub-js'
@@ -15,47 +14,9 @@ import LangOption from '../inputs/LangOption'
 import getAPI from '../../data'
 import { use } from 'react'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(3, 2)
-  },
-  form: {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  boxTitle: {
-    display: 'flex',
-    "& :first-child": {
-      flex: 1
-    }
-  },
-  formControl: {
-    minWidth: '200px',
-    
-    '& .MuiInput-formControl': {
-      marginTop: 20
-    }
-  },
-  cta: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginTop: theme.spacing(3)
-  },
-  label: {
-    fontWeight: 700,
-    color: theme.palette.text.primary,
-    transform: "none"
-  },
-  btnSubmit: {
-    marginRight: theme.spacing(1)
-  }
-}),{name: 'Profile'})
-
 const Profile = () => {
   // if there's a patientId then this profile is being edited by an admin, otherwise it's being edited by the user
   const {patientId} = useParams()
-  const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const [editMode, setEditMode] = useState(false)
   const [errorPhone, setErrorPhone] = useState(false)
@@ -178,13 +139,19 @@ const Profile = () => {
   }
 
   return (
-    <Paper className={classes.root} elevation={25}>
-      <form className={classes.form} onSubmit={handleSubmit}>
-        <Box className={classes.boxTitle}>
+    <Paper sx={{ p:3}} elevation={25}>
+      <form style={{ position: 'relative', display: 'flex', flexDirection: 'column' }} onSubmit={handleSubmit}>
+        <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+            mb: 2,
+            '& > :first-of-type': {
+              flex: 1,
+            },
+          }}>
           <Typography variant="h3" component="h3" gutterBottom>{t('profile.title')}</Typography>
           {!editMode && (
             <Button 
-              className={classes.editButton} 
               variant="text" 
               color="primary"
               onClick={toggleEditMode}
@@ -199,13 +166,23 @@ const Profile = () => {
         <Divider />
         <EmailOption value={userOptIn} editMode={editMode} onClick={updateEmailOption} />
         <Divider />
-        {profileData.roleName === "ROLE_PPE_PARTICIPANT" && <LangOption label={t('profile.lang.title')} value={userLang} editMode={editMode} onChange={updateLang} />}
-        {profileData.roleName === "ROLE_PPE_PARTICIPANT" && <Divider />}
+        {profileData.roleName === "ROLE_PPE_PARTICIPANT" && 
+        <LangOption label={t('profile.lang.title')} 
+        value={userLang} editMode={editMode} onChange={updateLang} />}
+        {profileData.roleName === "ROLE_PPE_PARTICIPANT" && <Divider sx={{ my: 2 }} />}
 
         {editMode && (
-          <FormControl className={`${classes.formControl} ${classes.cta}`} >
-            <Button className={classes.btnSubmit} type="submit" variant="contained" color="primary">{t('a_common:buttons.save')}</Button>
-            <Button variant="text" onClick={cancelEdit} color="primary"><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+          <FormControl sx={{
+              minWidth: 200,
+              display: 'flex',
+              flexDirection: 'row',
+              mt: 3,
+              '& .MuiInput-formControl': { mt: 2 },
+            }} >
+            <Button sx={{ mr: 1 }} type="submit" variant="contained" color="primary">
+              {t('a_common:buttons.save')}</Button>
+            <Button variant="text" onClick={cancelEdit} color="primary">
+              <ClearIcon />{t('a_common:buttons.cancel')}</Button>
           </FormControl>
         )}
       </form>

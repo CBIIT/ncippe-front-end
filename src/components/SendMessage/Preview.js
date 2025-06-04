@@ -1,32 +1,16 @@
 import React, { useContext } from 'react'
-import { Box, Button, Divider, Paper, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Button, Divider, Paper, Typography } from '@mui/material'
 import { 
   Clear as ClearIcon
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
-
 import { SendMessageContext } from './SendMessage.context'
 import FormButtons from './FormButtons'
 import RenderContent from '../utils/RenderContent'
 
-const useStyles = makeStyles( theme => ({
-  divider: {
-    margin: theme.spacing(2, 0, 4, 0)
-  },
-  previewWrapper: {
-    maxHeight: 400,
-    overflow: 'auto',
-    padding: theme.spacing(1,3,1,1),
-    '& .preview': {
-      padding: theme.spacing(2,4),
-    }
-  },
-}),{name: 'PreviewMessage'})
 
 const PreviewMessage = () => {
-  const classes = useStyles()
   const { t } = useTranslation(['a_sendMessage'])
   const [sendMessageContext, dispatch] = useContext(SendMessageContext)
   const { audiences, subject, message} = sendMessageContext
@@ -45,8 +29,16 @@ const PreviewMessage = () => {
       <Typography>
         {audiences.join(', ')}
       </Typography>
-      <Divider className={classes.divider} />
-      <Box className={classes.previewWrapper}>
+      <Divider sx={{ my: 4 }} />
+      <Box sx={{
+          maxHeight: 400,
+          overflow: 'auto',
+          px: 1,
+          pr: 3,
+          '& .preview': {
+            p: 4,
+          },
+        }}>
         <Paper className="preview" elevation={4}>
           <h3>{subject}</h3>
           <p>{moment().format('MMMM Do YYYY, h:mm a')}</p>

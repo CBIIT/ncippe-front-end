@@ -1,28 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { Paper} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-
+import { Box, Paper} from '@mui/material'
 import ChangeParticipation from './ChangeParticipation'
 import LeaveOptions from './LeaveOptions'
 import LeaveQuestions from './LeaveQuestions'
 import CloseAccount from './CloseAccount'
 
-
-const useStyles = makeStyles( theme => ({
-  root: {
-    padding: theme.spacing(2, 3),
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(5)
-    }
-  },
-  maxWidth: {
-    maxWidth: 600
-  }
-}),{name: 'Participation'})
-
-const Participation = (props) => {
-  const classes = useStyles()
+const Participation = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600) // TODO: add resize, orientation change event listener
   const navigate = useNavigate();
   const location = useLocation();
@@ -51,8 +35,8 @@ const Participation = (props) => {
     // navigate('../', {state: {
     //   forceNavigation: '/account'
     // }})
-    const isParticipant = window.location.pathname.includes("/profile")
-    navigate(isParticipant ? '/account/profile' : window.location.pathname.match(/^.*\/participant\/.{8}/)[0], {
+    const isParticipant = location.pathname.includes("/profile")
+    navigate(isParticipant ? '/account/profile' : location.pathname.match(/^.*\/participant\/.{8}/)[0], {
       state: {
         forceNavigation: '/account'
       }
@@ -60,11 +44,11 @@ const Participation = (props) => {
   }
 
   return (
-    <Paper className={classes.root} elevation={25}>
-      <div className={classes.maxWidth}>
+    <Paper sx={{ p:{xs:2, sm:5 },  }} elevation={25}>
+      <Box sx={{ maxWidth: { xs: '100%', sm: 600 }, mx: 'auto' }} >
         {/* All child routes are rendered here */}
         <Outlet context={{ nextStep: handleNextStep, cancel: handleCancel, isMobile  }} />
-      </div>
+      </Box>
     </Paper>
   )
 }

@@ -1,22 +1,11 @@
 import React from 'react'
-import { Box, CircularProgress, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, CircularProgress, Typography } from '@mui/material'
 
-const useStyles = makeStyles( theme => ({
-  title: {
-    marginLeft: theme.spacing(3),
-    display: 'inline',
-  },
-}),{name: 'Progress'})
-
-const Progress = (props) => {
-  const classes = useStyles()
-  const { title } = props
-
+const Progress = ({title}) => {
   return (
-    <Box>
+    <Box sx={{ display: 'flex',alignItems: 'center',}}>
       <CircularProgress size={70} />
-      <Typography className={classes.title} variant="h6">{title}</Typography>
+      <Typography sx={{ ml: 3, display:'inline'}} variant="h6">{title}</Typography>
     </Box>
   )
 }

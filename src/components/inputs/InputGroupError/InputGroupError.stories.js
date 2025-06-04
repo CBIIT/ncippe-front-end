@@ -1,17 +1,8 @@
 import React from 'react'
-import { FormControl, FormControlLabel, Radio, RadioGroup, TextField } from '@material-ui/core'
-import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
-import { makeStyles } from '@material-ui/core/styles'
+import { FormControl, FormControlLabel, Radio, RadioGroup, TextField } from '@mui/material'
+import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import InputGroupError from './InputGroupError'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
-}));
 
 export default {
   title: 'Components/Inputs/InputGroupError',
@@ -117,21 +108,20 @@ InputGroupErrorTextarea.args = {
 
 /* ===== Multiple Inputs ===== */
 const Address = () => {
-  const classes = useStyles()
   return (
-    <FormControl component="fieldset" className={classes.root}>
-      <div>
+    <FormControl component="fieldset" sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}>
+      <Box>
         <TextField label="First name" />
         <TextField label="Last name" />
-      </div>
-      <div>
+      </Box>
+      <Box>
         <TextField label="Street" />
-      </div>
-      <div>
+      </Box>
+      <Box>
         <TextField label="City" />
         <TextField label="State" />
         <TextField label="Zip code" />
-      </div>
+      </Box>
     </FormControl>
   )
 }

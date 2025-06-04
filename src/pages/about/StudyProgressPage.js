@@ -8,8 +8,8 @@ import {
   Grid,
   Typography,
   useMediaQuery,
-} from "@material-ui/core";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+} from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import PubSub from "pubsub-js";
 import IconCardStudy from '../../components/IconCardStudy/IconCardStudy';
 import RenderContent from "../../components/utils/RenderContent";
@@ -20,6 +20,7 @@ import ReChartsBar from "../../components/Charts/ReChartsBar";
 import ReChartsBar2sets from "../../components/Charts/ReChartsBar2sets";
 import getAPI from "../../data";
 import TabAboutBar from "./AboutBar";
+import { gridWithImagesSx, h6TextSx } from "../../theme/homePageStyles";
 
 const COLORS = [
   "#246AD4",
@@ -31,78 +32,78 @@ const COLORS = [
   "#987DC4",
 ];
 
-const useStyles = makeStyles(
-  (theme) => ({
-    grid: {
-      justifyContent: "flex-start",
-      marginTop: theme.spacing(3),
-      "& img": {
-        display: "inline-block",
-        maxWidth: 600,
-        margin: theme.spacing(1, 0, 3),
-      },
-    },
+// const useStyles = makeStyles(
+//   (theme) => ({
+//     grid: {
+//       justifyContent: "flex-start",
+//       marginTop: theme.spacing(3),
+//       "& img": {
+//         display: "inline-block",
+//         maxWidth: 600,
+//         margin: theme.spacing(1, 0, 3),
+//       },
+//     },
 
-    gridItemImg: {
-      textAlign: "center",
-      "& img": {
-        maxWidth: 600,
-        [theme.breakpoints.up("md")]: {
-          maxWidth: 380,
-        },
-      },
-    },
-    gridItem: {
-      width: '25.0%',
-    },
-    img_fullWidth: {
-      width: "100%",
-      maxWidth: "none !important",
-    },
-    divider: {
-      width: "100%",
-      margin: theme.spacing(3, 0),
-      [theme.breakpoints.up("md")]: {
-        margin: theme.spacing(7, 0),
-      },
-    },
-    typography: {
-      h6: {
-        fontFamily: 'Montserrat, Open-Sans, sans-serif',
-        fontWeight: 400,
-        fontSize: '15px',
-        lineHeight: '30px',
-        paragraphHeight: '20px',
-        letterSpacing: '.46px',
-      },
-      color:'#183787',
+//     gridItemImg: {
+//       textAlign: "center",
+//       "& img": {
+//         maxWidth: 600,
+//         [theme.breakpoints.up("md")]: {
+//           maxWidth: 380,
+//         },
+//       },
+//     },
+//     gridItem: {
+//       width: '25.0%',
+//     },
+//     img_fullWidth: {
+//       width: "100%",
+//       maxWidth: "none !important",
+//     },
+//     divider: {
+//       width: "100%",
+//       margin: theme.spacing(3, 0),
+//       [theme.breakpoints.up("md")]: {
+//         margin: theme.spacing(7, 0),
+//       },
+//     },
+//     typography: {
+//       h6: {
+//         fontFamily: 'Montserrat, Open-Sans, sans-serif',
+//         fontWeight: 400,
+//         fontSize: '15px',
+//         lineHeight: '30px',
+//         paragraphHeight: '20px',
+//         letterSpacing: '.46px',
+//       },
+//       color:'#183787',
       
-    },
-    testAlpha: {
-      width: "25%",
-      backgroundColor: "#b90d87",
-    },
-    linkImg: {
-      "& a": {
-        display: "inline-block",
-        border: `2px solid ${theme.palette.grey.light}`,
-      },
-      "& img": {
-        margin: 0,
-      },
-      "& figcaption": {
-        margin: theme.spacing(0, 0, 2, 0),
-      },
-    },
-  }),
-  { name: "StudyProgressPage" }
-);
+//     },
+//     testAlpha: {
+//       width: "25%",
+//       backgroundColor: "#b90d87",
+//     },
+//     linkImg: {
+//       "& a": {
+//         display: "inline-block",
+//         border: `2px solid ${theme.palette.grey.light}`,
+//       },
+//       "& img": {
+//         margin: 0,
+//       },
+//       "& figcaption": {
+//         margin: theme.spacing(0, 0, 2, 0),
+//       },
+//     },
+//   }),
+//   { name: "StudyProgressPage" }
+// );
 
 const StudyProgressPage = () => {
-  const classes = useStyles();
+  //const classes = useStyles();
   let { t, i18n } = useTranslation("studyprogress");
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const lang = i18n.languages[0] === "en" ? "" : "-es";
 
   const [dblastUpdatedDate, setDBLastUpdatedDate] = useState(Date.parse('2024-06-24'));
@@ -224,11 +225,15 @@ const StudyProgressPage = () => {
         <Box mt={5} component="section">
           <Grid
             container
-            className={classes.grid}
+            sx={ gridWithImagesSx(theme)}
             spacing={2}
             alignItems="stretch"
           >
-            <Grid item xs={12} md={9}>
+            <Grid
+              size={{
+                xs: 12,
+                md: 9
+              }}>
               <Typography paragraph={true} variant="h2" component="h2">
                 <RenderContent children={t("sections.0.title")} />
               </Typography>
@@ -239,18 +244,22 @@ const StudyProgressPage = () => {
             </Grid>
           </Grid>
         </Box>
-        <Divider className={classes.divider} />
+        <Divider sx={{ width: '100%', my: 3, [theme.breakpoints.up('md')]: { my: 7 } }} />
         <Box mt={2} component="section">
           {/* Section for Project Summary  */}
           {/* Grid for section title   */}
           <Grid
             container
-            className={classes.grid}
+            sx={gridWithImagesSx(theme)}
             spacing={1}
             direction="row"
             justifyContent="center" alignItems="stretch" component="section"
           >
-            <Grid item xs={12} md={9}>
+            <Grid
+              size={{
+                xs: 12,
+                md: 9
+              }}>
               <Typography paragraph={true} variant="h3" component="h3">
                 <RenderContent children={t("sections.1.title")} />
               </Typography>
@@ -263,7 +272,13 @@ const StudyProgressPage = () => {
             direction="row"
             justifyContent="center" alignItems="center" component="section"
           >
-          <Grid item xs={12} sm={6} lg={3} sx={{ width:270, height:80}}>
+          <Grid
+            sx={{ width:270, height:80}}
+            size={{
+              xs: 12,
+              sm: 6,
+              lg: 3
+            }}>
           <IconCardStudy
            count={projectSummary.participantsCount}
             title={t('cards.ParticipantsCount.title')}
@@ -272,7 +287,13 @@ const StudyProgressPage = () => {
             icon="study-participant-icon.svg"
           />
         </Grid>
-        <Grid sx={{ width:270, height:80}} item xs={12} sm={6} lg={3}>
+        <Grid
+          sx={{ width:270, height:80}}
+          size={{
+            xs: 12,
+            sm: 6,
+            lg: 3
+          }}>
           <IconCardStudy
             count={projectSummary.sitesCount}
             title={t('cards.SitesCount.title')}
@@ -281,7 +302,13 @@ const StudyProgressPage = () => {
             icon="study-specimen-icon.svg"
           />
         </Grid>
-        <Grid sx={{ width:270, height:80}} item xs={12} sm={6} lg={3}>
+        <Grid
+          sx={{ width:270, height:80}}
+          size={{
+            xs: 12,
+            sm: 6,
+            lg: 3
+          }}>
           <IconCardStudy
             icon="study-cancersample-icon.svg"
             count={projectSummary.cancerTypesCount}
@@ -290,7 +317,12 @@ const StudyProgressPage = () => {
             altText={t('cards.CancerTypesCount.title')}
           />
         </Grid>
-        <Grid  item xs={12} sm={6} lg={3}>
+        <Grid  sx={{ width:270, height:80}}
+          size={{
+            xs: 12,
+            sm: 6,
+            lg: 3
+          }}>
           <IconCardStudy
             icon="study-biomarker-icon.svg"
             count={projectSummary.bioMarkerReturnedCount}
@@ -302,18 +334,22 @@ const StudyProgressPage = () => {
 
           </Grid>
         </Box>
-        <Divider className={classes.divider} />
+        <Divider sx={{ width: '100%', my: 3, [theme.breakpoints.up('md')]: { my: 7 } }} />
         <Box mt={2} component="section">
           {/* Section for Charts  */}
           {/* Grid for section title  */}
           <Grid
             container
-            className={classes.grid}
+            sx={gridWithImagesSx(theme)}
             spacing={1}
             alignItems="stretch"
           >
-            <Grid item xs={12} md={9}>
-              <Typography className={classes.typography} paragraph={true} variant="h3" component="h3">
+            <Grid
+              size={{
+                xs: 12,
+                md: 9
+              }}>
+              <Typography  paragraph={true} variant="h3" component="h3">
                 <RenderContent children={t("sections.2.title")} />
               </Typography>
             </Grid>
@@ -327,19 +363,24 @@ const StudyProgressPage = () => {
             spacing={1}
             // alignItems="stretch"
           >
-            <Grid item xs={12} md={6} lg={4}>
+            <Grid
+              size={{
+                xs: 12,
+                md: 6,
+                lg: 4
+              }}>
               <Grid
                 container
                 spacing={1}
                 direction="column"
                 // alignItems="stretch"
               >
-                <Grid container item justifyContent="center" alignItems="center">
-                  <Typography className={classes.typography} variant="h6" component="h6">
+                <Grid container justifyContent="center" alignItems="center">
+                  <Typography sx={h6TextSx} variant="h6" component="h6">
                     <RenderContent children={t("charts.PatientDemographicsCancerType.subtitle")} />
                   </Typography>
                 </Grid>
-                <Grid item>
+                <Grid>
                   <ReChartsPie3More
                     title="Cancer Type"
                     inputdata={dataCancerTypecolor}
@@ -350,19 +391,24 @@ const StudyProgressPage = () => {
               </Grid>
             </Grid>{" "}
             {/* end grid for 1st chart - 1st row */}
-            <Grid item xs={12} md={6}  lg={4}>
+            <Grid
+              size={{
+                xs: 12,
+                md: 6,
+                lg: 4
+              }}>
               <Grid
                 container
                 direction="column"
                 spacing={1}
                 // alignItems="stretch"
               >
-                <Grid container item justifyContent="center" alignItems="center">
-                  <Typography className={classes.typography} variant="h6" component="h6">
+                <Grid container justifyContent="center" alignItems="center">
+                  <Typography sx={h6TextSx} variant="h6" component="h6">
                     <RenderContent children={t("charts.PatientDemographicsRace.subtitle")} />
                   </Typography>
                 </Grid>
-                <Grid container item>
+                <Grid container>
                   <ReChartsPie3More
                     title="Race"
                     inputdata={dataRacecolor}
@@ -373,19 +419,24 @@ const StudyProgressPage = () => {
               </Grid>
             </Grid>{" "}
             {/* end grid 2nd chart - 1st row */}
-            <Grid item xs={12} md={6}  lg={4}>
+            <Grid
+              size={{
+                xs: 12,
+                md: 6,
+                lg: 4
+              }}>
               <Grid
                 container
                 direction="column"
                 spacing={1}
                 // alignItems="stretch"
               >
-                <Grid container item justifyContent="center" alignItems="center" >
-                  <Typography className={classes.typography}  variant="h6"   >
+                <Grid container justifyContent="center" alignItems="center">
+                  <Typography sx={h6TextSx}  variant="h6"   >
                     <RenderContent children={t("charts.PatientDemographicsEthnicity.subtitle")} />
                   </Typography>
                 </Grid>
-                <Grid item>
+                <Grid>
                   <ReChartsPie2Less
                     title="Ethnicity"
                     inputdata={dataEthcolor}
@@ -402,24 +453,29 @@ const StudyProgressPage = () => {
           {/* Grid for Charts - 2nd row */}
           <Grid
             container
-            className={classes.grid}
+            sx={gridWithImagesSx(theme)}
             spacing={1}
             // alignItems="stretch"
           >
-            <Grid item xs={12} md={6}  lg={4} >
+            <Grid
+              size={{
+                xs: 12,
+                md: 6,
+                lg: 4
+              }}>
               <Grid
                 container
                 direction="column"
                 spacing={1}
                 alignItems="stretch"
               >
-                <Grid container item justifyContent="center" alignItems="center" margintop="200px">
-                  <Typography className={classes.typography} variant="h6" component="h6">
+                <Grid container justifyContent="center" alignItems="center" margintop="200px">
+                  <Typography sx={h6TextSx} variant="h6" component="h6">
                     <RenderContent children={t("charts.PatientDemographicsRuralUrban.subtitle")} />
                   </Typography>
                 </Grid>
 
-                <Grid container item >
+                <Grid container>
                   <ReChartsPie2Less
                     title="Rural vs. Urban"
                     inputdata={dataRuralUrbancolor}
@@ -428,19 +484,26 @@ const StudyProgressPage = () => {
               </Grid>
             </Grid>{" "}
             {/* end Grid for 1st Chart -2nd row */}
-            <Grid container item xs={12} md={6} lg={4} alignItems="flex-end">
+            <Grid
+              container
+              alignItems="flex-end"
+              size={{
+                xs: 12,
+                md: 6,
+                lg: 4
+              }}>
               <Grid
                 container
                 direction="column"
                 spacing={1}
                 alignItems="stretch"
               >
-                <Grid container item justifyContent="center" alignItems="center">
-                  <Typography className={classes.typography} variant="h6" component="h6">
+                <Grid container justifyContent="center" alignItems="center">
+                  <Typography sx={h6TextSx} variant="h6" component="h6">
                     <RenderContent children={t("charts.ParticipantDemographicsAge.subtitle")} />
                   </Typography>
                 </Grid>
-                <Grid container item margintop={6}   >
+                <Grid container margintop={6}>
                   <ReChartsBar
                     title="Age"
                     inputdata={barDataAgecolor}
@@ -449,19 +512,26 @@ const StudyProgressPage = () => {
               </Grid>
             </Grid>{" "}
             {/*end grid for 2nd Chart - 2nd row */}
-            <Grid container item xs={12} md={6}  lg={4}  alignItems="flex-end" >
+            <Grid
+              container
+              alignItems="flex-end"
+              size={{
+                xs: 12,
+                md: 6,
+                lg: 4
+              }}>
               <Grid
                 container
                 direction="column"
                 spacing={1}
                 alignItems="stretch"
               >
-                <Grid container item justifyContent="center" alignItems="flex-end">
-                  <Typography className={classes.typography}  variant="h6" component="h6" >
+                <Grid container justifyContent="center" alignItems="flex-end">
+                  <Typography sx={h6TextSx}  variant="h6" component="h6" >
                     <RenderContent children={t("charts.ParticipantDemographicsSex.subtitle")} />
                   </Typography>
                 </Grid>
-                <Grid container item margintop={6}>
+                <Grid container margintop={6}>
                   <ReChartsBar title="Sex" inputdata={barDataSexcolor}></ReChartsBar>
                 </Grid>
               </Grid>
@@ -472,23 +542,29 @@ const StudyProgressPage = () => {
           {/* Section for Charts 3rd row */}
           <Grid
             container
-            className={classes.grid}
+            sx={gridWithImagesSx(theme)}
             spacing={1}
            // disableEqualOverflow 
           >
-            <Grid item xs={12} md={6}  lg={4}   sx ={{ my: 5 }} >
+            <Grid
+              sx ={{ my: 5 }}
+              size={{
+                xs: 12,
+                md: 6,
+                lg: 4
+              }}>
               <Grid
                 container
                 direction="column"
                 spacing={1}      
                // alignItems="stretch"
               >
-                <Grid container item justifyContent="center" alignItems="flex-end">
-                  <Typography className={classes.typography}  variant="h6" component="h6">
+                <Grid container justifyContent="center" alignItems="flex-end">
+                  <Typography sx={h6TextSx}  variant="h6" component="h6">
                     <RenderContent children={t("charts.ParticipantDemographicsBioSpecimen.subtitle")} />
                   </Typography>
                 </Grid>
-                <Grid container item margintop={6}>
+                <Grid container margintop={6}>
                   <ReChartsBar2sets
                     title="Biospecimens"
                     inputdata={barDataBioSpecimenParticipantsColor}

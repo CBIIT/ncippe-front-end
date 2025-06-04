@@ -1,30 +1,14 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-
 import NotificationItem from './NotificationItem'
-
-const useStyles = makeStyles(theme => ({
-  titleWithIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: theme.spacing(3)
-  },
-  titleIcon: {
-    marginRight: theme.spacing(3),
-    width: '49px',
-  },
-}),{name: 'Notifications'})
-
 
 
 /**
  * A listing of notifications. On viewing notifications, all "new" items are marked as read.
  */
 const Notifications = (props) => {
-  const classes = useStyles()
   const { onLoad, onUnload, notifications, lang } = props
   const count = notifications ? notifications.length : 0
   const { t } = useTranslation('a_common')
@@ -47,15 +31,16 @@ const Notifications = (props) => {
 
   return (
     <>
-      <div className={classes.titleWithIcon}>
-        <img className={classes.titleIcon} src={`${process.env.PUBLIC_URL}/assets/icons/notifications.svg`} alt={t('a_common:icons.notifications')} aria-hidden="true"></img>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+        <Box component='img'  sx={{ width: '49px', mr: 3 }} src={`${process.env.PUBLIC_URL}/assets/icons/notifications.svg`} 
+        alt={t('a_common:icons.notifications')} aria-hidden="true"></Box>
         <Typography variant="h2" component="h2">{t('components.notificationView.pageTitle', {count})}</Typography>
-      </div>
+      </Box>
       
       {count ? 
         notifications.map((item, i) => <NotificationItem key={i} notification={item} lang={lang} />)
         :
-        <Typography variant="h6" className={classes.header}>{t('components.notificationView.no_results')}</Typography>
+        <Typography variant="h6" sx={{ mb: 2 }}>{t('components.notificationView.no_results')}</Typography>
       }
     </>
   )

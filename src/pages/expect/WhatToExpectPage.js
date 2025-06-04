@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Routes, Route, Link as RouterLink, useLocation } from 'react-router-dom'
-import { AppBar, Box, Container, Tab, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Container, Tab, Typography, useTheme } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 
@@ -9,29 +8,7 @@ import StyledTabs from '../../components/Tabs/StyledTabs'
 import Consent from './Consent'
 import Donate from './Donate'
 import BiomarkerTest from './BiomarkerTest'
-
-const useStyles = makeStyles( theme => ({
-  pageHeader: {
-    backgroundImage: theme.gradients.primaryDiagonal,
-    padding: theme.spacing(4,5),
-    boxShadow: 'inset 0 -13px 13px -13px rgba(30,111,214,0.2)',
-    '& h1': {
-      fontSize: 22,
-      textAlign: 'center',
-      [theme.breakpoints.up('sm')]: {
-        fontSize: 26,
-        textAlign: 'left',
-      }
-    }
-  },
-  appbarContainer: {
-    padding: 0,
-  },
-  appbar: {
-    backgroundColor: theme.palette.primary.medium,
-    zIndex: 1
-  }
-}),{name: 'WhatToExpectPage'})
+import TabAppBar from './AppBar'
 
 const a11yProps = (index) => {
   return {
@@ -41,7 +18,7 @@ const a11yProps = (index) => {
 }
 
 const WhatToExpectPage = () => {
-  const classes = useStyles()
+  const theme = useTheme()
   const { t } = useTranslation(['consent','donate','testing'])
   const [value, setValue] = useState(()=>{
     switch(window.location.pathname){
@@ -74,14 +51,26 @@ const WhatToExpectPage = () => {
       eVar53: `BioBank_SectionTabNav|${event.currentTarget.textContent}`,
     })
   }
-
+  console.log( " theme.zIndex.appBar value " + theme.zIndex.appBar)
   return (
     <Box component="article">
-      <Container className={classes.pageHeader}>
+      <Container sx={{
+      backgroundImage: theme => theme.gradients.primaryDiagonal,
+      padding: theme => theme.spacing(4, 5),
+      boxShadow: 'inset 0 -13px 13px -13px rgba(30,111,214,0.2)',
+      '& h1': {
+        fontSize: 22,
+        textAlign: 'center',
+        [theme.breakpoints.up('sm')]: {
+          fontSize: 26,
+          textAlign: 'left',
+        },
+      },
+    }}>
         <Typography variant="h2" component="h1">{t('about:landing_pageTitle')}</Typography>
       </Container>
-      <Container className={classes.appbarContainer}>
-        <AppBar className={classes.appbar} position="static" elevation={0}>
+      <Container sx={{ px:0, py:0  }}>
+        <TabAppBar sx={{ backgroundColor: theme => theme.palette.primary.medium,  }} position="static" elevation={0}>
           <StyledTabs
             id="tabBar"
             value={value}
@@ -99,9 +88,9 @@ const WhatToExpectPage = () => {
             <Tab disableRipple component={RouterLink} to="donate" label={t('donate:pageTitle')} {...a11yProps(1)} />
             <Tab disableRipple component={RouterLink} to="consent" label={t('consent:pageTitle')} {...a11yProps(2)} />
           </StyledTabs>
-        </AppBar>
+        </TabAppBar>
       </Container>
-      <Container className={classes.tabsContainer}>
+      <Container sx={{ mb: 2,backgroundColor: theme => theme.palette.background.paper,}}>
         <Routes>
           <Route path="consent" element={<Consent index={2} isMobile={isMobile} />} />
           <Route path="donate" element={<Donate index={1} isMobile={isMobile} />} />

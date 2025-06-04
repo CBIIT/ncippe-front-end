@@ -1,53 +1,11 @@
 import React, { useEffect } from 'react'
-import { Box, Container, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Container, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import PubSub from 'pubsub-js'
-
 import RenderContent from '../components/utils/RenderContent'
 
-const useStyles = makeStyles( theme => ({
-  // root: {
-    
-  //   // "& h3": {...theme.typography.h3},
-  //   // "& h4": {...theme.typography.h4}
-  // },
-  typography: () => {
-    let styles = {}
-    Object.entries(theme.typography).forEach(entry => {
-      const [key, value] = entry;
-      if(typeof value === "object"){
-        styles[`& ${key}`] = {...value}
-      }
-    })
-    return styles
-  },
-  container: {
-    [theme.breakpoints.up('md')]: {
-      maxWidth: "80%"
-    }
-  },
-  nav: {
-    display: "flex",
-    flexDirection: "column",
-    margin: theme.spacing(4,0,3,2),
-    "& h2:defined": { //:defined is for specificity
-      ...theme.typography.h3
-    },
-    "& h3:defined": { //:defined is for specificity
-      ...theme.typography.h4,
-      margin: theme.spacing(1,0,1,2)
-    },
-    "& > a": {
-      display: "inline-block",
-      margin: theme.spacing(0,0,1,4),
-    }
-  },
-}),{name: 'PolicyPage'})
-
 const PolicyPage = () => {
-  const classes = useStyles()
   const { t } = useTranslation('policy')
 
   useEffect(() => {
@@ -67,7 +25,7 @@ const PolicyPage = () => {
           block: 'start',
       });
     }
-  })
+  },[])
 
   return (
     <Box>
@@ -86,7 +44,14 @@ const PolicyPage = () => {
         </Typography>
       </Container>
       <Container className="mainContainer mainContainer--public">
-        <Box mt={5} component="article" className={`${classes.typography} ${classes.container}`}>
+        <Box mt={5} component="article" sx={{
+            typography: 'body1',
+            '& h1': (theme) => theme.typography.h1,
+            '& h2': (theme) => theme.typography.h2,
+            '& h3': (theme) => theme.typography.h3,
+            '& h4': (theme) => theme.typography.h4,
+            maxWidth: { md: '80%' },
+          }}>
           <Typography component="div">
             <RenderContent children={t(`description`)} />
           </Typography>
@@ -98,12 +63,36 @@ const PolicyPage = () => {
             <Typography variant="h2" component="h2">{t('disclosure.title')}</Typography>
             <Typography component="div"><RenderContent children={t(`disclosure.body`)} /></Typography>
           </section>
-          <Typography className={classes.nav} component="nav">
+          <Box
+            component="nav"
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              mt: 4,
+              mb: 3,
+              ml: 2,
+              '& h2': (theme) => ({
+                ...theme.typography.h3,
+                mt: 0,
+              }),
+              '& h3': (theme) => ({
+                ...theme.typography.h4,
+                mt: 1,
+                mb: 1,
+                ml: 2,
+              }),
+              '& > a': {
+                display: 'inline-block',
+                ml: 4,
+                mb: 1,
+              },
+            }}
+          >
             <Typography component="h2">
               <RenderContent children={t(`nav.title`)} />
             </Typography>
             <RenderContent children={t(`nav.body`)} />
-          </Typography>
+          </Box>
           <section>
             <Typography id="public" variant="h2" component="h2">{t('public.title')}</Typography>
             <Typography component="div"><RenderContent children={t(`public.body`)} /></Typography>

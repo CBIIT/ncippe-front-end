@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box, Container, Typography, Grid } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Container, Typography, Grid, useTheme } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import PubSub from 'pubsub-js'
@@ -11,43 +10,13 @@ import IconCard from '../../components/IconCard'
 import Status from '../../components/Status'
 import RenderContent from '../../components/utils/RenderContent'
 
-
-const useStyles = makeStyles(theme => ({
-  grid: {
-    justifyContent: 'flex-start'
-  },
-  gridItem: {
-    width: '33.333333%',
-
-    // '& $card': {
-    //   [theme.breakpoints.up('md')]: {
-    //     margin: 0
-    //   }
-    // }
-  },
-  badge: {
-    display: 'inline-block',
-    borderRadius: 6,
-    backgroundColor: theme.palette.error.main,
-    color: theme.palette.common.white,
-    padding: '4px 16px',
-    lineHeight: 'normal',
-    fontFamily: theme.typography.button.fontFamily,
-    fontWeight: 600,
-    textTransform: 'uppercase',
-  },
-  patientList: {
-    padding: theme.spacing(6,2),
-    backgroundColor: theme.palette.grey.xlight,
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing(6,3)
-    }
-  }
-}),{name: 'DashboardPage'})
+const gridItemSx = {
+  width: '33.333333%',
+};
 
 const Page = () => {
-  const classes = useStyles()
   const { t } = useTranslation(['a_landing','a_common'])
+  const theme = useTheme()
 
   useEffect(() => {
     // only want to track the dashboard landing page load event once, saving state to session variable
@@ -73,8 +42,6 @@ const Page = () => {
     window.$defaultLinkTrack = false
   }
 
-
-
   return (
     <Box>
       <Helmet>
@@ -89,7 +56,18 @@ const Page = () => {
               <Typography variant="h1" gutterBottom>{t('pageTitle')}, {firstName} {lastName}</Typography>
               {isActiveBiobankParticipant === false ? 
                 <div>
-                  <Typography className={classes.badge}>{t('a_common:not_participating.badge')}</Typography>
+                  <Typography sx={{
+    display: 'inline-block',
+    borderRadius: 1.5, // 6px if default theme spacing is 4px
+    bgcolor: theme => theme.palette.error.main,
+    color: theme => theme.palette.common.white,
+    px: 2,
+    py: 0.5,
+    lineHeight: 'normal',
+    fontFamily: theme => theme.typography.button.fontFamily,
+    fontWeight: 600,
+    textTransform: 'uppercase',
+  }} >{t('a_common:not_participating.badge')}</Typography>
                   <Status state="info" fullWidth title={t('a_common:not_participating.status.title')} message={t('a_common:not_participating.status.message')} />
                 </div>
                 :
@@ -101,14 +79,20 @@ const Page = () => {
         </LoginConsumer>
         
         {/* Primary row */}
-        <Grid container className={classes.grid} spacing={2} direction="row" justifyContent="center" alignItems="stretch">
+        <Grid container sx={{ justifyContent: 'flex-start'}} spacing={2} direction="row" justifyContent="center" alignItems="stretch">
           {/* Send Message */}
           <LoginConsumer>
             {([{roleName}]) => {
               //{`You have ${count} new notification${count !== 1 ? 's' : ''}.`}
               /* count will be a number */
               return roleName === "ROLE_PPE_MESSENGER" && (
-                <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+                <Grid
+                 sx={gridItemSx}
+                  size={{
+                    xs: 12,
+                    sm: 6,
+                    lg: 4
+                  }}>
                   <IconCard
                     icon="notifications.svg"
                     title={t('cards.sendMessage.title')}
@@ -118,7 +102,7 @@ const Page = () => {
                     cardClick={trackCardClick}
                   />
                 </Grid>
-              )
+              );
             }}
           </LoginConsumer>
           {/* END: Send Message */}
@@ -128,7 +112,13 @@ const Page = () => {
               //{`You have ${count} new notification${count !== 1 ? 's' : ''}.`}
               /* count will be a number */
               return roleName === "ROLE_PPE_MESSENGER" && (
-                <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+                <Grid
+                sx={gridItemSx}
+                  size={{
+                    xs: 12,
+                    sm: 6,
+                    lg: 4
+                  }}>
                   <IconCard
                     icon="stored-medical-info.svg"
                     title={t('cards.messageHistory.title')}
@@ -138,7 +128,7 @@ const Page = () => {
                     cardClick={trackCardClick}
                   />
                 </Grid>
-              )
+              );
             }}
           </LoginConsumer>
           {/* END: Message History */}
@@ -148,7 +138,13 @@ const Page = () => {
               //{`You have ${count} new notification${count !== 1 ? 's' : ''}.`}
               /* count will be a number */
               return roleName !== "ROLE_PPE_MESSENGER" && (
-                <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+                <Grid
+                sx={gridItemSx}
+                  size={{
+                    xs: 12,
+                    sm: 6,
+                    lg: 4
+                  }}>
                   <IconCard
                     icon="notifications.svg"
                     title={t('cards.notifications.title')}
@@ -159,7 +155,7 @@ const Page = () => {
                     cardClick={trackCardClick}
                   />
                 </Grid>
-              )
+              );
             }}
           </LoginConsumer>
           {/* END: User Notifications */}
@@ -170,7 +166,13 @@ const Page = () => {
             return roleName === "ROLE_PPE_PARTICIPANT" && (
               <>
                 {/* Participant Consent Form */}
-                <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+                <Grid
+                  sx={gridItemSx}
+                  size={{
+                    xs: 12,
+                    sm: 6,
+                    lg: 4
+                  }}>
                   <IconCard
                     icon="reports.svg"
                     title={t('cards.consent.title')}
@@ -184,7 +186,13 @@ const Page = () => {
                 {/* END: Participant Consent Form */}
 
                 {/* Participant Biomarker Test Results */}
-                <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+                <Grid
+                  sx={gridItemSx}
+                  size={{
+                    xs: 12,
+                    sm: 6,
+                    lg: 4
+                  }}>
                   <IconCard
                     icon="biomarker-tests.svg"
                     title={t('cards.biomarker.title')}
@@ -197,7 +205,7 @@ const Page = () => {
                 </Grid>
                 {/* END: Participant Biomarker Test Results */}
               </>
-            )
+            );
           }}
           </LoginConsumer>
 
@@ -208,17 +216,23 @@ const Page = () => {
             const icon = roleName === "ROLE_PPE_PARTICIPANT" ? "user-profile.svg" : "doctor.svg"
             const description = roleName === "ROLE_PPE_PARTICIPANT" ? t('cards.settings.description.participant') : t('cards.settings.description.admin')
             return (
-                <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
-                  <IconCard
-                    icon={icon}
-                    title={t('cards.settings.title')}
-                    desc={description}
-                    link="/account/profile"
-                    linkText={t('cards.settings.link')}
-                    cardClick={trackCardClick}
-                  />
-                </Grid>
-              )
+              <Grid
+              sx={gridItemSx}
+                size={{
+                  xs: 12,
+                  sm: 6,
+                  lg: 4
+                }}>
+                <IconCard
+                  icon={icon}
+                  title={t('cards.settings.title')}
+                  desc={description}
+                  link="/account/profile"
+                  linkText={t('cards.settings.link')}
+                  cardClick={trackCardClick}
+                />
+              </Grid>
+            );
             }}
           </LoginConsumer>
           {/* END: User Profile */}
@@ -226,7 +240,13 @@ const Page = () => {
           <LoginConsumer>
           {([{roleName}]) => {
             return roleName === "ROLE_PPE_PARTICIPANT" && (
-              <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+              <Grid
+              sx={gridItemSx}
+                size={{
+                  xs: 12,
+                  sm: 6,
+                  lg: 4
+                }}>
                 <IconCard
                   icon="get-help.svg"
                   title={t('cards.help.title')}
@@ -236,7 +256,7 @@ const Page = () => {
                   cardClick={trackCardClick}
                 />
               </Grid>
-            )
+            );
           }}
           </LoginConsumer>
           {/* END: Get Help */}
@@ -245,7 +265,13 @@ const Page = () => {
           {([{roleName}]) => {
             return (roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC") && (
               <>
-              <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+              <Grid
+                sx={gridItemSx}
+                size={{
+                  xs: 12,
+                  sm: 6,
+                  lg: 4
+                }}>
                 <IconCard
                   icon="biomarker-tests.svg"
                   title={t('cards.guide.0.title')}
@@ -256,7 +282,13 @@ const Page = () => {
                   cardClick={trackCardClick}
                 />
               </Grid>
-              <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+              <Grid
+                sx={gridItemSx}
+                size={{
+                  xs: 12,
+                  sm: 6,
+                  lg: 4
+                }}>
                 <IconCard
                   icon="biomarker-tests.svg"
                   title={t('cards.guide.1.title')}
@@ -268,7 +300,7 @@ const Page = () => {
                 />
               </Grid>
               </>
-            )
+            );
           }}
           </LoginConsumer>
           {/* END: Report Guide */}
@@ -277,7 +309,13 @@ const Page = () => {
           {([{roleName}]) => {
             const description = roleName === "ROLE_PPE_PARTICIPANT" ? t('cards.resources.description.participant') : t('cards.resources.description.admin')
             return (roleName === "ROLE_PPE_PARTICIPANT" || roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC") && (
-              <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
+              <Grid
+              sx={gridItemSx}
+                size={{
+                  xs: 12,
+                  sm: 6,
+                  lg: 4
+                }}>
                 <IconCard
                   icon="one-idea-v2.svg"
                   title={t('cards.resources.title')}
@@ -287,17 +325,16 @@ const Page = () => {
                   cardClick={trackCardClick}
                 />
               </Grid>
-            )
+            );
           }}
           </LoginConsumer>
           {/* END: Report Guide */}
         </Grid>
       </Container>
-
       <LoginConsumer>
       {([{roleName, patients, patientsUpdated}]) => {
         return (roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC" || roleName === "ROLE_PPE_BSSC" || roleName === "ROLE_PPE_ADMIN") && patients && (
-        <Container className={classes.patientList}>
+        <Container >
           {/* Provider's Patient List */}
           <PatientList patients={patients} patientsUpdated={patientsUpdated} />
           {/* End: Provider's Patient List */}
@@ -306,7 +343,7 @@ const Page = () => {
       }}
       </LoginConsumer>
     </Box>
-  )
+  );
 }
 
 export default Page

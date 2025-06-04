@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { useLocation , useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Button } from '@material-ui/core'
+import { Button } from '@mui/material'
 import PubSub from 'pubsub-js'
 import { LoginContext } from '../Login.context'
 

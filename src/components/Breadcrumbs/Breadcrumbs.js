@@ -1,41 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
-import { Container, Typography, Button } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { ArrowBack } from '@material-ui/icons'
+import { Container, Typography, Button } from '@mui/material'
+import { ArrowBack } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 
-
-
-const useStyles = makeStyles(theme => ({
-  Breadcrumbs: {
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: theme.spacing(3),
-  },
-  back: {
-    fontSize: theme.typography.h6.fontSize,
-    lineHeight: 0,
-    textTransform: 'none',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(2),
-    },
-    '@media (min-width: 880px)': {
-      marginLeft: theme.spacing(4),
-    }
-  },
-  backIcon: {
-    marginRight: theme.spacing(1)
-  }
-}),{name: 'Breadcrumbs'})
 /**
  * This component has been stripped down since it's inception to be just a simple Back button
  */
 const Breadcrumbs = (props) => {
-  const classes = useStyles()
   const navigate = useNavigate();
   const { t } = useTranslation('a_common')
   const handleClick = () => {
@@ -46,9 +19,29 @@ const Breadcrumbs = (props) => {
     }
   }
   return (
-    <Container className={classes.Breadcrumbs}>
+    <Container sx={{
+      position: 'relative',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      py: 3,
+    }}>
       <Typography>
-        <Button className={`${classes.back} backButton`} color="primary" variant="text" onClick={handleClick}><ArrowBack className={classes.backIcon} /> {t('buttons.back')}</Button>
+        <Button className="backButton" sx={theme => ({
+            fontSize: theme.typography.h6.fontSize,
+            lineHeight: 0,
+            textTransform: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            ml: {
+              sm: 2,
+              '@media (min-width:880px)': 4,
+            },
+            '& .backIcon': {
+              mr: 1,
+            }
+          })} color="primary" variant="text" onClick={handleClick}>
+            <ArrowBack sx={{ ml: 1 }} /> {t('buttons.back')}</Button>
       </Typography>
     </Container>
   )

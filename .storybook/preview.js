@@ -25,4 +25,4 @@ export const globalTypes = {
   },
 }
 
-export const decorators = [(Story,{globals: {locale}}) => <Suspense fallback={<div style={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}>Loading...</div>}><App lang={locale}><Story/></App></Suspense>]
+export const decorators = [(Story,{globals: {locale}}) => <Suspense fallback={<div style={{display:'flex', justifycontent:'center', width:'100vw', height:'50vh'}}>Loading...</div>}><App lang={locale}><Story/></App></Suspense>]

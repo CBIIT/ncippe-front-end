@@ -2,28 +2,14 @@ import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
-import { AppBar, Container, Tab, useMediaQuery } from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-
+import { AppBar, Container, Tab, useMediaQuery, useTheme } from '@mui/material'
 import StyledTabs from '../../components/Tabs/StyledTabs'
 
-const useStyles = makeStyles( theme => ({
-  appbarContainer: {
-    padding: 0,
-    marginBottom: theme.spacing(5)
-  },
-  appbar: {
-    backgroundColor: theme.palette.primary.medium,
-    zIndex: 5
-  },
-}),{name: 'TabAppBar'})
-
-const TabAppBar = (props) => {
-  const classes = useStyles()
+const TabAppBar = ({value}) => {
   const { t } = useTranslation()
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
-
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  
   const handleChange = (event) => {
     PubSub.publish('ANALYTICS', {
       events: 'event33',
@@ -33,20 +19,20 @@ const TabAppBar = (props) => {
     })
     window.$defaultLinkTrack = false
   }
-
+ 
   return (
-    <Container className={classes.appbarContainer}>
-      <AppBar className={classes.appbar} position="static" elevation={0}>
-        <StyledTabs
-          id="tabBar"
-          value={props.value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="scrollable"
-          scrollButtons={isMobile ? 'on' : 'auto'}
-          aria-label="scrollable auto tabs"
-        >
+    <Container sx={{  px: { xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }, py:0, mb: 5  }} 
+    className="appbarContainer">
+  <AppBar sx={{
+      backgroundColor: theme => theme.palette.primary.medium,
+    }} position="static" elevation={0}>
+    <StyledTabs  value={value}
+  onChange={handleChange}
+  indicatorColor="primary"
+  textColor="primary"
+  variant="scrollable"
+  scrollButtons={isMobile ? 'on' : 'auto'}
+  aria-label="scrollable auto tabs">
           <Tab disableRipple component={RouterLink} to="/expect/consent" label={t('tabs.expect.consent')} />
           <Tab disableRipple component={RouterLink} to="/expect/donate" label={t('tabs.expect.donate')} />
           <Tab disableRipple component={RouterLink} to="/expect/testing" label={t('tabs.expect.testing')} />

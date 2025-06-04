@@ -1,42 +1,24 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box } from '@mui/material'
 
-const useStyles = makeStyles( theme => ({
-  formButtons: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginTop: theme.spacing(2),
-  },
-  leftButtons: {
-    '& button': {
-      marginRight: theme.spacing(2)
-    }
-  },
-  rightButtons: {
-    textAlign: 'right',
-    '& button': {
-      marginLeft: theme.spacing(2)
-    }
-  },
-}),{name: 'FormButtons'})
-
-const FormButtons = (props) => {
-  const classes = useStyles()
-  const { leftButtons, rightButtons } = props
+const FormButtons = ({ leftButtons, rightButtons }) => {
 
   return (
-    <div className={classes.formButtons}>
+    <Box sx={{ 
+      display: 'flex', 
+      justifyContent: 'space-between', 
+      mt: 2 
+    }}>
       {leftButtons && 
-        <div className={classes.leftButtons}>
+        <Box sx={{'& button': { marginRight: 2 }}}>
           {leftButtons}
-        </div>
+        </Box>
       }
       {rightButtons &&
-        <div className={classes.rightButtons}>
+        <Box sx={{ textAlign: 'right', '& button': { marginLeft: 2 } }}>
           {rightButtons}
-        </div>
+        </Box>
       }
-    </div>
+    </Box>
   )
 }
 

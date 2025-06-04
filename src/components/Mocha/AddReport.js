@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useRef } from 'react'
-import { Button, Chip, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Button, Chip, Typography } from '@mui/material'
 import { 
   Clear as ClearIcon
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 
@@ -17,40 +16,7 @@ import ReportList from './ReportList'
 import Status from '../Status'
 import FormButtons from '../inputs/FormButtons'
 
-const useStyles = makeStyles( theme => ({
-  chip: {
-    marginLeft: theme.spacing(1),
-  },
-  participantReport: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    [theme.breakpoints.up('md')]: {
-      flexDirection: 'row',
-    }
-  },
-  uploadReport: {
-    marginBottom: theme.spacing(4),
-    [theme.breakpoints.up('md')]: {
-      marginBottom: 0,
-      width: '49%',
-    }
-  },
-  btnSelectReport: {
-    margin: theme.spacing(2,0,4)
-  },
-  input: {
-    display: 'none'
-  },
-  reportList: {
-    [theme.breakpoints.up('md')]: {
-      width: '49%',
-    }
-  }
-}),{name: 'AddReport'})
-
-const AddReport = (props) => {
-  const classes = useStyles()
+const AddReport = () => {
   const { t } = useTranslation(['a_landingMocha','a_common'])
   const [mochaContext, dispatch] = useContext(MochaContext)
   const [loginContext] = useContext(LoginContext)
@@ -97,13 +63,11 @@ const AddReport = (props) => {
   }
 
   const uploadFile = () => {
-
     // console.log("upload file")
     const {uuid} = loginContext
 
     // verify that report data exists before fetch call
     if(!!mochaContext.reportFile) {
-
       // validate file type
       if(mochaContext.reportFile.type !== 'application/pdf') {
         dispatch({
@@ -184,40 +148,62 @@ const AddReport = (props) => {
 
   return (
     <>
-    <Typography variant="h2" component="h2">{t('upload.1.form_title')}: {mochaContext.firstName} {mochaContext.lastName} <Chip className={classes.chip} size="small" label={mochaContext.patientId} /></Typography>
-    <div className={classes.participantReport}>
-      <div className={classes.uploadReport}>
+    <Typography variant="h2" component="h2">
+      {t('upload.1.form_title')}: {mochaContext.firstName} {mochaContext.lastName} 
+      <Chip sx={{ ml: 1 }} size="small" label={mochaContext.patientId} />
+      </Typography>
+    <Box sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          justifyContent: 'space-between',
+          gap: 2,
+          mt: 2
+        }} >
+      <Box sx={{
+            mb: { xs: 4, md: 0 },
+            width: { md: '49%' },
+            display: 'flex',
+            flexDirection: 'column'
+          }} >
         <Typography variant="h3">{t('upload.1.form_subtitle')}</Typography>
         {mochaContext.reportFile && mochaContext.reportFile.name && (
           <FileItem file={mochaContext.reportFile} onRemove={handleRemoveFile} />
         )}
         <input
           accept=".pdf"
-          className={classes.input}
+          style={{ display: 'none'}}
           id="report-upload-file"
           type="file"
           onChange={handleFileChange}
         />
         {!mochaContext.reportFile && (
           <label htmlFor="report-upload-file">
-            <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">{t('upload.1.button_select')}</Button>
+            <Button sx={{ my: 2 }} variant="outlined" color="primary" 
+            component="span">{t('upload.1.button_select')}</Button>
           </label>
         )}
-        {mochaContext.uploadError && <Status state="error" title={mochaContext.errorTitle} message={mochaContext.errorMessage} />}
+        {mochaContext.uploadError && 
+        <Status state="error" title={mochaContext.errorTitle} message={mochaContext.errorMessage} />}
 
         <FormButtons
           leftButtons={
             <>
-            <Button variant="contained" color="primary" type="submit" ref={submitBtn} onClick={uploadFile} disabled={!mochaContext.reportFile || mochaContext.uploadError}>{t('a_common:buttons.submit')}</Button>
-            <Button variant="text" color="primary" onClick={() => navigate('dashboard')}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+            <Button variant="contained" color="primary" type="submit" 
+            ref={submitBtn} onClick={uploadFile} 
+            disabled={!mochaContext.reportFile || mochaContext.uploadError}>
+              {t('a_common:buttons.submit')}</Button>
+            <Button variant="text" color="primary" 
+            onClick={() => navigate('dashboard')}>
+              <ClearIcon />{t('a_common:buttons.cancel')}
+            </Button>
             </>
           }
         />
-      </div>
-      <div className={classes.reportList}>
+      </Box>
+      <Box sx={{ width: { md: '49%' } }} >
         <ReportList reports={mochaContext.reports} />
-      </div>
-    </div>
+      </Box>
+    </Box>
   </>
   )
 }

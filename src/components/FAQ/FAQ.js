@@ -1,98 +1,67 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Accordion, AccordionDetails, AccordionSummary, Typography , useTheme} from '@mui/material'
 import { 
   AddRounded,
   RemoveRounded
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
 import './FAQ.css'
 
-const useStyles = makeStyles( theme => ({
-  root: {
-    margin: theme.spacing(3,0),
-
-    '&.Mui-expanded': {
-      margin: theme.spacing(3,0),
-    },
-
-    '& .MuiAccordionSummary-root': {
-      position: 'relative',
-      backgroundImage: theme.gradients.primaryDiagonal,
-      padding: '0 12px',
-      alignItems: 'flex-start',
-
-      '&.Mui-expanded': {
-        margin: 0,
-        minHeight: '0 !important',
-      },
-      '& .MuiAccordionSummary-content': {
-        order: 1,
-        zIndex: 1,
-        '&.Mui-expanded': {
-          margin: '12px 0',
-        }
-      },
-      '& .MuiAccordionSummary-expandIcon': {
-        margin: "12px 0 0",
-        zIndex: 1,
-        padding: '0 6px 0 0',
-        '&.Mui-expanded': {
-          transform: 'none'
-        },
-        '& svg': {
-          color: theme.palette.grey['900'],
-          stroke: theme.palette.grey['900'],
-        }
-      },
-    },
-    '& .MuiAccordionSummary-root::before': {
-      content: '""',
-      display: 'block',
-      position: 'absolute',
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0,
-      zIndex: 0,
-      animation: 'transparentToWhite 300ms',
-      animationFillMode: 'both'
-    },
-    '& .Mui-focused::before': {
-      animation: 'whiteToPink 300ms both',
-      outline: '1px solid #aaa'
-    },
-    '& .Mui-expanded::before': {
-      animation: 'whiteToTransparent 300ms both',
-    },
-    '& .MuiAccordionDetails-root': {
-      display: 'block',
-      '& > p': {
-        marginBottom: 16
-      },
-      '& > p:last-child': {
-        marginBottom: 0
-      }
-    }
-  },
-  panelDetails: {
-    '& p:last-child': {
-      marginBottom: 0
-    }
-  }
-}),{name: 'FAQ'})
-
 /**
  * Create frequent asked question accordions
  */
-const FAQ = (props) => {
-  const classes = useStyles()
+const FAQ = ({ index = Math.floor(Math.random() * 1000) + 1, title, desc, expanded = false, onClick }) => {
+  const theme = useTheme()
   const randomNum = Math.floor(Math.random() * 1000) + 1
-  const { index = randomNum, title, desc, expanded = false, onClick } = props
+  //const { index = randomNum, title, desc, expanded = false, onClick } = props
   const [isExpanded, setIsExpanded] = useState(false)
+
+  const faqAccordionSx = (theme) => ({
+    my: 3,
+    '&.Mui-expanded': {
+      my: 3,
+    },
+    '& .MuiAccordionSummary-root': {
+      position: 'relative',
+      backgroundImage: theme.gradients?.primaryDiagonal || 'linear-gradient(to right, #f8f9fa, #eef1f5)',
+      px: 2,
+      py: 1,
+      alignItems: 'center',
+      minHeight: 64,
+      '&.Mui-expanded': {
+        minHeight: 64,
+      },
+      '& .MuiAccordionSummary-content': {
+        margin: 0,
+        alignItems: 'center',
+      },
+      '& .MuiAccordionSummary-expandIcon': {
+        color: theme.palette.grey[900],
+        marginTop: 0,
+        marginRight: theme.spacing(1),
+        '& svg': {
+          fontSize: '1.5rem',
+          stroke: theme.palette.grey[900],
+        },
+      },
+    },
+    '& .MuiAccordionDetails-root': {
+      px: 2,
+      py: 1,
+      '& > p': {
+        marginBottom: 2,
+      },
+      '& > p:last-of-type': {
+        marginBottom: 0,
+      },
+    },
+    '&::before': {
+      display: 'none', // Hide default MUI divider line
+    }
+  })
 
   // externally control the expansion of this component
   useEffect(() => {
@@ -129,12 +98,13 @@ const FAQ = (props) => {
   }
 
   return (
-    <Accordion square expanded={isExpanded} onChange={handleChange} className={classes.root} elevation={25}>
+    <Accordion square expanded={isExpanded} onChange={handleChange}  elevation={25}
+    sx={faqAccordionSx(theme)} >
       <AccordionSummary expandIcon={isExpanded ? <RemoveRounded /> : <AddRounded />} onClick={trackClick} aria-controls={`faq-${index}-content`} id={`faq-${index}-header`}>
         <Typography variant="h4" component="h4">{title}</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Typography className={classes.panelDetails} component="div">
+        <Typography component="div">
           <RenderContent children={desc} />
         </Typography>
       </AccordionDetails>

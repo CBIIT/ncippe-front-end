@@ -4,9 +4,11 @@ import PropTypes from 'prop-types'
 import FileListItem from './FileListItem'
 import NoItems from '../NoItems'
 
-const FileList = (props) => {
-  const { files, noItemsMsg, ...rest } = props
-
+const FileList = ({ files = [], noItemsMsg, ...rest }) => {
+  if (!files || !Array.isArray(files)) {
+    console.warn('FileList expects an array of files as the "files" prop.')
+    return null
+  }
   return (
     files && files.length > 0 ? 
       files.map((file,i) => <FileListItem key={i} file={file} {...rest}/>)

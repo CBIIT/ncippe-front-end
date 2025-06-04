@@ -1,32 +1,12 @@
 import React, { useEffect } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Box, Button, Container, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { Clear as ClearIcon } from '@material-ui/icons'
+import { Box, Button, Container, Typography } from '@mui/material'
+import { Clear as ClearIcon } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import PubSub from 'pubsub-js'
 
-const useStyles = makeStyles( theme => ({
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    textAlign: "center"
-  },
-  clear: {
-    display: 'inline-flex',
-    border: '5px solid',
-    borderRadius: '50%',
-    
-    "& > svg": {
-      padding: 10,
-      fontSize: "5.8rem",
-    }
-  }
-}),{name: 'NotFoundPage'})
-
 const ErrorPage = () => {
-  const classes = useStyles()
   const { t } = useTranslation('notFoundPage')
 
   useEffect(() => {
@@ -49,12 +29,21 @@ const ErrorPage = () => {
         <link rel="canonical"      href={`${process.env.REACT_APP_PUBLIC_URL}/notfound`} />
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/notfound`} />
       </Helmet>
-      <Container className={classes.container} component="section">
-        <div>
-          <div className={classes.clear}>
-            <ClearIcon />
-          </div>
-        </div>
+      <Container component="section" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }} >
+        <Box
+          sx={{
+            display: 'inline-flex',
+            border: '5px solid',
+            borderRadius: '50%',
+            mb: 2,
+            '& > svg': {
+              padding: 2,
+              fontSize: '5.8rem',
+            },
+          }}
+        >
+          <ClearIcon />
+        </Box>
         <Typography variant="h1" component="h1">{t('pageTitle')}</Typography>
         <Typography gutterBottom variant="h2" component="h2">{t('subtitle')}</Typography>
         <div>

@@ -1,5 +1,5 @@
 import React, { lazy } from 'react'
-import {  Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
+import {  Routes, Route, useLocation, Navigate, Outlet,useNavigate } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import pageWrapper from '../pages/pageWrapper/pageWrapper_dev'
 import RequireAuth from './RequireAuth'
@@ -19,24 +19,24 @@ import BiomarkerTest      from '../pages/expect/BiomarkerTest'
 import Privacy            from '../pages/participation/PrivacyPage'
 import Activate           from '../pages/participation/ActivatePage'
 import Research           from '../pages/research/ResearchPage'
-import Article            from '../pages/research/ArticlePage'
+//import Article            from '../pages/research/ArticlePage'
 import Policy             from '../pages/PolicyPage'
 
 // imports for dashboard pages
-import MockUsersPage      from '../pages/MockUsersPage'
-import Dashboard          from '../pages/dashboard/DashboardPage'
-import SignInCallback     from '../pages/dashboard/SignInCallback'
-import DashboardMocha     from '../pages/dashboard/DashboardMochaPage'
-import NotificationsPage  from '../pages/dashboard/NotificationsPage'
-import TestResultsPage    from '../pages/dashboard/TestResultsPage'
-import ParticipantPage    from '../pages/dashboard/ParticipantPage'
-import ConsentPage        from '../pages/dashboard/ConsentPage'
-import ProfilePage        from '../pages/dashboard/ProfilePage'
-import ParticipationPage  from '../pages/dashboard/ParticipationPage'
-import GetHelpPage        from '../pages/dashboard/GetHelpPage'
-import ResourcesPage      from '../pages/dashboard/ResourcesPage'
-import SendMessagePage    from '../pages/dashboard/SendMessagePage'
-import MessageHistoryPage from '../pages/dashboard/MessageHistoryPage'
+//import MockUsersPage      from '../pages/MockUsersPage'
+//import Dashboard          from '../pages/dashboard/DashboardPage'
+//import SignInCallback     from '../pages/dashboard/SignInCallback'
+//import DashboardMocha     from '../pages/dashboard/DashboardMochaPage'
+//import NotificationsPage  from '../pages/dashboard/NotificationsPage'
+//import TestResultsPage    from '../pages/dashboard/TestResultsPage'
+//import ParticipantPage    from '../pages/dashboard/ParticipantPage'
+//import ConsentPage        from '../pages/dashboard/ConsentPage'
+//import ProfilePage        from '../pages/dashboard/ProfilePage'
+//import ParticipationPage  from '../pages/dashboard/ParticipationPage'
+//import GetHelpPage        from '../pages/dashboard/GetHelpPage'
+//import ResourcesPage      from '../pages/dashboard/ResourcesPage'
+//import SendMessagePage    from '../pages/dashboard/SendMessagePage'
+//import MessageHistoryPage from '../pages/dashboard/MessageHistoryPage'
 
 // Nested Participation Steps
 import ChangeParticipation from '../components/Participation/ChangeParticipation'
@@ -51,6 +51,23 @@ import 'moment/locale/es'
 moment.locale('en')
 
 const SearchResults = lazy(() => import('../pages/SearchResultsPage'))
+// Lazy-loaded pages
+const Article = lazy(() => import('../pages/research/ArticlePage'));
+const MockUsersPage = lazy(() => import('../pages/MockUsersPage'));
+const SignInCallback = lazy(() => import('../pages/dashboard/SignInCallback'));
+const Dashboard = lazy(() => import('../pages/dashboard/DashboardPage'));
+const DashboardMocha = lazy(() => import('../pages/dashboard/DashboardMochaPage'));
+const NotificationsPage = lazy(() => import('../pages/dashboard/NotificationsPage'));
+const TestResultsPage = lazy(() => import('../pages/dashboard/TestResultsPage'));
+const ParticipantPage = lazy(() => import('../pages/dashboard/ParticipantPage'));
+const ConsentPage = lazy(() => import('../pages/dashboard/ConsentPage'));
+const ProfilePage = lazy(() => import('../pages/dashboard/ProfilePage'));
+const ParticipationPage = lazy(() => import('../pages/dashboard/ParticipationPage'));
+const GetHelpPage = lazy(() => import('../pages/dashboard/GetHelpPage'));
+const ResourcesPage = lazy(() => import('../pages/dashboard/ResourcesPage'));
+const SendMessagePage = lazy(() => import('../pages/dashboard/SendMessagePage'));
+const MessageHistoryPage = lazy(() => import('../pages/dashboard/MessageHistoryPage'));
+
 
 const HomePage = pageWrapper(Home)
 const AboutPage = pageWrapper(About)
@@ -112,33 +129,36 @@ const AppRoutes = () => {
           <Route path='/signin' element= {<SignInCallbackPage />} />
 
           {/* Private routes */}
-          <Route path="/account" element={<RequireAuth> <DashboardPage /> </RequireAuth> } />
           <Route path="/account-mocha" element={<RequireAuth >  <DashboardMochaPage  />  </RequireAuth> } />
-          <Route path="/account/notifications" element={<RequireAuth >  <NotificationsPage  />  </RequireAuth> } />
-          <Route path="/account/consent" element={<RequireAuth >  <ConsentPage  />  </RequireAuth> } />
-          <Route path="/account/tests" element={<RequireAuth >  <TestResultsPage  />  </RequireAuth> } />
-          <Route path="/account/participant/:patientId" element={<RequireAuth >  <ParticipantPage  />  </RequireAuth> } />
-          <Route path="/account/participant/:patientId/participation" element={<RequireAuth >  <ParticipationPage />  </RequireAuth> } >
-            <Route index element={<ChangeParticipationPage /> } />
-            <Route path="leaveOptions" element={<LeaveOptionsPage />} />
-            <Route path="leaveQuestions" element={<LeaveQuestionsPage />} />
-            <Route path="closeAccount" element={<CloseAccountPage />} />
-          </Route>
-          <Route path="/account/participant/:patientId/profile" element={<RequireAuth >  <ProfilePage  />  </RequireAuth> } />
-          <Route path="/account/profile" element={<RequireAuth >  <ProfilePage  />  </RequireAuth> } />
-          <Route path="/account/profile/participation/*" element={<RequireAuth >  <ParticipationPage  />  </RequireAuth> } />
-          <Route path="/account/help" element={<RequireAuth >  <GetHelpPage  />  </RequireAuth> } />
-          <Route path="/account/resources" element={<RequireAuth >  <ResourcesPage  />  </RequireAuth> } />
-          <Route path="/account/sendMessage" element={<RequireAuth >  <SendMessagePage  />  </RequireAuth> } />
-          <Route path="/account/messageHistory" element={<RequireAuth >  <MessageHistoryPage  />  </RequireAuth> } />
 
-          <Route path="/signout" element={<Navigate to="/" replace />} />
-          <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-          </div>
+          <Route path="/account" element={<RequireAuth> <Outlet /> </RequireAuth> } >
+            <Route index element={<DashboardPage />} />
+        
+            <Route path="notifications" element={ <NotificationsPage  /> } />
+            <Route path="consent" element={<ConsentPage  />  } />
+            <Route path="tests" element={ <TestResultsPage  />  } />
+            <Route path="participant/:patientId" element={ <ParticipantPage  />   } />
+            <Route path="participant/:patientId/participation" element={ <ParticipationPage />  } >
+              <Route index element={<ChangeParticipationPage /> } />
+              <Route path="leaveOptions" element={<LeaveOptionsPage />} />
+              <Route path="leaveQuestions" element={<LeaveQuestionsPage />} />
+              <Route path="closeAccount" element={<CloseAccountPage />} />
+          </Route>
+          <Route path="participant/:patientId/profile" element={<ProfilePage  />  } />
+          <Route path="profile" element={ <ProfilePage  />  } />
+          <Route path="profile/participation/*" element={ <ParticipationPage  />   } />
+          <Route path="help" element={<GetHelpPage  />  } />
+          <Route path="resources" element={ <ResourcesPage  /> } />
+          <Route path="sendMessage" element={  <SendMessagePage  />  } />
+          <Route path="messageHistory" element={  <MessageHistoryPage  />  } />
+        </Route>
+        <Route path="/signout" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+        </div>
         </CSSTransition>
-      </TransitionGroup>
-    );
+    </TransitionGroup>
+  );
 }
 
 export default AppRoutes

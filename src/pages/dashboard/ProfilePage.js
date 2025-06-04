@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { Link as RouterLink, useParams, useLocation } from 'react-router-dom'
-import { Box, Button, Container, Divider, Grid, Paper, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Button, Container, Divider, Grid, Paper, Typography } from '@mui/material'
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
@@ -13,81 +12,11 @@ import Profile from '../../components/Profile/Profile'
 import Status from '../../components/Status'
 import DeactivatedQuestions from '../../components/DeactivatedQuestions'
 import { formatPhoneNumber } from '../../utils/utils'
-import { use } from 'react'
-
-
-const useStyles = makeStyles(theme => ({
-  header: {
-    marginBottom: theme.spacing(2)
-  },
-  profileTop: {
-    display: "flex",
-    flexDirection: "column",
-    [theme.breakpoints.up('sm')]: {
-      flexDirection: "row"
-    }
-  },
-  profile: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    flexGrow: 1,
-    marginBottom: theme.spacing(2),
-    '& a': {
-      textDecoration: 'none'
-    },
-  },
-  profileHeader: {
-    marginTop: theme.spacing(1)
-  },
-  profileIcon: {
-    marginRight: theme.spacing(3),
-    width: '60px',
-  },
-  profileText: {
-    display: 'flex',
-    flexGrow: 1,
-    flexDirection: 'column',
-    height: '100%',
-    justifyContent: 'space-between'
-  },
-  menu: {
-    backgroundColor: theme.palette.common.white
-  },
-  badge: {
-    display: 'inline-block',
-    borderRadius: 6,
-    backgroundColor: theme.palette.error.main,
-    color: theme.palette.common.white,
-    padding: '4px 16px',
-    lineHeight: 'normal',
-    fontFamily: theme.typography.button.fontFamily,
-    fontWeight: 600,
-    textTransform: 'uppercase',
-  },
-  divider: {
-    margin: theme.spacing(2, 0, 4)
-  },
-  innerDivider: {
-    margin: theme.spacing(3, 0),
-    backgroundColor: '#ccc'
-  },
-  biobankInfo: {
-    padding: theme.spacing(3,2),
-    '& a': {
-      textDecoration: 'none',
-      color: theme.palette.text.primary
-    }
-  },
-  bold: {
-    fontWeight: theme.typography.fontWeightBold
-  },
-}),{name: 'ProfilePage'})
 
 
 const ProfilePage = () => {
   const {patientId} = useParams()
   const location = useLocation()
-  const classes = useStyles()
   const [loginContext] = useContext(LoginContext)
   const { t } = useTranslation(['a_accountSettings','a_common'])
   
@@ -130,34 +59,81 @@ const ProfilePage = () => {
       </Helmet>
       <Breadcrumbs pageName="Profile" link={location.state?.forceNavigation} />
       <Container className="mainContainer">
-        <div className={classes.profileTop}>
-          <div className={classes.profile}>
-            <img className={classes.profileIcon} src={`${process.env.PUBLIC_URL}/assets/icons/user-profile.svg`} alt={t('a_common:icons.user_profile')} aria-hidden="true" />
-            <div className={classes.profileText}>
-              <Typography className={classes.profileHeader} variant="h2" component="h2">{firstName} {lastName}</Typography>
+           <Box
+          sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' },mb: 2, }} >
+          <Box
+            sx={{ display: 'flex',alignItems: 'flex-start',flexGrow: 1,
+              mb: 2,'& a': { textDecoration: 'none' },}}>
+            <Box
+              component="img"  sx={{ mr: 3, width: '60px' }} 
+              src={`${process.env.PUBLIC_URL}/assets/icons/user-profile.svg`} 
+              alt={t('a_common:icons.user_profile')} aria-hidden="true" />
+            <Box sx={{
+                display: 'flex',
+                flexGrow: 1,
+                flexDirection: 'column',
+                height: '100%',
+                justifyContent: 'space-between',
+              }}  >
+              <Typography sx={{ mt: 1 }} variant="h2" component="h2">{firstName} {lastName}</Typography>
               <Typography component="p" gutterBottom>{t('a_common:participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
-              {isActiveBiobankParticipant === false && <div><Typography className={classes.badge}>{t('a_common:not_participating.badge')}</Typography></div>}
-            </div>
-          </div>
+              {!isActiveBiobankParticipant && <Box>
+                <Typography sx={{
+                      display: 'inline-block',
+                      borderRadius: 1.5,
+                      backgroundColor: theme => theme.palette.error.main,
+                      color: theme => theme.palette.common.white,
+                      px: 2,
+                      py: 0.5,
+                      fontWeight: 600,
+                      textTransform: 'uppercase',
+                      fontFamily: theme => theme.typography.button.fontFamily,
+                      lineHeight: 'normal',
+                    }}>{t('a_common:not_participating.badge')}</Typography></Box>}
+            </Box>
+          </Box>
           {roleName === "ROLE_PPE_PARTICIPANT" && (
-            <div><Button className={classes.menu} variant="outlined" color="primary" component={RouterLink} to="participation" onClick={trackParticipationClick}>{t('a_common:buttons.change_participation')}</Button></div>
+            <div><Button sx={{ backgroundColor: theme => theme.palette.common.white }} variant="outlined" color="primary" 
+            component={RouterLink} to="participation" onClick={trackParticipationClick}>
+              {t('a_common:buttons.change_participation')}</Button></div>
           )}
-        </div>
-        {isActiveBiobankParticipant === false && <Status state="info" fullWidth title={t('a_common:not_participating.status.title')} message={t('a_common:not_participating.status.message')} />}
-        <Divider className={classes.divider} />
+        </Box>
+        {!isActiveBiobankParticipant && 
+        <Status state="info" fullWidth 
+        title={t('a_common:not_participating.status.title')} 
+        message={t('a_common:not_participating.status.message')} />}
+        <Divider sx={{ my:3}} />
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
+          <Grid
+            size={{
+              xs: 12,
+              md: 6
+            }}>
             <Profile patientId={patientId} />
-            {isActiveBiobankParticipant === false && questionAnswers && (
+            { !isActiveBiobankParticipant  && questionAnswers && (
               <DeactivatedQuestions user={userData} />
             )}
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid
+            size={{
+              xs: 12,
+              md: 6
+            }}>
             {roleName === "ROLE_PPE_PARTICIPANT" && (
-              <Paper className={classes.biobankInfo} elevation={25}>
-                <Typography className={classes.header} variant="h3" component="h3" gutterBottom>{t('contacts.title')}</Typography>
+              <Paper  sx={{
+                  p: 3,
+                  '& a': {
+                    textDecoration: 'none',
+                    color: theme => theme.palette.text.primary,
+                  },
+                }} elevation={25}>
+                <Typography sx={{ mb: 2}} variant="h3" component="h3" gutterBottom>
+                  {t('contacts.title')}</Typography>
 
-                {providers && <Typography className={classes.bold} gutterBottom>{t('contacts.doctor')}</Typography>}
+                {providers?.length > 0  && ( <>
+                <Typography fontWeight="bold" gutterBottom>{t('contacts.doctor')}
+                </Typography>
+               
                 {providers && providers.map((provider, i) => (
                   <Box mb={2} key={i}>
                     <Typography>Dr. {provider.firstName} {provider.lastName}</Typography>
@@ -165,8 +141,9 @@ const ProfilePage = () => {
                     <Typography><a className="email" href={`mailto:${provider.email}`}>{provider.email}</a></Typography>
                   </Box>
                 ))}
-                <Divider className={classes.innerDivider} />
-                <Typography className={classes.bold} gutterBottom>{t('contacts.crc')}</Typography>
+                <Divider sx={{ my:3, backgroundColor: '#ccc'}} />
+                </>)}
+                <Typography fontWeight="bold" gutterBottom>{t('contacts.crc')}</Typography>
                 <Typography>{crc.firstName} {crc.lastName}</Typography>
                 <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
                 <Typography><a className="email" href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
@@ -176,7 +153,7 @@ const ProfilePage = () => {
         </Grid>
       </Container>
     </Box>
-  )
+  );
 }
 
 export default ProfilePage

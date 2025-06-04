@@ -1,73 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Badge, Card, CardActions, CardContent, Typography, Button } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Badge, Card, CardActions, CardContent, Typography, Button } from '@mui/material'
 import {
   GetApp as GetAppIcon,
   Launch as LaunchIcon
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 import PubSub from 'pubsub-js'
 
 import ConditionalWrapper from '../utils/ConditionalWrapper'
 
-const useStyles = makeStyles(theme => ({
-  card: {
-    position: 'relative',
-    justifyContent: 'space-between',
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: theme.spacing(2),
-    padding: theme.spacing(2,1),
-  },
-  cardAction: {
-    justifyContent: 'space-between',
-    borderTop: `2px solid ${theme.palette.grey[300]}`,
-    margin: theme.spacing(0,2),
-    padding: theme.spacing(2,0,0,0),
-    [theme.breakpoints.down('xs')]: {
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-      "& > :not(:first-child)": {
-        margin: 0
-      }
-    },
-
-    [theme.breakpoints.up('xs')]: {
-      '& a:last-of-type': {
-        alignSelf: 'flex-end',
-      }
-    }
-
-  },
-  gridItem: {
-    width: '33.333333%',
-
-    '& $card': {
-      height: '100%'
-    }
-  },
-  icon: {
-    marginRight: '4px'
-  },
-  badge: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between'
-  }
-}),{name: 'FileListItem'})
-
-const FileListItem = (props) => {
-  const {file, noBadge, eventName = 'VIEW_DOCUMENT_ITEM'} = props
-  const classes = useStyles()
+const FileListItem = ({ file, noBadge, eventName = 'VIEW_DOCUMENT_ITEM' }) => {
   const {fileName, dateUploaded, fileGUID, viewedByUser = false} = file
   const { t } = useTranslation('a_common')
-  // const isIE = /*@cc_on!@*/false || !!document.documentMode
-
-  // response header example to parse
-  //Content-Disposition: attachment; filename=dummy_PatientFile - Copy8322721829336469280.pdf
-
+ 
   const handleViewFile = (event) => {
     event.preventDefault()
     PubSub.publish(eventName, {
@@ -81,20 +28,66 @@ const FileListItem = (props) => {
   }
 
   return (
-    <Card className={classes.card} elevation={25}>
-      <ConditionalWrapper
-        condition={noBadge ? false : !viewedByUser}
-        wrapper={children => <Badge className={classes.badge} badgeContent={t('badges.new_document')} component="div">{children}</Badge>}>
+    <Card sx={{
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        mb: 2,
+        p: 2,
+      }} elevation={25}>
+      { !noBadge && !viewedByUser && (
+        <Box sx={{
+        position: 'absolute',
+        top: 16,
+        right: 80,
+        zIndex: 2,
+      }}>
+            <Badge sx={{
+      '& .MuiBadge-badge': {
+        borderRadius: '0 0 6px 6px',
+        padding: '8px 12px 6px',
+        backgroundColor: '#ffb73d',
+        color: '#000',
+        fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+        fontSize: '16px',
+        fontWeight: 500,
+        lineHeight: '1',
+        textAlign: 'center',
+        minWidth: 'auto',
+        whiteSpace: 'nowrap',
+      }
+    }} badgeContent={t('badges.new_document')} ></Badge> 
+        </Box>)}
         <CardContent>
           <Typography className="breakAll" variant="h3" component="h3">{fileName}</Typography>
           <Typography>{t('components.testResultItem.uploaded')} {moment(dateUploaded).format("MMM DD, YYYY")}</Typography>
         </CardContent>
-        <CardActions className={classes.cardAction}>
+        <CardActions sx={{
+            justifyContent: 'space-between',
+            borderTop: '2px solid #cfd2d8',
+            mx: 2,
+            pt: 2,
+            [theme => theme.breakpoints.down('sm')]: {
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              '& > :not(:first-child)': {
+                mt: 1,
+              },
+            },
+            [theme => theme.breakpoints.up('xs')]: {
+              '& a:last-of-type': {
+                alignSelf: 'flex-end',
+              },
+            },
+          }} >
           {/* isIE ? <Typography component="div" /> : <Button color="primary" variant="text" data-fileid={fileGUID} onClick={handleViewFile}><LaunchIcon className={classes.icon} /> {t('buttons.view')}</Button> */}
-          <Button color="primary" variant="text" data-fileid={fileGUID} onClick={handleViewFile}><LaunchIcon className={classes.icon} /> {t('buttons.view')}</Button>
-          <Button color="primary" variant="text" data-download data-fileid={fileGUID} onClick={handleViewFile}><GetAppIcon className={classes.icon}  /> {t('buttons.download')}</Button>
+          <Button color="primary" variant="text" data-fileid={fileGUID} onClick={handleViewFile}>
+            <LaunchIcon sx={{ mr: 0.5 }} /> {t('buttons.view')}</Button>
+          <Button color="primary" variant="text" data-download data-fileid={fileGUID} 
+          onClick={handleViewFile}>
+            <GetAppIcon sx={{ mr: 0.5 }}  /> {t('buttons.download')}</Button>
         </CardActions>
-      </ConditionalWrapper>
     </Card>
   )
 }

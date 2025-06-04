@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from 'react'
-import ReactDOM from 'react-dom'
+import { Box } from '@mui/material'
+import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 
@@ -20,18 +21,18 @@ import './i18n'
 */
 // code splitting out the main app
 const App = lazy(() => import(`./App${process.env.REACT_APP_API_PATH === 'local' ? '_dev' : ''}`)) 
-
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
   <BrowserRouter>
-    
-  <Suspense fallback={ 
-    <div style={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}>
-      <Loading /></div>
-    }>
-    <App />
-  </Suspense>
-  </BrowserRouter>  , 
-  document.getElementById('root'))
+    <Suspense fallback={ 
+      <Box sx={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}>
+       <Loading />
+      </Box>
+      }>
+      <App />
+    </Suspense>
+  </BrowserRouter>  );
 
 
 // put a logo in the console for fun

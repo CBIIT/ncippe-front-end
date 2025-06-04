@@ -1,66 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import {Helmet} from 'react-helmet-async'
 import {useTranslation} from 'react-i18next'
-import {Box, Container, Divider, Grid, Typography, useMediaQuery} from '@material-ui/core'
-import {makeStyles, useTheme} from '@material-ui/core/styles'
+import {Box, Container, Divider, Grid, Typography, useMediaQuery} from '@mui/material'
+import { useTheme } from '@mui/material/styles';
+
 import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 import TabAboutBar from './AboutBar';
-
-const useStyles = makeStyles(theme => ({
-    grid: {
-        justifyContent: 'flex-start',
-        '& img': {
-            display: 'inline-block',
-            maxWidth: 600,
-            margin: theme.spacing(1, 0, 3)
-        }
-    },
-    gridItemImg: {
-        textAlign: 'center',
-        '& img': {
-            maxWidth: 600,
-            [theme.breakpoints.up('md')]: {
-                maxWidth: 380
-            }
-        }
-    },
-    img_fullWidth: {
-        width: '100%',
-        maxWidth: 'none !important'
-    },
-    divider: {
-        width: '100%',
-        margin: theme.spacing(3, 0),
-        [theme.breakpoints.up('md')]: {
-            margin: theme.spacing(7, 0)
-        }
-    },
-    testAlpha: {
-        width: '25%',
-        backgroundColor: '#b90d87'
-    },
-    linkImg: {
-        '& a': {
-            display: "inline-block",
-            border: `2px solid ${theme.palette.grey.light}`,
-        },
-        '& img': {
-            margin: 0,
-        },
-        '& figcaption': {
-            margin: theme.spacing(0, 0, 2, 0),
-        }
-    }
-}), {name: 'AboutPage'})
+import { gridItemImgSx } from '../../theme/homePageStyles';
 
 const AboutPage = () => {
-    const classes = useStyles();
     let {t, i18n} = useTranslation('about');
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const lang = i18n.languages[0] === 'en' ? "" : "-es"
     useEffect(() => {
         PubSub.publish('ANALYTICS', {
@@ -69,7 +23,6 @@ const AboutPage = () => {
             prop10: t("metaData.title"),
         })
     }, [t])
-
 
     return (
         <Box component="article">
@@ -90,8 +43,17 @@ const AboutPage = () => {
             <TabAboutBar value={0} />
             <Container className="mainContainer mainContainer--public">
                 <Box mt={5} component="section">
-                    <Grid container className={classes.grid} spacing={2} alignItems="stretch">
-                        <Grid item xs={12} md={6}>
+                    <Grid container sx={{  justifyContent: 'flex-start',
+                    '& img': {
+                        display: 'inline-block',
+                        maxWidth: 600,
+                        margin: theme.spacing(1, 0, 3),
+                    }, }} spacing={2} alignItems="stretch">
+                        <Grid
+                            size={{
+                                xs: 12,
+                                md: 6
+                            }}>
                             <Typography paragraph={true} variant="h2" component="h2">
                                 <RenderContent children={t('sections.0.title')}/>
                             </Typography>
@@ -107,14 +69,26 @@ const AboutPage = () => {
 
                         </Grid>
                         {!isMobile &&
-                        <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
+                        <Grid
+                            sx={ gridItemImgSx}
+                            component="aside"
+                            size={{
+                                xs: 12,
+                                md: 6
+                            }}>
                             <ArticleImage src="triple-pictures.jpg" alt={t('sections.0.alt_text')}/>
                         </Grid>
                         }
 
-                        <Divider className={classes.divider}/>
+                        <Divider sx={{ width: '100%', margin: theme.spacing(3, 0),
+                            [theme.breakpoints.up('md')]: {
+                            margin: theme.spacing(7, 0),},  }} />
 
-                        <Grid item xs={12} md={9}>
+                        <Grid
+                            size={{
+                                xs: 12,
+                                md: 9
+                            }}>
                             <Typography paragraph={true} variant="h2" component="h2">
                                 <RenderContent children={t('sections.1.title')}/>
                             </Typography>
@@ -124,12 +98,22 @@ const AboutPage = () => {
                             </Typography>
                         </Grid>
 
-                        <Grid item xs={12}>
-                            <figure className={classes.linkImg}>
+                        <Grid size={12}>
+                            <Box component="figure" sx={{ '& a': {
+                                    display: 'inline-block',
+                                    border: `2px solid ${theme.palette.grey.light}`,
+                                },
+                                '& img': {
+                                    margin: 0, width: '100%',
+                                    maxWidth: 'none !important',
+                                },
+                                '& figcaption': {
+                                    margin: theme.spacing(0, 0, 2, 0),
+                                },}}>
                                 <a href={`${process.env.PUBLIC_URL}/assets/documents/How-Biobank-Works${lang}.pdf`}
                                    rel="noopener noreferrer" target="_blank">
                                     {/* <BodyImage src={`how-biobank-works${lang}.jpg`} alt={t('sections.1.alt_text')} /> */}
-                                    <img className={classes.img_fullWidth}
+                                    <Box component="img" sx={{ width: '100%',  maxWidth: 'none !important', }}
                                          src={process.env.PUBLIC_URL + `/assets/images/fullWidth/micro/how-biobank-works${lang}.jpg`}
                                          alt={t('sections.1.alt_text')}
                                          srcSet={`
@@ -143,9 +127,13 @@ const AboutPage = () => {
                                     />
                                 </a>
                                 <figcaption><RenderContent children={t('sections.1.caption')}/></figcaption>
-                            </figure>
+                            </Box>
                         </Grid>
-                        <Grid item xs={12} md={9}>
+                        <Grid
+                            size={{
+                                xs: 12,
+                                md: 9
+                            }}>
                             <Typography component="div">
                                 <RenderContent children={t('sections.1.body')}/>
                             </Typography>
@@ -156,7 +144,7 @@ const AboutPage = () => {
                 </Box>
             </Container>
         </Box>
-    )
+    );
 }
 
 export default AboutPage

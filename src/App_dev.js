@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react'
-import { ThemeProvider } from '@material-ui/styles'
-import { CssBaseline } from '@material-ui/core'
+import { StyledEngineProvider, ThemeProvider, CssBaseline } from '@mui/material';
 import track from 'react-tracking'
 import { HelmetProvider, Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
@@ -8,7 +7,7 @@ import { useTracking } from 'react-tracking'
 import PubSub from 'pubsub-js'
 
 import AppRoutes from './routers/routes_dev'
-import  ClickInterceptor from './routers/ClickInterceptor'
+// import  ClickInterceptor from './routers/ClickInterceptor'
 import { AuthProvider } from './components/login/AuthContext'
 import { LoginProvider } from './components/login/Login.context'
 import { theme } from './theme/theme'
@@ -21,7 +20,7 @@ window.$role = 'Public'
  * The main app wrapper. This is littered with code for analytics tracking
  * 
  */
-const App = (props) => {
+const App = ({tracking}) => {
   const { t } = useTranslation('common')
   const { trackEvent } = useTracking()
 
@@ -50,7 +49,7 @@ const App = (props) => {
       if ((target && main) || (target && target.classList.contains('backButton'))) {
         // console.log("tracking")
         const linkType = target.tagName.toLowerCase() === 'button' || target.getAttribute('role') === 'button' ? 'button' : 'text'
-        props.tracking.trackEvent({
+        tracking.trackEvent({
           prop50: e.target.textContent,
           prop66: `BioBank|${linkType}`,
           eVar66: `BioBank|${linkType}`,
@@ -79,22 +78,24 @@ const App = (props) => {
   sessionStorage.setItem('isDashboardTracked',false)
 
   return (
-    <ThemeProvider theme={theme}>
-      <AuthProvider>
-        <LoginProvider>
-          <HelmetProvider>
-            <Helmet>
-              {/* Common meta data used by all pages */}
-              <meta name="twitter:image:alt" content={t('metaData.twitter_image_alt')} />
-            </Helmet>
-            <CssBaseline />
-            <ClickInterceptor />
-            <AppRoutes />
-          </HelmetProvider>
-        </LoginProvider>
-      </AuthProvider>
-    </ThemeProvider>
-  )
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+         <CssBaseline />
+        <AuthProvider>
+          <LoginProvider>
+            <HelmetProvider>
+              <Helmet>
+                {/* Common meta data used by all pages */}
+                <meta name="twitter:image:alt" content={t('metaData.twitter_image_alt')} />
+              </Helmet>
+              {/* <ClickInterceptor /> */}
+              <AppRoutes />
+            </HelmetProvider>
+          </LoginProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </StyledEngineProvider>
+  );
 }
 
 // wrapping App in react-tracking analytics HOC

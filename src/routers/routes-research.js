@@ -66,50 +66,50 @@ const researchRoutes = () => {
 // eslint-disable-next-line react-hooks/rules-of-hooks
 const location = useLocation();
 return (
-    <TransitionGroup className="transitionGroup" component={null}>
-      <CSSTransition 
-        key={location.key}
-        timeout={location.pathname.match(/\/account\//) ? 350 : 550}
-        classNames={location.pathname.match(/\/account\//) ? 'zoom' : 'fade'}>
-       <div className="transitionGroup">
-    
-        <Routes location={location} primary={false}>
-          {/* <Redirect from="/signout" to="/" noThrow /> */}
-            <Route path='/' element= {<HomePage />} />
-            <Route path='/about' element= { <AboutPage />} />
-            <Route path='/about/eligibility' element= { <EligibilityPage />} />
-            <Route path='/about/studyprogres' element= { <StudyProgressPage />} />
-            <Route path='/research'  element= { <ResearchPage />} />
-            <Route path='/expect/consent' element={ <AboutConsentPage />} /> 
-            <Route path='/expect/donate' element={<DonatePage />} /> 
-            <Route path='/expect/testing' element={<TestingPage />} /> 
-            <Route path='/participation/activate'element={<ActivatePage />} />
-            <Route path='/participation/privacy' element= {<PrivacyPage />} />
-            <Route path='/website-privacy-security' element= {<PolicyPage />} />
-            <Route path='/search' element= {<SearchResultsPage  />} />
-            <Route path='/error'  element= {<ErrorPage />} />
+  <TransitionGroup className="transitionGroup" component={null}>
+    <CSSTransition 
+      key={location.key}
+      timeout={location.pathname.match(/\/account\//) ? 350 : 550}
+      classNames={location.pathname.match(/\/account\//) ? 'zoom' : 'fade'}>
+     <div className="transitionGroup">
+  
+      <Routes location={location} primary={false}>
+        {/* <Redirect from="/signout" to="/" noThrow /> */}
+          <Route path='/' element= {<HomePage />} />
+          <Route path='/about' element= { <AboutPage />} />
+          <Route path='/about/eligibility' element= { <EligibilityPage />} />
+          <Route path='/about/studyprogress' element= { <StudyProgressPage />} />
+          <Route path='/research'  element= { <ResearchPage />} />
+          <Route path='/expect/consent' element={ <AboutConsentPage />} /> 
+          <Route path='/expect/donate' element={<DonatePage />} /> 
+          <Route path='/expect/testing' element={<TestingPage />} /> 
+          <Route path='/participation/activate'element={<ActivatePage />} />
+          <Route path='/participation/privacy' element= {<PrivacyPage />} />
+          <Route path='/website-privacy-security' element= {<PolicyPage />} />
+          <Route path='/search' element= {<SearchResultsPage  />} />
+          <Route path='/error'  element= {<ErrorPage />} />
 
-          {/* Private routes */}
-          <Route path="/account" element={< RequireAuth> <DashboardPage /> </RequireAuth> } />
-        <Route path="/account-mocha" element={< RequireAuth> <DashboardMochaPage /> </RequireAuth> } />
-        <Route path="/account/notifications" element={< RequireAuth> <NotificationsPage /> </RequireAuth> } />
-        <Route path="/account/consent" element={< RequireAuth> <ConsentPage /> </RequireAuth> } />
-        <Route path="/account/tests" element={< RequireAuth> <TestResultsPage /> </RequireAuth> } />
-        <Route path="/account/participant/:patientId" element={< RequireAuth> <ParticipantPage /> </RequireAuth> } />
-        <Route path="/account/participant/:patientId/participation/*" element={< RequireAuth> <ParticipationPage /> </RequireAuth> } />
-        <Route path="/account/profile" element={< RequireAuth> <ProfilePage /> </RequireAuth> } />
-        <Route path="/account/profile/participation/*" element={< RequireAuth> <ParticipationPage /> </RequireAuth> } />
-        <Route path="/account/help" element={< RequireAuth> <GetHelpPage /> </RequireAuth> } />
-        <Route path="/account/resources" element={< RequireAuth> <ResourcesPage /> </RequireAuth> } />
-        <Route path="/account/sendMessage" element={< RequireAuth> <SendMessagePage /> </RequireAuth> } />
-        <Route path="/account/messageHistory" element={< RequireAuth> <MessageHistoryPage /> </RequireAuth> } />
+        {/* Private routes */}
+        <Route path="/account" element={< RequireAuth> <DashboardPage /> </RequireAuth> } />
+      <Route path="/account-mocha" element={< RequireAuth> <DashboardMochaPage /> </RequireAuth> } />
+      <Route path="/account/notifications" element={< RequireAuth> <NotificationsPage /> </RequireAuth> } />
+      <Route path="/account/consent" element={< RequireAuth> <ConsentPage /> </RequireAuth> } />
+      <Route path="/account/tests" element={< RequireAuth> <TestResultsPage /> </RequireAuth> } />
+      <Route path="/account/participant/:patientId" element={< RequireAuth> <ParticipantPage /> </RequireAuth> } />
+      <Route path="/account/participant/:patientId/participation/*" element={< RequireAuth> <ParticipationPage /> </RequireAuth> } />
+      <Route path="/account/profile" element={< RequireAuth> <ProfilePage /> </RequireAuth> } />
+      <Route path="/account/profile/participation/*" element={< RequireAuth> <ParticipationPage /> </RequireAuth> } />
+      <Route path="/account/help" element={< RequireAuth> <GetHelpPage /> </RequireAuth> } />
+      <Route path="/account/resources" element={< RequireAuth> <ResourcesPage /> </RequireAuth> } />
+      <Route path="/account/sendMessage" element={< RequireAuth> <SendMessagePage /> </RequireAuth> } />
+      <Route path="/account/messageHistory" element={< RequireAuth> <MessageHistoryPage /> </RequireAuth> } />
 
-        <Route path="/signout" element={<Navigate to="/" replace />} />
-        <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-        </div>
-      </CSSTransition>
-    </TransitionGroup>
-  );
+      <Route path="/signout" element={<Navigate to="/" replace />} />
+      <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+      </div>
+    </CSSTransition>
+  </TransitionGroup>
+);
 }
 export default researchRoutes;

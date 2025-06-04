@@ -1,40 +1,13 @@
 import React from 'react'
-import { Typography, Paper, Grid, IconButton } from '@material-ui/core'
+import { Typography, Paper, Grid, IconButton } from '@mui/material'
 import { 
   Clear as ClearIcon,
   PictureAsPdf as PictureAsPdfIcon
-} from '@material-ui/icons'
-import { makeStyles } from '@material-ui/core/styles'
+} from '@mui/icons-material'
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 
-const useStyles = makeStyles( theme => ({
-  fileToUpload: {
-    margin: theme.spacing(1, 0),
-    maxWidth: '500px',
-    '& .MuiGrid-root': {
-      flexWrap: 'nowrap',
-    },
-  },
-  fileToUpload_icon: {
-    margin: theme.spacing(2, 0, 2, 2)
-  },
-  fileToUpload_title: {
-    fontWeight: theme.typography.fontWeightBold
-  },
-  fileToUpload_content: {
-    margin: theme.spacing(2, 2, 2, 1),
-    flexGrow: 1
-  },
-  fileToUpload_clear: {
-    alignSelf: 'center',
-    marginRight: theme.spacing(1)
-  }
-}),{name: 'FileItem'})
-
-const FileItem = (props) => {
-  const {file,onRemove} = props
-  const classes = useStyles()
+const FileItem = ({file,onRemove}) => {
   const { t } = useTranslation('a_common')
 
   const handleRemoveFile = (e) => {
@@ -42,19 +15,28 @@ const FileItem = (props) => {
   }
 
   return (
-    <Paper className={classes.fileToUpload} elevation={25}>
+    <Paper elevation={25} sx={{
+        m: 1,
+        maxWidth: 500,
+        '& .MuiGrid-root': {
+          flexWrap: 'nowrap',
+        },
+      }}>
       <Grid container>
-        <Grid item className={classes.fileToUpload_icon}>
+        <Grid sx={{ m:2 }}>
           <PictureAsPdfIcon />
         </Grid>
-        <Grid item className={classes.fileToUpload_content}>
-          <Typography className={classes.fileToUpload_title}>{file.name}</Typography>
+        <Grid sx={{ m:2, ml:1, flexGrow: 1 }} >
+          <Typography sx={{ fontWeight:'bold'}}>{file.name}</Typography>
           <Typography>{t('components.fileItem.last_modified')}: {moment(file.lastModified).format("MMM DD, YYYY")}</Typography>
         </Grid>
-        <Grid item className={classes.fileToUpload_clear}><IconButton aria-label={t('aria.remove_file')} onClick={handleRemoveFile}><ClearIcon /></IconButton></Grid>
+        <Grid sx={{ alignSelf:'center', mr:1 }}><IconButton
+          aria-label={t('aria.remove_file')}
+          onClick={handleRemoveFile}
+          size="large"><ClearIcon /></IconButton></Grid>
       </Grid>
     </Paper>
-  )
+  );
 }
 
 export default FileItem

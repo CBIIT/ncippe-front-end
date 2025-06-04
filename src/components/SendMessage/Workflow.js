@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Box, Button, Divider, Typography, CircularProgress} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Button, Divider, Typography, CircularProgress} from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
@@ -16,30 +15,7 @@ import Preview from './Preview'
 import Status from '../Status'
 import FormButtons from './FormButtons'
 
-const useStyles = makeStyles( theme => ({
-  divider: {
-    margin: theme.spacing(2, 0, 4, 0)
-  },
-  titleUploading: {
-    marginLeft: theme.spacing(3),
-    display: 'inline',
-  },
-  formButtons: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginTop: theme.spacing(2),
-  },
-  rightButtons: {
-    textAlign: 'right',
-    '& button': {
-      marginLeft: theme.spacing(2)
-    }
-  },
-}),{name: 'NewMessageWorkflow'})
-
-
-const NewMessageWorkflow = (props) => {
-  const classes = useStyles()
+const NewMessageWorkflow = () => {
   const { t } = useTranslation(['a_sendMessage','a_common'])
   const [activeStep, setActiveStep] = useState(0)
   const [sendMessageContext, dispatch] = useContext(SendMessageContext)
@@ -124,7 +100,7 @@ const NewMessageWorkflow = (props) => {
   return (
     <Box>
       <NewMessageStepper activeStep={activeStep} />
-      <Divider className={classes.divider} />
+      <Divider sx={{ my: 2 , mb: 4}} />
 
       <form id="sendNewMessage" autoComplete="off">
         {activeStep === 0 && (
@@ -137,9 +113,9 @@ const NewMessageWorkflow = (props) => {
           <Preview />
         )}
         {activeStep === 3 && (
-          <Box>
-            <CircularProgress className={classes.progress} size={70} />
-            <Typography className={classes.titleUploading} variant="h6">{t('progress.message')}</Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', ml: 3 }}>
+            <CircularProgress size={70} />
+            <Typography sx={{ ml: 3 }} variant="h6">{t('progress.message')}</Typography>
           </Box>
         )}
         {activeStep === 4 && (
@@ -159,7 +135,7 @@ const NewMessageWorkflow = (props) => {
             }
             <FormButtons
               leftButtons={<Button variant="outlined" color="primary" onClick={() => handleNavigate('repeat')}>{t('success.buttons.repeat')}</Button>}
-              rightButtons={<Button className={classes.btnSubmit} variant="contained" color="primary" onClick={() => handleNavigate('dashboard')}>{t('success.buttons.return')}</Button>}
+              rightButtons={<Button sx={{ ml: 2 }} variant="contained" color="primary" onClick={() => handleNavigate('dashboard')}>{t('success.buttons.return')}</Button>}
             />
           </Box>
         )}

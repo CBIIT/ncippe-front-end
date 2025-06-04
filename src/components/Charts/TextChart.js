@@ -1,7 +1,7 @@
 import React, {useRef, useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import '../../index.css'
-import {Typography} from "@material-ui/core";
+import {Typography} from "@mui/material";
 import RenderContent from "../utils/RenderContent";
 import getAPI from "../../data";
 

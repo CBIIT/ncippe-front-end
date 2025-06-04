@@ -1,87 +1,72 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Badge, Card, CardContent, Grid, Typography, Divider } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Badge, Card, CardContent, Grid, Typography, Divider } from '@mui/material'
 import moment from 'moment'
 
 import ConditionalWrapper from '../utils/ConditionalWrapper'
 import RenderContent from '../utils/RenderContent'
 
-const useStyles = makeStyles( theme => ({
-  badge: {
-    display: 'block',
-
-    '& .MuiBadge-badge': {
-      right: theme.spacing(3),
-      transform: 'none',
-      borderRadius: '0 0 6px 6px',
-      padding: theme.spacing(1,2),
-      textTransform: 'uppercase',
-      backgroundColor: theme.palette.gold.main,
-      color: theme.palette.common.black,
-      fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
-      fontSize: '16px',
-      fontWeight: 600,
-      lineHeight: '12px',
-      height: 'auto',
-    },
-
-    '& > div': {
-      borderLeft: '10px solid #F6C674',
-      paddingLeft: `calc(${theme.spacing(7)}px - 10px)`
-    }
-    
-  },
-  card: {
-    position: 'relative',
-    marginBottom: theme.spacing(2)
-  },
-  cardContent: {
-    padding: theme.spacing(4,3,4,7),
-    '&:last-child': {
-      paddingBottom: theme.spacing(4)
-    },
-  },
-  divider: {
-    margin: theme.spacing(2,0)
-  }
-}),{name: 'NotificationItem'})
 
 /**
  * A simple internal message notification displayed in a Material-UI Card
  */
-const NotificationItem = (props) => {
-  const {
-    notification: {
-      subject, 
-      message, 
-      dateGenerated, 
-      viewedByUser
-    } = {}, 
-    lang = navigator.language
-  } = props
-  const classes = useStyles()
+const NotificationItem = ({ 
+  notification: { subject, message, dateGenerated, viewedByUser } = {}, 
+  lang = navigator.language }) => {
+  
   return (
-    <Card className={classes.card} elevation={25}>
+    <Card sx={{ position: 'relative', mb: 2 }} elevation={25}>
       <ConditionalWrapper
         condition={!viewedByUser}
-        wrapper={children => <Badge className={classes.badge} badgeContent="new" component="div">{children}</Badge>}
+        wrapper={children => 
+        <Badge           sx={{
+              display: 'block',
+              '& .MuiBadge-badge': {
+                right: theme => theme.spacing(3),
+                transform: 'none',
+                borderRadius: '0 0 6px 6px',
+                padding: theme => theme.spacing(1, 2),
+                textTransform: 'uppercase',
+                backgroundColor: theme => theme.palette.gold.main,
+                color: theme => theme.palette.common.black,
+                fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+                fontSize: '16px',
+                fontWeight: 600,
+                lineHeight: '12px',
+                height: 'auto',
+              },
+              '& > div': {
+                borderLeft: '10px solid #F6C674',
+                paddingLeft: theme => `calc(${theme.spacing(7)} - 10px)`
+              }
+            }} badgeContent="new" component="div">{children}
+        </Badge>}
       >
-        <CardContent className={classes.cardContent}>
+        <CardContent sx={{
+            padding: theme => theme.spacing(4, 3, 4, 7),
+            '&:last-child': {
+              paddingBottom: theme => theme.spacing(4)
+            }
+          }}>
           <Typography variant="h3" component="h3"><RenderContent children={subject[lang]} /></Typography>
           <Grid container>
-            <Grid item xs={12} sm={4} md={2}>
+            <Grid
+              size={{
+                xs: 12,
+                sm: 6,
+                md: 4
+              }}>
               <Typography>{moment(dateGenerated).format("MMM DD, YYYY")}</Typography>
             </Grid>
           </Grid>
-          <Divider className={classes.divider} />
+          <Divider sx={{ my: 2 }} />
           <Typography component="div">
             <RenderContent children={message[lang]} />
           </Typography>
         </CardContent>
       </ConditionalWrapper>
     </Card>
-  )
+  );
 }
 
 NotificationItem.displayName = "NotificationItem"

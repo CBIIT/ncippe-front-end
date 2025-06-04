@@ -1,35 +1,22 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
-import { Container, Box, Grid, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Container, Box, Grid, Typography } from '@mui/material'
 import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
 import IconCard from '../../components/IconCard'
 
-const useStyles = makeStyles( theme => ({
-  grid: {
-    justifyContent: 'flex-start',
-    marginBottom: theme.spacing(3)
-  },
-  gridItem: {
-    width: '33.333333%',
-  },
-  disclaimer: {
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '74%'
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '64%'
-    }
-  }
-}),{name: 'PrivacyPage'})
-
 const PrivacyPage = () => {
-  const classes = useStyles()
   const { t } = useTranslation('privacy')
+  const iconMap = [
+    'identification.svg',
+    'stored-medical-info.svg',
+    'doctor.svg',
+    'secure-practices.svg',
+    'security-system.svg',
+    'laws.svg',
+  ];
 
   useEffect(() => {
     PubSub.publish('ANALYTICS', {
@@ -58,61 +45,29 @@ const PrivacyPage = () => {
           <RenderContent children={t('subtitle')} />
         </Typography>
       </Box>
-      <Grid container className={classes.grid} spacing={2} direction="row" justifyContent="center" alignItems="stretch" component="section">
-        <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
-          <IconCard
-            icon="identification.svg"
-            title={t('cards.0.title')}
-            desc={t('cards.0.description')}
-            altText={t('cards.0.alt_text')}
-          />
-        </Grid>
-        <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
-          <IconCard
-            icon="stored-medical-info.svg"
-            title={t('cards.1.title')}
-            desc={t('cards.1.description')}
-            altText={t('cards.1.alt_text')}
-          />
-        </Grid>
-        <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
-          <IconCard
-            icon="doctor.svg"
-            title={t('cards.2.title')}
-            desc={t('cards.2.description')}
-            altText={t('cards.2.alt_text')}
-          />
-        </Grid>
-        <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
-          <IconCard
-            icon="security-system.svg"
-            title={t('cards.4.title')}
-            desc={t('cards.4.description')}
-            altText={t('cards.4.alt_text')}
-          />
-        </Grid>
-        <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
-          <IconCard
-            icon="secure-practices.svg"
-            title={t('cards.3.title')}
-            desc={t('cards.3.description')}
-            altText={t('cards.3.alt_text')}
-          />
-        </Grid>
-        <Grid className={classes.gridItem} item xs={12} sm={6} lg={4}>
-          <IconCard
-            icon="laws.svg"
-            title={t('cards.5.title')}
-            desc={t('cards.5.description')}
-            altText={t('cards.5.alt_text')}
-          />
-        </Grid>
+      <Grid container sx={{  justifyContent: 'flex-start', mb: 3 }} spacing={2} direction="row" justifyContent="center" alignItems="stretch" component="section">
+      {[0, 1, 2, 4, 3, 5].map((i) => (
+      <Grid
+        key={i}
+        size={{
+          xs: 12,
+          sm: 6,
+          lg: 4
+        }}>
+        <IconCard
+          icon={iconMap[i]} // fallback optional
+          title={t(`cards.${i}.title`)}
+          desc={t(`cards.${i}.description`)}
+          altText={t(`cards.${i}.alt_text`)}
+        />
       </Grid>
-      <Typography className={classes.disclaimer} paragraph={true} component="div">
+    ))}      
+    </Grid>
+      <Typography sx={{  width: '100%', maxWidth: {sm: '74%', md: '64%'} }} paragraph  component="div">
         <RenderContent children={t('disclaimer')} />
       </Typography>
     </Container>
-  )
+  );
 }
 
 export default PrivacyPage

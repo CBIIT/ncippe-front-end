@@ -1,3 +1,4 @@
+// replaced by AddParticipantInfoDialog.js in AddParticipant folder
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { 
@@ -13,9 +14,10 @@ import {
   StepLabel,
   TextField,
   Typography,
-  useMediaQuery } from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import { Clear as ClearIcon } from '@material-ui/icons'
+  useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import { Clear as ClearIcon } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 import moment from 'moment'
@@ -91,7 +93,7 @@ const AddParticipantInfoDialog = (props) => {
   const [formData, setFormData] = useState(formDataDefaults)
   const [activeStep, setActiveStep] = useState(0)
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('xs'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
   const { t } = useTranslation(['a_addParticipant','a_common'])
   const [submitText, setSubmitText] = useState(t('form.save'))
   const stringRegex = /^[a-zA-Z\s]{1,}/
@@ -374,7 +376,7 @@ const AddParticipantInfoDialog = (props) => {
       onClose={handleClose}
       aria-labelledby="responsive-dialog-title"
     >
-      <DialogTitle id="responsive-dialog-title" disableTypography><Typography variant="h3" component="h3">{t('title')}</Typography></DialogTitle>
+      <DialogTitle id="responsive-dialog-title"><Typography variant="h3" component="h3">{t('title')}</Typography></DialogTitle>
       <DialogContent>
         <Typography>{t('subtitle')}</Typography>
       <Stepper className="Stepper--small-labels" activeStep={activeStep} alternativeLabel>
@@ -475,7 +477,7 @@ const AddParticipantInfoDialog = (props) => {
         <Button variant="text" color="primary" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>
-  )
+  );
 }
 
 export default AddParticipantInfoDialog

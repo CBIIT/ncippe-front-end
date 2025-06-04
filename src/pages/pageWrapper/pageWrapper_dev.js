@@ -1,50 +1,41 @@
 import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { 
-  Button,
-  Container,
-  Link,
-} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Button,Container,Link,} from '@mui/material'
+import { styled } from '@mui/material/styles'
 
 import Header from '../../components/region/Header/Header'
 import Footer from '../../components/region/Footer/Footer'
 
-const useStyles = makeStyles(theme => ({
-  main: {
-    flex: '1 0 auto',
-    margin: '0',
+// Replaces `mockUsers` class
+export const MockUsersLink = styled(Link)(({ theme }) => ({
+  position: 'absolute',
+  right: 32,
+  top: 16,
+  opacity: 0.25,
+  transition: 'opacity 300ms, box-shadow 300ms',
+  '&:hover': {
+    opacity: 1,
+    textDecoration: 'none',
+    boxShadow: theme.shadows[2],
   },
-  mockUsers: {
-    position: 'absolute',
-    right: 32,
-    top: 16,
-    opacity: .25,
-    transition: 'opacity 300ms, box-shadow 300ms',
-
-    '&:hover': {
-      opacity: 1,
-      textDecoration: 'none',
-      boxShadow: theme.shadows[2]
-    }
-  },
-}),{name: 'pageWrapper'})
+}));
 
 const pageWrapper = (Component) => ({children, ...props}) => {
-  const classes = useStyles()
+
   return (
-    <div className="siteWrapper"> {/* returning a fragment here does not work in ie11 */}
+    <Box className="siteWrapper" display="flex"
+     flexDirection="column" minHeight="100vh"> {/* returning a fragment here does not work in ie11 */}
       <Header />
-      <div id="main" className={classes.main} role="main">
-        <Container style={{position:"relative"}}>
-          <Link component={RouterLink} to='/mock-users' className={classes.mockUsers}>
+      <Box id="main" component="main" flex="1 0 auto" sx={{ margin: '0', }}role="main">
+        <Container sx={{ position: 'relative' }} >
+          <MockUsersLink component={RouterLink} to='/mock-users' >
             <Button variant="outlined" color="primary">Mock User</Button>
-          </Link>
+          </MockUsersLink>
         </Container>
         <Component {...props} />
-      </div>
+      </Box>
       <Footer />
-    </div>
+    </Box>
   )
 }
 

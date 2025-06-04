@@ -1,137 +1,154 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
-import { Accordion, AccordionDetails, AccordionSummary, MenuList, MenuItem, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Link, useLocation } from 'react-router-dom'
+import { Accordion, AccordionDetails, AccordionSummary, MenuList, MenuItem, Typography, useTheme } from '@mui/material'
 import { 
   ExpandMore,
   AddRounded,
-  RemoveRounded
-} from '@material-ui/icons'
+  RemoveRounded,
+} from '@mui/icons-material'
 
-import ConditionalWrapper from '../utils/ConditionalWrapper'
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    '&.Mui-expanded': {
-      margin: 'auto',
-    }
+const rootSx = {
+  '&.Mui-expanded': {
+    margin: 'auto',
   },
-  accordionSummary: {
-    '& .MuiAccordionSummary-content': {
+};
+
+const accordionSummarySx = {
+  '& .MuiAccordionSummary-content': {
+    margin: 0,
+    '&.Mui-expanded': {
       margin: 0,
-      '&.Mui-expanded': {
-        margin: 0,
-      },
     },
   },
-  accordionDetails: {
-    padding: 0,
-  },
-  menuList: {
-    padding: 0,
-    width: '100%'
-  },
+};
 
-  floating: {
-    border: `2px solid ${theme.palette.primary.main}`,
+const accordionDetailsSx = {
+  padding: 0,
+};
+
+const floatingSx = theme => ({
+  border: `2px solid ${theme.palette.primary.main}`,
+  color: theme.palette.primary.main,
+  borderRadius: theme.shape.borderRadius,
+  boxShadow: 'none',
+  '&:not(:last-child)': {
+    borderBottom: 0,
+  },
+  '&:before': {
+    display: 'none',
+  },
+  '&.Mui-expanded': {
+    boxShadow: theme.shadows[4],
+  },
+  '& .MuiAccordionSummary-root.Mui-expanded': {
+    borderBottom: `1px solid ${theme.palette.primary.main}`,
+    minHeight: '0 !important',
+  },
+  '& .MuiAccordionSummary-expandIcon': {
     color: theme.palette.primary.main,
-    borderRadius: theme.shape.borderRadius,
-    boxShadow: 'none',
-    '&:not(:last-child)': {
-      borderBottom: 0,
-    },
-    '&:before': {
-      display: 'none',
-    },
-    '&.Mui-expanded': {
-      boxShadow: theme.shadows[4],
-    },
-    '& .MuiAccordionSummary-root': {
-      '&.Mui-expanded': {
-        borderBottom: `1px solid ${theme.palette.primary.main}`,
-        minHeight: '0 !important',
-      },
-      '& .MuiAccordionSummary-expandIcon': {
-        color: theme.palette.primary.main
-      }
-    }
-  },
-
-  stacked: {
-    '& .MuiAccordionSummary-root': {
-      padding: '0 12px',
-
-      '&.Mui-expanded': {
-        minHeight: '48px',
-        backgroundColor: theme.palette.primary.light
-      },
-      '& .MuiAccordionSummary-content': {
-        order: 1
-      },
-      '& .MuiAccordionSummary-expandIcon': {
-        margin: 0,
-        padding: '0 6px 0 0',
-        '&.Mui-expanded': {
-          transform: 'none'
-        }
-      },
-    },
-    '&::before': {
-      height: 2,
-      top: -2
-    },
-    '&.Mui-expanded': {
-      '&::before': {
-        opacity: 1
-      },
-      '& + .MuiAccordion-root::before': {
-        display: 'block'
-      }
-    },
-    '& .MuiList-root': {
-      '& li': {
-        padding: 0
-      },
-      '& a': {
-        color: theme.palette.common.black,
-        textDecoration: 'none',
-        flexGrow: 1,
-        padding: '6px 16px'
-      },
-      '& .Mui-selected,& .Mui-selected:focus,& .Mui-selected:hover': {
-        backgroundColor: theme.palette.navy.dark,
-        color: theme.palette.common.white,
-        fontWeight: 600,
-        padding: '6px 16px',
-        '& a': {
-          color: theme.palette.common.white,
-        }
-      },
-    }
   }
-}))
+});
+
+const stackedSx = theme => ({
+  '& .MuiAccordionSummary-root': {
+    padding: '0 12px',
+    '&.Mui-expanded': {
+      minHeight: '48px',
+      backgroundColor: theme.palette.primary.light,
+    },
+    '& .MuiAccordionSummary-content': {
+      order: 1,
+    },
+    '& .MuiAccordionSummary-expandIcon': {
+      margin: 0,
+      padding: '0 6px 0 0',
+      '&.Mui-expanded': {
+        transform: 'none',
+      },
+    },
+  },
+  '&::before': {
+    height: 2,
+    top: -2,
+  },
+  '&.Mui-expanded': {
+    '&::before': {
+      opacity: 1,
+    },
+    '& + .MuiAccordion-root::before': {
+      display: 'block',
+    },
+  },
+  '& .MuiList-root': {
+    '& li': { padding: 0 },
+    '& a': {
+      color: theme.palette.common.black,
+      textDecoration: 'none',
+      flexGrow: 1,
+      padding: '6px 0px',
+    },
+    '& .Mui-selected,& .Mui-selected:focus,& .Mui-selected:hover': {
+      backgroundColor: theme.palette.navy.dark,
+      color: theme.palette.common.white,
+      fontWeight: 600,
+      padding: '6px 0px',
+      '& a': {
+        color: theme.palette.common.white,
+      },
+    },
+    '& .MuiMenuItem-root': {
+      // This will be the base padding for *all* menu items
+      // It should be enough to create the desired 'un-indented' look for the selected item
+      // and allow more padding for the indented items.
+      // Let's assume you want indented items to be 32px in.
+      paddingLeft: '0px', // This is the base padding, which will be overridden for selected
+    },
+    '& .MuiMenuItem-root.Mui-selected': { // Target the selected MenuItem
+      // Reset padding to match the AccordionSummary content's initial padding
+      
+      paddingLeft: '0px', // Align selected item with summary/header
+      backgroundColor: theme.palette.navy.dark,
+      color: theme.palette.common.white,
+      fontWeight: 600,
+    },
+    // To ensure the actual 'a' tag's padding inside the selected MenuItem
+    // doesn't add extra space on top of the MuiMenuItem-root padding:
+    '& .MuiMenuItem-root.Mui-selected a': {
+      paddingLeft: '0px', // Prevent 'a' from adding its own left padding
+      paddingRight: '0px', // Prevent 'a' from adding its own right padding
+    },
+    // For non-selected items, ensure 'a' tag padding works with the MuiMenuItem-root padding
+    '& .MuiMenuItem-root:not(.Mui-selected) a': {
+      paddingLeft: '0px', // Remove 'a' tag's left padding, already handled by MuiMenuItem-root
+      paddingRight: '0px', // You can adjust this if needed
+    },
+  }
+});
+
 
 /**
  * This component will display a drop down menu of links. It has two styles: `stacked` and `floating`. The stacked menu variant is currently only used for the mobile menu navigation. The floating menu variant is used in various places for user interaction
  */
-const ExpansionMenu = (props) => {
-  const classes = useStyles()
-  const {
-    index = `panel-${Math.floor(Math.random() * 1000) + 1}`, 
-    menuText,
-    className = "", 
-    expanded = false,
-    active = false,
-    handleClick,
-    variant = 'stacked',
-    children
-  } = props
+const ExpansionMenu = ({
+  index = `panel-${Math.floor(Math.random() * 1000) + 1}`,
+  menuText,
+  className = '',
+  expanded = false,
+  active = false,
+  handleClick,
+  variant = 'stacked',
+  children,
+}) => {
+
+  const location = useLocation()
+  const theme = useTheme()
   
   const [isExpanded, setIsExpanded] = useState(expanded)
   const ExpandIcon = variant !== 'stacked' ? ExpandMore : AddRounded
   const CollapseIcon = variant !== 'stacked' ? ExpandMore : RemoveRounded
-  const loc = window.location.pathname
+  const loc = location.pathname
+   console.log('current loc:', loc);
 
   useEffect(() => {
     setIsExpanded(expanded)
@@ -160,30 +177,39 @@ const ExpansionMenu = (props) => {
       square 
       expanded={isExpanded}
       onChange={handleChange} 
-      className={`${classes.root} ${variant !== 'stacked' ? classes.floating : classes.stacked} ${className}`}
+      sx={[
+        rootSx,
+        variant === 'floating' ? floatingSx(theme) : stackedSx(theme),
+      ]}
     >
       <AccordionSummary 
-        className={`${classes.accordionSummary} ${active ? "active" : ""}`}
+        sx={accordionSummarySx}
         expandIcon={isExpanded ? <CollapseIcon /> : <ExpandIcon />}
         aria-controls={`${index}Menu--content`}
         id={`${index}Menu--header`}
       >
         <Typography variant="h4">{menuText}</Typography>
       </AccordionSummary>
-      <AccordionDetails className={classes.accordionDetails}>
-        <MenuList className={classes.menuList} autoFocusItem={isExpanded} data-panelgroup={menuText}>
+      <AccordionDetails sx={accordionDetailsSx}>
+        <MenuList sx={{ p: 0, width: '100%' }}  autoFocusItem={isExpanded} 
+        data-panelgroup={menuText}>
           {
-            React.Children.map(children, child => {
-              if(child && child.type === "a") {
+            React.Children.map(children, (child) => {
+              const href = child.props.to || child.props.href;
+             
+              if(React.isValidElement(child) && href) {
+                 const isSelected = location.pathname === href;
+                 
                 return (
-                  <MenuItem onClick={child.props.onClick} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={loc === child.props.href}  className={child.props.className}>
-                    <ConditionalWrapper
-                      condition={loc !== child.props.href}
-                      wrapper={children => <Link to={child.props.href}>{children}</Link>}
-                    >
-                      <span>{child.props.children}</span>
-                    </ConditionalWrapper>
-                  </MenuItem>
+                      <MenuItem component={Link} onClick={child.props.onClick} 
+                      to={href} style={{ textDecoration: 'none', width: '100%' }}
+                      onKeyDown={handleListItemKeyDown} 
+                      onMouseOver={focusItem} 
+                      selected={isSelected}  
+                      className={child.props.className}>
+                   
+                      {child.props.children}
+                      </MenuItem>               
                 )
               }
               return child

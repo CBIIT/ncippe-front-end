@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link as RouterLink, useNavigate } from "react-router-dom"
+import { Link as RouterLink, useNavigate, Outlet } from "react-router-dom"
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 import { 
@@ -13,14 +13,15 @@ import {
   InputAdornment,
   Link,
   TextField,
+  Typography,
   useMediaQuery
-} from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+} from '@mui/material'
+import { useTheme, styled } from '@mui/material/styles';
 import { 
   MenuRounded as MenuIcon,
   Search as SearchIcon,
   Clear as ClearIcon,
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 import moment from 'moment'
 
 import LoginButton from '../../login/LoginButton'
@@ -28,130 +29,84 @@ import MenuGroup from './MenuGroup'
 import ExpansionMenu from '../../ExpansionMenu'
 import Search from '../../Search/Search'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    padding: theme.spacing(1, 0,1 ,0),
+const LanguageToggle = styled(Box)(({ theme }) => ({
+  textAlign: 'right',
+  backgroundImage: theme.gradients.lightBlue,
+  margin: theme.spacing(0, -3),
+  padding: theme.spacing(0.75, 3),
+  '& a': {
+    cursor: 'pointer',
+    fontSize: 16,
+    fontFamily: theme.typography.body1.fontFamily,
+    fontWeight: 'bold',
+    lineHeight: 'normal',
   },
-  avatar:{
-    width:16,
-    height:11,
-    alignItems: 'center',
-  },
-  banner:{
-    padding: theme.spacing(1,2,1,2),
-    display: 'flex',
+}));
 
-  },
-  appToolbarContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    minHeight: 68,
-    height: 68,
-    // marginTop: theme.spacing(2),
-    // marginBottom: theme.spacing(2),
-    
-    // [theme.breakpoints.up('smLandscape')]: {
-    //   marginTop: 0,
-    //   marginBottom: 0,
-    // }
-    // padding: 0
-    [theme.breakpoints.up('sm')]: {
-      minHeight: 76,
-      height: 76,
-    },
-
-    [theme.breakpoints.up('smLandscape')]: {
-      paddingRight: theme.spacing(3)
-    }
-  },
-  toolbarLogo: {
-    flexGrow: 1,
-    maxHeight: 32,
-    margin: 0,
-    
-    '& img': {
-      height: 32,
-      width: 'auto',
-      maxWidth: '100%',
-    },
-    [theme.breakpoints.up('sm')]: {
-      maxHeight: 40,
-      '& img': {
-        height: 40,
-      }
-    }
-  },
-  headerLink: {
-    color: theme.palette.grey[800],
-    marginRight: theme.spacing(1),
-    
-    '&:hover': {
-      color: theme.palette.grey[900],
-      fontWeight: 600
-    }
-  },
-  publicNavDesktop: {
-    display: 'flex',
-    position: 'relative',
-    margin: theme.spacing(0,2),
+const AppToolbarContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  minHeight: 68,
+  height: 68,
+  [theme.breakpoints.up('sm')]: {
     minHeight: 76,
-    '& button': {
-      fontFamily: '"Open Sans", Montserrat, Helvetica, Arial, sans-serif',
+    height: 76,
+  },
+  [theme.breakpoints.up('smLandscape')]: {
+    paddingRight: theme.spacing(3),
+  },
+}));
+
+const ToolbarLogo = styled('figure')(({ theme }) => ({
+  flexGrow: 1,
+  maxHeight: 32,
+  margin: 0,
+  '& img': {
+    height: 32,
+    width: 'auto',
+    maxWidth: '100%',
+  },
+  [theme.breakpoints.up('sm')]: {
+    maxHeight: 40,
+    '& img': {
+      height: 40,
     },
-    '& button:hover': {
-      backgroundColor: 'transparent',
-    },
   },
-  subNav: {
-    "& span": {
-      paddingLeft: theme.spacing(2),
-    }
+}));
+
+const PublicNavDesktop = styled('nav')(({ theme }) => ({
+  display: 'flex',
+  position: 'relative',
+  margin: theme.spacing(0, 2),
+  minHeight: 76,
+  '& button': {
+    fontFamily: '"Open Sans", Montserrat, Helvetica, Arial, sans-serif',
   },
-  menuIcon: {
-    "& svg": {
-      fontSize: "2rem"
-    }
+  '& button:hover': {
+    backgroundColor: 'transparent',
   },
-  closeMobileMenu: {
-    textAlign: 'right',
-    borderBottom: '2px solid #dbdada'
+}));
+
+const MobileLogin = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  padding: theme.spacing(2, 7),
+  boxShadow: '0px 5px 15px -5px rgba(0,0,0,0.2)',
+}));
+
+const MobileSearch = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(3, 2),
+  textAlign: 'right',
+  '& .MuiFormControl-root': {
+    width: '100%',
   },
-  mobileLogin: {
-    display: 'flex',
-    flexDirection: 'column',
-    // backgroundColor: theme.palette.grey.xlight,
-    padding: theme.spacing(2,7),
-    boxShadow: "0px 5px 15px -5px rgba(0,0,0,0.2)"
+  '& .MuiOutlinedInput-notchedOutline': {
+    borderColor: theme.palette.grey.medium,
   },
-  mobileSearch: {
-    // backgroundColor: theme.palette.grey.xlight,
-    padding: theme.spacing(3,2),
-    textAlign: 'right',
-    // borderBottom: '2px solid #dbdada',
-    '& .MuiFormControl-root': {
-      width: '100%',
-    },
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.palette.grey.medium,
-    },
-    '& button': {
-      margin: theme.spacing(2,0,0)
-    }
+  '& button': {
+    margin: theme.spacing(2, 0, 0),
   },
-  languageToggle: {
-    textAlign: "right",
-    backgroundImage: theme.gradients.lightBlue,
-    margin: theme.spacing(0, -3, 0, -3),
-    padding: theme.spacing(.75, 3),
-    '& a': {
-      cursor: "pointer",
-      fontSize: 16,
-      fontFamily: theme.typography.body1.fontFamily,
-      fontWeight: 'Bold',
-      lineHeight: 'normal'
-    }
-  }
-}),{name: 'Header'})
+}));
 
 /**
  * Common site header component
@@ -162,7 +117,6 @@ const useStyles = makeStyles(theme => ({
  * 
  */
 const Header = () => {
-  const classes = useStyles()
   const loc = window.location.pathname
   const [menuOpen, setMenuOpen] = useState(false)
   const [expanded, setExpanded] = useState(loc)
@@ -178,6 +132,7 @@ const Header = () => {
 
     setMenuOpen(prev => !prev)
   }
+
 
   const expandPanel = (event, newExpanded) => {
     const id = event.currentTarget.id
@@ -246,79 +201,94 @@ const Header = () => {
   }
 
   return (
-    <Container component="header" className={classes.root} id="appHeader">
-
-       {/* Spanish language toggle */}
-       {!loc.includes('account') && 
-       <Box style={{backgroundColor:'#f0f0f0', }} >
-        <Grid  container direction="row" justifyContent="space-between" className={classes.banner}>
-          <Grid item   >
-            <Box style={{display: "flex", alignItems: "center"}} direction="row">
+    <>
+    <Container component="header" id="appHeader" sx={{  px: { xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }, py:1}}>
+      {/* Spanish language toggle */}
+      {!loc.includes('account') && 
+      <Box sx={{backgroundColor:'#f0f0f0', }} >
+       <Grid  container direction="row" justifyContent="space-between" sx={{ p: 1, }} >
+         <Grid >
+           <Box sx={{display: "flex", alignItems: "center", backgroundColor: '#f0f0f0' }} direction="row">
             <Avatar variant="square" src={`${process.env.PUBLIC_URL}/assets/images/us_flag.png`}  
-              alt="USA flag" className={classes.avatar} >  </Avatar>
-            <Button variant="contained" href="#" disabled
-              style={{backgroundColor:'#f0f0f0', color:'#1b1b1b',fontFamily:'Open Sans', fontSize:14, fontWeight: 400,  }} 
+              alt="USA flag"  sx={{ width:32,height:22,mr:1, alignItems: 'center'}} >  </Avatar>
+            <Button variant="contained"  disabled
+              sx ={{  color: '#1b1b1b', fontFamily: 'Open Sans', fontSize: 14,fontWeight: 400,
+        boxShadow: 'none', backgroundColor: '#f0f0f0', 
+        '&.Mui-disabled': {color: '#1b1b1b',backgroundColor: '#f0f0f0', },}} 
               >{t('links.banner')}</Button>
-            </Box>
-          </Grid>
-          <Grid item  >
-            <Button  variant="contained" href="#" justifyContent="flex-end"
-            style={{backgroundColor:'#298085', color:'white',fontFamily:'Open Sans', fontSize:14, fontWeight: 800, }} 
-            onClick={toggleLang}>{t('links.language_toggle')}</Button>
-          </Grid>
-        </Grid>
-      </Box>
-      }
-
-      <Box className={classes.appToolbarContainer}>
-        <figure className={classes.toolbarLogo}>
+           </Box>
+         </Grid>
+         <Grid>
+           <Button  variant="contained"  justifycontent="flex-end"
+           sx={{backgroundColor:'#298085', color:'white',fontFamily:'Open Sans', fontSize:14, fontWeight: 800, }} 
+           onClick={toggleLang}>{t('links.language_toggle')}</Button>
+         </Grid>
+       </Grid>
+     </Box>
+     }
+      <AppToolbarContainer >
+        <ToolbarLogo >
           <Link component={RouterLink} to='/' onClick={trackClick}>
             <img src={`${process.env.PUBLIC_URL}/assets/images/biobank-logo${i18n.languages[0] === 'es' ? '-es' : ''}.svg`} alt={t('logo.alt_text')} title={t('logo.title')} />
           </Link>
-        </figure>
+        </ToolbarLogo>
         {!isMobile && !loc.includes('account') && (
-          <nav className={classes.publicNavDesktop} id="mainNav">
+          <PublicNavDesktop  id="mainNav">
             {/* TODO: loop through nav object and dynamically render menu items */}
             {/* TODO: routes need to be added to translations in order to perform loop logic - or generated from translation key */}
             <MenuGroup menuText={t('nav.about')} active={loc.includes('about')} index="about">
-              <a href="/about">{t('nav.about_subNav.about')}</a>
-              <a href="/about/eligibility">{t('nav.about_subNav.eligibility')}</a>
+              <Link component={RouterLink} to="/about">{t('nav.about_subNav.about')}</Link>
+              <Link component={RouterLink} to="/about/eligibility">{t('nav.about_subNav.eligibility')}</Link>
               {/* <a href="/about/research">{t('nav.research')}</a> */}
-              <a href="/about/news">{t('nav.about_subNav.news')}</a>
-              <a href="/about/studyprogress">{t('nav.about_subNav.studyprogress')}</a>
+              <Link component={RouterLink} to="/about/news">{t('nav.about_subNav.news')}</Link>
+              <Link component={RouterLink} to="/about/studyprogress">{t('nav.about_subNav.studyprogress')}</Link>
             </MenuGroup>
             <MenuGroup menuText={t('nav.expect')} active={loc.includes('expect')} index="expect">
-              <a href="/expect/consent">{t('nav.expect_subNav.consent')}</a>
-              <a href="/expect/donate">{t('nav.expect_subNav.donate')}</a>
-              <a href="/expect/testing">{t('nav.expect_subNav.testing')}</a>
+              <Link component={RouterLink} to="/expect/consent">{t('nav.expect_subNav.consent')}</Link>
+              <Link component={RouterLink} to="/expect/donate">{t('nav.expect_subNav.donate')}</Link>
+              <Link component={RouterLink} to="/expect/testing">{t('nav.expect_subNav.testing')}</Link>
             </MenuGroup>
             <MenuGroup menuText={t('nav.participation')} active={loc.includes('participation')} index="participation">
-              <a href="/participation/activate">{t('nav.participation_subNav.activate')}</a>
-              <a href="/participation/privacy">{t('nav.participation_subNav.privacy')}</a>
+              <Link component={RouterLink} to="/participation/activate">{t('nav.participation_subNav.activate')}</Link>
+              <Link component={RouterLink} to="/participation/privacy">{t('nav.participation_subNav.privacy')}</Link>
             </MenuGroup>
             <MenuGroup menuText={t('nav.research')} active={loc.includes('research')} index="research">
-              <a href="/research">{t('nav.research_subNav.0')}</a>
-              <a className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.0')}</a>
-              <a className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.1')}</a>
-              <a className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.2')}</a>
+              <Link component={RouterLink} to="/research">{t('nav.research_subNav.0')}</Link>
+              <Link component={RouterLink} className="subLink" to="/research/tyner-acute-myeloid">
+              <Typography sx={{ pl: 2 }}>{t('nav.research_subNav.0_subNav.0')}</Typography></Link>
+              <Link component={RouterLink} className="subLink"to="/research/blakely-improving-responses">
+              <Typography sx={{ pl: 2 }}>{t('nav.research_subNav.0_subNav.1')}</Typography></Link>
+              <Link component={RouterLink} className="subLink" to="/research/kuo-interactions-environment">
+              <Typography sx={{ pl: 2 }}>{t('nav.research_subNav.0_subNav.2')}</Typography></Link>
             </MenuGroup>
             <Search />
-          </nav>
+          </PublicNavDesktop>
         )}
 
-        {isMobile ? <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer} className={classes.menuIcon}><MenuIcon /></IconButton> : <LoginButton />}
+        {isMobile ? <IconButton
+          aria-label={t('aria.menu')}
+          onClick={toggleDrawer}
+          sx={{
+            "& svg": {
+              fontSize: "2rem"
+            } }}
+          size="large"><MenuIcon /></IconButton> : <LoginButton />}
         {/* {isMobile && <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer}><MenuIcon /></IconButton>} */}
         
-      </Box>
+      </AppToolbarContainer>
       {isMobile && (
       <Drawer anchor="right" open={menuOpen} onClose={toggleDrawer}>
-        <Box className={classes.closeMobileMenu}>
-          <IconButton aria-label={t('button.close')} onClick={closeMenu} id="closeMobileMenu"><ClearIcon /></IconButton>
+        <Box sx={{ textAlign: 'right', borderBottom: '2px solid #dbdada'}}>
+          <IconButton
+            aria-label={t('button.close')}
+            onClick={closeMenu}
+            id="closeMobileMenu"
+            size="large"><ClearIcon /></IconButton>
         </Box>
         <nav id="mainNav--mobile">
-          <Box className={classes.mobileLogin}>
+          <MobileLogin >
             <LoginButton />
-          </Box>
+          </MobileLogin>
           {/* TODO: loop through nav object and dynamically render menu items */}
           {!loc.includes('account') && <>
             <ExpansionMenu
@@ -328,12 +298,12 @@ const Header = () => {
               menuText={t('nav.about')}
               index="about"
             >
-              <a onClick={closeMenu} href="/about">{t('nav.about_subNav.about')}</a>
-              <a onClick={closeMenu} href="/about/eligibility">{t('nav.about_subNav.eligibility')}</a>
+              <Link component={RouterLink} to="/about" onClick={closeMenu} >{t('nav.about_subNav.about')}</Link>
+              <Link component={RouterLink} to="/about/eligibility" onClick={closeMenu} >{t('nav.about_subNav.eligibility')}</Link>
 
-              {/* <a onClick={closeMenu} href="/about/research">{t('nav.research')}</a> */}
-              <a onClick={closeMenu} href="/about/news">{t('nav.about_subNav.news')}</a>
-              <a onClick={closeMenu} href="/about/studyprogress">{t('nav.about_subNav.studyprogress')}</a>
+              {/* <a onClick={closeMenu} to="/about/research">{t('nav.research')}</a> */}
+              <Link component={RouterLink} to="/about/news" onClick={closeMenu} >{t('nav.about_subNav.news')}</Link>
+              <Link component={RouterLink} to="/about/studyprogress" onClick={closeMenu} >{t('nav.about_subNav.studyprogress')}</Link>
             </ExpansionMenu>
 
             <ExpansionMenu
@@ -343,9 +313,9 @@ const Header = () => {
               menuText={t('nav.expect')}
               index="expect"
             >
-              <a onClick={closeMenu} href="/expect/consent">{t('nav.expect_subNav.consent')}</a>
-              <a onClick={closeMenu} href="/expect/donate">{t('nav.expect_subNav.donate')}</a>
-              <a onClick={closeMenu} href="/expect/testing">{t('nav.expect_subNav.testing')}</a>
+              <Link component={RouterLink} to="/expect/consent" onClick={closeMenu} >{t('nav.expect_subNav.consent')}</Link>
+              <Link component={RouterLink} to="/expect/donate" onClick={closeMenu} >{t('nav.expect_subNav.donate')}</Link>
+              <Link component={RouterLink} to="/expect/testing" onClick={closeMenu} >{t('nav.expect_subNav.testing')}</Link>
             </ExpansionMenu>
 
             <ExpansionMenu
@@ -355,8 +325,8 @@ const Header = () => {
               menuText={t('nav.participation')}
               index="participation"
             >
-              <a onClick={closeMenu} href="/participation/activate">{t('nav.participation_subNav.activate')}</a>
-              <a onClick={closeMenu} href="/participation/privacy">{t('nav.participation_subNav.privacy')}</a>
+              <Link component={RouterLink} to="/participation/activate" onClick={closeMenu}>{t('nav.participation_subNav.activate')}</Link>
+              <Link component={RouterLink} to="/participation/privacy" onClick={closeMenu}>{t('nav.participation_subNav.privacy')}</Link>
             </ExpansionMenu>
 
             <ExpansionMenu
@@ -366,13 +336,16 @@ const Header = () => {
               menuText={t('nav.research')}
               index="research"
             >
-              <a onClick={closeMenu} href="/research">{t('nav.research_subNav.0')}</a>
-              <a onClick={closeMenu} className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.0')}</a>
-              <a onClick={closeMenu} className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.1')}</a>
-              <a onClick={closeMenu} className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.2')}</a>
+              <Link component={RouterLink} to="/research" onClick={closeMenu}>{t('nav.research_subNav.0')}</Link>
+              <Link component={RouterLink} to="/research/tyner-acute-myeloid" onClick={closeMenu}  >
+               <Typography sx={{ pl: 2 }}>{t('nav.research_subNav.0_subNav.0')}</Typography></Link>
+              <Link component={RouterLink} to="/research/blakely-improving-responses" onClick={closeMenu}  >
+               <Typography sx={{ pl: 2 }}>{t('nav.research_subNav.0_subNav.1')}</Typography></Link>
+              <Link component={RouterLink} to="/research/kuo-interactions-environment" onClick={closeMenu} >
+               <Typography sx={{ pl: 2 }}>{t('nav.research_subNav.0_subNav.2')}</Typography></Link>
             </ExpansionMenu>
 
-            <Box className={classes.mobileSearch} component="form" onSubmit={handleSearchSubmit}>
+            <MobileSearch  component="form" onSubmit={handleSearchSubmit}>
               <TextField
                 placeholder={t('search.input_placeholder')}
                 id="mobileSearch"
@@ -386,16 +359,18 @@ const Header = () => {
                 onChange={handleSearchInputChange}
               />
               <Button type="submit" variant="contained" color="primary" disabled={isDisabled}>{t('buttons.search')}</Button>
-            </Box>
+            </MobileSearch>
           </>
           }
         </nav>
       </Drawer>
       )}
-     
-      
     </Container>
-  )
+    <Box component="main" sx={{ px: 2, py: 3 }}>
+    <Outlet /> {/* 👈 Route content renders here */}
+  </Box>
+  </>
+  );
 }
 
 export default Header

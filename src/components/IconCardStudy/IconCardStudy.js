@@ -4,89 +4,86 @@ import {
   Card,
   CardContent,
   Typography,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
+} from "@mui/material";
+import { styled } from '@mui/material/styles';
+import Avatar from "@mui/material/Avatar";
 import { useTranslation } from "react-i18next";
 import RenderContent from "../utils/RenderContent";
 
-const useStyles = makeStyles(
-  (theme) => ({
-    avatar:{
-      width:45,
-      height:45,
-      fontWeight: "bold",
-      backgroundColor: "#fafafa",
-      color: "#666666",
-      margin: theme.spacing(1, 2, 0, -1),
-    },
-    card: {
-      // position: 'relative',
-      width: "278",
-      minWidth: 100,
-      height: "85",
-      minHeight: 25,
-      margin: theme.spacing(1),
-      border: "solid #5B6DCD 2px",
-      borderRadius: "25px",
-      display: "inline-block",
-    },
-    cardContent: {
-      display: "flex",
-      height: "100%",
-      width: "100%",
-      // position: 'absolute', // Don't know why this was set to absolute? IE?
-      alignItems: "center",
-      //padding: theme.spacing(4,3,3,3)
-    },
-    cardTitle: {
-      fontFamily: "Montserrat, Helvetica, Arial, sans-serif",
-      fontWeight: "bold",
-      lineHeight: "32px",
-      marginBottom: theme.spacing(1),
-    },
-    cardIcon: {
-      maxWidth: 80,
-      width: 80,
-    },
-    cardTextContainer: {
-      display: "flex",
-      marginLeft: theme.spacing(3),
-      flexGrow: 1,
-      flexDirection: "column",
-      height: "100%",
-    },
-    cardText: {
-      flexGrow: 1,
-      fontFamily: "Open Sans, sans-serif",
-      display: "inline-block",
-      lineHeight: "22px",
-      marginBottom: theme.spacing(2),
-    },
-    cardActions: {
-      borderTop: `2px solid ${theme.palette.grey[300]}`,
-      padding: theme.spacing(1, 0, 0, 0),
-      marginTop: theme.spacing(1),
-    },
-    typography: {
-   
-        fontFamily: "Montserrat",
-        fontWeight: "light",
-        fontSize: "16px",
-        lineHeight: '1.25',
-        color:'#183787',
-        alignItems:'center',
-    
-    },
-  }),
-  { name: "IconCardStudy" }
-);
+const StyledAvatar = styled(Avatar)(({ theme }) => ({
+  width: 45,
+  height: 45,
+  fontWeight: "bold",
+  backgroundColor: "#fafafa",
+  color: "#666666",
+  margin: theme.spacing(1, 2, 0, -1),
+}));
 
+const StyledCard = styled(Card)(({ theme }) => ({
+  width: 278,
+  minWidth: 100,
+  height: 85,
+  minHeight: 25,
+  margin: theme.spacing(1),
+  border: "solid #5B6DCD 2px",
+  borderRadius: "25px",
+  display: "inline-block",
+}));
+
+const StyledCardContent = styled(CardContent)(({ theme }) => ({
+  display: "flex",
+  height: "100%",
+  width: "100%",
+  alignItems: "center",
+}));
+
+const CardTitle = styled(Typography)(({ theme }) => ({
+  fontFamily: "Montserrat, Helvetica, Arial, sans-serif",
+  fontWeight: "bold",
+  lineHeight: "32px",
+  marginBottom: theme.spacing(1),
+}));
+
+const CardIcon = styled("img")({
+  maxWidth: 80,
+  width: 80,
+});
+
+const CardTextContainer = styled("div")(({ theme }) => ({
+  display: "flex",
+  marginLeft: theme.spacing(3),
+  flexGrow: 1,
+  flexDirection: "column",
+  height: "100%",
+}));
+
+const CardText = styled("div")(({ theme }) => ({
+  flexGrow: 1,
+  fontFamily: "Open Sans, sans-serif",
+  display: "inline-block",
+  lineHeight: "22px",
+  marginBottom: theme.spacing(2),
+}));
+
+const CardActionsWrapper = styled("div")(({ theme }) => ({
+  borderTop: `2px solid ${theme.palette.grey[300]}`,
+  padding: theme.spacing(1, 0, 0, 0),
+  marginTop: theme.spacing(1),
+}));
+
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  fontFamily: "Montserrat",
+  fontWeight: "300", // use numeric weight instead of "light"
+  fontSize: "16px",
+  lineHeight: "1.25",
+  color: "#183787",
+  display: "flex",
+}));
 /**
  * This responsive card is a custom Material UI card designed to make it easy to drop in card elements while keeping a uniform style.
  */
 const IconCardStudy = (props) => {
-  const classes = useStyles();
+ 
   const { t } = useTranslation("a_common");
   const {
     icon,
@@ -97,22 +94,21 @@ const IconCardStudy = (props) => {
   } = props;
 
   return (
-    <Card className={classes.card} elevation={25}>
-      <CardContent className={`${classes.cardContent} IconCardContent`}>
-        <Avatar aria-label="recipe" className={classes.avatar}>
+    <StyledCard elevation={25}>
+      <StyledCardContent className=" IconCardContent">
+        <StyledAvatar aria-label="recipe" >
           {count}
-        </Avatar>
-        <Typography className={classes.typography} variant="h6" component="h6" alignItems='center'>
+        </StyledAvatar>
+        <StyledTypography  variant="h6" component="h6" >
           <RenderContent children={desc} />
-        </Typography>
-        <img
-          className={classes.cardIcon}
+        </StyledTypography>
+        <CardIcon
           src={`${process.env.PUBLIC_URL}/assets/icons/${icon}`}
           alt={altText}
           aria-hidden="true"
         />
-      </CardContent>
-    </Card>
+      </StyledCardContent>
+    </StyledCard>
   );
 };
 

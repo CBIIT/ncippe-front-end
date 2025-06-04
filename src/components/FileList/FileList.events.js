@@ -179,7 +179,7 @@ const FileListWrapper = (props) => {
           })
           .catch(error => {
             console.error(error)
-          })
+          });
       })
     }, 100)
   },[loginContext, dispatch, patientId, type])

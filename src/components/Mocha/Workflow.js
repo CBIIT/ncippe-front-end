@@ -1,35 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Box, Divider, Paper, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Divider, Paper, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-
 import { MochaContext } from './Mocha.context'
-
 import UploadStepper from './UploadStepper'
 import ParticipantId from './ParticipantId'
 import AddReport from './AddReport'
 import Progress from '../Progress'
 import Finished from './Finished'
 
-const useStyles = makeStyles( theme => ({
-  paper: {
-    padding: theme.spacing(5)
-  },
-  divider: {
-    marginBottom: theme.spacing(3)
-  },
-  formUpload: {
-    marginTop: theme.spacing(3)
-  },
-  titleUploading: {
-    marginLeft: theme.spacing(3),
-    display: 'inline'
-  },
-}),{name: 'UploadReportWorkflow'})
-
 const MochaReport = () => {
-  const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
   const [mochaContext, dispatch] = useContext(MochaContext)
   const { t } = useTranslation(['a_landingMocha','a_common'])
@@ -65,43 +45,44 @@ const MochaReport = () => {
           console.error(`form navigation step '${mochaContext.navigate}' not found`)
       }
     }
-  }, [mochaContext.navigate, dispatch])
+  }, [mochaContext.navigate, dispatch, navigate])
 
   const handleSubmit = (e) => {
     e.preventDefault()
   }
 
   return (
-    <div className={classes.root}>
+    <Box >
       <Box mb={5}>
         <Typography variant="h2" component="h2">{t('pageTitle')}</Typography>
         <Typography>{t('description')}</Typography>
       </Box>
-      <Paper className={classes.paper} elevation={25}>
+      <Paper sx={{ p: 5 }} elevation={25}>
         <UploadStepper activeStep={activeStep} />
-        <Divider className={classes.divider} />
+        <Divider sx={{ mb:3 }} />
         
-        <form id="uploadPatientReport" className={classes.formUpload} autoComplete="off" onSubmit={handleSubmit}>
+        <Box component='form' id="uploadPatientReport" 
+        sx={{ mt: 3 }} autoComplete="off" onSubmit={handleSubmit}>
           {activeStep === 0 && (
             // participant ID
-            <ParticipantId />
+            (<ParticipantId />)
           )}
           {activeStep === 1 && (
             // select report to upload
-            <AddReport />
+            (<AddReport />)
           )}
           {activeStep === 2 && (
             // upload progress
-            <Progress title={t('upload.2.progress')} />
+            (<Progress title={t('upload.2.progress')} />)
           )}
           {activeStep === 3 && (
             // success
-            <Finished />
+            (<Finished />)
           )}
-        </form>
+        </Box>
       </Paper>
-    </div>
-  )
+    </Box>
+  );
 }
 
 export default MochaReport

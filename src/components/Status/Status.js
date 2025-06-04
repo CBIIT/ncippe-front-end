@@ -1,13 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Grid, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Grid, Typography } from '@mui/material'
 import {
   CheckCircle as SuccessIcon,
   Warning as WarningIcon,
   Error as ErrorIcon,
   Info as InfoIcon
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 
 const statusTheme = {
   success: {
@@ -28,65 +27,41 @@ const statusTheme = {
   }
 }
 
-const useStyles = makeStyles( theme => ({
-  root: props => ({
-    border: `1px solid ${statusTheme[props.state].color}`,
-    borderLeftWidth: '10px',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: statusTheme[props.state].background,
-    flexWrap: 'nowrap',
-    margin: theme.spacing(2, 0),
-    maxWidth: props.fullWidth ? "none" : "500px",
-    textAlign: "left"
-  }),
-  gridItem_icon: {
-    margin: theme.spacing(2)
-  },
-  gridItem_text: {
-    margin: theme.spacing(2, 2, 2, 0)
-  },
-  icon: props => ({
-    fill: statusTheme[props.state].color,
-    fontSize: '2rem'
-  }),
-  title: {
-    fontWeight: theme.typography.fontWeightBold
-  }
-}),{name: 'Status'})
-
 /**
  * Easily render status messages to users with useful feedback
  */
-const Status = (props) => {
-  const {state = 'info', title, message, fullWidth = false} = props
-  const classes = useStyles({state,fullWidth})
+const Status = ({state = 'info', title, message, fullWidth = false}) => {
 
-  let Icon
-  switch(state) {
-    case 'success':
-      Icon = SuccessIcon
-      break;
-    case 'warning':
-      Icon = WarningIcon
-      break;
-    case 'error':
-      Icon = ErrorIcon
-      break;
-    default:
-      Icon = InfoIcon
-  }
+  const theme = statusTheme[state] || statusTheme.info
+  const Icon = {
+    success: SuccessIcon,
+    warning: WarningIcon,
+    error: ErrorIcon,
+    info: InfoIcon
+  }[state] || InfoIcon
 
   return (
-    <Grid container className={classes.root}>
-      <Grid item className={classes.gridItem_icon}>
-        <Icon className={classes.icon} />
+    <Grid container wrap="nowrap" sx={{
+      border: `1px solid ${theme.color}`,
+      borderLeftWidth: '10px',
+      borderRadius: 1,
+      backgroundColor: theme.background,
+      flexWrap: 'nowrap',
+      m: 2,
+      maxWidth: fullWidth ? 'none' : 500,
+      textAlign: 'left'
+    }}>
+      <Grid sx={{ m: 2 }} >
+        <Icon sx={{ color: theme.color, fontSize: '2rem' }}  />
       </Grid>
-      <Grid item className={classes.gridItem_text}>
-        <Typography className={classes.title}>{title}</Typography>
-        <Typography>{message}</Typography>
+      <Grid sx={{ m: 2, ml: 0 }} >
+        { title && (
+        <Typography sx={{ fontWeight: 'bold' }}>{title}</Typography> )}
+        { message && (
+          <Typography>{message}</Typography> )}
       </Grid>
     </Grid>
-  )
+  );
 }
 
 Status.displayName = 'Status'

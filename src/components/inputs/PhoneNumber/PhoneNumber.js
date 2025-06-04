@@ -1,29 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import MaskedInput from 'react-text-mask'
 import PropTypes from 'prop-types'
-import { makeStyles } from '@material-ui/core/styles'
-import { FormControl, TextField} from '@material-ui/core'
+import { FormControl, TextField,} from '@mui/material'
 import { useTranslation } from 'react-i18next'
-
-const useStyles = makeStyles(theme => ({
-  formControl: {
-    minWidth: '200px',
-    '& .MuiInput-formControl': {
-      marginTop: 20
-    },
-    '& .MuiInput-underline:before': {
-      display: 'none'
-    }
-  },
-  label: {
-    fontWeight: 700,
-    color: theme.palette.text.primary,
-    transform: "none"
-  },
-  helperText: {
-    marginBottom: theme.spacing(2)
-  }
-}),{name: 'PhoneNumber'});
 
 // move input cursor to first available placeholder character
 const selectAfterUserInput = (event) => {
@@ -34,14 +13,16 @@ const selectAfterUserInput = (event) => {
   setTimeout(function() { input.setSelectionRange(i, i); }, 0)
 }
 
-const TextMaskCustom = (props) => {
-  const { inputRef, ...other } = props;
+const TextMaskCustom = React.forwardRef(function TextMaskCustom(props, ref) {
+  const { inputRef: inputRefProp, ...other } = props;
 
   return (
     <MaskedInput
       {...other}
-      ref={ref => {
-        inputRef(ref ? ref.inputElement : null);
+      ref={ (maskedInputRef) => {
+       if (maskedInputRef && inputRefProp) {
+          inputRefProp(maskedInputRef.inputElement);
+        }
       }}
       mask={['(', /[2-9]/, /\d/, /\d/, ')', ' ', /[2-9]/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
       placeholderChar={'\u2000'}
@@ -49,14 +30,14 @@ const TextMaskCustom = (props) => {
       onFocus={selectAfterUserInput}
     />
   );
-}
+});
+
 TextMaskCustom.propTypes = {
-  inputRef: PropTypes.func.isRequired,
+  inputRef: PropTypes.func,
 };
 
 const PhoneNumber = (props) => {
   const { value, editMode = false, error = false, onChange } = props
-  const classes = useStyles()
   const { t } = useTranslation('a_accountSettings')
   const [phoneNum, setPhoneNum] = useState(value || '(   )    -    ')
 
@@ -73,7 +54,13 @@ const PhoneNumber = (props) => {
   }
 
   return (
-    <FormControl className={classes.formControl} margin="normal">
+    <FormControl sx={{ minWidth: '200px',
+      '& .MuiInput-formControl': {
+        marginTop: 20
+      },
+      '& .MuiInput-underline:before': {
+        display: 'none'
+      }}} margin="normal">
       <TextField
         label={t('profile.phone.title')}
         error={error}
@@ -89,11 +76,13 @@ const PhoneNumber = (props) => {
         }}
         InputLabelProps={{
           shrink: true,
-          className: classes.label,
+          sx:{ fontWeight: 700,
+            color: "text.primary",
+            },
           error
         }}
         FormHelperTextProps={{
-          className: classes.helperText
+          sx: { mb: 2 }  
         }}
       />
     </FormControl>

@@ -1,67 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Badge, Button, Card, CardActions, CardContent, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { KeyboardArrowRight as KeyboardArrowRightIcon } from '@material-ui/icons'
+import { Badge, Box, Button, Card, CardActions, CardContent, Typography } from '@mui/material'
+import { KeyboardArrowRight as KeyboardArrowRightIcon } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
-
 import ConditionalWrapper from '../utils/ConditionalWrapper'
 import RenderContent from '../utils/RenderContent'
-
-const useStyles = makeStyles( theme => ({
-  card: {
-    position: 'relative',
-    width: '100%',
-    minWidth: 100,
-    height: '100%',
-    minHeight: 250,
-  },
-  cardContent: {
-    display: 'flex',
-    height: '100%',
-    width: '100%',
-    // position: 'absolute', // Don't know why this was set to absolute? IE?
-    alignItems: 'flex-start',
-    padding: theme.spacing(4,3,3,3)
-  },
-  cardTitle: {
-    fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
-    fontWeight: 'bold',
-    lineHeight: '32px',
-    marginBottom: theme.spacing(1)
-  },
-  cardIcon: {
-    maxWidth: 76,
-    width: '100%'
-  },
-  cardTextContainer: {
-    display: 'flex',
-    marginLeft: theme.spacing(3),
-    flexGrow: 1,
-    flexDirection: 'column',
-    height: '100%',
-  },
-  cardText: {
-    flexGrow: 1,
-    '& a': {
-      display: "inline-block",
-      lineHeight: '22px',
-      marginBottom: theme.spacing(1)
-    }
-  },
-  cardActions: {
-    borderTop: `2px solid ${theme.palette.grey[300]}`,
-    padding: theme.spacing(1,0,0,0),
-    marginTop: theme.spacing(1)
-  }
-}),{name: 'IconCard'})
 
 /**
  * This responsive card is a custom Material UI card designed to make it easy to drop in card elements while keeping a uniform style. 
  */
 const IconCard = (props) => {
-  const classes = useStyles()
   const { t } = useTranslation('a_common')
   const {
     icon, 
@@ -83,39 +32,83 @@ const IconCard = (props) => {
   }
 
   return (
-    <Card className={`${classes.card} IconCard`} elevation={25}>
-      <ConditionalWrapper
+    <Card elevation={25} 
+    sx={{
+      position: 'relative',
+      width: '100%',
+      minWidth: 100,
+      height: '100%',
+      minHeight: 250,
+    }}>
+      {/* <ConditionalWrapper
         condition={count > 0}
-        wrapper={children => <Badge className={classes.badge} badgeContent={badgeText} component="div">{children}</Badge>}>
+        wrapper={children => 
+          <Badge  sx={{ position: 'absolute' }}  badgeContent={badgeText} component="div">{children}</Badge>}> */}
+        {count > 0 && (
+          <Box  sx={{
+        position: 'absolute',
+        top: 16,
+        right: 32,
+        zIndex: 2,
+      }}>
+            <Badge badgeContent={ badgeText } ></Badge>
+          </Box>
+        )}
 
-        <CardContent className={`${classes.cardContent} IconCardContent`}>
-          {icon && <img className={classes.cardIcon} src={`${process.env.PUBLIC_URL}/assets/icons/${icon}`} alt={altText} aria-hidden="true" />}
-          <div className={classes.cardTextContainer}>
-            <div className={classes.cardText}>
-              <Typography className={classes.cardTitle} variant="body2" component="h2">{title}</Typography>
-              <Typography component="div"><RenderContent children={desc} /></Typography>
-            </div>
+        <CardContent className="IconCardContent" sx={{
+            display: 'flex',
+            alignItems: 'flex-start',
+            padding: (theme) => theme.spacing(4, 3, 3, 3),
+            width: '100%', height: '100%',
+          }}>
+          {icon && <Box component='img' sx={{ maxWidth: 76, width: '100%' }} 
+           src={`${process.env.PUBLIC_URL}/assets/icons/${icon}`} 
+           alt={altText} aria-hidden="true" /> }
+         <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: 1,
+            marginLeft: 3,
+            height: '100%',
+          }}>      
+           <Box sx={{
+              flexGrow: 1,
+              '& a': {
+              display: 'inline-block',
+              lineHeight: '22px',
+              mb: 1,
+            },
+            }}>
+              <Typography sx={{
+                fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+                fontWeight: 'bold',
+                lineHeight: '32px',
+                mb: 1,
+              }} variant="body2" component="h2">{title}</Typography>
+              <Typography component="div"><RenderContent children={desc} />
+              </Typography>
+            </Box>
             {link && (
-              <CardActions className={classes.cardActions}>
+              <CardActions sx={{
+                  borderTop: (theme) => `2px solid ${theme.palette.grey[300]}`,
+                  pt: 1, mt: 1, px: 0, }}>
                 {download ? 
                   <Button
                     href={link} color="primary" 
                     rel="noopener noreferrer" 
                     target="_blank">
-                      {linkText} <KeyboardArrowRightIcon className={classes.linkIcon} />
+                      {linkText} <KeyboardArrowRightIcon sx={{ ml: 1 }}  />
                   </Button>
                   :
                   <Button color="primary" component={Link} to={link} onClick={handleClick}>
-                    {linkText} <KeyboardArrowRightIcon className={classes.linkIcon} />
+                    {linkText} <KeyboardArrowRightIcon sx={{ ml: 1 }}  />
                   </Button>
                 }
-
               </CardActions>
             )}
-          </div>
-        </CardContent>
-        
-      </ConditionalWrapper>
+          </Box>
+        </CardContent>        
+      
     </Card>
   )
 }

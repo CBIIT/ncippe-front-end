@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react'
-import { ThemeProvider } from '@material-ui/styles'
-import { CssBaseline } from '@material-ui/core'
+import { StyledEngineProvider, ThemeProvider, CssBaseline } from '@mui/material';
 import track from 'react-tracking'
 import { HelmetProvider, Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
@@ -77,19 +76,22 @@ const App = (props) => {
   sessionStorage.setItem('isDashboardTracked',false)
 
   return (
-    <ThemeProvider theme={theme}>
-      <LoginProvider>
-        <HelmetProvider>
-          <Helmet>
-            {/* Common meta data used by all pages */}
-            <meta name="twitter:image:alt" content={t('metaData.twitter_image_alt')} />
-          </Helmet>
-          <CssBaseline />
-          <Routes />
-        </HelmetProvider>
-      </LoginProvider>
-    </ThemeProvider>
-  )
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <LoginProvider>
+          <HelmetProvider>
+            <Helmet>
+              {/* Common meta data used by all pages */}
+              <meta name="twitter:image:alt" content={t('metaData.twitter_image_alt')} />
+            </Helmet>
+          
+            <Routes />
+          </HelmetProvider>
+        </LoginProvider>
+      </ThemeProvider>
+    </StyledEngineProvider>
+  );
 }
 
 // wrapping App in react-tracking analytics HOC

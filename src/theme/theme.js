@@ -1,9 +1,6 @@
-import { createTheme } from '@material-ui/core/styles'
-import createBreakpoints from '@material-ui/core/styles/createBreakpoints'
+import { createTheme, } from '@mui/material/styles';
 
-const breakpoints = createBreakpoints({});
-
-export const theme = createTheme({
+export const theme = createTheme(({
   breakpoints: {
     keys: [
       "xs",
@@ -97,6 +94,15 @@ export const theme = createTheme({
     primary: '#0d1c3c'
   },
   typography: {
+    fontFamily: [
+       '"Montserrat"', // Primary font
+      '"Open Sans"', 
+     // Secondary or specific elements
+      'Roboto',       // Fallback if needed (though you might remove if not used)
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif'
+    ].join(','),
     h1: {
       fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
       fontWeight: 500,
@@ -166,102 +172,115 @@ export const theme = createTheme({
       textTransform: 'none'
     }
   },
-  overrides: {
+  components: {
     MuiCssBaseline: {
-      '@global': {
+      styleOverrides: {
         body: {
-          fontFamily: '"Open Sans", Montserrat, Helvetica, Arial, sans-serif',
-          fontWeight: 400,
-          fontSize: '16px',
-          lineHeight: '30px',
-          paragraphHeight: '20px',
-          letterSpacing: '.46px',
-          backgroundColor: "#fff",
-        }
-      }
+        fontFamily:  'Montserrat, "Open Sans",sans-serif',
+      },
     },
+  },
     MuiOutlinedInput: {
-      notchedOutline: {
-        borderColor: '#656565',
-        borderWidth: '2px'
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: '#656565',
+          borderWidth: '2px'
+        }
       }
     },
     MuiBadge: {
-      root: {
-        width: '100%',
-        height: "100%",
-        verticalAlign: 'top',
-        position: 'static',
-        display: 'block',
-      },
-      badge: {
-        borderRadius: '0 0 6px 6px',
-        padding: "8px 16px 6px",
-        textTransform: 'uppercase',
-        backgroundColor: "#ffb73d", // theme.palette.gold.main
-        color: "#000",
-        fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
-        fontSize: '16px',
-        fontWeight: 600,
-        lineHeight: 1,
-        height: 'auto',
-      },
-      anchorOriginTopRightRectangle: {
-        right: "24px",
-        transform: 'none',
-      }
-    },
-    MuiGrid: {
-      'spacing-xs-8': {
-        width: 'calc(100% + 32px)',
-        margin: '-16px',
-        [breakpoints.up('sm')]: {
-          width: 'calc(100% + 48px)',
-          margin: '-24px',
+      styleOverrides: {
+        root: {
+          width: '100%',
+          height: "100%",
+          verticalAlign: 'top',
+          position: 'static',
+          display: 'block',
         },
-        [breakpoints.up('md')]: {
-          width: 'calc(100% + 64px)',
-          margin: '-32px',
+        badge: {
+          borderRadius: '0 0 6px 6px',
+          padding: "8px 16px 6px",
+          textTransform: 'uppercase',
+          backgroundColor: "#ffb73d", // theme.palette.gold.main
+          color: "#000",
+          fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+          fontSize: '16px',
+          fontWeight: 600,
+          lineHeight: 1,
+          height: 'auto',
+        },
+        anchorOriginTopRightRectangle: {
+          right: "24px",
+          transform: 'none',
         }
       }
     },
+    MuiGrid: {
+      styleOverrides: {
+      'spacing-xs-8': ({theme}) => ({
+        width: 'calc(100% + 32px)',
+        margin: '-16px',
+        [theme.breakpoints.up('sm')]: {
+          width: 'calc(100% + 48px)',
+          margin: '-24px',
+        },
+        [theme.breakpoints.up('md')]: {
+          width: 'calc(100% + 64px)',
+          margin: '-32px',
+        }     
+      })
+      }
+    },
     MuiDialogTitle: {
+      styleOverrides: {
       root: {
         padding: '24px 24px 0 24px',
       }
+    }
     },
     MuiDialogActions: {
+      styleOverrides: {
       root: {
         justifyContent: 'flex-start',
         padding: '24px'
       }
+    }
     },
     MuiStepper: {
+      styleOverrides: {
       root: {
         marginTop: '16px',
         backgroundColor: 'transparent'
       }
+    }
     },
     MuiStepLabel: {
+      styleOverrides: {
       vertical: {
         alignItems: "flex-start",
         '& .MuiStepLabel-iconContainer': {
           position: 'relative',
           top: 7
         }
+      }
       },
     },
     MuiDivider: {
+      styleOverrides: {
       root: {
         height: '2px'
       }
+    }
     },
     MuiChip: {
+      styleOverrides: {
       root: {
         letterSpacing: ".03rem"
       }
+    }
     },
     MuiTableCell: {
+      styleOverrides: {
       root: {
         fontSize: '.875rem',
         lineHeight: '1.5rem'
@@ -269,12 +288,15 @@ export const theme = createTheme({
       head: {
         fontWeight: 600
       }
+    }
     },
     MuiTablePagination: {
+      styleOverrides: {
       caption: {
         fontSize: '.875rem',
         lineHeight: '1.5rem'
       }
     }
+    }
   }
-});
+}))

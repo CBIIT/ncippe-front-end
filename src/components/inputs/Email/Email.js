@@ -1,32 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { makeStyles } from '@material-ui/core/styles'
-import { FormControl, TextField} from '@material-ui/core'
+import { FormControl, TextField} from '@mui/material'
 import { useTranslation } from 'react-i18next'
-
-const useStyles = makeStyles(theme => ({
-  formControl: {
-    minWidth: '300px',
-    '& .MuiInput-formControl': {
-      marginTop: 20
-    },
-    '& .MuiInput-underline:before': {
-      display: 'none'
-    }
-  },
-  label: {
-    fontWeight: 700,
-    color: theme.palette.text.primary,
-    transform: "none"
-  },
-  helperText: {
-    marginBottom: theme.spacing(2)
-  }
-}),{name: 'Email'});
 
 const Email = (props) => {
   const { value, editMode = false, error = false, onChange } = props
-  const classes = useStyles()
   const { t } = useTranslation('a_accountSettings')
   // const [email, setEmail] = useState(value)
 
@@ -39,7 +17,13 @@ const Email = (props) => {
   }
 
   return (
-    <FormControl className={classes.formControl} margin="normal">
+    <FormControl sx={{
+      minWidth: 300,
+      mt: 2, // replaces marginTop in input
+      '& .MuiInput-underline:before': {
+        display: 'none',
+      },
+    }} margin="normal">
       <TextField
         label={t('profile.email.title')}
         error={error}
@@ -56,11 +40,15 @@ const Email = (props) => {
         }}
         InputLabelProps={{
           shrink: true,
-          className: classes.label,
+          sx: {
+            fontWeight: 700,
+            color: 'text.primary',
+            transform: 'none',
+          },
           error
         }}
         FormHelperTextProps={{
-          className: classes.helperText
+          sx: { mb: 2 },
         }}
       />
     </FormControl>

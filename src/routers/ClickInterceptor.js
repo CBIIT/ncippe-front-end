@@ -6,9 +6,17 @@ const ClickInterceptor = () => {
 
   useEffect(() => {
     const handleClick = (event) => {
-      if (event.target.dataset?.route && event.target.pathname) {
+      const anchor = event.target.closest('a');
+
+      if (
+        anchor &&
+        anchor.dataset.route !== undefined &&
+        anchor.href &&
+        anchor.origin === window.location.origin
+      ) {
         event.preventDefault();
-        navigate(event.target.pathname);
+        const pathname = new URL(anchor.href).pathname;
+        navigate(pathname);
       }
     };
 

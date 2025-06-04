@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Box, Button, Container, InputAdornment, Link, TextField, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Button, Container, InputAdornment, Link, TextField, Typography, styled } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import { 
   Search as SearchIcon
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import lunr from 'lunr'
 import PubSub from 'pubsub-js'
@@ -13,40 +12,34 @@ import PubSub from 'pubsub-js'
 import { objectValuesToString } from '../utils/utils'
 import RenderContent from '../components/utils/RenderContent'
 
-const useStyles = makeStyles( theme => ({
-  wrapper: {
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '74%'
-    },
-    [theme.breakpoints.up('md')]: {
-      width: '64%'
-    }
-  },
-  searchForm: {
-    display: 'flex',
-    flexWrap: 'nowrap',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    alignContent: 'center',
-    padding: theme.spacing(2,3,2,0),
-    '& > *': {
-      margin: theme.spacing(0,1)
-    }
-  },
-  input: {
-    flexGrow: 1
-  },
-  dim: {
-    color: theme.palette.grey.medium,
-    wordBreak: 'break-all'
-  }
-}),{name: 'SearchResultsPage'})
+const WrapperSx = styled(Box)(({ theme }) => ({
+  width: '100%',
+  [theme.breakpoints.up('sm')]: { width: '74%' },
+  [theme.breakpoints.up('md')]: { width: '64%' },
+}));
 
+const SearchFormSx = styled('form')(({ theme }) => ({
+  display: 'flex',
+  flexWrap: 'nowrap',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  padding: theme.spacing(2, 3, 2, 0),
+  '& > *': {
+    margin: theme.spacing(0, 1),
+  },
+}));
+
+const InputBoxSx = styled(TextField)({
+  flexGrow: 1,
+});
+
+const DimTextSx = styled(Typography)(({ theme }) => ({
+  color: theme.palette.grey.medium,
+  wordBreak: 'break-word',
+}));
 
 const SearchResults = () => {
   // const {location} = props
-  const classes = useStyles()
   const { t, i18n } = useTranslation([
     'common', // common sould always come first as the default namespace
     'about',
@@ -233,12 +226,11 @@ const SearchResults = () => {
         <Typography variant="h2" component="h1">{t('searchResults:title')}</Typography>
       </Container>
       <Container className="mainContainer mainContainer--public">
-        <Box className={classes.wrapper}>
+        <WrapperSx>
           <Box my={3} component="section">
-            <form className={classes.searchForm} onSubmit={handleSubmit}>
-              <TextField
+            <SearchFormSx onSubmit={handleSubmit}>
+              <InputBoxSx
                 id="searchPageSearch"
-                className={classes.input}
                 placeholder={t('searchResults:input_placeholder')}
                 inputProps={{ 'aria-label': 'search' }}
                 variant="outlined"
@@ -249,7 +241,7 @@ const SearchResults = () => {
                 onChange={handleChange}
               />
               <Button type="submit" variant="contained" color="primary" disabled={isDisabled}>{t('buttons.search')}</Button>
-            </form>
+            </SearchFormSx>
           </Box>
           <Box mt={3} component="section">
             {searchTerm && <Typography variant="h3" component="h3">{searchResults.length} {t('searchResults:results_title')} {searchTerm}</Typography>}
@@ -264,7 +256,7 @@ const SearchResults = () => {
                     <Typography component="div">
                       <RenderContent children={results} />
                     </Typography>
-                    <Typography className={classes.dim}>{window.location.origin + route}</Typography>
+                    <DimTextSx >{window.location.origin + route}</DimTextSx>
                   </Box>
                 )
               })}
@@ -272,7 +264,7 @@ const SearchResults = () => {
             </Box>
             }
           </Box>
-        </Box>
+        </WrapperSx>
       </Container>
     </Box>
   )

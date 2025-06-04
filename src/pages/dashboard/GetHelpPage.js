@@ -1,45 +1,12 @@
 import React from 'react'
-import { Box, Container, Grid, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Container, Divider, Grid, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 
 import Breadcrumbs from '../../components/Breadcrumbs'
 import ArticleImage from '../../components/utils/ArticleImage'
 
-const useStyles = makeStyles(theme => ({
-  titleWithIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: theme.spacing(3)
-  },
-  titleIcon: {
-    marginRight: theme.spacing(3),
-    width: '49px',
-  },
-  grid: {
-    justifyContent: 'flex-start'
-  },
-  gridItemImg: {
-    textAlign: 'center',
-    '& img': {
-      maxWidth: 600,
-      [theme.breakpoints.up('md')]: {
-        maxWidth: 380
-      }
-    }
-  },
-  divider: {
-    width: '100%',
-    margin: theme.spacing(3,0),
-    [theme.breakpoints.up('md')]: {
-      margin: theme.spacing(7,0)
-    }
-  },
-}),{name: 'GetHelpPage'})
-
 const Page = () => {
-  const classes = useStyles()
   const { t } = useTranslation(['a_help','a_common'])
   return (
     <Box className="popup">
@@ -49,37 +16,57 @@ const Page = () => {
       </Helmet>
       <Breadcrumbs pageName="Get Help" />
       <Container className="mainContainer">
-        <div className={classes.titleWithIcon}>
-          <img className={classes.titleIcon} src={`${process.env.PUBLIC_URL}/assets/icons/get-help.svg`} alt={t('a_common:icons.help')} aria-hidden="true"></img>
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }} >
+          <Box component='img' sx={{mr: 3, width:'49px' }} 
+          src={`${process.env.PUBLIC_URL}/assets/icons/get-help.svg`} 
+          alt={t('a_common:icons.help')} aria-hidden="true"></Box>
           <Typography variant="h2" component="h2">{t('pageTitle')}</Typography>
-        </div>
+        </Box>
         <Typography>{t('description')} </Typography>
         <Box mt={5}>
-          <Grid container className={classes.grid} spacing={2} alignItems="stretch">
-            <Grid item xs={12} md={6}>
+          <Grid container justifyContent="flex-start" spacing={2} alignItems="stretch">
+            <Grid
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               <Typography paragraph={true} variant="h3" component="h3">{t('sections.0.title')}</Typography>
               <Typography paragraph={true}>{t('sections.0.body')}</Typography>
 
               <Typography paragraph={true} variant="h3" component="h3">{t('sections.1.title')}</Typography>
               <Typography paragraph={true}>{t('sections.1.body')}</Typography>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6}>
+            <Grid sx={{ textAlign: 'center', '& img': { maxWidth: {xs: '100%', md: 380 } } }}
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               <ArticleImage src="tablet.jpg" alt={t('sections.1.alt_text')} />
             </Grid>
           </Grid>
-          <Grid container className={classes.grid} spacing={2} alignItems="stretch">
-            <Grid item xs={12} md={6}>
+          <Divider sx={{ width: '100%', my: { xs: 3, md: 7 } }} />
+          <Grid container justifyContent="flex-start" spacing={2} alignItems="stretch">
+            <Grid
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               <Typography paragraph={true} variant="h3" component="h3">{t('sections.2.title')}</Typography>
               <Typography paragraph={true}>{t('sections.2.body')}</Typography>
             </Grid>
-            <Grid className={classes.gridItemImg} item xs={12} md={6}>
+            <Grid
+              sx={{ textAlign: 'center', '& img': { maxWidth: {xs: '100%', md: 380 } } }}
+              size={{
+                xs: 12,
+                md: 6
+              }}>
               <ArticleImage src="hospital-building.jpg" alt={t('sections.2.alt_text')} />
             </Grid>
           </Grid>
         </Box>
       </Container>
     </Box>
-  )
+  );
 }
 
 export default Page

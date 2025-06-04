@@ -1,45 +1,34 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Typography , useTheme } from '@mui/material'
 
-const useStyles = makeStyles( theme => ({
-  root: {
-    '& .errorText': {
-      display: 'none',
-      color: theme.palette.error.text,
-      fontWeight: 'bold'
-    },
-  },
-  error: {
-    borderLeft: `10px solid ${theme.palette.error.main}`,
-    padding: theme.spacing(0, 2),
-    marginTop: theme.spacing(1),
-    '& .errorText': {
-      display: 'inline-block',
-    }
-  },
-
-  column: {
-    display: 'inline-flex',
-    flexDirection: 'column',
-  }
-}),{name: 'InputGroupError'})
 
 /**
  * This is a HoC for adding error messages to form fields
  */
-const InputGroupError = (props) => {
-  const classes = useStyles()
-  const {children, error = false, errorMessage = '', variant = false} = props
-  const errorClass = error ? classes.error : ''
-  const variantClass = variant ? classes[variant] : ''
+const InputGroupError = ({children, error = false, errorMessage = '', variant = false}) => {
+
+  const theme = useTheme()
 
   return (
-    <div className={`${classes.root} ${errorClass} ${variantClass}`}>
+    <Box sx={{
+        ...(variant === 'column' && {
+          display: 'inline-flex',
+          flexDirection: 'column',
+        }),
+        ...(error && {
+          borderLeft: `10px solid ${theme.palette.error.main}`,
+          padding: theme.spacing(0, 2),
+          mt: 1,
+        }),
+      }} >
       {children}
-      <Typography className="errorText">{errorMessage}</Typography>
-    </div>
+      <Typography className="errorText" sx={{
+          display: error ? 'inline-block' : 'none',
+          color: theme.palette.error.main,
+          fontWeight: 'bold',
+        }} >{errorMessage}</Typography>
+    </Box>
   )
 }
 

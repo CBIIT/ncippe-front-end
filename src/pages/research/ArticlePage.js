@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
-import { Box, Container, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { Box, Container, Divider, Grid, Typography, useMediaQuery } from '@mui/material'
+import { useTheme, styled } from '@mui/material/styles';
 import { useParams } from 'react-router-dom'
 import PubSub from 'pubsub-js'
 
@@ -12,37 +12,37 @@ import { caseConverter } from '../../utils/utils'
 import NotFound from '../NotFoundPage'
 import { use } from 'react'
 
-const useStyles = makeStyles( theme => ({
-  grid: {
-    justifyContent: 'flex-start'
-  },
-  divider: {
-    width: '100%',
-    margin: theme.spacing(3,0),
+const StyledGrid = styled(Grid)({
+  justifyContent: 'flex-start',
+});
+const StyledDivider = styled(Divider)(({ theme }) => ({
+  width: '100%',
+  margin: theme.spacing(3,0),
+  [theme.breakpoints.up('md')]: {
+    margin: theme.spacing(7,0)
+  }
+}));
+const GridItemImg = styled('div')(({theme})=>({
+  textAlign: 'center',
+  '& img': {
+    maxWidth: 600,
     [theme.breakpoints.up('md')]: {
-      margin: theme.spacing(7,0)
-    }
-  },
-  gridItemImg: {
-    textAlign: 'center',
-    '& img': {
-      maxWidth: 600,
-      [theme.breakpoints.up('md')]: {
-        maxWidth: 380
-      }
+      maxWidth: 380
     }
   }
-}),{name: 'ArticlePage'})
+}));
+const StyledArticle = styled(Box)({
+  component: 'article'
+});
 
 // This component is for a reusable research article page, but it's limiting in it's layout. Opting for individual article pages that have more flexibility.
 
 const Article = () => {
   const { article } = useParams()
-  const classes = useStyles()
   const nameSpace = `r_${caseConverter(article ?? '')}`
   const { t, i18n } = useTranslation([nameSpace,'common'])
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(() => {
     PubSub.publish('ANALYTICS', {
@@ -75,22 +75,25 @@ const Article = () => {
       </Container>
       <Container className="mainContainer mainContainer--public">
         <Box mt={5}>
-          <Grid container className={classes.grid} spacing={2} alignItems="stretch">
-            <Grid item xs={12} md={6} component="section">
+          <StyledGrid container spacing={2} alignItems="stretch">
+            <StyledGrid item  size={{ xs:12, md:6 }}  component="section">
               <Typography paragraph={true} variant={isMobile ? "body1" : "body2"}>
                 <RenderContent children={t('intro_text')} />
               </Typography>
-            </Grid>
+            </StyledGrid>
             
-              {i18n.exists(`${nameSpace}:img`) && <Grid className={classes.gridItemImg} item xs={12} md={6} component="aside">
+              {i18n.exists(`${nameSpace}:img`) && (
+                <GridItemImg item  size={{xs:12, md:6}}  component="aside">
                   <ArticleImage src={t('img.0.file_name')} alt={t('img.0.alt_text')} />
-                </Grid>
-              }
+                </GridItemImg>
+              )}
 
-            <Divider className={classes.divider} />
+            <StyledGrid item size={{ xs:12}} >
+              <StyledDivider />
+            </StyledGrid>
 
             {Object.keys(t('sections', { returnObjects: true })).map((section, i) => 
-              <Grid item xs={12} md={8} component="section" key={i}>
+              <StyledGrid item  size={{xs:12, md:8}} component="section" key={i}>
                 {i18n.exists(`${nameSpace}:sections.${i}.title`) &&
                   <Typography variant="h3" component="h3">
                     <RenderContent children={t(`sections.${i}.title`)} />
@@ -108,9 +111,9 @@ const Article = () => {
                     <RenderContent children={t(`sections.${i}.body`)} />
                   </Typography>
                 }
-              </Grid>
+              </StyledGrid>
             )}
-          </Grid>
+          </StyledGrid>
         </Box>
       </Container>
     </Box>

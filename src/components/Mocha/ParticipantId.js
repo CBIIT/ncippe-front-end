@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { Button, TextField, Typography } from '@material-ui/core'
+import { Button, TextField, Typography } from '@mui/material'
 import { 
   Clear as ClearIcon
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 

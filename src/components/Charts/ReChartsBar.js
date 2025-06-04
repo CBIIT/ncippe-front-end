@@ -20,7 +20,8 @@ export default function ReChartsBar(props) {
     percent: total > 0?  ((item.value / total) * 100).toFixed(1) : 0,
   }));
   return (
-   // <ResponsiveContainer width="100%" height={300} minHeight={300} aspect={1.8} >
+    // <ResponsiveContainer width="100%" height={300} minHeight={300} aspect={1.8} >
+    // </ResponsiveContainer>
     <BarChart
       width={400} 
       height={300} 
@@ -41,6 +42,5 @@ export default function ReChartsBar(props) {
       <LabelList dataKey ="percent" content={ renderCustomBarLabel } />
       </Bar>
     </BarChart>
-    // </ResponsiveContainer>
   );
 }

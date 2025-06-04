@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { Link, useLocation } from 'react-router-dom'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { useNavigate,Link, useLocation } from 'react-router-dom'
+import { styled } from '@mui/material/styles'
 import { 
   Button,
   ClickAwayListener,
@@ -10,88 +10,87 @@ import {
   MenuList,
   Paper,
   Popper,
-} from '@material-ui/core'
-import { ArrowDropDown } from '@material-ui/icons'
+  useTheme
+} from '@mui/material'
+import { ArrowDropDown } from '@mui/icons-material'
 import PubSub from 'pubsub-js'
 import './MenuGroup.css'
 import ConditionalWrapper from '../../../utils/ConditionalWrapper'
 
-const useStyles = makeStyles(theme => ({
-  popper: {
-    position: "fixed",
-    zIndex: -1
+// Popper with conditional active styling
+// assume theme.zIndex.appBar = 1100 (default value)
+const StyledPopper = styled(Popper)(({ theme }) => ({
+  zIndex: theme.zIndex.appBar + 1,
+}));
+
+// MenuList styling
+const StyledMenuList = styled(MenuList)(({ theme }) => ({
+  padding: 0,
+  '& .Mui-selected, & .Mui-selected:focus, & .Mui-selected:hover': {
+    backgroundColor: theme.palette.navy.dark,
+    color: theme.palette.common.white,
+    fontWeight: 600,
+    padding: '6px 0px',
+    '& a': {
+      color: theme.palette.common.white,
+    },
   },
-  button: {
-    borderRadius: 0,
-    fontWeight: 'normal',
-    // marginLeft: 5,
-    // marginRight: 5,
-  },
-  active: {
+}));
+ const StyledMenuButton = styled(Button)(({ theme }) => ({
+  borderRadius: 0,
+  fontWeight: 'normal',
+  marginLeft: 6,
+  marginRight: 6,
+
+  '&.active': {
     borderBottom: `5px solid ${theme.palette.primary.main}`,
-    borderRadius: 0,
-    marginTop: 5,
     fontWeight: 'bold',
     padding: '6px 0px 6px 2px',
-    marginLeft: 6,
-    marginRight: 6,
+    marginTop: 5,
   },
-  activePopper: {
-    zIndex: '10 !important'
-  },
-  menuList: {
-    padding: 0,
-    '& .Mui-selected,& .Mui-selected:focus,& .Mui-selected:hover': {
-      backgroundColor: theme.palette.navy.dark,
-      color: theme.palette.common.white,
-      fontWeight: 600,
-      padding: '6px 16px',
-      '& a': {
-        color: theme.palette.common.white,
-      }
-    },
-  }
-}),{name: 'MenuGroup'})
+}));
 
-export const StyledMenuItem = withStyles(theme => ({
-  root: {
-    borderBottom: `1px solid #ccc`,
-    padding: 0,
+ const StyledMenuItem = styled(MenuItem)(({theme }) => ({
+  borderBottom: `1px solid #ccc`,
+  padding: 0,
 
-    '&:last-child': {
+  '&:last-child': {
       borderBottom: 'none'
-    },
-    '& a': {
-      flexGrow: 1,
-      color: theme.palette.common.black,
-      textDecoration: 'none',
-      padding: '6px 16px',
-    },
-    '&:focus': {
-      backgroundColor: 'rgba(0,0,0,.08)',
-    },
   },
-}),{name: 'StyledMenuItem'})(props => <MenuItem {...props}/>)
+  '& span': {
+    display: 'inline-block',
+    padding: '6px 16px',
+    width: '100%',
+  }, 
+  '& a': {
+    flexGrow: 1,
+    color: theme.palette.common.black,
+    textDecoration: 'none',
+    padding: '6px 16px',
+  },
+  '&:focus': {
+    backgroundColor: 'rgba(0,0,0,.08)',
+  },
+  }))
 
 /**
  * Dropdown navigation menu component used in the top level global navigation on desktop
  * 
  * The active menu item is dynamically selected based on the app's location matching a child's `href`
  */
-const MenuGroup = (props) => {
-  const classes = useStyles()
-  const randomNum = Math.floor(Math.random() * 1000) + 1
+const MenuGroup = ( { index = (Math.floor(Math.random() * 1000) + 1), menuText, active, children }) => {
+  //const randomNum = Math.floor(Math.random() * 1000) + 1
   // destructure props
-  const { index = randomNum, menuText, active } = props
-  
+  //const { index = randomNum, menuText, active } = props  
   const [open, setOpen] = useState(false)
   const [popperClass, setPopperClass] = useState(false)
   const anchorRef = useRef(null)
+  const location = useLocation().pathname
   const containerNode = document.querySelector("#root .transitionGroup")
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
-    setPopperClass(prev => !prev ? classes.activePopper : false)
+    setPopperClass(true);
     PubSub.publish('ANALYTICS', {
       eventName: 'ToggleMenuReveal',
       events:'event26',
@@ -101,21 +100,26 @@ const MenuGroup = (props) => {
   }
 
   const handleClose = (event) => {
-    if (event.target.classList.contains("Mui-selected") || (anchorRef.current && anchorRef.current.contains(event.target))) {
+    // if (event.target.classList.contains("Mui-selected") || (anchorRef.current && anchorRef.current.contains(event.target))) {
+    //   return
+    // }
+
+    if  (anchorRef.current && anchorRef.current.contains(event.target)) {
       return
     }
-
-    if(event.currentTarget !== window.document) {
-      PubSub.publish('ANALYTICS', {
+    setOpen(false)
+    //setPopperClass(false)
+  }
+  
+  const handleMenuItemClick = () => {
+    setOpen(false)
+   // setPopperClass(false)
+    PubSub.publish('ANALYTICS', {
         eventName: 'ToggleMenuLink',
         events:'event28',
-        prop53: `BioBank_TopNav|${menuText}|${event.target.textContent}`,
-        eVar53: `BioBank_TopNav|${menuText}|${event.target.textContent}`,
-      })
-    }
-
-    setOpen(false)
-    setPopperClass(false)
+        prop53: `BioBank_TopNav|${menuText}`,
+        eVar53: `BioBank_TopNav|${menuText}`,
+    })
   }
 
   const handleListKeyDown = (event) => {
@@ -126,9 +130,11 @@ const MenuGroup = (props) => {
     }
   }
 
-  const handleListItemKeyDown = (event) => {
+  const handleListItemKeyDown = (event, child) => {
     if (event.key === 'Enter') {
-      event.target.firstChild.click()
+      event.preventDefault()
+      setOpen(false)
+      anchorRef.current?.focus()
     }
   }
 
@@ -136,76 +142,97 @@ const MenuGroup = (props) => {
     event.currentTarget.focus()
   }
 
-  const location = useLocation().pathname
-
   // return focus to the button when we transitioned from !open -> open
   // this does not work when clicking from one menu item to the next
   const prevOpen = useRef(open)
   useEffect(() => {
     // check if another MenuGroup was clicked on
     const activePoppers = document.querySelectorAll('[class*="active-popper"]')
-
     if (prevOpen.current === true && open === false && activePoppers.length < 2) {
-      anchorRef.current.focus()
+      anchorRef.current?.focus()
     }
-
     prevOpen.current = open;
   }, [open])
 
   return (
     <>
-    <Button
+    <StyledMenuButton
       ref={anchorRef}
-      aria-controls={`menu-list-grow-${index}`}
+      aria-controls={open ? `menu-list-grow-${index}`: undefined}
       aria-haspopup="true"
       onClick={handleToggle}
-      className={active ? `${classes.active} active` : classes.button}
+      className={active ? 'active' : ''}
       endIcon={<ArrowDropDown />}
     >
       {menuText}
-    </Button>
-    <Popper 
-      className={`${classes.popper} ${popperClass}`} 
+    </StyledMenuButton>
+    <StyledPopper 
+      className={popperClass ? 'active-popper' : ''} 
       open={open} 
       anchorEl={anchorRef.current} 
-      keepMounted 
+      role={undefined}
+      disablePortal 
       transition 
       placement="bottom-start" 
-      container={containerNode}
-      modifiers={{
-        // keepTogether: { enabled: true}
-        preventOverflow: {
-          boundariesElement: 'viewport',
-          escapeWithReference: true,
-        },
-      }}
+      // container={containerNode}
+      modifiers={[
+        {
+          name: 'preventOverflow',
+          options: {
+            boundary: 'viewport',
+            altAxis: true
+          },
+        }
+      ]}
     >
       {({ TransitionProps }) => (
         <Grow
           {...TransitionProps}
-          style={{ transformOrigin: 'left top' }}
+          style={{ transformOrigin: 'left top'  }}
         >
           <Paper id={`menu-list-grow-${index}`} elevation={1} square={true}>
             <ClickAwayListener onClickAway={handleClose}>
-              <MenuList className={classes.menuList} autoFocusItem={open} onKeyDown={handleListKeyDown}>
+              <StyledMenuList autoFocusItem={open}
+              onKeyDown={(e) => e.key === 'Tab' && setOpen(false)} >
                 {
-                  React.Children.map(props.children, child => (
-                    <StyledMenuItem onClick={handleClose} onKeyDown={handleListItemKeyDown} onMouseOver={focusItem} selected={location === child.props.href} className={child.props.className}>
-                      <ConditionalWrapper
-                        condition={location !== child.props.href}
-                        wrapper={children => <Link to={child.props.href}>{children}</Link>}
-                      >
+                  React.Children.map(children, (child, i) =>{ 
+                    //const isSelected = location === child.props.href;
+                    const href = child.props.to || child.props.href;
+
+                      if (!href) {
+                        console.warn('MenuGroup child missing href/to:', child);
+                        return null;
+                      }
+                    console.log("MenuGroup clicked:", href);
+                    if (React.isValidElement(child) && typeof href === 'string') {
+                    return (
+                    
+                    <StyledMenuItem  component={Link} 
+                     to={href}
+                        onClick={handleMenuItemClick}
+                        style={{ textDecoration: 'none' }}
+                    onKeyDown={(e) => handleListItemKeyDown(e, child)}
+                    onMouseOver={focusItem}
+                    selected={location === href} >
+                     
                         <span>{child.props.children}</span>
-                      </ConditionalWrapper>
+                  
                     </StyledMenuItem>
-                  ))
+                   
+                  )}
+                  else{
+                    console.warn('Invalid child in MenuGroup or ExpansionMenu:', child);
+                    return null;
+                  }
                 }
-              </MenuList>
+                )
+                }
+              </StyledMenuList>
             </ClickAwayListener>
           </Paper>
         </Grow>
       )}
-    </Popper>
+    </StyledPopper>
     </>
   )
 }

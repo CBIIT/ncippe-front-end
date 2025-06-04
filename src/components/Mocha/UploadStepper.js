@@ -1,32 +1,13 @@
 import React from 'react'
-import { Stepper, Typography, Step, StepLabel, useMediaQuery } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Stepper, Typography, Step, StepLabel, useMediaQuery, useTheme } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
-const useStyles = makeStyles( theme => ({
-  stepper: {
-    marginTop: theme.spacing(2),
-    backgroundColor: 'transparent',
-    [`@media (max-width: 799px)`]: {
-      marginTop: 0,
-      padding: theme.spacing(2,0)
-    }
-  },
-  step: {
-    [`@media (max-width: 799px)`]: {
-      marginBottom: 8
-    }
-  }
-}),{name: 'UploadStepper'})
+const UploadStepper = ({activeStep = 0}) => {
 
-
-
-const UploadStepper = (props) => {
-  const {activeStep = 0} = props
-  const classes = useStyles()
   const { t } = useTranslation('a_landingMocha')
-  const orientation = useMediaQuery('@media (max-width: 799px)') ? "vertical" : "horizontal"
-  const labelOrientation = useMediaQuery('@media (max-width: 799px)') ? false : true
+  const isMobile = useMediaQuery('(max-width:799px)');
+  const orientation = isMobile ? "vertical" : "horizontal"
+  const labelOrientation = !isMobile 
 
   const stepText = [
     t('stepper.0.label'),
@@ -35,16 +16,27 @@ const UploadStepper = (props) => {
   ]
 
   return (
-    <div className={classes.root}>
-      <Typography variant="h3" component="h3">{t('stepper_title')}</Typography>
-      <Stepper className={`${classes.stepper} Stepper--small-labels`} activeStep={activeStep} alternativeLabel={labelOrientation} orientation={orientation}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Typography variant="h3" component="h3" sx={{ mb: 2 }}>{t('stepper_title')}</Typography>
+      <Stepper className="Stepper--small-labels" sx={{
+          mt: isMobile ? 0 : 2,
+          backgroundColor: 'transparent',
+          ...(isMobile && {
+            px: 0,
+            py: 2,
+          }),
+        }} activeStep={activeStep} alternativeLabel={labelOrientation} orientation={orientation}>
         {stepText.map((text, i) => (
-          <Step className={classes.step} key={i}>
+          <Step key={i} sx={{
+              ...(isMobile && {
+                mb: 1,
+              }),
+            }}>
             <StepLabel>{text}</StepLabel>
           </Step>
         ))}
       </Stepper>
-    </div>
+    </Box>
   )
 }
 

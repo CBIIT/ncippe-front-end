@@ -1,8 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import {Box, Button, Container, Typography} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-
+import {Box, Button, Container, Typography} from '@mui/material'
 import { LoginConsumer, LoginContext } from '../components/login/Login.context'
 // import { api } from '../data/api'
 import getAPI from '../data'
@@ -10,33 +8,22 @@ import Breadcrumbs from '../components/Breadcrumbs'
 import Status from '../components/Status'
 import { randomString } from '../utils/utils'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: theme.spacing(4)
+const largeButtonSx = {
+  width: '100%',
+  mb: 4,
+  textTransform: 'none',
+  '@media (min-width:600px)': {
+    width: '70%',
+  },
+  '@media (min-width:1200px)': {
+    width: '55%',
+    fontSize: '80%',
+  },
+}
 
-  },
-  largeButton: {
-    width: '100%',
-    marginBottom: theme.spacing(4),
-    textTransform: "none",
-    [theme.breakpoints.up('sm')]: {
-      width: '70%',
-    },
-    [theme.breakpoints.up('lg')]: {
-      width: '55%',
-      fontSize: '80%'
-    }
-  },
-  mainContainer: {
-    textAlign: 'center'
-  }
-}),{name: 'MockRoles'})
 
 const MockRoles = () => {
-  const classes = useStyles()
+ 
   const navigate = useNavigate()
   const [users, setUsers] = useState()
   const [error, setError] = useState(false)
@@ -88,19 +75,19 @@ const MockRoles = () => {
   return (
     <Box className="popup">
       <Breadcrumbs pageName="Consent Page" />
-      <Container className={`mainContainer ${classes.mainContainer}`}>
+      <Container className="mainContainer" sx={{ textAlign: 'center' }} >
         <LoginConsumer>
           {([state, dispatch]) => {
             const {auth, roleName, firstName, lastName} = state
             return auth ? (
               <>
-                <Typography variant="h2"><Button variant="contained" className={classes.largeButton} onClick={() => navigate('/account')}>Return to account as {firstName} {lastName} ({roleName})</Button></Typography>
-                <Typography variant="h2"><Button variant="contained" className={classes.largeButton} color="primary" onClick={clearRole}>Clear role as {firstName} {lastName} ({roleName})</Button></Typography>
+                <Typography variant="h2"><Button variant="contained" sx={{largeButtonSx}} onClick={() => navigate('/account')}>Return to account as {firstName} {lastName} ({roleName})</Button></Typography>
+                <Typography variant="h2"><Button variant="contained" sx={{ largeButtonSx }} color="primary" onClick={clearRole}>Clear role as {firstName} {lastName} ({roleName})</Button></Typography>
               </>
             ) : (
               <>
               {users && users.map((user,i) => <Typography key={i} variant="h2">
-                  <Button variant='contained' className={classes.largeButton} onClick={mockLogin(user)}>{user.firstName} {user.lastName} ({user.roleName})</Button>
+                  <Button variant='contained' sx={{largeButtonSx}} onClick={mockLogin(user)}>{user.firstName} {user.lastName} ({user.roleName})</Button>
                 </Typography>)}
               {error && <Status state="error" title={error.name} message={error.message} />}
               </>

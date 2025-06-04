@@ -52,7 +52,7 @@ export const createUUID = () => {
     const crypto = window.crypto || window.msCrypto
     //eslint-disable-next-line
     return (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-  })
+  });
 }
 
 /**
@@ -161,7 +161,7 @@ export const objectValuesToString = (obj, ignore = [], divider = ' | ') => {
       if (typeof obj[key] === 'object' && obj[key] !== null) {
         return out += objectValuesToString(obj[key],ignore)
       } else {
-        return out += obj[key].replace(/<[/]*?([a-z]+).*? *[/]*?>/g,' ') + divider
+        return out += obj[key].replace(/<[/]*?([a-z]+).*? *[/]*?>/g,' ') + divider;
       }
     }
   })

@@ -1,28 +1,14 @@
 import React from 'react'
 import { Link as RouterLink, useOutletContext } from 'react-router-dom'
-import { Button, Box, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { Clear as ClearIcon } from '@material-ui/icons'
+import { Button, Box, Typography } from '@mui/material'
+import { Clear as ClearIcon } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 
 import RenderContent from '../utils/RenderContent'
 
-const useStyles = makeStyles( theme => ({
-  header: {
-    marginBottom: theme.spacing(2)
-  },
-  formButtons: {
-    marginBottom: theme.spacing(2)
-  },
-  btnSubmit: {
-    marginRight: theme.spacing(1)
-  }
-}),{name: 'LeaveOptions'})
-
 const LeaveOptions = () => {
   const { isMobile, cancel } = useOutletContext();
-  const classes = useStyles()
   const { t } = useTranslation(['a_changeParticipation','a_common'])
   const trackClick = (e) => {
     PubSub.publish('ANALYTICS', {
@@ -35,13 +21,20 @@ const LeaveOptions = () => {
 
   return (
     <Box>
-      <Typography className={classes.header} variant={isMobile ? "h2" : "h1"} component="h1">{t('leave.0.pageTitle')}</Typography>
-      <Typography variant={isMobile ? "h3" : "h2"} className={classes.gutterBottom_2}>{t('leave.0.subtitle')}</Typography>
-      <Typography component="div"><RenderContent children={t('leave.0.body')} /></Typography>
-      <div className={classes.formButtons}>
-        <Button className={classes.btnSubmit} variant="contained" color="primary" component={RouterLink} to='../leaveQuestions' onClick={trackClick}>{t('leave.0.submit')}</Button>
-        <Button variant="text" color="primary" onClick={cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
-      </div>
+      <Typography sx={{mb: 2 }} variant={isMobile ? "h2" : "h1"} component="h1">
+        {t('leave.0.pageTitle')}</Typography>
+      <Typography variant={isMobile ? "h3" : "h2"} sx={{mb: 2 }} component="h2">
+        {t('leave.0.subtitle')}</Typography>
+      <Typography component="div">
+        <RenderContent children={t('leave.0.body')} />
+      </Typography>
+      <Box sx={{ mb: 2}}>
+        <Button sx={{ mr:1 }} variant="contained" 
+        color="primary" component={RouterLink} to='../leaveQuestions' 
+        onClick={trackClick}>{t('leave.0.submit')}</Button>
+        <Button variant="text" color="primary" onClick={cancel}>
+          <ClearIcon />{t('a_common:buttons.cancel')}</Button>
+      </Box>
     </Box>
   )
 }

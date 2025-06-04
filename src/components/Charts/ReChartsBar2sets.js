@@ -12,6 +12,7 @@ export default function ReChartsBar2sets(props) {
     const {inputdata }=props;
   return (
     // <ResponsiveContainer width="100%" height={300} minHeight={300} aspect={1.8}  margin ={{ top:80}}>
+    // </ResponsiveContainer>
     <BarChart
       width={410}
       height={300}
@@ -32,6 +33,5 @@ export default function ReChartsBar2sets(props) {
       <Tooltip />
       <Bar dataKey="value" isAnimationActive={false}  label={renderCustomBarLabel} />
     </BarChart>
-    // </ResponsiveContainer>
   );
 }

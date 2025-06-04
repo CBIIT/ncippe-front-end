@@ -1,9 +1,8 @@
 import React, { useContext, useRef, useState, Suspense } from 'react'
-import { Box, Button, FormControl, TextField, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Button, FormControl, TextField, Typography, useTheme } from '@mui/material'
 import { 
   Clear as ClearIcon
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 
 import { SendMessageContext } from './SendMessage.context'
@@ -12,15 +11,8 @@ import InputGroupError from '../inputs/InputGroupError'
 import Editor from '../Editor'
 import Loading from '../Loading'
 
-const useStyles = makeStyles( theme => ({
-  formControl: {
-    margin: theme.spacing(2,0,1,0),
-    display: 'block',
-  },
-}),{name: 'ComposeMessage'})
-
 const ComposeMessage = () => {
-  const classes = useStyles()
+  const theme = useTheme()
   const [sendMessageContext, dispatch] = useContext(SendMessageContext)
   const { t } = useTranslation(['a_sendMessage'])
   const tinyEditor = useRef(null)
@@ -101,7 +93,7 @@ const ComposeMessage = () => {
   return (
     <Box>
       <Typography variant="h3">{t('compose.title')}</Typography>
-      <FormControl component="fieldset" className={classes.formControl}>
+      <FormControl component="fieldset" sx={{ display: 'block', mt: 2, mb: 1, }}>
         <Box mb={2}>
           <TextField
             error={subjectError} 
@@ -109,15 +101,13 @@ const ComposeMessage = () => {
             fullWidth
             label={t('compose.input_label')}
             placeholder={t('compose.input_placeholder')}
-            InputLabelProps={{
-              shrink: true,
-            }}
+            InputLabelProps={{shrink: true, }}
             helperText={subjectError ? t('compose.form.error_input') : t('compose.input_helper_text')}
             value={subject}
             onChange={handleSubjectChange}
           />
         </Box>
-          <Suspense fallback={<div style={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}><Loading /></div>}>
+          <Suspense fallback={<Box sx={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}><Loading /></Box>}>
             <InputGroupError error={messageError} errorMessage={messageErrorText}>
               <Editor 
               ref={tinyEditor} 

@@ -2,27 +2,14 @@ import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
-import { AppBar, Container, Tab, useMediaQuery } from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-
+import { AppBar, Container, Tab, useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles';
 import StyledTabs from '../../components/Tabs/StyledTabs'
 
-const useStyles = makeStyles( theme => ({
-  appbarContainer: {
-    padding: 0,
-    marginBottom: theme.spacing(5)
-  },
-  appbar: {
-    backgroundColor: theme.palette.primary.medium,
-    zIndex: 5
-  },
-}),{name: 'TabAboutBar'})
-
-const TabAboutBar = (props) => {
-  const classes = useStyles()
+const TabAboutBar = ({value}) => {
   const { t } = useTranslation()
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   const handleChange = (event) => {
     PubSub.publish('ANALYTICS', {
@@ -33,18 +20,19 @@ const TabAboutBar = (props) => {
     })
     window.$defaultLinkTrack = false
   }
-
+ 
   return (
-    <Container className={classes.appbarContainer}>
-      <AppBar className={classes.appbar} position="static" elevation={0}>
+    <Container sx={{  px: { xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }, py:0, mb: 5 }}>
+      <AppBar sx={{ bgcolor: theme => theme.palette.primary.medium,  }} 
+      position="static" elevation={0}>
         <StyledTabs
           id="tabAboutBar"
-          value={props.value}
+          value={value}
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
           variant="scrollable"
-          scrollButtons={isMobile ? 'on' : 'auto'}
+          scrollButtons={isMobile ? true : 'auto'}
           aria-label="scrollable auto tabs"
         >
           <Tab disableRipple component={RouterLink} to="/about" label={t('tabs.about.abouts')} />

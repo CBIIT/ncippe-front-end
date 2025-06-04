@@ -1,30 +1,16 @@
 import React, { useContext, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Typography, CircularProgress, Container } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Typography, CircularProgress, Container } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
 import { AuthContext } from '../../components/login/AuthContext'
 import { LoginContext } from '../../components/login/Login.context'
 import getAPI from '../../data'
 
-const useStyles = makeStyles( theme => ({
-  titleUploading: {
-    marginLeft: theme.spacing(3),
-    display: 'inline'
-  },
-  container: {
-    textAlign: 'center',
-    paddingTop: theme.spacing(10),
-    marginBottom: theme.spacing(4)
-  },
-}),{name: 'SignInCallbackPage'})
-
 const SignInCallback = () => {
   const location = useLocation()
   const routerState = location.state || {}
   const navigate = useNavigate()
-  const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const { roleName, uuid, auth, mockState } = loginContext
   const authContext = useContext(AuthContext)
@@ -114,9 +100,14 @@ const SignInCallback = () => {
   }, [roleName, uuid, auth,navigate])
 
   return (
-    <Container className={classes.container}>
-      <CircularProgress className={classes.progress} size={70} />
-      <Typography className={classes.titleUploading} variant="h6">
+    <Container sx={{ textAlign: 'center', paddingTop: 10, marginBottom: 4 }}>
+      <CircularProgress sx={{
+    display: 'inline-block',
+    verticalAlign: 'middle',
+    color: 'primary.main', // or another color
+    mr: 2, // marginRight if needed
+  }} size={70} />
+      <Typography sx={{  marginLeft: 3, display: 'inline' }} variant="h6">
         {t('components.signin.loading')}
       </Typography>
     </Container>

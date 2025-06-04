@@ -1,62 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Badge, Chip, Paper, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { Link } from 'react-router-dom'
+import { Badge, Link, Box, Chip, Paper, Typography } from '@mui/material'
+import { Link as RouterLink} from 'react-router-dom'
 import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 
 
-const useStyles = makeStyles(theme => ({
-  paper: {
-    position: 'relative',
-    padding: theme.spacing(4),
-    marginBottom: theme.spacing(2),
-    backgroundColor: theme.palette.common.white
-  },
-  Link: {
-    textDecoration: 'none'
-  },
-  name: {
-    marginBottom: theme.spacing(1)
-  },
-  chip: {
-    marginLeft: theme.spacing(1),
-    fontWeight: "normal",
-  },
-  new: {
-    backgroundColor: theme.palette.success.light
-  },
-  badges: {
-    position: 'absolute',
-    top: 0,
-    right: 24,
-    display: 'flex',
-    '& .MuiBadge-root': {
-      width: 'auto',
-    },
-    '& .MuiBadge-badge': {
-      position: 'relative',
-      display: 'block',
-      right: 0,
-      marginLeft: theme.spacing(1),
-    }
-  },
-  newBadge: {
-    '& .MuiBadge-badge': {
-      position: 'relative',
-      display: 'block',
-      right: 0,
-      marginLeft: theme.spacing(1),
-      backgroundColor: theme.palette.success.main
-    }
-  }
-}),{name: 'PatientListItem'})
-
 /**
  * Render's a Participant card that usually appears in a PatientList component. When clicked, the user will be directed to the ParticipantView component. If the patient data contains `portalAccountStatus="ACCT_NEW"`, then clicking the card will trigger the AddParticipantInfoDialog component to activate this participant.
  */
-const PatientListItem = (props) => {
+const PatientListItem = ({ patient, activate}) => {
   const {
     firstName, 
     lastName, 
@@ -65,32 +18,59 @@ const PatientListItem = (props) => {
     patientId, 
     dateCreated,
     isActiveBiobankParticipant = true,
-    portalAccountStatus
-  } = props.patient
-  const hasNewFiles = props.patient.hasNewReports || props.patient.hasNewDocuments
-  const classes = useStyles()
+    portalAccountStatus,
+    hasNewReports = false,
+    hasNewDocuments = false 
+  } = patient
+  const hasNewFiles = hasNewReports || hasNewDocuments
+
   const { t } = useTranslation('a_common')
   const handleClick = (event) => {
     if (portalAccountStatus === 'ACCT_NEW') {
       event.preventDefault()
-      props.activate({firstName,lastName,email,lang,patientId,dateCreated})
+      activate({firstName,lastName,email,lang,patientId,dateCreated})
     }
   }
+
+  const showBadges =
+    hasNewFiles ||
+    !isActiveBiobankParticipant ||
+    portalAccountStatus === 'ACCT_NEW' ||
+    portalAccountStatus === 'ACCT_TERMINATED_AT_PPE'
+
   return (
-    <Link className={classes.Link} onClick={handleClick}
-      to={`/account/participant/${patientId}`}>
-      <Paper className={`${classes.paper} ${portalAccountStatus === 'ACCT_NEW' && classes.new}`} elevation={25}>
-        {(hasNewFiles || isActiveBiobankParticipant === false || portalAccountStatus !== 'ACCT_NEW' || portalAccountStatus !== 'ACCT_TERMINATED_AT_PPE') && 
-        <div className={classes.badges}>
-          {hasNewFiles && <Badge className={classes.badge} badgeContent={t('badges.new_document')} />}
-          {isActiveBiobankParticipant === false && <Badge className={classes.badge} color="error" badgeContent={t('badges.not_participating')} />}
-          {portalAccountStatus === "ACCT_TERMINATED_AT_PPE" && <Badge className={classes.badge} color="error" badgeContent={t('badges.terminated')} />}
-          {portalAccountStatus === 'ACCT_NEW' && <Badge className={classes.newBadge} badgeContent={t('badges.new_participant')} />}
-        </div>
-        }
-        <Typography className={classes.name} variant="h3" component="h3">{
+    <Link component={RouterLink} sx={{ textDecoration: 'none' }} onClick={handleClick}
+      to={ portalAccountStatus !== 'ACCT_NEW' ? 
+        `/account/participant/${patientId}`
+       : '#' }>
+      <Paper  elevation={25} sx={{
+          position: 'relative',
+          p: 4,
+          mb: 2,
+          backgroundColor: portalAccountStatus === 'ACCT_NEW' ? 'success.light' : 'common.white',
+        }}>
+        { showBadges && (
+        <Box sx={{
+              position: 'absolute',
+              top: 16,
+              right: 24,
+              display: 'flex',
+              flexDirection: 'row',
+              gap: 1,
+            }}>
+          {hasNewFiles && <Chip  label={t('badges.new_document')} 
+          color="warning" size="small" sx={{ fontWeight: 'bold' }} />}
+          {isActiveBiobankParticipant === false && <Chip label={t('badges.not_participating')} 
+          color="warning" size="small" sx={{ fontWeight: 'bold' }} />}
+          {portalAccountStatus === "ACCT_TERMINATED_AT_PPE" && <Chip  label={t('badges.terminated')}
+          color="warning" size="small" sx={{ fontWeight: 'bold' }}  />}
+          {portalAccountStatus === 'ACCT_NEW' && <Chip  label={t('badges.new_participant')} 
+          color="success" size="small" sx={{ fontWeight: 'bold' }}/>}
+        </Box>
+        )}
+        <Typography sx={{ mb: 1 }} variant="h3" component="h3">{
           // firstName ? <>{firstName} {lastName} <Typography className={classes.patientId} component="span">({patientId})</Typography></> : `${t('participant.id')}: ${patientId}`
-        firstName ? <>{firstName} {lastName} <Chip className={classes.chip} size="small" label={patientId} /></> : `${t('participant.id')}: ${patientId}`
+        firstName ? <>{firstName} {lastName} <Chip  sx={{ ml: 1, fontWeight: 'normal' }} size="small" label={patientId} /></> : `${t('participant.id')}: ${patientId}`
         }</Typography>
         <Typography>{t('participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
       </Paper>

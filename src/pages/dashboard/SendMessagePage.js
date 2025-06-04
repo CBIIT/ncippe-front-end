@@ -1,20 +1,11 @@
 import React from 'react'
-import { Box, Container, Paper, Typography} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Container, Paper, Typography} from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
-
 import Breadcrumbs from '../../components/Breadcrumbs'
 import Workflow from '../../components/SendMessage'
 
-const useStyles = makeStyles( theme => ({
-  paper: {
-    padding: theme.spacing(5)
-  },
-}))
-
 const Page = () => {
-  const classes = useStyles()
   const { t } = useTranslation(['a_sendMessage'])
 
   return (
@@ -29,7 +20,7 @@ const Page = () => {
           <Typography variant="h2" component="h2">{t('pageTitle')}</Typography>
           <Typography>{t('description')}</Typography>
         </Box>
-        <Paper className={classes.paper} elevation={25}>
+        <Paper sx={{ p: 5 }} elevation={25}>
           <Workflow />
         </Paper>
       </Container>

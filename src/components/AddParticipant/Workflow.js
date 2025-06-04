@@ -1,41 +1,28 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Paper, Typography, useMediaQuery } from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import { Clear as ClearIcon, Save as SaveIcon } from '@material-ui/icons'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Paper, Typography, useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles';
+import { Clear as ClearIcon, Save as SaveIcon } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 import { useNavigate } from 'react-router-dom'
 import moment from 'moment'
-
 import getAPI from '../../data'
-
 import { AddParticipantContext } from './AddParticipant.context'
 import { LoginContext } from '../login/Login.context'
-
 import WorkflowStepper from './WorkflowStepper'
 import ParticipantInfo from './ParticipantInfo'
 import AddConsent from './AddConsent'
 import Progress from '../Progress'
 
-const useStyles = makeStyles( theme => ({
-  paper: {
-    position: 'relative',
-    padding: theme.spacing(4),
-    marginBottom: theme.spacing(2),
-    backgroundColor: theme.palette.success.light
-  },
-}),{name: 'AddParticipantWorkflow'})
-
 const AddParticipantWorkflow = (props) => {
   const {open = false, setParentState, patient: {firstName, lastName, email, lang, patientId, dateCreated} = {} } = props
-  const classes = useStyles()
   const [addParticipantContext, dispatch] = useContext(AddParticipantContext)
   const [loginContext, loginDispatch] = useContext(LoginContext)
   const {token, uuid, patients} = loginContext
   const [activeStep, setActiveStep] = useState(0)
   const { t } = useTranslation(['a_addParticipant','a_common'])
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   const [isOpen, setIsOpen] = useState(false)
   const [submitText, setSubmitText] = useState(t('form.saveActivate'))
   const navigate = useNavigate();
@@ -248,7 +235,6 @@ const AddParticipantWorkflow = (props) => {
     })
   }
 
-
   const handleNavigate = (to) => {
     switch (to) {
       case 'dashboard':
@@ -293,34 +279,37 @@ const AddParticipantWorkflow = (props) => {
       onClose={handleClose}
       aria-labelledby="responsive-dialog-title"
     >
-      <DialogTitle id="responsive-dialog-title" disableTypography><Typography variant="h3" component="h3">{t('title')}</Typography></DialogTitle>
+      <DialogTitle id="responsive-dialog-title"><Typography variant="h3" component="h3">{t('title')}</Typography></DialogTitle>
       <DialogContent>
         <Typography>{t('subtitle')}</Typography>
         <WorkflowStepper activeStep={activeStep} />
-        <Paper elevation={25} className={classes.paper}>
+        <Paper elevation={25} sx={{ position: 'relative',p: 4,mb: 2,
+          bgcolor: theme => theme.palette.success.light,
+          [theme.breakpoints.down('sm')]: {p: 2,}, }}>
           {activeStep >= 1 && <Typography variant="h3">{addParticipantContext.firstName} {addParticipantContext.lastName}</Typography>}
           <Typography variant={activeStep === 0 ? "h3" : "body1"}>{t('a_common:participant.id')}: {patientId}</Typography>
           <Typography>{t('a_common:participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
         </Paper>
         {activeStep === 0 && (
           // participant ID
-          <ParticipantInfo />
+          (<ParticipantInfo />)
         )}
         {activeStep === 1 && (
           // select report to upload
-          <AddConsent />
+          (<AddConsent />)
         )}
         {activeStep === 2 && (
           // upload progress. On success - redirected to Participant View
-          <Progress title={t('progress')} />
+          (<Progress title={t('progress')} />)
         )}
       </DialogContent>
       <DialogActions>
         <Button color="primary" variant="contained" id="Submit2" type="submit" form="activatePatient" >{submitText}</Button>
-        <Button variant="text" color="primary" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+        <Button variant="text" color="primary" sx={{ my: 1,textTransform: 'none',fontWeight: 600,
+        fontFamily: '"Open Sans", sans-serif',}} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>
-  )
+  );
 }
 
 export default AddParticipantWorkflow

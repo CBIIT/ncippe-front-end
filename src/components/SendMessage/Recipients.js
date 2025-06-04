@@ -1,20 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Box, Button, Checkbox, FormControl, FormControlLabel, Typography } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Box, Button, Checkbox, FormControl, FormControlLabel, Typography } from '@mui/material'
 import { 
   Clear as ClearIcon
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
-
 import { SendMessageContext } from './SendMessage.context'
 import FormButtons from './FormButtons'
 import InputGroupError from '../inputs/InputGroupError'
-
-const useStyles = makeStyles( theme => ({
-  formControl: {
-    margin: theme.spacing(2,0,1,0),
-  },
-}),{name: 'Recipients'})
 
 const recipientList = [
   {
@@ -32,7 +24,6 @@ const recipientList = [
 ]
 
 const Recipients = () => {
-  const classes = useStyles()
   const { t } = useTranslation(['a_sendMessage'])
   const [sendMessageContext, dispatch] = useContext(SendMessageContext)
   const [checked, setChecked] = useState(recipientList.map(() => false))
@@ -83,7 +74,7 @@ const Recipients = () => {
   return (
     <Box>
       <Typography variant="h3">{t('recipients.title')}</Typography>
-      <FormControl component="fieldset" className={classes.formControl}>
+      <FormControl component="fieldset" sx={{ display: 'block', mt: 2, mb: 1, }} >
         <InputGroupError error={error} variant="column" errorMessage={t('recipients.form.error')}>
           {recipientList.map((recipient,i) => (
             <FormControlLabel key={i}

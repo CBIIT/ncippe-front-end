@@ -1,6 +1,7 @@
 // RequireAuth.js
 import React, { useContext, useEffect, useState } from 'react';
 import { Navigate, useNavigate, useLocation } from 'react-router-dom';
+import { Box } from '@mui/material';
 import { LoginContext } from '../components/login/Login.context';
 import { getAPI } from '../data';
 import moment from 'moment';
@@ -55,17 +56,17 @@ const RequireAuth = ({ children }) => {
     return () => {
       isMounted = false
     }
-  }, [loading])
+  }, [state.auth, dispatch, i18n, location.pathname, location.state, navigate])
 
   if (loading) {
     return (
-      <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+      <Box sx={{ textAlign: 'center', marginTop: '3rem' }}>
         <p>{t('components.signin.loading')}</p>
-      </div>
+      </Box>
     )
   }
 
-  return state.auth ? <>{children} </> : <Navigate to="/" replace state={{ from: location }} />
+  return state.auth ? <>{children} </> : <Navigate to="/" replace state={{ from: location.pathname }} />
 }
 // const RequireAuth = ({ children }) => {
 //   const [state] = useContext(LoginContext)

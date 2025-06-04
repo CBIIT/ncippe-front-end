@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { 
-  Button,
+  Button, Box,
   CircularProgress,
   Dialog,
   DialogActions,
@@ -13,13 +13,13 @@ import {
   StepLabel,
   TextField,
   Typography,
-  useMediaQuery } from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
-import { Clear as ClearIcon } from '@material-ui/icons'
+  useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles';
+import { Clear as ClearIcon } from '@mui/icons-material'
 import { useTranslation } from 'react-i18next'
 import { useTracking } from 'react-tracking'
 import moment from 'moment'
-
+import { styled } from '@mui/material/styles'
 // import { api } from '../../data/api'
 import getAPI from '../../data'
 import { LoginContext } from '../login/Login.context'
@@ -28,47 +28,13 @@ import FileItem from '../FileItem/FileItem'
 import InputGroupError from '../inputs/InputGroupError'
 import LangOption from '../inputs/LangOption'
 
-const useStyles = makeStyles(theme => ({
-  // contentText: {
-  //   marginBottom: theme.spacing(2)
-  // },
-  // formUpload: {
-  //   marginTop: theme.spacing(3)
-  // },
-  // formButtons: {
-  //   marginTop: theme.spacing(2)
-  // },
-  paper: {
-    position: 'relative',
-    padding: theme.spacing(4),
-    marginBottom: theme.spacing(2),
-    backgroundColor: theme.palette.success.light
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  textField: {
-    width: '70%'
-  },
-  btnSelectReport: {
-    margin: theme.spacing(3,0,3)
-  },
-  btnCancel: {
-    marginLeft: theme.spacing(2)
-  },
-  input: {
-    display: 'none'
-  },
-  spinner: {
-    margin: theme.spacing(2, 0),
-    maxWidth: '250px'
-  },
-  titleUploading: {
-    marginLeft: theme.spacing(3),
-    display: 'inline'
-  },
-}))
+const StyledTextField = styled(TextField)({
+  width: {
+    xs: '100%', // mobile
+    sm: '80%',
+    md: '70%',
+  }
+});
 
 const formDataDefaults = {
   firstName: '',
@@ -94,14 +60,13 @@ const formValidationDefaults = {
 
 const AddParticipantInfoDialog = (props) => {
   const {open, setParentState, patient: {firstName, lastName, email, lang, patientId, dateCreated} = {} } = props
-  const classes = useStyles()
   const [loginContext, dispatch] = useContext(LoginContext)
   const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState(formDataDefaults)
   const [formDataValidation, setFormDataValidation] = useState(formValidationDefaults)
   const [activeStep, setActiveStep] = useState(0)
   const theme = useTheme()
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'))
   const { t } = useTranslation(['a_addParticipant','a_common'])
   const { trackEvent } = useTracking()
   const [submitText, setSubmitText] = useState(t('form.save'))
@@ -396,54 +361,59 @@ const AddParticipantInfoDialog = (props) => {
       onClose={handleClose}
       aria-labelledby="responsive-dialog-title"
     >
-      <DialogTitle id="responsive-dialog-title" disableTypography><Typography variant="h3" component="h3">{t('title')}</Typography></DialogTitle>
+      <DialogTitle id="responsive-dialog-title">
+        <Typography variant="h3" component="h3">{t('title')}
+        </Typography>
+      </DialogTitle>
       <DialogContent>
         <Typography>{t('subtitle')}</Typography>
-      <Stepper className="Stepper--small-labels" activeStep={activeStep} alternativeLabel>
-        <Step>
-          <StepLabel><Typography>{t('stepper.0.label')}</Typography></StepLabel>
-        </Step>
-        <Step>
-          <StepLabel><Typography>{t('stepper.1.label')}</Typography></StepLabel>
-        </Step>
-      </Stepper>
-      <Paper elevation={25} className={classes.paper}>
+        <Stepper className="Stepper--small-labels" activeStep={activeStep} 
+        alternativeLabel>
+          <Step>
+            <StepLabel><Typography>{t('stepper.0.label')}</Typography></StepLabel>
+          </Step>
+          <Step>
+            <StepLabel><Typography>{t('stepper.1.label')}</Typography></StepLabel>
+          </Step>
+        </Stepper>
+      <Paper elevation={25} sx={{ position: 'relative', p:{ xs:2, md: 4} , mb: 2, 
+      bgcolor: theme => theme.palette.success.light, }}>
         {activeStep >= 1 && <Typography variant="h3">{formData.firstName} {formData.lastName}</Typography>}
         <Typography variant={activeStep === 0 ? "h3" : "body1"}>{t('a_common:participant.id')}: {patientId}</Typography>
         <Typography>{t('a_common:participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
       </Paper>
       {activeStep === 0 && (
-        <form id="activatePatient" className={classes.form} autoComplete="off" onSubmit={handleFormSubmit}>
-          <TextField
+        <Box component='form' id="activatePatient" sx={{ display: 'flex', flexDirection: 'column' }} autoComplete="off" onSubmit={handleFormSubmit}>
+          <StyledTextField
+            fullWidth
             error={formData.firstName_error}
             required
             id="firstName"
             label={t('form.firstName')}
-            className={classes.textField}
             margin="normal"
             variant="outlined"
             onChange={handleOnChange}
             value={formData.firstName}
             helperText={formData.firstName_error && t('form.error.firstName')}
           />
-          <TextField
+          <StyledTextField
+            fullWidth
             error={formData.lastName_error}
             required
             id="lastName"
             label={t('form.lastName')}
-            className={classes.textField}
             margin="normal"
             variant="outlined"
             onChange={handleOnChange}
             value={formData.lastName}
             helperText={formData.lastName_error && t('form.error.lastName')}
           />
-          <TextField
+          <StyledTextField
+            fullWidth
             error={formData.email_error}
             required
             id="email"
             label={t('form.email')}
-            className={classes.textField}
             margin="normal"
             variant="outlined"
             onChange={handleOnChange}
@@ -461,42 +431,46 @@ const AddParticipantInfoDialog = (props) => {
             />
           </InputGroupError>
           {formData.updateUserError && <Status state="error" title={t('form.error.updateUser.title')} message={t('form.error.updateUser.message')} />}
-        </form>
+        </Box>
       )}
       {activeStep === 1 && (
-        <form id="activatePatient" className={classes.form} autoComplete="off" onSubmit={handleFormSubmit}>
+        <Box component='form' id="activatePatient" sx={{ display: 'flex', flexDirection: 'column' }} autoComplete="off" onSubmit={handleFormSubmit}>
           {formData.file && formData.file.name && (
             <FileItem file={formData.file} onRemove={handleRemoveFile} />
           )}
           <input
             accept=".pdf"
-            className={classes.input}
+            sx={{ display: 'none' }}
             id="report-upload-file"
             type="file"
             onChange={handleFileChange}
           />
           {!formData.file && (
             <label htmlFor="report-upload-file">
-              <Button className={classes.btnSelectReport} variant="outlined" color="primary" component="span">{t('form.consentFile')}</Button>
+              <Button sx={{ my: 2,textTransform: 'none',fontWeight: 600,
+        fontFamily: '"Open Sans", sans-serif',}} variant="outlined" color="primary" component="span">{t('form.consentFile')}</Button>
             </label>
           )}
           {formData.noFileError && <Status state="error" title={t('form.error.noFile.title')} message={t('form.error.noFile.message')} />}
           {formData.uploadError && <Status state="error" title={t('form.error.uploadFile.title')} message={t('form.error.uploadFile.message')} />}
-        </form>
+        </Box>
       )}
       {activeStep === 2 && (
-        <>
-        <CircularProgress className={classes.progress} size={70} />
-        <Typography className={classes.titleUploading} variant="h6">{t('progress')}</Typography>
-        </>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, mt: 2 }}>
+        <CircularProgress  size={70} />
+        <Typography  variant="h6">{t('progress')}</Typography>
+        </Box>
       )}
       </DialogContent>
       <DialogActions>
-        <Button color="primary" variant="contained" type="submit" data-form="activatePatient" onClick={submitForm}>{submitText}</Button>
-        <Button variant="text" color="primary" className={classes.btnCancel} onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+        <Button color="primary" variant="contained" type="submit" 
+        data-form="activatePatient" onClick={submitForm}>{submitText}</Button>
+        <Button variant="text" color="primary" sx={{ my: 1,textTransform: 'none',fontWeight: 600,
+        fontFamily: '"Open Sans", sans-serif',}}
+ onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </DialogActions>
     </Dialog>
-  )
+  );
 }
 
 export default AddParticipantInfoDialog

@@ -1,15 +1,15 @@
 import React,{ useEffect, useRef, useState } from 'react'
-import { Container, Button, Paper, Typography, Box, useMediaQuery } from '@material-ui/core'
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward'
+import { Container, Button, Paper, Typography, Box, useMediaQuery } from '@mui/material'
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 import { useNavigate } from 'react-router-dom'
-import { useTheme } from '@material-ui/core/styles'
+import { useTheme } from '@mui/material/styles'
 
 const LoginConsent = () => {
   const navigate = useNavigate()
   const scrollBoxRef = useRef(null)
   const [showScrollHint, setShowScrollHint] = useState(false)
   const theme = useTheme()
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'))
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
   useEffect(() => {
     const el = scrollBoxRef.current
@@ -37,8 +37,8 @@ const LoginConsent = () => {
 
   return (
 
-    <Container maxWidth={isSmallScreen ? "xs" : "md"} style={{ marginTop: isSmallScreen ? '1rem':'3rem' ,height: '100vh', overflow: 'auto' }}>
-      <Paper elevation={2} style={{ flex:1,
+    <Container maxWidth={isSmallScreen ? "xs" : "md"} sx={{ marginTop: isSmallScreen ? '1rem':'3rem' ,height: '100vh', overflow: 'auto' }}>
+      <Paper elevation={2} sx={{ flex:1,
           padding: '1.5rem',
           width:  '100%',
           backgroundColor: '#f9f9f9',
@@ -77,14 +77,14 @@ const LoginConsent = () => {
         </Box>
          )}
 
-        <Box style={{ flex:1 , overflowY: 'auto' ,  position: 'relative',  paddingRight: '0.5rem', }}
+        <Box sx={{ flex:1 , overflowY: 'auto' ,  position: 'relative',  paddingRight: '0.5rem', }}
          ref={scrollBoxRef} >
-        <div style={{ fontSize: isSmallScreen ? '0.65rem': '0.8rem', lineHeight: isSmallScreen ? '05':'0.8', marginBottom: '2rem' }}>
+        <Box sx={{ fontSize: isSmallScreen ? '0.65rem': '0.8rem', lineHeight: isSmallScreen ? '05':'0.8', marginBottom: '2rem' }}>
           <Typography variant="subtitle2" >
             This warning banner provides privacy and security notices consistent with applicable federal laws,
             directives, and other federal guidance for accessing this Government system, which includes:
           </Typography>
-          <ul style={{ paddingLeft: '1.5rem', paddingBottom: '0.9rem' }}>
+          <ul sx={{ paddingLeft: '1.5rem', paddingBottom: '0.9rem' }}>
             <li>
               <Typography variant="subtitle2">(1) This computer network,</Typography>
             </li>
@@ -107,15 +107,15 @@ const LoginConsent = () => {
           <Typography variant="subtitle2" >
           By using this system, you understand and consent to the following:
           </Typography>
-           <ul style={{ paddingLeft: '1.5rem' }}>
+           <ul sx={{ paddingLeft: '1.5rem' }}>
             <li>
               <Typography variant="subtitle2">The Government may monitor, record, and audit your system usage, including usage of personal devices and email systems for official duties or to conduct HHS business. Therefore, you have no reasonable expectation of privacy regarding any communication or data transiting or stored on this system. At any time, and for any lawful Government purpose, the government may monitor, intercept, and search and seize any communication or data transiting or stored on this system.</Typography>
             </li>
             <li>
-              <Typography variant="subtitle2" style={{ paddingTop: '0.9rem' }}>Any communication or data transiting or stored on this system may be disclosed or used for any lawful Government purpose. </Typography>
+              <Typography variant="subtitle2" sx={{ paddingTop: '0.9rem' }}>Any communication or data transiting or stored on this system may be disclosed or used for any lawful Government purpose. </Typography>
             </li>
           </ul>
-        </div>
+        </Box>
         {showScrollHint && (
            <Box
            display="flex"
@@ -125,11 +125,11 @@ const LoginConsent = () => {
            bottom={0}
            zIndex={1}
            height="3rem"
-           style={{
+           sx={{
              background: 'linear-gradient(to top, #f9f9f9 60%, transparent)',
            }}
          >
-           <ArrowDownwardIcon style={{ fontSize: '2rem', color: '#444' }} />Scroll to read more
+           <ArrowDownwardIcon sx={{ fontSize: '2rem', color: '#444' }} />Scroll to read more
           </Box>
         )}    
         </Box>

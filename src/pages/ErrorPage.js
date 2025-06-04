@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link as RouterLink, useLocation } from 'react-router-dom'
-import { Box, Container, Button } from '@material-ui/core'
+import { Box, Container, Button } from '@mui/material'
 import Status from '../components/Status'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'

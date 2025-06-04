@@ -1,27 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Checkbox, FormControl, FormLabel, FormControlLabel } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { Checkbox, FormControl, FormLabel, FormControlLabel } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
-const useStyles = makeStyles(theme => ({
-  formControl: {
-    margin: theme.spacing(2,0,1,0),
-    minWidth: '200px'
-  },
-  formLegend: {
-    // transform: 'translate(0, 1.5px) scale(0.75)',
-    // transformOrigin: 'top left',
-    fontWeight: 700,
-    color: theme.palette.text.primary,
-    transform: "none",
-    marginBottom: theme.spacing(1)
-  }
-}),{name: 'EmailOption'});
+const EmailOption = ({ value = true, editMode = false, onClick }) => {
 
-const EmailOption = (props) => {
-  const {value = true, editMode = false, onClick} = props
-  const classes = useStyles()
   const { t } = useTranslation('a_accountSettings')
   const [checked, setChecked] = useState(value)
 
@@ -39,11 +22,19 @@ const EmailOption = (props) => {
   }
 
   return (
-    <FormControl component="fieldset" className={classes.formControl}>
+    <FormControl component="fieldset"  sx={{
+        my: 2,
+        minWidth: '200px',
+      }}>
       <FormLabel 
       htmlFor="notifications-input" 
       component="legend" 
-      className={classes.formLegend}>{t('profile.notifications.title')}</FormLabel>
+      sx={{
+          fontWeight: 700,
+          color: theme => theme.palette.text.primary,
+          transform: 'none',
+          mb: 1,
+        }}>{t('profile.notifications.title')}</FormLabel>
       {editMode ? (
         <FormControlLabel
           control={

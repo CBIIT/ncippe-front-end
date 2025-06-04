@@ -11,136 +11,68 @@ import {
   InputAdornment,
   Link,
   TextField,
-  useMediaQuery
-} from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+  useMediaQuery, styled, useTheme
+} from '@mui/material'
 import { 
   MenuRounded as MenuIcon,
   Search as SearchIcon,
   Clear as ClearIcon,
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 
 import LoginButton from '../../login/LoginButton'
 import MenuGroup from './MenuGroup';
 import ExpansionMenu from '../../ExpansionMenu'
 import Search from '../../Search/Search'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    paddingRight: theme.spacing(1),
-    [theme.breakpoints.up('smLandscape')]: {
-      paddingRight: theme.spacing(3)
-    }
+const HeaderRootSx = styled(Container)(({ theme }) => ({
+padding: theme.spacing(1, 0),
+}));
+
+const LanguageToggleSx = styled(Box)(({ theme }) => ({
+  textAlign: 'right',
+  backgroundImage: theme.gradients.lightBlue,
+  margin: theme.spacing(0, -3),
+  padding: theme.spacing(0.75, 3),
+  '& a': {
+    cursor: 'pointer',
+    fontSize: 16,
+    fontFamily: theme.typography.body1.fontFamily,
+    fontWeight: 'bold',
+    lineHeight: 'normal',
   },
-  appToolbarContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    minHeight: 68,
-    height: 68,
-    // marginTop: theme.spacing(2),
-    // marginBottom: theme.spacing(2),
-    
-    // [theme.breakpoints.up('smLandscape')]: {
-    //   marginTop: 0,
-    //   marginBottom: 0,
-    // }
-    // padding: 0
-    [theme.breakpoints.up('sm')]: {
-      minHeight: 76,
-      height: 76,
-    }
+}));
+
+const PublicNavDesktopSx = styled('nav')(({ theme }) => ({
+  display: 'flex',
+  position: 'relative',
+  margin: theme.spacing(0, 2),
+  minHeight: 76,
+  '& button': {
+    fontFamily: '"Open Sans", Montserrat, Helvetica, Arial, sans-serif',
   },
-  toolbarLogo: {
-    flexGrow: 1,
-    maxHeight: 32,
-    margin: 0,
-    
+  '& button:hover': {
+    backgroundColor: 'transparent',
+  },
+}));
+
+const ToolbarLogoSx = styled('figure')(({ theme }) => ({
+  flexGrow: 1,
+  maxHeight: 32,
+  margin: 0,
+  '& img': {
+    height: 32,
+    width: 'auto',
+    maxWidth: '100%',
+  },
+  [theme.breakpoints.up('sm')]: {
+    maxHeight: 40,
     '& img': {
-      height: 32,
-      width: 'auto',
-      maxWidth: '100%',
-    },
-    [theme.breakpoints.up('sm')]: {
-      maxHeight: 40,
-      '& img': {
-        height: 40,
-      }
-    }
-  },
-  headerLink: {
-    color: theme.palette.grey[800],
-    marginRight: theme.spacing(1),
-    
-    '&:hover': {
-      color: theme.palette.grey[900],
-      fontWeight: 600
-    }
-  },
-  publicNavDesktop: {
-    display: 'flex',
-    position: 'relative',
-    margin: theme.spacing(0,2),
-    minHeight: 76,
-    '& button': {
-      fontFamily: '"Open Sans", Montserrat, Helvetica, Arial, sans-serif',
-    },
-    '& button:hover': {
-      backgroundColor: 'transparent',
+      height: 40,
     },
   },
-  subNav: {
-    "& span": {
-      paddingLeft: theme.spacing(2),
-    }
-  },
-  menuIcon: {
-    "& svg": {
-      fontSize: "2rem"
-    }
-  },
-  closeMobileMenu: {
-    textAlign: 'right',
-    borderBottom: '2px solid #dbdada'
-  },
-  mobileLogin: {
-    display: 'flex',
-    flexDirection: 'column',
-    // backgroundColor: theme.palette.grey.xlight,
-    padding: theme.spacing(2,7),
-    boxShadow: "0px 5px 15px -5px rgba(0,0,0,0.2)"
-  },
-  mobileSearch: {
-    // backgroundColor: theme.palette.grey.xlight,
-    padding: theme.spacing(3,2),
-    textAlign: 'right',
-    // borderBottom: '2px solid #dbdada',
-    '& .MuiFormControl-root': {
-      width: '100%',
-    },
-    '& .MuiOutlinedInput-notchedOutline': {
-      borderColor: theme.palette.grey.medium,
-    },
-    '& button': {
-      margin: theme.spacing(2,0,0)
-    }
-  },
-  languageToggle: {
-    textAlign: "right",
-    backgroundImage: theme.gradients.lightBlue,
-    margin: theme.spacing(0, -1, 0, -3),
-    padding: theme.spacing(.75, 0),
-    '& a': {
-      cursor: "pointer",
-      fontSize: 12,
-      fontFamily: theme.typography.body1.fontFamily,
-      fontWeight: 'normal',
-      lineHeight: 'normal'
-    }
-  }
-}),{name: 'Header'})
+}));
 
 const Header = () => {
-  const classes = useStyles()
   const loc = window.location.pathname
   const [menuOpen, setMenuOpen] = useState(false)
   const [expanded, setExpanded] = useState(loc)
@@ -223,52 +155,68 @@ const Header = () => {
   }
 
   return (
-    <Container component="header" className={classes.root} id="appHeader">
-      <Box className={classes.appToolbarContainer}>
-        <figure className={classes.toolbarLogo}>
+    <HeaderRootSx component="header" id="appHeader">
+      <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+          minHeight: { xs: 68, sm: 76 },
+          height: { xs: 68, sm: 76 },
+          pr: { xs: 1, smLandscape: 3 },
+        }}>
+        <ToolbarLogoSx >
           <Link component={RouterLink} to='/' onClick={trackClick}>
             <img src={`${process.env.PUBLIC_URL}/assets/images/biobank-logo${i18n.languages[0] === 'es' ? '-es' : ''}.svg`} alt={t('logo.alt_text')} title={t('logo.title')} />
           </Link>
-        </figure>
+        </ToolbarLogoSx>
         {!isMobile && !loc.includes('account') && (
-          <nav className={classes.publicNavDesktop} id="mainNav">
+          <PublicNavDesktopSx id="mainNav">
             {/* TODO: loop through nav object and dynamically render menu items */}
             {/* TODO: routes need to be added to translations in order to perform loop logic - or generated from translation key */}
             <MenuGroup menuText={t('nav.about')} active={loc.includes('about')} id="about">
-              <a href="/about">{t('nav.about_subNav.about')}</a>
-              <a href="/about/eligibility">{t('nav.about_subNav.eligibility')}</a>
-              <a href="/about/studyprogress">{t('nav.about_subNav.studyprogress')}</a>
+              <RouterLink to="/about">{t('nav.about_subNav.about')}</RouterLink>
+              <RouterLink to="/about/eligibility">{t('nav.about_subNav.eligibility')}</RouterLink>
+              <RouterLink to="/about/studyprogress">{t('nav.about_subNav.studyprogress')}</RouterLink>
             </MenuGroup>
             <MenuGroup menuText={t('nav.expect')} active={loc.includes('expect')} id="expect">
-              <a href="/expect/consent">{t('nav.expect_subNav.consent')}</a>
-              <a href="/expect/donate">{t('nav.expect_subNav.donate')}</a>
-              <a href="/expect/testing">{t('nav.expect_subNav.testing')}</a>
+              <RouterLink to="/expect/consent">{t('nav.expect_subNav.consent')}</RouterLink>
+              <RouterLink to="/expect/donate">{t('nav.expect_subNav.donate')}</RouterLink>
+              <RouterLink to="/expect/testing">{t('nav.expect_subNav.testing')}</RouterLink>
             </MenuGroup>
             <MenuGroup menuText={t('nav.participation')} active={loc.includes('participation')} id="participation">
-              <a href="/participation/activate">{t('nav.participation_subNav.activate')}</a>
-              <a href="/participation/privacy">{t('nav.participation_subNav.privacy')}</a>
+              <RouterLink to="/participation/activate">{t('nav.participation_subNav.activate')}</RouterLink>
+              <RouterLink to="/participation/privacy">{t('nav.participation_subNav.privacy')}</RouterLink>
             </MenuGroup>
             <MenuGroup menuText={t('nav.research')} active={loc.includes('research')} id="research">
-              <a href="/research">{t('nav.research_subNav.0')}</a>
+              <RouterLink to="/research">{t('nav.research_subNav.0')}</RouterLink>
               {/* <a className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.0')}</a>
               <a className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.1')}</a>
               <a className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.2')}</a> */}
             </MenuGroup>
             <Search />
-          </nav>
+          </PublicNavDesktopSx>
         )}
 
-        {isMobile ? <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer} className={classes.menuIcon}><MenuIcon /></IconButton> : <LoginButton />}
+        {isMobile ? <IconButton
+          aria-label={t('aria.menu')}
+          onClick={toggleDrawer}
+          size="large"><MenuIcon /></IconButton> : <LoginButton />}
         {/* {isMobile && <IconButton aria-label={t('aria.menu')} onClick={toggleDrawer}><MenuIcon /></IconButton>} */}
         
       </Box>
       {isMobile && (
       <Drawer anchor="right" open={menuOpen} onClose={toggleDrawer}>
-        <Box className={classes.closeMobileMenu}>
-          <IconButton aria-label={t('button.close')} onClick={closeMenu} id="closeMobileMenu"><ClearIcon /></IconButton>
+        <Box sx={{ textAlign: 'right', borderBottom: '2px solid #dbdada' }}>
+          <IconButton
+            aria-label={t('button.close')}
+            onClick={closeMenu}
+            id="closeMobileMenu"
+            size="large"><ClearIcon /></IconButton>
         </Box>
         <nav id="mainNav--mobile">
-          <Box className={classes.mobileLogin}>
+          <Box sx={{
+              display: 'flex', flexDirection: 'column', p: 2, px: 7,
+              boxShadow: "0px 5px 15px -5px rgba(0,0,0,0.2)"
+            }}>
             <LoginButton />
           </Box>
           {/* TODO: loop through nav object and dynamically render menu items */}
@@ -280,10 +228,10 @@ const Header = () => {
               menuText={t('nav.about')}
               id="about"
             >
-              <a onClick={closeMenu} href="/about">{t('nav.about_subNav.about')}</a>
-              <a onClick={closeMenu} href="/about/eligibility">{t('nav.about_subNav.eligibility')}</a>
-              <a onClick={closeMenu} href="/about/news">{t('nav.about_subNav.news')}</a>
-              <a onClick={closeMenu} href="/about/studyprogress">{t('nav.about_subNav.studyprogress')}</a>
+              <RouterLink to="/about" onClick={closeMenu}>{t('nav.about_subNav.about')}</RouterLink>
+              <RouterLink to="/about/eligibility" onClick={closeMenu}>{t('nav.about_subNav.eligibility')}</RouterLink>
+              <RouterLink to="/about/news" onClick={closeMenu}>{t('nav.about_subNav.news')}</RouterLink>
+              <RouterLink to="/about/studyprogress" onClick={closeMenu}>{t('nav.about_subNav.studyprogress')}</RouterLink>
 
             </ExpansionMenu>
 
@@ -294,9 +242,9 @@ const Header = () => {
               menuText={t('nav.expect')}
               id="expect"
             >
-              <a onClick={closeMenu} href="/expect/consent">{t('nav.expect_subNav.consent')}</a>
-              <a onClick={closeMenu} href="/expect/donate">{t('nav.expect_subNav.donate')}</a>
-              <a onClick={closeMenu} href="/expect/testing">{t('nav.expect_subNav.testing')}</a>
+              <RouterLink to="/expect/consent" onClick={closeMenu}>{t('nav.expect_subNav.consent')}</RouterLink>
+              <RouterLink to="/expect/donate" onClick={closeMenu}>{t('nav.expect_subNav.donate')}</RouterLink>
+              <RouterLink to="/expect/testing" onClick={closeMenu}>{t('nav.expect_subNav.testing')}</RouterLink>
             </ExpansionMenu>
 
             <ExpansionMenu
@@ -306,8 +254,8 @@ const Header = () => {
               menuText={t('nav.participation')}
               id="participation"
             >
-              <a onClick={closeMenu} href="/participation/activate">{t('nav.participation_subNav.activate')}</a>
-              <a onClick={closeMenu} href="/participation/privacy">{t('nav.participation_subNav.privacy')}</a>
+              <RouterLink to="/participation/activate" onClick={closeMenu}>{t('nav.participation_subNav.activate')}</RouterLink>
+              <RouterLink to="/participation/privacy" onClick={closeMenu} >{t('nav.participation_subNav.privacy')}</RouterLink>
             </ExpansionMenu>
 
             <ExpansionMenu
@@ -317,13 +265,20 @@ const Header = () => {
               menuText={t('nav.research')}
               id="research"
             >
-              <a onClick={closeMenu} href="/research">{t('nav.research_subNav.0')}</a>
+              <RouterLink to="/research" onClick={closeMenu}>{t('nav.research_subNav.0')}</RouterLink>
               {/* <a onClick={closeMenu} className={classes.subNav} href="/research/blakely-improving-responses">{t('nav.research_subNav.0_subNav.0')}</a>
               <a onClick={closeMenu} className={classes.subNav} href="/research/kuo-interactions-environment">{t('nav.research_subNav.0_subNav.1')}</a>
               <a onClick={closeMenu} className={classes.subNav} href="/research/tyner-acute-myeloid">{t('nav.research_subNav.0_subNav.2')}</a> */}
             </ExpansionMenu>
 
-            <Box className={classes.mobileSearch} component="form" onSubmit={handleSearchSubmit}>
+            <Box sx={{
+                p: 3, pt: 3, textAlign: 'right',
+                '& .MuiFormControl-root': { width: '100%' },
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: theme.palette.grey.medium,
+                },
+                '& button': { mt: 2 }
+              }} component="form" onSubmit={handleSearchSubmit}>
               <TextField
                 placeholder={t('search.input_placeholder')}
                 id="mobileSearch"
@@ -344,12 +299,12 @@ const Header = () => {
       </Drawer>
       )}
       {/* Spanish language toggle */}
-      {!loc.includes('account') && <Box className={classes.languageToggle}>
+      {!loc.includes('account') && <LanguageToggleSx>
         <Button href="#" color="primary" onClick={toggleLang}>{t('links.language_toggle')}</Button>
-      </Box>
+      </LanguageToggleSx>
       }
-    </Container>
-  )
+    </HeaderRootSx>
+  );
 }
 
 export default Header

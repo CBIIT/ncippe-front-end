@@ -78,65 +78,65 @@ const NotFoundPage = pageWrapper(NotFound)
 const AppRoutes = () => {
   const location = useLocation()
   return (
-  <TransitionGroup className="transitionGroup" component={null} >
-    <CSSTransition 
-      key={location.key}
-      timeout={location.pathname.match(/\/account\//) ? 350 : 550}
-      classNames={location.pathname.match(/\/account\//) ? 'zoom' : 'fade'}>
-      <div className="transitionGroup">
-          <Routes location={location} >
-             {/* <Redirect from="/signout" to="/" noThrow /> */}
-          <Route path='/' element= {<HomePage />} />
-          <Route path='/about' element= { <AboutPage />} />
-          <Route path='/about/eligibility' element= { <EligibilityPage />} />
-         
-          <Route path='/about/studyprogress' element= { <StudyProgressPage />} />
-          { /* <ResearchPage path='/about/research' /> */}
-        
-          <Route path='/research'  element= { <ResearchPage />} />
-         
-          <Route path='/expect/consent' element={ <AboutConsentPage />} /> 
-          <Route path='/expect/donate' element={<DonatePage />} /> 
-          <Route path='/expect/testing' element={<TestingPage />} /> 
-          <Route path='/participation/activate'element={<ActivatePage />} />
-          <Route path='/participation/privacy' element= {<PrivacyPage />} />
-          <Route path='/website-privacy-security' element= {<PolicyPage />} />
-          <Route path='/search' element= {<SearchResultsPage  />} />
-          <Route path='/error'  element= {<ErrorPage />} />
-
-          <Route path='/mock-users' element= {<MockUsersPage />} />
-          <Route path='/signin' element= {<SignInCallbackPage />} />
-
-            
+    <TransitionGroup className="transitionGroup" component={null} >
+      <CSSTransition 
+        key={location.key}
+        timeout={location.pathname.match(/\/account\//) ? 350 : 550}
+        classNames={location.pathname.match(/\/account\//) ? 'zoom' : 'fade'}>
+        <div className="transitionGroup">
+            <Routes location={location} >
+               {/* <Redirect from="/signout" to="/" noThrow /> */}
+            <Route path='/' element= {<HomePage />} />
+            <Route path='/about' element= { <AboutPage />} />
+            <Route path='/about/eligibility' element= { <EligibilityPage />} />
            
-          {/* Private routes */}
-          <Route path="/account" element={<RequireAuth> <DashboardPage /> </RequireAuth> } />
-          <Route path="/account-mocha" element={<RequireAuth >  <DashboardMochaPage  />  </RequireAuth> } />
-          <Route path="/account/notifications" element={<RequireAuth >  <NotificationsPage  />  </RequireAuth> } />
-          <Route path="/account/consent" element={<RequireAuth >  <ConsentPage  />  </RequireAuth> } />
-          <Route path="/account/tests" element={<RequireAuth >  <TestResultsPage  />  </RequireAuth> } />
-          <Route path="/account/participant/:patientId" element={<RequireAuth >  <ParticipantPage  />  </RequireAuth> } />
-          <Route path="/account/participant/:patientId/participation" element={<RequireAuth >  <ParticipationPage />  </RequireAuth> } >
-            <Route index element={<ChangeParticipationPage /> } />
-            <Route path="leaveOptions" element={<LeaveOptionsPage />} />
-            <Route path="leaveQuestions" element={<LeaveQuestionsPage />} />
-            <Route path="closeAccount" element={<CloseAccountPage />} />
-          </Route>
-          <Route path="/account/participant/:patientId/profile" element={<RequireAuth >  <ProfilePage  />  </RequireAuth> } />
-          <Route path="/account/profile" element={<RequireAuth >  <ProfilePage  />  </RequireAuth> } />
-          <Route path="/account/profile/participation/*" element={<RequireAuth >  <ParticipationPage  />  </RequireAuth> } />
-          <Route path="/account/help" element={<RequireAuth >  <GetHelpPage  />  </RequireAuth> } />
-          <Route path="/account/resources" element={<RequireAuth >  <ResourcesPage  />  </RequireAuth> } />
-          <Route path="/account/sendMessage" element={<RequireAuth >  <SendMessagePage  />  </RequireAuth> } />
-          <Route path="/account/messageHistory" element={<RequireAuth >  <MessageHistoryPage  />  </RequireAuth> } />
+            <Route path='/about/studyprogress' element= { <StudyProgressPage />} />
+            { /* <ResearchPage path='/about/research' /> */}
+          
+            <Route path='/research'  element= { <ResearchPage />} />
+           
+            <Route path='/expect/consent' element={ <AboutConsentPage />} /> 
+            <Route path='/expect/donate' element={<DonatePage />} /> 
+            <Route path='/expect/testing' element={<TestingPage />} /> 
+            <Route path='/participation/activate'element={<ActivatePage />} />
+            <Route path='/participation/privacy' element= {<PrivacyPage />} />
+            <Route path='/website-privacy-security' element= {<PolicyPage />} />
+            <Route path='/search' element= {<SearchResultsPage  />} />
+            <Route path='/error'  element= {<ErrorPage />} />
 
-          <Route path="/signout" element={<Navigate to="/" replace />} />
-          <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-          </div>
-        </CSSTransition>
-      </TransitionGroup>
-    );
+            <Route path='/mock-users' element= {<MockUsersPage />} />
+            <Route path='/signin' element= {<SignInCallbackPage />} />
+
+              
+             
+            {/* Private routes */}
+            <Route path="/account" element={<RequireAuth> <DashboardPage /> </RequireAuth> } />
+            <Route path="/account-mocha" element={<RequireAuth >  <DashboardMochaPage  />  </RequireAuth> } />
+            <Route path="/account/notifications" element={<RequireAuth >  <NotificationsPage  />  </RequireAuth> } />
+            <Route path="/account/consent" element={<RequireAuth >  <ConsentPage  />  </RequireAuth> } />
+            <Route path="/account/tests" element={<RequireAuth >  <TestResultsPage  />  </RequireAuth> } />
+            <Route path="/account/participant/:patientId" element={<RequireAuth >  <ParticipantPage  />  </RequireAuth> } />
+            <Route path="/account/participant/:patientId/participation" element={<RequireAuth >  <ParticipationPage />  </RequireAuth> } >
+              <Route index element={<ChangeParticipationPage /> } />
+              <Route path="leaveOptions" element={<LeaveOptionsPage />} />
+              <Route path="leaveQuestions" element={<LeaveQuestionsPage />} />
+              <Route path="closeAccount" element={<CloseAccountPage />} />
+            </Route>
+            <Route path="/account/participant/:patientId/profile" element={<RequireAuth >  <ProfilePage  />  </RequireAuth> } />
+            <Route path="/account/profile" element={<RequireAuth >  <ProfilePage  />  </RequireAuth> } />
+            <Route path="/account/profile/participation/*" element={<RequireAuth >  <ParticipationPage  />  </RequireAuth> } />
+            <Route path="/account/help" element={<RequireAuth >  <GetHelpPage  />  </RequireAuth> } />
+            <Route path="/account/resources" element={<RequireAuth >  <ResourcesPage  />  </RequireAuth> } />
+            <Route path="/account/sendMessage" element={<RequireAuth >  <SendMessagePage  />  </RequireAuth> } />
+            <Route path="/account/messageHistory" element={<RequireAuth >  <MessageHistoryPage  />  </RequireAuth> } />
+
+            <Route path="/signout" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+            </div>
+          </CSSTransition>
+    </TransitionGroup>
+  );
   }
 
 export default AppRoutes

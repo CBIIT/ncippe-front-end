@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
-import { Box, Container, Grid, Typography, useMediaQuery } from '@material-ui/core'
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { Box, Container, Grid, Typography, useMediaQuery, useTheme } from '@mui/material'
 import PubSub from 'pubsub-js'
 
 import RenderContent from '../../components/utils/RenderContent'
@@ -10,54 +9,12 @@ import ArticleImage from '../../components/utils/ArticleImage'
 import FAQs from '../../components/FAQ_Group'
 import TabAppBar from './AppBar'
 
-const useStyles = makeStyles( theme => ({
-  textColumn: {
-    [theme.breakpoints.up('sm')]: {
-      paddingRight: theme.spacing(3)
-    }
-  },
-  gridItemImg: {
-    textAlign: 'center',
-    '& img': {
-      maxWidth: 600,
-      [theme.breakpoints.up('md')]: {
-        maxWidth: 380
-      }
-    }
-  },
-  bottomSpacer: {
-    marginBottom: theme.spacing(4),
-    [theme.breakpoints.up('sm')]: {
-      marginBottom: theme.spacing(5)
-    }
-  },
-  extraSpacing: {
-    '& h3': {
-      marginTop: theme.spacing(4),
-      [theme.breakpoints.up('sm')]: {
-        marginTop: theme.spacing(5)
-      }
-    }
-  },
-}),{name: 'DonatePage'})
-
-const BodyContent = () => {
-  const classes = useStyles()
-  const { t } = useTranslation('donate')
-  return (
-    <Typography component="div" className={classes.extraSpacing}>
-      <RenderContent children={t('body')} />
-    </Typography>
-  )
-}
-
 const Donate = () => {
-  const classes = useStyles()
   const { t, i18n } = useTranslation('donate')
   const faqs = i18n.getResourceBundle(i18n.languages[0],'donate').faqs
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('xs'))
-  const singleColumn = useMediaQuery(theme.breakpoints.down('sm'))
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const singleColumn = useMediaQuery(theme.breakpoints.down('md'))
 
   useEffect(() => {
     PubSub.publish('ANALYTICS', {
@@ -66,6 +23,15 @@ const Donate = () => {
       prop10: t('metaData.title')
     })
   },[t])
+
+  const h3Spacing = {
+    '& h3': {
+      marginTop: theme.spacing(4),
+      [theme.breakpoints.up('sm')]: {
+        marginTop: theme.spacing(5),
+      }
+    }
+  }
 
   return (
     <Box component="article">
@@ -82,27 +48,57 @@ const Donate = () => {
         <Typography variant="h2" component="h1">{t('pageTitle')}</Typography>
       </Container>
       <TabAppBar value={1} />
-
       <Container>
         <Grid container component="section">
-          <Grid item xs={12} md={6} lg={8} className={classes.textColumn}>
-            <Typography className={classes.bottomSpacer} variant={isMobile ? "body1" : "body2"}>
+          <Grid
+            sx={{ pr: { sm: 3 } }}
+            size={{
+              xs: 12,
+              md: 6,
+              lg: 8
+            }}>
+            <Typography  sx={{ mb: { xs: 4, sm: 5 } }} variant={isMobile ? "body1" : "body2"}>
               <RenderContent children={t('intro_text')} />
             </Typography>
-            {!singleColumn && <BodyContent />}
+            {!singleColumn && 
+            <Typography component="div"  sx={h3Spacing}>
+              <RenderContent children={t('body')} />
+             </Typography>}
           </Grid>
-          <Grid item xs={12} md={6} lg={4} className={classes.gridItemImg} component="aside">
+          <Grid
+            sx={{
+              textAlign: 'center',
+              '& img': {
+                maxWidth: { xs: 600, md: 380 },
+              },
+            }}
+            component="aside"
+            size={{
+              xs: 12,
+              md: 6,
+              lg: 4
+            }}>
             <ArticleImage src="doctor-and-patient-1.jpg" alt={t('alt_text.0')} />
           </Grid>
-          {singleColumn && <Grid item xs={12} md={6} lg={8} className={classes.textColumn}><BodyContent /></Grid>}
+          {singleColumn && 
+          <Grid
+      
+            size={{
+              xs: 12,
+              md: 6,
+              lg: 8
+            }}>
+             <Typography component="div"  sx={h3Spacing}>
+                <RenderContent children={t('body')} />
+              </Typography>
+              
+              </Grid>}
         </Grid>
       </Container>
-
       {/* Frequently Asked Questions */}
-      <FAQs title={t('faqs_title')} faqs={faqs} className={classes.faqs} />
-
+      <FAQs title={t('faqs_title')} faqs={faqs}  />
     </Box>
-  )
+  );
 }
 
 export default Donate

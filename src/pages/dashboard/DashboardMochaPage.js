@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box, Container, Typography } from '@material-ui/core'
+import { Box, Container, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import PubSub from 'pubsub-js'
