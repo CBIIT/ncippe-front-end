@@ -102,12 +102,12 @@ const stackedSx = theme => ({
       // It should be enough to create the desired 'un-indented' look for the selected item
       // and allow more padding for the indented items.
       // Let's assume you want indented items to be 32px in.
-      paddingLeft: '0px', // This is the base padding, which will be overridden for selected
+      paddingLeft: '32px', // This is the base padding, which will be overridden for selected
     },
     '& .MuiMenuItem-root.Mui-selected': { // Target the selected MenuItem
       // Reset padding to match the AccordionSummary content's initial padding
       
-      paddingLeft: '0px', // Align selected item with summary/header
+      paddingLeft: '32px', // Align selected item with summary/header
       backgroundColor: theme.palette.navy.dark,
       color: theme.palette.common.white,
       fontWeight: 600,
