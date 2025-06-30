@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Box, Paper} from '@mui/material'
-import ChangeParticipation from './ChangeParticipation'
-import LeaveOptions from './LeaveOptions'
-import LeaveQuestions from './LeaveQuestions'
-import CloseAccount from './CloseAccount'
+// import ChangeParticipation from './ChangeParticipation'
+// import LeaveOptions from './LeaveOptions'
+// import LeaveQuestions from './LeaveQuestions'
+// import CloseAccount from './CloseAccount'
 
 const Participation = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600) // TODO: add resize, orientation change event listener

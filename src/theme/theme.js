@@ -95,13 +95,12 @@ export const theme = createTheme(({
   },
   typography: {
     fontFamily: [
-       '"Montserrat"', // Primary font
-      '"Open Sans"', 
-     // Secondary or specific elements
-      'Roboto',       // Fallback if needed (though you might remove if not used)
+       'Montserrat', // Primary font
+      '"Open Sans"', // Secondary or specific elements
+      'sans-serif' ,   // Fallback if needed (though you might remove if not used)
       '"Helvetica Neue"',
       'Arial',
-      'sans-serif'
+     'Roboto',  
     ].join(','),
     h1: {
       fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',

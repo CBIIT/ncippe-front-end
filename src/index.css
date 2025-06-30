@@ -202,7 +202,7 @@ html {
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 100vw;
+  width: 100%;
   min-width: 320px;
   height: 100vh;
   overflow: auto;

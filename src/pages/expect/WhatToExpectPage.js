@@ -51,7 +51,7 @@ const WhatToExpectPage = () => {
       eVar53: `BioBank_SectionTabNav|${event.currentTarget.textContent}`,
     })
   }
-  console.log( " theme.zIndex.appBar value " + theme.zIndex.appBar)
+ 
   return (
     <Box component="article">
       <Container sx={{
@@ -67,7 +67,7 @@ const WhatToExpectPage = () => {
         },
       },
     }}>
-        <Typography variant="h2" component="h1">{t('about:landing_pageTitle')}</Typography>
+        <Typography variant="h2" component="h2">{t('about:landing_pageTitle')}</Typography>
       </Container>
       <Container sx={{ px:0, py:0  }}>
         <TabAppBar sx={{ backgroundColor: theme => theme.palette.primary.medium,  }} position="static" elevation={0}>

@@ -25,13 +25,7 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 root.render(
   <BrowserRouter>
-    <Suspense fallback={ 
-      <Box sx={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}>
-       <Loading />
-      </Box>
-      }>
       <App />
-    </Suspense>
   </BrowserRouter>  );
 
 

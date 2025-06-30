@@ -32,7 +32,7 @@ const ResearchPage = () => {
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/research`} />
       </Helmet>
       <Container className="pageHeader--gradient">
-        <Typography variant="h2" component="h1">
+        <Typography variant="h1" component="h1">
           <RenderContent children={t('pageTitle')} />
         </Typography>
       </Container>

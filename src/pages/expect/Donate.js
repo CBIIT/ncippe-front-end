@@ -45,7 +45,7 @@ const Donate = () => {
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect/donate`} />
       </Helmet>
       <Container className="pageHeader--gradient">
-        <Typography variant="h2" component="h1">{t('pageTitle')}</Typography>
+        <Typography variant="h2" component="h2">{t('pageTitle')}</Typography>
       </Container>
       <TabAppBar value={1} />
       <Container>

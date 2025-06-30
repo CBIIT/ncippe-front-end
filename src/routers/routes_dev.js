@@ -43,6 +43,7 @@ import ChangeParticipation from '../components/Participation/ChangeParticipation
 import LeaveOptions from '../components/Participation/LeaveOptions'
 import LeaveQuestions from '../components/Participation/LeaveQuestions'
 import CloseAccount from '../components/Participation/CloseAccount'
+import Loading from '../components/Loading'
 
 
 // imports for time
@@ -101,11 +102,17 @@ const AppRoutes = () => {
   return (
     <TransitionGroup className="transitionGroup" component={null}>
       <CSSTransition 
-        key={location.key}
+        key={location.pathname}
         timeout={location.pathname.match(/\/account\//) ? 350 : 550}
-        classNames={location.pathname.match(/\/account\//) ? 'zoom' : 'fade'} >
+        classNames={location.pathname.match(/\/account\//) ? 'zoom' : 'fade'}
+        unmountOnExit >
         <div className="transitionGroup">
-        <Routes location={location}>
+           <React.Suspense fallback={ 
+                <div style={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}>
+                 <Loading />
+                </div>
+                }>
+        <Routes location={location} key={location.pathname}>
           {/* <Redirect from="/signout" to="/" noThrow /> */}
           <Route path='/' element= {<HomePage />} />
           <Route path='/about' element= { <AboutPage />} />
@@ -143,18 +150,19 @@ const AppRoutes = () => {
               <Route path="leaveOptions" element={<LeaveOptionsPage />} />
               <Route path="leaveQuestions" element={<LeaveQuestionsPage />} />
               <Route path="closeAccount" element={<CloseAccountPage />} />
-          </Route>
-          <Route path="participant/:patientId/profile" element={<ProfilePage  />  } />
-          <Route path="profile" element={ <ProfilePage  />  } />
-          <Route path="profile/participation/*" element={ <ParticipationPage  />   } />
-          <Route path="help" element={<GetHelpPage  />  } />
-          <Route path="resources" element={ <ResourcesPage  /> } />
-          <Route path="sendMessage" element={  <SendMessagePage  />  } />
-          <Route path="messageHistory" element={  <MessageHistoryPage  />  } />
+            </Route>
+            <Route path="participant/:patientId/profile" element={<ProfilePage  />  } />
+            <Route path="profile" element={ <ProfilePage  />  } />
+            <Route path="profile/participation/*" element={ <ParticipationPage  />   } />
+            <Route path="help" element={<GetHelpPage  />  } />
+            <Route path="resources" element={ <ResourcesPage  /> } />
+            <Route path="sendMessage" element={  <SendMessagePage  />  } />
+            <Route path="messageHistory" element={  <MessageHistoryPage  />  } />
         </Route>
         <Route path="/signout" element={<Navigate to="/" replace />} />
         <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        </React.Suspense>
         </div>
         </CSSTransition>
     </TransitionGroup>

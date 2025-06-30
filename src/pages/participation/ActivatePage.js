@@ -52,7 +52,7 @@ const ActivatePage = () => {
   const faqs = i18n.getResourceBundle(i18n.languages[0],'activate').faqs
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-console.log('faqs',faqs)
+
   useEffect(() => {
     PubSub.publish('ANALYTICS', {
       event:'pageview',
@@ -83,7 +83,7 @@ console.log('faqs',faqs)
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/participation/activate`} />
       </Helmet>
       <Container className="pageHeader--gradient">
-        <Typography variant="h2" component="h1">
+        <Typography variant="h2" component="h2">
           <RenderContent children={t('pageTitle')} />
         </Typography>
       </Container>

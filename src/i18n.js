@@ -48,7 +48,7 @@ i18n
     //   useSuspense: true
     // },
     // lng: 'en',
-    whitelist: ['en','es'],
+    supportedLngs: ['en','es'],
     load: "languageOnly", // https://github.com/i18next/i18next/issues/964
     fallbackLng: 'en',
     debug: false,

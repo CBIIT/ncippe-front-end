@@ -9,8 +9,6 @@ import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 import PubSub from 'pubsub-js'
 
-import ConditionalWrapper from '../utils/ConditionalWrapper'
-
 const FileListItem = ({ file, noBadge, eventName = 'VIEW_DOCUMENT_ITEM' }) => {
   const {fileName, dateUploaded, fileGUID, viewedByUser = false} = file
   const { t } = useTranslation('a_common')
@@ -71,7 +69,7 @@ const FileListItem = ({ file, noBadge, eventName = 'VIEW_DOCUMENT_ITEM' }) => {
             [theme => theme.breakpoints.down('sm')]: {
               flexDirection: 'column',
               alignItems: 'flex-start',
-              '& > :not(:first-child)': {
+              '& > :not(:first-of-type)': {
                 mt: 1,
               },
             },

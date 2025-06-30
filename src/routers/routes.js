@@ -4,6 +4,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import pageWrapper from '../pages/pageWrapper'
 import RequireAuth from './RequireAuth'
 import LoginConsent from '../components/login/LoginConsent';
+import Loading from '../components/Loading'
 
 
 // imports for public pages
@@ -83,19 +84,29 @@ const PrivacyPage = pageWrapper(Privacy)
 const SearchResultsPage = pageWrapper(SearchResults)
 const ErrorPage = pageWrapper(Errors)
 const PolicyPage = pageWrapper(Policy)
+const ChangeParticipationPage = pageWrapper(ChangeParticipation)
+const LeaveOptionsPage = pageWrapper(LeaveOptions)
+const LeaveQuestionsPage = pageWrapper(LeaveQuestions)
+const CloseAccountPage = pageWrapper(CloseAccount)
 const NotFoundPage = pageWrapper(NotFound)
 const AppRoutes = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const location = useLocation();
   return (
+     
     <TransitionGroup className="transitionGroup" component={null}>
       <CSSTransition 
-        key={location.key}
+        key={location.pathname}
         timeout={location.pathname.match(/\/account\//) ? 350 : 550}
         classNames={location.pathname.match(/\/account\//) ? 'zoom' : 'fade'}
-      >
-        <div className="transitionGroup" >
-          <Routes location={location} primary={false}>
+       unmountOnExit >
+        <div className="transitionGroup">
+          <React.Suspense fallback={ 
+              <div style={{display:'flex', justifyContent:'center', width:'100vw', height:'50vh'}}>
+                 <Loading />
+              </div>
+        }>
+          <Routes location={location} key={location.pathname}>
           {/* <Redirect from="/signout" to="/" noThrow /> */}
             <Route path='/' element= {<HomePage />} />
             <Route path='/about' element= { <AboutPage />} />
@@ -122,7 +133,12 @@ const AppRoutes = () => {
               <Route path="consent" element={ <ConsentPage />  } />
               <Route path="tests" element={ <TestResultsPage />  } />
               <Route path="participant/:patientId" element={ <ParticipantPage />  } />
-              <Route path="participant/:patientId/participation/*" element={ <ParticipationPage />  } />
+              <Route path="participant/:patientId/participation/*" element={ <ParticipationPage />  } >
+                <Route index element={<ChangeParticipationPage /> } />
+                <Route path="leaveOptions" element={<LeaveOptionsPage />} />
+                <Route path="leaveQuestions" element={<LeaveQuestionsPage />} />
+                <Route path="closeAccount" element={<CloseAccountPage />} />
+              </Route>
               <Route path="participant/:patientId/profile" element={ <ProfilePage />  } />
               <Route path="profile" element={ <ProfilePage />  } />
               <Route path="profile/participation/*" element={ <ParticipationPage />  } />
@@ -135,9 +151,11 @@ const AppRoutes = () => {
         <Route path="/signout" element={<Navigate to="/" replace />} />
         <Route path="*" element={<NotFoundPage />} />
         </Routes>
+       </React.Suspense>
         </div>
       </CSSTransition>
     </TransitionGroup>
+   
   );
   }
 

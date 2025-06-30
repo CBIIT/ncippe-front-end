@@ -55,7 +55,7 @@ const NewsPage = () => {
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/news`} />
       </Helmet>
       <Container className="pageHeader--gradient">
-        <Typography variant="h2" component="h1">
+        <Typography variant="h2" component="h2">
           <RenderContent children={t('pageTitle')} />
         </Typography>
       </Container>

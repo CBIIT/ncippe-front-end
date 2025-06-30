@@ -88,7 +88,7 @@ const textarea = <FormControl component="fieldset" style={{width:'100%'}}>
   <TextField
     label="Reason for leaving"
     multiline
-    rows="6"
+    rows={6}
     margin="normal"
     variant="outlined"
     helperText="1000 character limit"

@@ -20,8 +20,7 @@ const formDataDefaults = {
   errorMessage: ''
 }
 
-const UploadConcentDialog = (props) => {
-  const {open, setParentState, patientId} = props
+const UploadConcentDialog = ({open, setParentState, patientId}) => {
   const [loginContext] = useContext(LoginContext)
   const [isOpen, setIsOpen] = useState(false)
   const [formData, setFormData] = useState(formDataDefaults)
@@ -161,7 +160,9 @@ const UploadConcentDialog = (props) => {
       open={isOpen}
       onClose={handleClose}
       aria-labelledby="responsive-dialog-title">
-      <DialogTitle id="responsive-dialog-title"><Typography variant="h3" component="h3">{t('title')}</Typography></DialogTitle>
+      <DialogTitle id="responsive-dialog-title">
+        <Typography variant="h3" component="h3">{t('title')}</Typography>
+        </DialogTitle>
       <DialogContent>
       {activeStep === 0 && (
         <>

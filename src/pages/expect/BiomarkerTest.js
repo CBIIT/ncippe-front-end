@@ -61,7 +61,7 @@ const BiomarkerTest = () => {
         <meta property="og:url" content={`${process.env.REACT_APP_PUBLIC_URL}/expect/testing`} />
       </Helmet>
       <Container className="pageHeader--gradient">
-        <Typography variant="h2" component="h1">{t('pageTitle')}</Typography>
+        <Typography variant="h2" component="h2">{t('pageTitle')}</Typography>
       </Container>
       <TabAppBar value={2} />
       <Container>

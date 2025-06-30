@@ -51,7 +51,7 @@ const FAQs = (props) => {
           alignItems: { sm: 'center' },
           mb: 2,
         }}>
-        <Typography sx={{ flexGrow: 1 }} variant="h2" component="h3">{title}</Typography>
+        <Typography sx={{ flexGrow: 1 }} variant="h2" component="h2">{title}</Typography>
         <Button  sx={{
             minWidth: 148,
             mt: { xs: 1, sm: 0 },

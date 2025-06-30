@@ -13,8 +13,9 @@ import InputGroupError from '../inputs/InputGroupError'
 import Status from '../Status'
 import RenderContent from '../utils/RenderContent'
 
-const LeaveQuestions = (props) => {
-  const {location: {state: {user}},cancel,isMobile} = props
+const LeaveQuestions = ({location, cancel,isMobile} ) => {
+  
+  const user = location?.state?.user
 
   const { t } = useTranslation(['a_changeParticipation','a_common'])
   const [loginContext, dispatch] = useContext(LoginContext)
@@ -88,6 +89,8 @@ const LeaveQuestions = (props) => {
       })
       // open modal for final confirmation
       setIsModalOpen(true)
+    }else{
+      return
     }
   }
 
@@ -184,7 +187,8 @@ const LeaveQuestions = (props) => {
   }
 
   return (
-    <Box>
+    <Box sx={{ px: 1,py:2, width:'100%', maxWidth:720, mx:'auto' }}>
+    
       <Typography sx={{ mb: 2 }} variant={isMobile ? "h2" : "h1"} component="h1">{t('leave.1.pageTitle')}</Typography>
       {user ? 
       <>
@@ -195,16 +199,33 @@ const LeaveQuestions = (props) => {
       <Typography sx={{ mb: 2 }}>{t('leave.1.description.participant')}</Typography>
       }
       
-      <Typography id="q1-text" variant={isMobile ? "h4" : "h3"} gutterBottom>{ user ? 
+      <Typography id="q1-text" variant={isMobile ? "h4" : "h3"} gutterBottom>
+        { user ? 
         t('leave.1.form.questions.0.question.admin'):t('leave.1.form.questions.0.question.participant')
       }</Typography>
-      <Typography color="text.secondary" gutterBottom>{ user ? 
+      <Typography color="text.secondary" gutterBottom>
+        { user ? 
         t('leave.1.form.questions.0.helper_text.admin'):t('leave.1.form.questions.0.helper_text.participant')
       }</Typography>
       <FormControl component="fieldset" fullWidth margin='normal' >
         <InputGroupError error={q1Error} errorMessage={t('leave.1.form.error')}>
           <ToggleButtonGroup
-            id="q1" sx={{ mt: 1}}
+            id="q1"  sx={{
+                pt: 1,
+                '& .MuiToggleButton-root': {
+                  color: 'primary.main',
+                  borderColor: 'primary.main',
+                  backgroundColor: 'white',
+                  px: 3,
+                },
+                '& .Mui-selected': {
+                  color: 'white',
+                  backgroundColor: 'primary.main',
+                  '&:hover': {
+                    backgroundColor: 'primary.main',
+                  },
+                },
+              }}
             value={questionData.q1}
             exclusive
             onChange={changeQuestion}
@@ -224,7 +245,22 @@ const LeaveQuestions = (props) => {
       <FormControl component="fieldset" fullWidth margin='normal' >
         <InputGroupError error={q2Error} errorMessage={t('leave.1.form.error')}>
           <ToggleButtonGroup
-            id="q2" sx={{ mt: 1}}
+            id="q2"  sx={{
+                pt: 1,
+                '& .MuiToggleButton-root': {
+                  color: 'primary.main',
+                  borderColor: 'primary.main',
+                  backgroundColor: 'white',
+                  px: 3,
+                },
+                '& .Mui-selected': {
+                  color: 'white',
+                  backgroundColor: 'primary.main',
+                  '&:hover': {
+                    backgroundColor: 'primary.main',
+                  },
+                },
+              }}
             value={questionData.q2}
             exclusive
             onChange={changeQuestion}
@@ -239,15 +275,31 @@ const LeaveQuestions = (props) => {
         t('leave.1.form.questions.2.question.admin'):t('leave.1.form.questions.2.question.participant')
       }</Typography>
       <Typography color="text.secondary" gutterBottom >{user ? 
-        t('leave.1.form.questions.1.helper_text.admin'):t('leave.1.form.questions.1.helper_text.participant')
+        t('leave.1.form.questions.2.helper_text.admin'):t('leave.1.form.questions.2.helper_text.participant')
       }</Typography>
       <FormControl component="fieldset" fullWidth margin='normal'>
         <InputGroupError error={q3Error} errorMessage={t('leave.1.form.error')}>
           <ToggleButtonGroup
-            id="q3" sx={{ mt: 1}}
+            id="q3"
             value={questionData.q3}
             exclusive
             onChange={changeQuestion}
+             sx={{
+                pt: 1,
+                '& .MuiToggleButton-root': {
+                  color: 'primary.main',
+                  borderColor: 'primary.main',
+                  backgroundColor: 'white',
+                  px: 3,
+                },
+                '& .Mui-selected': {
+                  color: 'white',
+                  backgroundColor: 'primary.main',
+                  '&:hover': {
+                    backgroundColor: 'primary.main',
+                  },
+                },
+              }}
           >
             <ToggleButton value="Yes">{t('a_common:buttons.yes')}</ToggleButton>
             <ToggleButton value="No">{t('a_common:buttons.no')}</ToggleButton>
@@ -266,7 +318,7 @@ const LeaveQuestions = (props) => {
           id="q4"
           label={t('leave.1.form.questions.3.textfield.label')}
           multiline
-          rows="6"
+          rows={6}
           margin="normal"
           variant="outlined"
           helperText={t('leave.1.form.questions.3.textfield.helper_text')}
@@ -276,8 +328,8 @@ const LeaveQuestions = (props) => {
       </FormControl>
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, mb: 5 }} >
-        <Button sx={{ mr: 1 }} variant="contained" color="primary" onClick={handleNextStep}>{t('leave.1.submit')}</Button>
-        <Button sx={{ mb: 1 }} variant="text" color="primary" onClick={cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
+        <Button  sx={{ backgroundColor: 'error.main', color: 'white', '&:hover': { backgroundColor: 'error.dark' } }} variant="contained" onClick={handleNextStep}>{t('leave.1.submit')}</Button>
+        <Button  sx={{ alignSelf: 'flex-end' }} variant="text" color="primary" onClick={cancel}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
       </Box>
 
       <Dialog
@@ -299,11 +351,14 @@ const LeaveQuestions = (props) => {
 
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSubmit} variant="contained">{t('leave.2.submit')}</Button>
+          <Button onClick={handleSubmit} variant="contained" 
+          sx={{ backgroundColor: 'error.main', color: 'white', '&:hover': { backgroundColor: 'error.dark' } }}>
+            {t('leave.2.submit')}</Button>
           <Button variant="text" color="primary" onClick={handleClose}><ClearIcon />{t('a_common:buttons.cancel')}</Button>
         </DialogActions>
       </Dialog>
     </Box>
+ 
   )
 }
 
