@@ -203,7 +203,7 @@ const MenuGroup = ( { index = (Math.floor(Math.random() * 1000) + 1), menuText, 
                         console.warn('MenuGroup child missing href/to:', child);
                         return null;
                       }
-                    console.log("MenuGroup clicked:", href);
+                    //console.log("MenuGroup clicked:", href);
                     if (React.isValidElement(child) && typeof href === 'string') {
                     return (
                     
