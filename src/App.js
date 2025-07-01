@@ -131,7 +131,12 @@ export default track({
     if(data.event === 'pageview') {
       // console.log("data", data)
       const pageName = `msbiobank.c.gov${window.location.pathname}` // needed for homepage
-      local_s.getPercentPageViewed(pageName,false,".siteWrapper,.zoom-enter-done")
+      setTimeout(() => {
+        const target = document.querySelector(".siteWrapper") || document.querySelector(".zoom-enter-done")
+        if (target) {
+          local_s.getPercentPageViewed(pageName,false,".siteWrapper,.zoom-enter-done")
+        }
+      }, 0) // wait for the page to load before capturing percent page view
 
       // for capturing percent page view on dashboard popups - not currently in scope
       // let targetElement = ".siteWrapper";
