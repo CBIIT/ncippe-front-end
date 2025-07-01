@@ -125,8 +125,7 @@ const AppRoutes = () => {
             <Route path='/website-privacy-security' element= {<PolicyPage />} />
             <Route path='/search' element= {<SearchResultsPage  />} />
             <Route path='/error'  element= {<ErrorPage />} />
-            <Route path='/signin' element= {<SignInCallbackPage />} />
-
+           
           {/* Private routes */}
            <Route path="/account-mocha" element={<RequireAuth >  <DashboardMochaPage  />  </RequireAuth> } />
 
