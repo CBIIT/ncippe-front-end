@@ -21,6 +21,8 @@ const isLocalhost = Boolean(
 );
 
 export function register(config) {
+   console.table(Object.entries(process.env).filter(([key]) => key.startsWith('REACT_APP_')));
+
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
