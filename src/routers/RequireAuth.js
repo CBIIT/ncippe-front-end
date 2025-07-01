@@ -19,8 +19,9 @@ const RequireAuth = ({ children }) => {
     const fetchUser = async () => {
       console.log('[RequireAuth] Fetching user...')
       try {
-        const api = await getAPI
-        const params = location.state?.uuid ? { uuid: location.state.uuid } : null
+        const api = await getAPI();
+        const params = location.state?.uuid ? { uuid: location.state.uuid } : null;
+        console.log('[RequireAuth] Params for loginUser:', params);
         const userData = await api.loginUser(params)
         if (userData && !(userData instanceof Error)) {
           console.log('[RequireAuth] User data loaded:', userData)
