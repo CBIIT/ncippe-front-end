@@ -204,7 +204,8 @@ html {
   position: relative;
   width: 100%;
   min-width: 320px;
-  height: 100vh;
+  min-height: 100vh;
+  overflow-x: hidden;
   overflow: auto;
 }
 #main {
@@ -240,9 +241,11 @@ html {
   position: fixed;
   top: 0;
   right: 0;
+  bottom: 0;
   left: 0;
-  height: 100vh;
-  overflow: auto;
+  height: 100%;
+  overflow-y: auto;
+  --webkit-overflow-scrolling: touch;
 }
 .zoom-enter-done {
   position: relative;
@@ -253,11 +256,12 @@ html {
   position: fixed;
   top: 0;
   right: 0;
+  bottom: 0;
   left: 0;
-  height: 100vh;
   animation-name: fadeOutDown;
   animation-duration: 300ms;
-  animation-fill-mode: both
+  animation-fill-mode: both;
+  pointer-events: none;
 }
 
 .fade-enter-active {
