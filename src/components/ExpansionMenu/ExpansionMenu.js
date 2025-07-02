@@ -148,7 +148,6 @@ const ExpansionMenu = ({
   const ExpandIcon = variant !== 'stacked' ? ExpandMore : AddRounded
   const CollapseIcon = variant !== 'stacked' ? ExpandMore : RemoveRounded
   const loc = location.pathname
-   console.log('current loc:', loc);
 
   useEffect(() => {
     setIsExpanded(expanded)
@@ -195,10 +194,9 @@ const ExpansionMenu = ({
         data-panelgroup={menuText}>
           {
             React.Children.map(children, (child) => {
-              console.log('[ExpansionMenu] Rendering child:', child);
+              
               if (!React.isValidElement(child)) return null; 
               const href = child.props.to || child.props.href;
-              if(!href) console.log('[ExpansionMenu] Child href:', href);
 
               if(React.isValidElement(child) && href) {
                  const isSelected = location.pathname === href;
