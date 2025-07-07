@@ -51,7 +51,7 @@ import 'moment/locale/es'
 moment.locale('en')
 
 const SearchResults = lazy(() => import('../pages/SearchResultsPage'))
-
+const SignInCallback = lazy(() => import('../pages/dashboard/SignInCallback'));
 const Article = lazy(() => import('../pages/research/ArticlePage'));
 const Dashboard = lazy(() => import('../pages/dashboard/DashboardPage'));
 const DashboardMocha = lazy(() => import('../pages/dashboard/DashboardMochaPage'));
@@ -89,6 +89,7 @@ const LeaveOptionsPage = pageWrapper(LeaveOptions)
 const LeaveQuestionsPage = pageWrapper(LeaveQuestions)
 const CloseAccountPage = pageWrapper(CloseAccount)
 const NotFoundPage = pageWrapper(NotFound)
+const SignInCallbackPage = pageWrapper(SignInCallback)
 const AppRoutes = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const location = useLocation();
@@ -125,6 +126,7 @@ const AppRoutes = () => {
             <Route path='/website-privacy-security' element= {<PolicyPage />} />
             <Route path='/search' element= {<SearchResultsPage  />} />
             <Route path='/error'  element= {<ErrorPage />} />
+            <Route path='/signin' element= {<SignInCallbackPage />} />
            
           {/* Private routes */}
            <Route path="/account-mocha" element={<RequireAuth >  <DashboardMochaPage  />  </RequireAuth> } />

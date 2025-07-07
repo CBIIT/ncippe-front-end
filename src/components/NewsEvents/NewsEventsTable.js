@@ -44,13 +44,12 @@ const NewsEventsTable = (props) => {
                 }} data-index={i}>
                   <TableCell sx={{ width: 170 }} >{moment(item.publishedDate).format('MMMM YYYY')}</TableCell>
                   <TableCell>
-                    <Typography component="a"
-                      href={item.link}
+                    <a href={item.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       sx={{ textDecoration: 'none', color: 'primary.main', fontWeight: 500 }}
                     > 
-                  {item.title} </Typography>
+                  {item.title} </a>
                   </TableCell>
                 </TableRow>
               ))}
