@@ -28,8 +28,8 @@ const ProfilePage = () => {
     firstName, 
     lastName, 
     dateCreated, 
-    isActiveBiobankParticipant, 
-    dateDeactivated, 
+    isActiveBiobankParticipant = 1, 
+    dateDeactivated = null, 
     questionAnswers, 
     crc, 
     providers,
@@ -59,7 +59,7 @@ const ProfilePage = () => {
       </Helmet>
       <Breadcrumbs pageName="Profile" link={location.state?.forceNavigation} />
       <Container className="mainContainer">
-           <Box
+          <Box
           sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' },mb: 2, }} >
           <Box
             sx={{ display: 'flex',alignItems: 'flex-start',flexGrow: 1,
