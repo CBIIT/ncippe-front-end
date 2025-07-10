@@ -1,11 +1,13 @@
-import React,{ useEffect, useRef, useState } from 'react'
+import React,{ useEffect, useRef, useState, useContext } from 'react'
 import { Container, Button, Paper, Typography, Box, useMediaQuery } from '@mui/material'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 import { useNavigate } from 'react-router-dom'
 import { useTheme } from '@mui/material/styles'
+import { AuthContext } from '../login/AuthContext'
 
 const LoginConsent = () => {
   const navigate = useNavigate()
+  const authContext = useContext(AuthContext)
   const scrollBoxRef = useRef(null)
   const [showScrollHint, setShowScrollHint] = useState(false)
   const theme = useTheme()
@@ -29,6 +31,8 @@ const LoginConsent = () => {
   const handleContinue = () => {
     // Redirect to actual login provider
     window.location.assign(`${process.env.REACT_APP_LOGIN_LINK}?date=${Date.now()}`)
+  //  console.log('Redirecting to login provider...')
+  //  authContext.signinRedirect()
   }
 
   const handleCancel = () => {
@@ -79,12 +83,12 @@ const LoginConsent = () => {
 
         <Box sx={{ flex:1 , overflowY: 'auto' ,  position: 'relative',  paddingRight: '0.5rem', }}
          ref={scrollBoxRef} >
-        <Box sx={{ fontSize: isSmallScreen ? '0.65rem': '0.8rem', lineHeight: isSmallScreen ? '05':'0.8', marginBottom: '2rem' }}>
+        <Box sx={{ fontSize: isSmallScreen ? '0.65rem': '0.8rem', lineHeight: isSmallScreen ? '0.5':'0.8', marginBottom: '2rem' }}>
           <Typography variant="subtitle2" >
             This warning banner provides privacy and security notices consistent with applicable federal laws,
             directives, and other federal guidance for accessing this Government system, which includes:
           </Typography>
-          <ul sx={{ paddingLeft: '1.5rem', paddingBottom: '0.9rem' }}>
+          <Box component="ul" sx={{ paddingLeft: '1.5rem', paddingBottom: '0.9rem' }}>
             <li>
               <Typography variant="subtitle2">(1) This computer network,</Typography>
             </li>
@@ -94,7 +98,7 @@ const LoginConsent = () => {
             <li>
               <Typography variant="subtitle2">(3) All devices and storage media attached to this network or to a computer on this network.</Typography>
             </li>
-          </ul>
+          </Box>
 
           <Typography variant="subtitle2" >
             This system is provided for Government-authorized use only.
@@ -107,14 +111,14 @@ const LoginConsent = () => {
           <Typography variant="subtitle2" >
           By using this system, you understand and consent to the following:
           </Typography>
-           <ul sx={{ paddingLeft: '1.5rem' }}>
+           <Box component="ul" sx={{ paddingLeft: '1.5rem' }}>
             <li>
               <Typography variant="subtitle2">The Government may monitor, record, and audit your system usage, including usage of personal devices and email systems for official duties or to conduct HHS business. Therefore, you have no reasonable expectation of privacy regarding any communication or data transiting or stored on this system. At any time, and for any lawful Government purpose, the government may monitor, intercept, and search and seize any communication or data transiting or stored on this system.</Typography>
             </li>
             <li>
               <Typography variant="subtitle2" sx={{ paddingTop: '0.9rem' }}>Any communication or data transiting or stored on this system may be disclosed or used for any lawful Government purpose. </Typography>
             </li>
-          </ul>
+          </Box>
         </Box>
         {showScrollHint && (
            <Box

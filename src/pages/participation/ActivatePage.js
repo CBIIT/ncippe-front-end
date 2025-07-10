@@ -177,8 +177,8 @@ const ActivatePage = () => {
             <Step active={true}>
               <StepLabel>{t('sections.1.stepper.2.label')}</StepLabel>
               <StepContent>{t('sections.1.stepper.2.description')}
-                <ul>
-                  <li>
+                <Box component="ul" sx={{ pl: 2, mt: 1, '& li': { listStyle: 'none', mb: 2 } }}>
+                  <Box component="li">
                   <CardContentBox>  
                     <StyledCardIcon>
                     <img src={`${process.env.PUBLIC_URL}/assets/icons/phone.svg`} alt={t('sections.1.security_options.0.alt_text')} aria-hidden="true" />
@@ -190,8 +190,8 @@ const ActivatePage = () => {
                       </div>
                     </StyledCardText>
                   </CardContentBox>
-                  </li>
-                  <li>
+                  </Box>
+                  <Box component="li">
                   <CardContentBox>
                     <StyledCardIcon>
                     <img src={`${process.env.PUBLIC_URL}/assets/icons/authentification-application.svg`} alt={t('sections.1.security_options.1.alt_text')} aria-hidden="true" />
@@ -203,8 +203,8 @@ const ActivatePage = () => {
                       </div>
                     </StyledCardText>
                   </CardContentBox>
-                  </li>
-                  <li>
+                  </Box>
+                  <Box component="li">
                   <CardContentBox>
                     <StyledCardIcon>
                     <img src={`${process.env.PUBLIC_URL}/assets/icons/security-key.svg`} alt={t('sections.1.security_options.2.alt_text')} aria-hidden="true" />
@@ -216,8 +216,8 @@ const ActivatePage = () => {
                       </div>
                     </StyledCardText>
                   </CardContentBox>
-                  </li>
-                  <li>
+                  </Box>
+                  <Box component="li">
                   <CardContentBox>
                     <StyledCardIcon>
                     <img src={`${process.env.PUBLIC_URL}/assets/icons/backup-codes.svg`} alt={t('sections.1.security_options.3.alt_text')} aria-hidden="true" />
@@ -229,8 +229,8 @@ const ActivatePage = () => {
                       </div>
                     </StyledCardText>
                   </CardContentBox>
-                  </li>
-                </ul>
+                  </Box>
+                </Box>
               </StepContent>
             </Step>
             <Step active={true}>
