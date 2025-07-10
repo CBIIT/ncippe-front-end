@@ -54,28 +54,22 @@ const HomePage = () => {
   const [refreshAlerts, setRefreshAlerts] = useState(false)
   const navigate = useNavigate()
   const heroSx = theme => ({
-    backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/mobile/hero-image-mobile.jpg), ${theme.gradients.primaryDiagonal}`,
+    backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/mobile/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'top right',
     backgroundSize: 'auto 100%',
     display: 'flex',
-    height: {
-      xs: '400px',
-      sm: '500px',
-      md: '700px',
-    },
-    alignItems: {
-      sm: 'center',
-    },
+    height: { xs: '400px', sm: '500px', md: '700px' },
+    alignItems: { sm: 'center', },
     '@media (min-resolution: 192dpi)': {
-      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/mobileHD/hero-image-mobile.jpg), ${theme.gradients.primaryDiagonal}`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/mobileHD/hero-image-mobile.${extension}), ${theme.gradients.primaryDiagonal}`,
     },
     [theme.breakpoints.up('md')]: {
       height: '700px',
-      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/desktop/hero-image-desktop.jpg), ${theme.gradients.primaryDiagonal}`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/desktop/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`,
     },
     [`@media (min-width: ${theme.breakpoints.values.md}px) and (min-resolution: 192dpi)`]: {
-      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/desktopHD/hero-image-desktop.jpg), ${theme.gradients.primaryDiagonal}`,
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/hero/desktopHD/hero-image-desktop.${extension}), ${theme.gradients.primaryDiagonal}`,
     },
   });
 
@@ -213,8 +207,12 @@ const HomePage = () => {
         </Container>
       )
       }
+       {/* Hero  Section */}
       <Container sx={ heroSx(theme) } >      
-        <Box sx={{  fontFamily: 'Montserrat, Helvetica, Arial, sans-serif' }} component="section">
+        <Box sx={{   wordBreak: 'break-word',
+            mt: 2,
+            width: { xs: '60%', sm: '60%', md: '50%' },
+            ml: { sm: '6%', md: '12%' }, }} >
           {isMobile ? 
           <Paper sx={{ p:2 }} elevation={25}>
             <Typography sx={mainTitleSx} component="h1">
@@ -236,10 +234,13 @@ const HomePage = () => {
           }
         </Box>
       </Container>
+
+       {/* Mission Section */}
+       
       <Container sx={blueGradientContainerSx(theme)}>
-        <Box sx={infoBoxSx} component="section">
+        <Box component="section">
           <Paper sx={infoOffsetPaperSx(theme)} elevation={25}>
-            <Box sx={infoBoxSx}>
+            <Box sx={(infoBoxSx(theme))}>
               <Typography sx={infoBoxTitleSx} variant="h2" component="h2">
                 <RenderContent children={t('mission.title')} />
               </Typography>

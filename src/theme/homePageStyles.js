@@ -1,4 +1,7 @@
 // src/theme/styles/homePageSx.js
+
+import { text } from "d3";
+
 // static 
 export const bannerBaseSx = {
     textAlign: 'center',
@@ -74,19 +77,21 @@ export const bannerBaseSx = {
     },
   };
   
-  export const infoBoxSx = {
-    width: {
-      xs: '72%',
-      sm: '60%',
-    },
-    mx: 'auto',
+  export const infoBoxSx = theme => ({
+    width: '100%',
+    padding: theme.spacing(2, 3, 4),
+    color: theme.palette.navy.dark,
+    marginLeft: 'auto',
+    marginRight: 'auto',
     textAlign: 'center',
-    my: {
-      xs: 3,
-      sm: 5,
-      md: 6,
+    [theme.breakpoints.up('sm')]: {
+      width: '80%',
+      padding: theme.spacing(4, 0),
     },
-  };
+    [theme.breakpoints.up('md')]: {
+      padding: theme.spacing(6, 0),
+    },
+  });
   
   export const infoBoxTitleSx = {
     fontSize: {
@@ -104,10 +109,13 @@ export const bannerBaseSx = {
     width: {
       sm: '76%',
     },
-    margin: {
-      xs: `0 auto -${theme.spacing(4)}`,
-      sm: `0 auto -${theme.spacing(6)}`,
-      md: `0 auto -${theme.spacing(8)}`,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 0,
+    marginBottom: {
+      xs: theme.spacing(-4),
+      sm: theme.spacing(-6),
+      md: theme.spacing(-8),
     },
   });
   
