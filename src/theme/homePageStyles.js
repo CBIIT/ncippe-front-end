@@ -1,6 +1,6 @@
 // src/theme/styles/homePageSx.js
 
-import { text } from "d3";
+import { color, text } from "d3";
 
 // static 
 export const bannerBaseSx = {
@@ -212,6 +212,15 @@ export const bannerBaseSx = {
     letterSpacing: '.46px',
     color: '#183787',
   };
+
+  export const h6ChartTiltleSx ={
+    fontSize: '1.25rem',
+    fontFamily: 'Montserrat, Helvetica, Arial, sans-serif',
+    fontWeight: 500,
+    color: '#183787',
+    lineHeight: '1.6rem',
+    letterSpacing: '0.0075em',
+  }
   
   export const screenshotSx = {
     maxWidth: 300,

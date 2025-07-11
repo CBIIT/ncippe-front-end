@@ -20,7 +20,7 @@ import ReChartsBar from "../../components/Charts/ReChartsBar";
 import ReChartsBar2sets from "../../components/Charts/ReChartsBar2sets";
 import getAPI from "../../data";
 import TabAboutBar from "./AboutBar";
-import { gridWithImagesSx, h6TextSx } from "../../theme/homePageStyles";
+import { gridWithImagesSx, h6ChartTiltleSx } from "../../theme/homePageStyles";
 
 const COLORS = [
   "#246AD4",
@@ -338,17 +338,8 @@ const StudyProgressPage = () => {
         <Box mt={2} component="section">
           {/* Section for Charts  */}
           {/* Grid for section title  */}
-          <Grid
-            container
-            sx={gridWithImagesSx(theme)}
-            spacing={1}
-            alignItems="stretch"
-          >
-            <Grid
-              size={{
-                xs: 12,
-                md: 9
-              }}>
+          <Grid container sx={gridWithImagesSx(theme)} spacing={1} alignItems="stretch" >
+            <Grid size={{ xs: 12, md: 9 }}>
               <Typography  paragraph={true} variant="h3" component="h3">
                 <RenderContent children={t("sections.2.title")} />
               </Typography>
@@ -357,54 +348,31 @@ const StudyProgressPage = () => {
           {/* end title for Charts  */}
 
           {/* Grid for Charts - 1st row */}
-          <Grid
-            container
-            //className={classes.grid}
-            spacing={1}
-            // alignItems="stretch"
+          <Grid container spacing={1} sx={gridWithImagesSx(theme)}
+            //className={classes.grid} alignItems="stretch"
           >
-            <Grid
-              size={{
-                xs: 12,
-                md: 6,
-                lg: 4
-              }}>
-              <Grid
-                container
-                spacing={1}
-                direction="column"
-                // alignItems="stretch"
-              >
+            <Grid size={{ xs: 12,md: 6, lg: 4  }}>
+              <Grid container spacing={1} direction="column" >
                 <Grid container justifyContent="center" alignItems="center">
-                  <Typography sx={h6TextSx} variant="h6" component="h6">
-                    <RenderContent children={t("charts.PatientDemographicsCancerType.subtitle")} />
+                  <Typography sx={h6ChartTiltleSx} variant="h6" component="h6">
+                      <RenderContent children={t("charts.PatientDemographicsCancerType.subtitle")} />
                   </Typography>
                 </Grid>
                 <Grid>
-                  <ReChartsPie3More
-                    title="Cancer Type"
-                    inputdata={dataCancerTypecolor}
-                    assignedcx={150}
-                    assignedcy={400}
-                  ></ReChartsPie3More>
+                <ReChartsPie3More
+                  title="Cancer Type"
+                  inputdata={dataCancerTypecolor}
+                  assignedcx={150}
+                  assignedcy={400}
+                ></ReChartsPie3More>  
                 </Grid>
               </Grid>
             </Grid>{" "}
             {/* end grid for 1st chart - 1st row */}
-            <Grid
-              size={{
-                xs: 12,
-                md: 6,
-                lg: 4
-              }}>
-              <Grid
-                container
-                direction="column"
-                spacing={1}
-                // alignItems="stretch"
-              >
+            <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+              <Grid container direction="column" spacing={1}>
                 <Grid container justifyContent="center" alignItems="center">
-                  <Typography sx={h6TextSx} variant="h6" component="h6">
+                  <Typography sx={h6ChartTiltleSx} variant="h6" component="h6">
                     <RenderContent children={t("charts.PatientDemographicsRace.subtitle")} />
                   </Typography>
                 </Grid>
@@ -432,7 +400,7 @@ const StudyProgressPage = () => {
                 // alignItems="stretch"
               >
                 <Grid container justifyContent="center" alignItems="center">
-                  <Typography sx={h6TextSx}  variant="h6"   >
+                  <Typography sx={h6ChartTiltleSx}  variant="h6"   >
                     <RenderContent children={t("charts.PatientDemographicsEthnicity.subtitle")} />
                   </Typography>
                 </Grid>
@@ -447,16 +415,11 @@ const StudyProgressPage = () => {
               </Grid>
             </Grid>{" "}
             {/* end Grid for 3rd chart - 1st row */}
-          </Grid>{" "}
+        
           {/* end Grid for Charts - 1st row */}
 
           {/* Grid for Charts - 2nd row */}
-          <Grid
-            container
-            sx={gridWithImagesSx(theme)}
-            spacing={1}
-            // alignItems="stretch"
-          >
+          
             <Grid
               size={{
                 xs: 12,
@@ -470,7 +433,7 @@ const StudyProgressPage = () => {
                 alignItems="stretch"
               >
                 <Grid container justifyContent="center" alignItems="center" margintop="200px">
-                  <Typography sx={h6TextSx} variant="h6" component="h6">
+                  <Typography sx={h6ChartTiltleSx} variant="h6" component="h6">
                     <RenderContent children={t("charts.PatientDemographicsRuralUrban.subtitle")} />
                   </Typography>
                 </Grid>
@@ -499,7 +462,7 @@ const StudyProgressPage = () => {
                 alignItems="stretch"
               >
                 <Grid container justifyContent="center" alignItems="center">
-                  <Typography sx={h6TextSx} variant="h6" component="h6">
+                  <Typography sx={h6ChartTiltleSx} variant="h6" component="h6">
                     <RenderContent children={t("charts.ParticipantDemographicsAge.subtitle")} />
                   </Typography>
                 </Grid>
@@ -527,7 +490,7 @@ const StudyProgressPage = () => {
                 alignItems="stretch"
               >
                 <Grid container justifyContent="center" alignItems="flex-end">
-                  <Typography sx={h6TextSx}  variant="h6" component="h6" >
+                  <Typography sx={h6ChartTiltleSx}  variant="h6" component="h6" >
                     <RenderContent children={t("charts.ParticipantDemographicsSex.subtitle")} />
                   </Typography>
                 </Grid>
@@ -537,15 +500,15 @@ const StudyProgressPage = () => {
               </Grid>
             </Grid>
             {/* end Grid for 3rd Charts -2nd row */}
-          </Grid> {/* end Charts -2nd row */}
+          {/* </Grid> end Charts -2nd row */}
 
           {/* Section for Charts 3rd row */}
-          <Grid
+          {/* <Grid
             container
             sx={gridWithImagesSx(theme)}
             spacing={1}
            // disableEqualOverflow 
-          >
+          > */}
             <Grid
               sx ={{ my: 5 }}
               size={{
@@ -560,7 +523,7 @@ const StudyProgressPage = () => {
                // alignItems="stretch"
               >
                 <Grid container justifyContent="center" alignItems="flex-end">
-                  <Typography sx={h6TextSx}  variant="h6" component="h6">
+                  <Typography sx={h6ChartTiltleSx}  variant="h6" component="h6">
                     <RenderContent children={t("charts.ParticipantDemographicsBioSpecimen.subtitle")} />
                   </Typography>
                 </Grid>
