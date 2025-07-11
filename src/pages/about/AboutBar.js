@@ -2,8 +2,7 @@ import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
-import { AppBar, Container, Tab, useMediaQuery } from '@mui/material'
-import { useTheme } from '@mui/material/styles';
+import { AppBar, Container, Tab, useMediaQuery, useTheme } from '@mui/material'
 import StyledTabs from '../../components/Tabs/StyledTabs'
 
 const TabAboutBar = ({value}) => {
@@ -22,7 +21,7 @@ const TabAboutBar = ({value}) => {
   }
  
   return (
-    <Container sx={{  px: { xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }, py:0, mb: 5 }}>
+    <Container maxWidth="lg" disableGutters sx={{ overflowX: 'auto', px: 0, py:0, mb: 5 }}>
       <AppBar sx={{ bgcolor: theme => theme.palette.primary.medium,  }} 
       position="static" elevation={0}>
         <StyledTabs
@@ -32,6 +31,7 @@ const TabAboutBar = ({value}) => {
           indicatorColor="primary"
           textColor="primary"
           variant="scrollable"
+          allowScrollButtonsMobile
           scrollButtons={isMobile ? true : 'auto'}
           aria-label="scrollable auto tabs"
         >

@@ -21,18 +21,16 @@ const TabAppBar = ({value}) => {
   }
  
   return (
-    <Container sx={{  px: { xs: 0, sm: 0, md: 0, lg: 0, xl: 0 }, py:0, mb: 5  }} 
-    className="appbarContainer">
-  <AppBar sx={{
-      backgroundColor: theme => theme.palette.primary.medium,
-    }} position="static" elevation={0}>
-    <StyledTabs  value={value}
-  onChange={handleChange}
-  indicatorColor="primary"
-  textColor="primary"
-  variant="scrollable"
-  scrollButtons={isMobile ? 'on' : 'auto'}
-  aria-label="scrollable auto tabs">
+    <Container maxWidth="lg" disableGutters sx={{ overflowX: 'auto', px: 0, py:0, mb: 5  }} >
+      <AppBar sx={{ backgroundColor: theme => theme.palette.primary.medium,}} position="static" elevation={0}>
+      <StyledTabs id="tabExpectBar" value={value}
+        onChange={handleChange}
+        indicatorColor="primary"
+        textColor="primary"
+        variant="scrollable"
+        allowScrollButtonsMobile
+        scrollButtons={isMobile ? true : 'auto'}
+        aria-label="scrollable auto tabs">
           <Tab disableRipple component={RouterLink} to="/expect/consent" label={t('tabs.expect.consent')} />
           <Tab disableRipple component={RouterLink} to="/expect/donate" label={t('tabs.expect.donate')} />
           <Tab disableRipple component={RouterLink} to="/expect/testing" label={t('tabs.expect.testing')} />

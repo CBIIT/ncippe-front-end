@@ -147,7 +147,6 @@ const ExpansionMenu = ({
   const [isExpanded, setIsExpanded] = useState(expanded)
   const ExpandIcon = variant !== 'stacked' ? ExpandMore : AddRounded
   const CollapseIcon = variant !== 'stacked' ? ExpandMore : RemoveRounded
-  const loc = location.pathname
 
   useEffect(() => {
     setIsExpanded(expanded)

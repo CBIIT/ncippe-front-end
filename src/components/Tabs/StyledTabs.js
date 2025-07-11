@@ -1,16 +1,16 @@
 import React from 'react'
 import {  styled, Tabs,  } from '@mui/material'
-import { t } from 'i18next'
-
 
 const StyledTabsSx = styled(Tabs)(({ theme }) => ({
   position: 'relative',
+  minHeight: 52,
   '& .MuiTabs-flexContainer': {
     padding: 0,
     margin: 0,
     display: 'flex',
     justifyContent: 'flex-start',
     textAlign: 'left',
+    flexGrow: 1,
   },
   '& .MuiTabs-scrollButtons': {
     boxShadow: 'inset 0 0 13px 0 rgba(30,111,214,0.2)',
@@ -18,16 +18,18 @@ const StyledTabsSx = styled(Tabs)(({ theme }) => ({
     fontWeight: 'bold',
   },
   '& .MuiTabs-scroller': {
-    overflowY: 'hidden',
+    overflow: 'auto',
+    display: 'flex',
+    flexGrow: 1,
   },
   '& .MuiTab-root': {
-    position: 'relative',
-    overflow: 'hidden',
+    flexShrink: 0,
     color: '#0D1C3C',
     fontWeight: 'bold',
     textAlign: 'left',
     whiteSpace: 'normal',
-    minHeight: 52,
+    minWidth: 100,
+    overflow: 'auto',
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
     [theme.breakpoints.up('sm')]: {
@@ -53,10 +55,10 @@ const StyledTabsSx = styled(Tabs)(({ theme }) => ({
     '&:first-of-type::before': {
       display: 'none',
     },
-    // '&:last-of-type': {
-    //   maxWidth: 'none',
-    //   flexGrow: 1,
-    // },
+    '&:last-of-type::after': {
+      maxWidth: 'none',
+      flexGrow: 1,
+    },
   },
 
   '& .MuiTab-root::before': {
@@ -76,11 +78,32 @@ const StyledTabsSx = styled(Tabs)(({ theme }) => ({
   
   '& .Mui-selected': {
     backgroundColor: theme.palette.common.white,
+    alignItems:'flex-start',
     zIndex: 2,
     '& + .MuiTab-root::before': {
       backgroundColor: theme.palette.common.white,
     },
+    '& .MuiTab-wrapper': {
+        justifyContent: 'flex-start',
+        textAlign: 'left',
+    },
   },
+
+  '& .MuiTab-root.Mui-selected:last-of-type': {
+      // Remove flexGrow if present
+      maxWidth: 'none',
+      flexGrow: 1,
+      position: 'relative',
+      backgroundColor: theme.palette.common.white,
+       '&::after': {
+          display: 'none', // Hide pseudo-element when this tab is selected
+      },
+      '& .MuiTab-wrapper': {
+        justifyContent: 'flex-start',
+        textAlign: 'left !important',
+      },
+    },
+
   '& .Mui-focusVisible': {
     backgroundColor: theme.palette.pink.light,
     '& + .MuiTab-root::before': {
