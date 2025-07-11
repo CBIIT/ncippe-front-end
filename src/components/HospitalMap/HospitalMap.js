@@ -104,6 +104,9 @@ useEffect(()=>{
                 attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               }).addTo(bssMap);
         setMap(bssMap) 
+      setTimeout(() => {
+        bssMap.invalidateSize();
+      }, 200);
     } 
   }
   },[mapScriptLoaded, map])
