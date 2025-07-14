@@ -18,7 +18,8 @@ const StyledTabsSx = styled(Tabs)(({ theme }) => ({
     fontWeight: 'bold',
   },
   '& .MuiTabs-scroller': {
-    overflow: 'auto',
+    overflowX: 'auto',
+    overflowY: 'hidden',
     display: 'flex',
     flexGrow: 1,
   },
@@ -29,7 +30,8 @@ const StyledTabsSx = styled(Tabs)(({ theme }) => ({
     textAlign: 'left',
     whiteSpace: 'normal',
     minWidth: 100,
-    overflow: 'auto',
+    overflowX: 'auto',
+    overflowY: 'hidden',
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
     [theme.breakpoints.up('sm')]: {
@@ -55,10 +57,10 @@ const StyledTabsSx = styled(Tabs)(({ theme }) => ({
     '&:first-of-type::before': {
       display: 'none',
     },
-    '&:last-of-type::after': {
-      maxWidth: 'none',
-      flexGrow: 1,
-    },
+    // '&:last-of-type::after': {
+    //   maxWidth: 'none',
+    //   flexGrow: 1,
+    // },
   },
 
   '& .MuiTab-root::before': {
@@ -100,7 +102,7 @@ const StyledTabsSx = styled(Tabs)(({ theme }) => ({
       },
       '& .MuiTab-wrapper': {
         justifyContent: 'flex-start',
-        textAlign: 'left !important',
+        textAlign: 'left',
       },
     },
 
