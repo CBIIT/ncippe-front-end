@@ -137,14 +137,48 @@ export const bannerBaseSx = {
   };
   export const howItWorksIconSx =  { width: '100px', height: '100px' } ;
   
-  export const fullWidthAccentImageSx = {
+  export const fullWidthAccentImageSx = (theme) => ({
     backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/micro/woman-with-head-scarf.jpg)`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center 22%',
     backgroundSize: 'cover',
     height: '40vw',
     maxHeight: 450,
-  };
+    // Mobile (≥ 380px)
+    '@media (min-width: 380px)': {
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/mobile/woman-with-head-scarf.jpg)`,
+    },
+
+    // Micro HD
+    '@media (min-resolution: 192dpi)': {
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/tablet/woman-with-head-scarf.jpg), ${theme.gradients.primaryDiagonal}`,
+    },
+
+    // Mobile HD (≥ 380px and high-res)
+    '@media (min-width: 380px) and (min-resolution: 192dpi)': {
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
+    },
+
+    // Tablet (≥ sm)
+    [theme.breakpoints.up('sm')]: {
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/tablet/woman-with-head-scarf.jpg)`,
+    },
+
+    // Tablet HD (≥ sm and high-res)
+    [`@media (min-width: ${theme.breakpoints.values.sm}px) and (min-resolution: 192dpi)`]: {
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/tabletHD/woman-with-head-scarf.jpg)`,
+    },
+
+    // Desktop (≥ md)
+    [theme.breakpoints.up('md')]: {
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
+    },
+
+    // Desktop HD (≥ md and high-res)
+    [`@media (min-width: ${theme.breakpoints.values.md}px) and (min-resolution: 192dpi)`]: {
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktopHD/woman-with-head-scarf.jpg)`,
+    },
+  });
   
   export const createAccountBtnSx = {
     my: 4,

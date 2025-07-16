@@ -172,19 +172,19 @@ const Footer = () => {
 						<ColumnTitle >{t('footer.links.share_title')}</ColumnTitle>
             <Social >
               <SocialIconButton variant="outlined"
-                onClick={handleShareOnFacebook} size="large">
+                onClick={handleShareOnFacebook} size="small">
                   <SocialIconImage src={`${process.env.PUBLIC_URL}/assets/icons/facebook.svg`} 
                   alt={t('footer.links.facebook.alt_text')} 
                   title={t('footer.links.facebook.text')} />
                   </SocialIconButton>
               <SocialIconButton variant="outlined"
-                onClick={handleShareOnTwitter} size="large">
+                onClick={handleShareOnTwitter} size="small">
                   <SocialIconImage src={`${process.env.PUBLIC_URL}/assets/icons/twitter.svg`} 
                   alt={t('footer.links.twitter.alt_text')} 
                   title={t('footer.links.twitter.text')} />
                   </SocialIconButton>
               <SocialIconButton variant="outlined"
-                onClick={handleShareOnLinkedin} size="large">
+                onClick={handleShareOnLinkedin} size="small">
                   <SocialIconImage src={`${process.env.PUBLIC_URL}/assets/icons/linkedin.svg`} 
                   alt={t('footer.links.linkedin.alt_text')} 
                   title={t('footer.links.linkedin.text')} />
@@ -194,7 +194,7 @@ const Footer = () => {
           <Grid
             size={{xs: 12,sm: 4 }}>
             <ColumnTitle >{t('footer.links.policy_title')}</ColumnTitle>
-            <Link component={RouterLink} to={t('footer.links.privacy.link')}>{t('footer.links.privacy.text')}</Link>
+            <a href={t('footer.links.privacy.link')}>{t('footer.links.privacy.text')}</a>
             <a href={t('footer.links.disclaimer.link')}>{t('footer.links.disclaimer.text')}</a>
             <a href={t('footer.links.accessibility.link')}>{t('footer.links.accessibility.text')}</a>
             <a href={t('footer.links.foia.link')}>{t('footer.links.foia.text')}</a>
