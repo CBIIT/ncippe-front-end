@@ -11,18 +11,6 @@ const Page = () => {
   const location = useLocation()
   const { t } = useTranslation(['a_common'])
 
-  const [participant, setParticipant] = useState(location.state?.participant || null)
-
-  useEffect(() => {
-    if ( patientId) {
-      // Fetch participant data if not already provided in state
-      fetch(`/api/participants/${patientId}`)
-        .then(response => response.json())
-        .then(data => setParticipant(data))
-        .catch(error => console.error('Error fetching participant data:', error))
-    }
-  }, [patientId])  
-
   return (
     <Box className="popup">
       <Helmet>

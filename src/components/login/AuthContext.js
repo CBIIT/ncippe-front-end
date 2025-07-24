@@ -1,5 +1,5 @@
-import React from "react";
-import AuthService from "./authService";
+import React, { useMemo } from "react";
+import authService from "./authService";
 
 export const AuthContext = React.createContext({
     signinRedirectCallback: () => ({}),
@@ -11,11 +11,11 @@ export const AuthContext = React.createContext({
     createSigninRequest: () => ({})
 });
 
-export const AuthProvider = (props) => {
-  const authService = new AuthService()
+export const AuthProvider = ({children}) => {
+ // const authService = useMemo(() => new AuthService(), []);
   return (
     <AuthContext.Provider value={authService}>
-      {props.children}
+      {children}
     </AuthContext.Provider>
   )
 }

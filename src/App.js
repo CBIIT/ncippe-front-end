@@ -8,6 +8,7 @@ import PubSub from 'pubsub-js'
 
 import Routes from './routers/routes'
 import { LoginProvider } from './components/login/Login.context'
+import { AuthProvider } from './components/login/AuthContext'
 import { theme } from './theme/theme'
 
 // global variable for determining if a user has logged in or not. Will be toggled by SignInCallback
@@ -79,6 +80,7 @@ const App = (props) => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <AuthProvider>
         <LoginProvider>
           <HelmetProvider>
             <Helmet>
@@ -89,6 +91,7 @@ const App = (props) => {
             <Routes />
           </HelmetProvider>
         </LoginProvider>
+        </AuthProvider>
       </ThemeProvider>
     </StyledEngineProvider>
   );

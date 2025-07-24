@@ -1,10 +1,6 @@
 import { IDENTITY_CONFIG, METADATA_OIDC } from "./authConfig"
 import { UserManager, WebStorageStateStore, Log } from "oidc-client-ts"
-import { useNavigate } from "react-router-dom"
-
-// import { randomString } from '../../utils/utils'
-
-export default class AuthService {
+export  class AuthService {
   UserManager;
   accessToken;
 
@@ -20,37 +16,69 @@ export default class AuthService {
     Log.logger = console;
     Log.level = Log.DEBUG;
 
+    //Load user from local storage if available
     this.UserManager.events.addUserLoaded(user => {
       this.accessToken = user.access_token;
       localStorage.setItem("access_token", user.access_token);
       localStorage.setItem("id_token", user.id_token);
     });
+
+    this.UserManager.events.addAccessTokenExpiring(() => {
+      console.warn("Access token is expiring soon");
+       // You can show a modal, banner, or trigger a UI warning
+      window.dispatchEvent(new CustomEvent("tokenExpiring"));
+    });
     // this.UserManager.events.addSilentRenewError(e => {
     //   console.log("silent renew error", e.message);
     // });
 
-    this.UserManager.events.addAccessTokenExpired(() => {
-      console.log("token expired");
-      const navigate = useNavigate();
-
-      this.UserManager.clearStaleState();
-      this.UserManager.signoutRedirectCallback().then(() => {
-        localStorage.clear()
-        navigate('/error',{
-          state: {
-            error: {
-              status: 'info',
-              name: 'Session expired',
-              message: "Your session has expired. Please log in again."
+      //allow setting up a callback when token is expired
+    }
+  
+    setTokenExpiredHandler(navigate) {
+      this.UserManager.events.addAccessTokenExpired(() => {
+        console.log("token expired");
+  
+        this.UserManager.clearStaleState();
+        this.UserManager.signoutRedirectCallback().then(() => {
+          localStorage.clear()
+          navigate('/error',{
+            state: {
+              error: {
+                status: 'info',
+                name: 'Session expired',
+                message: "Your session has expired. Please log in again."
+              }
             }
-          }
-        })
-      })
-      // this.signinSilent();
-    });
-  }
+          });
+        });
+        // this.signinSilent();
+      });
+    }
+  
+  getUser = async () => {
+    const user = await this.UserManager.getUser();
+    if (!user) {
+      console.log("No user found, redirecting to login");
+      try {
+        return await this.UserManager.signinRedirectCallback();
+      } catch (error) {
+        console.error("Error during login redirect:", error);
+        return null;
+      }
+    }
+    return user;
+  };
 
-  signinRedirectCallback = (state) => {
+  signinRedirect =({state}={}) => {
+    localStorage.setItem("redirectUri", window.location.pathname);
+    console.log("Redirecting to login in AuthService");
+    return this.UserManager.signinRedirect({state}).catch((err) => {
+    console.error("Signin redirect failed:", err);
+    });
+  };
+
+  signinRedirectCallback = async (state) => {
     if(state && state.mockUserLogin) {
       return Promise.resolve(state)
     } else {
@@ -58,16 +86,28 @@ export default class AuthService {
     }
   };
 
-  getUser = async () => {
-    const user = await this.UserManager.getUser();
-    if (!user) {
-      return await this.UserManager.signinRedirectCallback();
-    }
-    return user;
+  signinSilent = () => {
+    return this.UserManager.signinSilent()
+      .then(user => {
+        console.log("signed in silently", user);
+        this.setUserInfo(user);
+        return user;
+      })
+      .catch(err => {
+        console.log("silent signin error", err);
+        // If silent signin fails, redirect to login
+        this.signinRedirect();
+        return null;
+      });
+  };
+
+  signinSilentCallback = () => {
+    this.UserManager.signinSilentCallback();
   };
 
   parseJwt = token => {
     const base64Url = token.split(".")[1];
+    console.log("base64Url + token ");
     if(base64Url) {
       const base64 = base64Url.replace("-", "+").replace("_", "/");
       return JSON.parse(window.atob(base64));
@@ -91,11 +131,6 @@ export default class AuthService {
     this.setUser(data);
   };
 
-  signinRedirect = () => {
-    localStorage.setItem("redirectUri", window.location.pathname);
-    this.UserManager.signinRedirect({});
-  };
-
   setUser = data => {
     localStorage.setItem("user", data);
   };
@@ -110,37 +145,29 @@ export default class AuthService {
     return !!access_token;
   };
 
-  signinSilent = () => {
-    this.UserManager.signinSilent()
-      .then(user => {
-        console.log("signed in", user);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-  signinSilentCallback = () => {
-    this.UserManager.signinSilentCallback();
-  };
-
   createSigninRequest = () => {
     return this.UserManager.createSigninRequest();
   };
 
   logout = () => {
+    this.UserManager.clearStaleState();
+    sessionStorage.clear();
     this.UserManager.signoutRedirect({
-      id_token_hint: localStorage.getItem("id_token")
+      id_token_hint: localStorage.getItem("id_token")|| undefined
     });
     this.UserManager.clearStaleState();
   };
 
-  signoutRedirectCallback = (state) => {
-    const navigate = useNavigate();
+  signoutRedirectCallback = async (navigate, state) => {
+
     this.UserManager.clearStaleState();
-    this.UserManager.signoutRedirectCallback().then(() => {
+    await this.UserManager.signoutRedirectCallback().then(() => {
       localStorage.clear()
       // window.location.replace(process.env.REACT_APP_PUBLIC_URL);
       navigate('/',{state:{...state}})
     });
   };
 }
+
+const authService = new AuthService();
+export default authService;

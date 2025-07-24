@@ -1,79 +1,156 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Typography, CircularProgress, Container } from '@mui/material'
 import { useTranslation } from 'react-i18next'
+import axios from 'axios'
 
 import { AuthContext } from '../../components/login/AuthContext'
 import { LoginContext } from '../../components/login/Login.context'
 import getAPI from '../../data'
+import data from '../../data'
+import { local } from 'd3-selection'
 
 const SignInCallback = () => {
   const location = useLocation()
-  const routerState = location.state || {}
   const navigate = useNavigate()
+  const handledRef = useRef(false); // To prevent multiple executions
   const [loginContext, dispatch] = useContext(LoginContext)
   const { roleName, uuid, auth, mockState } = loginContext
   const authContext = useContext(AuthContext)
   const { signinRedirectCallback } = authContext
-  const { t } = useTranslation('a_common')
+  const { t } = useTranslation(['a_common'])
  
   useEffect(() => {
+    if (handledRef.current) return;
+    handledRef.current = true;
+
     const handleAuth = async () => {
-      if (!routerState) {
-        navigate('/error', {
-          state: {
-            error: {
-              status: 'error',
-              name: 'MissingState',
-              message: t('components.signin.error.no_state'),
-            },
-          },
-        })
-        return
-      }
+    const query = new URLSearchParams(location.search);
+    const code = query.get('code');
+    const state = query.get('state'); // The state parameter from the OIDC redirect
 
-      try {
-        const resp = await signinRedirectCallback(routerState);
-        let uuid
-        let email
+    const routerState = location.state || {};
+    // if (!routerState) {
+    //   navigate('/error', {
+    //     state: {
+    //       error: {
+    //         status: 'error',
+    //         name: 'MissingState',
+    //         message: t('components.signin.error.no_state'),
+    //       },
+    //     },
+    //   })
+    //   return
+    // }
 
-        if (resp.mockUserLogin) {
-          if(resp.state === mockState) {
-            uuid = resp.profile.sub
-            email = resp.profile.email
-          } else {
-            throw new Error(t('components.signin.error.no_state'))
-          }
-        } else {
-          uuid = resp.profile.sub
-          email = resp.profile.email
+    const useMockData = routerState.mockUserLogin || mockState;
+    try{
+
+      let profile, id_token, access_token, api, token, user, jti
+
+      if (useMockData) {
+          const resp = await signinRedirectCallback({
+            mockUserLogin: true,
+            state: mockState,
+          })
+          profile = routerState?.profile || {}
+          //const uuid = resp?.id_token
+          jti = profile.jti
+      } else {
+
+        let codeVerifier = sessionStorage.getItem('code_verifier');
+
+        // If not found, generate a new code_verifier (random string, usually 43-128 chars, URL-safe)
+        if (!codeVerifier) {
+          codeVerifier = [...crypto.getRandomValues(new Uint8Array(64))]
+            .map(b => ('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'[b % 66]))
+            .join('');
+          sessionStorage.setItem('code_verifier', codeVerifier);
         }
 
-        const {token} = await getAPI.then(api => 
-          api.fetchToken({uuid, email, id_token:resp.id_token}));
-        
-        if (!token) throw new Error(t('components.signin.error.not_auth'));
+        if (!code || !codeVerifier) {
+            console.error('Missing authorization code');
+            navigate('/error', { state: { message: 'Authentication code missing' } });
+            return;      
+          } 
+ 
+        // exchange OIDC code for token via backend
+        const response = await axios.post('/publicapi/auth/exchange', {
+          code,
+          code_verifier: codeVerifier,
+          });
+        console.log('Token exchange response:', response.data);
 
-        const user = await getAPI.then(api => 
-           api.fetchUser({uuid, token}));
-        
-        if (!user) throw new Error(t('components.signin.error.not_auth'));
+        // Token successfully retrieved from backend
+        // Assign id_token to the already defined variable
+        id_token = response.data.id_token;
+        access_token = response.data.access_token;
 
-        dispatch({
-          type: 'update',
-          userData: {
-            jti: resp.profile.jti,
-            auth: true,
-            token,
-            ...user
+        // Optional: store tokens in local/session storage or use cookies
+        //profile = authContext.parseJwt(id_token); // Use authService to parse
+        const userInfo = await getAPI.then(api => { 
+          return api.fetchLoginGovUserInfo(access_token).then(data => {
+          if (data instanceof Error) {
+            throw new Error(t('components.signin.error.not_auth'));
           }
-        })    
+          return data;
+          });
+        });
+        profile = userInfo || {};
+        jti = profile?.jti;
       }
-      catch(error){
-        localStorage.clear();
-        dispatch({
-          type: 'reset'
+      if (!profile.sub || !profile.email) {
+          throw new Error(t('components.signin.error.not_auth'));
+      }
+     
+      const uuid = profile.userid || profile.sub; // Use userId or sub as UUID
+      const email = profile.email;
+      localStorage.setItem('access_token', access_token);
+      localStorage.setItem('id_token', id_token);
+      localStorage.setItem('loggeduser_UUID', uuid);
+        // Fetch application-specific token and user data from your backend
+      const { tokenResp } = await getAPI.then(api => {
+        return api.fetchToken({ uuid, email, id_token }).then(data => {
+          if (data instanceof Error) {
+            throw new Error(t('components.signin.error.not_auth'));
+          }
+          return data;
+        });
+      });
+      token = tokenResp?.token;
+
+      user = await getAPI.then(api => {
+        return api.fetchUser({uuid, token}).then(data => {
+
+          if(data instanceof Error){
+            throw new Error(t('components.signin.error.not_auth'))
+          } else {
+            return data
+          }
         })
+      })
+
+      dispatch({
+        type: 'update',
+        userData: {
+          jti: jti,
+          auth: true,
+          token,
+          ...user
+        }
+      }) 
+          
+      //localStorage.setItem('access_token', access_token);
+      //localStorage.setItem('id_token', id_token);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      // Optionally, you can navigate to a different page after successful login
+      // navigate('/dashboard');
+    } catch(error){
+      localStorage.clear();
+      dispatch({
+        type: 'reset'
+      })
         navigate('/error', {
           state: {
             error: {
@@ -85,19 +162,33 @@ const SignInCallback = () => {
         })
       }
     }
-      handleAuth()
-  }, [dispatch, mockState, routerState, signinRedirectCallback, t, navigate ])
+
+    handleAuth()
+  }, [dispatch, mockState, location.state, signinRedirectCallback, authContext.authService,t, navigate ])
 
   useEffect(() => {
-  
     if(uuid && auth && roleName) {
       window.$role = roleName.slice(9)
       const targetRoute =
         roleName === 'ROLE_PPE_MOCHA_ADMIN' ? '/account-mocha' : '/account'
-
       navigate(targetRoute)
     }
-  }, [roleName, uuid, auth,navigate])
+  }, [uuid, auth, roleName, navigate])
+
+  // /signin-callback or similar page in React
+  // useEffect(() => {
+  //   const code = new URLSearchParams(window.location.search).get("code");
+  //   if (code) {
+  //     fetch(`/api/v1/auth/callback?code=${code}`, {
+  //       method: 'POST',
+  //       credentials: 'include',
+  //     })
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       // Store session data or navigate accordingly
+  //     });
+  //   }
+  // }, []);
 
   return (
     <Container sx={{ textAlign: 'center', paddingTop: 10, marginBottom: 4 }}>

@@ -7,6 +7,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTranslation } from 'react-i18next'
 import PubSub from 'pubsub-js'
 import moment from 'moment'
+import { CircularProgress } from '@mui/material';
 
 // import { api } from '../../data/api'
 import getAPI from '../../data'
@@ -37,6 +38,7 @@ const ParticipantView = () => {
   const { t } = useTranslation('a_common')
   const [participant, setParticipant] = useState(patients.find(patient => patient.patientId === patientId))
   const [participantEmail, setParticipantEmail] = useState(participant?.email || '')
+  const [loading, setLoading] = useState(!participant?.reports)
 
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ //from https://emailregex.com/
   const theme = useTheme()
@@ -46,6 +48,7 @@ const ParticipantView = () => {
   useEffect(() => {
     // const patientGUID = loginContext.patients.find(patient => patient.userName === props.userName).uuid
     const patientData = patients.find(patient => patient.patientId === patientId)
+    setLoading(!patientData?.reports) // initialize loading state based on data presence
     if(!patientData?.reports) {
       getAPI.then(async api => {
         //TODO: stuff participant data into user's context for patients - prevent multiple fetch calls for same patient
@@ -71,7 +74,12 @@ const ParticipantView = () => {
         .catch(error => {
           console.error(error)
         })
+        .finally(() => {
+          setLoading(false)
+        })
       })
+    }else{
+      setLoading(false)
     }
     return () => {}
   }, [uploadSuccess, patientId, uuid, token, patients, dispatch])
@@ -291,6 +299,18 @@ const ParticipantView = () => {
         message={t('components.participantView.status.terminated.message')} />
       }
       <Divider sx={{ my: 4 }} />
+       {loading  ? (
+    <Box sx={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      height: '60vh' 
+    }}>
+      <CircularProgress size={48} />
+      <Typography sx={{ mt: 2 }}>Loading participant data...</Typography>
+    </Box>
+  ) : (
       <Grid container spacing={3}>
         <Grid
           size={{
@@ -401,6 +421,7 @@ const ParticipantView = () => {
           }}
         </LoginConsumer>
       </Grid>
+  )}
       <UploadConsentDialog open={dialogOpenConsent} setParentState={closeUploadDialog} patientId={patientId} />
       <Dialog
         fullScreen={fullScreen}

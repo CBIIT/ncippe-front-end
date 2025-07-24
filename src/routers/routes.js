@@ -6,7 +6,6 @@ import RequireAuth from './RequireAuth'
 import LoginConsent from '../components/login/LoginConsent';
 import Loading from '../components/Loading'
 
-
 // imports for public pages
 import NotFound           from '../pages/NotFoundPage'
 import Home               from '../pages/HomePage'
@@ -127,7 +126,8 @@ const AppRoutes = () => {
             <Route path='/search' element= {<SearchResultsPage  />} />
             <Route path='/error'  element= {<ErrorPage />} />
             <Route path='/signin' element= {<SignInCallbackPage />} />
-           
+            <Route path="/auth/callback" element={<SignInCallbackPage />} /> 
+            {/* <Route path="/auth/callback" element={<OIDCCallbackHandler />} />  */}
           {/* Private routes */}
            <Route path="/account-mocha" element={<RequireAuth >  <DashboardMochaPage  />  </RequireAuth> } />
 

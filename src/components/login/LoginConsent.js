@@ -30,9 +30,9 @@ const LoginConsent = () => {
 
   const handleContinue = () => {
     // Redirect to actual login provider
-    window.location.assign(`${process.env.REACT_APP_LOGIN_LINK}?date=${Date.now()}`)
+   // window.location.assign(`${process.env.REACT_APP_LOGIN_LINK}?date=${Date.now()}`)
   //  console.log('Redirecting to login provider...')
-  //  authContext.signinRedirect()
+     authContext.signinRedirect()
   }
 
   const handleCancel = () => {

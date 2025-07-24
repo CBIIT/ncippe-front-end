@@ -50,35 +50,59 @@ async function fetchMockUsers(){
     .catch(handleErrorMsg(`Unable to fetch mock users`))
 }
 
+const authHeaders = (token) => ({
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer ${token}`
+});
+
 /*=======================================================================*/
 /*======== Request Token ================================================*/
 
 async function fetchToken({uuid, email, id_token}){
   // uuid and email from login.gov as querystring
-  const query = {
-    uuid,
-    email
-  }
+  const query = { uuid, email }
+  const accessToken = localStorage.getItem('access_token');
+
   return await fetch(`/api/v1/login?${queryString.stringify(query)}`,{
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    headers: authHeaders(accessToken),
+    body: JSON.stringify({id_token})
   })
   .then(handleResponse)
   .catch(handleError)
 }
 
 /*=======================================================================*/
+/*======== Fetch Login.gov User Data with access token ==================*/
+async function fetchLoginGovUserInfo(access_token) {
+  try {
+    const res = await fetch('https://stsstg.nih.gov/openid/connect/v1/userinfo', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(`UserInfo request failed: ${res.status} ${res.statusText}`);
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error('Error fetching Login.gov user info:', error);
+    throw error;
+  }
+}
+
+/*=======================================================================*/
 /*======== Fetch User Data ==============================================*/
 
 async function loginUser(){
+  const accessToken = localStorage.getItem('access_token');
   return await fetch(`/api/v1/login`,{
     method: 'POST',
-    headers: {
-      'Content-Type': 'text/html',
-      'access-control-allow-origin': '*'
-    }
+    headers: authHeaders(accessToken),
   })
   .then(handleResponse)
   .then(data => {
@@ -133,12 +157,12 @@ async function fetchUser({uuid, patientId, email, adminId, token}){
   if(typeof email === 'string'){
     query.email = email
   }
+  const accessToken = localStorage.getItem('access_token');
+  const loggedUserUUID = localStorage.getItem('loggeduser_UUID');
+  query.requestingUserUUID = loggedUserUUID || uuid || adminId;
 
   return await fetch(`/api/v1/user?${queryString.stringify(query)}`,{
-    headers: {
-      'Content-Type': 'text/plain',
-      'access-control-allow-origin': '*'
-    }
+    headers:authHeaders(accessToken),
   })
   .then(handleResponse)
   .then(data => {
@@ -182,17 +206,17 @@ async function fetchUser({uuid, patientId, email, adminId, token}){
 
 async function updateUser({uuid, data, token}){
   const {phoneNumber, allowEmailNotification, lang} = data
+  const accessToken = localStorage.getItem('access_token');
+  const loggedUserUUID = localStorage.getItem('loggeduser_UUID')
   const query = {
+    requestingUserUUID: loggedUserUUID,
     phoneNumber,
     allowEmailNotification,
     preferredLanguage: lang
   }
   return await fetch(`/api/v1/user/${uuid}?${queryString.stringify(query)}`,{
     method: 'POST',
-    headers: {
-      'Content-Type': 'text/plain',
-      'access-control-allow-origin': '*'
-    }
+    headers: authHeaders(accessToken)
   })
   .then(handleResponse)
   .catch(handleErrorMsg('Unable to save changes.'))
@@ -202,16 +226,16 @@ async function updateUser({uuid, data, token}){
 /*======== Update Participant Email =====================================*/
 
 async function updateParticipantEmail({patientId, email, token}){
+  const loggedUserUUID = localStorage.getItem('loggeduser_UUID');
   const query = {
+    requestingUserUUID: loggedUserUUID,
     patientId,
     email
   }
+  const accessToken = localStorage.getItem('access_token');
   return await fetch(`/api/v1/user/update-participant-email?${queryString.stringify(query)}`,{
     method: 'POST',
-    headers: {
-      'Content-Type': 'text/plain',
-      'access-control-allow-origin': '*'
-    }
+    headers:authHeaders(accessToken),
   })
   .then(handleResponse)
   .catch(handleError)
@@ -228,14 +252,12 @@ async function uploadPatientReport({patientId, uuid, reportFile, fileType, token
   formData.append("patientId",patientId)
   formData.append("reportFile",reportFile)
   formData.append("uploadedFileType",fileType)
-
+  const accessToken = localStorage.getItem('access_token');
   return await fetch(`/api/patientReport`, {
     method: 'POST',
     // mode: 'no-cors',
     // credentials: 'omit',
-    headers: {
-      'access-control-allow-origin': '*'
-    },
+    headers: authHeaders(accessToken),
     body: formData
   })
   .then(handleResponse)
@@ -246,12 +268,10 @@ async function uploadPatientReport({patientId, uuid, reportFile, fileType, token
 /*======== Mark Notifications as Read ===================================*/
 
 async function notificationsMarkAsRead({uuid, token}){
+  const accessToken = localStorage.getItem('access_token');
   return await fetch(`/api/v1/user/${uuid}/notifications/mark-as-read`,{
     method: 'POST',
-    headers: {
-      'Content-Type': 'text/plain',
-      'access-control-allow-origin': '*'
-    }
+    headers: authHeaders(accessToken),
   })
   .then(handleResponse)
   .catch(handleErrorMsg('Unable to mark notifications as read.'))
@@ -261,11 +281,9 @@ async function notificationsMarkAsRead({uuid, token}){
 /*======== Fetch Patient Report =========================================*/
 
 async function fetchPatientReport({reportId, token}){
+  const accessToken = localStorage.getItem('access_token');
   return await fetch(`/api/patientReport/${reportId}`,{
-    headers: {
-      'Content-Type': 'text/plain',
-      'access-control-allow-origin': '*'
-    }
+    headers:authHeaders(accessToken),
   })
   .then(handleResponse)
   .catch(handleErrorMsg('Unable to fetch report.'))
@@ -276,12 +294,10 @@ async function fetchPatientReport({reportId, token}){
 
 // flag report as read by user
 async function reportViewedBy({uuid, reportId, token}){
+  const accessToken = localStorage.getItem('access_token');
   return await fetch(`/api/patientReport/${reportId}/markAsRead`,{
     method: 'POST',
-    headers: {
-      'Content-Type': 'text/plain',
-      'access-control-allow-origin': '*'
-    }
+    headers: authHeaders(accessToken),
   })
   .then(handleResponse)
   .catch(handleErrorMsg('Unable to mark notifications as read.'))
@@ -295,12 +311,10 @@ async function withdrawUser({uuid, patientId, qsAnsDTO, token}){
     patientId,
     updatedByUser: uuid
   }
+  const accessToken = localStorage.getItem('access_token');
   return await fetch(`/api/v1/withdraw-user-participation?${queryString.stringify(query)}`,{
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'access-control-allow-origin': '*'
-    },
+    headers: authHeaders(accessToken),
     body: JSON.stringify(qsAnsDTO)
   })
   .then(handleResponse)
@@ -311,12 +325,10 @@ async function withdrawUser({uuid, patientId, qsAnsDTO, token}){
 /*======== Close Account ================================================*/
 
 async function closeAccount({uuid, token}){
+  const accessToken = localStorage.getItem('access_token');
   return await fetch(`/api/v1/deactivate-user/${uuid}`,{
     method: 'POST',
-    headers: {
-      'Content-Type': 'text/plain',
-      'access-control-allow-origin': '*'
-    }
+    headers: authHeaders(accessToken),
   })
   .then(handleResponse)
   .catch(handleErrorMsg('Unable to close account.'))
@@ -507,6 +519,7 @@ export const api = {
   loginUser,
   fetchUser,
   updateUser,
+  fetchLoginGovUserInfo,
   fetchPatientTestResults: fetchUser,
   fetchPatientReport,
   fetchPatientFile: fetchPatientReport,
