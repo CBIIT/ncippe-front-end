@@ -300,7 +300,7 @@ const HomePage = () => {
           </Box>
         </Box>
       </Container>
-      <Container sx={fullWidthAccentImageSx}>
+      <Container sx={fullWidthAccentImageSx(theme)}>
         <Box>{/* empty box because Container must have children */}</Box>
       </Container>
       <Container sx={volunteerSx(theme)} className='accentImage'>
@@ -366,7 +366,7 @@ const HomePage = () => {
         aria-labelledby="responsive-dialog-title"
         sx={closeAccountDialogSx}
       >
-        <DialogContent sx={closeAccountDialogContentSx}>
+        <DialogContent sx={closeAccountDialogContentSx(theme)}>
           <IconButton
             sx={closeDialogButtonSx}
             aria-label="close"
@@ -374,7 +374,7 @@ const HomePage = () => {
             size="large">
             <ClearIcon />
           </IconButton>
-          <CheckCircleIcon className={closeAccountIconSx} />
+          <CheckCircleIcon className={closeAccountIconSx(theme)} />
           <Typography variant="h3" component="h3">
             <RenderContent children={t('modal.closed_account.title')} />
           </Typography>
