@@ -43,7 +43,7 @@ const Email = (props) => {
           sx: {
             fontWeight: 700,
             color: 'text.primary',
-            transform: 'none',
+            // transform: 'none',
           },
           error
         }}
