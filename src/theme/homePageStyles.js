@@ -152,9 +152,10 @@ export const bannerBaseSx = {
     },
 
     // Micro HD
-    '@media (min-resolution: 192dpi)': {
-      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/tablet/woman-with-head-scarf.jpg), ${theme.gradients.primaryDiagonal}`,
-    },
+    [`@media (min-width: 380px) and (min-resolution: 192dpi) and (max-width: ${theme.breakpoints.values.sm - 0.01}px)`]: 
+    ({
+      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/mobileHD/woman-with-head-scarf.jpg)`,
+    }),
 
     // Tablet (≥ sm)
     [theme.breakpoints.up('sm')]: {
