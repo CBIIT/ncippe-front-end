@@ -138,43 +138,38 @@ export const bannerBaseSx = {
   export const howItWorksIconSx =  { width: '100px', height: '100px' } ;
   
   export const fullWidthAccentImageSx = (theme) => ({
+    backgroundImage: `image-set(
+    url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktop/woman-with-head-scarf.jpg) 1x,
+    url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktopHD/woman-with-head-scarf.jpg) 2x
+    )`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center 22%',
     backgroundSize: 'cover',
     height: '40vw',
     maxHeight: 450,
 
-     backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/micro/woman-with-head-scarf.jpg)`,
-
-    // Mobile (≥ 380px)
-    '@media (min-width: 380px)': {
-      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/mobile/woman-with-head-scarf.jpg)`,
+    // Mobile
+    '@media (max-width: 599px)': {
+      backgroundImage: `image-set(
+        url(${process.env.PUBLIC_URL}/assets/images/fullWidth/mobile/woman-with-head-scarf.jpg) 1x,
+        url(${process.env.PUBLIC_URL}/assets/images/fullWidth/mobileHD/woman-with-head-scarf.jpg) 2x
+      )`,
     },
 
-    // Micro HD
-    [`@media (min-width: 380px) and (min-resolution: 192dpi) and (max-width: ${theme.breakpoints.values.sm - 0.01}px)`]: 
-    ({
-      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/mobileHD/woman-with-head-scarf.jpg)`,
-    }),
-
-    // Tablet (≥ sm)
-    [theme.breakpoints.up('sm')]: {
-      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/tablet/woman-with-head-scarf.jpg)`,
+    // Tablet
+    [theme.breakpoints.between('sm', 'md')]: {
+      backgroundImage: `image-set(
+        url(${process.env.PUBLIC_URL}/assets/images/fullWidth/tablet/woman-with-head-scarf.jpg) 1x,
+        url(${process.env.PUBLIC_URL}/assets/images/fullWidth/tabletHD/woman-with-head-scarf.jpg) 2x
+      )`,
     },
 
-    // Tablet HD (≥ sm and high-res)
-    [`@media (min-width: ${theme.breakpoints.values.sm}px) and (min-resolution: 192dpi)`]: {
-      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/tabletHD/woman-with-head-scarf.jpg)`,
-    },
-
-    // Desktop (≥ md)
+    // Desktop
     [theme.breakpoints.up('md')]: {
-      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktop/woman-with-head-scarf.jpg)`,
-    },
-
-    // Desktop HD (≥ md and high-res)
-    [`@media (min-width: ${theme.breakpoints.values.md}px) and (min-resolution: 192dpi)`]: {
-      backgroundImage: `url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktopHD/woman-with-head-scarf.jpg)`,
+      backgroundImage: `image-set(
+        url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktop/woman-with-head-scarf.jpg) 1x,
+        url(${process.env.PUBLIC_URL}/assets/images/fullWidth/desktopHD/woman-with-head-scarf.jpg) 2x
+      )`,
     },
   });
   
