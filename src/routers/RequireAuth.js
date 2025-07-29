@@ -62,7 +62,7 @@ const RequireAuth = ({ children }) => {
   if (loading) {
     return (
       <Box sx={{ textAlign: 'center', marginTop: '3rem' }}>
-        <p>{t('components.signin.loading')}</p>
+        <p>{t('a_common:components.signin.loading')}</p>
       </Box>
     )
   }

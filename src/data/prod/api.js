@@ -271,7 +271,9 @@ async function notificationsMarkAsRead({uuid, token}){
   const accessToken = localStorage.getItem('access_token');
   return await fetch(`/api/v1/user/${uuid}/notifications/mark-as-read`,{
     method: 'POST',
-    headers: authHeaders(accessToken),
+    headers:{ ...authHeaders(accessToken),
+      'uuid': uuid
+    }
   })
   .then(handleResponse)
   .catch(handleErrorMsg('Unable to mark notifications as read.'))
@@ -280,10 +282,13 @@ async function notificationsMarkAsRead({uuid, token}){
 /*=======================================================================*/
 /*======== Fetch Patient Report =========================================*/
 
-async function fetchPatientReport({reportId, token}){
+async function fetchPatientReport({reportId, token,uuid}){
   const accessToken = localStorage.getItem('access_token');
   return await fetch(`/api/patientReport/${reportId}`,{
-    headers:authHeaders(accessToken),
+    headers:{ ...authHeaders(accessToken),
+      'uuid': uuid
+    }
+
   })
   .then(handleResponse)
   .catch(handleErrorMsg('Unable to fetch report.'))
@@ -297,7 +302,9 @@ async function reportViewedBy({uuid, reportId, token}){
   const accessToken = localStorage.getItem('access_token');
   return await fetch(`/api/patientReport/${reportId}/markAsRead`,{
     method: 'POST',
-    headers: authHeaders(accessToken),
+    headers:{ ...authHeaders(accessToken),
+      'uuid': uuid
+    }
   })
   .then(handleResponse)
   .catch(handleErrorMsg('Unable to mark notifications as read.'))
@@ -346,13 +353,11 @@ async function updateParticipantDetails({uuid, token, patient}){
     emailId: patient.email,
     preferredLanguage: patient.lang
   }
+  const accessToken = localStorage.getItem('access_token');
 
   return await fetch(`/api/v1/user/enter-new-participant-details?${queryString.stringify(query)}`,{
     method: 'POST',
-    headers: {
-      'Content-Type': 'text/plain',
-      'access-control-allow-origin': '*'
-    }
+    headers: authHeaders(accessToken),
   })
   .then(handleResponse)
   .catch(handleError);
@@ -363,13 +368,11 @@ async function activateParticipant({uuid, token, patient}){
     updatedByUser: uuid,
     patientId: patient.patientId,
   }
+  const accessToken = localStorage.getItem('access_token');
 
   return await fetch(`/api/v1/user/invite-participant-to-portal?${queryString.stringify(query)}`,{
     method: 'POST',
-    headers: {
-      'Content-Type': 'text/plain',
-      'access-control-allow-origin': '*'
-    }
+    headers: authHeaders(accessToken),
   })
   .then(handleResponse)
   .catch(handleErrorMsg('Unable to activate participant account.'))
@@ -420,12 +423,12 @@ async function getNewsEvents(){
 /*=======================================================================*/
 /*======== Send Message =================================================*/
 
-async function sendMessage(data){
+async function sendMessage(data,uuid){
+  const accessToken = localStorage.getItem('access_token');
   return await fetch(`/api/v1/notifications`,{
     method: 'POST',
-    headers: {
-      'Content-Type': 'text/plain',
-      'access-control-allow-origin': '*'
+    headers:{ ...authHeaders(accessToken),
+      'uuid': uuid
     },
     body: JSON.stringify(data)
   })
@@ -437,10 +440,10 @@ async function sendMessage(data){
 /*======== Get Messages =================================================*/
 
 async function getMessages({uuid}){
+  const accessToken = localStorage.getItem('access_token');
   return await fetch(`/api/v1/notifications`,{
-    headers: {
-      'Content-Type': 'text/plain',
-      'access-control-allow-origin': '*'
+    headers:{ ...authHeaders(accessToken),
+      'uuid': uuid
     }
   })
     .then(handleResponse)

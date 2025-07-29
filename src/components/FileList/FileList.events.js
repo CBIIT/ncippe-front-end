@@ -77,7 +77,7 @@ const FileListWrapper = (props) => {
       }
   
       getAPI.then(async api => {
-       return await api.fetchPatientFile({reportId: fileGUID, token})
+       return await api.fetchPatientFile({reportId: fileGUID, uuid})
           .then(resp => {
             try{
               const disposition = resp.headers.get('Content-Disposition')
