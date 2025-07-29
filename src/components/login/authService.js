@@ -150,8 +150,10 @@ export  class AuthService {
   };
 
   logout = () => {
-    this.UserManager.clearStaleState();
     sessionStorage.clear();
+    localStorage.clear();
+    this.UserManager.clearStaleState();
+  
     this.UserManager.signoutRedirect({
       id_token_hint: localStorage.getItem("id_token")|| undefined
     });
@@ -159,13 +161,15 @@ export  class AuthService {
   };
 
   signoutRedirectCallback = async (navigate, state) => {
-
-    this.UserManager.clearStaleState();
-    await this.UserManager.signoutRedirectCallback().then(() => {
-      localStorage.clear()
-      // window.location.replace(process.env.REACT_APP_PUBLIC_URL);
-      navigate('/',{state:{...state}})
-    });
+    try {
+      await this.UserManager.signoutRedirectCallback();
+    } catch (e) {
+      console.error('Signout callback failed:', e);
+    } finally {
+      localStorage.clear();
+      sessionStorage.clear();
+      navigate('/', { state: { ...state } }); // or just window.location.href = '/'
+    }
   };
 }
 
