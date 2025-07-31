@@ -10,6 +10,9 @@ export  class AuthService {
       userStore: new WebStorageStateStore({ store: window.localStorage }),
       metadata: {
         ...METADATA_OIDC
+      },
+      extraQueryParams: {
+        prompt: 'login'
       }
     });
     // Logger
@@ -149,15 +152,34 @@ export  class AuthService {
     return this.UserManager.createSigninRequest();
   };
 
-  logout = () => {
-    sessionStorage.clear();
-    localStorage.clear();
-    this.UserManager.clearStaleState();
+  logout = async () => {
+    console.log("Logging out");
+    const id_token = localStorage.getItem("id_token");
+    const access_token = localStorage.getItem("access_token");
+
+    try {
+      const response = await fetch('/api/logout-sts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${access_token}`
+        },
+        body: JSON.stringify({ id_token }),
+      });
   
-    this.UserManager.signoutRedirect({
-      id_token_hint: localStorage.getItem("id_token")|| undefined
-    });
-    this.UserManager.clearStaleState();
+      if (response.redirected) {
+        window.location.href = response.url;  // This will redirect to post_logout_redirect_uri (e.g. /signout)
+      } else {
+        console.error('Logout proxy did not redirect:', await response.text());
+      }
+    } catch (err) {
+      console.error('Error during logout proxy call:', err);
+    }
+    // this.UserManager.signoutRedirect({
+    //   id_token_hint: localStorage.getItem("id_token")|| undefined,
+    //   post_logout_redirect_uri: "https://stsstg.nih.gov/connect/session/logout"
+    // });
+
   };
 
   signoutRedirectCallback = async (navigate, state) => {

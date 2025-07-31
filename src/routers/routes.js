@@ -5,6 +5,7 @@ import pageWrapper from '../pages/pageWrapper'
 import RequireAuth from './RequireAuth'
 import LoginConsent from '../components/login/LoginConsent';
 import Loading from '../components/Loading'
+import SignOut from '../components/login/SignOut'
 
 // imports for public pages
 import NotFound           from '../pages/NotFoundPage'
@@ -152,7 +153,7 @@ const AppRoutes = () => {
               <Route path="messageHistory" element={ <MessageHistoryPage />  } />
         </Route>
 
-        <Route path="/signout" element={<Navigate to="/" replace />} />
+        <Route path="/signout" element={<SignOut />} />
         <Route path="*" element={<NotFoundPage />} />
         </Routes>
        </React.Suspense>
