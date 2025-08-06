@@ -166,7 +166,7 @@ export  class AuthService {
         },
         body: JSON.stringify({ id_token }),
       });
-  
+      
       if (response.redirected) {
         window.location.href = response.url;  // This will redirect to post_logout_redirect_uri (e.g. /signout)
       } else {
@@ -174,7 +174,18 @@ export  class AuthService {
       }
     } catch (err) {
       console.error('Error during logout proxy call:', err);
+       // Fallback for failed backend call
+        // Clear local user info
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = '/';
     }
+     // Clear local user info
+    // localStorage.clear();
+    // sessionStorage.clear();
+
+    // const appPostLogout = encodeURIComponent('https://moonshotbiobank-dev.cancer.gov/signout?post_logout=true');
+    // window.location.href = `https://stsstg.nih.gov/siteminderagent/smlogoutredirector.asp?target=https://moonshotbiobank-dev.cancer.gov/signout`;
     // this.UserManager.signoutRedirect({
     //   id_token_hint: localStorage.getItem("id_token")|| undefined,
     //   post_logout_redirect_uri: "https://stsstg.nih.gov/connect/session/logout"

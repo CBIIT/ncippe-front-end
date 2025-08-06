@@ -10,7 +10,7 @@ export default function SignOut() {
     const signout = async () => {
         const query = new URLSearchParams(location.search);
         const isPostLogout = query.get('post_logout')
-        if(isPostLogout){
+        if(!isPostLogout){
        
             console.log('Signing out...');
             try {
@@ -21,7 +21,8 @@ export default function SignOut() {
             } finally {
                 localStorage.clear();
                 sessionStorage.clear();
-                navigate('/', { replace: true });
+                window.location.href = '/'
+                //navigate('/', { replace: true });
             }
         }else{
             try {
@@ -33,7 +34,8 @@ export default function SignOut() {
                 // If redirect fails, do local cleanup and navigate.
                 localStorage.clear();
                 sessionStorage.clear();
-                navigate('/', { replace: true });
+                window.location.href = '/'
+                //navigate('/', { replace: true });
               }
             }
           };

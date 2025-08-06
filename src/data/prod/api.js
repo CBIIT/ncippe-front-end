@@ -257,7 +257,7 @@ async function uploadPatientReport({patientId, uuid, reportFile, fileType, token
     method: 'POST',
     // mode: 'no-cors',
     // credentials: 'omit',
-    headers: authHeaders(accessToken),
+    headers: {'Authorization': `Bearer ${accessToken}`},
     body: formData
   })
   .then(handleResponse)
