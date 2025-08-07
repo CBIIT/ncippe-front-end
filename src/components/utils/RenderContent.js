@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import rehypeRaw from 'rehype-raw'
+import { useNavigate } from 'react-router-dom'
 
 // strip all <p> tags
 // const RenderContent =  (props) => <ReactMarkdown {...props} rehypePlugins={[rehypeRaw]} components={{
@@ -12,6 +13,7 @@ import rehypeRaw from 'rehype-raw'
 // }} />
 
 const RenderContent =  (props) => {
+  const navigate = useNavigate();
 
   // remove wrapping paragraphs made by markdown, but keep paragraphs that we have in our authored content
   const removeRootParagraph = ({node,...props}) => {
@@ -29,10 +31,36 @@ const RenderContent =  (props) => {
     return <p>{children}</p>
   }
 
-  return <ReactMarkdown {...props} rehypePlugins={[rehypeRaw]} components={{
-      p: removeRootParagraph,
-  }} />
-}
+  // Intercept anchor elements
+  const customLink = ({ href, children, ...rest }) => {
+    const isInternal = href?.startsWith('/');
 
+    if (isInternal) {
+      return (
+        <a
+          href={href}
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(href);
+          }}
+          {...rest}
+        >
+          {children}
+        </a>
+      );
+    }
+     // external links - open in new tab safely
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" {...rest}>
+        {children}
+      </a>
+    );
+  };
+
+  return (<ReactMarkdown {...props} rehypePlugins={[rehypeRaw]} components={{
+      p: removeRootParagraph,
+      a: customLink,
+  }} /> );
+}
 
 export default RenderContent

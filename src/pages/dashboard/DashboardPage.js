@@ -148,7 +148,7 @@ const Page = () => {
                   <IconCard
                     icon="notifications.svg"
                     title={t('cards.notifications.title')}
-                    desc={t('cards.notifications.description', {count})}
+                    desc={ count > 1 ? t('cards.notifications.description_plural', {count}): t('cards.notifications.description', {count})}
                     link="/account/notifications"
                     linkText={t('cards.notifications.link')}
                     count={count}

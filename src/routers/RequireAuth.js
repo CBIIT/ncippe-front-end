@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 const RequireAuth = ({ children }) => {
   const [state, dispatch] = useContext(LoginContext);
   const [loading, setLoading] = useState(!state.auth);
-  const { i18n, t } = useTranslation();
+  const { i18n, t } = useTranslation('a_common');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -62,7 +62,7 @@ const RequireAuth = ({ children }) => {
   if (loading) {
     return (
       <Box sx={{ textAlign: 'center', marginTop: '3rem' }}>
-        <p>{t('a_common:components.signin.loading')}</p>
+        <p>{t('components.signin.loading', 'Loading User Data...')}</p>
       </Box>
     )
   }

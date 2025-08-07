@@ -34,7 +34,10 @@ const Notifications = (props) => {
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
         <Box component='img'  sx={{ width: '49px', mr: 3 }} src={`${process.env.PUBLIC_URL}/assets/icons/notifications.svg`} 
         alt={t('a_common:icons.notifications')} aria-hidden="true"></Box>
-        <Typography variant="h2" component="h2">{t('components.notificationView.pageTitle', {count})}</Typography>
+       <Typography variant="h2" component="h2">
+        { count > 1 ? t('components.notificationView.pageTitle_plural', {count}):
+        t('components.notificationView.pageTitle', {count})}
+      </Typography>
       </Box>
       
       {count ? 
