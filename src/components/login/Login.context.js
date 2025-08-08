@@ -1,4 +1,5 @@
 import React, { createContext, useReducer } from 'react'
+import authService from './authService'
 // import { hasUnviewedFiles } from '../../data/utils'
 
 const userInitialState = {
@@ -73,7 +74,10 @@ const userReducer = (state, action) => {
 }
 
 export const LoginProvider = (props) => {
-  const userData = useReducer(userReducer, userInitialState)
+  const storedUser = authService.getStoredUser();
+  const userData = useReducer(userReducer, 
+    { ...userInitialState, ...(storedUser || {}),
+   });
   return (
     <LoginContext.Provider value={userData}> 
       {props.children}

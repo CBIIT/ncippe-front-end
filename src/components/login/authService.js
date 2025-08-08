@@ -31,11 +31,7 @@ export  class AuthService {
        // You can show a modal, banner, or trigger a UI warning
       window.dispatchEvent(new CustomEvent("tokenExpiring"));
     });
-    // this.UserManager.events.addSilentRenewError(e => {
-    //   console.log("silent renew error", e.message);
-    // });
-
-      //allow setting up a callback when token is expired
+   
     }
   
     setTokenExpiredHandler(navigate) {
@@ -135,7 +131,7 @@ export  class AuthService {
   };
 
   setUser = data => {
-    localStorage.setItem("user", data);
+    localStorage.setItem("user", JSON.stringify(data));
   };
 
   setSessionInfo(authResult) {
@@ -180,16 +176,6 @@ export  class AuthService {
       sessionStorage.clear();
       window.location.href = '/';
     }
-     // Clear local user info
-    // localStorage.clear();
-    // sessionStorage.clear();
-
-    // const appPostLogout = encodeURIComponent('https://moonshotbiobank-dev.cancer.gov/signout?post_logout=true');
-    // window.location.href = `https://stsstg.nih.gov/siteminderagent/smlogoutredirector.asp?target=https://moonshotbiobank-dev.cancer.gov/signout`;
-    // this.UserManager.signoutRedirect({
-    //   id_token_hint: localStorage.getItem("id_token")|| undefined,
-    //   post_logout_redirect_uri: "https://stsstg.nih.gov/connect/session/logout"
-    // });
 
   };
 
@@ -204,6 +190,30 @@ export  class AuthService {
       navigate('/', { state: { ...state } }); // or just window.location.href = '/'
     }
   };
+
+  getStoredUser() {
+    try {
+      const access_token = localStorage.getItem('access_token');
+      const id_token = localStorage.getItem('id_token');
+      const userStr = localStorage.getItem('user');
+
+      if (!access_token || !id_token || !userStr){
+        console.log('line 215: Invalid user data in local storage');
+        return null;
+      }
+      const parsedUser = JSON.parse(userStr);
+
+      return {
+        access_token,
+        id_token,
+        auth: true,
+        ...parsedUser
+      };
+    } catch (e) {
+      console.error('Error reading user from storage', e);
+      return null;
+    }
+  }
 }
 
 const authService = new AuthService();
