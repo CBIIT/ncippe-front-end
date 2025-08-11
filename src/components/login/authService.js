@@ -167,6 +167,9 @@ export  class AuthService {
         window.location.href = response.url;  // This will redirect to post_logout_redirect_uri (e.g. /signout)
       } else {
         console.error('Logout proxy did not redirect:', await response.text());
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.href = '/';
       }
     } catch (err) {
       console.error('Error during logout proxy call:', err);
