@@ -65,10 +65,15 @@
     "react-refresh": "^0.17.0",
     "react-scripts": "^5.0.0",
     "trim": "^1.0.1",
-    "webpack-bundle-analyzer": "^4.5.0"
+    "webpack-bundle-analyzer": "^4.5.0",
+    "sha.js": "^2.4.12",
+    "cipher-base": "^1.0.5",
+    "form-data": "^4.0.4"
   },
   "resolutions": {
     "glob-parent": "^6.0.2",
+    "sha.js": "^2.4.12",
+    "cipher-base": "^1.0.5",
     "nth-check": "^2.0.1",
     "postcss": "^8.4.6",
     "trim": "^1.0.1"
@@ -107,5 +112,5 @@
       "not ie > 0"
     ]
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:8080"
 }
