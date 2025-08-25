@@ -62,9 +62,19 @@ const SignInCallback = () => {
 
         // If not found, generate a new code_verifier (random string, usually 43-128 chars, URL-safe)
         if (!codeVerifier) {
-          codeVerifier = [...crypto.getRandomValues(new Uint8Array(64))]
-            .map(b => ('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~'[b % 66]))
-            .join('');
+          // Generate an unbiased random string of length 64 using rejection sampling
+          const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+          const verifierLength = 64;
+          const codeArray = [];
+          while (codeArray.length < verifierLength) {
+            const randomBytes = crypto.getRandomValues(new Uint8Array(1));
+            const byte = randomBytes[0];
+            // Accept bytes < 198 to avoid modulo bias (66 * 3 = 198)
+            if (byte < 198) {
+              codeArray.push(charset[byte % 66]);
+            }
+          }
+          codeVerifier = codeArray.join('');
           sessionStorage.setItem('code_verifier', codeVerifier);
         }
 
