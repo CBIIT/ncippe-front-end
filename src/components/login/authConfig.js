@@ -10,12 +10,12 @@ export const IDENTITY_CONFIG = {
   }
 
 export const METADATA_OIDC = {
-  jwks_uri:  "https://stsstg.nih.gov/openid/connect/jwks.json",
-  authorization_endpoint: "https://stsstg.nih.gov/auth/oauth/v2/authorize",
-  token_endpoint: "https://stsstg.nih.gov/auth/oauth/v2/token",
-  userinfo_endpoint: "https://stsstg.nih.gov/openid/connect/v1/userinfo",
-  certificates_endpoint: "https://stsstg.nih.gov/api/openid_connect/certs",
-  end_session_endpoint: "https://stsstg.nih.gov/connect/session/logout",
+  jwks_uri:  process.env.REACT_APP_OAUTH_JWKS_URI,
+  authorization_endpoint: process.env.REACT_APP_OAUTH_AUTHORIZATION_ENDPOINT,
+  token_endpoint: process.env.REACT_APP_OAUTH_TOKEN_ENDPOINT,
+  userinfo_endpoint: process.env.REACT_APP_OAUTH_USERINFO_ENDPOINT,
+  certificates_endpoint: process.env.REACT_APP_OAUTH_CERTIFICATES_ENDPOINT,
+  end_session_endpoint: process.env.REACT_APP_OAUTH_END_SESSION_ENDPOINT,
   // check_session_iframe: process.env.REACT_APP_AUTH_URL + "/api/openid_connect/checksession",
   // revocation_endpoint: process.env.REACT_APP_AUTH_URL + "/api/openid_connect/revocation",
   // introspection_endpoint: process.env.REACT_APP_AUTH_URL + "/api/openid_connect/introspect"
