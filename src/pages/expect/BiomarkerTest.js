@@ -185,7 +185,7 @@ const BiomarkerTest = () => {
           <Typography variant="h3" component="h3" sx={{ my: 2, mt: 4 }}>
             <RenderContent children={t('sections.2.subtitle.2')} />
           </Typography>
-          <Grid container mt={2} spacing={2}sx={{ display: 'flex', flexWrap: { xs: 'wrap', sm: 'nowrap' },
+          <Grid container mt={2} spacing={2} sx={{ display: 'flex', flexWrap: { xs: 'wrap', sm: 'nowrap' },
             '& > div': {
                 maxWidth: 336,
                 mr: { sm: 2, md: 6 },

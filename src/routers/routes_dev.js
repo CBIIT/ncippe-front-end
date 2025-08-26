@@ -126,7 +126,7 @@ const AppRoutes = () => {
           <Route path='/expect/consent' element={ <AboutConsentPage />} /> 
           <Route path='/expect/donate' element={<DonatePage />} /> 
           <Route path='/expect/testing' element={<TestingPage />} /> 
-          <Route path='/participation/activate'element={<ActivatePage />} />
+          <Route path='/participation/activate' element={<ActivatePage />} />
           <Route path='/participation/privacy' element= {<PrivacyPage />} />
           <Route path='/website-privacy-security' element= {<PolicyPage />} />
           <Route path='/search' element= {<SearchResultsPage  />} />

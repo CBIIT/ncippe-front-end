@@ -10,7 +10,6 @@ import RenderContent from '../../components/utils/RenderContent'
 import ArticleImage from '../../components/utils/ArticleImage'
 import { caseConverter } from '../../utils/utils'
 import NotFound from '../NotFoundPage'
-import { use } from 'react'
 
 const StyledGrid = styled(Grid)({
   justifyContent: 'flex-start',

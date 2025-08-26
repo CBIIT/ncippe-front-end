@@ -7,8 +7,6 @@ import axios from 'axios'
 import { AuthContext } from '../../components/login/AuthContext'
 import { LoginContext } from '../../components/login/Login.context'
 import getAPI from '../../data'
-import data from '../../data'
-import { local } from 'd3-selection'
 
 const SignInCallback = () => {
   const location = useLocation()

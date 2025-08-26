@@ -301,7 +301,7 @@ export const convertToCamel = (string, pascal = false) => {
  * @return {string}
  */
 export const caseConverter = (string, pascal = false) => {
-  if (typeof string !== 'string') return ''
+  if (!string || typeof string !== 'string') return ''
 	if (string.match(/(-\w)/)) {
     return convertToCamel(string, pascal)
   } else if (string.match(/([a-z])([A-Z])/g)) {

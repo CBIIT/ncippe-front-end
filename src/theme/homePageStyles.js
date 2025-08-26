@@ -1,7 +1,3 @@
-// src/theme/styles/homePageSx.js
-
-import { color, text } from "d3";
-
 // static 
 export const bannerBaseSx = {
     textAlign: 'center',
