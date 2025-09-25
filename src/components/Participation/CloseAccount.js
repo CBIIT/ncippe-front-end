@@ -19,7 +19,7 @@ const CloseAccount = () => {
   const [loginContext] = useContext(LoginContext)
   // const { signoutRedirectCallback } = useContext(AuthContext)
   const [ closeError, setCloseError ] = useState(false)
-  const { crc, uuid, token  } = loginContext
+  const { crcsSet, uuid, token  } = loginContext
 
   const handleSubmit = () => {
     const {uuid, token} = loginContext
@@ -69,9 +69,13 @@ const CloseAccount = () => {
           },
         }} elevation={25}>
         <Typography variant="h3">{t('close.crc_card_title')}</Typography>
-        <Typography>{crc.firstName} {crc.lastName}</Typography>
-        <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
-        <Typography><a className="breakAll" href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
+        {crcsSet && crcsSet.map((crc, i) => (
+          <Box mb={2} key={i}>
+            <Typography>{crc.firstName} {crc.lastName}</Typography>
+            <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
+            <Typography><a className="breakAll" href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
+          </Box>
+        ))}
       </Paper>
       {closeError && <Status state="error" title={t('close.error.title')} message={t('close.error.message')} />}
       <Box sx={{ mt: 2 }} >

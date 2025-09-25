@@ -31,7 +31,7 @@ const ProfilePage = () => {
     isActiveBiobankParticipant = 1, 
     dateDeactivated = null, 
     questionAnswers, 
-    crc, 
+    crcsSet, 
     providers,
     roleName,
   } = profileData
@@ -144,9 +144,13 @@ const ProfilePage = () => {
                 <Divider sx={{ my:3, backgroundColor: '#ccc'}} />
                 </>)}
                 <Typography fontWeight="bold" gutterBottom>{t('contacts.crc')}</Typography>
-                <Typography>{crc.firstName} {crc.lastName}</Typography>
-                <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
-                <Typography><a className="email" href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
+                {crcsSet && crcsSet.map((crc, i) => (
+                  <Box mb={2} key={i}>
+                    <Typography>{crc.firstName} {crc.lastName}</Typography>
+                    <Typography><a href={`tel:${crc.phoneNumber}`}>{formatPhoneNumber(crc.phoneNumber)}</a></Typography>
+                    <Typography><a className="email" href={`mailto:${crc.email}`}>{crc.email}</a></Typography>
+                  </Box>
+                ))}
               </Paper>
             )}
           </Grid>
