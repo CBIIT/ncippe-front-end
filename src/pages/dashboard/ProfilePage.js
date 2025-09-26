@@ -94,7 +94,7 @@ const ProfilePage = () => {
           </Box>
           {roleName === "ROLE_PPE_PARTICIPANT" && (
             <div><Button sx={{ backgroundColor: theme => theme.palette.common.white }} variant="outlined" color="primary" 
-            component={RouterLink} to={`../participation`} onClick={trackParticipationClick}>
+            component={RouterLink} to="participation" onClick={trackParticipationClick}>
               {t('a_common:buttons.change_participation')}</Button></div>
           )}
         </Box>
