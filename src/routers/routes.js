@@ -138,7 +138,7 @@ const AppRoutes = () => {
               <Route path="consent" element={ <ConsentPage />  } />
               <Route path="tests" element={ <TestResultsPage />  } />
               <Route path="participant/:patientId" element={ <ParticipantPage />  } />
-              <Route path="participant/:patientId/participation/*" element={ <ParticipationPage />  } >
+              <Route path="participant/:patientId/participation" element={ <ParticipationPage />  } >
                 <Route index element={<ChangeParticipationPage /> } />
                 <Route path="leaveOptions" element={<LeaveOptionsPage />} />
                 <Route path="leaveQuestions" element={<LeaveQuestionsPage />} />
@@ -146,7 +146,12 @@ const AppRoutes = () => {
               </Route>
               <Route path="participant/:patientId/profile" element={ <ProfilePage />  } />
               <Route path="profile" element={ <ProfilePage />  } />
-              <Route path="profile/participation/*" element={ <ParticipationPage />  } />
+              <Route path="profile/participation" element={ <ParticipationPage />  } >
+                <Route index element={<ChangeParticipationPage /> } />
+                <Route path="leaveOptions" element={<LeaveOptionsPage />} />
+                <Route path="leaveQuestions" element={<LeaveQuestionsPage />} />
+                <Route path="closeAccount" element={<CloseAccountPage />} />
+              </Route>
               <Route path="help" element={ <GetHelpPage />  } />
               <Route path="resources" element={ <ResourcesPage />  } />
               <Route path="sendMessage" element={ <SendMessagePage />  } />

@@ -87,7 +87,7 @@ const SignInCallback = () => {
           code,
           code_verifier: codeVerifier,
           });
-        console.log('Token exchange response:', response.data);
+        //console.log('Token exchange response:', response.data);
 
         // Token successfully retrieved from backend
         // Assign id_token to the already defined variable
