@@ -425,11 +425,12 @@ async function getNewsEvents(){
 
 async function sendMessage(data,uuid){
   const accessToken = localStorage.getItem('access_token');
-  return await fetch(`/api/v1/notifications`,{
+  const query = {
+    uuid: uuid
+  }
+  return await fetch(`/api/v1/notifications?${queryString.stringify(query)}`,{
     method: 'POST',
-    headers:{ ...authHeaders(accessToken),
-      'uuid': uuid
-    },
+    headers:authHeaders(accessToken),
     body: JSON.stringify(data)
   })
     .then(handleResponse)
@@ -441,10 +442,11 @@ async function sendMessage(data,uuid){
 
 async function getMessages({uuid}){
   const accessToken = localStorage.getItem('access_token');
-  return await fetch(`/api/v1/notifications`,{
-    headers:{ ...authHeaders(accessToken),
-      'uuid': uuid
-    }
+  const query = {
+    uuid: uuid
+  }
+  return await fetch(`/api/v1/notifications?${queryString.stringify(query)}`,{
+    headers:authHeaders(accessToken),
   })
     .then(handleResponse)
     .catch(handleErrorMsg('Unable to fetch messages at this time.'))
