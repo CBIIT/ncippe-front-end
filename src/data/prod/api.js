@@ -425,12 +425,19 @@ async function getNewsEvents(){
 
 async function sendMessage(data,uuid){
   const accessToken = localStorage.getItem('access_token');
-  const query = {
-    uuid: uuid
+  const headers = { ...authHeaders(accessToken),
+    'Accept': 'text/plain; charset=utf-8',
+    'Access-Control-Allow-Origin': '*',
+    'uuid': uuid
   }
-  return await fetch(`/api/v1/notifications?${queryString.stringify(query)}`,{
+  // If authHeaders added a JSON content-type, strip it
+  if (headers['Content-Type'] && headers['Content-Type'].includes('application/json')) {
+    headers['Content-Type'] = 'text/plain; charset=utf-8';
+  }
+ 
+  return await fetch(`/api/v1/notifications`,{
     method: 'POST',
-    headers:authHeaders(accessToken),
+    headers:headers,
     body: JSON.stringify(data)
   })
     .then(handleResponse)
@@ -442,11 +449,14 @@ async function sendMessage(data,uuid){
 
 async function getMessages({uuid}){
   const accessToken = localStorage.getItem('access_token');
-  const query = {
-    uuid: uuid
+  const headers = { ...authHeaders(accessToken),
+    'Accept': 'application/json',
+    'Access-Control-Allow-Origin': '*'
   }
-  return await fetch(`/api/v1/notifications?${queryString.stringify(query)}`,{
-    headers:authHeaders(accessToken),
+  delete headers['Content-Type'];
+  return await fetch(`/api/v1/notifications?uuid=${encodeURIComponent(uuid)}`,{
+    method: 'GET',
+    headers:headers,  
   })
     .then(handleResponse)
     .catch(handleErrorMsg('Unable to fetch messages at this time.'))
