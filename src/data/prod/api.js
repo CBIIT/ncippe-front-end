@@ -1,7 +1,7 @@
 import {filesViewedByUser, sortPatients} from '../../data/utils'
 import {formatPhoneNumber} from '../../utils/utils'
 import queryString from 'query-string'
-import signOut from '../../components/login/SignOut'
+import authService from '../../components/login/authService'
 
 const handleResponse = async resp => {
   if(resp.ok) {
@@ -25,7 +25,7 @@ const handleResponse = async resp => {
     }else if (resp.status === 401) {
       //401 Unauthorized, sign out
       alert('Your session has expired. You will be redirected to the home page.');
-      signOut();
+      authService.logout();
     }else if (resp.status === 504) {
       throw new Error(`Request timed out, please refresh page: ${resp.status} `)
     }else{
