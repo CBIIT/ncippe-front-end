@@ -1,7 +1,7 @@
 import {filesViewedByUser, sortPatients} from '../../data/utils'
 import {formatPhoneNumber} from '../../utils/utils'
 import queryString from 'query-string'
-import { signOut } from '../../components/login/SignOut'
+import signOut from '../../components/login/SignOut'
 
 const handleResponse = async resp => {
   if(resp.ok) {
