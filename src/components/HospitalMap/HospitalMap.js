@@ -51,16 +51,14 @@ const HospitalMap = () => {
 
 
   const updateList = useCallback( (index) => {
-    console.log('updateList called with index:', index);
-    console.log('refs.current length:', refs.current.length);
+    //console.log('updateList called with index:', index);
+    //console.log('refs.current length:', refs.current.length);
     refs.current.forEach((ref, i) => {
-      console.log(`Ref ${i}:`, ref.current);
+     // console.log(`Ref ${i}:`, ref.current);
       ref.current?.classList.remove('active')
     })
     if(index !== undefined && refs.current[index] && refs.current[index].current) {
-      console.log('Adding active class to index:', index);
       refs.current[index].current.classList.add("active")
-  
       refs.current[index].current.scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
@@ -136,8 +134,8 @@ useEffect(()=>{
         
         // Add click event directly to marker
         thisMarker.on('click', (e) => {
-          console.log('Marker clicked:', i, 'refs available:', refs.current.length);
-          console.log('Ref for index', i, ':', refs.current[i]);
+          // console.log('Marker clicked:', i, 'refs available:', refs.current.length);
+          // console.log('Ref for index', i, ':', refs.current[i]);
           // Small delay to ensure DOM is ready
           setTimeout(() => {
             updateList(i);
@@ -178,7 +176,6 @@ useEffect(()=>{
   useEffect(() => {
     if (hospitalData.length > 0) {
       refs.current = hospitalData.map((_, i) => refs.current[i] ?? React.createRef());
-      console.log('Created refs:', refs.current.length);
     }
   }, [hospitalData]);
 
