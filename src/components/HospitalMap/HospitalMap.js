@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react'
-import { Box, Divider, Grid, Paper, Typography, useTheme, styled} from '@mui/material'
+import { Box, Grid, Paper, Typography, useTheme, styled} from '@mui/material'
 import { useScript } from '../../components/utils/useScript'
 import getAPI from '../../data'
 import {formatPhoneNumber} from '../../utils/utils'
@@ -128,6 +128,12 @@ useEffect(()=>{
           i
         })
         thisMarker.addTo(map).bindPopup(hospital.title)
+        
+        // Add click event directly to marker
+        thisMarker.on('click', (e) => {
+          updateList(i);
+        });
+        
         addedMarkers.push(thisMarker)
         //setMarkers(prev => [...prev,thisMarker])
         refs.current[i] = React.createRef()
@@ -136,8 +142,10 @@ useEffect(()=>{
 
       setMarkers(addedMarkers)
 
+      // Remove old popup event handlers
       map.off('popupopen popupclose',handlePopup);
 
+      // Add popup event handlers for when popup opens/closes
       map.on('popupopen popupclose',handlePopup);
     }
 
