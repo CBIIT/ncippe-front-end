@@ -51,16 +51,22 @@ const HospitalMap = () => {
 
 
   const updateList = useCallback( (index) => {
-    refs.current.forEach((ref) => {
+    console.log('updateList called with index:', index);
+    console.log('refs.current length:', refs.current.length);
+    refs.current.forEach((ref, i) => {
+      console.log(`Ref ${i}:`, ref.current);
       ref.current?.classList.remove('active')
     })
     if(index !== undefined && refs.current[index] && refs.current[index].current) {
+      console.log('Adding active class to index:', index);
       refs.current[index].current.classList.add("active")
   
       refs.current[index].current.scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
       })
+    } else {
+      console.log('Cannot add active class - index:', index, 'ref exists:', refs.current[index] ? 'yes' : 'no');
     }
   }, []);
 
@@ -119,7 +125,6 @@ useEffect(()=>{
     if(map && hospitalData.length > 0) {
       markers.forEach(marker => map.removeLayer(marker));
       setMarkers([]);
-      refs.current = [];
      // let pins = []
       hospitalData.forEach((hospital, i) => {
         const gpsMarker = hospital.gps_coordinates.split(",")
@@ -131,12 +136,16 @@ useEffect(()=>{
         
         // Add click event directly to marker
         thisMarker.on('click', (e) => {
-          updateList(i);
+          console.log('Marker clicked:', i, 'refs available:', refs.current.length);
+          console.log('Ref for index', i, ':', refs.current[i]);
+          // Small delay to ensure DOM is ready
+          setTimeout(() => {
+            updateList(i);
+          }, 50);
         });
         
         addedMarkers.push(thisMarker)
         //setMarkers(prev => [...prev,thisMarker])
-        refs.current[i] = React.createRef()
         // .on('click',clickZoom); 
       });
 
@@ -164,6 +173,14 @@ useEffect(()=>{
 
      // Remove previous event listeners before adding new ones
    
+
+  // Create refs when hospitalData changes
+  useEffect(() => {
+    if (hospitalData.length > 0) {
+      refs.current = hospitalData.map((_, i) => refs.current[i] ?? React.createRef());
+      console.log('Created refs:', refs.current.length);
+    }
+  }, [hospitalData]);
 
   useEffect(() => {
     getAPI.then(api => {
@@ -225,7 +242,7 @@ useEffect(()=>{
                   // console.log(refs[i])
                   return (
                     <React.Fragment key={i}>
-                      <LocationBox ref={refs[i]} data-location={hospital.gps_coordinates} 
+                      <LocationBox ref={refs.current[i]} data-location={hospital.gps_coordinates} 
                       onClick={updateMap} data-index={i} 
                       onKeyDown={handleKeyDown} tabIndex={0} 
                       sx={{
