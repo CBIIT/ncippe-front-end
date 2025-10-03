@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Box, Container } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'

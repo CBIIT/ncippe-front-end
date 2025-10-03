@@ -55,19 +55,31 @@ export function hasUnviewedFiles(files, uuid) {
 }
 
 export function sortPatients(patients){
+  // Validate input
+  if (!Array.isArray(patients)) {
+    console.warn('sortPatients: Expected array, got:', typeof patients);
+    return [];
+  }
   const sortedPatients = patients
-  // sort alphabetically
-  .sort((a, b) => a.lastName.localeCompare(b.lastName))
-  // bring new accounts to the top
-  .sort((a,b) => {
-    if(a.portalAccountStatus === "ACCT_NEW" && b.portalAccountStatus !== "ACCT_NEW") {
-      return -1
-    }
-    if(b.portalAccountStatus === "ACCT_NEW" && a.portalAccountStatus !== "ACCT_NEW") {
-      return 1
-    }
-    return 0
-  })
+  .filter(patient => patient && typeof patient === 'object') // Remove null/undefined patients
+  .sort((a, b) => {
+    const aNew = a.portalAccountStatus === 'ACCT_NEW';
+    const bNew = b.portalAccountStatus === 'ACCT_NEW';
+    if (aNew !== bNew) return aNew ? -1 : 1; //new accounts first
+    const aLast = (a?.lastName ?? '').trim();
+    const bLast = (b?.lastName ?? '').trim();
+    const lastCmp = aLast.localeCompare(bLast, undefined, { sensitivity: 'base' });
+    if (lastCmp) return lastCmp;
+    const aFirst = (a?.firstName ?? '').trim();
+    const bFirst = (b?.firstName ?? '').trim();
+    const firstCmp = aFirst.localeCompare(bFirst, undefined, { sensitivity: 'base' });
+    if (firstCmp) return firstCmp;
 
+    // Final stable-ish tiebreaker
+    const aId = String(a?.patientId ?? '');
+    const bId = String(b?.patientId ?? '');
+    return aId.localeCompare(bId, undefined, { numeric: true, sensitivity: 'base' });
+  })
+  
   return sortedPatients
 }

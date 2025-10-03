@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box, Container, Typography, Grid, useTheme } from '@mui/material'
+import { Box, Container, Typography, Grid } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import PubSub from 'pubsub-js'
@@ -16,7 +16,6 @@ const gridItemSx = {
 
 const Page = () => {
   const { t } = useTranslation(['a_landing','a_common'])
-  const theme = useTheme()
 
   useEffect(() => {
     // only want to track the dashboard landing page load event once, saving state to session variable
@@ -112,13 +111,7 @@ const Page = () => {
               //{`You have ${count} new notification${count !== 1 ? 's' : ''}.`}
               /* count will be a number */
               return roleName === "ROLE_PPE_MESSENGER" && (
-                <Grid
-                sx={gridItemSx}
-                  size={{
-                    xs: 12,
-                    sm: 6,
-                    lg: 4
-                  }}>
+                <Grid sx={gridItemSx} size={{ xs: 12, sm: 6, lg: 4 }}>          
                   <IconCard
                     icon="stored-medical-info.svg"
                     title={t('cards.messageHistory.title')}
@@ -138,13 +131,7 @@ const Page = () => {
               //{`You have ${count} new notification${count !== 1 ? 's' : ''}.`}
               /* count will be a number */
               return roleName !== "ROLE_PPE_MESSENGER" && (
-                <Grid
-                sx={gridItemSx}
-                  size={{
-                    xs: 12,
-                    sm: 6,
-                    lg: 4
-                  }}>
+                <Grid sx={gridItemSx} size={{ xs: 12, sm: 6, lg: 4 }}>
                   <IconCard
                     icon="notifications.svg"
                     title={t('cards.notifications.title')}
@@ -166,13 +153,7 @@ const Page = () => {
             return roleName === "ROLE_PPE_PARTICIPANT" && (
               <>
                 {/* Participant Consent Form */}
-                <Grid
-                  sx={gridItemSx}
-                  size={{
-                    xs: 12,
-                    sm: 6,
-                    lg: 4
-                  }}>
+                <Grid sx={gridItemSx} size={{ xs: 12, sm: 6, lg: 4 }}>
                   <IconCard
                     icon="reports.svg"
                     title={t('cards.consent.title')}
@@ -186,13 +167,7 @@ const Page = () => {
                 {/* END: Participant Consent Form */}
 
                 {/* Participant Biomarker Test Results */}
-                <Grid
-                  sx={gridItemSx}
-                  size={{
-                    xs: 12,
-                    sm: 6,
-                    lg: 4
-                  }}>
+                <Grid sx={gridItemSx} size={{ xs: 12, sm: 6, lg: 4 }}>
                   <IconCard
                     icon="biomarker-tests.svg"
                     title={t('cards.biomarker.title')}
@@ -216,13 +191,7 @@ const Page = () => {
             const icon = roleName === "ROLE_PPE_PARTICIPANT" ? "user-profile.svg" : "doctor.svg"
             const description = roleName === "ROLE_PPE_PARTICIPANT" ? t('cards.settings.description.participant') : t('cards.settings.description.admin')
             return (
-              <Grid
-              sx={gridItemSx}
-                size={{
-                  xs: 12,
-                  sm: 6,
-                  lg: 4
-                }}>
+              <Grid sx={gridItemSx} size={{ xs: 12, sm: 6, lg: 4 }}>
                 <IconCard
                   icon={icon}
                   title={t('cards.settings.title')}
@@ -240,13 +209,7 @@ const Page = () => {
           <LoginConsumer>
           {([{roleName}]) => {
             return roleName === "ROLE_PPE_PARTICIPANT" && (
-              <Grid
-              sx={gridItemSx}
-                size={{
-                  xs: 12,
-                  sm: 6,
-                  lg: 4
-                }}>
+              <Grid sx={gridItemSx} size={{ xs: 12, sm: 6, lg: 4 }}>
                 <IconCard
                   icon="get-help.svg"
                   title={t('cards.help.title')}
@@ -265,13 +228,7 @@ const Page = () => {
           {([{roleName}]) => {
             return (roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC") && (
               <>
-              <Grid
-                sx={gridItemSx}
-                size={{
-                  xs: 12,
-                  sm: 6,
-                  lg: 4
-                }}>
+              <Grid sx={gridItemSx} size={{ xs: 12, sm: 6, lg: 4 }}>
                 <IconCard
                   icon="biomarker-tests.svg"
                   title={t('cards.guide.0.title')}
@@ -282,13 +239,7 @@ const Page = () => {
                   cardClick={trackCardClick}
                 />
               </Grid>
-              <Grid
-                sx={gridItemSx}
-                size={{
-                  xs: 12,
-                  sm: 6,
-                  lg: 4
-                }}>
+              <Grid sx={gridItemSx} size={{ xs: 12, sm: 6, lg: 4 }}>
                 <IconCard
                   icon="biomarker-tests.svg"
                   title={t('cards.guide.1.title')}
@@ -309,13 +260,7 @@ const Page = () => {
           {([{roleName}]) => {
             const description = roleName === "ROLE_PPE_PARTICIPANT" ? t('cards.resources.description.participant') : t('cards.resources.description.admin')
             return (roleName === "ROLE_PPE_PARTICIPANT" || roleName === "ROLE_PPE_PROVIDER" || roleName === "ROLE_PPE_CRC") && (
-              <Grid
-              sx={gridItemSx}
-                size={{
-                  xs: 12,
-                  sm: 6,
-                  lg: 4
-                }}>
+              <Grid sx={gridItemSx} size={{ xs: 12, sm: 6, lg: 4 }}>
                 <IconCard
                   icon="one-idea-v2.svg"
                   title={t('cards.resources.title')}

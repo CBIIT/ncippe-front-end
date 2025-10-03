@@ -454,11 +454,10 @@ async function sendMessage(data,uuid){
 
 async function getMessages({uuid}){
   const accessToken = localStorage.getItem('access_token');
-  const headers = { ...authHeaders(accessToken),
+  const headers = { 
+    'Authorization': `Bearer ${accessToken}`,
     'Accept': 'application/json',
-    'Access-Control-Allow-Origin': '*'
   }
-  delete headers['Content-Type'];
   return await fetch(`/api/v1/notifications?uuid=${encodeURIComponent(uuid)}`,{
     method: 'GET',
     headers:headers,  

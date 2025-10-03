@@ -60,18 +60,24 @@ const PatientListItem = ({ patient, activate}) => {
             }}>
           {hasNewFiles && <Chip  label={t('badges.new_document')} 
           color="warning" size="small" sx={{ fontWeight: 'bold' }} />}
-          {isActiveBiobankParticipant === false && <Chip label={t('badges.not_participating')} 
-          color="warning" size="small" sx={{ fontWeight: 'bold' }} />}
-          {portalAccountStatus === "ACCT_TERMINATED_AT_PPE" && <Chip  label={t('badges.terminated')}
-          color="warning" size="small" sx={{ fontWeight: 'bold' }}  />}
-          {portalAccountStatus === 'ACCT_NEW' && <Chip  label={t('badges.new_participant')} 
-          color="success" size="small" sx={{ fontWeight: 'bold' }}/>}
+          {!isActiveBiobankParticipant && (
+            <Chip label={t('badges.not_participating')} 
+          color="error" size="small" sx={{ fontWeight: 'bold' }} />)}
+          {portalAccountStatus === "ACCT_TERMINATED_AT_PPE" && (
+            <Chip  label={t('badges.terminated')}
+          color="error" size="small" sx={{ fontWeight: 'bold' }}  /> )}
+          {portalAccountStatus === 'ACCT_NEW' && (
+            <Chip  label={t('badges.new_participant')} 
+          color="success" size="small" sx={{ fontWeight: 'bold' }}/>)}
         </Box>
         )}
         <Typography sx={{ mb: 1 }} variant="h3" component="h3">{
           // firstName ? <>{firstName} {lastName} <Typography className={classes.patientId} component="span">({patientId})</Typography></> : `${t('participant.id')}: ${patientId}`
-        firstName ? <>{firstName} {lastName} <Chip  sx={{ ml: 1, fontWeight: 'normal' }} size="small" label={patientId} /></> : `${t('participant.id')}: ${patientId}`
-        }</Typography>
+        firstName ? ( <>{firstName} {lastName} {' '}<Chip  sx={{ ml: 1, fontWeight: 'normal' }} 
+          size="small" label={patientId} /></> ) : (
+            `${t('participant.id')}: ${patientId}`)
+            }
+        </Typography>
         <Typography>{t('participant.since')} {moment(dateCreated).format("MMM DD, YYYY")}</Typography>
       </Paper>
     </Link>

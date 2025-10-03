@@ -69,38 +69,25 @@ const AddParticipantWorkflow = (props) => {
 
   const updatePatientList = async (activate = false) => {
     const updatedPatients = patients.map(patient => {
-      if (patient.patientId === patientId) {
-        let returnObj
-        if(activate){
-          returnObj = {
-            ...patient,
-            portalAccountStatus: "ACCT_ACTIVE",
-          }
-        } else {
-          returnObj = {
-            ...patient,
-            firstName: addParticipantContext.firstName,
-            lastName: addParticipantContext.lastName,
-            email: addParticipantContext.email,
-            lang: addParticipantContext.lang,
-          }
-        }
-        return returnObj
-      } else {
+      if (patient.patientId !== patientId) {
         return patient
-      }
+      } 
+      return activate ? {
+        ...patient,
+        portalAccountStatus: "ACCT_ACTIVE",
+      } : {
+        ...patient,
+        firstName: addParticipantContext.firstName,
+        lastName: addParticipantContext.lastName,
+        email: addParticipantContext.email,
+        lang: addParticipantContext.lang,
+      };
     })
-    // sort alphabetically
-    .sort((a, b) => a.lastName.localeCompare(b.lastName))
-    // bring new accounts to the top
     .sort((a,b) => {
-      if(a.portalAccountStatus === "ACCT_NEW" && b.portalAccountStatus !== "ACCT_NEW") {
-        return -1
-      }
-      if(b.portalAccountStatus === "ACCT_NEW" && a.portalAccountStatus !== "ACCT_NEW") {
-        return 1
-      }
-      return 0
+      const aNew = a.portalAccountStatus === 'ACCT_NEW';
+      const bNew = b.portalAccountStatus === 'ACCT_NEW';
+      if (aNew !== bNew) return aNew ? -1 : 1; // ACCT_NEW first
+      return (a.lastName || '').localeCompare(b.lastName || '');
     })
     
     loginDispatch({
@@ -108,10 +95,17 @@ const AddParticipantWorkflow = (props) => {
       patients: updatedPatients
     })
   } // end: updatePatientList
+  
+  // ★ CHANGED: refresh from server using existing API (no new endpoints)
+  const refreshPatientsFromServer = async () => {
+    const api = await getAPI;
+    const freshUser = await api.fetchUser({ uuid, token });
+    const freshPatients = Array.isArray(freshUser?.patients) ? freshUser.patients : [];
+    loginDispatch({ type: 'patientsLoaded', patients: freshPatients });
+  };
 
   const saveParticipantData = () => {
     // e.preventDefault()
-
     getAPI.then(async api => {
       return await api.updateParticipantDetails({
         uuid,
@@ -133,11 +127,20 @@ const AddParticipantWorkflow = (props) => {
             data: "addReport"
           })
           updatePatientList()
+          return refreshPatientsFromServer()
         }
       })
       .catch(error => {
-        if(error.message?.indexOf('User.Email_UNIQUE') > -1){
-          addParticipantContext.existingEmail_error = true;
+        if(error?.message?.includes('User.Email_UNIQUE') ){
+          dispatch({
+            type: "error",
+            data: {
+              existingEmail_error: true,
+              updateUser_error: true,
+              navigate: "participantId"
+            }
+          })
+          return
         }
         dispatch({
           type: "error",
@@ -214,7 +217,8 @@ const AddParticipantWorkflow = (props) => {
         throw resp
       } else {
         // update patient data front-end state
-        updatePatientList(true).then(() => {
+        updatePatientList(true).then(() => refreshPatientsFromServer())
+        .then(() => {
           // save successful, close modal and redirect to Participant View
           navigate(`/account/participant/${patientId}`, {
             state: {
