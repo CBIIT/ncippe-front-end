@@ -116,7 +116,7 @@ const AddParticipantInfoDialog = (props) => {
       const api = await getAPI;
       const freshUser = await api.fetchUser({ uuid, token });
       const freshPatients = Array.isArray(freshUser?.patients) ? freshUser.patients : [];
-      dispatch({ type: 'patientsLoaded', patients: freshPatients });
+      dispatch({ type: 'accountActivated', patients: freshPatients });
     } catch {
       // non-fatal
     }

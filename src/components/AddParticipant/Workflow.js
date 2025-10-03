@@ -101,7 +101,7 @@ const AddParticipantWorkflow = (props) => {
     const api = await getAPI;
     const freshUser = await api.fetchUser({ uuid, token });
     const freshPatients = Array.isArray(freshUser?.patients) ? freshUser.patients : [];
-    loginDispatch({ type: 'patientsLoaded', patients: freshPatients });
+    loginDispatch({ type: 'accountActivated', patients: freshPatients });
   };
 
   const saveParticipantData = () => {
