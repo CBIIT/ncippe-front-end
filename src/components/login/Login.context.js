@@ -39,9 +39,16 @@ const userReducer = (state, action) => {
           })
         })
       ],
+      newNotificationCount: 0
     })
-    case 'addPatientData':
+
     case 'accountActivated':
+      return ({
+        ...state,
+        patients: action.patients,
+        patientsUpdated: Date.now()
+      })
+    case 'addPatientData':
     case 'reportViewedByOther':
     case 'documentViewedByOther': {
       return ({
