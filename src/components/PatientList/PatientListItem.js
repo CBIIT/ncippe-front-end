@@ -18,11 +18,9 @@ const PatientListItem = ({ patient, activate}) => {
     patientId, 
     dateCreated,
     isActiveBiobankParticipant = true,
-    portalAccountStatus,
-    hasNewReports = false,
-    hasNewDocuments = false 
+    portalAccountStatus
   } = patient
-  const hasNewFiles = hasNewReports || hasNewDocuments
+  const hasNewFiles = patient.hasNewReports || patient.hasNewDocuments
 
   const { t } = useTranslation('a_common')
   const handleClick = (event) => {
