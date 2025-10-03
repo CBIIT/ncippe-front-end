@@ -30,7 +30,9 @@ const userReducer = (state, action) => {
     case 'reset': return ({
       ...initialState
     })
-    default: throw new Error('Unexpected action')
+    default:
+      console.error('AddParticipant - Unexpected action type:', action.type, action);
+      throw new Error('Unexpected action')
   }
 }
 

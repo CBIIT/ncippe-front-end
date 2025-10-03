@@ -76,7 +76,9 @@ const userReducer = (state, action) => {
     case 'reset': return ({
       ...userInitialState
     })
-    default: throw new Error('Unexpected action')
+    default: 
+    console.error('Login - Unexpected action type:', action.type, action);
+    throw new Error('Unexpected action')
   }
 }
 
