@@ -431,8 +431,8 @@ async function getNewsEvents(){
 async function sendMessage(data,uuid){
   const accessToken = localStorage.getItem('access_token');
   const headers = { ...authHeaders(accessToken),
-    'Accept': 'text/plain; charset=utf-8',
-    'Access-Control-Allow-Origin': '*',
+    'Accept': 'application/json',
+    'Content-Type': 'text/plain; charset=utf-8',
     'uuid': uuid
   }
   // If authHeaders added a JSON content-type, strip it
