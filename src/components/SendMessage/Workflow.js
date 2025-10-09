@@ -49,7 +49,7 @@ const NewMessageWorkflow = () => {
           en: message,
           es: message
         }
-      }).then(resp => {
+      }, loginContext.uuid).then(resp => {
         if(resp instanceof Error) {
           throw resp
         }
