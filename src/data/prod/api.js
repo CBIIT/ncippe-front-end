@@ -81,7 +81,7 @@ async function fetchToken({uuid, email, id_token}){
 /*======== Fetch Login.gov User Data with access token ==================*/
 async function fetchLoginGovUserInfo(access_token) {
   try {
-    const res = await fetch('https://stsstg.nih.gov/openid/connect/v1/userinfo', {
+    const res = await fetch('https://sts.nih.gov/openid/connect/v1/userinfo', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${access_token}`,
